@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hail of Fire — Arsenal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<style>
+  :root {
+    --bg: #0f0e0c;
+    --bg2: #1a1916;
+    --bg3: #242220;
+    --border: #333028;
+    --accent: #e0c060;
+    --accent2: #a04545;
+    --text: #f5f0e0;
+    --text2: #d0c8b0;
+    --text3: #b0a490;
+    --green: #5a9a6e;
+    --red: #a04545;
+    --blue: #4a6a8c;
+    --mono: 'Share Tech Mono', monospace;
+    --display: 'Bebas Neue', sans-serif;
+    --body: 'Barlow', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: var(--display);
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .logo span {
+    color: var(--text3);
+    font-size: 13px;
+    font-family: var(--mono);
+    letter-spacing: 1px;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .force-toggle-btn {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  .force-toggle-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .force-count-badge {
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+    font-weight: 700;
+  }
+
+  /* LAYOUT */
+  .app {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: calc(100vh - 56px);
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    padding: 20px 16px;
+    position: sticky;
+    top: 56px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+  }
+
+  .filter-section {
+    margin-bottom: 24px;
+  }
+
+  .filter-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .search-input {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 8px 10px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .search-input:focus { border-color: var(--accent); }
+  .search-input::placeholder { color: var(--text3); }
+
+  .filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .chip {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: all 0.12s;
+    text-transform: uppercase;
+    user-select: none;
+  }
+
+  .chip:hover { border-color: var(--text2); color: var(--text); }
+  .chip.active { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 600; }
+
+  .year-range {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+.year-select {
+    flex: 1;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 5px 6px;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23857a6e'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 24px;
+  }
+
+  .year-select:focus { border-color: var(--accent); }
+  .year-select option { background: var(--bg3); color: var(--text); }
+
+  .year-sep {
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+
+  .results-count {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .clear-btn {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 8px;
+    padding: 0;
+    display: block;
+  }
+
+  .clear-btn:hover { color: var(--text); }
+
+  /* MAIN CONTENT */
+  .main {
+    padding: 24px;
+    overflow-y: auto;
+  }
+
+  /* VIEW TOGGLE */
+  .view-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .view-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 1px;
+  }
+
+  .view-btns {
+    display: flex;
+    gap: 4px;
+  }
+
+  .view-btn {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: all 0.12s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .view-btn.active { background: var(--bg3); border-color: var(--accent); color: var(--accent); }
+  .view-btn:hover { color: var(--text); border-color: var(--text3); }
+
+  /* UNIT GRID */
+  .unit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 12px;
+  }
+
+  /* UNIT CARD */
+  .unit-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color 0.12s, background 0.12s;
+    position: relative;
+  }
+
+  .unit-card:hover { border-color: var(--accent); background: var(--bg3); }
+  .unit-card.in-force { border-color: var(--green); background: #1a2220; }
+  .unit-card.in-force:hover { border-color: #6a9c7a; }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    gap: 8px;
+  }
+
+  .unit-name {
+    font-family: var(--display);
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--text);
+    line-height: 1.1;
+  }
+
+  .card-badges {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+    flex-shrink: 0;
+  }
+
+  .nation-badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    padding: 2px 6px;
+    text-transform: uppercase;
+    border: 1px solid;
+  }
+
+  .nation-us { border-color: #3a5a7c; color: #6a9abc; background: #0d1a24; }
+  .nation-germany { border-color: #5a4a2a; color: #9a8a5a; background: #1a1508; }
+  .nation-britain { border-color: #3a5a3a; color: #6a9a6a; background: #0d180d; }
+  .nation-soviet { border-color: #7c3a3a; color: #bc6a6a; background: #240d0d; }
+
+  .type-badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .card-stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+
+  .stat-cell {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 5px 4px;
+    text-align: center;
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 8px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .stat-value {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    display: block;
+    font-weight: 600;
+  }
+
+  .stat-value.armor {
+    font-size: 11px;
+  }
+
+  .stat-value.null-val { color: var(--text3); }
+
+  .card-armament {
+    font-size: 11px;
+    color: var(--text2);
+    margin-bottom: 8px;
+    font-style: italic;
+    line-height: 1.3;
+  }
+
+  .card-notes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+
+  .note-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 2px 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .note-tag.special { border-color: var(--accent2); color: #bc7a7a; }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  .years-display {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+  }
+
+  .add-force-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: all 0.12s;
+    text-transform: uppercase;
+  }
+
+  .add-force-btn:hover { border-color: var(--green); color: var(--green); }
+  .add-force-btn.added { border-color: var(--green); color: var(--green); background: #0d1a15; }
+  .add-force-btn.added:hover { background: var(--red); border-color: var(--red); color: #ff9a9a; }
+
+  /* LOCKED CARD */
+  .unit-card.locked {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .unit-card.locked:hover {
+    border-color: var(--border);
+    background: var(--bg2);
+  }
+
+  .lock-overlay {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+    opacity: 0.6;
+  }
+
+  /* TABLE VIEW */
+  .unit-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  .unit-table th {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--text3);
+    text-transform: uppercase;
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    position: sticky;
+    top: 0;
+    white-space: nowrap;
+  }
+
+  .unit-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+
+  .unit-table tr:hover td { background: var(--bg3); }
+  .unit-table tr.in-force td { background: #1a2220; }
+
+  .table-name {
+    font-family: var(--display);
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .table-stat { color: var(--accent); text-align: center; }
+  .table-stat.null { color: var(--text3); text-align: center; }
+  .table-notes { color: var(--text3); font-size: 10px; max-width: 200px; }
+
+  .table-add-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 9px;
+    padding: 3px 8px;
+    cursor: pointer;
+    transition: all 0.12s;
+    white-space: nowrap;
+  }
+
+  .table-add-btn:hover { border-color: var(--green); color: var(--green); }
+  .table-add-btn.added { border-color: var(--green); color: var(--green); }
+  .table-add-btn.added:hover { border-color: var(--red); color: #ff9a9a; }
+
+  /* FORCE BUILDER PANEL */
+  .force-panel {
+    position: fixed;
+    top: 56px;
+    right: 0;
+    width: 340px;
+    height: calc(100vh - 56px);
+    background: var(--bg2);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+    z-index: 90;
+  }
+
+  .force-panel.open { transform: translateX(0); }
+
+  .force-panel-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .force-panel-title {
+    font-family: var(--display);
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: var(--accent);
+  }
+
+  .close-panel-btn {
+    background: none;
+    border: none;
+    color: var(--text3);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+  }
+
+  .close-panel-btn:hover { color: var(--text); }
+
+  .force-name-input {
+    background: var(--bg3);
+    border: none;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 12px 20px;
+    outline: none;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .force-name-input:focus { border-bottom-color: var(--accent); }
+  .force-name-input::placeholder { color: var(--text3); }
+
+  .force-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 16px;
+  }
+
+  .force-empty {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    text-align: center;
+    padding: 32px 16px;
+    line-height: 1.8;
+    letter-spacing: 0.5px;
+  }
+
+  .force-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    margin-bottom: 6px;
+    background: var(--bg3);
+  }
+
+  .force-item-nation {
+    width: 3px;
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: 1px;
+  }
+
+  .force-item-nation.us { background: #3a5a7c; }
+  .force-item-nation.germany { background: #5a4a2a; }
+  .force-item-nation.britain { background: #3a5a3a; }
+  .force-item-nation.soviet { background: #7c3a3a; }
+
+  .force-item-info { flex: 1; min-width: 0; }
+
+  .force-item-name {
+    font-family: var(--display);
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .force-item-meta {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+
+  .force-item-stats {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .force-item-remove {
+    background: none;
+    border: none;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .force-item-remove:hover { color: var(--red); }
+
+  .force-summary {
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .force-summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .summary-stat {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 6px 8px;
+    text-align: center;
+  }
+
+  .summary-stat-label {
+    font-family: var(--mono);
+    font-size: 8px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .summary-stat-value {
+    font-family: var(--display);
+    font-size: 20px;
+    color: var(--accent);
+    display: block;
+    letter-spacing: 1px;
+  }
+
+  .force-actions {
+    display: flex;
+    gap: 6px;
+  }
+
+  .action-btn {
+    flex: 1;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.12s;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .action-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .action-btn.danger:hover { border-color: var(--red); color: #ff9a9a; }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center;
+    padding: 60px 24px;
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  /* SUBSCRIBER NOTICE */
+  .sub-notice {
+    background: linear-gradient(135deg, #1a1208, #0f0e0c);
+    border: 1px solid #5a4a2a;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .sub-notice-icon { font-size: 18px; }
+
+  .sub-notice-text {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #9a8a5a;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+
+  .sub-notice-link {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+  }
+
+  /* AUTH UI */
+  .auth-btn {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+  }
+
+  .auth-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .auth-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+  }
+
+  .auth-user img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+  }
+
+  .subscriber-badge {
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 2px 6px;
+    text-transform: uppercase;
+  }
+
+  .sign-out-btn {
+    background: none;
+    border: none;
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0;
+  }
+
+  .sign-out-btn:hover { color: var(--red); }
+
+  /* AUTH GATE */
+  .auth-gate {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 14, 12, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+  }
+
+  .auth-gate-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 40px 48px;
+    text-align: center;
+    max-width: 380px;
+    width: 90%;
+  }
+
+  .auth-gate-title {
+    font-family: var(--display);
+    font-size: 28px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .auth-gate-sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    margin-bottom: 28px;
+    line-height: 1.7;
+  }
+
+  .google-btn {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .google-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .auth-gate-note {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+    margin-top: 20px;
+    line-height: 1.7;
+  }
+
+  .auth-gate-note a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+
+  /* SECTION DIVIDER */
+  .section-divider {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0 4px;
+  }
+
+  .section-divider-label {
+    font-family: var(--display);
+    font-size: 16px;
+    letter-spacing: 3px;
+    color: var(--text3);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .section-divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* PRINT */
+  @media print {
+    .sidebar, header, .force-panel, .add-force-btn, .table-add-btn { display: none !important; }
+    .app { grid-template-columns: 1fr; }
+    body { background: white; color: black; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Hail of Fire <span>// ARSENAL DATABASE</span></div>
+  <div class="header-right">
+    <button class="force-toggle-btn" onclick="toggleForcePanel()">
+      Force Builder <span class="force-count-badge" id="force-count">0</span>
+    </button>
+    <div id="auth-area">
+      <button class="auth-btn" onclick="signIn()">Sign In</button>
+    </div>
+  </div>
+</header>
+
+<!-- AUTH GATE (shown until user signs in) -->
+<div class="auth-gate" id="auth-gate">
+  <div class="auth-gate-box">
+    <div class="auth-gate-title">HOF ARSENAL</div>
+    <div class="auth-gate-sub">Sign in to browse units and build forces.<br>Subscriber content requires a Ko-fi membership.</div>
+    <button class="google-btn" onclick="signIn()">Sign In with Google</button>
+    <div class="auth-gate-note">
+      Subscriber? <a href="https://ko-fi.com/retroboom" target="_blank">Join on Ko-fi</a> for $1/month<br>
+      to unlock additional nations, units, and content.
+    </div>
+  </div>
+</div>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="filter-section">
+      <div class="filter-label">Search</div>
+      <input type="text" class="search-input" placeholder="Unit name..." id="search-input" oninput="applyFilters()">
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-label">Nation</div>
+      <div class="filter-chips" id="nation-chips"></div>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-label">Branch</div>
+      <div class="filter-chips" id="branch-chips"></div>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-label">Type</div>
+      <div class="filter-chips" id="type-chips"></div>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-label">Theater</div>
+      <div class="filter-chips" id="theater-chips"></div>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-label">Year</div>
+      <div class="year-range">
+        <select class="year-select" id="year-from" onchange="applyFilters()">
+          <option value="">Any</option><option value="1939">1939</option><option value="1940">1940</option><option value="1941">1941</option><option value="1942">1942</option><option value="1943">1943</option><option value="1944">1944</option><option value="1945">1945</option>
+        </select>
+        <span class="year-sep">—</span>
+        <select class="year-select" id="year-to" onchange="applyFilters()">
+          <option value="">Any</option><option value="1939">1939</option><option value="1940">1940</option><option value="1941">1941</option><option value="1942">1942</option><option value="1943">1943</option><option value="1944">1944</option><option value="1945">1945</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="results-count" id="results-count">Loading...</div>
+    <button class="clear-btn" onclick="clearFilters()">Clear all filters</button>
+  </aside>
+
+  <main class="main">
+    <div class="view-controls">
+      <span class="view-label" id="view-label">SHOWING ALL UNITS</span>
+      <div class="view-btns">
+        <button class="view-btn active" id="btn-grid" onclick="setView('grid')">Grid</button>
+        <button class="view-btn" id="btn-table" onclick="setView('table')">Table</button>
+      </div>
+    </div>
+    <div id="unit-display"></div>
+  </main>
+</div>
+
+<!-- FORCE BUILDER PANEL -->
+<div class="force-panel" id="force-panel">
+  <div class="force-panel-header">
+    <div class="force-panel-title">Force Builder</div>
+    <button class="close-panel-btn" onclick="toggleForcePanel()">✕</button>
+  </div>
+  <input type="text" class="force-name-input" id="force-name" placeholder="Name your force...">
+  <div class="force-list" id="force-list">
+    <div class="force-empty">No units selected.<br>Add units from the arsenal<br>to build your force.</div>
+  </div>
+  <div class="force-summary">
+    <div class="force-summary-grid">
+      <div class="summary-stat">
+        <span class="summary-stat-label">Units</span>
+        <span class="summary-stat-value" id="summary-units">0</span>
+      </div>
+      <div class="summary-stat">
+        <span class="summary-stat-label">Break Limit</span>
+        <span class="summary-stat-value" id="summary-bl">5</span>
+      </div>
+      <div class="summary-stat">
+        <span class="summary-stat-label">Infantry</span>
+        <span class="summary-stat-value" id="summary-inf">0</span>
+      </div>
+      <div class="summary-stat">
+        <span class="summary-stat-label">Vehicles</span>
+        <span class="summary-stat-value" id="summary-veh">0</span>
+      </div>
+    </div>
+    <div class="force-actions">
+      <button class="action-btn" onclick="printForce()">Print</button>
+      <button class="action-btn" onclick="exportForce()">Export</button>
+      <button class="action-btn danger" onclick="clearForce()">Clear</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+let allUnits = [];
+let filteredUnits = [];
+let force = [];
+let currentView = 'grid';
+let activeFilters = {
+  search: '',
+  nations: [],
+  branches: [],
+  types: [],
+  theaters: [],
+  yearFrom: null,
+  yearTo: null
+};
+
+// Subscriber state — driven by Firebase Auth + Realtime Database check
+let isSubscriber = false;
+let currentUser = null;
+
+// ── LOAD DATA ─────────────────────────────────────────────────────────────────
+async function loadData() {
+  try {
+    const response = await fetch('hof_arsenal.json');
+    const data = await response.json();
+    allUnits = data.units;
+    buildFilterChips();
+    applyFilters();
+  } catch(e) {
+    document.getElementById('unit-display').innerHTML =
+      '<div class="empty-state">Could not load arsenal data.</div>';
+  }
+}
+
+// ── FILTER CHIPS ──────────────────────────────────────────────────────────────
+function buildFilterChips() {
+  const nations = [...new Set(allUnits.map(u => u.nation))].sort();
+  const branches = [...new Set(allUnits.map(u => u.branch))].sort();
+  const types = [...new Set(allUnits.map(u => u.type))].sort();
+  const theaters = [...new Set(allUnits.flatMap(u => u.theater))].sort();
+
+  renderChips('nation-chips', nations, 'nations');
+  renderChips('branch-chips', branches, 'branches');
+  renderChips('type-chips', types, 'types');
+  renderChips('theater-chips', theaters, 'theaters');
+}
+
+function renderChips(containerId, values, filterKey) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = values.map(v => `
+    <div class="chip" onclick="toggleFilter('${filterKey}', '${v}')" data-key="${filterKey}" data-val="${v}">${v}</div>
+  `).join('');
+}
+
+function toggleFilter(key, value) {
+  const arr = activeFilters[key];
+  const idx = arr.indexOf(value);
+  if (idx >= 0) arr.splice(idx, 1);
+  else arr.push(value);
+
+  // Update chip UI
+  document.querySelectorAll(`[data-key="${key}"][data-val="${value}"]`).forEach(el => {
+    el.classList.toggle('active', arr.includes(value));
+  });
+
+  applyFilters();
+}
+
+function clearFilters() {
+  activeFilters = { search: '', nations: [], branches: [], types: [], theaters: [], yearFrom: null, yearTo: null };
+  document.getElementById('search-input').value = '';
+  document.getElementById('year-from').value = '';
+  document.getElementById('year-to').value = '';
+  document.querySelectorAll('.chip.active').forEach(c => c.classList.remove('active'));
+  applyFilters();
+}
+
+// ── FILTERING ─────────────────────────────────────────────────────────────────
+function applyFilters() {
+  activeFilters.search = document.getElementById('search-input').value.toLowerCase().trim();
+  activeFilters.yearFrom = parseInt(document.getElementById('year-from').value) || null;
+  activeFilters.yearTo = parseInt(document.getElementById('year-to').value) || null;
+
+  filteredUnits = allUnits.filter(u => {
+    if (activeFilters.search && !u.name.toLowerCase().includes(activeFilters.search)) return false;
+    if (activeFilters.nations.length && !activeFilters.nations.includes(u.nation)) return false;
+    if (activeFilters.branches.length && !activeFilters.branches.includes(u.branch)) return false;
+    if (activeFilters.types.length && !activeFilters.types.includes(u.type)) return false;
+    if (activeFilters.theaters.length && !u.theater.some(t => activeFilters.theaters.includes(t))) return false;
+    if (activeFilters.yearFrom && !u.years.some(y => y >= activeFilters.yearFrom)) return false;
+    if (activeFilters.yearTo && !u.years.some(y => y <= activeFilters.yearTo)) return false;
+    return true;
+  });
+
+  document.getElementById('results-count').textContent =
+    `${filteredUnits.length} of ${allUnits.length} units`;
+
+  renderUnits();
+}
+
+// ── RENDERING ─────────────────────────────────────────────────────────────────
+function setView(view) {
+  currentView = view;
+  document.getElementById('btn-grid').classList.toggle('active', view === 'grid');
+  document.getElementById('btn-table').classList.toggle('active', view === 'table');
+  renderUnits();
+}
+
+function renderUnits() {
+  const container = document.getElementById('unit-display');
+  const forceIds = new Set(force.map(u => u.id));
+
+  if (filteredUnits.length === 0) {
+    container.innerHTML = '<div class="empty-state">No units match your filters.</div>';
+    return;
+  }
+
+  if (currentView === 'grid') {
+    renderGrid(container, forceIds);
+  } else {
+    renderTable(container, forceIds);
+  }
+}
+
+function nationClass(nation) {
+  const map = { 'United States': 'us', 'Germany': 'germany', 'Britain': 'britain', 'Soviet Union': 'soviet' };
+  return map[nation] || 'us';
+}
+
+function nationBadgeClass(nation) {
+  return `nation-badge nation-${nationClass(nation)}`;
+}
+
+function statDisplay(val, isArmor = false) {
+  if (val === null || val === undefined) return `<span class="stat-value null-val">—</span>`;
+  if (isArmor) return `<span class="stat-value armor">${val}</span>`;
+  return `<span class="stat-value">${val}</span>`;
+}
+
+function yearRange(years) {
+  if (!years || years.length === 0) return '';
+  const min = Math.min(...years);
+  const max = Math.max(...years);
+  return min === max ? `${min}` : `${min}–${max}`;
+}
+
+function isSpecialNote(note) {
+  const special = ['Flame-Thrower', 'Bunker Buster', 'Wide Tracks', 'Unreliable', 'Fast', 'Slow', 'Hull Mounted', 'Open Topped'];
+  return special.includes(note);
+}
+
+function renderGrid(container, forceIds) {
+  // Group by nation for section dividers
+  const byNation = {};
+  filteredUnits.forEach(u => {
+    if (!byNation[u.nation]) byNation[u.nation] = [];
+    byNation[u.nation].push(u);
+  });
+
+  const hasMultipleNations = Object.keys(byNation).length > 1;
+  let html = '<div class="unit-grid">';
+
+  const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
+
+  nationOrder.forEach(nation => {
+    if (!byNation[nation]) return;
+
+    if (hasMultipleNations) {
+      html += `
+        <div class="section-divider">
+          <span class="section-divider-label">${nation}</span>
+          <div class="section-divider-line"></div>
+        </div>
+      `;
+    }
+
+    byNation[nation].forEach(unit => {
+      const inForce = forceIds.has(unit.id);
+      const locked = !unit.free && !isSubscriber;
+      const nc = nationClass(unit.nation);
+
+      html += `
+        <div class="unit-card ${inForce ? 'in-force' : ''} ${locked ? 'locked' : ''}" id="card-${unit.id}">
+          ${locked ? '<div class="lock-overlay">🔒</div>' : ''}
+          <div class="card-header">
+            <div class="unit-name">${unit.name}</div>
+            <div class="card-badges">
+              <div class="${nationBadgeClass(unit.nation)}">${unit.nation}</div>
+              <div class="type-badge">${unit.branch}</div>
+            </div>
+          </div>
+          <div class="card-stats">
+            <div class="stat-cell">
+              <span class="stat-label">Range</span>
+              ${statDisplay(unit.gun_range)}
+            </div>
+            <div class="stat-cell">
+              <span class="stat-label">RoF</span>
+              ${statDisplay(unit.rof)}
+            </div>
+            <div class="stat-cell">
+              <span class="stat-label">AT</span>
+              ${statDisplay(unit.at)}
+            </div>
+            <div class="stat-cell">
+              <span class="stat-label">FP</span>
+              ${statDisplay(unit.fp)}
+            </div>
+            <div class="stat-cell">
+              <span class="stat-label">Armor</span>
+              ${unit.armor_front !== null
+                ? `<span class="stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`
+                : `<span class="stat-value null-val">—</span>`
+              }
+            </div>
+          </div>
+          ${unit.armament ? `<div class="card-armament">${unit.armament}</div>` : ''}
+          <div class="card-notes">
+            ${unit.notes.map(n => `<span class="note-tag ${isSpecialNote(n) ? 'special' : ''}">${n}</span>`).join('')}
+          </div>
+          <div class="card-footer">
+            <span class="years-display">${yearRange(unit.years)}</span>
+            ${locked
+              ? `<button class="add-force-btn" onclick="showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Ko-fi subscriber only</button>`
+              : `<button class="add-force-btn ${inForce ? 'added' : ''}" id="btn-${unit.id}" onclick="toggleForceUnit('${unit.id}')">
+                  ${inForce ? '✓ In Force' : '+ Add to Force'}
+                </button>`
+            }
+          </div>
+        </div>
+      `;
+    });
+  });
+
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function renderTable(container, forceIds) {
+  let html = `
+    <table class="unit-table">
+      <thead>
+        <tr>
+          <th>Unit</th>
+          <th>Nation</th>
+          <th>Branch</th>
+          <th style="text-align:center">Range</th>
+          <th style="text-align:center">RoF</th>
+          <th style="text-align:center">AT</th>
+          <th style="text-align:center">FP</th>
+          <th style="text-align:center">Armor</th>
+          <th>Notes</th>
+          <th>Years</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  filteredUnits.forEach(unit => {
+    const inForce = forceIds.has(unit.id);
+    const locked = !unit.free && !isSubscriber;
+    const nc = nationClass(unit.nation);
+
+    html += `
+      <tr class="${inForce ? 'in-force' : ''}">
+        <td><span class="table-name">${unit.name}</span></td>
+        <td><span class="${nationBadgeClass(unit.nation)}" style="font-size:9px;padding:2px 5px;">${unit.nation}</span></td>
+        <td style="color:var(--text3);font-size:10px;letter-spacing:0.5px">${unit.branch}</td>
+        <td class="table-stat ${unit.gun_range ? '' : 'null'}">${unit.gun_range || '—'}</td>
+        <td class="table-stat ${unit.rof !== null ? '' : 'null'}">${unit.rof !== null ? unit.rof : '—'}</td>
+        <td class="table-stat ${unit.at !== null ? '' : 'null'}">${unit.at !== null ? unit.at : '—'}</td>
+        <td class="table-stat">${unit.fp}</td>
+        <td class="table-stat ${unit.armor_front !== null ? '' : 'null'}">${unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '—'}</td>
+        <td class="table-notes">${unit.notes.join(', ')}</td>
+        <td style="color:var(--text3);font-size:10px;white-space:nowrap">${yearRange(unit.years)}</td>
+        <td>
+          ${locked
+            ? `<span style="font-family:var(--mono);font-size:9px;color:#9a8a5a;">🔒 Sub</span>`
+            : `<button class="table-add-btn ${inForce ? 'added' : ''}" onclick="toggleForceUnit('${unit.id}')">
+                ${inForce ? '✓ Added' : '+ Add'}
+              </button>`
+          }
+        </td>
+      </tr>
+    `;
+  });
+
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+// ── FORCE BUILDER ─────────────────────────────────────────────────────────────
+function toggleForceUnit(unitId) {
+  const unit = allUnits.find(u => u.id === unitId);
+  if (!unit) return;
+
+  const idx = force.findIndex(u => u.id === unitId);
+  if (idx >= 0) {
+    force.splice(idx, 1);
+  } else {
+    force.push(unit);
+  }
+
+  updateForceUI();
+  renderUnits();
+}
+
+function toggleForcePanel() {
+  document.getElementById('force-panel').classList.toggle('open');
+}
+
+function updateForceUI() {
+  const count = force.length;
+  document.getElementById('force-count').textContent = count;
+
+  // Summary stats
+  const infUnits = force.filter(u => u.type === 'Infantry' || (u.type === 'Gun' && u.branch === 'Infantry')).length;
+  const vehUnits = force.filter(u => u.type === 'Vehicle').length;
+  const breakLimit = 5 + (count * 2);
+
+  document.getElementById('summary-units').textContent = count;
+  document.getElementById('summary-bl').textContent = breakLimit;
+  document.getElementById('summary-inf').textContent = infUnits;
+  document.getElementById('summary-veh').textContent = vehUnits;
+
+  // Force list
+  const listEl = document.getElementById('force-list');
+  if (force.length === 0) {
+    listEl.innerHTML = '<div class="force-empty">No units selected.<br>Add units from the arsenal<br>to build your force.</div>';
+    return;
+  }
+
+  const nc_map = { 'United States': 'us', 'Germany': 'germany', 'Britain': 'britain', 'Soviet Union': 'soviet' };
+
+  listEl.innerHTML = force.map(unit => `
+    <div class="force-item">
+      <div class="force-item-nation ${nc_map[unit.nation] || 'us'}"></div>
+      <div class="force-item-info">
+        <div class="force-item-name">${unit.name}</div>
+        <div class="force-item-meta">${unit.nation} · ${unit.branch}</div>
+      </div>
+      <div class="force-item-stats">
+        ${unit.gun_range ? `<span>${unit.gun_range}</span>` : ''}
+        ${unit.at !== null ? `<span>AT${unit.at}</span>` : ''}
+        ${unit.armor_front !== null ? `<span>${unit.armor_front}/${unit.armor_flank}</span>` : ''}
+      </div>
+      <button class="force-item-remove" onclick="toggleForceUnit('${unit.id}')">✕</button>
+    </div>
+  `).join('');
+}
+
+function clearForce() {
+  if (force.length === 0) return;
+  if (confirm('Clear all units from your force?')) {
+    force = [];
+    updateForceUI();
+    renderUnits();
+  }
+}
+
+function exportForce() {
+  if (force.length === 0) return;
+  const name = document.getElementById('force-name').value || 'Hail of Fire Force';
+  const lines = [`${name.toUpperCase()}`, `${'─'.repeat(40)}`];
+  const breakLimit = 5 + (force.length * 2);
+  lines.push(`Units: ${force.length}  |  Break Limit: ${breakLimit}`, '');
+
+  const byNation = {};
+  force.forEach(u => {
+    if (!byNation[u.nation]) byNation[u.nation] = [];
+    byNation[u.nation].push(u);
+  });
+
+  Object.entries(byNation).forEach(([nation, units]) => {
+    lines.push(`── ${nation.toUpperCase()} ──`);
+    units.forEach(u => {
+      let line = `  ${u.name}`;
+      const stats = [];
+      if (u.gun_range) stats.push(`Range ${u.gun_range}`);
+      if (u.rof !== null) stats.push(`RoF ${u.rof}`);
+      if (u.at !== null) stats.push(`AT ${u.at}`);
+      if (u.armor_front !== null) stats.push(`Armor ${u.armor_front}/${u.armor_flank}`);
+      if (stats.length) line += `  [${stats.join(' | ')}]`;
+      if (u.notes.length) line += `  (${u.notes.join(', ')})`;
+      lines.push(line);
+    });
+    lines.push('');
+  });
+
+  const text = lines.join('\n');
+  const blob = new Blob([text], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${name.replace(/\s+/g, '-').toLowerCase()}.txt`;
+  a.click();
+}
+
+function printForce() {
+  window.print();
+}
+
+function showSubscribePrompt() {
+  alert('This content is available to Ko-fi subscribers.\n\nVisit ko-fi.com/retroboom to subscribe.');
+}
+
+// ── AUTH ──────────────────────────────────────────────────────────────────────
+function emailToKey(email) {
+  return email.toLowerCase().replace(/\./g, ',');
+}
+
+function signIn() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).catch(err => {
+    console.error('Sign in error:', err);
+  });
+}
+
+function signOut() {
+  firebase.auth().signOut();
+}
+
+async function checkSubscriber(email) {
+  const key = emailToKey(email);
+  const snap = await firebase.database().ref(`subscribers/${key}`).once('value');
+  const data = snap.val();
+  return data && data.status === 'active';
+}
+
+function updateAuthUI(user, subscriberStatus) {
+  const area = document.getElementById('auth-area');
+  if (!user) {
+    area.innerHTML = `<button class="auth-btn" onclick="signIn()">Sign In</button>`;
+  } else {
+    area.innerHTML = `
+      <div class="auth-user">
+        ${subscriberStatus ? '<span class="subscriber-badge">Subscriber</span>' : ''}
+        <img src="${user.photoURL || ''}" alt="" onerror="this.style.display='none'">
+        <span>${user.displayName || user.email}</span>
+        <button class="sign-out-btn" onclick="signOut()">Sign Out</button>
+      </div>
+    `;
+  }
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyDmNY1Vh1ats1Jrfg8XHsz8ktetymbZl10",
+  authDomain: "hailoffire-campaign.firebaseapp.com",
+  databaseURL: "https://hailoffire-campaign-default-rtdb.firebaseio.com",
+  projectId: "hailoffire-campaign",
+  storageBucket: "hailoffire-campaign.firebasestorage.app",
+  messagingSenderId: "897752919640",
+  appId: "1:897752919640:web:225c751b0f3c0c9dd4642d"
+};
+
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+
+firebase.auth().onAuthStateChanged(async (user) => {
+  currentUser = user;
+  const gate = document.getElementById('auth-gate');
+
+  if (user) {
+    gate.style.display = 'none';
+    isSubscriber = await checkSubscriber(user.email);
+    updateAuthUI(user, isSubscriber);
+    loadData();
+  } else {
+    gate.style.display = 'flex';
+    isSubscriber = false;
+    updateAuthUI(null, false);
+  }
+});
+</script>
+
+</body>
+</html>
