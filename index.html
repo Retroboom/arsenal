@@ -441,6 +441,40 @@
   .add-force-btn.added { border-color: var(--green); color: var(--green); background: #0d1a15; }
   .add-force-btn.added:hover { background: var(--red); border-color: var(--red); color: #ff9a9a; }
 
+  .card-footer-btns {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .add-platoon-standard-btn {
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: all 0.12s;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .add-platoon-standard-btn:hover { background: var(--accent); color: var(--bg); }
+
+  .base-badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 2px 5px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-left: 4px;
+  }
+
   /* LOCKED CARD */
   .unit-card.locked {
     opacity: 0.5;
@@ -1366,12 +1400,18 @@ function renderGrid(container, forceIds) {
             ${unit.notes.map(n => `<span class="note-tag ${isSpecialNote(n) ? 'special' : ''}">${n}</span>`).join('')}
           </div>
           <div class="card-footer">
-            <span class="years-display">${yearRange(unit.years)}</span>
+            <span class="years-display">
+              ${yearRange(unit.years)}
+              <span class="base-badge">${unit.base || 'Medium'}</span>
+            </span>
             ${locked
               ? `<button class="add-force-btn" onclick="showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Ko-fi subscriber only</button>`
-              : `<button class="add-force-btn ${inForce ? 'added' : ''}" id="btn-${unit.id}" onclick="addTeamToPlatoon('${unit.id}')">
-                  ${inForce ? '✓ In Force' : '+ Add to Platoon'}
-                </button>`
+              : `<div class="card-footer-btns">
+                  ${unit.standard_platoon ? `<button class="add-platoon-standard-btn" onclick="addAsStandardPlatoon('${unit.id}')">Add as Platoon</button>` : ''}
+                  <button class="add-force-btn ${inForce ? 'added' : ''}" id="btn-${unit.id}" onclick="addTeamToPlatoon('${unit.id}')">
+                    ${inForce ? '✓ In Force' : '+'}
+                  </button>
+                </div>`
             }
           </div>
         </div>
@@ -1464,6 +1504,44 @@ function removePlatoon(id) {
 function setActivePlatoon(id) {
   activePlatoonId = id;
   updateForceUI();
+}
+
+function nationPrefix(nation) {
+  const map = { 'United States': 'us', 'Germany': 'de', 'Britain': 'br', 'Soviet Union': 'sv' };
+  return map[nation] || 'us';
+}
+
+function addAsStandardPlatoon(unitId) {
+  const unit = allUnits.find(u => u.id === unitId);
+  if (!unit || !unit.standard_platoon) return;
+  const sp = unit.standard_platoon;
+  const prefix = nationPrefix(unit.nation);
+
+  platoonCounter++;
+  const id = `pl-${platoonCounter}`;
+  const platoon = { id, name: `${unit.name} Platoon`, teams: [] };
+
+  if (sp.leader) {
+    const leaderId = `${prefix}-leader`;
+    if (allUnits.find(u => u.id === leaderId)) {
+      platoon.teams.push({ unitId: leaderId, qty: 1 });
+    }
+  }
+  if (sp.fo) {
+    const foId = `${prefix}-fo`;
+    if (allUnits.find(u => u.id === foId)) {
+      platoon.teams.push({ unitId: foId, qty: 1 });
+    }
+  }
+  platoon.teams.push({ unitId: unit.id, qty: sp.qty });
+
+  platoons.push(platoon);
+  activePlatoonId = id;
+  updateForceUI();
+  renderUnits();
+
+  // Open force panel if not already open
+  document.getElementById('force-panel').classList.add('open');
 }
 
 function addTeamToPlatoon(unitId) {

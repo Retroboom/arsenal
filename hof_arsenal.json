@@ -1,6 +1,274 @@
 {
   "units": [
     {
+      "id": "us-leader",
+      "name": "Platoon Leader",
+      "nation": "United States",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "8\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Platoon Leader"
+      ],
+      "special_rules": [],
+      "base": "Small",
+      "standard_platoon": null,
+      "free": true
+    },
+    {
+      "id": "us-fo",
+      "name": "Forward Observer",
+      "nation": "United States",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "8\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Forward Observer"
+      ],
+      "special_rules": [],
+      "base": "Small",
+      "standard_platoon": null,
+      "free": true
+    },
+    {
+      "id": "de-leader",
+      "name": "Platoon Leader",
+      "nation": "Germany",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "8\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Platoon Leader"
+      ],
+      "special_rules": [],
+      "base": "Small",
+      "standard_platoon": null,
+      "free": true
+    },
+    {
+      "id": "de-fo",
+      "name": "Forward Observer",
+      "nation": "Germany",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "8\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Forward Observer"
+      ],
+      "special_rules": [],
+      "base": "Small",
+      "standard_platoon": null,
+      "free": true
+    },
+    {
+      "id": "br-leader",
+      "name": "Platoon Leader",
+      "nation": "Britain",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "8\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Platoon Leader"
+      ],
+      "special_rules": [],
+      "base": "Small",
+      "standard_platoon": null,
+      "free": true
+    },
+    {
+      "id": "br-fo",
+      "name": "Forward Observer",
+      "nation": "Britain",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "8\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Forward Observer"
+      ],
+      "special_rules": [],
+      "base": "Small",
+      "standard_platoon": null,
+      "free": true
+    },
+    {
+      "id": "sv-leader",
+      "name": "Platoon Leader",
+      "nation": "Soviet Union",
+      "type": "Infantry",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "8\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Platoon Leader"
+      ],
+      "special_rules": [],
+      "base": "Small",
+      "standard_platoon": null,
+      "free": true
+    },
+    {
+      "id": "sv-fo",
+      "name": "Forward Observer",
+      "nation": "Soviet Union",
+      "type": "Infantry",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "8\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Forward Observer"
+      ],
+      "special_rules": [],
+      "base": "Small",
+      "standard_platoon": null,
+      "free": true
+    },
+    {
       "id": "us-inf-rifle-mg",
       "name": "Rifle/MG",
       "nation": "United States",
@@ -28,7 +296,13 @@
       "armament": null,
       "notes": [],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "us-inf-mg",
@@ -58,7 +332,13 @@
       "armament": null,
       "notes": [],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "us-inf-bazooka",
@@ -88,7 +368,9 @@
         "Cannot fire from buildings"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null
     },
     {
       "id": "us-gun-hmg",
@@ -120,7 +402,13 @@
         "Man-Portable"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "us-gun-60mm-mortar",
@@ -153,7 +441,13 @@
         "Light Mortar"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "us-gun-81mm-mortar",
@@ -187,7 +481,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "us-gun-37mm",
@@ -217,7 +517,13 @@
       "armament": null,
       "notes": [],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "us-gun-57mm",
@@ -244,7 +550,13 @@
       "armament": null,
       "notes": [],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "us-gun-3in",
@@ -272,7 +584,13 @@
         "Immobile"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "us-gun-105mm-light",
@@ -306,7 +624,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "us-gun-105mm-howitzer",
@@ -342,7 +666,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "us-gun-155mm-howitzer",
@@ -378,7 +708,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "us-gun-50cal-aa",
@@ -411,7 +747,13 @@
         "May only inflict RFPs"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "us-gun-quad-50cal-aa",
@@ -442,7 +784,13 @@
         "May only inflict RFPs"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "us-gun-bofors",
@@ -475,7 +823,13 @@
         "Anti-Air"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "us-transport-jeep",
@@ -507,7 +861,13 @@
         "Carries 1 Team"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-transport-dodge",
@@ -541,7 +901,13 @@
         "Carries 2 Teams"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-transport-gmc",
@@ -575,7 +941,13 @@
         "Carries 4 Teams"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-transport-halftrack",
@@ -606,7 +978,13 @@
         "Carries 3 Teams"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-tank-m4-sherman",
@@ -636,7 +1014,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-tank-m4-sherman-76",
@@ -662,7 +1046,13 @@
         "Limited HE"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-tank-m4a3e8",
@@ -688,7 +1078,13 @@
         "Fast"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-tank-m4a3e2-jumbo",
@@ -714,7 +1110,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-tank-m26-pershing",
@@ -738,7 +1140,13 @@
         "Tracked"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-tank-m5-stuart",
@@ -769,7 +1177,13 @@
         "Fast"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-tank-m24-chaffee",
@@ -796,7 +1210,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-td-m10",
@@ -825,7 +1245,13 @@
         "Open Topped"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-td-m18-hellcat",
@@ -854,7 +1280,13 @@
         "Limited HE"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-td-m36",
@@ -880,7 +1312,13 @@
         "Open Topped"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-spg-m8-scott",
@@ -911,7 +1349,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-spg-105mm-sherman",
@@ -939,7 +1383,13 @@
         "Bunker Buster"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-spaa-m13-mgmc",
@@ -970,7 +1420,13 @@
         "May only inflict RFPs"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-spaa-m15-cgmc",
@@ -1000,7 +1456,13 @@
         "Anti-Air"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-spaa-m16-mgmc",
@@ -1030,7 +1492,13 @@
         "May only inflict RFPs"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-ac-m8",
@@ -1058,7 +1526,13 @@
         "Open Topped"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-ac-m20",
@@ -1087,7 +1561,13 @@
         "May only inflict RFPs"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-spa-m7-priest",
@@ -1120,7 +1600,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-spa-m12",
@@ -1149,7 +1635,13 @@
         "Heavy Artillery"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "us-spa-m4-81mm",
@@ -1179,7 +1671,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-inf-rifle-mg",
@@ -1209,7 +1707,13 @@
       "armament": null,
       "notes": [],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "de-inf-mg",
@@ -1239,7 +1743,13 @@
       "armament": null,
       "notes": [],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "de-inf-assault-rifle",
@@ -1267,7 +1777,13 @@
         "Re-roll failed Assault Checks"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "de-inf-panzerschreck",
@@ -1296,7 +1812,9 @@
         "Cannot fire from buildings"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null
     },
     {
       "id": "de-inf-panzerfaust",
@@ -1325,7 +1843,9 @@
         "May only be used in assault and only in the first round"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": null
     },
     {
       "id": "de-gun-hmg",
@@ -1357,7 +1877,13 @@
         "Man-Portable"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "de-gun-88mm-launcher",
@@ -1384,7 +1910,13 @@
         "Man-Portable"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "de-gun-8cm-mortar",
@@ -1418,7 +1950,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "de-gun-12cm-mortar",
@@ -1446,7 +1984,13 @@
         "Medium Artillery"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "de-gun-75mm-leig",
@@ -1479,7 +2023,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "de-gun-150mm-sig",
@@ -1513,7 +2063,13 @@
         "Bunker Buster"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "de-gun-2cm-flak",
@@ -1545,7 +2101,13 @@
         "Anti-Air"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "de-gun-88mm-flak",
@@ -1579,7 +2141,13 @@
         "Anti-Air"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "de-gun-pak38",
@@ -1608,7 +2176,13 @@
       "armament": null,
       "notes": [],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "de-gun-pak40",
@@ -1638,7 +2212,13 @@
         "Large Base"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "de-gun-pak43",
@@ -1666,7 +2246,13 @@
         "Immobile"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "de-gun-75mm-gebg36",
@@ -1698,7 +2284,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "de-gun-105mm-lefh18",
@@ -1734,7 +2326,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "de-gun-150mm-sfh18",
@@ -1770,7 +2368,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "de-gun-nw41-rocket",
@@ -1801,7 +2405,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "de-tank-pz3m",
@@ -1828,7 +2438,13 @@
         "Tracked"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-tank-pz3n",
@@ -1855,7 +2471,13 @@
         "Tracked"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-tank-pz4h",
@@ -1883,7 +2505,13 @@
         "Tracked"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-tank-panther",
@@ -1912,7 +2540,13 @@
         "Unreliable"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-tank-tiger1",
@@ -1943,7 +2577,13 @@
         "Wide Tracks"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-tank-tiger2",
@@ -1971,7 +2611,13 @@
         "Unreliable"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-tank-stug",
@@ -2001,7 +2647,13 @@
         "Hull Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-tank-stuh42",
@@ -2032,7 +2684,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-tank-brummbar",
@@ -2062,7 +2720,13 @@
         "Bunker Buster"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-td-marder",
@@ -2093,7 +2757,13 @@
         "Hull Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-td-jagdpanzer4",
@@ -2120,7 +2790,13 @@
         "Hull Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-td-jagdpanther",
@@ -2147,7 +2823,13 @@
         "Hull Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-td-jagdtiger",
@@ -2175,7 +2857,13 @@
         "Bunker Buster"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-td-hornisse",
@@ -2204,7 +2892,13 @@
         "Hull Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-td-elefant",
@@ -2231,7 +2925,13 @@
         "Unreliable"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-spa-sdkfz251-8cm",
@@ -2264,7 +2964,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-spa-sdkfz251-75cm",
@@ -2294,7 +3000,13 @@
         "Hull Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-spa-grille",
@@ -2325,7 +3037,13 @@
         "Heavy Artillery"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-spa-wespe",
@@ -2357,7 +3075,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-spa-hummel",
@@ -2389,7 +3113,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-spa-panzerwerfer",
@@ -2418,7 +3148,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-spaa-sdkfz10",
@@ -2450,7 +3186,13 @@
         "Anti-Air"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-spaa-sdkfz7",
@@ -2482,7 +3224,13 @@
         "Anti-Air"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-spaa-sdkfz251-2cm",
@@ -2511,7 +3259,13 @@
         "Anti-Air"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-spaa-sdkfz251-15mm",
@@ -2539,7 +3293,13 @@
         "Anti-Air"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-spaa-wirbelwind",
@@ -2567,7 +3327,13 @@
         "Anti-Air"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-ft-sdkfz251-flame",
@@ -2598,7 +3364,13 @@
         "Flame-Thrower"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-ft-flammpanzer3",
@@ -2624,7 +3396,13 @@
         "Flame-Thrower"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-ac-sdkfz222",
@@ -2657,7 +3435,13 @@
         "Open Topped"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-ac-sdkfz231",
@@ -2687,7 +3471,13 @@
         "Wheeled"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-ac-sdkfz250",
@@ -2715,7 +3505,13 @@
         "Open Topped"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-ac-puma",
@@ -2741,7 +3537,13 @@
         "Wheeled"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-transport-sdkfz251",
@@ -2775,7 +3577,13 @@
         "Carries 2 Teams"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-transport-sdkfz251-75cm",
@@ -2805,7 +3613,13 @@
         "Carries 2 Teams"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-transport-maultier",
@@ -2835,7 +3649,13 @@
         "Carries 3 Teams"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "de-transport-opelblitz",
@@ -2869,7 +3689,13 @@
         "Carries 3 Teams"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-inf-rifle-mg",
@@ -2899,7 +3725,13 @@
       "armament": null,
       "notes": [],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "br-inf-mg",
@@ -2929,7 +3761,13 @@
       "armament": null,
       "notes": [],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "br-inf-piat",
@@ -2956,7 +3794,9 @@
         "Small Base"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null
     },
     {
       "id": "br-inf-2in-mortar",
@@ -2990,7 +3830,9 @@
         "Light Mortar"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null
     },
     {
       "id": "br-gun-vickers",
@@ -3022,7 +3864,13 @@
         "Man-Portable"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "br-gun-3in-mortar",
@@ -3056,7 +3904,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "br-gun-42in-mortar",
@@ -3086,7 +3940,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "br-gun-bofors-40mm",
@@ -3120,7 +3980,13 @@
         "Anti-Air"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "br-gun-37in-aa",
@@ -3153,7 +4019,13 @@
         "Anti-Air"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "br-gun-2pdr",
@@ -3180,7 +4052,13 @@
       "armament": null,
       "notes": [],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "br-gun-6pdr",
@@ -3206,7 +4084,13 @@
       "armament": null,
       "notes": [],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "br-gun-17pdr",
@@ -3235,7 +4119,13 @@
         "Limited HE"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "br-gun-75mm-pack",
@@ -3264,7 +4154,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "br-gun-25pdr",
@@ -3296,7 +4192,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "br-gun-55in",
@@ -3328,7 +4230,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "br-tank-cromwell4",
@@ -3355,7 +4263,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-tank-cromwell6cs",
@@ -3382,7 +4296,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-tank-challenger",
@@ -3410,7 +4330,13 @@
         "Limited HE"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-tank-sherman",
@@ -3439,7 +4365,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-tank-stuart",
@@ -3468,7 +4400,13 @@
         "Fast"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-tank-firefly",
@@ -3494,7 +4432,13 @@
         "Limited HE"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-tank-churchill34",
@@ -3524,7 +4468,13 @@
         "Wide Tracks"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-tank-churchill6",
@@ -3552,7 +4502,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-tank-churchill7",
@@ -3580,7 +4536,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-tank-churchill-croc",
@@ -3609,7 +4571,13 @@
         "Flame-Thrower"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-td-m10",
@@ -3637,7 +4605,13 @@
         "Tracked"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-td-m10c",
@@ -3663,7 +4637,13 @@
         "Limited HE"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-spa-sexton",
@@ -3693,7 +4673,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-spa-priest",
@@ -3725,7 +4711,13 @@
         "Medium Artillery"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-ac-daimler1",
@@ -3755,7 +4747,13 @@
         "Open Topped"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-ac-m20",
@@ -3782,7 +4780,13 @@
         "May only inflict RFPs"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-ac-humber23",
@@ -3812,7 +4816,13 @@
         "Open Topped"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-ac-humber4",
@@ -3840,7 +4850,13 @@
         "Open Topped"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-ac-aec1",
@@ -3872,7 +4888,13 @@
         "Limited HE"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-ac-aec3",
@@ -3903,7 +4925,13 @@
         "Smoke"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-recon-universal-carrier",
@@ -3936,7 +4964,13 @@
         "Open Topped"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-recon-universal-carrier-boys",
@@ -3968,7 +5002,13 @@
         "Hull-Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-recon-universal-carrier-piat",
@@ -3997,7 +5037,13 @@
         "Hull-Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-recon-universal-carrier-mg",
@@ -4026,7 +5072,13 @@
         "Hull-Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-recon-indian-carrier",
@@ -4056,7 +5108,13 @@
         "Open Topped"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-recon-daimler-dingo",
@@ -4087,7 +5145,13 @@
         "Open Topped"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-recon-humber-lrc",
@@ -4118,7 +5182,13 @@
         "Hull-Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-recon-otter-lrc",
@@ -4148,7 +5218,13 @@
         "Hull-Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-spaa-bofors-sp",
@@ -4177,7 +5253,13 @@
         "Anti-Air"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-transport-truck",
@@ -4210,7 +5292,13 @@
         "Carries 3 Teams"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-transport-quad",
@@ -4243,7 +5331,13 @@
         "Carries 2 Teams"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-transport-white-marmon",
@@ -4274,7 +5368,13 @@
         "Carries 1 Team"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-transport-humber-scout",
@@ -4304,7 +5404,13 @@
         "Carries 1 Team"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "br-transport-m5-halftrack",
@@ -4331,7 +5437,13 @@
         "Carries 3 Teams"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-inf-rifle-mg",
@@ -4359,7 +5471,13 @@
       "armament": null,
       "notes": [],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "sv-inf-smg",
@@ -4387,7 +5505,13 @@
         "Re-roll failed Assault Checks"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "sv-gun-ptrd",
@@ -4415,7 +5539,13 @@
         "Man-Portable"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "sv-gun-maksim",
@@ -4445,7 +5575,13 @@
         "Man-Portable"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "sv-gun-82mm-mortar",
@@ -4474,7 +5610,13 @@
         "Light Artillery"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "sv-gun-120mm-mortar",
@@ -4503,7 +5645,13 @@
         "Medium Artillery"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "sv-gun-37mm-aa",
@@ -4535,7 +5683,13 @@
         "Anti-Air"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "sv-gun-85mm-aa",
@@ -4567,7 +5721,13 @@
         "Anti-Air"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "sv-gun-45mm",
@@ -4592,7 +5752,13 @@
       "armament": null,
       "notes": [],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "sv-gun-zis2",
@@ -4618,7 +5784,13 @@
         "Large Base"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "sv-gun-zis3",
@@ -4646,7 +5818,13 @@
         "Light Artillery"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "sv-gun-122mm-howitzer",
@@ -4679,7 +5857,13 @@
         "Medium Artillery"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "sv-gun-152mm-howitzer",
@@ -4708,7 +5892,13 @@
         "Heavy Artillery"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      }
     },
     {
       "id": "sv-tank-t70",
@@ -4733,7 +5923,13 @@
         "Tracked"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-tank-t34-41",
@@ -4760,7 +5956,13 @@
         "Wide Tracks"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-tank-t34-85",
@@ -4786,7 +5988,13 @@
         "Tracked"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-tank-kv1s",
@@ -4812,7 +6020,13 @@
         "Wide Tracks"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-tank-kv85",
@@ -4837,7 +6051,13 @@
         "Slow"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-tank-is2",
@@ -4864,7 +6084,13 @@
         "Bunker Buster"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-tank-ot34",
@@ -4893,7 +6119,13 @@
         "Flame-Thrower"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-tank-kv8s",
@@ -4920,7 +6152,13 @@
         "Flame-Thrower"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-spg-su76m",
@@ -4948,7 +6186,13 @@
         "Hull Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-spg-su85",
@@ -4975,7 +6219,13 @@
         "Hull Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-spg-su122",
@@ -5003,7 +6253,13 @@
         "Hull Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-spg-su152",
@@ -5032,7 +6288,13 @@
         "Hull Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-spg-isu122",
@@ -5060,7 +6322,13 @@
         "Hull Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-spg-isu152",
@@ -5088,7 +6356,13 @@
         "Hull Mounted"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-spa-katyusha",
@@ -5117,7 +6391,13 @@
         "Medium Artillery"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-spaa-dshk",
@@ -5149,7 +6429,13 @@
         "May only inflict RFPs"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-spaa-zsu-m17",
@@ -5178,7 +6464,13 @@
         "May only inflict RFPs"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-ac-ba64",
@@ -5206,7 +6498,13 @@
         "Open Topped"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-transport-ford-gpa",
@@ -5236,7 +6534,13 @@
         "Carries 1 Team"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-transport-zis-truck",
@@ -5266,7 +6570,13 @@
         "Carries 3 Teams"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-transport-horse-wagon",
@@ -5297,7 +6607,13 @@
         "Carries 2 Teams"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     },
     {
       "id": "sv-transport-stalinets",
@@ -5327,7 +6643,13 @@
         "Carries 3 Teams"
       ],
       "special_rules": [],
-      "free": true
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      }
     }
   ]
 }
