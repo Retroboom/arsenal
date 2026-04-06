@@ -965,11 +965,6 @@
     </div>
 
     <div class="filter-section">
-      <div class="filter-label">Branch</div>
-      <div class="filter-chips" id="branch-chips"></div>
-    </div>
-
-    <div class="filter-section">
       <div class="filter-label">Type</div>
       <div class="filter-chips" id="type-chips"></div>
     </div>
@@ -1054,7 +1049,6 @@ let currentView = 'grid';
 let activeFilters = {
   search: '',
   nations: [],
-  branches: [],
   types: [],
   theaters: [],
   yearFrom: null,
@@ -1082,12 +1076,10 @@ async function loadData() {
 // ── FILTER CHIPS ──────────────────────────────────────────────────────────────
 function buildFilterChips() {
   const nations = [...new Set(allUnits.map(u => u.nation))].sort();
-  const branches = [...new Set(allUnits.map(u => u.branch))].sort();
   const types = [...new Set(allUnits.map(u => u.type))].sort();
   const theaters = [...new Set(allUnits.flatMap(u => u.theater))].sort();
 
   renderChips('nation-chips', nations, 'nations');
-  renderChips('branch-chips', branches, 'branches');
   renderChips('type-chips', types, 'types');
   renderChips('theater-chips', theaters, 'theaters');
 }
@@ -1114,7 +1106,7 @@ function toggleFilter(key, value) {
 }
 
 function clearFilters() {
-  activeFilters = { search: '', nations: [], branches: [], types: [], theaters: [], yearFrom: null, yearTo: null };
+  activeFilters = { search: '', nations: [], types: [], theaters: [], yearFrom: null, yearTo: null };
   document.getElementById('search-input').value = '';
   document.getElementById('year-from').value = '';
   document.getElementById('year-to').value = '';
@@ -1131,7 +1123,6 @@ function applyFilters() {
   filteredUnits = allUnits.filter(u => {
     if (activeFilters.search && !u.name.toLowerCase().includes(activeFilters.search)) return false;
     if (activeFilters.nations.length && !activeFilters.nations.includes(u.nation)) return false;
-    if (activeFilters.branches.length && !activeFilters.branches.includes(u.branch)) return false;
     if (activeFilters.types.length && !activeFilters.types.includes(u.type)) return false;
     if (activeFilters.theaters.length && !u.theater.some(t => activeFilters.theaters.includes(t))) return false;
     if (activeFilters.yearFrom && !u.years.some(y => y >= activeFilters.yearFrom)) return false;
@@ -1233,7 +1224,7 @@ function renderGrid(container, forceIds) {
             <div class="unit-name">${unit.name}</div>
             <div class="card-badges">
               <div class="${nationBadgeClass(unit.nation)}">${unit.nation}</div>
-              <div class="type-badge">${unit.branch}</div>
+              <div class="type-badge">${unit.type}</div>
             </div>
           </div>
           <div class="card-stats">
@@ -1313,7 +1304,7 @@ function renderTable(container, forceIds) {
       <tr class="${inForce ? 'in-force' : ''}">
         <td><span class="table-name">${unit.name}</span></td>
         <td><span class="${nationBadgeClass(unit.nation)}" style="font-size:9px;padding:2px 5px;">${unit.nation}</span></td>
-        <td style="color:var(--text3);font-size:10px;letter-spacing:0.5px">${unit.branch}</td>
+        <td style="color:var(--text3);font-size:10px;letter-spacing:0.5px">${unit.type}</td>
         <td class="table-stat ${unit.gun_range ? '' : 'null'}">${unit.gun_range || '—'}</td>
         <td class="table-stat ${unit.rof !== null ? '' : 'null'}">${unit.rof !== null ? unit.rof : '—'}</td>
         <td class="table-stat ${unit.at !== null ? '' : 'null'}">${unit.at !== null ? unit.at : '—'}</td>
@@ -1362,8 +1353,8 @@ function updateForceUI() {
   document.getElementById('force-count').textContent = count;
 
   // Summary stats
-  const infUnits = force.filter(u => u.type === 'Infantry' || (u.type === 'Gun' && u.branch === 'Infantry')).length;
-  const vehUnits = force.filter(u => u.type === 'Vehicle').length;
+  const infUnits = force.filter(u => u.type === 'Infantry').length;
+  const vehUnits = force.filter(u => ['Armored', 'Recon', 'Transport'].includes(u.type)).length;
   const breakLimit = 5 + (count * 2);
 
   document.getElementById('summary-units').textContent = count;
@@ -1385,7 +1376,7 @@ function updateForceUI() {
       <div class="force-item-nation ${nc_map[unit.nation] || 'us'}"></div>
       <div class="force-item-info">
         <div class="force-item-name">${unit.name}</div>
-        <div class="force-item-meta">${unit.nation} · ${unit.branch}</div>
+        <div class="force-item-meta">${unit.nation} · ${unit.type}</div>
       </div>
       <div class="force-item-stats">
         ${unit.gun_range ? `<span>${unit.gun_range}</span>` : ''}

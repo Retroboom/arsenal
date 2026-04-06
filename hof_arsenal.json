@@ -4,10 +4,21 @@
       "id": "us-inf-rifle-mg",
       "name": "Rifle/MG",
       "nation": "United States",
-      "branch": "Infantry",
       "type": "Infantry",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 2,
       "at": null,
@@ -23,10 +34,21 @@
       "id": "us-inf-mg",
       "name": "MG",
       "nation": "United States",
-      "branch": "Infantry",
       "type": "Infantry",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 3,
       "at": null,
@@ -42,10 +64,18 @@
       "id": "us-inf-bazooka",
       "name": "Bazooka",
       "nation": "United States",
-      "branch": "Infantry",
       "type": "Infantry",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "6\"",
       "rof": 1,
       "at": 4,
@@ -53,7 +83,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Small Base", "Cannot fire from buildings"],
+      "notes": [
+        "Small Base",
+        "Cannot fire from buildings"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -61,10 +94,21 @@
       "id": "us-gun-hmg",
       "name": "M1917/M1919 HMG",
       "nation": "United States",
-      "branch": "Infantry",
-      "type": "Gun",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 4,
       "at": null,
@@ -72,7 +116,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Man-Portable"],
+      "notes": [
+        "Man-Portable"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -80,10 +126,21 @@
       "id": "us-gun-60mm-mortar",
       "name": "M2 60mm Mortar",
       "nation": "United States",
-      "branch": "Infantry",
-      "type": "Gun",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 0,
@@ -91,7 +148,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Man-Portable", "Light Mortar"],
+      "notes": [
+        "Man-Portable",
+        "Light Mortar"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -99,10 +159,21 @@
       "id": "us-gun-81mm-mortar",
       "name": "M1 81mm Mortar",
       "nation": "United States",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 0,
@@ -110,7 +181,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Man-Portable", "Light Artillery", "Smoke"],
+      "notes": [
+        "Man-Portable",
+        "Light Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -118,10 +193,21 @@
       "id": "us-gun-37mm",
       "name": "M3 37mm Gun",
       "nation": "United States",
-      "branch": "Anti-Tank",
-      "type": "Gun",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Anti-Tank",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 3,
       "at": 2,
@@ -137,10 +223,18 @@
       "id": "us-gun-57mm",
       "name": "M1 57mm Gun",
       "nation": "United States",
-      "branch": "Anti-Tank",
-      "type": "Gun",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Anti-Tank",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 3,
       "at": 3,
@@ -156,10 +250,16 @@
       "id": "us-gun-3in",
       "name": "M5 3in Gun",
       "nation": "United States",
-      "branch": "Anti-Tank",
-      "type": "Gun",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1943, 1944, 1945],
+      "type": "Anti-Tank",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "28\"",
       "rof": 2,
       "at": 5,
@@ -167,7 +267,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Immobile"],
+      "notes": [
+        "Large Base",
+        "Immobile"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -175,10 +278,21 @@
       "id": "us-gun-105mm-light",
       "name": "M3 105mm Light Howitzer",
       "nation": "United States",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 1,
       "at": 3,
@@ -186,7 +300,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Light Artillery", "Smoke"],
+      "notes": [
+        "Large Base",
+        "Light Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -194,10 +312,21 @@
       "id": "us-gun-105mm-howitzer",
       "name": "M2A1 105mm Howitzer",
       "nation": "United States",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 1,
       "at": 4,
@@ -205,7 +334,13 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Immobile", "Medium Artillery", "Bunker Buster", "Smoke"],
+      "notes": [
+        "Large Base",
+        "Immobile",
+        "Medium Artillery",
+        "Bunker Buster",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -213,10 +348,21 @@
       "id": "us-gun-155mm-howitzer",
       "name": "M1 155mm Howitzer",
       "nation": "United States",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 1,
       "at": 4,
@@ -224,7 +370,13 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Immobile", "Heavy Artillery", "Bunker Buster", "Smoke"],
+      "notes": [
+        "Large Base",
+        "Immobile",
+        "Heavy Artillery",
+        "Bunker Buster",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -232,10 +384,21 @@
       "id": "us-gun-50cal-aa",
       "name": "M2 .50cal AA Gun",
       "nation": "United States",
-      "branch": "Anti-Air",
-      "type": "Gun",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 4,
       "at": 1,
@@ -243,7 +406,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Anti-Air", "May only inflict RFPs"],
+      "notes": [
+        "Anti-Air",
+        "May only inflict RFPs"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -251,10 +417,18 @@
       "id": "us-gun-quad-50cal-aa",
       "name": "M49 Quad .50cal AA Gun",
       "nation": "United States",
-      "branch": "Anti-Air",
-      "type": "Gun",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 5,
       "at": 1,
@@ -262,7 +436,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Anti-Air", "May only inflict RFPs"],
+      "notes": [
+        "Large Base",
+        "Anti-Air",
+        "May only inflict RFPs"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -270,10 +448,20 @@
       "id": "us-gun-bofors",
       "name": "M1 Bofors Gun",
       "nation": "United States",
-      "branch": "Anti-Air",
-      "type": "Gun",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 4,
       "at": 2,
@@ -281,7 +469,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Immobile", "Anti-Air"],
+      "notes": [
+        "Large Base",
+        "Immobile",
+        "Anti-Air"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -289,10 +481,19 @@
       "id": "us-transport-jeep",
       "name": "Jeep",
       "nation": "United States",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -300,7 +501,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": "Passenger-fired MG or .50cal MG",
-      "notes": ["Wheeled", "Open Topped", "Carries 1 Team"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Carries 1 Team"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -308,10 +513,21 @@
       "id": "us-transport-dodge",
       "name": "Dodge 1.5-ton Truck",
       "nation": "United States",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -319,7 +535,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Wheeled", "Open Topped", "Carries 2 Teams"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Carries 2 Teams"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -327,10 +547,21 @@
       "id": "us-transport-gmc",
       "name": "GMC 2.5-ton Truck",
       "nation": "United States",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -338,7 +569,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Wheeled", "Open Topped", "Carries 4 Teams"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Carries 4 Teams"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -346,10 +581,18 @@
       "id": "us-transport-halftrack",
       "name": "M2/M3 Half-Track",
       "nation": "United States",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -357,7 +600,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "Passenger-fired MG or .50cal MG",
-      "notes": ["Half-Tracked", "Open Topped", "Carries 3 Teams"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Carries 3 Teams"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -365,10 +612,18 @@
       "id": "us-tank-m4-sherman",
       "name": "M4 Sherman",
       "nation": "United States",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 4,
@@ -376,7 +631,10 @@
       "armor_front": 2,
       "armor_flank": 1,
       "armament": "M3 75mm gun, Coax MG/Hull MG/.50cal MG",
-      "notes": ["Tracked", "Smoke"],
+      "notes": [
+        "Tracked",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -384,10 +642,14 @@
       "id": "us-tank-m4-sherman-76",
       "name": "M4 Sherman 76mm",
       "nation": "United States",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "28\"",
       "rof": 2,
       "at": 5,
@@ -395,7 +657,10 @@
       "armor_front": 3,
       "armor_flank": 1,
       "armament": "M1 76mm gun, Coax MG/Hull MG/.50cal MG",
-      "notes": ["Tracked", "Limited HE"],
+      "notes": [
+        "Tracked",
+        "Limited HE"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -403,10 +668,14 @@
       "id": "us-tank-m4a3e8",
       "name": "M4A3E8 Easy Eight",
       "nation": "United States",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "28\"",
       "rof": 2,
       "at": 5,
@@ -414,7 +683,10 @@
       "armor_front": 3,
       "armor_flank": 1,
       "armament": "M1 76mm gun, Coax MG/Hull MG/.50cal MG",
-      "notes": ["Tracked", "Fast"],
+      "notes": [
+        "Tracked",
+        "Fast"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -422,10 +694,14 @@
       "id": "us-tank-m4a3e2-jumbo",
       "name": "M4A3E2 Jumbo",
       "nation": "United States",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 4,
@@ -433,7 +709,10 @@
       "armor_front": 5,
       "armor_flank": 3,
       "armament": "M3 75mm gun, Coax MG/Hull MG/.50cal MG",
-      "notes": ["Tracked", "Smoke"],
+      "notes": [
+        "Tracked",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -441,10 +720,13 @@
       "id": "us-tank-m26-pershing",
       "name": "M26 Pershing",
       "nation": "United States",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1945
+      ],
       "gun_range": "28\"",
       "rof": 2,
       "at": 6,
@@ -452,7 +734,9 @@
       "armor_front": 4,
       "armor_flank": 2,
       "armament": "M3 90mm gun, Coax/Hull MG/.50cal MG",
-      "notes": ["Tracked"],
+      "notes": [
+        "Tracked"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -460,10 +744,19 @@
       "id": "us-tank-m5-stuart",
       "name": "M5 Stuart",
       "nation": "United States",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Pacific", "Mediterranean"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 3,
@@ -471,7 +764,10 @@
       "armor_front": 1,
       "armor_flank": 0,
       "armament": "M6 37mm gun, Coax MG/Hull MG/.50cal MG",
-      "notes": ["Tracked", "Fast"],
+      "notes": [
+        "Tracked",
+        "Fast"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -479,10 +775,14 @@
       "id": "us-tank-m24-chaffee",
       "name": "M24 Chaffee GMC",
       "nation": "United States",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 4,
@@ -490,7 +790,11 @@
       "armor_front": 1,
       "armor_flank": 0,
       "armament": "M6 75mm gun, Coax/Hull MG/.50cal MG",
-      "notes": ["Tracked", "Fast", "Smoke"],
+      "notes": [
+        "Tracked",
+        "Fast",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -498,10 +802,17 @@
       "id": "us-td-m10",
       "name": "M10 3-in GMC",
       "nation": "United States",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "28\"",
       "rof": 2,
       "at": 5,
@@ -509,7 +820,10 @@
       "armor_front": 1,
       "armor_flank": 0,
       "armament": "M7 3-inch gun, .50cal MG",
-      "notes": ["Tracked", "Open Topped"],
+      "notes": [
+        "Tracked",
+        "Open Topped"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -517,10 +831,15 @@
       "id": "us-td-m18-hellcat",
       "name": "M18 Hellcat GMC",
       "nation": "United States",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "28\"",
       "rof": 2,
       "at": 5,
@@ -528,7 +847,12 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "M1 76mm gun, .50cal MG",
-      "notes": ["Tracked", "Fast", "Open Topped", "Limited HE"],
+      "notes": [
+        "Tracked",
+        "Fast",
+        "Open Topped",
+        "Limited HE"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -536,10 +860,14 @@
       "id": "us-td-m36",
       "name": "M36 90mm GMC",
       "nation": "United States",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "28\"",
       "rof": 2,
       "at": 6,
@@ -547,7 +875,10 @@
       "armor_front": 2,
       "armor_flank": 0,
       "armament": "M3 90mm gun, .50cal MG",
-      "notes": ["Tracked", "Open Topped"],
+      "notes": [
+        "Tracked",
+        "Open Topped"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -555,10 +886,17 @@
       "id": "us-spg-m8-scott",
       "name": "M8 Scott HMC",
       "nation": "United States",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "18\"",
       "rof": 2,
       "at": 2,
@@ -566,7 +904,12 @@
       "armor_front": 1,
       "armor_flank": 0,
       "armament": "M1A1 75mm howitzer, .50cal MG",
-      "notes": ["Tracked", "Fast", "Light Artillery", "Smoke"],
+      "notes": [
+        "Tracked",
+        "Fast",
+        "Light Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -574,10 +917,15 @@
       "id": "us-spg-105mm-sherman",
       "name": "105mm Sherman",
       "nation": "United States",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 1,
       "at": 4,
@@ -585,7 +933,11 @@
       "armor_front": 2,
       "armor_flank": 1,
       "armament": "M4 105mm howitzer, Coax MG/Hull MG/.50cal MG",
-      "notes": ["Tracked", "Smoke", "Bunker Buster"],
+      "notes": [
+        "Tracked",
+        "Smoke",
+        "Bunker Buster"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -593,10 +945,17 @@
       "id": "us-spaa-m13-mgmc",
       "name": "M13 MGMC",
       "nation": "United States",
-      "branch": "Anti-Air",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 4,
       "at": 1,
@@ -604,7 +963,12 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "M33 twin .50cal gun",
-      "notes": ["Half-Tracked", "Open Topped", "Anti-Air", "May only inflict RFPs"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Anti-Air",
+        "May only inflict RFPs"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -612,10 +976,17 @@
       "id": "us-spaa-m15-cgmc",
       "name": "M15 CGMC",
       "nation": "United States",
-      "branch": "Anti-Air",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 4,
       "at": 2,
@@ -623,7 +994,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "M15 37mm combination mount",
-      "notes": ["Half-Tracked", "Open Topped", "Anti-Air"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Anti-Air"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -631,10 +1006,16 @@
       "id": "us-spaa-m16-mgmc",
       "name": "M16 MGMC",
       "nation": "United States",
-      "branch": "Anti-Air",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 5,
       "at": 1,
@@ -642,7 +1023,12 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "M45 quad .50cal gun",
-      "notes": ["Half-Tracked", "Open Topped", "Anti-Air", "May only inflict RFPs"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Anti-Air",
+        "May only inflict RFPs"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -650,10 +1036,16 @@
       "id": "us-ac-m8",
       "name": "M8 Armoured Car",
       "nation": "United States",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 3,
@@ -661,7 +1053,10 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "M6 37mm gun, Coax MG",
-      "notes": ["Wheeled", "Open Topped"],
+      "notes": [
+        "Wheeled",
+        "Open Topped"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -669,10 +1064,16 @@
       "id": "us-ac-m20",
       "name": "M20 Scout Car",
       "nation": "United States",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 2,
       "at": 1,
@@ -680,7 +1081,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": ".50cal MG",
-      "notes": ["Wheeled", "Open Topped", "May only inflict RFPs"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "May only inflict RFPs"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -688,10 +1093,17 @@
       "id": "us-spa-m7-priest",
       "name": "M7 Priest HMC",
       "nation": "United States",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 1,
       "at": 4,
@@ -699,7 +1111,14 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "M2A1 105mm howitzer, .50cal MG",
-      "notes": ["Tracked", "Open Topped", "Hull Mounted", "Medium Artillery", "Bunker Buster", "Smoke"],
+      "notes": [
+        "Tracked",
+        "Open Topped",
+        "Hull Mounted",
+        "Medium Artillery",
+        "Bunker Buster",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -707,10 +1126,14 @@
       "id": "us-spa-m12",
       "name": "M12 155mm GMC",
       "nation": "United States",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 1,
       "at": 6,
@@ -718,7 +1141,13 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "M1918M1 155mm gun",
-      "notes": ["Tracked", "Open Topped", "Hull Mounted", "Bunker Buster", "Heavy Artillery"],
+      "notes": [
+        "Tracked",
+        "Open Topped",
+        "Hull Mounted",
+        "Bunker Buster",
+        "Heavy Artillery"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -726,10 +1155,16 @@
       "id": "us-spa-m4-81mm",
       "name": "M4 81mm MMC",
       "nation": "United States",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": null,
@@ -737,7 +1172,12 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "M1 81mm mortar, .50 MG",
-      "notes": ["Half-Tracked", "Open Topped", "Light Artillery", "Smoke"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Light Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -745,10 +1185,21 @@
       "id": "de-inf-rifle-mg",
       "name": "Rifle/MG",
       "nation": "Germany",
-      "branch": "Infantry",
       "type": "Infantry",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 2,
       "at": null,
@@ -764,10 +1215,21 @@
       "id": "de-inf-mg",
       "name": "MG",
       "nation": "Germany",
-      "branch": "Infantry",
       "type": "Infantry",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 3,
       "at": null,
@@ -783,10 +1245,16 @@
       "id": "de-inf-assault-rifle",
       "name": "Assault Rifle",
       "nation": "Germany",
-      "branch": "Infantry",
       "type": "Infantry",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 2,
       "at": null,
@@ -794,7 +1262,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["RoF 3 if less than 8\" from target", "Re-roll failed Assault Checks"],
+      "notes": [
+        "RoF 3 if less than 8\" from target",
+        "Re-roll failed Assault Checks"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -802,10 +1273,17 @@
       "id": "de-inf-panzerschreck",
       "name": "Panzerschreck",
       "nation": "Germany",
-      "branch": "Infantry",
       "type": "Infantry",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1943, 1944, 1945],
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "8\"",
       "rof": 1,
       "at": 5,
@@ -813,7 +1291,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Small Base", "Cannot fire from buildings"],
+      "notes": [
+        "Small Base",
+        "Cannot fire from buildings"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -821,10 +1302,17 @@
       "id": "de-inf-panzerfaust",
       "name": "Panzerfaust",
       "nation": "Germany",
-      "branch": "Infantry",
       "type": "Infantry",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1943, 1944, 1945],
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": 6,
@@ -832,7 +1320,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Additional weapon assigned to other Teams", "May only be used in assault and only in the first round"],
+      "notes": [
+        "Additional weapon assigned to other Teams",
+        "May only be used in assault and only in the first round"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -840,10 +1331,21 @@
       "id": "de-gun-hmg",
       "name": "MG34/MG42 HMG",
       "nation": "Germany",
-      "branch": "Infantry",
-      "type": "Gun",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 4,
       "at": null,
@@ -851,7 +1353,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Man-Portable"],
+      "notes": [
+        "Man-Portable"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -859,10 +1363,16 @@
       "id": "de-gun-88mm-launcher",
       "name": "8.8cm RW43 Launcher",
       "nation": "Germany",
-      "branch": "Anti-Tank",
-      "type": "Gun",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Anti-Tank",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 1,
       "at": 5,
@@ -870,7 +1380,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Man-Portable"],
+      "notes": [
+        "Man-Portable"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -878,10 +1390,21 @@
       "id": "de-gun-8cm-mortar",
       "name": "8cm GW34 Mortar",
       "nation": "Germany",
-      "branch": "Infantry",
-      "type": "Gun",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 0,
@@ -889,7 +1412,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Man-Portable", "Light Artillery", "Smoke"],
+      "notes": [
+        "Man-Portable",
+        "Light Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -897,10 +1424,16 @@
       "id": "de-gun-12cm-mortar",
       "name": "12cm sGW43 Mortar",
       "nation": "Germany",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 1,
@@ -908,7 +1441,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Medium Artillery"],
+      "notes": [
+        "Large Base",
+        "Medium Artillery"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -916,10 +1452,21 @@
       "id": "de-gun-75mm-leig",
       "name": "7.5cm leIG18 Gun",
       "nation": "Germany",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 2,
       "at": 3,
@@ -927,7 +1474,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Light Artillery", "Smoke"],
+      "notes": [
+        "Light Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -935,10 +1485,21 @@
       "id": "de-gun-150mm-sig",
       "name": "15cm sIG33 Gun",
       "nation": "Germany",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 1,
       "at": 3,
@@ -946,7 +1507,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Heavy Artillery", "Bunker Buster"],
+      "notes": [
+        "Large Base",
+        "Heavy Artillery",
+        "Bunker Buster"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -954,10 +1519,21 @@
       "id": "de-gun-2cm-flak",
       "name": "2cm FlaK38 Gun",
       "nation": "Germany",
-      "branch": "Anti-Air",
-      "type": "Gun",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 3,
       "at": 2,
@@ -965,7 +1541,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Anti-Air"],
+      "notes": [
+        "Anti-Air"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -973,10 +1551,21 @@
       "id": "de-gun-88mm-flak",
       "name": "8.8cm FlaK36 Gun",
       "nation": "Germany",
-      "branch": "Anti-Air",
-      "type": "Gun",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "36\"",
       "rof": 2,
       "at": 6,
@@ -984,7 +1573,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Immobile", "Anti-Air"],
+      "notes": [
+        "Large Base",
+        "Immobile",
+        "Anti-Air"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -992,10 +1585,20 @@
       "id": "de-gun-pak38",
       "name": "5cm PaK38 Gun",
       "nation": "Germany",
-      "branch": "Anti-Tank",
-      "type": "Gun",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Anti-Tank",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 3,
       "at": 4,
@@ -1011,10 +1614,19 @@
       "id": "de-gun-pak40",
       "name": "7.5cm PaK40 Gun",
       "nation": "Germany",
-      "branch": "Anti-Tank",
-      "type": "Gun",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Anti-Tank",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "28\"",
       "rof": 2,
       "at": 5,
@@ -1022,7 +1634,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base"],
+      "notes": [
+        "Large Base"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1030,10 +1644,16 @@
       "id": "de-gun-pak43",
       "name": "8.8cm PaK43/41 Gun",
       "nation": "Germany",
-      "branch": "Anti-Tank",
-      "type": "Gun",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Anti-Tank",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "32\"",
       "rof": 2,
       "at": 7,
@@ -1041,7 +1661,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Immobile"],
+      "notes": [
+        "Large Base",
+        "Immobile"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1049,10 +1672,19 @@
       "id": "de-gun-75mm-gebg36",
       "name": "7.5cm GebG36 Gun",
       "nation": "Germany",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 2,
       "at": 4,
@@ -1060,7 +1692,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Light Artillery", "Smoke"],
+      "notes": [
+        "Large Base",
+        "Light Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1068,10 +1704,21 @@
       "id": "de-gun-105mm-lefh18",
       "name": "10.5cm leFH18 Gun",
       "nation": "Germany",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 1,
       "at": 4,
@@ -1079,7 +1726,13 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Immobile", "Medium Artillery", "Bunker Buster", "Smoke"],
+      "notes": [
+        "Large Base",
+        "Immobile",
+        "Medium Artillery",
+        "Bunker Buster",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1087,10 +1740,21 @@
       "id": "de-gun-150mm-sfh18",
       "name": "15cm sFH18 Gun",
       "nation": "Germany",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 1,
       "at": 6,
@@ -1098,7 +1762,13 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Immobile", "Heavy Artillery", "Bunker Buster", "Smoke"],
+      "notes": [
+        "Large Base",
+        "Immobile",
+        "Heavy Artillery",
+        "Bunker Buster",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1106,10 +1776,18 @@
       "id": "de-gun-nw41-rocket",
       "name": "15cm NW41 Rocket Launcher",
       "nation": "Germany",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -1117,7 +1795,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Medium Artillery", "Smoke"],
+      "notes": [
+        "Large Base",
+        "Medium Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1125,10 +1807,16 @@
       "id": "de-tank-pz3m",
       "name": "Panzer III M",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1942, 1943],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943
+      ],
       "gun_range": "20\"",
       "rof": 3,
       "at": 3,
@@ -1136,7 +1824,9 @@
       "armor_front": 2,
       "armor_flank": 1,
       "armament": "5cm KwK39 gun, Coax MG/Hull MG",
-      "notes": ["Tracked"],
+      "notes": [
+        "Tracked"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1144,10 +1834,16 @@
       "id": "de-tank-pz3n",
       "name": "Panzer III N",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1942, 1943],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 4,
@@ -1155,7 +1851,9 @@
       "armor_front": 2,
       "armor_flank": 1,
       "armament": "7.5cm KwK37 gun, Coax MG/Hull MG",
-      "notes": ["Tracked"],
+      "notes": [
+        "Tracked"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1163,10 +1861,17 @@
       "id": "de-tank-pz4h",
       "name": "Panzer IV H",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 5,
@@ -1174,7 +1879,9 @@
       "armor_front": 2,
       "armor_flank": 1,
       "armament": "7.5cm KwK40 gun, Coax MG/Hull MG",
-      "notes": ["Tracked"],
+      "notes": [
+        "Tracked"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1182,10 +1889,16 @@
       "id": "de-tank-panther",
       "name": "Panther",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "28\"",
       "rof": 2,
       "at": 6,
@@ -1193,7 +1906,11 @@
       "armor_front": 4,
       "armor_flank": 2,
       "armament": "7.5cm KwK42 gun, Coax/Hull MG",
-      "notes": ["Tracked", "Wide Tracks", "Unreliable"],
+      "notes": [
+        "Tracked",
+        "Wide Tracks",
+        "Unreliable"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1201,10 +1918,18 @@
       "id": "de-tank-tiger1",
       "name": "Tiger I E",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "32\"",
       "rof": 2,
       "at": 6,
@@ -1212,7 +1937,11 @@
       "armor_front": 4,
       "armor_flank": 3,
       "armament": "8.8cm KwK36 gun, Coax MG/Hull MG",
-      "notes": ["Tracked", "Slow", "Wide Tracks"],
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Wide Tracks"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1220,10 +1949,15 @@
       "id": "de-tank-tiger2",
       "name": "Tiger II",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "32\"",
       "rof": 2,
       "at": 7,
@@ -1231,7 +1965,11 @@
       "armor_front": 6,
       "armor_flank": 3,
       "armament": "8.8cm KwK43 gun, Coax MG/Hull MG",
-      "notes": ["Tracked", "Slow", "Unreliable"],
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Unreliable"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1239,10 +1977,18 @@
       "id": "de-tank-stug",
       "name": "StuG G or IV",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 5,
@@ -1250,7 +1996,10 @@
       "armor_front": 3,
       "armor_flank": 1,
       "armament": "7.5cm StuK40 gun, Hull MG",
-      "notes": ["Tracked", "Hull Mounted"],
+      "notes": [
+        "Tracked",
+        "Hull Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1258,10 +2007,17 @@
       "id": "de-tank-stuh42",
       "name": "StuH42",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 4,
@@ -1269,7 +2025,12 @@
       "armor_front": 3,
       "armor_flank": 1,
       "armament": "10.5cm StuH42 gun, Hull MG",
-      "notes": ["Tracked", "Hull Mounted", "Bunker Buster", "Smoke"],
+      "notes": [
+        "Tracked",
+        "Hull Mounted",
+        "Bunker Buster",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1277,10 +2038,16 @@
       "id": "de-tank-brummbar",
       "name": "Brummbar",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 1,
       "at": 6,
@@ -1288,7 +2055,12 @@
       "armor_front": 4,
       "armor_flank": 2,
       "armament": "15cm StuH43 gun",
-      "notes": ["Tracked", "Slow", "Hull Mounted", "Bunker Buster"],
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Hull Mounted",
+        "Bunker Buster"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1296,10 +2068,18 @@
       "id": "de-td-marder",
       "name": "Marder II or III",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 5,
@@ -1307,7 +2087,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "7.5cm PaK40 gun, AA MG",
-      "notes": ["Tracked", "Open Topped", "Hull Mounted"],
+      "notes": [
+        "Tracked",
+        "Open Topped",
+        "Hull Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1315,10 +2099,15 @@
       "id": "de-td-jagdpanzer4",
       "name": "Jagdpanzer IV",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 5,
@@ -1326,7 +2115,10 @@
       "armor_front": 3,
       "armor_flank": 1,
       "armament": "7.5cm PaK39 gun, Hull MG",
-      "notes": ["Tracked", "Hull Mounted"],
+      "notes": [
+        "Tracked",
+        "Hull Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1334,10 +2126,15 @@
       "id": "de-td-jagdpanther",
       "name": "Jagdpanther",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "32\"",
       "rof": 2,
       "at": 7,
@@ -1345,7 +2142,10 @@
       "armor_front": 4,
       "armor_flank": 2,
       "armament": "8.8cm KwK43 gun, Hull MG",
-      "notes": ["Tracked", "Hull Mounted"],
+      "notes": [
+        "Tracked",
+        "Hull Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1353,10 +2153,14 @@
       "id": "de-td-jagdtiger",
       "name": "Jagdtiger",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "40\"",
       "rof": 2,
       "at": 8,
@@ -1364,7 +2168,12 @@
       "armor_front": 7,
       "armor_flank": 3,
       "armament": "12.8cm PaK44, Hull MG",
-      "notes": ["Tracked", "Slow", "Hull Mounted", "Bunker Buster"],
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Hull Mounted",
+        "Bunker Buster"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1372,10 +2181,16 @@
       "id": "de-td-hornisse",
       "name": "Hornisse",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "32\"",
       "rof": 2,
       "at": 7,
@@ -1383,7 +2198,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "8.8cm PaK43 gun, AA MG",
-      "notes": ["Tracked", "Open Topped", "Hull Mounted"],
+      "notes": [
+        "Tracked",
+        "Open Topped",
+        "Hull Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1391,10 +2210,13 @@
       "id": "de-td-elefant",
       "name": "Elefant",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1943],
+      "type": "Armored",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1943
+      ],
       "gun_range": "40\"",
       "rof": 2,
       "at": 7,
@@ -1402,7 +2224,12 @@
       "armor_front": 7,
       "armor_flank": 3,
       "armament": "8.8cm PaK43 gun, Hull MG",
-      "notes": ["Tracked", "Slow", "Hull Mounted", "Unreliable"],
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Hull Mounted",
+        "Unreliable"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1410,10 +2237,18 @@
       "id": "de-spa-sdkfz251-8cm",
       "name": "Sd Kfz 251/2C (8cm)",
       "nation": "Germany",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": null,
@@ -1421,7 +2256,13 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "8cm GW34 mortar, AA MG",
-      "notes": ["Half-Tracked", "Open Topped", "Hull Mounted", "Light Artillery", "Smoke"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Hull Mounted",
+        "Light Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1429,10 +2270,17 @@
       "id": "de-spa-sdkfz251-75cm",
       "name": "Sd Kfz 251/9 (7.5cm)",
       "nation": "Germany",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 4,
@@ -1440,7 +2288,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "7.5cm KwK37 gun, Coax MG/Hull MG",
-      "notes": ["Half-Tracked", "Open Topped", "Hull Mounted"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Hull Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1448,10 +2300,16 @@
       "id": "de-spa-grille",
       "name": "Grille (15cm sIG)",
       "nation": "Germany",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 1,
       "at": 6,
@@ -1459,7 +2317,13 @@
       "armor_front": 1,
       "armor_flank": 0,
       "armament": "15cm sIG33 gun, Hull MG",
-      "notes": ["Tracked", "Open Topped", "Hull Mounted", "Bunker Buster", "Heavy Artillery"],
+      "notes": [
+        "Tracked",
+        "Open Topped",
+        "Hull Mounted",
+        "Bunker Buster",
+        "Heavy Artillery"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1467,10 +2331,16 @@
       "id": "de-spa-wespe",
       "name": "Wespe",
       "nation": "Germany",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 1,
       "at": 4,
@@ -1478,7 +2348,14 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "10.5cm leFH18M gun, AA MG",
-      "notes": ["Tracked", "Open Topped", "Hull Mounted", "Medium Artillery", "Bunker Buster", "Smoke"],
+      "notes": [
+        "Tracked",
+        "Open Topped",
+        "Hull Mounted",
+        "Medium Artillery",
+        "Bunker Buster",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1486,10 +2363,16 @@
       "id": "de-spa-hummel",
       "name": "Hummel",
       "nation": "Germany",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 1,
       "at": 6,
@@ -1497,7 +2380,14 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "15cm sFH18 gun, AA MG",
-      "notes": ["Tracked", "Open Topped", "Hull Mounted", "Bunker Buster", "Heavy Artillery", "Smoke"],
+      "notes": [
+        "Tracked",
+        "Open Topped",
+        "Hull Mounted",
+        "Bunker Buster",
+        "Heavy Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1505,10 +2395,16 @@
       "id": "de-spa-panzerwerfer",
       "name": "Panzerwerfer 42",
       "nation": "Germany",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -1516,7 +2412,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "15cm RW42 rocket launcher, AA MG",
-      "notes": ["Half-Tracked", "Medium Artillery", "Smoke"],
+      "notes": [
+        "Half-Tracked",
+        "Medium Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1524,10 +2424,19 @@
       "id": "de-spaa-sdkfz10",
       "name": "Sd Kfz 10/5 (2cm)",
       "nation": "Germany",
-      "branch": "Anti-Air",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 3,
       "at": 2,
@@ -1535,7 +2444,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": "2cm FlaK38 gun",
-      "notes": ["Half-Tracked", "Open Topped", "Anti-Air"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Anti-Air"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1543,10 +2456,19 @@
       "id": "de-spaa-sdkfz7",
       "name": "Sd Kfz 7/1 (Quad 2cm)",
       "nation": "Germany",
-      "branch": "Anti-Air",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 5,
       "at": 2,
@@ -1554,7 +2476,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": "2cm FlaK38 (V) gun",
-      "notes": ["Half-Tracked", "Open Topped", "Anti-Air"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Anti-Air"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1562,10 +2488,16 @@
       "id": "de-spaa-sdkfz251-2cm",
       "name": "Sd Kfz 251 (2cm)",
       "nation": "Germany",
-      "branch": "Anti-Air",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 3,
       "at": 2,
@@ -1573,7 +2505,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "2cm FlaK38 gun",
-      "notes": ["Tracked", "Open Topped", "Anti-Air"],
+      "notes": [
+        "Tracked",
+        "Open Topped",
+        "Anti-Air"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1581,10 +2517,15 @@
       "id": "de-spaa-sdkfz251-15mm",
       "name": "Sd Kfz 251 (3x15mm)",
       "nation": "Germany",
-      "branch": "Anti-Air",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 3,
       "at": 2,
@@ -1592,7 +2533,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "MG151/15 gun, AA MG",
-      "notes": ["Tracked", "Open Topped", "Anti-Air"],
+      "notes": [
+        "Tracked",
+        "Open Topped",
+        "Anti-Air"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1600,10 +2545,15 @@
       "id": "de-spaa-wirbelwind",
       "name": "Wirbelwind (Quad 2cm)",
       "nation": "Germany",
-      "branch": "Anti-Air",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 5,
       "at": 2,
@@ -1611,7 +2561,11 @@
       "armor_front": 1,
       "armor_flank": 0,
       "armament": "2cm FlaK38 (V) gun",
-      "notes": ["Tracked", "Open Topped", "Anti-Air"],
+      "notes": [
+        "Tracked",
+        "Open Topped",
+        "Anti-Air"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1619,10 +2573,18 @@
       "id": "de-ft-sdkfz251-flame",
       "name": "Sd Kfz 251 (Flame)",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "4\"",
       "rof": 3,
       "at": null,
@@ -1630,7 +2592,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "2 x 1.4cm Flammenwerfer, Hull MG",
-      "notes": ["Half-Tracked", "Open Topped", "Flame-Thrower"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Flame-Thrower"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1638,10 +2604,14 @@
       "id": "de-ft-flammpanzer3",
       "name": "Flammpanzer III",
       "nation": "Germany",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Eastern Front", "Mediterranean"],
-      "years": [1943],
+      "type": "Armored",
+      "theater": [
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1943
+      ],
       "gun_range": "4\"",
       "rof": 3,
       "at": null,
@@ -1649,7 +2619,10 @@
       "armor_front": 2,
       "armor_flank": 1,
       "armament": "1.4cm Flammenwerfer, Coax MG",
-      "notes": ["Tracked", "Flame-Thrower"],
+      "notes": [
+        "Tracked",
+        "Flame-Thrower"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1657,10 +2630,21 @@
       "id": "de-ac-sdkfz222",
       "name": "Sd Kfz 222 (2cm)",
       "nation": "Germany",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 3,
       "at": 2,
@@ -1668,7 +2652,10 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "2cm KwK38 gun, Coax MG",
-      "notes": ["Wheeled", "Open Topped"],
+      "notes": [
+        "Wheeled",
+        "Open Topped"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1676,10 +2663,19 @@
       "id": "de-ac-sdkfz231",
       "name": "Sd Kfz 231 (2cm)",
       "nation": "Germany",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943
+      ],
       "gun_range": "16\"",
       "rof": 3,
       "at": 2,
@@ -1687,7 +2683,9 @@
       "armor_front": 1,
       "armor_flank": 0,
       "armament": "2cm KwK38 gun, Coax MG",
-      "notes": ["Wheeled"],
+      "notes": [
+        "Wheeled"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1695,10 +2693,16 @@
       "id": "de-ac-sdkfz250",
       "name": "Sd Kfz 250/9 (2cm)",
       "nation": "Germany",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 3,
       "at": 2,
@@ -1706,7 +2710,10 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "2cm KwK38 gun, Coax MG",
-      "notes": ["Half-Tracked", "Open Topped"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1714,10 +2721,15 @@
       "id": "de-ac-puma",
       "name": "Sd Kfz 234/2 Puma",
       "nation": "Germany",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 3,
@@ -1725,7 +2737,9 @@
       "armor_front": 1,
       "armor_flank": 0,
       "armament": "5cm KwK39 gun, Coax MG",
-      "notes": ["Wheeled"],
+      "notes": [
+        "Wheeled"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1733,10 +2747,21 @@
       "id": "de-transport-sdkfz251",
       "name": "Sd Kfz 251",
       "nation": "Germany",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -1744,7 +2769,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "Passenger-fired AA MG",
-      "notes": ["Half-Tracked", "Open Topped", "Carries 2 Teams"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Carries 2 Teams"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1752,10 +2781,17 @@
       "id": "de-transport-sdkfz251-75cm",
       "name": "Sd Kfz 251 (7.5cm)",
       "nation": "Germany",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 4,
@@ -1763,7 +2799,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "7.5cm L/24 gun, Passenger-fired AA MG",
-      "notes": ["Half-Tracked", "Open Topped", "Carries 2 Teams"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Carries 2 Teams"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1771,10 +2811,17 @@
       "id": "de-transport-maultier",
       "name": "Opel Maultier",
       "nation": "Germany",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Western Front",
+        "Eastern Front"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -1782,7 +2829,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Half-Tracked", "Open Topped", "Carries 3 Teams"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Carries 3 Teams"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1790,10 +2841,21 @@
       "id": "de-transport-opelblitz",
       "name": "Opel Blitz 3-ton Truck",
       "nation": "Germany",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Eastern Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -1801,7 +2863,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Wheeled", "Open Topped", "Carries 3 Teams"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Carries 3 Teams"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1809,10 +2875,21 @@
       "id": "br-inf-rifle-mg",
       "name": "Rifle/MG",
       "nation": "Britain",
-      "branch": "Infantry",
       "type": "Infantry",
-      "theater": ["Western Front", "Mediterranean", "Pacific"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "theater": [
+        "Western Front",
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 2,
       "at": null,
@@ -1828,10 +2905,21 @@
       "id": "br-inf-mg",
       "name": "MG",
       "nation": "Britain",
-      "branch": "Infantry",
       "type": "Infantry",
-      "theater": ["Western Front", "Mediterranean", "Pacific"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "theater": [
+        "Western Front",
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 3,
       "at": null,
@@ -1847,10 +2935,16 @@
       "id": "br-inf-piat",
       "name": "PIAT",
       "nation": "Britain",
-      "branch": "Infantry",
       "type": "Infantry",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1943, 1944, 1945],
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "6\"",
       "rof": 1,
       "at": 4,
@@ -1858,7 +2952,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Small Base"],
+      "notes": [
+        "Small Base"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1866,10 +2962,21 @@
       "id": "br-inf-2in-mortar",
       "name": "ML 2\" Mortar",
       "nation": "Britain",
-      "branch": "Infantry",
       "type": "Infantry",
-      "theater": ["Western Front", "Mediterranean", "Pacific"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "theater": [
+        "Western Front",
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 0,
@@ -1877,7 +2984,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Small Base", "Smoke", "Light Mortar"],
+      "notes": [
+        "Small Base",
+        "Smoke",
+        "Light Mortar"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1885,10 +2996,21 @@
       "id": "br-gun-vickers",
       "name": "Vickers HMG",
       "nation": "Britain",
-      "branch": "Infantry",
-      "type": "Gun",
-      "theater": ["Western Front", "Mediterranean", "Pacific"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 4,
       "at": null,
@@ -1896,7 +3018,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Man-Portable"],
+      "notes": [
+        "Man-Portable"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1904,10 +3028,21 @@
       "id": "br-gun-3in-mortar",
       "name": "ML 3\" Mk II Mortar",
       "nation": "Britain",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Western Front", "Mediterranean", "Pacific"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 0,
@@ -1915,7 +3050,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Man-Portable", "Light Artillery", "Smoke"],
+      "notes": [
+        "Man-Portable",
+        "Light Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1923,10 +3062,17 @@
       "id": "br-gun-42in-mortar",
       "name": "ML 4.2\" Mortar",
       "nation": "Britain",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": null,
       "at": 1,
@@ -1934,7 +3080,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Man-Portable", "Medium Artillery", "Smoke"],
+      "notes": [
+        "Man-Portable",
+        "Medium Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1942,10 +3092,21 @@
       "id": "br-gun-bofors-40mm",
       "name": "Bofors 40mm Gun",
       "nation": "Britain",
-      "branch": "Anti-Air",
-      "type": "Gun",
-      "theater": ["Western Front", "Mediterranean", "Pacific"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Western Front",
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 3,
       "at": 2,
@@ -1953,7 +3114,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Immobile", "Anti-Air"],
+      "notes": [
+        "Large Base",
+        "Immobile",
+        "Anti-Air"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1961,10 +3126,20 @@
       "id": "br-gun-37in-aa",
       "name": "OQF 3.7\" Gun",
       "nation": "Britain",
-      "branch": "Anti-Air",
-      "type": "Gun",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "28\"",
       "rof": 2,
       "at": 6,
@@ -1972,7 +3147,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Immobile", "Anti-Air"],
+      "notes": [
+        "Large Base",
+        "Immobile",
+        "Anti-Air"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -1980,10 +3159,18 @@
       "id": "br-gun-2pdr",
       "name": "OQF 2 pdr Gun",
       "nation": "Britain",
-      "branch": "Anti-Tank",
-      "type": "Gun",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943],
+      "type": "Anti-Tank",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943
+      ],
       "gun_range": "20\"",
       "rof": 3,
       "at": 3,
@@ -1999,10 +3186,17 @@
       "id": "br-gun-6pdr",
       "name": "OQF 6 pdr Gun",
       "nation": "Britain",
-      "branch": "Anti-Tank",
-      "type": "Gun",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Anti-Tank",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 3,
       "at": 4,
@@ -2018,10 +3212,16 @@
       "id": "br-gun-17pdr",
       "name": "OQF 17 pdr Gun",
       "nation": "Britain",
-      "branch": "Anti-Tank",
-      "type": "Gun",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1943, 1944, 1945],
+      "type": "Anti-Tank",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "28\"",
       "rof": 2,
       "at": 6,
@@ -2029,7 +3229,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Immobile", "Limited HE"],
+      "notes": [
+        "Large Base",
+        "Immobile",
+        "Limited HE"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2037,10 +3241,17 @@
       "id": "br-gun-75mm-pack",
       "name": "M1A1 75mm Pack Howitzer",
       "nation": "Britain",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Mediterranean", "Pacific"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 2,
       "at": 2,
@@ -2048,7 +3259,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Light Artillery", "Smoke"],
+      "notes": [
+        "Light Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2056,10 +3270,19 @@
       "id": "br-gun-25pdr",
       "name": "OQF 25 pdr Gun",
       "nation": "Britain",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 4,
@@ -2067,7 +3290,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Medium Artillery", "Smoke"],
+      "notes": [
+        "Large Base",
+        "Medium Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2075,10 +3302,17 @@
       "id": "br-gun-55in",
       "name": "BL 5.5\" Gun",
       "nation": "Britain",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 1,
       "at": 6,
@@ -2086,7 +3320,13 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Immobile", "Bunker Buster", "Heavy Artillery", "Smoke"],
+      "notes": [
+        "Large Base",
+        "Immobile",
+        "Bunker Buster",
+        "Heavy Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2094,10 +3334,14 @@
       "id": "br-tank-cromwell4",
       "name": "Cromwell IV",
       "nation": "Britain",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 4,
@@ -2105,7 +3349,11 @@
       "armor_front": 2,
       "armor_flank": 1,
       "armament": "OQF 75mm gun, Co-ax MG/Hull MG",
-      "notes": ["Tracked", "Fast", "Smoke"],
+      "notes": [
+        "Tracked",
+        "Fast",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2113,10 +3361,14 @@
       "id": "br-tank-cromwell6cs",
       "name": "Cromwell VI CS",
       "nation": "Britain",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 3,
@@ -2124,7 +3376,11 @@
       "armor_front": 2,
       "armor_flank": 1,
       "armament": "OQF 95mm CS howitzer, Co-ax MG/Hull MG",
-      "notes": ["Tracked", "Fast", "Smoke"],
+      "notes": [
+        "Tracked",
+        "Fast",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2132,10 +3388,14 @@
       "id": "br-tank-challenger",
       "name": "Challenger A30",
       "nation": "Britain",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "28\"",
       "rof": 3,
       "at": 6,
@@ -2143,7 +3403,12 @@
       "armor_front": 2,
       "armor_flank": 1,
       "armament": "OQF 17 pdr gun, Co-ax MG",
-      "notes": ["Tracked", "Fast", "Overloaded", "Limited HE"],
+      "notes": [
+        "Tracked",
+        "Fast",
+        "Overloaded",
+        "Limited HE"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2151,10 +3416,17 @@
       "id": "br-tank-sherman",
       "name": "Sherman I/II/III/V",
       "nation": "Britain",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 4,
@@ -2162,7 +3434,10 @@
       "armor_front": 2,
       "armor_flank": 1,
       "armament": "M3 75mm gun, Co-ax MG/Hull MG",
-      "notes": ["Tracked", "Smoke"],
+      "notes": [
+        "Tracked",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2170,10 +3445,17 @@
       "id": "br-tank-stuart",
       "name": "Stuart V or VI",
       "nation": "Britain",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 3,
@@ -2181,7 +3463,10 @@
       "armor_front": 1,
       "armor_flank": 0,
       "armament": "M5/M6 37mm gun, Coax MG, Hull MG",
-      "notes": ["Tracked", "Fast"],
+      "notes": [
+        "Tracked",
+        "Fast"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2189,10 +3474,14 @@
       "id": "br-tank-firefly",
       "name": "Sherman VC Firefly",
       "nation": "Britain",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "28\"",
       "rof": 2,
       "at": 6,
@@ -2200,7 +3489,10 @@
       "armor_front": 2,
       "armor_flank": 1,
       "armament": "OQF 17 pdr gun, Co-ax MG",
-      "notes": ["Tracked", "Limited HE"],
+      "notes": [
+        "Tracked",
+        "Limited HE"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2208,10 +3500,17 @@
       "id": "br-tank-churchill34",
       "name": "Churchill III or IV",
       "nation": "Britain",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 3,
       "at": 4,
@@ -2219,7 +3518,11 @@
       "armor_front": 3,
       "armor_flank": 3,
       "armament": "OQF 6 pdr, Co-ax MG/Hull MG",
-      "notes": ["Tracked", "Slow", "Wide Tracks"],
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Wide Tracks"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2227,10 +3530,14 @@
       "id": "br-tank-churchill6",
       "name": "Churchill VI",
       "nation": "Britain",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 4,
@@ -2238,7 +3545,12 @@
       "armor_front": 3,
       "armor_flank": 3,
       "armament": "OQF 75mm gun, Co-ax MG/Hull MG",
-      "notes": ["Tracked", "Slow", "Wide Tracks", "Smoke"],
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Wide Tracks",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2246,10 +3558,14 @@
       "id": "br-tank-churchill7",
       "name": "Churchill VII",
       "nation": "Britain",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 4,
@@ -2257,7 +3573,12 @@
       "armor_front": 6,
       "armor_flank": 3,
       "armament": "OQF 75mm gun, Co-ax MG/Hull MG",
-      "notes": ["Tracked", "Slow", "Wide Tracks", "Smoke"],
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Wide Tracks",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2265,10 +3586,14 @@
       "id": "br-tank-churchill-croc",
       "name": "Churchill Crocodile",
       "nation": "Britain",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 4,
@@ -2276,7 +3601,13 @@
       "armor_front": 6,
       "armor_flank": 3,
       "armament": "OQF 75mm gun, Crocodile flame-gun, Co-ax MG",
-      "notes": ["Tracked", "Slow", "Wide Tracks", "Smoke", "Flame-Thrower"],
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Wide Tracks",
+        "Smoke",
+        "Flame-Thrower"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2284,10 +3615,17 @@
       "id": "br-td-m10",
       "name": "M10 3\" SP",
       "nation": "Britain",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 5,
@@ -2295,7 +3633,9 @@
       "armor_front": 1,
       "armor_flank": 0,
       "armament": "M7 3\" gun",
-      "notes": ["Tracked"],
+      "notes": [
+        "Tracked"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2303,10 +3643,14 @@
       "id": "br-td-m10c",
       "name": "M10C 17 pdr SP",
       "nation": "Britain",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "28\"",
       "rof": 2,
       "at": 6,
@@ -2314,7 +3658,10 @@
       "armor_front": 1,
       "armor_flank": 0,
       "armament": "OQF 17 pdr gun, .50cal AA MG",
-      "notes": ["Tracked", "Limited HE"],
+      "notes": [
+        "Tracked",
+        "Limited HE"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2322,10 +3669,16 @@
       "id": "br-spa-sexton",
       "name": "Sexton",
       "nation": "Britain",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 4,
@@ -2333,7 +3686,12 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "OQF 25 pdr gun, AA MG",
-      "notes": ["Tracked", "Hull Mounted", "Medium Artillery", "Smoke"],
+      "notes": [
+        "Tracked",
+        "Hull Mounted",
+        "Medium Artillery",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2341,10 +3699,17 @@
       "id": "br-spa-priest",
       "name": "Priest",
       "nation": "Britain",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 1,
       "at": 4,
@@ -2352,7 +3717,13 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "M2A1 105mm howitzer, AA MG",
-      "notes": ["Tracked", "Hull Mounted", "Smoke", "Bunker Buster", "Medium Artillery"],
+      "notes": [
+        "Tracked",
+        "Hull Mounted",
+        "Smoke",
+        "Bunker Buster",
+        "Medium Artillery"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2360,10 +3731,18 @@
       "id": "br-ac-daimler1",
       "name": "Daimler I",
       "nation": "Britain",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 3,
@@ -2371,7 +3750,10 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "OQF 2 pdr gun, Co-ax MG",
-      "notes": ["Wheeled", "Open Topped"],
+      "notes": [
+        "Wheeled",
+        "Open Topped"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2379,10 +3761,14 @@
       "id": "br-ac-m20",
       "name": "M20 Scout Car",
       "nation": "Britain",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 2,
       "at": 1,
@@ -2390,7 +3776,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": ".50cal MG",
-      "notes": ["Wheeled", "Open Topped", "May only inflict RFPs"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "May only inflict RFPs"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2398,10 +3788,18 @@
       "id": "br-ac-humber23",
       "name": "Humber II or III",
       "nation": "Britain",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 3,
       "at": 2,
@@ -2409,7 +3807,10 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "Besa 15mm gun, Co-ax MG",
-      "notes": ["Wheeled", "Open Topped"],
+      "notes": [
+        "Wheeled",
+        "Open Topped"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2417,10 +3818,16 @@
       "id": "br-ac-humber4",
       "name": "Humber IV",
       "nation": "Britain",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 3,
@@ -2428,7 +3835,10 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "M6 37mm gun, Co-ax MG",
-      "notes": ["Wheeled", "Open Topped"],
+      "notes": [
+        "Wheeled",
+        "Open Topped"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2436,10 +3846,17 @@
       "id": "br-ac-aec1",
       "name": "AEC I",
       "nation": "Britain",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 3,
@@ -2447,7 +3864,13 @@
       "armor_front": 1,
       "armor_flank": 0,
       "armament": "OQF 2 pdr gun, Co-ax MG",
-      "notes": ["Wheeled", "Open Topped", "Overloaded", "Slow", "Limited HE"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Overloaded",
+        "Slow",
+        "Limited HE"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2455,10 +3878,16 @@
       "id": "br-ac-aec3",
       "name": "AEC III",
       "nation": "Britain",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 4,
@@ -2466,7 +3895,13 @@
       "armor_front": 1,
       "armor_flank": 0,
       "armament": "M3 75mm gun, Co-ax MG",
-      "notes": ["Wheeled", "Open Topped", "Overloaded", "Slow", "Smoke"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Overloaded",
+        "Slow",
+        "Smoke"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2474,10 +3909,21 @@
       "id": "br-recon-universal-carrier",
       "name": "Universal Carrier",
       "nation": "Britain",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean", "Pacific"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -2485,7 +3931,10 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "Hull MG",
-      "notes": ["Half-Tracked", "Open Topped"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2493,10 +3942,19 @@
       "id": "br-recon-universal-carrier-boys",
       "name": "Universal Carrier (Boys)",
       "nation": "Britain",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean", "Pacific"],
-      "years": [1939, 1940, 1941, 1942, 1943],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943
+      ],
       "gun_range": "16\"",
       "rof": 2,
       "at": 1,
@@ -2504,7 +3962,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "Boys anti-tank rifle",
-      "notes": ["Half-Tracked", "Open Topped", "Hull-Mounted"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Hull-Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2512,10 +3974,16 @@
       "id": "br-recon-universal-carrier-piat",
       "name": "Universal Carrier (PIAT)",
       "nation": "Britain",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "8\"",
       "rof": 1,
       "at": 4,
@@ -2523,7 +3991,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "PIAT",
-      "notes": ["Half-Tracked", "Open Topped", "Hull-Mounted"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Hull-Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2531,10 +4003,16 @@
       "id": "br-recon-universal-carrier-mg",
       "name": "Universal Carrier (.5\" MG)",
       "nation": "Britain",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 3,
       "at": 1,
@@ -2542,7 +4020,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": ".5\" MG",
-      "notes": ["Half-Tracked", "Open Topped", "Hull-Mounted"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Hull-Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2550,10 +4032,18 @@
       "id": "br-recon-indian-carrier",
       "name": "Indian Pattern Carrier",
       "nation": "Britain",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Mediterranean", "Pacific"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -2561,7 +4051,10 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "Hull MG",
-      "notes": ["Wheeled", "Open Topped"],
+      "notes": [
+        "Wheeled",
+        "Open Topped"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2569,10 +4062,19 @@
       "id": "br-recon-daimler-dingo",
       "name": "Daimler Dingo",
       "nation": "Britain",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -2580,7 +4082,10 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "AA MG",
-      "notes": ["Wheeled", "Open Topped"],
+      "notes": [
+        "Wheeled",
+        "Open Topped"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2588,10 +4093,18 @@
       "id": "br-recon-humber-lrc",
       "name": "Humber LRC III",
       "nation": "Britain",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 2,
       "at": 1,
@@ -2599,7 +4112,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "Boys anti-tank rifle, AA MG",
-      "notes": ["Wheeled", "Open Topped", "Hull-Mounted"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Hull-Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2607,10 +4124,17 @@
       "id": "br-recon-otter-lrc",
       "name": "Otter LRC I",
       "nation": "Britain",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 2,
       "at": 1,
@@ -2618,7 +4142,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "Boys anti-tank rifle, AA MG",
-      "notes": ["Wheeled", "Open Topped", "Hull-Mounted"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Hull-Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2626,10 +4154,17 @@
       "id": "br-spaa-bofors-sp",
       "name": "Bofors 40mm SP",
       "nation": "Britain",
-      "branch": "Anti-Air",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 3,
       "at": 2,
@@ -2637,7 +4172,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": "Bofors 40mm gun",
-      "notes": ["Wheeled", "Anti-Air"],
+      "notes": [
+        "Wheeled",
+        "Anti-Air"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2645,10 +4183,20 @@
       "id": "br-transport-truck",
       "name": "CMP/Bedford/Morris Truck",
       "nation": "Britain",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -2656,7 +4204,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Wheeled", "Open Topped", "Carries 3 Teams"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Carries 3 Teams"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2664,10 +4216,20 @@
       "id": "br-transport-quad",
       "name": "Morris C8/Quad/AT Tractor",
       "nation": "Britain",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -2675,7 +4237,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Wheeled", "Open Topped", "Carries 2 Teams"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Carries 2 Teams"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2683,10 +4249,18 @@
       "id": "br-transport-white-marmon",
       "name": "White/Marmon Scout Car",
       "nation": "Britain",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -2694,7 +4268,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": null,
-      "notes": ["Wheeled", "Open Topped", "Carries 1 Team"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Carries 1 Team"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2702,10 +4280,17 @@
       "id": "br-transport-humber-scout",
       "name": "Humber Scout Car",
       "nation": "Britain",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Western Front", "Mediterranean"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -2713,7 +4298,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "AA MG",
-      "notes": ["Wheeled", "Open Topped", "Carries 1 Team"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Carries 1 Team"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2721,10 +4310,14 @@
       "id": "br-transport-m5-halftrack",
       "name": "M5 Half-Track",
       "nation": "Britain",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Western Front"],
-      "years": [1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -2732,7 +4325,11 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": null,
-      "notes": ["Half-Tracked", "Open Topped", "Carries 3 Teams"],
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Carries 3 Teams"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2740,10 +4337,19 @@
       "id": "sv-inf-rifle-mg",
       "name": "Rifle/MG",
       "nation": "Soviet Union",
-      "branch": "Infantry",
       "type": "Infantry",
-      "theater": ["Eastern Front"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 2,
       "at": null,
@@ -2759,10 +4365,17 @@
       "id": "sv-inf-smg",
       "name": "SMG",
       "nation": "Soviet Union",
-      "branch": "Infantry",
       "type": "Infantry",
-      "theater": ["Eastern Front"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "4\"",
       "rof": 3,
       "at": null,
@@ -2770,7 +4383,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Re-roll failed Assault Checks"],
+      "notes": [
+        "Re-roll failed Assault Checks"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2778,10 +4393,17 @@
       "id": "sv-gun-ptrd",
       "name": "PTRD Anti-Tank Rifle",
       "nation": "Soviet Union",
-      "branch": "Anti-Tank",
-      "type": "Gun",
-      "theater": ["Eastern Front"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Anti-Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 2,
       "at": 1,
@@ -2789,7 +4411,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Man-Portable"],
+      "notes": [
+        "Man-Portable"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2797,10 +4421,19 @@
       "id": "sv-gun-maksim",
       "name": "Maksim HMG",
       "nation": "Soviet Union",
-      "branch": "Infantry",
-      "type": "Gun",
-      "theater": ["Eastern Front"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Infantry",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 4,
       "at": null,
@@ -2808,7 +4441,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Man-Portable"],
+      "notes": [
+        "Man-Portable"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2816,10 +4451,17 @@
       "id": "sv-gun-82mm-mortar",
       "name": "82-BM-41 Mortar",
       "nation": "Soviet Union",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Eastern Front"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 0,
@@ -2827,7 +4469,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Man-Portable", "Light Artillery"],
+      "notes": [
+        "Man-Portable",
+        "Light Artillery"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2835,10 +4480,17 @@
       "id": "sv-gun-120mm-mortar",
       "name": "120-PM-38 Mortar",
       "nation": "Soviet Union",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Eastern Front"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": 1,
@@ -2846,7 +4498,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Medium Artillery"],
+      "notes": [
+        "Large Base",
+        "Medium Artillery"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2854,10 +4509,19 @@
       "id": "sv-gun-37mm-aa",
       "name": "37mm obr 1939 Gun",
       "nation": "Soviet Union",
-      "branch": "Anti-Air",
-      "type": "Gun",
-      "theater": ["Eastern Front"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 3,
       "at": 2,
@@ -2865,7 +4529,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Immobile", "Anti-Air"],
+      "notes": [
+        "Large Base",
+        "Immobile",
+        "Anti-Air"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2873,10 +4541,19 @@
       "id": "sv-gun-85mm-aa",
       "name": "85mm obr 1939 Gun",
       "nation": "Soviet Union",
-      "branch": "Anti-Air",
-      "type": "Gun",
-      "theater": ["Eastern Front"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "28\"",
       "rof": 2,
       "at": 5,
@@ -2884,7 +4561,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Immobile", "Anti-Air"],
+      "notes": [
+        "Large Base",
+        "Immobile",
+        "Anti-Air"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2892,10 +4573,16 @@
       "id": "sv-gun-45mm",
       "name": "45mm obr 1942 Gun",
       "nation": "Soviet Union",
-      "branch": "Anti-Tank",
-      "type": "Gun",
-      "theater": ["Eastern Front"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Anti-Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 3,
       "at": 3,
@@ -2911,10 +4598,15 @@
       "id": "sv-gun-zis2",
       "name": "57mm ZIS-2 Gun",
       "nation": "Soviet Union",
-      "branch": "Anti-Tank",
-      "type": "Gun",
-      "theater": ["Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Anti-Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 3,
       "at": 5,
@@ -2922,7 +4614,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base"],
+      "notes": [
+        "Large Base"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2930,10 +4624,16 @@
       "id": "sv-gun-zis3",
       "name": "76mm ZIS-3 Gun",
       "nation": "Soviet Union",
-      "branch": "Anti-Tank",
-      "type": "Gun",
-      "theater": ["Eastern Front"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Anti-Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 4,
@@ -2941,7 +4641,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Light Artillery"],
+      "notes": [
+        "Large Base",
+        "Light Artillery"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2949,10 +4652,19 @@
       "id": "sv-gun-122mm-howitzer",
       "name": "122mm obr 1938 Howitzer",
       "nation": "Soviet Union",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Eastern Front"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 1,
       "at": 3,
@@ -2960,7 +4672,12 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Immobile", "Bunker Buster", "Medium Artillery"],
+      "notes": [
+        "Large Base",
+        "Immobile",
+        "Bunker Buster",
+        "Medium Artillery"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2968,10 +4685,15 @@
       "id": "sv-gun-152mm-howitzer",
       "name": "152mm obr 1943 Howitzer",
       "nation": "Soviet Union",
-      "branch": "Artillery",
-      "type": "Gun",
-      "theater": ["Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 1,
       "at": 4,
@@ -2979,7 +4701,12 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Large Base", "Immobile", "Bunker Buster", "Heavy Artillery"],
+      "notes": [
+        "Large Base",
+        "Immobile",
+        "Bunker Buster",
+        "Heavy Artillery"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -2987,10 +4714,14 @@
       "id": "sv-tank-t70",
       "name": "T-70 obr 1942/43",
       "nation": "Soviet Union",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1942, 1943],
+      "type": "Armored",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1942,
+        1943
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 3,
@@ -2998,7 +4729,9 @@
       "armor_front": 1,
       "armor_flank": 0,
       "armament": "45mm obr 1938 gun, Co-ax MG",
-      "notes": ["Tracked"],
+      "notes": [
+        "Tracked"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3006,10 +4739,14 @@
       "id": "sv-tank-t34-41",
       "name": "T-34 obr 1941/42",
       "nation": "Soviet Union",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1941, 1942],
+      "type": "Armored",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1941,
+        1942
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 4,
@@ -3017,7 +4754,11 @@
       "armor_front": 2,
       "armor_flank": 1,
       "armament": "76mm F-34 gun, Co-ax MG, Hull MG",
-      "notes": ["Tracked", "Fast", "Wide Tracks"],
+      "notes": [
+        "Tracked",
+        "Fast",
+        "Wide Tracks"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3025,10 +4766,15 @@
       "id": "sv-tank-t34-85",
       "name": "T-34/85 obr 1943",
       "nation": "Soviet Union",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 5,
@@ -3036,7 +4782,9 @@
       "armor_front": 3,
       "armor_flank": 2,
       "armament": "85mm D-5T gun, Co-ax MG, Hull MG",
-      "notes": ["Tracked"],
+      "notes": [
+        "Tracked"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3044,10 +4792,14 @@
       "id": "sv-tank-kv1s",
       "name": "KV-1s",
       "nation": "Soviet Union",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1942, 1943],
+      "type": "Armored",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1942,
+        1943
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 4,
@@ -3055,7 +4807,10 @@
       "armor_front": 3,
       "armor_flank": 2,
       "armament": "76mm F-34 gun, Co-ax MG, Hull MG",
-      "notes": ["Tracked", "Wide Tracks"],
+      "notes": [
+        "Tracked",
+        "Wide Tracks"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3063,10 +4818,13 @@
       "id": "sv-tank-kv85",
       "name": "KV-85",
       "nation": "Soviet Union",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1943],
+      "type": "Armored",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1943
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 5,
@@ -3074,7 +4832,10 @@
       "armor_front": 4,
       "armor_flank": 3,
       "armament": "85mm D-5T gun, Co-ax MG",
-      "notes": ["Tracked", "Slow"],
+      "notes": [
+        "Tracked",
+        "Slow"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3082,10 +4843,14 @@
       "id": "sv-tank-is2",
       "name": "IS-2",
       "nation": "Soviet Union",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 1,
       "at": 7,
@@ -3093,7 +4858,11 @@
       "armor_front": 4,
       "armor_flank": 3,
       "armament": "122mm D-25T gun, Co-ax MG",
-      "notes": ["Tracked", "Slow", "Bunker Buster"],
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Bunker Buster"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3101,10 +4870,15 @@
       "id": "sv-tank-ot34",
       "name": "OT-34",
       "nation": "Soviet Union",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1942, 1943, 1944],
+      "type": "Armored",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 4,
@@ -3112,7 +4886,12 @@
       "armor_front": 2,
       "armor_flank": 1,
       "armament": "76mm F-34 gun, ATO-42 flame-thrower",
-      "notes": ["Tracked", "Fast", "Wide Tracks", "Flame-Thrower"],
+      "notes": [
+        "Tracked",
+        "Fast",
+        "Wide Tracks",
+        "Flame-Thrower"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3120,10 +4899,14 @@
       "id": "sv-tank-kv8s",
       "name": "KV-8s",
       "nation": "Soviet Union",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1942, 1943],
+      "type": "Armored",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1942,
+        1943
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 3,
@@ -3131,7 +4914,11 @@
       "armor_front": 3,
       "armor_flank": 2,
       "armament": "45mm obr 1938 gun, ATO-42 FT, Hull MG",
-      "notes": ["Tracked", "Wide Tracks", "Flame-Thrower"],
+      "notes": [
+        "Tracked",
+        "Wide Tracks",
+        "Flame-Thrower"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3139,10 +4926,15 @@
       "id": "sv-spg-su76m",
       "name": "SU-76M",
       "nation": "Soviet Union",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 2,
       "at": 4,
@@ -3150,7 +4942,11 @@
       "armor_front": 1,
       "armor_flank": 0,
       "armament": "76mm ZIS-3 gun",
-      "notes": ["Tracked", "Wide Tracks", "Hull Mounted"],
+      "notes": [
+        "Tracked",
+        "Wide Tracks",
+        "Hull Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3158,10 +4954,15 @@
       "id": "sv-spg-su85",
       "name": "SU-85",
       "nation": "Soviet Union",
-      "branch": "Armored",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Armored",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "28\"",
       "rof": 2,
       "at": 5,
@@ -3169,7 +4970,10 @@
       "armor_front": 2,
       "armor_flank": 1,
       "armament": "85mm D-5S gun",
-      "notes": ["Tracked", "Hull Mounted"],
+      "notes": [
+        "Tracked",
+        "Hull Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3177,10 +4981,15 @@
       "id": "sv-spg-su122",
       "name": "SU-122",
       "nation": "Soviet Union",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "20\"",
       "rof": 2,
       "at": 4,
@@ -3188,7 +4997,11 @@
       "armor_front": 2,
       "armor_flank": 1,
       "armament": "122mm obr 1938 howitzer",
-      "notes": ["Tracked", "Bunker Buster", "Hull Mounted"],
+      "notes": [
+        "Tracked",
+        "Bunker Buster",
+        "Hull Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3196,10 +5009,15 @@
       "id": "sv-spg-su152",
       "name": "SU-152",
       "nation": "Soviet Union",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 1,
       "at": 6,
@@ -3207,7 +5025,12 @@
       "armor_front": 3,
       "armor_flank": 2,
       "armament": "152mm ML-20S gun",
-      "notes": ["Tracked", "Slow", "Bunker Buster", "Hull Mounted"],
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Bunker Buster",
+        "Hull Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3215,10 +5038,14 @@
       "id": "sv-spg-isu122",
       "name": "ISU-122",
       "nation": "Soviet Union",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 1,
       "at": 7,
@@ -3226,7 +5053,12 @@
       "armor_front": 4,
       "armor_flank": 3,
       "armament": "122mm D-25S gun",
-      "notes": ["Tracked", "Slow", "Bunker Buster", "Hull Mounted"],
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Bunker Buster",
+        "Hull Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3234,10 +5066,14 @@
       "id": "sv-spg-isu152",
       "name": "ISU-152",
       "nation": "Soviet Union",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
       "gun_range": "24\"",
       "rof": 1,
       "at": 6,
@@ -3245,7 +5081,12 @@
       "armor_front": 4,
       "armor_flank": 3,
       "armament": "152mm ML-20S gun",
-      "notes": ["Tracked", "Slow", "Bunker Buster", "Hull Mounted"],
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Bunker Buster",
+        "Hull Mounted"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3253,10 +5094,17 @@
       "id": "sv-spa-katyusha",
       "name": "BM-13 Katyusha",
       "nation": "Soviet Union",
-      "branch": "Artillery",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Artillery",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -3264,7 +5112,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": "BM-13-16 rocket launcher",
-      "notes": ["Wheeled", "Medium Artillery"],
+      "notes": [
+        "Wheeled",
+        "Medium Artillery"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3272,10 +5123,17 @@
       "id": "sv-spaa-dshk",
       "name": "DShK AA MG on Truck",
       "nation": "Soviet Union",
-      "branch": "Anti-Air",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 3,
       "at": 1,
@@ -3283,7 +5141,13 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": "DShK AA MG",
-      "notes": ["Wheeled", "Open Topped", "Anti-Air", "Limited HE", "May only inflict RFPs"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Anti-Air",
+        "Limited HE",
+        "May only inflict RFPs"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3291,10 +5155,15 @@
       "id": "sv-spaa-zsu-m17",
       "name": "ZSU M17 MGMC",
       "nation": "Soviet Union",
-      "branch": "Anti-Air",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1943, 1944, 1945],
+      "type": "Anti-Air",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 5,
       "at": 1,
@@ -3302,7 +5171,12 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "M45 quad .50cal MG",
-      "notes": ["Half-Tracked", "Anti-Air", "Limited HE", "May only inflict RFPs"],
+      "notes": [
+        "Half-Tracked",
+        "Anti-Air",
+        "Limited HE",
+        "May only inflict RFPs"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3310,10 +5184,16 @@
       "id": "sv-ac-ba64",
       "name": "BA-64",
       "nation": "Soviet Union",
-      "branch": "Recon",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Recon",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": "16\"",
       "rof": 2,
       "at": 2,
@@ -3321,7 +5201,10 @@
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "PTRD anti-tank rifle, AA MG",
-      "notes": ["Wheeled", "Open Topped"],
+      "notes": [
+        "Wheeled",
+        "Open Topped"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3329,10 +5212,16 @@
       "id": "sv-transport-ford-gpa",
       "name": "Ford GPA Amphibious Jeep",
       "nation": "Soviet Union",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1942, 1943, 1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -3340,7 +5229,12 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Wheeled", "Open Topped", "Amphibious", "Carries 1 Team"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Amphibious",
+        "Carries 1 Team"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3348,10 +5242,17 @@
       "id": "sv-transport-zis-truck",
       "name": "ZIS-5/6/Dodge Truck",
       "nation": "Soviet Union",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -3359,7 +5260,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Wheeled", "Open Topped", "Carries 3 Teams"],
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Carries 3 Teams"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3367,10 +5272,19 @@
       "id": "sv-transport-horse-wagon",
       "name": "Horse-Drawn Wagon",
       "nation": "Soviet Union",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1939, 1940, 1941, 1942, 1943, 1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -3378,7 +5292,10 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Wagon (2d6\")", "Carries 2 Teams"],
+      "notes": [
+        "Wagon (2d6\")",
+        "Carries 2 Teams"
+      ],
       "special_rules": [],
       "free": true
     },
@@ -3386,10 +5303,17 @@
       "id": "sv-transport-stalinets",
       "name": "Stalinets",
       "nation": "Soviet Union",
-      "branch": "Transport",
-      "type": "Vehicle",
-      "theater": ["Eastern Front"],
-      "years": [1941, 1942, 1943, 1944, 1945],
+      "type": "Transport",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -3397,7 +5321,11 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": ["Tracked", "Slow", "Carries 3 Teams"],
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Carries 3 Teams"
+      ],
       "special_rules": [],
       "free": true
     }
