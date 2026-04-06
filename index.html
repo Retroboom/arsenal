@@ -2172,18 +2172,22 @@ async function loadLibraryTab(tab) {
   const db = firebase.database();
   let snap;
 
-  if (tab === 'browse') {
-    snap = await db.ref('forces').orderByChild('published').equalTo(true).once('value');
-  } else {
-    if (!currentUser) {
-      body.innerHTML = '<div class="lib-empty">Sign in to see your saved forces.</div>';
-      return;
-    }
-    snap = await db.ref('forces').orderByChild('authorUid').equalTo(currentUser.uid).once('value');
-  }
+  snap = await db.ref('forces').once('value');
 
   const forces = [];
   snap.forEach(child => forces.push(child.val()));
+
+  const filtered = tab === 'browse'
+    ? forces.filter(f => f.published)
+    : forces.filter(f => currentUser && f.authorUid === currentUser.uid);
+
+  if (!currentUser && tab === 'mine') {
+    body.innerHTML = '<div class="lib-empty">Sign in to see your saved forces.</div>';
+    return;
+  }
+
+  forces.length = 0;
+  filtered.forEach(f => forces.push(f));
   forces.sort((a, b) => (b.created || 0) - (a.created || 0));
 
   if (forces.length === 0) {
