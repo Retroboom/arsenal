@@ -2182,7 +2182,7 @@ async function loadLibraryTab(tab) {
   snap = await db.ref('forces').once('value');
 
   const forces = [];
-  snap.forEach(child => forces.push(child.val()));
+  snap.forEach(child => { forces.push(child.val()); });
 
   const filtered = tab === 'browse'
     ? forces.filter(f => f.published)
