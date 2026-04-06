@@ -398,15 +398,50 @@
   .note-tag {
     font-family: var(--mono);
     font-size: 9px;
-    color: var(--text3);
+    color: var(--text);
     background: var(--bg3);
     border: 1px solid var(--border);
     padding: 2px 5px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    position: relative;
+    cursor: default;
   }
 
-  .note-tag.special { border-color: var(--accent2); color: #bc7a7a; }
+  .note-tag.special { color: var(--text); border-color: var(--border); }
+
+  .note-tag[data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e1c18;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-size: 10px;
+    letter-spacing: 0.3px;
+    line-height: 1.5;
+    padding: 6px 10px;
+    white-space: nowrap;
+    max-width: 260px;
+    white-space: normal;
+    z-index: 200;
+    pointer-events: none;
+    text-transform: none;
+  }
+
+  .note-tag[data-tip]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 1px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--border);
+    z-index: 201;
+    pointer-events: none;
+  }
 
   .card-footer {
     display: flex;
@@ -1064,6 +1099,239 @@
     background: var(--border);
   }
 
+  /* LIBRARY MODAL */
+  .library-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 9, 8, 0.92);
+    z-index: 300;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 16px;
+    overflow-y: auto;
+  }
+
+  .library-modal.open { display: flex; }
+
+  .library-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    width: 100%;
+    max-width: 800px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .library-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .library-title {
+    font-family: var(--display);
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--accent);
+  }
+
+  .library-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .library-tab {
+    padding: 10px 20px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text3);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.12s;
+    margin-bottom: -1px;
+  }
+
+  .library-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .library-tab:hover { color: var(--text); }
+
+  .library-body {
+    padding: 20px;
+    flex: 1;
+  }
+
+  .force-card {
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    background: var(--bg);
+    cursor: pointer;
+    transition: border-color 0.12s;
+  }
+
+  .force-card:hover { border-color: var(--accent); }
+
+  .force-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    gap: 12px;
+  }
+
+  .force-card-name {
+    font-family: var(--display);
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--text);
+  }
+
+  .force-card-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .force-card-desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .force-card-platoons {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+  }
+
+  .force-card-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  .force-card-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.12s;
+  }
+
+  .force-card-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .force-card-btn.danger:hover { border-color: var(--red); color: #ff9a9a; }
+
+  .lib-empty {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    text-align: center;
+    padding: 40px;
+    letter-spacing: 0.5px;
+    line-height: 1.8;
+  }
+
+  .lib-loading {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    text-align: center;
+    padding: 40px;
+    letter-spacing: 1px;
+  }
+
+  /* FORCE NOTES */
+  .force-notes-area {
+    padding: 0 16px 8px;
+    flex-shrink: 0;
+  }
+
+  .force-notes-input {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-top: none;
+    color: var(--text2);
+    font-family: var(--body);
+    font-size: 12px;
+    padding: 8px 10px;
+    outline: none;
+    resize: none;
+    line-height: 1.5;
+    height: 64px;
+    transition: border-color 0.15s;
+  }
+
+  .force-notes-input:focus { border-color: var(--accent); }
+  .force-notes-input::placeholder { color: var(--text3); font-style: italic; }
+
+  .force-notes-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--text3);
+    text-transform: uppercase;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-bottom: none;
+    padding: 4px 10px;
+    display: block;
+  }
+
+  /* SHARE URL */
+  .share-url-bar {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .share-url-input {
+    flex: 1;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 6px 8px;
+    outline: none;
+  }
+
+  .copy-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 6px 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.12s;
+    white-space: nowrap;
+  }
+
+  .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+
   /* PRINT */
   @media print {
     .sidebar, header, .force-panel, .add-force-btn, .table-add-btn { display: none !important; }
@@ -1077,6 +1345,7 @@
 <header>
   <div class="logo">Hail of Fire <span>// ARSENAL DATABASE</span></div>
   <div class="header-right">
+    <button class="auth-btn" onclick="openLibrary()">Library</button>
     <button class="force-toggle-btn" onclick="toggleForcePanel()">
       Force Builder <span class="force-count-badge" id="force-count">0</span>
     </button>
@@ -1157,6 +1426,10 @@
     <button class="close-panel-btn" onclick="toggleForcePanel()">✕</button>
   </div>
   <input type="text" class="force-name-input" id="force-name" placeholder="Name your force...">
+  <div class="force-notes-area">
+    <span class="force-notes-label">Force Notes</span>
+    <textarea class="force-notes-input" id="force-notes" placeholder="History, composition, playstyle, context — anything you want to share..."></textarea>
+  </div>
   <div class="add-platoon-bar">
     <button class="add-platoon-btn" onclick="addPlatoon()">+ Add Platoon</button>
   </div>
@@ -1175,9 +1448,31 @@
       </div>
     </div>
     <div class="force-actions">
-      <button class="action-btn" onclick="printForce()">Print</button>
-      <button class="action-btn" onclick="exportForce()">Export</button>
+      <button class="action-btn" onclick="saveForce()">Save</button>
+      <button class="action-btn" onclick="publishForce()">Publish</button>
+      <button class="action-btn" onclick="shareForce()">Share</button>
       <button class="action-btn danger" onclick="clearForce()">Clear</button>
+    </div>
+    <div id="share-url-bar" style="display:none" class="share-url-bar">
+      <input class="share-url-input" id="share-url-input" readonly>
+      <button class="copy-btn" onclick="copyShareUrl()">Copy</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIBRARY MODAL -->
+<div class="library-modal" id="library-modal">
+  <div class="library-box">
+    <div class="library-header">
+      <div class="library-title">Force Library</div>
+      <button class="close-panel-btn" onclick="closeLibrary()">✕</button>
+    </div>
+    <div class="library-tabs">
+      <button class="library-tab active" id="tab-browse" onclick="switchLibTab('browse')">Browse</button>
+      <button class="library-tab" id="tab-mine" onclick="switchLibTab('mine')">My Forces</button>
+    </div>
+    <div class="library-body" id="library-body">
+      <div class="lib-loading">Loading...</div>
     </div>
   </div>
 </div>
@@ -1326,9 +1621,54 @@ function yearRange(years) {
   return min === max ? `${min}` : `${min}–${max}`;
 }
 
+const RULE_TIPS = {
+  'Flame-Thrower': 'Ignores cover. Range 8". On a hit, target is automatically Suppressed.',
+  'Bunker Buster': 'May re-roll failed FP checks against teams in Hard Cover.',
+  'Wide Tracks': 'Ignores Bog checks in difficult terrain.',
+  'Unreliable': 'Roll before moving. On a 1, vehicle is Bogged Down for the turn.',
+  'Fast': 'Add 4" to all movement rates.',
+  'Slow': 'Halve all movement rates.',
+  'Hull Mounted': 'Gun has a limited 45° forward arc of fire.',
+  'Open Topped': 'Receives Fire Points from artillery bombardments and may be targeted by small arms fire.',
+  'Man-Portable': 'May move and fire in the same activation without penalty.',
+  'Small Base': 'Uses a small base.',
+  'Large Base': 'Uses a large base.',
+  'Anti-Air': 'May target aircraft. Counts as AA for air support resolution.',
+  'Limited HE': 'HE attacks use half Firepower (round down, minimum 1).',
+  'Light Mortar': 'Indirect fire. No minimum range. May not bombard.',
+  'Light Artillery': 'Indirect fire. Minimum range 12".',
+  'Medium Artillery': 'Indirect fire. Minimum range 16". Requires FO or Platoon Leader to direct fire.',
+  'Heavy Artillery': 'Indirect fire. Minimum range 24". Requires FO or Platoon Leader to direct fire.',
+  'Tracked': 'May move through difficult terrain. Subject to Bog checks.',
+  'Wheeled': 'Road movement only. Cannot enter difficult terrain.',
+  'Half-Tracked': 'May enter difficult terrain. Subject to Bog checks.',
+  'Immobile': 'Cannot move once deployed. May pivot to face a target.',
+  'Smoke': 'May fire smoke rounds instead of HE. Smoke blocks line of sight until end of turn.',
+  'Platoon Leader': 'Commands the platoon. Required for platoon Morale checks.',
+  'Forward Observer': 'May call in indirect fire and air support on behalf of the force.',
+  'May only inflict RFPs': 'Cannot cause Kill results. All hits cause Received Fire Points only.',
+  'Cannot fire from buildings': 'This weapon cannot be used from within a building.',
+  'Re-roll failed Assault Checks': 'When assaulting, may re-roll any failed Assault Checks.',
+  'Additional weapon assigned to other Teams': 'Not a separate team. Distributed as an additional weapon to other teams in the platoon.',
+  'Amphibious': 'May cross water obstacles without penalty.',
+  'Overloaded': 'Applies movement penalties when crossing obstacles or rough ground.',
+  'Carries 1 Team': 'Transport capacity: 1 team.',
+  'Carries 2 Teams': 'Transport capacity: 2 teams.',
+  'Carries 3 Teams': 'Transport capacity: 3 teams.',
+  'Carries 4 Teams': 'Transport capacity: 4 teams.',
+  'RoF 3 if less than 8" from target': 'Rate of Fire increases to 3 when firing at targets within 8".',
+  'May only be used in assault and only in the first round': 'Single-use weapon. May only fire during the first round of an assault.',
+  'Hull-Mounted': 'Gun has a limited 45° forward arc of fire.',
+};
+
 function isSpecialNote(note) {
   const special = ['Flame-Thrower', 'Bunker Buster', 'Wide Tracks', 'Unreliable', 'Fast', 'Slow', 'Hull Mounted', 'Open Topped'];
   return special.includes(note);
+}
+
+function noteTag(note) {
+  const tip = RULE_TIPS[note];
+  return `<span class="note-tag ${isSpecialNote(note) ? 'special' : ''}" ${tip ? `data-tip="${tip.replace(/"/g, '&quot;')}"` : ''}>${note}</span>`;
 }
 
 function renderGrid(container, forceIds) {
@@ -1397,7 +1737,7 @@ function renderGrid(container, forceIds) {
           </div>
           ${unit.armament ? `<div class="card-armament">${unit.armament}</div>` : ''}
           <div class="card-notes">
-            ${unit.notes.map(n => `<span class="note-tag ${isSpecialNote(n) ? 'special' : ''}">${n}</span>`).join('')}
+            ${unit.notes.map(n => noteTag(n)).join('')}
           </div>
           <div class="card-footer">
             <span class="years-display">
@@ -1407,9 +1747,9 @@ function renderGrid(container, forceIds) {
             ${locked
               ? `<button class="add-force-btn" onclick="showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Ko-fi subscriber only</button>`
               : `<div class="card-footer-btns">
-                  ${unit.standard_platoon ? `<button class="add-platoon-standard-btn" onclick="addAsStandardPlatoon('${unit.id}')">Add as Platoon</button>` : ''}
+                  ${unit.standard_platoon ? `<button class="add-platoon-standard-btn" onclick="addAsStandardPlatoon('${unit.id}')">New Platoon</button>` : ''}
                   <button class="add-force-btn ${inForce ? 'added' : ''}" id="btn-${unit.id}" onclick="addTeamToPlatoon('${unit.id}')">
-                    ${inForce ? '✓ In Force' : '+'}
+                    ${inForce ? '✓ Added' : 'Add to Platoon'}
                   </button>
                 </div>`
             }
@@ -1711,6 +2051,219 @@ function showSubscribePrompt() {
   alert('This content is available to Ko-fi subscribers.\n\nVisit ko-fi.com/retroboom to subscribe.');
 }
 
+// ── FORCE LIBRARY ─────────────────────────────────────────────────────────────
+let currentLibTab = 'browse';
+let currentForceId = null; // ID of the loaded/saved force
+
+function getForceData() {
+  return {
+    name: document.getElementById('force-name').value || 'Untitled Force',
+    notes: document.getElementById('force-notes').value || '',
+    author: currentUser ? (currentUser.displayName || currentUser.email) : 'Anonymous',
+    authorUid: currentUser ? currentUser.uid : null,
+    authorEmail: currentUser ? currentUser.email : null,
+    nations: [...new Set(platoons.flatMap(p => p.teams.map(t => {
+      const u = allUnits.find(u => u.id === t.unitId);
+      return u ? u.nation : null;
+    }).filter(Boolean)))],
+    platoonCount: platoons.length,
+    breakLimit: 5 + (platoons.length * 2),
+    platoons: platoons.map(p => ({
+      name: p.name,
+      teams: p.teams.map(t => ({ unitId: t.unitId, qty: t.qty }))
+    })),
+    created: Date.now(),
+    published: false
+  };
+}
+
+function loadForceData(data) {
+  document.getElementById('force-name').value = data.name || '';
+  document.getElementById('force-notes').value = data.notes || '';
+  platoons = (data.platoons || []).map((p, i) => ({
+    id: `pl-${Date.now()}-${i}`,
+    name: p.name,
+    teams: p.teams || []
+  }));
+  platoonCounter = platoons.length;
+  activePlatoonId = platoons.length ? platoons[0].id : null;
+  updateForceUI();
+  renderUnits();
+}
+
+async function saveForce() {
+  if (!currentUser) { alert('Sign in to save forces.'); return; }
+  if (platoons.length === 0) { alert('Add at least one platoon before saving.'); return; }
+
+  const data = getForceData();
+  const db = firebase.database();
+
+  if (currentForceId) {
+    // Update existing
+    await db.ref(`forces/${currentForceId}`).update(data);
+    alert('Force saved.');
+  } else {
+    // New save
+    const ref = db.ref('forces').push();
+    currentForceId = ref.key;
+    await ref.set({ ...data, id: currentForceId });
+    alert('Force saved.');
+  }
+}
+
+async function publishForce() {
+  if (!currentUser) { alert('Sign in to publish forces.'); return; }
+  if (platoons.length === 0) { alert('Add at least one platoon before publishing.'); return; }
+
+  if (!confirm('Publish this force to the public library? Anyone can browse and load it.')) return;
+
+  const data = { ...getForceData(), published: true };
+  const db = firebase.database();
+
+  if (currentForceId) {
+    await db.ref(`forces/${currentForceId}`).update({ ...data, published: true });
+  } else {
+    const ref = db.ref('forces').push();
+    currentForceId = ref.key;
+    await ref.set({ ...data, id: currentForceId });
+  }
+
+  alert('Force published to the library.');
+}
+
+function shareForce() {
+  if (!currentForceId) {
+    alert('Save your force first before sharing.');
+    return;
+  }
+  const url = `${window.location.origin}${window.location.pathname}?force=${currentForceId}`;
+  document.getElementById('share-url-input').value = url;
+  document.getElementById('share-url-bar').style.display = 'flex';
+}
+
+function copyShareUrl() {
+  const input = document.getElementById('share-url-input');
+  input.select();
+  navigator.clipboard.writeText(input.value).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 1500);
+  });
+}
+
+function openLibrary() {
+  document.getElementById('library-modal').classList.add('open');
+  loadLibraryTab(currentLibTab);
+}
+
+function closeLibrary() {
+  document.getElementById('library-modal').classList.remove('open');
+}
+
+function switchLibTab(tab) {
+  currentLibTab = tab;
+  document.querySelectorAll('.library-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(`tab-${tab}`).classList.add('active');
+  loadLibraryTab(tab);
+}
+
+async function loadLibraryTab(tab) {
+  const body = document.getElementById('library-body');
+  body.innerHTML = '<div class="lib-loading">Loading...</div>';
+
+  const db = firebase.database();
+  let snap;
+
+  if (tab === 'browse') {
+    snap = await db.ref('forces').orderByChild('published').equalTo(true).once('value');
+  } else {
+    if (!currentUser) {
+      body.innerHTML = '<div class="lib-empty">Sign in to see your saved forces.</div>';
+      return;
+    }
+    snap = await db.ref('forces').orderByChild('authorUid').equalTo(currentUser.uid).once('value');
+  }
+
+  const forces = [];
+  snap.forEach(child => forces.push(child.val()));
+  forces.sort((a, b) => (b.created || 0) - (a.created || 0));
+
+  if (forces.length === 0) {
+    body.innerHTML = tab === 'browse'
+      ? '<div class="lib-empty">No forces published yet.<br>Build a force and publish it to be first.</div>'
+      : '<div class="lib-empty">No saved forces yet.<br>Build a force and click Save.</div>';
+    return;
+  }
+
+  body.innerHTML = forces.map(f => `
+    <div class="force-card">
+      <div class="force-card-header">
+        <div class="force-card-name">${f.name}</div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--text3);white-space:nowrap">${f.published ? '● Published' : '○ Private'}</span>
+      </div>
+      <div class="force-card-meta">
+        By ${f.author || 'Unknown'} &nbsp;·&nbsp;
+        ${(f.nations || []).join(', ')} &nbsp;·&nbsp;
+        ${f.platoonCount || 0} platoons &nbsp;·&nbsp;
+        BL ${f.breakLimit || 5}
+      </div>
+      ${f.notes ? `<div class="force-card-desc">${f.notes}</div>` : ''}
+      <div class="force-card-platoons">
+        ${(f.platoons || []).map(p => `${p.name} (${(p.teams||[]).reduce((s,t)=>s+t.qty,0)} teams)`).join(' &nbsp;|&nbsp; ')}
+      </div>
+      <div class="force-card-actions">
+        <button class="force-card-btn" onclick="loadForceFromLibrary('${f.id}')">Load into Builder</button>
+        <button class="force-card-btn" onclick="copyForceShareUrl('${f.id}')">Copy Share Link</button>
+        ${currentUser && f.authorUid === currentUser.uid ? `
+          ${!f.published ? `<button class="force-card-btn" onclick="publishForceById('${f.id}')">Publish</button>` : ''}
+          <button class="force-card-btn danger" onclick="deleteForce('${f.id}')">Delete</button>
+        ` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+async function loadForceFromLibrary(forceId) {
+  if (platoons.length > 0 && !confirm('Loading this force will replace your current force. Continue?')) return;
+  const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
+  const data = snap.val();
+  if (!data) { alert('Force not found.'); return; }
+  loadForceData(data);
+  currentForceId = forceId;
+  closeLibrary();
+  document.getElementById('force-panel').classList.add('open');
+}
+
+function copyForceShareUrl(forceId) {
+  const url = `${window.location.origin}${window.location.pathname}?force=${forceId}`;
+  navigator.clipboard.writeText(url).then(() => alert('Share link copied!'));
+}
+
+async function publishForceById(forceId) {
+  await firebase.database().ref(`forces/${forceId}`).update({ published: true });
+  loadLibraryTab(currentLibTab);
+}
+
+async function deleteForce(forceId) {
+  if (!confirm('Delete this force? This cannot be undone.')) return;
+  await firebase.database().ref(`forces/${forceId}`).remove();
+  if (currentForceId === forceId) currentForceId = null;
+  loadLibraryTab(currentLibTab);
+}
+
+async function checkUrlForce() {
+  const params = new URLSearchParams(window.location.search);
+  const forceId = params.get('force');
+  if (!forceId) return;
+  const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
+  const data = snap.val();
+  if (data) {
+    loadForceData(data);
+    currentForceId = forceId;
+    document.getElementById('force-panel').classList.add('open');
+  }
+}
+
 // ── AUTH ──────────────────────────────────────────────────────────────────────
 function emailToKey(email) {
   return email.toLowerCase().replace(/\./g, ',');
@@ -1771,7 +2324,8 @@ firebase.auth().onAuthStateChanged(async (user) => {
     gate.style.display = 'none';
     isSubscriber = await checkSubscriber(user.email);
     updateAuthUI(user, isSubscriber);
-    loadData();
+    await loadData();
+    await checkUrlForce();
   } else {
     gate.style.display = 'flex';
     isSubscriber = false;
