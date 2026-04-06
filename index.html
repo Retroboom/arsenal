@@ -1519,6 +1519,188 @@
   .force-card-platoon-row .pl-name { color: var(--text2); }
   .force-card-platoon-row .pl-teams { color: var(--text3); }
 
+  /* RATING BADGE (admin only) */
+  .rating-badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--accent);
+    background: rgba(224,192,96,0.08);
+    border: 1px solid rgba(224,192,96,0.25);
+    padding: 1px 5px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .rating-badge.unrated { color: var(--text3); background: none; border-color: var(--border); }
+
+  /* COMPARISON MODAL */
+  .compare-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(8,7,6,0.97);
+    z-index: 500;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    gap: 20px;
+  }
+
+  .compare-modal.open { display: flex; }
+
+  .compare-header {
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .compare-title {
+    font-family: var(--display);
+    font-size: 22px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .compare-sub {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 1px;
+  }
+
+  .compare-arena {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    max-width: 860px;
+    flex-shrink: 0;
+  }
+
+  .compare-card {
+    flex: 1;
+    background: var(--bg2);
+    border: 2px solid var(--border);
+    padding: 20px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    position: relative;
+    min-width: 0;
+  }
+
+  .compare-card:hover {
+    border-color: var(--accent);
+    background: var(--bg3);
+    transform: translateY(-2px);
+  }
+
+  .compare-card:active { transform: translateY(0); }
+
+  .compare-card-name {
+    font-family: var(--display);
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.1;
+  }
+
+  .compare-card-type {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .compare-stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+
+  .compare-armament {
+    font-size: 11px;
+    color: var(--text3);
+    font-style: italic;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .compare-notes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+
+  .compare-vs {
+    font-family: var(--display);
+    font-size: 36px;
+    color: var(--text3);
+    letter-spacing: 4px;
+    flex-shrink: 0;
+    user-select: none;
+  }
+
+  .compare-footer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+  }
+
+  .compare-count {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+  .compare-stop-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 7px 20px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.12s;
+  }
+
+  .compare-stop-btn:hover { border-color: var(--red); color: #ff9a9a; }
+
+  .compare-skip-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 7px 20px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.12s;
+  }
+
+  .compare-skip-btn:hover { border-color: var(--text2); color: var(--text2); }
+
+  .compare-flash {
+    position: absolute;
+    inset: 0;
+    background: rgba(224,192,96,0.12);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .compare-flash.show { opacity: 1; }
+
   /* FORCE SHEET MODAL */
   .force-sheet-modal {
     position: fixed;
@@ -1841,6 +2023,7 @@
   <div class="logo">Hail of Fire <span>// ARSENAL DATABASE</span></div>
   <div class="header-right">
     <button class="lib-nav-btn" onclick="openLibrary()">⊞ Force Library</button>
+    <button class="lib-nav-btn" id="rate-btn" onclick="openCompare()" style="display:none">▲ Rate Units</button>
     <button class="force-toggle-btn" onclick="toggleForcePanel()">
       Force Builder <span class="force-count-badge" id="force-count">0</span>
     </button>
@@ -1987,6 +2170,30 @@
     <div class="library-body" id="library-body">
       <div class="lib-loading">Loading...</div>
     </div>
+  </div>
+</div>
+
+<!-- COMPARISON MODAL -->
+<div class="compare-modal" id="compare-modal">
+  <div class="compare-header">
+    <div class="compare-title">Rate Units</div>
+    <div class="compare-sub">Click the unit you consider more valuable to a force</div>
+  </div>
+  <div class="compare-arena">
+    <div class="compare-card" id="compare-a" onclick="submitComparison('a')">
+      <div class="compare-flash" id="flash-a"></div>
+      <div id="compare-a-content"></div>
+    </div>
+    <div class="compare-vs">VS</div>
+    <div class="compare-card" id="compare-b" onclick="submitComparison('b')">
+      <div class="compare-flash" id="flash-b"></div>
+      <div id="compare-b-content"></div>
+    </div>
+  </div>
+  <div class="compare-footer">
+    <button class="compare-skip-btn" onclick="loadNextPair()">Skip</button>
+    <div class="compare-count" id="compare-count">0 comparisons submitted</div>
+    <button class="compare-stop-btn" onclick="closeCompare()">Stop</button>
   </div>
 </div>
 
@@ -2265,6 +2472,7 @@ function renderGrid(container, forceIds) {
             <span class="years-display">
               ${yearRange(unit.years)}
               <span class="base-badge">${unit.base || 'Medium'}</span>
+              ${isAdmin ? ratingBadgeHtml(unit.id) : ''}
             </span>
             ${locked
               ? `<button class="add-force-btn" onclick="showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Ko-fi subscriber only</button>`
@@ -2322,7 +2530,7 @@ function renderTable(container, forceIds) {
         <td class="table-stat ${unit.fp !== null && unit.fp !== undefined ? '' : 'null'}">${unit.fp !== null && unit.fp !== undefined ? unit.fp : '—'}</td>
         <td class="table-stat ${unit.armor_front !== null ? '' : 'null'}">${unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '—'}</td>
         <td class="table-notes">${unit.notes.map(n => noteTag(n)).join(' ')}</td>
-        <td style="color:var(--text3);font-size:10px;white-space:nowrap">${yearRange(unit.years)}</td>
+        <td style="color:var(--text3);font-size:10px;white-space:nowrap">${yearRange(unit.years)}${isAdmin ? ' ' + ratingBadgeHtml(unit.id) : ''}</td>
         <td>
           ${locked
             ? `<span style="font-family:var(--mono);font-size:9px;color:#9a8a5a;">🔒 Sub</span>`
@@ -2911,6 +3119,162 @@ async function checkUrlForce() {
   }
 }
 
+// ── ADMIN ─────────────────────────────────────────────────────────────────────
+let isAdmin = false;
+let unitRatings = {};   // { unitId: { rating, wins, losses, comparisons } }
+
+async function checkAdmin(email) {
+  if (!email) return false;
+  const key = emailToKey(email);
+  const snap = await firebase.database().ref(`admins/${key}`).once('value');
+  return snap.val() === true;
+}
+
+async function loadRatings() {
+  const snap = await firebase.database().ref('ratings').once('value');
+  unitRatings = snap.val() || {};
+}
+
+function ratingBadgeHtml(unitId) {
+  const r = unitRatings[unitId];
+  if (!r || r.comparisons === 0) {
+    return `<span class="rating-badge unrated">unrated</span>`;
+  }
+  return `<span class="rating-badge" title="${r.comparisons} comparisons · ${r.wins}W ${r.losses}L">${Math.round(r.rating)} ELO</span>`;
+}
+
+// ── ELO COMPARISON ────────────────────────────────────────────────────────────
+let compareUnitA = null;
+let compareUnitB = null;
+let compareSessionCount = 0;
+
+function eloExpected(ra, rb) {
+  return 1 / (1 + Math.pow(10, (rb - ra) / 400));
+}
+
+function eloNewRatings(ra, rb, aWon) {
+  const K = 32;
+  const ea = eloExpected(ra, rb);
+  const eb = 1 - ea;
+  return {
+    newA: Math.round(ra + K * ((aWon ? 1 : 0) - ea)),
+    newB: Math.round(rb + K * ((aWon ? 0 : 1) - eb))
+  };
+}
+
+function pickPair() {
+  // Weight toward units with fewer comparisons so coverage spreads evenly
+  const pool = allUnits.filter(u => u.free || isSubscriber);
+  if (pool.length < 2) return null;
+
+  pool.sort(() => {
+    // bias: units with fewer comparisons go first, with some randomness
+  });
+
+  const weighted = pool.map(u => {
+    const r = unitRatings[u.id];
+    const comps = r ? r.comparisons : 0;
+    const weight = 1 / (comps + 1);
+    return { unit: u, weight };
+  });
+
+  function pickOne(exclude) {
+    const candidates = weighted.filter(w => !exclude || w.unit.id !== exclude.id);
+    const total = candidates.reduce((s, w) => s + w.weight, 0);
+    let rand = Math.random() * total;
+    for (const c of candidates) {
+      rand -= c.weight;
+      if (rand <= 0) return c.unit;
+    }
+    return candidates[candidates.length - 1].unit;
+  }
+
+  const a = pickOne(null);
+  const b = pickOne(a);
+  return { a, b };
+}
+
+function compareCardHtml(unit) {
+  const armor = unit.armor_front !== null && unit.armor_front !== undefined
+    ? `${unit.armor_front}/${unit.armor_flank}` : '—';
+  return `
+    <div class="${nationBadgeClass(unit.nation)}" style="display:inline-block;margin-bottom:8px;font-size:9px;padding:2px 6px">${unit.nation}</div>
+    <div class="compare-card-name">${unit.name}</div>
+    <div class="compare-card-type">${unit.type}</div>
+    <div class="compare-stats">
+      <div class="stat-cell"><span class="stat-label">Range</span>${statDisplay(unit.gun_range)}</div>
+      <div class="stat-cell"><span class="stat-label">RoF</span>${statDisplay(unit.rof)}</div>
+      <div class="stat-cell"><span class="stat-label">AT</span>${statDisplay(unit.at)}</div>
+      <div class="stat-cell"><span class="stat-label">FP</span>${statDisplay(unit.fp)}</div>
+      <div class="stat-cell"><span class="stat-label">Armor</span>${unit.armor_front !== null ? `<span class="stat-value armor">${armor}</span>` : statDisplay(null)}</div>
+    </div>
+    ${unit.armament ? `<div class="compare-armament">${unit.armament}</div>` : ''}
+    <div class="compare-notes">${(unit.notes || []).map(n => noteTag(n)).join('')}</div>
+  `;
+}
+
+function loadNextPair() {
+  const pair = pickPair();
+  if (!pair) return;
+  compareUnitA = pair.a;
+  compareUnitB = pair.b;
+  document.getElementById('compare-a-content').innerHTML = compareCardHtml(pair.a);
+  document.getElementById('compare-b-content').innerHTML = compareCardHtml(pair.b);
+}
+
+async function submitComparison(winner) {
+  if (!compareUnitA || !compareUnitB) return;
+
+  const aWon = winner === 'a';
+  const flashEl = document.getElementById(aWon ? 'flash-a' : 'flash-b');
+  flashEl.classList.add('show');
+  setTimeout(() => flashEl.classList.remove('show'), 300);
+
+  const idA = compareUnitA.id;
+  const idB = compareUnitB.id;
+  const rA = (unitRatings[idA] && unitRatings[idA].rating) || 1200;
+  const rB = (unitRatings[idB] && unitRatings[idB].rating) || 1200;
+
+  const { newA, newB } = eloNewRatings(rA, rB, aWon);
+
+  // Update local cache
+  if (!unitRatings[idA]) unitRatings[idA] = { rating: 1200, wins: 0, losses: 0, comparisons: 0 };
+  if (!unitRatings[idB]) unitRatings[idB] = { rating: 1200, wins: 0, losses: 0, comparisons: 0 };
+  unitRatings[idA].rating = newA;
+  unitRatings[idA].comparisons++;
+  unitRatings[idA][aWon ? 'wins' : 'losses']++;
+  unitRatings[idB].rating = newB;
+  unitRatings[idB].comparisons++;
+  unitRatings[idB][aWon ? 'losses' : 'wins']++;
+
+  // Write to Firebase (non-blocking — don't await, keeps UI snappy)
+  const db = firebase.database();
+  db.ref(`ratings/${idA}`).set(unitRatings[idA]);
+  db.ref(`ratings/${idB}`).set(unitRatings[idB]);
+
+  compareSessionCount++;
+  document.getElementById('compare-count').textContent =
+    `${compareSessionCount} comparison${compareSessionCount !== 1 ? 's' : ''} submitted this session`;
+
+  loadNextPair();
+}
+
+function openCompare() {
+  if (allUnits.length < 2) { alert('Unit data not loaded yet.'); return; }
+  compareSessionCount = 0;
+  document.getElementById('compare-count').textContent = '0 comparisons submitted';
+  loadNextPair();
+  document.getElementById('compare-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCompare() {
+  document.getElementById('compare-modal').classList.remove('open');
+  document.body.style.overflow = '';
+  // Refresh display so new ratings show
+  if (isAdmin) renderUnits();
+}
+
 // ── FORCE SHEET ───────────────────────────────────────────────────────────────
 function openForceSheet(forceData) {
   function toA(val) {
@@ -3126,6 +3490,11 @@ firebase.auth().onAuthStateChanged(async (user) => {
     gate.style.display = 'none';
     isSubscriber = await checkSubscriber(user.email);
     updateAuthUI(user, isSubscriber);
+    isAdmin = await checkAdmin(user.email);
+    if (isAdmin) {
+      await loadRatings();
+      document.getElementById('rate-btn').style.display = '';
+    }
     await loadData();
     await checkUrlForce();
     loadFeaturedStrip();
