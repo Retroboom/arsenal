@@ -572,7 +572,7 @@
 
   .table-stat { color: var(--accent); text-align: center; }
   .table-stat.null { color: var(--text3); text-align: center; }
-  .table-notes { color: var(--text3); font-size: 10px; max-width: 200px; }
+  .table-notes { color: var(--text3); font-size: 10px; max-width: 220px; position: relative; overflow: visible; }
 
   .table-add-btn {
     background: none;
@@ -1389,11 +1389,218 @@
 
   .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
 
+  /* FORCE SHEET MODAL */
+  .force-sheet-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 7, 6, 0.97);
+    z-index: 400;
+    display: none;
+    overflow-y: auto;
+    padding: 32px 16px 48px;
+  }
+
+  .force-sheet-modal.open { display: block; }
+
+  .force-sheet-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    max-width: 940px;
+    margin: 0 auto;
+  }
+
+  .fs-header {
+    background: var(--bg3);
+    border-bottom: 2px solid var(--accent);
+    padding: 22px 28px 18px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .fs-title {
+    font-family: var(--display);
+    font-size: 34px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    line-height: 1.1;
+  }
+
+  .fs-header-right {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .fs-print-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 6px 12px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.12s;
+  }
+
+  .fs-print-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .fs-close-btn {
+    background: none;
+    border: none;
+    color: var(--text3);
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 6px;
+    transition: color 0.12s;
+  }
+
+  .fs-close-btn:hover { color: var(--text); }
+
+  .fs-meta {
+    padding: 12px 28px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .fs-meta-item {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+  }
+
+  .fs-meta-item strong { color: var(--text2); }
+
+  .fs-meta-sep {
+    color: var(--border);
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+
+  .fs-nations { display: flex; gap: 5px; }
+
+  .fs-notes {
+    padding: 12px 28px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  .fs-body { padding: 20px 28px 36px; }
+
+  .fs-platoon { margin-bottom: 32px; }
+  .fs-platoon:last-child { margin-bottom: 0; }
+
+  .fs-platoon-heading {
+    font-family: var(--display);
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: var(--text);
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .fs-platoon-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 1px;
+  }
+
+  .fs-stats-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .fs-stats-table th {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--text3);
+    text-transform: uppercase;
+    text-align: left;
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg3);
+    white-space: nowrap;
+  }
+
+  .fs-stats-table th.c { text-align: center; }
+
+  .fs-stats-table td {
+    padding: 9px 10px;
+    border-bottom: 1px solid rgba(51,48,40,0.45);
+    vertical-align: middle;
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+
+  .fs-stats-table tr:last-child td { border-bottom: none; }
+  .fs-stats-table tr:hover td { background: rgba(255,255,255,0.018); }
+
+  .fs-unit-name {
+    font-family: var(--display);
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    color: var(--text);
+  }
+
+  .fs-armament {
+    font-family: var(--body);
+    font-size: 11px;
+    color: var(--text3);
+    font-style: italic;
+    display: block;
+    margin-top: 1px;
+  }
+
+  .fs-qty {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .fs-stat { color: var(--accent); text-align: center; }
+  .fs-stat.dash { color: var(--text3); text-align: center; }
+
+  .fs-notes-cell { position: relative; overflow: visible; }
+
   /* PRINT */
   @media print {
-    .sidebar, header, .force-panel, .add-force-btn, .table-add-btn { display: none !important; }
+    .sidebar, header, .force-panel, .add-force-btn, .table-add-btn,
+    .force-sheet-modal:not(.open), .fs-header-right { display: none !important; }
     .app { grid-template-columns: 1fr; }
-    body { background: white; color: black; }
+    body { background: white; color: black; overflow: auto !important; }
+    .force-sheet-modal.open {
+      position: static;
+      background: white;
+      padding: 0;
+    }
+    .force-sheet-box { border: none; max-width: 100%; }
+    .fs-header { background: #f5f5f5; border-bottom: 2pt solid #333; }
+    .fs-title { color: #333; }
+    .fs-stats-table th { background: #eee; color: #555; }
+    .fs-stat { color: #333; }
+    .fs-unit-name { color: #111; }
+    .fs-close-btn, .fs-print-btn { display: none; }
   }
 </style>
 </head>
@@ -1508,6 +1715,7 @@
       <button class="action-btn" onclick="saveForce()">Save</button>
       <button class="action-btn" onclick="publishForce()">Publish</button>
       <button class="action-btn" onclick="shareForce()">Share</button>
+      <button class="action-btn" onclick="openCurrentForceSheet()">View</button>
       <button class="action-btn danger" onclick="clearForce()">Clear</button>
     </div>
     <div id="share-url-bar" style="display:none" class="share-url-bar">
@@ -1543,6 +1751,9 @@
     </div>
   </div>
 </div>
+
+<!-- FORCE SHEET MODAL -->
+<div class="force-sheet-modal" id="force-sheet-modal"></div>
 
 <script>
 // ── DATA ──────────────────────────────────────────────────────────────────────
@@ -1870,14 +2081,17 @@ function renderTable(container, forceIds) {
         <td class="table-stat ${unit.gun_range ? '' : 'null'}">${unit.gun_range || '—'}</td>
         <td class="table-stat ${unit.rof !== null ? '' : 'null'}">${unit.rof !== null ? unit.rof : '—'}</td>
         <td class="table-stat ${unit.at !== null ? '' : 'null'}">${unit.at !== null ? unit.at : '—'}</td>
-        <td class="table-stat">${unit.fp}</td>
+        <td class="table-stat ${unit.fp !== null && unit.fp !== undefined ? '' : 'null'}">${unit.fp !== null && unit.fp !== undefined ? unit.fp : '—'}</td>
         <td class="table-stat ${unit.armor_front !== null ? '' : 'null'}">${unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '—'}</td>
-        <td class="table-notes">${unit.notes.join(', ')}</td>
+        <td class="table-notes">${unit.notes.map(n => noteTag(n)).join(' ')}</td>
         <td style="color:var(--text3);font-size:10px;white-space:nowrap">${yearRange(unit.years)}</td>
         <td>
           ${locked
             ? `<span style="font-family:var(--mono);font-size:9px;color:#9a8a5a;">🔒 Sub</span>`
-            : `<button class="table-add-btn" onclick="addTeamToPlatoon('${unit.id}')">+ Add</button>`
+            : `<div style="display:flex;gap:4px;">
+                ${unit.standard_platoon ? `<button class="table-add-btn" onclick="addAsStandardPlatoon('${unit.id}')">+ Platoon</button>` : ''}
+                <button class="table-add-btn" onclick="addTeamToPlatoon('${unit.id}')">+ Add</button>
+              </div>`
           }
         </td>
       </tr>
@@ -2352,6 +2566,7 @@ function renderLibForces(body, forces) {
       ${f.notes ? `<div class="force-card-desc">${f.notes}</div>` : ''}
       <div class="force-card-platoons">${platoonList}</div>
       <div class="force-card-actions">
+        <button class="force-card-btn" onclick="openLibForceSheet('${f.id}')">View Sheet</button>
         <button class="force-card-btn" onclick="loadForceFromLibrary('${f.id}')">Load into Builder</button>
         <button class="force-card-btn" onclick="copyForceShareUrl('${f.id}')">Copy Share Link</button>
         ${currentUser && f.authorUid === currentUser.uid ? `
@@ -2402,6 +2617,159 @@ async function checkUrlForce() {
     currentForceId = forceId;
     document.getElementById('force-panel').classList.add('open');
   }
+}
+
+// ── FORCE SHEET ───────────────────────────────────────────────────────────────
+function openForceSheet(forceData) {
+  function toA(val) {
+    if (!val) return [];
+    if (Array.isArray(val)) return val;
+    return Object.values(val);
+  }
+
+  const name = forceData.name || 'Untitled Force';
+  const author = forceData.author || 'Unknown';
+  const nations = toA(forceData.nations);
+  const platoonArr = toA(forceData.platoons);
+  const platoonCount = platoonArr.length;
+  const breakLimit = forceData.breakLimit || (5 + platoonCount * 2);
+  const notes = forceData.notes || '';
+
+  const nationBadgesHtml = nations.map(n =>
+    `<span class="${nationBadgeClass(n)}">${n}</span>`
+  ).join('');
+
+  const platoonSections = platoonArr.map((platoon, pi) => {
+    const teams = toA(platoon.teams);
+    const label = platoon.name || `Platoon ${pi + 1}`;
+    const numStr = String(pi + 1).padStart(2, '0');
+
+    if (teams.length === 0) {
+      return `
+        <div class="fs-platoon">
+          <div class="fs-platoon-heading">
+            <span class="fs-platoon-num">${numStr}</span>${label}
+          </div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--text3);padding:12px 0;font-style:italic;">Empty platoon</div>
+        </div>`;
+    }
+
+    const rows = teams.map(t => {
+      const unit = allUnits.find(u => u.id === t.unitId);
+      if (!unit) {
+        return `
+          <tr>
+            <td class="fs-qty">${t.qty}×</td>
+            <td colspan="8"><span style="font-family:var(--mono);font-size:11px;color:var(--text3)">${t.unitId}</span> <span style="font-size:9px;color:var(--red)">(unit not in database)</span></td>
+          </tr>`;
+      }
+
+      const range  = unit.gun_range !== null && unit.gun_range !== undefined ? unit.gun_range : null;
+      const rof    = unit.rof    !== null && unit.rof    !== undefined ? unit.rof    : null;
+      const at     = unit.at     !== null && unit.at     !== undefined ? unit.at     : null;
+      const fp     = unit.fp     !== null && unit.fp     !== undefined ? unit.fp     : null;
+      const hasArmor = unit.armor_front !== null && unit.armor_front !== undefined;
+
+      function sc(val) {
+        return val !== null ? `<td class="fs-stat">${val}</td>` : `<td class="fs-stat dash">—</td>`;
+      }
+
+      const notes = (unit.notes || []).map(n => noteTag(n)).join(' ');
+
+      return `
+        <tr>
+          <td class="fs-qty">${t.qty}×</td>
+          <td>
+            <span class="fs-unit-name">${unit.name}</span>
+            ${unit.armament ? `<span class="fs-armament">${unit.armament}</span>` : ''}
+          </td>
+          <td style="text-align:center"><span class="base-badge">${unit.base || 'Med'}</span></td>
+          ${sc(range)}${sc(rof)}${sc(at)}${sc(fp)}
+          <td class="${hasArmor ? 'fs-stat' : 'fs-stat dash'}">${hasArmor ? `${unit.armor_front}/${unit.armor_flank}` : '—'}</td>
+          <td class="fs-notes-cell">${notes}</td>
+        </tr>`;
+    }).join('');
+
+    return `
+      <div class="fs-platoon">
+        <div class="fs-platoon-heading">
+          <span class="fs-platoon-num">${numStr}</span>${label}
+        </div>
+        <table class="fs-stats-table">
+          <thead>
+            <tr>
+              <th class="c" style="width:44px">Qty</th>
+              <th>Unit</th>
+              <th class="c">Base</th>
+              <th class="c">Range</th>
+              <th class="c">RoF</th>
+              <th class="c">AT</th>
+              <th class="c">FP</th>
+              <th class="c">Armor</th>
+              <th>Special Rules</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  }).join('');
+
+  const modal = document.getElementById('force-sheet-modal');
+  modal.innerHTML = `
+    <div class="force-sheet-box">
+      <div class="fs-header">
+        <div class="fs-title">${name}</div>
+        <div class="fs-header-right">
+          <button class="fs-print-btn" onclick="window.print()">⎙ Print</button>
+          <button class="fs-close-btn" onclick="closeForceSheet()">✕</button>
+        </div>
+      </div>
+      <div class="fs-meta">
+        <div class="fs-meta-item">By <strong>${author}</strong></div>
+        <span class="fs-meta-sep">|</span>
+        <div class="fs-nations">${nationBadgesHtml}</div>
+        <span class="fs-meta-sep">|</span>
+        <div class="fs-meta-item"><strong>${platoonCount}</strong> Platoon${platoonCount !== 1 ? 's' : ''}</div>
+        <span class="fs-meta-sep">|</span>
+        <div class="fs-meta-item">Break Limit <strong>${breakLimit}</strong></div>
+      </div>
+      ${notes ? `<div class="fs-notes">${notes}</div>` : ''}
+      <div class="fs-body">
+        ${platoonSections || '<div style="font-family:var(--mono);font-size:11px;color:var(--text3);text-align:center;padding:32px;">No platoons in this force.</div>'}
+      </div>
+    </div>`;
+
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function openCurrentForceSheet() {
+  if (platoons.length === 0) {
+    alert('Add platoons to your force before viewing the force sheet.');
+    return;
+  }
+  const data = getForceData();
+  // getForceData() already serialises platoons correctly
+  openForceSheet(data);
+}
+
+async function openLibForceSheet(forceId) {
+  // Try to use cached data from the library list first
+  const cached = libAllForces.find(f => f.id === forceId);
+  if (cached) {
+    openForceSheet(cached);
+    return;
+  }
+  // Fallback: fetch from Firebase
+  const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
+  const data = snap.val();
+  if (data) openForceSheet(data);
+  else alert('Force not found.');
+}
+
+function closeForceSheet() {
+  document.getElementById('force-sheet-modal').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 // ── AUTH ──────────────────────────────────────────────────────────────────────
