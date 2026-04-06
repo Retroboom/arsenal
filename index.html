@@ -1118,7 +1118,7 @@
     background: var(--bg2);
     border: 1px solid var(--border);
     width: 100%;
-    max-width: 800px;
+    max-width: 960px;
     max-height: calc(100vh - 80px);
     min-height: 400px;
     display: flex;
@@ -1388,6 +1388,136 @@
   }
 
   .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* LIBRARY NAV BUTTON */
+  .lib-nav-btn {
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 6px 18px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+  }
+  .lib-nav-btn:hover { background: var(--accent); color: var(--bg); }
+
+  /* FEATURED STRIP */
+  .lib-featured-strip {
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+  }
+
+  .lib-featured-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg3);
+  }
+
+  .lib-featured-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--text3);
+    text-transform: uppercase;
+  }
+
+  .lib-featured-link {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.12s;
+  }
+  .lib-featured-link:hover { color: var(--text); }
+
+  .lib-featured-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  .lib-fc {
+    padding: 12px 16px;
+    border-right: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.12s;
+    border-left: 3px solid var(--border);
+  }
+  .lib-fc:last-child { border-right: none; }
+  .lib-fc:hover { background: var(--bg3); }
+
+  .lib-fc.nc-us      { border-left-color: #4a7aac; }
+  .lib-fc.nc-germany { border-left-color: #9a8a4a; }
+  .lib-fc.nc-britain { border-left-color: #4a8a4a; }
+  .lib-fc.nc-soviet  { border-left-color: #ac4a4a; }
+
+  .lib-fc-name {
+    font-family: var(--display);
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+
+  .lib-fc-meta {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .lib-fc-nations { display: flex; gap: 3px; flex-wrap: wrap; }
+
+  /* IMPROVED FORCE CARDS */
+  .force-card {
+    border-left: 3px solid var(--border);
+    transition: border-color 0.12s, border-left-color 0.12s;
+  }
+  .force-card:hover { border-color: var(--accent); }
+  .force-card.nc-us      { border-left-color: #4a7aac; }
+  .force-card.nc-germany { border-left-color: #9a8a4a; }
+  .force-card.nc-britain { border-left-color: #4a8a4a; }
+  .force-card.nc-soviet  { border-left-color: #ac4a4a; }
+
+  .force-card-platoon-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 6px;
+  }
+
+  .force-card-platoon-row {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .force-card-platoon-row .pl-num {
+    font-size: 8px;
+    color: var(--border);
+    flex-shrink: 0;
+    letter-spacing: 1px;
+  }
+
+  .force-card-platoon-row .pl-name { color: var(--text2); }
+  .force-card-platoon-row .pl-teams { color: var(--text3); }
 
   /* FORCE SHEET MODAL */
   .force-sheet-modal {
@@ -1710,7 +1840,7 @@
 <header>
   <div class="logo">Hail of Fire <span>// ARSENAL DATABASE</span></div>
   <div class="header-right">
-    <button class="auth-btn" onclick="openLibrary()">Library</button>
+    <button class="lib-nav-btn" onclick="openLibrary()">⊞ Force Library</button>
     <button class="force-toggle-btn" onclick="toggleForcePanel()">
       Force Builder <span class="force-count-badge" id="force-count">0</span>
     </button>
@@ -1779,6 +1909,13 @@
         <button class="view-btn active" id="btn-grid" onclick="setView('grid')">Grid</button>
         <button class="view-btn" id="btn-table" onclick="setView('table')">Table</button>
       </div>
+    </div>
+    <div id="lib-featured-strip" class="lib-featured-strip" style="display:none">
+      <div class="lib-featured-header">
+        <span class="lib-featured-label">⊞ From the Force Library</span>
+        <button class="lib-featured-link" onclick="openLibrary()">Browse All →</button>
+      </div>
+      <div class="lib-featured-cards" id="lib-featured-cards"></div>
     </div>
     <div id="unit-display"></div>
   </main>
@@ -2600,6 +2737,38 @@ function applyLibFilters() {
   renderLibForces(body, visible);
 }
 
+async function loadFeaturedStrip() {
+  const strip = document.getElementById('lib-featured-strip');
+  const cards = document.getElementById('lib-featured-cards');
+  if (!strip || !cards) return;
+
+  const snap = await firebase.database().ref('forces').once('value');
+  const all = [];
+  snap.forEach(child => { all.push(child.val()); });
+
+  const published = all.filter(f => f.published)
+    .sort((a, b) => (b.created || 0) - (a.created || 0))
+    .slice(0, 4);
+
+  if (published.length === 0) return;
+
+  cards.innerHTML = published.map(f => {
+    const nc = nationCardClass(f.nations);
+    const nationBadges = toArr(f.nations).map(n =>
+      `<span class="${nationBadgeClass(n)}" style="font-size:8px;padding:1px 5px">${n}</span>`
+    ).join('');
+    const platoonCount = toArr(f.platoons).length;
+    return `
+      <div class="lib-fc ${nc}" onclick="openLibForceSheet('${f.id}')">
+        <div class="lib-fc-name">${f.name}</div>
+        <div class="lib-fc-meta">By ${f.author || 'Unknown'} · ${platoonCount} platoons · BL ${f.breakLimit || 5}</div>
+        <div class="lib-fc-nations">${nationBadges}</div>
+      </div>`;
+  }).join('');
+
+  strip.style.display = '';
+}
+
 async function loadLibraryTab(tab) {
   const body = document.getElementById('library-body');
   body.innerHTML = '<div class="lib-loading">Loading...</div>';
@@ -2639,6 +2808,15 @@ function toArr(val) {
   return Object.values(val);
 }
 
+function nationCardClass(nations) {
+  const n = toArr(nations)[0] || '';
+  if (n === 'United States') return 'nc-us';
+  if (n === 'Germany')       return 'nc-germany';
+  if (n === 'Britain')       return 'nc-britain';
+  if (n === 'Soviet Union')  return 'nc-soviet';
+  return '';
+}
+
 function renderLibForces(body, forces) {
   const countEl = document.getElementById('lib-result-count');
   if (countEl) countEl.textContent = forces.length === libAllForces.length
@@ -2647,25 +2825,38 @@ function renderLibForces(body, forces) {
 
   body.innerHTML = forces.map(f => {
     const platoonArr = toArr(f.platoons);
-    const platoonList = platoonArr.map(p => {
+    const nc = nationCardClass(f.nations);
+
+    const platoonRows = platoonArr.map((p, i) => {
       const teamCount = toArr(p.teams).reduce((s, t) => s + (t.qty || 1), 0);
-      return `${p.name} (${teamCount} teams)`;
-    }).join(' &nbsp;|&nbsp; ');
+      return `<div class="force-card-platoon-row">
+        <span class="pl-num">${String(i+1).padStart(2,'0')}</span>
+        <span class="pl-name">${p.name || `Platoon ${i+1}`}</span>
+        <span class="pl-teams">${teamCount} teams</span>
+      </div>`;
+    }).join('');
+
+    const nationBadges = toArr(f.nations).map(n =>
+      `<span class="${nationBadgeClass(n)}">${n}</span>`
+    ).join('');
 
     return `
-    <div class="force-card">
+    <div class="force-card ${nc}">
       <div class="force-card-header">
         <div class="force-card-name">${f.name}</div>
         <span style="font-family:var(--mono);font-size:9px;color:var(--text3);white-space:nowrap">${f.published ? '● Published' : '○ Private'}</span>
       </div>
-      <div class="force-card-meta">
-        By ${f.author || 'Unknown'} &nbsp;·&nbsp;
-        ${toArr(f.nations).join(', ')} &nbsp;·&nbsp;
-        ${f.platoonCount || platoonArr.length} platoons &nbsp;·&nbsp;
-        BL ${f.breakLimit || 5}
+      <div class="force-card-meta" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px">
+        <span>By <strong style="color:var(--text2)">${f.author || 'Unknown'}</strong></span>
+        <span style="color:var(--border)">|</span>
+        <span style="display:flex;gap:4px">${nationBadges}</span>
+        <span style="color:var(--border)">|</span>
+        <span>${platoonArr.length} platoons</span>
+        <span style="color:var(--border)">|</span>
+        <span>BL ${f.breakLimit || 5}</span>
       </div>
       ${f.notes ? `<div class="force-card-desc">${f.notes}</div>` : ''}
-      <div class="force-card-platoons">${platoonList}</div>
+      <div class="force-card-platoon-list">${platoonRows}</div>
       <div class="force-card-actions">
         <button class="force-card-btn" onclick="openLibForceSheet('${f.id}')">View Sheet</button>
         <button class="force-card-btn" onclick="loadForceFromLibrary('${f.id}')">Load into Builder</button>
@@ -2937,6 +3128,7 @@ firebase.auth().onAuthStateChanged(async (user) => {
     updateAuthUI(user, isSubscriber);
     await loadData();
     await checkUrlForce();
+    loadFeaturedStrip();
   } else {
     gate.style.display = 'flex';
     isSubscriber = false;
