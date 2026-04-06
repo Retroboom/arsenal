@@ -2078,12 +2078,17 @@ function getForceData() {
 }
 
 function loadForceData(data) {
+  function toArr(val) {
+    if (!val) return [];
+    if (Array.isArray(val)) return val;
+    return Object.values(val);
+  }
   document.getElementById('force-name').value = data.name || '';
   document.getElementById('force-notes').value = data.notes || '';
-  platoons = (data.platoons || []).map((p, i) => ({
+  platoons = toArr(data.platoons).map((p, i) => ({
     id: `pl-${Date.now()}-${i}`,
     name: p.name,
-    teams: p.teams || []
+    teams: toArr(p.teams)
   }));
   platoonCounter = platoons.length;
   activePlatoonId = platoons.length ? platoons[0].id : null;
@@ -2199,7 +2204,22 @@ async function loadLibraryTab(tab) {
     return;
   }
 
-  body.innerHTML = forces.map(f => `
+  // Firebase may return arrays as objects with integer keys — convert safely
+  function toArr(val) {
+    if (!val) return [];
+    if (Array.isArray(val)) return val;
+    return Object.values(val);
+  }
+
+  body.innerHTML = forces.map(f => {
+    const platoonArr = toArr(f.platoons);
+    const platoonList = platoonArr.map(p => {
+      const teamArr = toArr(p.teams);
+      const teamCount = teamArr.reduce((s, t) => s + (t.qty || 1), 0);
+      return `${p.name} (${teamCount} teams)`;
+    }).join(' &nbsp;|&nbsp; ');
+
+    return `
     <div class="force-card">
       <div class="force-card-header">
         <div class="force-card-name">${f.name}</div>
@@ -2207,14 +2227,12 @@ async function loadLibraryTab(tab) {
       </div>
       <div class="force-card-meta">
         By ${f.author || 'Unknown'} &nbsp;·&nbsp;
-        ${(f.nations || []).join(', ')} &nbsp;·&nbsp;
-        ${f.platoonCount || 0} platoons &nbsp;·&nbsp;
+        ${toArr(f.nations).join(', ')} &nbsp;·&nbsp;
+        ${f.platoonCount || platoonArr.length} platoons &nbsp;·&nbsp;
         BL ${f.breakLimit || 5}
       </div>
       ${f.notes ? `<div class="force-card-desc">${f.notes}</div>` : ''}
-      <div class="force-card-platoons">
-        ${(f.platoons || []).map(p => `${p.name} (${(p.teams||[]).reduce((s,t)=>s+t.qty,0)} teams)`).join(' &nbsp;|&nbsp; ')}
-      </div>
+      <div class="force-card-platoons">${platoonList}</div>
       <div class="force-card-actions">
         <button class="force-card-btn" onclick="loadForceFromLibrary('${f.id}')">Load into Builder</button>
         <button class="force-card-btn" onclick="copyForceShareUrl('${f.id}')">Copy Share Link</button>
@@ -2223,8 +2241,8 @@ async function loadLibraryTab(tab) {
           <button class="force-card-btn danger" onclick="deleteForce('${f.id}')">Delete</button>
         ` : ''}
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 async function loadForceFromLibrary(forceId) {
