@@ -1243,6 +1243,61 @@
   .force-card-btn:hover { border-color: var(--accent); color: var(--accent); }
   .force-card-btn.danger:hover { border-color: var(--red); color: #ff9a9a; }
 
+  .lib-search-bar {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    flex-wrap: wrap;
+  }
+
+  .lib-search-input {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 5px 10px;
+    flex: 1;
+    min-width: 140px;
+    letter-spacing: 0.5px;
+  }
+
+  .lib-search-input:focus { outline: none; border-color: var(--accent); }
+  .lib-search-input::placeholder { color: var(--text3); }
+
+  .lib-nation-chips {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .lib-chip {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.12s;
+  }
+
+  .lib-chip:hover { border-color: var(--text2); color: var(--text2); }
+  .lib-chip.active { border-color: var(--accent); color: var(--accent); background: rgba(224,192,96,0.08); }
+
+  .lib-result-count {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
   .lib-empty {
     font-family: var(--mono);
     font-size: 11px;
@@ -1473,6 +1528,16 @@
       <button class="library-tab active" id="tab-browse" onclick="switchLibTab('browse')">Browse</button>
       <button class="library-tab" id="tab-mine" onclick="switchLibTab('mine')">My Forces</button>
     </div>
+    <div class="lib-search-bar">
+      <input class="lib-search-input" id="lib-search" type="text" placeholder="Search forces..." oninput="applyLibFilters()">
+      <div class="lib-nation-chips">
+        <button class="lib-chip" data-nation="United States" onclick="toggleLibNation(this)">US</button>
+        <button class="lib-chip" data-nation="Germany" onclick="toggleLibNation(this)">GER</button>
+        <button class="lib-chip" data-nation="Britain" onclick="toggleLibNation(this)">BR</button>
+        <button class="lib-chip" data-nation="Soviet Union" onclick="toggleLibNation(this)">SOV</button>
+      </div>
+      <span class="lib-result-count" id="lib-result-count"></span>
+    </div>
     <div class="library-body" id="library-body">
       <div class="lib-loading">Loading...</div>
     </div>
@@ -1624,43 +1689,49 @@ function yearRange(years) {
 }
 
 const RULE_TIPS = {
-  'Flame-Thrower': 'Ignores cover. Range 8". On a hit, target is automatically Suppressed.',
-  'Bunker Buster': 'May re-roll failed FP checks against teams in Hard Cover.',
-  'Wide Tracks': 'Ignores Bog checks in difficult terrain.',
-  'Unreliable': 'Roll before moving. On a 1, vehicle is Bogged Down for the turn.',
-  'Fast': 'Add 4" to all movement rates.',
-  'Slow': 'Halve all movement rates.',
-  'Hull Mounted': 'Gun has a limited 45° forward arc of fire.',
-  'Open Topped': 'Receives Fire Points from artillery bombardments and may be targeted by small arms fire.',
-  'Man-Portable': 'May move and fire in the same activation without penalty.',
-  'Small Base': 'Uses a small base.',
-  'Large Base': 'Uses a large base.',
-  'Anti-Air': 'May target aircraft. Counts as AA for air support resolution.',
-  'Limited HE': 'HE attacks use half Firepower (round down, minimum 1).',
-  'Light Mortar': 'Indirect fire. No minimum range. May not bombard.',
-  'Light Artillery': 'Indirect fire. Minimum range 12".',
-  'Medium Artillery': 'Indirect fire. Minimum range 16". Requires FO or Platoon Leader to direct fire.',
-  'Heavy Artillery': 'Indirect fire. Minimum range 24". Requires FO or Platoon Leader to direct fire.',
-  'Tracked': 'May move through difficult terrain. Subject to Bog checks.',
-  'Wheeled': 'Road movement only. Cannot enter difficult terrain.',
-  'Half-Tracked': 'May enter difficult terrain. Subject to Bog checks.',
-  'Immobile': 'Cannot move once deployed. May pivot to face a target.',
-  'Smoke': 'May fire smoke rounds instead of HE. Smoke blocks line of sight until end of turn.',
-  'Platoon Leader': 'Commands the platoon. Required for platoon Morale checks.',
-  'Forward Observer': 'May call in indirect fire and air support on behalf of the force.',
-  'May only inflict RFPs': 'Cannot cause Kill results. All hits cause Received Fire Points only.',
-  'Cannot fire from buildings': 'This weapon cannot be used from within a building.',
+  // ── Core Special Rules (p.28) ──────────────────────────────────────────────
+  'Bunker Buster': 'When using direct fire, unarmored Teams within 2" of a hit Target Team each receive 1 RFP. Against bunkers, make a penetration roll at AT 6 vs. Armor 2 to destroy outright.',
+  'Fast': 'Add +2" to movement.',
+  'Flame-Thrower': 'Range 4", RoF 3, FP 3. Roll 3 dice at 4+ to hit — no modifiers for concealment or cover. Max 1 hit per non-vehicle Team; each hit applies 3 RFPs. One-shot weapon: after firing, Infantry Flame-Thrower Teams become standard Teams.',
+  'Light Mortar': 'When activated by a Leader, may fire at targets within that Leader\'s LoS with a +1 modifier to hit.',
+  'Limited HE': 'Does not ignore the Concealment modifier when firing at non-Vehicle Teams.',
+  'Man-Portable': 'Moves 2d6". May move through Very Difficult Terrain. Weapon rides in Transports rather than being towed.',
+  'Overloaded': 'Must re-roll successful Terrain Checks when crossing terrain, and re-roll successful Training Checks when attempting to free a Bogged status.',
+  'Slow': 'Drop the lowest die when making movement rolls.',
+  'Smoke': 'May fire smoke instead of a normal barrage. Place one 3" smoke marker per gun, each touching another. Teams touching smoke have no LoS to or from Teams outside it. Removed at start of firing player\'s next turn. Direct-fire smoke: roll one Fire die at 4+ against a target in range; if successful, place a 3" marker on the target.',
+  'Unreliable': 'For any movement dice that roll a 1, roll 1d6. On a 1, the vehicle is immobile for that activation.',
+  'Wide Tracks': 'Re-roll failed Terrain Checks.',
+  // ── Artillery Types ────────────────────────────────────────────────────────
+  'Light Artillery': 'Barrage FP: 1. On-table mortars that observe for themselves may FFE immediately and without deviation.',
+  'Medium Artillery': 'Barrage FP: 2.',
+  'Heavy Artillery': 'Barrage FP: 3.',
+  // ── Vehicle Rules ──────────────────────────────────────────────────────────
+  'Hull Mounted': 'Gun has a limited forward arc of fire.',
+  'Hull-Mounted': 'Gun has a limited forward arc of fire.',
+  'Open Topped': 'Destroyed if it resolves RFPs while in base contact with an enemy Team during an assault. Also counts as Open Topped when assaulted or attacked by air/artillery before next activation if AA MGs or .50 cals were fired.',
+  'Anti-Air': 'May attempt to intercept aircraft. When rolling Order Dice, a Hero Die roll of 1 triggers an immediate air attack. AA Teams that did not activate last turn roll RoF dice vs. the aircraft\'s 1d6 — each die rolling higher scores a hit.',
+  'May only inflict RFPs': 'Cannot cause Kill results. All hits generate Received Fire Points only.',
+  'Immobile': 'Cannot move once deployed.',
+  // ── Movement Types ─────────────────────────────────────────────────────────
+  'Tracked': 'Move 3d6". +6" on roads. Must make a Terrain Check to cross Difficult or Very Difficult Terrain or stop.',
+  'Wheeled': 'Move 3d6". +12" on roads. Must make a Terrain Check to cross Difficult Terrain or stop. Cannot enter Very Difficult Terrain.',
+  'Half-Tracked': 'Move 3d6". +6" on roads. Must make a Terrain Check to cross Difficult Terrain or stop. Cannot enter Very Difficult Terrain.',
+  'Wagon': 'Moves 2d6".',
+  // ── Infantry ───────────────────────────────────────────────────────────────
   'Re-roll failed Assault Checks': 'When assaulting, may re-roll any failed Assault Checks.',
-  'Additional weapon assigned to other Teams': 'Not a separate team. Distributed as an additional weapon to other teams in the platoon.',
-  'Amphibious': 'May cross water obstacles without penalty.',
-  'Overloaded': 'Applies movement penalties when crossing obstacles or rough ground.',
-  'Carries 1 Team': 'Transport capacity: 1 team.',
-  'Carries 2 Teams': 'Transport capacity: 2 teams.',
-  'Carries 3 Teams': 'Transport capacity: 3 teams.',
-  'Carries 4 Teams': 'Transport capacity: 4 teams.',
+  'Cannot fire from buildings': 'This weapon cannot be used from within a building.',
+  'May only be used in assault and only in the first round': 'Single-use weapon. May only be used during the first round of an assault.',
+  'Additional weapon assigned to other Teams': 'Not a separate team — distributed as an additional weapon to other Teams in the platoon.',
   'RoF 3 if less than 8" from target': 'Rate of Fire increases to 3 when firing at targets within 8".',
-  'May only be used in assault and only in the first round': 'Single-use weapon. May only fire during the first round of an assault.',
-  'Hull-Mounted': 'Gun has a limited 45° forward arc of fire.',
+  // ── Transport ──────────────────────────────────────────────────────────────
+  'Carries 1 Team': 'Transport capacity: 1 Infantry or Man-Portable Gun Team.',
+  'Carries 2 Teams': 'Transport capacity: 2 Infantry or Man-Portable Gun Teams.',
+  'Carries 3 Teams': 'Transport capacity: 3 Infantry or Man-Portable Gun Teams.',
+  'Carries 4 Teams': 'Transport capacity: 4 Infantry or Man-Portable Gun Teams.',
+  'Amphibious': 'May cross water obstacles.',
+  'Overloaded': 'Must re-roll successful Terrain Checks.',
+  'Passenger-fired MG': 'Requires the transport to be carrying a Team in order to fire this weapon.',
+  'Passenger-fired .50 cal MG': 'Requires the transport to be carrying a Team in order to fire this weapon.',
 };
 
 function isSpecialNote(note) {
@@ -2053,7 +2124,9 @@ function showSubscribePrompt() {
 
 // ── FORCE LIBRARY ─────────────────────────────────────────────────────────────
 let currentLibTab = 'browse';
-let currentForceId = null; // ID of the loaded/saved force
+let currentForceId = null;
+let libAllForces = [];     // full fetched list for the current tab
+let libNationFilter = [];  // active nation chips
 
 function getForceData() {
   return {
@@ -2169,53 +2242,98 @@ function switchLibTab(tab) {
   currentLibTab = tab;
   document.querySelectorAll('.library-tab').forEach(t => t.classList.remove('active'));
   document.getElementById(`tab-${tab}`).classList.add('active');
+  // Reset search/filters on tab switch
+  const s = document.getElementById('lib-search');
+  if (s) s.value = '';
+  libNationFilter = [];
+  document.querySelectorAll('.lib-chip').forEach(c => c.classList.remove('active'));
   loadLibraryTab(tab);
+}
+
+function toggleLibNation(btn) {
+  const nation = btn.dataset.nation;
+  btn.classList.toggle('active');
+  if (libNationFilter.includes(nation)) {
+    libNationFilter = libNationFilter.filter(n => n !== nation);
+  } else {
+    libNationFilter.push(nation);
+  }
+  applyLibFilters();
+}
+
+function applyLibFilters() {
+  const body = document.getElementById('library-body');
+  const search = (document.getElementById('lib-search').value || '').toLowerCase().trim();
+
+  let visible = libAllForces.filter(f => {
+    if (search && !f.name.toLowerCase().includes(search) && !(f.notes || '').toLowerCase().includes(search)) return false;
+    if (libNationFilter.length > 0) {
+      const fNations = Array.isArray(f.nations) ? f.nations : Object.values(f.nations || {});
+      if (!libNationFilter.some(n => fNations.includes(n))) return false;
+    }
+    return true;
+  });
+
+  const countEl = document.getElementById('lib-result-count');
+  if (countEl) countEl.textContent = `${visible.length} of ${libAllForces.length}`;
+
+  if (visible.length === 0) {
+    body.innerHTML = `<div class="lib-empty">No forces match your search.</div>`;
+    return;
+  }
+
+  renderLibForces(body, visible);
 }
 
 async function loadLibraryTab(tab) {
   const body = document.getElementById('library-body');
   body.innerHTML = '<div class="lib-loading">Loading...</div>';
 
-  const db = firebase.database();
-  let snap;
-
-  snap = await db.ref('forces').once('value');
-
-  const forces = [];
-  snap.forEach(child => { forces.push(child.val()); });
-
-  const filtered = tab === 'browse'
-    ? forces.filter(f => f.published)
-    : forces.filter(f => currentUser && f.authorUid === currentUser.uid);
-
   if (!currentUser && tab === 'mine') {
     body.innerHTML = '<div class="lib-empty">Sign in to see your saved forces.</div>';
     return;
   }
 
-  forces.length = 0;
-  filtered.forEach(f => forces.push(f));
-  forces.sort((a, b) => (b.created || 0) - (a.created || 0));
+  const db = firebase.database();
+  const snap = await db.ref('forces').once('value');
 
-  if (forces.length === 0) {
+  const all = [];
+  snap.forEach(child => { all.push(child.val()); });
+
+  const filtered = tab === 'browse'
+    ? all.filter(f => f.published)
+    : all.filter(f => currentUser && f.authorUid === currentUser.uid);
+
+  filtered.sort((a, b) => (b.created || 0) - (a.created || 0));
+  libAllForces = filtered;
+
+  if (filtered.length === 0) {
     body.innerHTML = tab === 'browse'
       ? '<div class="lib-empty">No forces published yet.<br>Build a force and publish it to be first.</div>'
       : '<div class="lib-empty">No saved forces yet.<br>Build a force and click Save.</div>';
     return;
   }
 
-  // Firebase may return arrays as objects with integer keys — convert safely
-  function toArr(val) {
-    if (!val) return [];
-    if (Array.isArray(val)) return val;
-    return Object.values(val);
-  }
+  applyLibFilters();
+}
+
+// Firebase may return arrays as objects with integer keys — convert safely
+function toArr(val) {
+  if (!val) return [];
+  if (Array.isArray(val)) return val;
+  return Object.values(val);
+}
+
+function renderLibForces(body, forces) {
+  const countEl = document.getElementById('lib-result-count');
+  if (countEl) countEl.textContent = forces.length === libAllForces.length
+    ? `${forces.length} force${forces.length !== 1 ? 's' : ''}`
+    : `${forces.length} of ${libAllForces.length}`;
 
   body.innerHTML = forces.map(f => {
     const platoonArr = toArr(f.platoons);
     const platoonList = platoonArr.map(p => {
-      const teamArr = toArr(p.teams);
-      const teamCount = teamArr.reduce((s, t) => s + (t.qty || 1), 0);
+      const teamCount = toArr(p.teams).reduce((s, t) => s + (t.qty || 1), 0);
       return `${p.name} (${teamCount} teams)`;
     }).join(' &nbsp;|&nbsp; ');
 
