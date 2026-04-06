@@ -526,7 +526,7 @@
     position: fixed;
     top: 56px;
     right: 0;
-    width: 340px;
+    width: 360px;
     height: calc(100vh - 56px);
     background: var(--bg2);
     border-left: 1px solid var(--border);
@@ -574,7 +574,7 @@
     color: var(--text);
     font-family: var(--mono);
     font-size: 12px;
-    padding: 12px 20px;
+    padding: 10px 20px;
     outline: none;
     width: 100%;
     flex-shrink: 0;
@@ -583,10 +583,32 @@
   .force-name-input:focus { border-bottom-color: var(--accent); }
   .force-name-input::placeholder { color: var(--text3); }
 
-  .force-list {
+  .add-platoon-bar {
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .add-platoon-btn {
+    width: 100%;
+    background: none;
+    border: 1px dashed var(--border);
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 7px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.12s;
+  }
+
+  .add-platoon-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .platoon-list {
     flex: 1;
     overflow-y: auto;
-    padding: 12px 16px;
+    padding: 10px 12px;
   }
 
   .force-empty {
@@ -599,69 +621,160 @@
     letter-spacing: 0.5px;
   }
 
-  .force-item {
+  /* PLATOON ITEM */
+  .platoon-item {
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+    background: var(--bg);
+    transition: border-color 0.12s;
+  }
+
+  .platoon-item.active-platoon {
+    border-color: var(--accent);
+  }
+
+  .platoon-header {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 10px;
-    border: 1px solid var(--border);
-    margin-bottom: 6px;
+    gap: 6px;
+    padding: 6px 8px;
     background: var(--bg3);
+    border-bottom: 1px solid var(--border);
   }
 
-  .force-item-nation {
-    width: 3px;
-    height: 32px;
+  .platoon-active-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
     flex-shrink: 0;
-    border-radius: 1px;
+    opacity: 0;
   }
 
-  .force-item-nation.us { background: #3a5a7c; }
-  .force-item-nation.germany { background: #5a4a2a; }
-  .force-item-nation.britain { background: #3a5a3a; }
-  .force-item-nation.soviet { background: #7c3a3a; }
+  .platoon-item.active-platoon .platoon-active-dot { opacity: 1; }
 
-  .force-item-info { flex: 1; min-width: 0; }
-
-  .force-item-name {
-    font-family: var(--display);
-    font-size: 14px;
+  .platoon-name-input {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 11px;
     letter-spacing: 0.5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    outline: none;
+    padding: 0;
+    min-width: 0;
   }
 
-  .force-item-meta {
+  .platoon-name-input::placeholder { color: var(--text3); }
+
+  .platoon-select-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text3);
     font-family: var(--mono);
     font-size: 9px;
-    color: var(--text3);
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    padding: 2px 6px;
+    cursor: pointer;
     text-transform: uppercase;
-    margin-top: 1px;
-  }
-
-  .force-item-stats {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--accent);
-    display: flex;
-    gap: 6px;
+    transition: all 0.12s;
+    white-space: nowrap;
     flex-shrink: 0;
   }
 
-  .force-item-remove {
+  .platoon-select-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .platoon-item.active-platoon .platoon-select-btn { border-color: var(--accent); color: var(--accent); }
+
+  .platoon-remove-btn {
     background: none;
     border: none;
     color: var(--text3);
     cursor: pointer;
-    font-size: 14px;
-    padding: 2px;
+    font-size: 13px;
+    padding: 0 2px;
     line-height: 1;
     flex-shrink: 0;
   }
 
-  .force-item-remove:hover { color: var(--red); }
+  .platoon-remove-btn:hover { color: var(--red); }
+
+  .platoon-teams {
+    padding: 6px 8px;
+    min-height: 28px;
+  }
+
+  .platoon-team-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .platoon-team-row:last-child { border-bottom: none; }
+
+  .team-qty {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    min-width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .team-qty-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    flex-shrink: 0;
+  }
+
+  .qty-btn {
+    background: none;
+    border: none;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 8px;
+    line-height: 1;
+    padding: 0 2px;
+    transition: color 0.1s;
+  }
+
+  .qty-btn:hover { color: var(--text); }
+
+  .team-name {
+    flex: 1;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text2);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .team-remove-btn {
+    background: none;
+    border: none;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 11px;
+    padding: 0 2px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .team-remove-btn:hover { color: var(--red); }
+
+  .platoon-empty {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    text-align: center;
+    padding: 8px 0;
+    letter-spacing: 0.5px;
+  }
 
   .force-summary {
     padding: 12px 16px;
@@ -1010,26 +1123,21 @@
     <button class="close-panel-btn" onclick="toggleForcePanel()">✕</button>
   </div>
   <input type="text" class="force-name-input" id="force-name" placeholder="Name your force...">
-  <div class="force-list" id="force-list">
-    <div class="force-empty">No units selected.<br>Add units from the arsenal<br>to build your force.</div>
+  <div class="add-platoon-bar">
+    <button class="add-platoon-btn" onclick="addPlatoon()">+ Add Platoon</button>
+  </div>
+  <div class="platoon-list" id="platoon-list">
+    <div class="force-empty" id="platoon-empty">No platoons yet.<br>Add a platoon, then select units<br>from the arsenal to fill it.</div>
   </div>
   <div class="force-summary">
     <div class="force-summary-grid">
       <div class="summary-stat">
-        <span class="summary-stat-label">Units</span>
+        <span class="summary-stat-label">Platoons</span>
         <span class="summary-stat-value" id="summary-units">0</span>
       </div>
       <div class="summary-stat">
         <span class="summary-stat-label">Break Limit</span>
         <span class="summary-stat-value" id="summary-bl">5</span>
-      </div>
-      <div class="summary-stat">
-        <span class="summary-stat-label">Infantry</span>
-        <span class="summary-stat-value" id="summary-inf">0</span>
-      </div>
-      <div class="summary-stat">
-        <span class="summary-stat-label">Vehicles</span>
-        <span class="summary-stat-value" id="summary-veh">0</span>
       </div>
     </div>
     <div class="force-actions">
@@ -1044,7 +1152,9 @@
 // ── DATA ──────────────────────────────────────────────────────────────────────
 let allUnits = [];
 let filteredUnits = [];
-let force = [];
+let platoons = [];
+let activePlatoonId = null;
+let platoonCounter = 0;
 let currentView = 'grid';
 let activeFilters = {
   search: '',
@@ -1146,7 +1256,7 @@ function setView(view) {
 
 function renderUnits() {
   const container = document.getElementById('unit-display');
-  const forceIds = new Set(force.map(u => u.id));
+  const forceIds = getAllForceUnitIds();
 
   if (filteredUnits.length === 0) {
     container.innerHTML = '<div class="empty-state">No units match your filters.</div>';
@@ -1188,7 +1298,6 @@ function isSpecialNote(note) {
 }
 
 function renderGrid(container, forceIds) {
-  // Group by nation for section dividers
   const byNation = {};
   filteredUnits.forEach(u => {
     if (!byNation[u.nation]) byNation[u.nation] = [];
@@ -1260,8 +1369,8 @@ function renderGrid(container, forceIds) {
             <span class="years-display">${yearRange(unit.years)}</span>
             ${locked
               ? `<button class="add-force-btn" onclick="showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Ko-fi subscriber only</button>`
-              : `<button class="add-force-btn ${inForce ? 'added' : ''}" id="btn-${unit.id}" onclick="toggleForceUnit('${unit.id}')">
-                  ${inForce ? '✓ In Force' : '+ Add to Force'}
+              : `<button class="add-force-btn ${inForce ? 'added' : ''}" id="btn-${unit.id}" onclick="addTeamToPlatoon('${unit.id}')">
+                  ${inForce ? '✓ In Force' : '+ Add to Platoon'}
                 </button>`
             }
           </div>
@@ -1315,7 +1424,7 @@ function renderTable(container, forceIds) {
         <td>
           ${locked
             ? `<span style="font-family:var(--mono);font-size:9px;color:#9a8a5a;">🔒 Sub</span>`
-            : `<button class="table-add-btn ${inForce ? 'added' : ''}" onclick="toggleForceUnit('${unit.id}')">
+            : `<button class="table-add-btn ${inForce ? 'added' : ''}" onclick="addTeamToPlatoon('${unit.id}')">
                 ${inForce ? '✓ Added' : '+ Add'}
               </button>`
           }
@@ -1329,100 +1438,182 @@ function renderTable(container, forceIds) {
 }
 
 // ── FORCE BUILDER ─────────────────────────────────────────────────────────────
-function toggleForceUnit(unitId) {
-  const unit = allUnits.find(u => u.id === unitId);
-  if (!unit) return;
-
-  const idx = force.findIndex(u => u.id === unitId);
-  if (idx >= 0) {
-    force.splice(idx, 1);
-  } else {
-    force.push(unit);
-  }
-
+function addPlatoon() {
+  platoonCounter++;
+  const id = `pl-${platoonCounter}`;
+  platoons.push({ id, name: `Platoon ${platoonCounter}`, teams: [] });
+  activePlatoonId = id;
   updateForceUI();
   renderUnits();
+  // Focus the new platoon name input
+  setTimeout(() => {
+    const el = document.getElementById(`pname-${id}`);
+    if (el) el.focus();
+  }, 50);
+}
+
+function removePlatoon(id) {
+  platoons = platoons.filter(p => p.id !== id);
+  if (activePlatoonId === id) {
+    activePlatoonId = platoons.length ? platoons[platoons.length - 1].id : null;
+  }
+  updateForceUI();
+  renderUnits();
+}
+
+function setActivePlatoon(id) {
+  activePlatoonId = id;
+  updateForceUI();
+}
+
+function addTeamToPlatoon(unitId) {
+  if (!activePlatoonId) {
+    // Auto-create first platoon
+    addPlatoon();
+    return;
+  }
+  const platoon = platoons.find(p => p.id === activePlatoonId);
+  if (!platoon) return;
+  const existing = platoon.teams.find(t => t.unitId === unitId);
+  if (existing) {
+    existing.qty++;
+  } else {
+    platoon.teams.push({ unitId, qty: 1 });
+  }
+  updateForceUI();
+  renderUnits();
+}
+
+function changeTeamQty(platoonId, unitId, delta) {
+  const platoon = platoons.find(p => p.id === platoonId);
+  if (!platoon) return;
+  const team = platoon.teams.find(t => t.unitId === unitId);
+  if (!team) return;
+  team.qty = Math.max(0, team.qty + delta);
+  if (team.qty === 0) platoon.teams = platoon.teams.filter(t => t.unitId !== unitId);
+  updateForceUI();
+  renderUnits();
+}
+
+function removeTeamFromPlatoon(platoonId, unitId) {
+  const platoon = platoons.find(p => p.id === platoonId);
+  if (!platoon) return;
+  platoon.teams = platoon.teams.filter(t => t.unitId !== unitId);
+  updateForceUI();
+  renderUnits();
+}
+
+function updatePlatoonName(id, name) {
+  const platoon = platoons.find(p => p.id === id);
+  if (platoon) platoon.name = name;
 }
 
 function toggleForcePanel() {
   document.getElementById('force-panel').classList.toggle('open');
 }
 
+function getAllForceUnitIds() {
+  const ids = new Set();
+  platoons.forEach(p => p.teams.forEach(t => ids.add(t.unitId)));
+  return ids;
+}
+
 function updateForceUI() {
-  const count = force.length;
-  document.getElementById('force-count').textContent = count;
-
-  // Summary stats
-  const infUnits = force.filter(u => u.type === 'Infantry').length;
-  const vehUnits = force.filter(u => ['Armored', 'Recon', 'Transport'].includes(u.type)).length;
+  const count = platoons.length;
   const breakLimit = 5 + (count * 2);
-
+  document.getElementById('force-count').textContent = count;
   document.getElementById('summary-units').textContent = count;
   document.getElementById('summary-bl').textContent = breakLimit;
-  document.getElementById('summary-inf').textContent = infUnits;
-  document.getElementById('summary-veh').textContent = vehUnits;
 
-  // Force list
-  const listEl = document.getElementById('force-list');
-  if (force.length === 0) {
-    listEl.innerHTML = '<div class="force-empty">No units selected.<br>Add units from the arsenal<br>to build your force.</div>';
+  const listEl = document.getElementById('platoon-list');
+  const emptyEl = document.getElementById('platoon-empty');
+
+  if (platoons.length === 0) {
+    if (emptyEl) emptyEl.style.display = '';
+    listEl.innerHTML = '<div class="force-empty" id="platoon-empty">No platoons yet.<br>Add a platoon, then select units<br>from the arsenal to fill it.</div>';
     return;
   }
 
-  const nc_map = { 'United States': 'us', 'Germany': 'germany', 'Britain': 'britain', 'Soviet Union': 'soviet' };
+  listEl.innerHTML = platoons.map(platoon => {
+    const isActive = platoon.id === activePlatoonId;
+    const teamRows = platoon.teams.length === 0
+      ? `<div class="platoon-empty">No teams yet — select units from the arsenal.</div>`
+      : platoon.teams.map(t => {
+          const unit = allUnits.find(u => u.id === t.unitId);
+          if (!unit) return '';
+          return `
+            <div class="platoon-team-row">
+              <div class="team-qty-btns">
+                <button class="qty-btn" onclick="changeTeamQty('${platoon.id}','${t.unitId}',1)">▲</button>
+                <button class="qty-btn" onclick="changeTeamQty('${platoon.id}','${t.unitId}',-1)">▼</button>
+              </div>
+              <span class="team-qty">${t.qty}×</span>
+              <span class="team-name">${unit.name}</span>
+              <button class="team-remove-btn" onclick="removeTeamFromPlatoon('${platoon.id}','${t.unitId}')">✕</button>
+            </div>
+          `;
+        }).join('')
 
-  listEl.innerHTML = force.map(unit => `
-    <div class="force-item">
-      <div class="force-item-nation ${nc_map[unit.nation] || 'us'}"></div>
-      <div class="force-item-info">
-        <div class="force-item-name">${unit.name}</div>
-        <div class="force-item-meta">${unit.nation} · ${unit.type}</div>
+    return `
+      <div class="platoon-item ${isActive ? 'active-platoon' : ''}" id="platoon-${platoon.id}">
+        <div class="platoon-header">
+          <div class="platoon-active-dot"></div>
+          <input class="platoon-name-input" id="pname-${platoon.id}"
+            value="${platoon.name}"
+            oninput="updatePlatoonName('${platoon.id}', this.value)"
+            placeholder="Platoon name...">
+          <button class="platoon-select-btn" onclick="setActivePlatoon('${platoon.id}')">
+            ${isActive ? 'Active' : 'Select'}
+          </button>
+          <button class="platoon-remove-btn" onclick="removePlatoon('${platoon.id}')">✕</button>
+        </div>
+        <div class="platoon-teams">${teamRows}</div>
       </div>
-      <div class="force-item-stats">
-        ${unit.gun_range ? `<span>${unit.gun_range}</span>` : ''}
-        ${unit.at !== null ? `<span>AT${unit.at}</span>` : ''}
-        ${unit.armor_front !== null ? `<span>${unit.armor_front}/${unit.armor_flank}</span>` : ''}
-      </div>
-      <button class="force-item-remove" onclick="toggleForceUnit('${unit.id}')">✕</button>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 function clearForce() {
-  if (force.length === 0) return;
-  if (confirm('Clear all units from your force?')) {
-    force = [];
+  if (platoons.length === 0) return;
+  if (confirm('Clear all platoons from your force?')) {
+    platoons = [];
+    activePlatoonId = null;
+    platoonCounter = 0;
     updateForceUI();
     renderUnits();
   }
 }
 
 function exportForce() {
-  if (force.length === 0) return;
+  if (platoons.length === 0) return;
   const name = document.getElementById('force-name').value || 'Hail of Fire Force';
-  const lines = [`${name.toUpperCase()}`, `${'─'.repeat(40)}`];
-  const breakLimit = 5 + (force.length * 2);
-  lines.push(`Units: ${force.length}  |  Break Limit: ${breakLimit}`, '');
+  const breakLimit = 5 + (platoons.length * 2);
+  const lines = [
+    name.toUpperCase(),
+    '─'.repeat(40),
+    `Platoons: ${platoons.length}  |  Break Limit: ${breakLimit}`,
+    ''
+  ];
 
-  const byNation = {};
-  force.forEach(u => {
-    if (!byNation[u.nation]) byNation[u.nation] = [];
-    byNation[u.nation].push(u);
-  });
-
-  Object.entries(byNation).forEach(([nation, units]) => {
-    lines.push(`── ${nation.toUpperCase()} ──`);
-    units.forEach(u => {
-      let line = `  ${u.name}`;
-      const stats = [];
-      if (u.gun_range) stats.push(`Range ${u.gun_range}`);
-      if (u.rof !== null) stats.push(`RoF ${u.rof}`);
-      if (u.at !== null) stats.push(`AT ${u.at}`);
-      if (u.armor_front !== null) stats.push(`Armor ${u.armor_front}/${u.armor_flank}`);
-      if (stats.length) line += `  [${stats.join(' | ')}]`;
-      if (u.notes.length) line += `  (${u.notes.join(', ')})`;
-      lines.push(line);
-    });
+  platoons.forEach((platoon, i) => {
+    lines.push(`── ${platoon.name.toUpperCase()} ──`);
+    if (platoon.teams.length === 0) {
+      lines.push('  (empty)');
+    } else {
+      platoon.teams.forEach(t => {
+        const u = allUnits.find(u => u.id === t.unitId);
+        if (!u) return;
+        let line = `  ${t.qty}× ${u.name}`;
+        const stats = [];
+        if (u.gun_range) stats.push(`Range ${u.gun_range}`);
+        if (u.rof !== null) stats.push(`RoF ${u.rof}`);
+        if (u.at !== null) stats.push(`AT ${u.at}`);
+        if (u.armor_front !== null) stats.push(`Armor ${u.armor_front}/${u.armor_flank}`);
+        if (stats.length) line += `  [${stats.join(' | ')}]`;
+        if (u.notes.length) line += `  (${u.notes.join(', ')})`;
+        lines.push(line);
+      });
+    }
     lines.push('');
   });
 
