@@ -1678,15 +1678,29 @@
       border-color: #ccc !important;
       font-family: Arial, sans-serif !important;
     }
-    .note-tag {
-      color: #333 !important;
-      background: #f0f0f0 !important;
-      border-color: #ccc !important;
+    /* Special rules: strip boxes, render as plain inline text with · separators */
+    .fs-notes-cell { overflow: hidden !important; }
+    .fs-notes-cell .note-tag {
+      display: inline !important;
+      border: none !important;
+      background: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
       font-family: Arial, sans-serif !important;
+      font-size: 9px !important;
+      color: #444 !important;
+      letter-spacing: 0.3px !important;
+      text-transform: uppercase !important;
     }
-    /* suppress tooltips in print */
-    .note-tag[data-tip]:hover::after,
-    .note-tag[data-tip]:hover::before { display: none !important; }
+    .fs-notes-cell .note-tag + .note-tag::before {
+      content: ' · ' !important;
+      color: #bbb !important;
+    }
+    /* Suppress tooltip pseudo-elements entirely in print */
+    .note-tag::after,
+    .note-tag::before,
+    .note-tag[data-tip]::after,
+    .note-tag[data-tip]::before { display: none !important; content: none !important; }
   }
 </style>
 </head>
