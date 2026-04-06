@@ -419,12 +419,12 @@
     background: #1e1c18;
     border: 1px solid var(--border);
     color: var(--text2);
-    font-size: 10px;
-    letter-spacing: 0.3px;
+    font-family: var(--body);
+    font-size: 11px;
+    letter-spacing: 0.2px;
     line-height: 1.5;
-    padding: 6px 10px;
-    white-space: nowrap;
-    max-width: 260px;
+    padding: 7px 10px;
+    width: 240px;
     white-space: normal;
     z-index: 200;
     pointer-events: none;
@@ -1748,8 +1748,8 @@ function renderGrid(container, forceIds) {
               ? `<button class="add-force-btn" onclick="showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Ko-fi subscriber only</button>`
               : `<div class="card-footer-btns">
                   ${unit.standard_platoon ? `<button class="add-platoon-standard-btn" onclick="addAsStandardPlatoon('${unit.id}')">New Platoon</button>` : ''}
-                  <button class="add-force-btn ${inForce ? 'added' : ''}" id="btn-${unit.id}" onclick="addTeamToPlatoon('${unit.id}')">
-                    ${inForce ? '✓ Added' : 'Add to Platoon'}
+                  <button class="add-force-btn" id="btn-${unit.id}" onclick="addTeamToPlatoon('${unit.id}')">
+                    Add to Platoon
                   </button>
                 </div>`
             }
@@ -1804,9 +1804,7 @@ function renderTable(container, forceIds) {
         <td>
           ${locked
             ? `<span style="font-family:var(--mono);font-size:9px;color:#9a8a5a;">🔒 Sub</span>`
-            : `<button class="table-add-btn ${inForce ? 'added' : ''}" onclick="addTeamToPlatoon('${unit.id}')">
-                ${inForce ? '✓ Added' : '+ Add'}
-              </button>`
+            : `<button class="table-add-btn" onclick="addTeamToPlatoon('${unit.id}')">+ Add</button>`
           }
         </td>
       </tr>
