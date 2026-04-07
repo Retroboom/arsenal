@@ -47,7 +47,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    height: 56px;
+    height: 80px;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -57,8 +57,9 @@
     display: flex;
     align-items: center;
     gap: 2px;
-    flex: 1;
-    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
   .header-nav-tab {
     padding: 6px 14px;
@@ -87,7 +88,7 @@
   #section-campaign.active {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 56px);
+    min-height: calc(100vh - 80px);
     padding: 32px 40px;
     max-width: 1100px;
     margin: 0 auto;
@@ -128,7 +129,7 @@
   }
 
   .logo-img {
-    height: 56px;
+    height: 64px;
     width: auto;
     mix-blend-mode: screen;
     filter: drop-shadow(0 0 8px rgba(224,192,96,0.25));
@@ -183,7 +184,7 @@
   .app {
     display: grid;
     grid-template-columns: 260px 1fr;
-    min-height: calc(100vh - 56px);
+    min-height: calc(100vh - 80px);
   }
 
   /* SIDEBAR */
@@ -192,8 +193,8 @@
     border-right: 1px solid var(--border);
     padding: 20px 16px;
     position: sticky;
-    top: 56px;
-    height: calc(100vh - 56px);
+    top: 80px;
+    height: calc(100vh - 80px);
     overflow-y: auto;
   }
 
@@ -695,10 +696,10 @@
   /* FORCE BUILDER PANEL */
   .force-panel {
     position: fixed;
-    top: 56px;
+    top: 80px;
     right: 0;
     width: 360px;
-    height: calc(100vh - 56px);
+    height: calc(100vh - 80px);
     background: var(--bg2);
     border-left: 1px solid var(--border);
     display: flex;
@@ -1553,6 +1554,71 @@
   .lib-nav-btn:hover { background: var(--accent); color: var(--bg); }
 
   /* FEATURED STRIP */
+  /* WHAT'S NEW */
+  .whats-new {
+    margin-bottom: 20px;
+    border: 1px solid var(--accent);
+    background: linear-gradient(170deg, rgba(224,192,96,0.06) 0%, var(--bg2) 60%);
+    padding: 14px 16px;
+  }
+  .whats-new-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .whats-new-label {
+    font-family: var(--display);
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .whats-new-dismiss {
+    background: none;
+    border: none;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 11px;
+    padding: 2px 6px;
+    opacity: 0.5;
+    transition: opacity 0.1s;
+  }
+  .whats-new-dismiss:hover { opacity: 1; }
+  .whats-new-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+  }
+  .wn-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .wn-card:hover { border-color: var(--accent); }
+  .wn-card-badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    opacity: 0.7;
+  }
+  .wn-card-name {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .wn-card-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+  }
+
   .lib-featured-strip {
     margin-bottom: 20px;
     border: 1px solid var(--border);
@@ -2224,7 +2290,7 @@
 <body>
 
 <header>
-  <div class="logo">
+  <div class="logo" onclick="showHomeView()" style="cursor:pointer" title="Home">
     <img src="logo.png" alt="Hail of Fire" class="logo-img">
     <span>// ARSENAL DATABASE</span>
   </div>
@@ -2306,6 +2372,13 @@
         <button class="view-btn active" id="btn-grid" onclick="setView('grid')">Grid</button>
         <button class="view-btn" id="btn-table" onclick="setView('table')">Table</button>
       </div>
+    </div>
+    <div id="whats-new" class="whats-new" style="display:none">
+      <div class="whats-new-header">
+        <span class="whats-new-label">★ What's New</span>
+        <button class="whats-new-dismiss" onclick="dismissWhatsNew()" title="Dismiss">✕</button>
+      </div>
+      <div class="whats-new-cards" id="whats-new-cards"></div>
     </div>
     <div id="lib-featured-strip" class="lib-featured-strip" style="display:none">
       <div class="lib-featured-header">
@@ -3306,6 +3379,65 @@ async function loadFeaturedStrip() {
   strip.style.display = '';
 }
 
+let whatsNewDismissed = false;
+
+async function loadWhatsNew() {
+  if (whatsNewDismissed) return;
+  const container = document.getElementById('whats-new');
+  const cards = document.getElementById('whats-new-cards');
+  if (!container || !cards) return;
+
+  const snap = await firebase.database().ref('forces').once('value');
+  const all = [];
+  snap.forEach(child => { all.push(child.val()); });
+
+  // Show the 4 most recently added published forces
+  const newest = all.filter(f => f.published)
+    .sort((a, b) => (b.created || 0) - (a.created || 0))
+    .slice(0, 4);
+
+  if (newest.length === 0) return;
+
+  cards.innerHTML = newest.map(f => {
+    const age = timeAgoShort(f.created);
+    const nationBadges = toArr(f.nations).map(n =>
+      `<span class="${nationBadgeClass(n)}" style="font-size:8px;padding:1px 5px">${n}</span>`
+    ).join(' ');
+    return `
+      <div class="wn-card" onclick="openLibForceSheet('${f.id}')">
+        <div class="wn-card-badge">⊞ Force · ${age}</div>
+        <div class="wn-card-name">${f.name}</div>
+        <div class="wn-card-meta">${nationBadges}</div>
+      </div>`;
+  }).join('');
+
+  container.style.display = '';
+}
+
+function dismissWhatsNew() {
+  whatsNewDismissed = true;
+  const el = document.getElementById('whats-new');
+  if (el) el.style.display = 'none';
+}
+
+function showHomeView() {
+  setSection('units');
+  whatsNewDismissed = false;
+  loadWhatsNew();
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function timeAgoShort(ts) {
+  if (!ts) return '';
+  const s = Math.floor((Date.now() - ts) / 1000);
+  if (s < 3600) return `${Math.floor(s / 60)}m ago`;
+  if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
+  if (s < 86400 * 7) return `${Math.floor(s / 86400)}d ago`;
+  if (s < 86400 * 30) return `${Math.floor(s / (86400 * 7))}w ago`;
+  return `${Math.floor(s / (86400 * 30))}mo ago`;
+}
+
 async function loadLibraryTab(tab) {
   const body = document.getElementById('library-body');
   body.innerHTML = '<div class="lib-loading">Loading...</div>';
@@ -3843,6 +3975,7 @@ firebase.auth().onAuthStateChanged(async (user) => {
     await loadData();
     await checkUrlForce();
     loadFeaturedStrip();
+    loadWhatsNew();
   } else {
     gate.style.display = 'flex';
     isSubscriber = false;
