@@ -300,7 +300,6 @@
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
     position: relative;
-    overflow: hidden;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 2px 6px rgba(0,0,0,0.45);
     opacity: 0;
     animation: fadeUp 0.22s ease forwards;
@@ -460,7 +459,7 @@
     padding: 7px 10px;
     width: 240px;
     white-space: normal;
-    z-index: 200;
+    z-index: 9999;
     pointer-events: none;
     text-transform: none;
   }
@@ -473,7 +472,7 @@
     transform: translateX(-50%);
     border: 5px solid transparent;
     border-top-color: var(--border);
-    z-index: 201;
+    z-index: 10000;
     pointer-events: none;
   }
 
@@ -1123,22 +1122,60 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 8px 0 4px;
+    padding: 16px 0 6px;
   }
 
   .section-divider-label {
     font-family: var(--display);
-    font-size: 16px;
-    letter-spacing: 3px;
-    color: var(--text3);
+    font-size: 20px;
+    letter-spacing: 4px;
+    color: var(--accent);
     text-transform: uppercase;
     white-space: nowrap;
+    text-shadow: 0 0 16px rgba(224,192,96,0.2);
   }
 
   .section-divider-line {
     flex: 1;
     height: 1px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--border) 40%, transparent 100%);
+    opacity: 0.4;
+  }
+
+  .type-divider {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0 2px;
+  }
+
+  .type-divider-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    color: var(--text3);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .type-divider-line {
+    flex: 1;
+    height: 1px;
     background: var(--border);
+    opacity: 0.5;
+  }
+
+  /* TABLE TYPE HEADER ROW */
+  .table-type-row td {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--text3);
+    text-transform: uppercase;
+    padding: 12px 10px 4px;
+    border-bottom: 1px solid var(--border);
+    background: transparent !important;
   }
 
   /* LIBRARY MODAL */
@@ -2529,6 +2566,7 @@ function renderGrid(container, forceIds) {
   let cardIndex = 0;
 
   const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
+  const typeOrder = ['Infantry', 'Armored', 'Anti-Tank', 'Artillery', 'Anti-Air', 'Recon', 'Transport'];
 
   nationOrder.forEach(nation => {
     if (!byNation[nation]) return;
@@ -2542,7 +2580,27 @@ function renderGrid(container, forceIds) {
       `;
     }
 
-    byNation[nation].forEach(unit => {
+    // Group by type within nation
+    const byType = {};
+    byNation[nation].forEach(u => {
+      if (!byType[u.type]) byType[u.type] = [];
+      byType[u.type].push(u);
+    });
+
+    const activeTypes = typeOrder.filter(t => byType[t]);
+    const showTypeHeaders = activeTypes.length > 1;
+
+    activeTypes.forEach(type => {
+      if (showTypeHeaders) {
+        html += `
+          <div class="type-divider">
+            <span class="type-divider-label">${type}</span>
+            <div class="type-divider-line"></div>
+          </div>
+        `;
+      }
+
+    byType[type].forEach(unit => {
       const inForce = forceIds.has(unit.id);
       const locked = !unit.free && !isSubscriber;
       const nc = nationClass(unit.nation);
@@ -2606,8 +2664,9 @@ function renderGrid(container, forceIds) {
           </div>
         </div>
       `;
-    });
-  });
+    }); // end byType[type].forEach
+    }); // end activeTypes.forEach
+  }); // end nationOrder.forEach
 
   html += '</div>';
   container.innerHTML = html;
@@ -2634,34 +2693,61 @@ function renderTable(container, forceIds) {
       <tbody>
   `;
 
-  filteredUnits.forEach(unit => {
-    const inForce = forceIds.has(unit.id);
-    const locked = !unit.free && !isSubscriber;
-    const nc = nationClass(unit.nation);
+  const typeOrder = ['Infantry', 'Armored', 'Anti-Tank', 'Artillery', 'Anti-Air', 'Recon', 'Transport'];
+  const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
+  const byNation = {};
+  filteredUnits.forEach(u => {
+    if (!byNation[u.nation]) byNation[u.nation] = [];
+    byNation[u.nation].push(u);
+  });
+  const hasMultipleNations = Object.keys(byNation).length > 1;
+  const colSpan = 11;
 
-    html += `
-      <tr class="${inForce ? 'in-force' : ''}">
-        <td><span class="table-name">${unit.name}</span></td>
-        <td><span class="${nationBadgeClass(unit.nation)}" style="font-size:9px;padding:2px 5px;">${unit.nation}</span></td>
-        <td style="color:var(--text3);font-size:10px;letter-spacing:0.5px">${unit.type}</td>
-        <td class="table-stat ${unit.gun_range ? '' : 'null'}">${unit.gun_range || '—'}</td>
-        <td class="table-stat ${unit.rof !== null ? '' : 'null'}">${unit.rof !== null ? unit.rof : '—'}</td>
-        <td class="table-stat ${unit.at !== null ? '' : 'null'}">${unit.at !== null ? unit.at : '—'}</td>
-        <td class="table-stat ${unit.fp !== null && unit.fp !== undefined ? '' : 'null'}">${unit.fp !== null && unit.fp !== undefined ? unit.fp : '—'}</td>
-        <td class="table-stat ${unit.armor_front !== null ? '' : 'null'}">${unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '—'}</td>
-        <td class="table-notes">${unit.notes.map(n => noteTag(n)).join(' ')}</td>
-        <td style="color:var(--text3);font-size:10px;white-space:nowrap">${yearRange(unit.years)}${isAdmin ? ' ' + ratingBadgeHtml(unit.id) : ''}</td>
-        <td>
-          ${locked
-            ? `<span style="font-family:var(--mono);font-size:9px;color:#9a8a5a;">🔒 Sub</span>`
-            : `<div style="display:flex;gap:4px;">
-                ${unit.standard_platoon ? `<button class="table-add-btn" onclick="addAsStandardPlatoon('${unit.id}')">+ Platoon</button>` : ''}
-                <button class="table-add-btn" onclick="addTeamToPlatoon('${unit.id}')">+ Add</button>
-              </div>`
-          }
-        </td>
-      </tr>
-    `;
+  nationOrder.forEach(nation => {
+    if (!byNation[nation]) return;
+    if (hasMultipleNations) {
+      html += `<tr class="table-type-row"><td colspan="${colSpan}" style="font-family:var(--display);font-size:16px;letter-spacing:3px;color:var(--accent);padding:16px 10px 6px;border-bottom:1px solid var(--border);opacity:0.9">${nation}</td></tr>`;
+    }
+    const byType = {};
+    byNation[nation].forEach(u => {
+      if (!byType[u.type]) byType[u.type] = [];
+      byType[u.type].push(u);
+    });
+    const activeTypes = typeOrder.filter(t => byType[t]);
+    const showTypeHeaders = activeTypes.length > 1;
+
+    activeTypes.forEach(type => {
+      if (showTypeHeaders) {
+        html += `<tr class="table-type-row"><td colspan="${colSpan}">${type}</td></tr>`;
+      }
+      byType[type].forEach(unit => {
+        const inForce = forceIds.has(unit.id);
+        const locked = !unit.free && !isSubscriber;
+        html += `
+          <tr class="${inForce ? 'in-force' : ''}">
+            <td><span class="table-name">${unit.name}</span></td>
+            <td><span class="${nationBadgeClass(unit.nation)}" style="font-size:9px;padding:2px 5px;">${unit.nation}</span></td>
+            <td style="color:var(--text3);font-size:10px;letter-spacing:0.5px">${unit.type}</td>
+            <td class="table-stat ${unit.gun_range ? '' : 'null'}">${unit.gun_range || '—'}</td>
+            <td class="table-stat ${unit.rof !== null ? '' : 'null'}">${unit.rof !== null ? unit.rof : '—'}</td>
+            <td class="table-stat ${unit.at !== null ? '' : 'null'}">${unit.at !== null ? unit.at : '—'}</td>
+            <td class="table-stat ${unit.fp !== null && unit.fp !== undefined ? '' : 'null'}">${unit.fp !== null && unit.fp !== undefined ? unit.fp : '—'}</td>
+            <td class="table-stat ${unit.armor_front !== null ? '' : 'null'}">${unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '—'}</td>
+            <td class="table-notes">${unit.notes.map(n => noteTag(n)).join(' ')}</td>
+            <td style="color:var(--text3);font-size:10px;white-space:nowrap">${yearRange(unit.years)}${isAdmin ? ' ' + ratingBadgeHtml(unit.id) : ''}</td>
+            <td>
+              ${locked
+                ? `<span style="font-family:var(--mono);font-size:9px;color:#9a8a5a;">🔒 Sub</span>`
+                : `<div style="display:flex;gap:4px;">
+                    ${unit.standard_platoon ? `<button class="table-add-btn" onclick="addAsStandardPlatoon('${unit.id}')">+ Platoon</button>` : ''}
+                    <button class="table-add-btn" onclick="addTeamToPlatoon('${unit.id}')">+ Add</button>
+                  </div>`
+              }
+            </td>
+          </tr>
+        `;
+      });
+    });
   });
 
   html += '</tbody></table>';
