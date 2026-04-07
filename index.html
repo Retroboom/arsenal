@@ -43,11 +43,12 @@
     background: var(--bg2);
     border-bottom: 1px solid var(--border);
     padding: 0 24px;
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    height: 80px;
+    gap: 8px;
+    min-height: 80px;
+    height: auto;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -57,9 +58,9 @@
     display: flex;
     align-items: center;
     gap: 2px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 4px 0;
   }
   .header-nav-tab {
     padding: 6px 14px;
@@ -83,9 +84,7 @@
   .section.active { display: contents; }
 
   #section-library.active,
-  #section-guides.active,
-  #section-scenarios.active,
-  #section-campaign.active {
+  #section-fieldmanual.active {
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 80px);
@@ -122,6 +121,145 @@
     color: var(--text3);
   }
 
+  /* FIELD MANUAL SECTION */
+  .fm-section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .fm-section-title {
+    font-family: var(--display);
+    font-size: 22px;
+    letter-spacing: 4px;
+    color: var(--text);
+  }
+  .fm-section-sub {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 1px;
+  }
+  .fm-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .fm-search {
+    flex: 1;
+    min-width: 200px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 8px 10px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .fm-search:focus { border-color: var(--accent); }
+  .fm-search::placeholder { color: var(--text3); }
+  .fm-type-chips {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .fm-sort {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 6px 28px 6px 8px;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23857a6e'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+  }
+  .fm-sort:focus { border-color: var(--accent); }
+  .fm-sort option { background: var(--bg3); color: var(--text); }
+  .fm-result-count {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .fm-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+  }
+  .fm-card {
+    background: linear-gradient(175deg, var(--bg3) 0%, var(--bg2) 60%);
+    border: 1px solid var(--border);
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 2px 6px rgba(0,0,0,0.35);
+  }
+  .fm-card:hover {
+    border-color: var(--accent);
+    background: linear-gradient(175deg, #2e2c28 0%, var(--bg3) 60%);
+  }
+  .fm-card-type {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .fm-card-type.t-guide    { color: #6a9abc; }
+  .fm-card-type.t-scenario { color: #9a8a5a; }
+  .fm-card-type.t-campaign { color: #6a9a6a; }
+  .fm-card-title {
+    font-family: var(--display);
+    font-size: 17px;
+    letter-spacing: 1px;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .fm-card-summary {
+    font-size: 12px;
+    color: var(--text3);
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .fm-card-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    display: flex;
+    gap: 12px;
+  }
+  .fm-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 0;
+    opacity: 0.4;
+  }
+  .fm-empty-title {
+    font-family: var(--display);
+    font-size: 24px;
+    letter-spacing: 4px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .fm-empty-sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: var(--text3);
+  }
+
   .logo {
     display: flex;
     align-items: center;
@@ -148,6 +286,7 @@
     display: flex;
     align-items: center;
     gap: 16px;
+    justify-self: end;
   }
 
   .force-toggle-btn {
@@ -1587,7 +1726,7 @@
   .whats-new-dismiss:hover { opacity: 1; }
   .whats-new-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 10px;
   }
   .wn-card {
@@ -1658,7 +1797,7 @@
 
   .lib-featured-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 
   .lib-fc {
@@ -2297,9 +2436,7 @@
   <nav class="header-nav">
     <button class="header-nav-tab active" onclick="setSection('units')">Units</button>
     <button class="header-nav-tab" onclick="setSection('library')">Library</button>
-    <button class="header-nav-tab" onclick="setSection('guides')">Guides</button>
-    <button class="header-nav-tab" onclick="setSection('scenarios')">Scenarios</button>
-    <button class="header-nav-tab" onclick="setSection('campaign')">Campaign</button>
+    <button class="header-nav-tab" onclick="setSection('fieldmanual')">Field Manual</button>
   </nav>
   <div class="header-right">
     <button class="lib-nav-btn units-only" id="rate-btn" onclick="openCompare()" style="display:none">▲ Rate Teams</button>
@@ -2405,28 +2542,28 @@
   <div id="library-body" class="library-body"></div>
 </div>
 
-<!-- GUIDES SECTION -->
-<div class="section" id="section-guides">
-  <div class="section-stub">
-    <div class="section-stub-title">GUIDES</div>
-    <div class="section-stub-sub">Tactics, list-building, and painting guides — coming soon</div>
+<!-- FIELD MANUAL SECTION -->
+<div class="section" id="section-fieldmanual">
+  <div class="fm-section-header">
+    <span class="fm-section-title">FIELD MANUAL</span>
+    <span class="fm-section-sub">Guides · Scenarios · Campaign</span>
   </div>
-</div>
-
-<!-- SCENARIOS SECTION -->
-<div class="section" id="section-scenarios">
-  <div class="section-stub">
-    <div class="section-stub-title">SCENARIOS</div>
-    <div class="section-stub-sub">Mission cards and historical scenarios — coming soon</div>
+  <div class="fm-controls">
+    <input type="text" class="fm-search" id="fm-search" placeholder="Search…" oninput="applyFmFilters()">
+    <div class="fm-type-chips" id="fm-type-chips">
+      <div class="chip active" data-fmtype="All" onclick="toggleFmType('All')">All</div>
+      <div class="chip" data-fmtype="Guide" onclick="toggleFmType('Guide')">Guides</div>
+      <div class="chip" data-fmtype="Scenario" onclick="toggleFmType('Scenario')">Scenarios</div>
+      <div class="chip" data-fmtype="Campaign" onclick="toggleFmType('Campaign')">Campaign</div>
+    </div>
+    <select class="fm-sort" id="fm-sort" onchange="applyFmFilters()">
+      <option value="newest">Newest First</option>
+      <option value="oldest">Oldest First</option>
+      <option value="az">A → Z</option>
+    </select>
+    <span class="fm-result-count" id="fm-result-count"></span>
   </div>
-</div>
-
-<!-- CAMPAIGN SECTION -->
-<div class="section" id="section-campaign">
-  <div class="section-stub">
-    <div class="section-stub-title">CAMPAIGN</div>
-    <div class="section-stub-sub">Campaign tools and progression — coming soon</div>
-  </div>
+  <div class="fm-grid" id="fm-grid"></div>
 </div>
 
 <!-- FORCE BUILDER PANEL -->
@@ -2564,6 +2701,7 @@ function setSection(name) {
     el.style.display = name === 'units' ? '' : 'none';
   });
   if (name === 'library') loadLibraryTab(currentLibTab || 'browse');
+  if (name === 'fieldmanual') loadFieldManual();
 }
 
 // ── LOAD DATA ─────────────────────────────────────────────────────────────────
@@ -3387,28 +3525,53 @@ async function loadWhatsNew() {
   const cards = document.getElementById('whats-new-cards');
   if (!container || !cards) return;
 
-  const snap = await firebase.database().ref('forces').once('value');
-  const all = [];
-  snap.forEach(child => { all.push(child.val()); });
+  // Pull latest forces and Field Manual content in parallel
+  const [forcesSnap, contentSnap] = await Promise.all([
+    firebase.database().ref('forces').once('value'),
+    firebase.database().ref('content').once('value')
+  ]);
 
-  // Show the 4 most recently added published forces
-  const newest = all.filter(f => f.published)
+  const combined = [];
+
+  forcesSnap.forEach(child => {
+    const f = child.val();
+    if (f.published) combined.push({ _wnType: 'force', ...f });
+  });
+
+  contentSnap.forEach(child => {
+    const c = child.val();
+    if (c.published) combined.push({ _wnType: 'content', ...c });
+  });
+
+  const newest = combined
     .sort((a, b) => (b.created || 0) - (a.created || 0))
     .slice(0, 4);
 
   if (newest.length === 0) return;
 
-  cards.innerHTML = newest.map(f => {
-    const age = timeAgoShort(f.created);
-    const nationBadges = toArr(f.nations).map(n =>
-      `<span class="${nationBadgeClass(n)}" style="font-size:8px;padding:1px 5px">${n}</span>`
-    ).join(' ');
-    return `
-      <div class="wn-card" onclick="openLibForceSheet('${f.id}')">
-        <div class="wn-card-badge">⊞ Force · ${age}</div>
-        <div class="wn-card-name">${f.name}</div>
-        <div class="wn-card-meta">${nationBadges}</div>
-      </div>`;
+  cards.innerHTML = newest.map(item => {
+    if (item._wnType === 'force') {
+      const age = timeAgoShort(item.created);
+      const nationBadges = toArr(item.nations).map(n =>
+        `<span class="${nationBadgeClass(n)}" style="font-size:8px;padding:1px 5px">${n}</span>`
+      ).join(' ');
+      return `
+        <div class="wn-card" onclick="openLibForceSheet('${item.id}')">
+          <div class="wn-card-badge">⊞ Force · ${age}</div>
+          <div class="wn-card-name">${item.name}</div>
+          <div class="wn-card-meta">${nationBadges}</div>
+        </div>`;
+    } else {
+      const age = timeAgoShort(item.created);
+      const typeClass = { Guide: 't-guide', Scenario: 't-scenario', Campaign: 't-campaign' }[item.type] || 't-guide';
+      const dest = item.url ? `window.open('${item.url}','_blank')` : `setSection('fieldmanual')`;
+      return `
+        <div class="wn-card" onclick="${dest}">
+          <div class="wn-card-badge"><span class="fm-card-type ${typeClass}" style="font-size:9px">${item.type || 'Guide'}</span> · ${age}</div>
+          <div class="wn-card-name">${item.title || 'Untitled'}</div>
+          <div class="wn-card-meta" style="color:var(--text3);font-size:10px">${item.author || 'Hail of Fire'}</div>
+        </div>`;
+    }
   }).join('');
 
   container.style.display = '';
@@ -3436,6 +3599,87 @@ function timeAgoShort(ts) {
   if (s < 86400 * 7) return `${Math.floor(s / 86400)}d ago`;
   if (s < 86400 * 30) return `${Math.floor(s / (86400 * 7))}w ago`;
   return `${Math.floor(s / (86400 * 30))}mo ago`;
+}
+
+// ── FIELD MANUAL ──────────────────────────────────────────────────────────────
+let fmAllItems = [];
+let fmTypeFilter = 'All';
+let fmLoaded = false;
+
+async function loadFieldManual() {
+  if (fmLoaded) { applyFmFilters(); return; }
+  const grid = document.getElementById('fm-grid');
+  if (!grid) return;
+  grid.innerHTML = `<div class="fm-empty"><div class="fm-empty-title">LOADING</div></div>`;
+
+  try {
+    const snap = await firebase.database().ref('content').once('value');
+    fmAllItems = [];
+    snap.forEach(child => {
+      const v = child.val();
+      if (v.published) fmAllItems.push(v);
+    });
+    fmLoaded = true;
+    applyFmFilters();
+  } catch(e) {
+    grid.innerHTML = `<div class="fm-empty"><div class="fm-empty-title">ERROR</div><div class="fm-empty-sub">Could not load content.</div></div>`;
+  }
+}
+
+function toggleFmType(type) {
+  fmTypeFilter = type;
+  document.querySelectorAll('[data-fmtype]').forEach(el => {
+    el.classList.toggle('active', el.dataset.fmtype === type);
+  });
+  applyFmFilters();
+}
+
+function applyFmFilters() {
+  const grid = document.getElementById('fm-grid');
+  const countEl = document.getElementById('fm-result-count');
+  const query = (document.getElementById('fm-search')?.value || '').toLowerCase().trim();
+  const sort = document.getElementById('fm-sort')?.value || 'newest';
+
+  let items = fmAllItems.slice();
+
+  if (fmTypeFilter !== 'All') items = items.filter(i => i.type === fmTypeFilter);
+  if (query) items = items.filter(i =>
+    (i.title || '').toLowerCase().includes(query) ||
+    (i.summary || '').toLowerCase().includes(query)
+  );
+
+  if (sort === 'newest') items.sort((a, b) => (b.created || 0) - (a.created || 0));
+  else if (sort === 'oldest') items.sort((a, b) => (a.created || 0) - (b.created || 0));
+  else if (sort === 'az') items.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+
+  if (countEl) countEl.textContent = items.length ? `${items.length} item${items.length !== 1 ? 's' : ''}` : '';
+
+  if (!grid) return;
+  if (items.length === 0) {
+    const isFiltered = fmTypeFilter !== 'All' || query;
+    grid.innerHTML = `
+      <div class="fm-empty">
+        <div class="fm-empty-title">${isFiltered ? 'NO RESULTS' : 'NOTHING HERE YET'}</div>
+        <div class="fm-empty-sub">${isFiltered ? 'Try adjusting your search or filter.' : 'Guides, scenarios, and campaign content coming soon.'}</div>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = items.map(item => {
+    const typeClass = { Guide: 't-guide', Scenario: 't-scenario', Campaign: 't-campaign' }[item.type] || 't-guide';
+    const age = timeAgoShort(item.created);
+    const dest = item.url ? `window.open('${item.url}','_blank')` : '';
+    return `
+      <div class="fm-card" onclick="${dest}">
+        <div class="fm-card-type ${typeClass}">${item.type || 'Guide'}</div>
+        <div class="fm-card-title">${item.title || 'Untitled'}</div>
+        ${item.summary ? `<div class="fm-card-summary">${item.summary}</div>` : ''}
+        <div class="fm-card-meta">
+          <span>${item.author || 'Hail of Fire'}</span>
+          ${age ? `<span>${age}</span>` : ''}
+        </div>
+      </div>`;
+  }).join('');
 }
 
 async function loadLibraryTab(tab) {
