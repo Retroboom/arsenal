@@ -355,7 +355,8 @@
       "lore": "Introduced in 1942, the M1 Bazooka gave American infantry their first portable anti-tank weapon, firing a shaped-charge rocket capable of penetrating 75mm of armor. Though short-ranged and outmatched by late-war German tanks from the front, bazooka teams used the close terrain of the bocage and ruined cities to ambush Panthers and Tigers at point-blank range. The trick was getting within 50 meters — a nerve-testing proposition against a 50-ton tank.",
       "name": "Bazooka",
       "nation": "United States",
-      "type": "Infantry",
+      "type": "Support",
+      "infantry_weapon": true,
       "theater": [
         "Western Front",
         "Pacific",
@@ -1840,7 +1841,8 @@
       "lore": "The 88mm Raketenpanzerbüchse — \"Tank Terror\" — was reverse-engineered from captured American bazookas and scaled up to carry a larger warhead capable of defeating any Allied tank of the period. Issued to specialist anti-tank teams, it forced Allied infantry to work in close coordination with their armor, since a Sherman without infantry screen was easy prey in close terrain. Panzerschreck teams in Normandy's bocage ambushed hundreds of Allied tanks from concealed positions at ranges under 100 meters.",
       "name": "Panzerschreck",
       "nation": "Germany",
-      "type": "Infantry",
+      "type": "Support",
+      "infantry_weapon": true,
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -1872,7 +1874,8 @@
       "lore": "The Panzerfaust was a cheap, disposable single-shot recoilless launcher issued in the millions to German infantry from 1943 onward, capable of penetrating 140-200mm of armor with its hollow-charge warhead. In the close terrain of Normandy hedgerows, Italian hillside villages, and the ruined cities of Germany, it made every German soldier a potential tank killer at ranges under 100 meters. Allied armored commanders learned to sweep infantry clear of buildings and hedgerows before advancing their tanks — one Panzerfaust team could destroy a Sherman in seconds.",
       "name": "Panzerfaust",
       "nation": "Germany",
-      "type": "Infantry",
+      "type": "Support",
+      "infantry_weapon": true,
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -3879,7 +3882,8 @@
       "lore": "The Projector Infantry Anti-Tank was a spring-operated spigot mortar that lobbed a 2.5lb HEAT bomb with a shaped charge capable of penetrating 100mm of armor — enough for most German tanks at close range. It was notoriously difficult to cock the heavy spring, required awkward prone firing, had minimal effective range (about 100m against a moving target), and the operator was exposed to the blast of his own weapon. Yet in Normandy's hedgerows and Italian villages it was often the only weapon a platoon carried that could stop a Panzer IV, and PIAT gunners regularly earned Victoria Crosses for closing to within touching distance of German armor.",
       "name": "PIAT",
       "nation": "Britain",
-      "type": "Infantry",
+      "type": "Support",
+      "infantry_weapon": true,
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -3909,7 +3913,7 @@
       "lore": "The 2-inch mortar was the British platoon's organic indirect fire weapon, light enough for one man to carry and capable of dropping smoke or HE within 500 meters in under a minute. Smoke was its primary wartime use — covering section moves across open ground, masking withdrawals, and screening casualty recovery — though its HE round was effective against infantry in the open and light cover. Every British rifle platoon carried one, and their use of smoke to fix and flank German positions became a trademark of British infantry tactics from El Alamein to the Rhine.",
       "name": "ML 2\" Mortar",
       "nation": "Britain",
-      "type": "Artillery",
+      "type": "Support",
       "theater": [
         "Western Front",
         "Mediterranean",

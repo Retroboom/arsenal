@@ -591,6 +591,21 @@
   .nation-britain { border-color: #3a5a3a; color: #6a9a6a; background: #0d180d; }
   .nation-soviet { border-color: #7c3a3a; color: #bc6a6a; background: #240d0d; }
 
+  /* Nation chip colors — keyed to existing badge palette */
+  [data-nation="United States"] { --nation-color: #6a9abc; }
+  [data-nation="Germany"]       { --nation-color: #9a8a5a; }
+  [data-nation="Britain"]       { --nation-color: #6a9a6a; }
+  [data-nation="Soviet Union"]  { --nation-color: #bc6a6a; }
+
+  .chip[data-nation] { color: var(--nation-color); }
+  .chip[data-nation]:hover { border-color: var(--nation-color); color: var(--nation-color); }
+  .chip[data-nation].active {
+    background: var(--nation-color);
+    border-color: var(--nation-color);
+    color: #111;
+    font-weight: 600;
+  }
+
   /* ── Type colors ──────────────────────────────────────────────────────────── */
   [data-type="Infantry"]  { --type-color: #6abf6a; }
   [data-type="Support"]   { --type-color: #a07fd4; }
@@ -2994,8 +3009,9 @@ function buildFilterChips() {
 function renderChips(containerId, values, filterKey) {
   const container = document.getElementById(containerId);
   container.innerHTML = values.map(v => {
-    const typeAttr = filterKey === 'types' ? ` data-type="${v}"` : '';
-    return `<div class="chip" onclick="toggleFilter('${filterKey}', '${v}')" data-key="${filterKey}" data-val="${v}"${typeAttr}>${v}</div>`;
+    const typeAttr   = filterKey === 'types'   ? ` data-type="${v}"`   : '';
+    const nationAttr = filterKey === 'nations' ? ` data-nation="${v}"` : '';
+    return `<div class="chip" onclick="toggleFilter('${filterKey}', '${v}')" data-key="${filterKey}" data-val="${v}"${typeAttr}${nationAttr}>${v}</div>`;
   }).join('');
 }
 
@@ -3023,6 +3039,35 @@ function clearFilters() {
 }
 
 // ── FILTERING ─────────────────────────────────────────────────────────────────
+function hasActiveFilters() {
+  return activeFilters.search.length > 0
+    || activeFilters.nations.length > 0
+    || activeFilters.types.length > 0
+    || activeFilters.theaters.length > 0
+    || activeFilters.yearFrom !== null
+    || activeFilters.yearTo !== null;
+}
+
+function updateStripsVisibility() {
+  const filtering = hasActiveFilters();
+
+  const wnEl    = document.getElementById('whats-new');
+  const libEl   = document.getElementById('lib-featured-strip');
+  const wnCards = document.getElementById('whats-new-cards');
+  const libCards = document.getElementById('lib-featured-cards');
+
+  if (filtering) {
+    if (wnEl)  wnEl.style.display  = 'none';
+    if (libEl) libEl.style.display = 'none';
+  } else {
+    // Restore only if content was loaded and not dismissed
+    if (wnEl && wnCards && wnCards.innerHTML.trim() && !whatsNewDismissed)
+      wnEl.style.display = '';
+    if (libEl && libCards && libCards.innerHTML.trim())
+      libEl.style.display = '';
+  }
+}
+
 function applyFilters() {
   activeFilters.search = document.getElementById('search-input').value.toLowerCase().trim();
   activeFilters.yearFrom = parseInt(document.getElementById('year-from').value) || null;
@@ -3033,11 +3078,13 @@ function applyFilters() {
     if (activeFilters.nations.length && !activeFilters.nations.includes(u.nation)) return false;
     if (activeFilters.types.length) {
       const GUN_TEAMS_TYPES = ['Artillery', 'Support', 'Anti-Tank', 'Anti-Air'];
-      const hasGunTeams = activeFilters.types.includes('Gun Teams');
-      const otherTypes = activeFilters.types.filter(t => t !== 'Gun Teams');
-      const matchesDirect = otherTypes.includes(u.type);
-      const matchesGunTeams = hasGunTeams && GUN_TEAMS_TYPES.includes(u.type) && u.base !== 'Vehicle';
-      if (!matchesDirect && !matchesGunTeams) return false;
+      const hasGunTeams  = activeFilters.types.includes('Gun Teams');
+      const hasInfantry  = activeFilters.types.includes('Infantry');
+      const otherTypes   = activeFilters.types.filter(t => t !== 'Gun Teams');
+      const matchesDirect    = otherTypes.includes(u.type);
+      const matchesGunTeams  = hasGunTeams && GUN_TEAMS_TYPES.includes(u.type) && u.base !== 'Vehicle';
+      const matchesInfantry  = hasInfantry && u.type === 'Support' && u.infantry_weapon === true;
+      if (!matchesDirect && !matchesGunTeams && !matchesInfantry) return false;
     }
     if (activeFilters.theaters.length && !u.theater.some(t => activeFilters.theaters.includes(t))) return false;
     if (activeFilters.yearFrom && !u.years.some(y => y >= activeFilters.yearFrom)) return false;
@@ -3048,6 +3095,7 @@ function applyFilters() {
   document.getElementById('results-count').textContent =
     `${filteredUnits.length} of ${allUnits.length} units`;
 
+  updateStripsVisibility();
   renderUnits();
 }
 
