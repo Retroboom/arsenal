@@ -1561,22 +1561,6 @@
   .quality-chip.active.q-regular { border-color: var(--green); color: var(--green); background: rgba(90,154,110,0.08); }
   .quality-chip.active.q-poor   { border-color: var(--red); color: #ff9a9a; background: rgba(160,69,69,0.08); }
 
-  /* COMPARE QUALITY */
-  .compare-quality-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-  }
-
-  .compare-quality-label {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    color: var(--text3);
-    text-transform: uppercase;
-  }
-
   /* RATING BADGE (admin only) */
   .rating-badge {
     font-family: var(--mono);
@@ -2254,14 +2238,6 @@
     <div class="compare-card" id="compare-b" onclick="submitComparison('b')">
       <div class="compare-flash" id="flash-b"></div>
       <div id="compare-b-content"></div>
-    </div>
-  </div>
-  <div class="compare-quality-bar">
-    <span class="compare-quality-label">Quality</span>
-    <div class="quality-chips">
-      <button class="quality-chip q-elite"    onclick="setCompareQuality('Elite')"  >Elite</button>
-      <button class="quality-chip q-regular active" onclick="setCompareQuality('Regular')">Regular</button>
-      <button class="quality-chip q-poor"     onclick="setCompareQuality('Poor')"  >Poor</button>
     </div>
   </div>
   <div class="compare-footer">
@@ -3138,8 +3114,6 @@ function renderLibForces(body, forces) {
         <span>${platoonArr.length} platoons</span>
         <span style="color:var(--border)">|</span>
         <span>BL ${f.breakLimit || 5}</span>
-        <span style="color:var(--border)">|</span>
-        <span>${f.quality || 'Regular'}</span>
       </div>
       ${f.notes ? `<div class="force-card-desc">${f.notes}</div>` : ''}
       <div class="force-card-platoon-list">${platoonRows}</div>
@@ -3199,7 +3173,6 @@ async function checkUrlForce() {
 
 // ── ADMIN ─────────────────────────────────────────────────────────────────────
 let forceQuality = 'Regular';
-let compareQuality = 'Regular';
 let isAdmin = false;
 let unitRatings = {};   // { unitId: { rating, wins, losses, comparisons } }
 
@@ -3210,17 +3183,6 @@ function setForceQuality(q) {
   });
 }
 
-function setCompareQuality(q) {
-  compareQuality = q;
-  document.querySelectorAll('.compare-quality-bar .quality-chip').forEach(c => {
-    c.classList.toggle('active', c.textContent.trim() === q);
-  });
-  // Refresh rating display without loading new pair
-  if (compareUnitA && compareUnitB) {
-    document.getElementById('compare-count').textContent =
-      `${compareSessionCount} comparison${compareSessionCount !== 1 ? 's' : ''} submitted this session`;
-  }
-}
 
 function ratingKey(unitId, quality) {
   return `${unitId}_${quality}`;
@@ -3239,12 +3201,12 @@ async function loadRatings() {
 }
 
 function ratingBadgeHtml(unitId) {
-  const key = ratingKey(unitId, compareQuality);
+  const key = ratingKey(unitId, forceQuality);
   const r = unitRatings[key];
   if (!r || r.comparisons === 0) {
-    return `<span class="rating-badge unrated">${compareQuality} unrated</span>`;
+    return `<span class="rating-badge unrated">unrated</span>`;
   }
-  return `<span class="rating-badge" title="${compareQuality} · ${r.comparisons} comparisons · ${r.wins}W ${r.losses}L">${Math.round(r.rating)} ELO (${compareQuality})</span>`;
+  return `<span class="rating-badge" title="${r.comparisons} comparisons · ${r.wins}W ${r.losses}L">${Math.round(r.rating)} ELO</span>`;
 }
 
 // ── ELO COMPARISON ────────────────────────────────────────────────────────────
@@ -3336,8 +3298,8 @@ async function submitComparison(winner) {
 
   const idA = compareUnitA.id;
   const idB = compareUnitB.id;
-  const kA = ratingKey(idA, compareQuality);
-  const kB = ratingKey(idB, compareQuality);
+  const kA = ratingKey(idA, forceQuality);
+  const kB = ratingKey(idB, forceQuality);
   const rA = (unitRatings[kA] && unitRatings[kA].rating) || 1200;
   const rB = (unitRatings[kB] && unitRatings[kB].rating) || 1200;
 
