@@ -2529,7 +2529,7 @@
     </div>
     <div id="whats-new" class="whats-new" style="display:none">
       <div class="whats-new-header">
-        <span class="whats-new-label">★ What's New</span>
+        <span class="whats-new-label">★ Recent Briefings</span>
         <button class="whats-new-dismiss" onclick="dismissWhatsNew()" title="Dismiss">✕</button>
       </div>
       <div class="whats-new-cards" id="whats-new-cards"></div>
@@ -3542,10 +3542,11 @@ async function loadWhatsNew() {
   const cards = document.getElementById('whats-new-cards');
   if (!container || !cards) return;
 
-  // Pull latest forces and Field Manual content in parallel
+  // Pull latest forces and Field Manual content in parallel;
+  // content collection may not exist yet so we let it fail silently
   const [forcesSnap, contentSnap] = await Promise.all([
     firebase.database().ref('forces').once('value'),
-    firebase.database().ref('content').once('value')
+    firebase.database().ref('content').once('value').catch(() => null)
   ]);
 
   const combined = [];
@@ -3555,10 +3556,12 @@ async function loadWhatsNew() {
     if (f.published) combined.push({ _wnType: 'force', ...f });
   });
 
-  contentSnap.forEach(child => {
-    const c = child.val();
-    if (c.published) combined.push({ _wnType: 'content', ...c });
-  });
+  if (contentSnap) {
+    contentSnap.forEach(child => {
+      const c = child.val();
+      if (c.published) combined.push({ _wnType: 'content', ...c });
+    });
+  }
 
   const newest = combined
     .sort((a, b) => (b.created || 0) - (a.created || 0))
