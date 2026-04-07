@@ -33,7 +33,8 @@
       "special_rules": [],
       "base": "Small",
       "standard_platoon": null,
-      "free": true
+      "free": true,
+      "wiki": "Platoon_leader"
     },
     {
       "id": "us-fo",
@@ -68,7 +69,8 @@
       "special_rules": [],
       "base": "Small",
       "standard_platoon": null,
-      "free": true
+      "free": true,
+      "wiki": "Forward_observer"
     },
     {
       "id": "de-leader",
@@ -103,7 +105,8 @@
       "special_rules": [],
       "base": "Small",
       "standard_platoon": null,
-      "free": true
+      "free": true,
+      "wiki": "Platoon_leader"
     },
     {
       "id": "de-fo",
@@ -138,7 +141,8 @@
       "special_rules": [],
       "base": "Small",
       "standard_platoon": null,
-      "free": true
+      "free": true,
+      "wiki": "Forward_observer"
     },
     {
       "id": "br-leader",
@@ -173,7 +177,8 @@
       "special_rules": [],
       "base": "Small",
       "standard_platoon": null,
-      "free": true
+      "free": true,
+      "wiki": "Platoon_leader"
     },
     {
       "id": "br-fo",
@@ -208,7 +213,8 @@
       "special_rules": [],
       "base": "Small",
       "standard_platoon": null,
-      "free": true
+      "free": true,
+      "wiki": "Forward_observer"
     },
     {
       "id": "sv-leader",
@@ -241,7 +247,8 @@
       "special_rules": [],
       "base": "Small",
       "standard_platoon": null,
-      "free": true
+      "free": true,
+      "wiki": "Platoon_leader"
     },
     {
       "id": "sv-fo",
@@ -274,7 +281,8 @@
       "special_rules": [],
       "base": "Small",
       "standard_platoon": null,
-      "free": true
+      "free": true,
+      "wiki": "Forward_observer"
     },
     {
       "id": "us-inf-rifle-mg",
@@ -282,6 +290,7 @@
       "name": "Rifle/MG",
       "nation": "United States",
       "type": "Infantry",
+      "wiki": "M1_Garand",
       "theater": [
         "Western Front",
         "Pacific",
@@ -319,6 +328,7 @@
       "name": "MG",
       "nation": "United States",
       "type": "Infantry",
+      "wiki": "M1919_Browning_machine_gun",
       "theater": [
         "Western Front",
         "Pacific",
@@ -382,7 +392,8 @@
       "special_rules": [],
       "free": true,
       "base": "Small",
-      "standard_platoon": null
+      "standard_platoon": null,
+      "wiki": "Bazooka"
     },
     {
       "id": "us-gun-hmg",
@@ -390,6 +401,7 @@
       "name": "M1917/M1919 HMG",
       "nation": "United States",
       "type": "Support",
+      "wiki": "M1917_Browning_machine_gun",
       "theater": [
         "Western Front",
         "Pacific",
@@ -461,7 +473,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "M2_mortar"
     },
     {
       "id": "us-gun-81mm-mortar",
@@ -502,7 +515,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "M1_mortar_(81_mm)"
     },
     {
       "id": "us-gun-37mm",
@@ -539,7 +553,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "37_mm_Gun_M3"
     },
     {
       "id": "us-gun-57mm",
@@ -573,7 +588,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "57_mm_Gun_M1"
     },
     {
       "id": "us-gun-3in",
@@ -608,7 +624,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "3-inch_Gun_M5"
     },
     {
       "id": "us-gun-105mm-light",
@@ -649,7 +666,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "M3_howitzer"
     },
     {
       "id": "us-gun-105mm-howitzer",
@@ -692,7 +710,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "M101_howitzer"
     },
     {
       "id": "us-gun-155mm-howitzer",
@@ -735,7 +754,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "M114_howitzer"
     },
     {
       "id": "us-gun-50cal-aa",
@@ -775,7 +795,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "M2_Browning"
     },
     {
       "id": "us-gun-quad-50cal-aa",
@@ -813,7 +834,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "M45_Quadmount"
     },
     {
       "id": "us-gun-bofors",
@@ -853,7 +875,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "Bofors_40_mm_gun"
     },
     {
       "id": "us-transport-jeep",
@@ -892,7 +915,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Willys_MB"
     },
     {
       "id": "us-transport-dodge",
@@ -933,7 +957,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Dodge_WC_series"
     },
     {
       "id": "us-transport-gmc",
@@ -974,7 +999,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "GMC_CCKW"
     },
     {
       "id": "us-transport-halftrack",
@@ -1012,7 +1038,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M3_Half-Track"
     },
     {
       "id": "us-tank-m4-sherman",
@@ -1049,7 +1076,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M4_Sherman"
     },
     {
       "id": "us-tank-m4-sherman-76",
@@ -1082,7 +1110,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M4_Sherman"
     },
     {
       "id": "us-tank-m4a3e8",
@@ -1115,7 +1144,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M4_Sherman"
     },
     {
       "id": "us-tank-m4a3e2-jumbo",
@@ -1148,7 +1178,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M4A3E2"
     },
     {
       "id": "us-tank-m26-pershing",
@@ -1179,7 +1210,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M26_Pershing"
     },
     {
       "id": "us-tank-m5-stuart",
@@ -1217,7 +1249,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M5_Stuart"
     },
     {
       "id": "us-tank-m24-chaffee",
@@ -1251,7 +1284,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M24_Chaffee"
     },
     {
       "id": "us-td-m10",
@@ -1287,7 +1321,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M10_tank_destroyer"
     },
     {
       "id": "us-td-m18-hellcat",
@@ -1323,7 +1358,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M18_Hellcat"
     },
     {
       "id": "us-td-m36",
@@ -1356,7 +1392,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M36_tank_destroyer"
     },
     {
       "id": "us-spg-m8-scott",
@@ -1394,7 +1431,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M8_Scott"
     },
     {
       "id": "us-spg-105mm-sherman",
@@ -1429,7 +1467,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M4_Sherman"
     },
     {
       "id": "us-spaa-m13-mgmc",
@@ -1467,7 +1506,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M13_MGMC"
     },
     {
       "id": "us-spaa-m15-cgmc",
@@ -1504,7 +1544,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M15_CGMC"
     },
     {
       "id": "us-spaa-m16-mgmc",
@@ -1541,7 +1582,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M16_MGMC"
     },
     {
       "id": "us-ac-m8",
@@ -1576,7 +1618,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M8_Greyhound"
     },
     {
       "id": "us-ac-m20",
@@ -1612,7 +1655,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M20_armored_utility_car"
     },
     {
       "id": "us-spa-m7-priest",
@@ -1652,7 +1696,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M7_Priest"
     },
     {
       "id": "us-spa-m12",
@@ -1688,7 +1733,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M12_Gun_Motor_Carriage"
     },
     {
       "id": "us-spa-m4-81mm",
@@ -1725,7 +1771,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M4_mortar_carrier"
     },
     {
       "id": "de-inf-rifle-mg",
@@ -1762,7 +1809,8 @@
         "qty": 6,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "Karabiner_98k"
     },
     {
       "id": "de-inf-mg",
@@ -1799,7 +1847,8 @@
         "qty": 6,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "MG_42"
     },
     {
       "id": "de-inf-assault-rifle",
@@ -1834,7 +1883,8 @@
         "qty": 6,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "Sturmgewehr_44"
     },
     {
       "id": "de-inf-panzerschreck",
@@ -1867,7 +1917,8 @@
       "special_rules": [],
       "free": true,
       "base": "Small",
-      "standard_platoon": null
+      "standard_platoon": null,
+      "wiki": "Panzerschreck"
     },
     {
       "id": "de-inf-panzerfaust",
@@ -1900,7 +1951,8 @@
       "special_rules": [],
       "free": true,
       "base": "Medium",
-      "standard_platoon": null
+      "standard_platoon": null,
+      "wiki": "Panzerfaust"
     },
     {
       "id": "de-gun-hmg",
@@ -1939,7 +1991,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "MG_42"
     },
     {
       "id": "de-gun-88mm-launcher",
@@ -1973,7 +2026,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "Raketenwerfer_43"
     },
     {
       "id": "de-gun-8cm-mortar",
@@ -2014,7 +2068,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "Granatwerfer_34"
     },
     {
       "id": "de-gun-12cm-mortar",
@@ -2049,7 +2104,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "12_cm_Granatwerfer_42"
     },
     {
       "id": "de-gun-75mm-leig",
@@ -2089,7 +2145,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "7.5_cm_leIG_18"
     },
     {
       "id": "de-gun-150mm-sig",
@@ -2130,7 +2187,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "15_cm_sIG_33"
     },
     {
       "id": "de-gun-2cm-flak",
@@ -2169,7 +2227,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "2_cm_Flak_30/38/Flakvierling"
     },
     {
       "id": "de-gun-88mm-flak",
@@ -2210,7 +2269,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "8.8_cm_Flak_18/36/37/41"
     },
     {
       "id": "de-gun-pak38",
@@ -2246,7 +2306,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "5_cm_PaK_38"
     },
     {
       "id": "de-gun-pak40",
@@ -2283,7 +2344,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "7.5_cm_PaK_40"
     },
     {
       "id": "de-gun-pak43",
@@ -2318,7 +2380,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "8.8_cm_PaK_43"
     },
     {
       "id": "de-gun-75mm-gebg36",
@@ -2357,7 +2420,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "7.5_cm_Gebirgsgesch%C3%BCtz_36"
     },
     {
       "id": "de-gun-105mm-lefh18",
@@ -2400,7 +2464,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "10.5_cm_leFH_18"
     },
     {
       "id": "de-gun-150mm-sfh18",
@@ -2443,7 +2508,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "15_cm_sFH_18"
     },
     {
       "id": "de-gun-nw41-rocket",
@@ -2481,7 +2547,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "Nebelwerfer"
     },
     {
       "id": "de-tank-pz3m",
@@ -2515,7 +2582,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Panzer_III"
     },
     {
       "id": "de-tank-pz3n",
@@ -2549,7 +2617,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Panzer_III"
     },
     {
       "id": "de-tank-pz4h",
@@ -2584,7 +2653,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Panzer_IV"
     },
     {
       "id": "de-tank-panther",
@@ -2620,7 +2690,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Panther_tank"
     },
     {
       "id": "de-tank-tiger1",
@@ -2658,7 +2729,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Tiger_I"
     },
     {
       "id": "de-tank-tiger2",
@@ -2693,7 +2765,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Tiger_II"
     },
     {
       "id": "de-tank-stug",
@@ -2730,7 +2803,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sturmgesch%C3%BCtz_III"
     },
     {
       "id": "de-tank-stuh42",
@@ -2768,7 +2842,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sturmhaubitze_42"
     },
     {
       "id": "de-tank-brummbar",
@@ -2805,7 +2880,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sturmpanzer_IV"
     },
     {
       "id": "de-td-marder",
@@ -2843,7 +2919,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Marder_tank_destroyer"
     },
     {
       "id": "de-td-jagdpanzer4",
@@ -2877,7 +2954,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Jagdpanzer_IV"
     },
     {
       "id": "de-td-jagdpanther",
@@ -2911,7 +2989,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Jagdpanther"
     },
     {
       "id": "de-td-jagdtiger",
@@ -2946,7 +3025,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Jagdtiger"
     },
     {
       "id": "de-td-hornisse",
@@ -2982,7 +3062,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Nashorn"
     },
     {
       "id": "de-td-elefant",
@@ -3016,7 +3097,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Elefant_(tank_destroyer)"
     },
     {
       "id": "de-spa-sdkfz251-8cm",
@@ -3056,7 +3138,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sd.Kfz._251"
     },
     {
       "id": "de-spa-sdkfz251-75cm",
@@ -3093,7 +3176,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sd.Kfz._251"
     },
     {
       "id": "de-spa-grille",
@@ -3131,7 +3215,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Grille_(vehicle)"
     },
     {
       "id": "de-spa-wespe",
@@ -3170,7 +3255,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Wespe_(vehicle)"
     },
     {
       "id": "de-spa-hummel",
@@ -3209,7 +3295,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Hummel_(vehicle)"
     },
     {
       "id": "de-spa-panzerwerfer",
@@ -3245,7 +3332,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Panzerwerfer"
     },
     {
       "id": "de-spaa-sdkfz10",
@@ -3284,7 +3372,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sd.Kfz._10"
     },
     {
       "id": "de-spaa-sdkfz7",
@@ -3323,7 +3412,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sd.Kfz._7"
     },
     {
       "id": "de-spaa-sdkfz251-2cm",
@@ -3359,7 +3449,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sd.Kfz._251"
     },
     {
       "id": "de-spaa-sdkfz251-15mm",
@@ -3394,7 +3485,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sd.Kfz._251"
     },
     {
       "id": "de-spaa-wirbelwind",
@@ -3429,7 +3521,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Wirbelwind_(Flakpanzer)"
     },
     {
       "id": "de-ft-sdkfz251-flame",
@@ -3467,7 +3560,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sd.Kfz._251"
     },
     {
       "id": "de-ft-flammpanzer3",
@@ -3500,7 +3594,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Flammpanzer_III"
     },
     {
       "id": "de-ac-sdkfz222",
@@ -3540,7 +3635,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sd.Kfz._222"
     },
     {
       "id": "de-ac-sdkfz231",
@@ -3577,7 +3673,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sd.Kfz._231_(6-rad)"
     },
     {
       "id": "de-ac-sdkfz250",
@@ -3612,7 +3709,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sd.Kfz._250"
     },
     {
       "id": "de-ac-puma",
@@ -3645,7 +3743,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sd.Kfz._234"
     },
     {
       "id": "de-transport-sdkfz251",
@@ -3686,7 +3785,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sd.Kfz._251"
     },
     {
       "id": "de-transport-sdkfz251-75cm",
@@ -3723,7 +3823,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sd.Kfz._251"
     },
     {
       "id": "de-transport-maultier",
@@ -3760,7 +3861,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Opel_Maultier"
     },
     {
       "id": "de-transport-opelblitz",
@@ -3801,7 +3903,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Opel_Blitz"
     },
     {
       "id": "br-inf-rifle-mg",
@@ -3838,7 +3941,8 @@
         "qty": 6,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "Lee-Enfield"
     },
     {
       "id": "br-inf-mg",
@@ -3875,7 +3979,8 @@
         "qty": 6,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "Bren_light_machine_gun"
     },
     {
       "id": "br-inf-piat",
@@ -3906,7 +4011,8 @@
       "special_rules": [],
       "free": true,
       "base": "Small",
-      "standard_platoon": null
+      "standard_platoon": null,
+      "wiki": "PIAT"
     },
     {
       "id": "br-inf-2in-mortar",
@@ -3943,7 +4049,8 @@
       "special_rules": [],
       "free": true,
       "base": "Small",
-      "standard_platoon": null
+      "standard_platoon": null,
+      "wiki": "ML_2_inch_mortar"
     },
     {
       "id": "br-gun-vickers",
@@ -3982,7 +4089,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "Vickers_machine_gun"
     },
     {
       "id": "br-gun-3in-mortar",
@@ -4023,7 +4131,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "ML_3_inch_mortar"
     },
     {
       "id": "br-gun-42in-mortar",
@@ -4060,7 +4169,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "ML_4.2_inch_mortar"
     },
     {
       "id": "br-gun-bofors-40mm",
@@ -4101,7 +4211,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "Bofors_40_mm_gun"
     },
     {
       "id": "br-gun-37in-aa",
@@ -4141,7 +4252,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "QF_3.7_inch_AA_gun"
     },
     {
       "id": "br-gun-2pdr",
@@ -4175,7 +4287,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "Ordnance_QF_2_pounder"
     },
     {
       "id": "br-gun-6pdr",
@@ -4208,7 +4321,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "Ordnance_QF_6_pounder"
     },
     {
       "id": "br-gun-17pdr",
@@ -4244,7 +4358,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "Ordnance_QF_17_pounder"
     },
     {
       "id": "br-gun-75mm-pack",
@@ -4280,7 +4395,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "M116_howitzer"
     },
     {
       "id": "br-gun-25pdr",
@@ -4319,7 +4435,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "Ordnance_QF_25_pounder"
     },
     {
       "id": "br-gun-55in",
@@ -4358,7 +4475,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "BL_5.5_inch_medium_gun"
     },
     {
       "id": "br-tank-cromwell4",
@@ -4392,7 +4510,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Cromwell_tank"
     },
     {
       "id": "br-tank-cromwell6cs",
@@ -4426,7 +4545,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Cromwell_tank"
     },
     {
       "id": "br-tank-challenger",
@@ -4461,7 +4581,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "A30_Challenger"
     },
     {
       "id": "br-tank-sherman",
@@ -4497,7 +4618,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M4_Sherman"
     },
     {
       "id": "br-tank-stuart",
@@ -4533,7 +4655,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M3_Stuart"
     },
     {
       "id": "br-tank-firefly",
@@ -4566,7 +4689,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sherman_Firefly"
     },
     {
       "id": "br-tank-churchill34",
@@ -4603,7 +4727,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Churchill_tank"
     },
     {
       "id": "br-tank-churchill6",
@@ -4638,7 +4763,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Churchill_tank"
     },
     {
       "id": "br-tank-churchill7",
@@ -4673,7 +4799,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Churchill_tank"
     },
     {
       "id": "br-tank-churchill-croc",
@@ -4709,7 +4836,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Churchill_Crocodile"
     },
     {
       "id": "br-td-m10",
@@ -4744,7 +4872,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M10_tank_destroyer"
     },
     {
       "id": "br-td-m10c",
@@ -4777,7 +4906,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Achilles_(tank_destroyer)"
     },
     {
       "id": "br-spa-sexton",
@@ -4814,7 +4944,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Sexton_(artillery)"
     },
     {
       "id": "br-spa-priest",
@@ -4853,7 +4984,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M7_Priest"
     },
     {
       "id": "br-ac-daimler1",
@@ -4890,7 +5022,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Daimler_armoured_car"
     },
     {
       "id": "br-ac-m20",
@@ -4924,7 +5057,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M20_armored_utility_car"
     },
     {
       "id": "br-ac-humber23",
@@ -4961,7 +5095,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Humber_armoured_car"
     },
     {
       "id": "br-ac-humber4",
@@ -4996,7 +5131,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Humber_armoured_car"
     },
     {
       "id": "br-ac-aec1",
@@ -5035,7 +5171,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "AEC_Armoured_Car"
     },
     {
       "id": "br-ac-aec3",
@@ -5073,7 +5210,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "AEC_Armoured_Car"
     },
     {
       "id": "br-recon-universal-carrier",
@@ -5113,7 +5251,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Universal_Carrier"
     },
     {
       "id": "br-recon-universal-carrier-boys",
@@ -5152,7 +5291,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Universal_Carrier"
     },
     {
       "id": "br-recon-universal-carrier-piat",
@@ -5188,7 +5328,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Universal_Carrier"
     },
     {
       "id": "br-recon-universal-carrier-mg",
@@ -5224,7 +5365,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Universal_Carrier"
     },
     {
       "id": "br-recon-indian-carrier",
@@ -5261,7 +5403,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Universal_Carrier"
     },
     {
       "id": "br-recon-daimler-dingo",
@@ -5299,7 +5442,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Daimler_Dingo"
     },
     {
       "id": "br-recon-humber-lrc",
@@ -5337,7 +5481,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Humber_Light_Reconnaissance_Car"
     },
     {
       "id": "br-recon-otter-lrc",
@@ -5374,7 +5519,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Otter_Light_Reconnaissance_Car"
     },
     {
       "id": "br-spaa-bofors-sp",
@@ -5410,7 +5556,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Bofors_40_mm_gun"
     },
     {
       "id": "br-transport-truck",
@@ -5450,7 +5597,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Canadian_Military_Pattern_truck"
     },
     {
       "id": "br-transport-quad",
@@ -5490,7 +5638,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Morris_C8"
     },
     {
       "id": "br-transport-white-marmon",
@@ -5528,7 +5677,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "White_Scout_Car"
     },
     {
       "id": "br-transport-humber-scout",
@@ -5565,7 +5715,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Humber_Scout_Car"
     },
     {
       "id": "br-transport-m5-halftrack",
@@ -5599,7 +5750,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M5_Half-Track"
     },
     {
       "id": "sv-inf-rifle-mg",
@@ -5634,7 +5786,8 @@
         "qty": 6,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "Mosin-Nagant"
     },
     {
       "id": "sv-inf-smg",
@@ -5669,7 +5822,8 @@
         "qty": 6,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "PPSh-41"
     },
     {
       "id": "sv-gun-ptrd",
@@ -5704,7 +5858,9 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "PTRD-41",
+      "infantry_weapon": true
     },
     {
       "id": "sv-gun-maksim",
@@ -5741,7 +5897,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "PM_M1910"
     },
     {
       "id": "sv-gun-82mm-mortar",
@@ -5777,7 +5934,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "82-PM-41"
     },
     {
       "id": "sv-gun-120mm-mortar",
@@ -5813,7 +5971,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "120-PM-38_mortar"
     },
     {
       "id": "sv-gun-37mm-aa",
@@ -5852,7 +6011,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "37_mm_automatic_air_defense_gun_M1939"
     },
     {
       "id": "sv-gun-85mm-aa",
@@ -5891,7 +6051,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "85_mm_air_defense_gun_M1939"
     },
     {
       "id": "sv-gun-45mm",
@@ -5923,7 +6084,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "45_mm_anti-tank_gun_M1942_(M-42)"
     },
     {
       "id": "sv-gun-zis2",
@@ -5956,7 +6118,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "ZIS-2"
     },
     {
       "id": "sv-gun-zis3",
@@ -5991,7 +6154,8 @@
         "qty": 3,
         "leader": true,
         "fo": false
-      }
+      },
+      "wiki": "ZIS-3"
     },
     {
       "id": "sv-gun-122mm-howitzer",
@@ -6031,7 +6195,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "M-30_howitzer"
     },
     {
       "id": "sv-gun-152mm-howitzer",
@@ -6067,7 +6232,8 @@
         "qty": 3,
         "leader": true,
         "fo": true
-      }
+      },
+      "wiki": "D-1_howitzer"
     },
     {
       "id": "sv-tank-t70",
@@ -6099,7 +6265,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "T-70"
     },
     {
       "id": "sv-tank-t34-41",
@@ -6133,7 +6300,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "T-34"
     },
     {
       "id": "sv-tank-t34-85",
@@ -6166,7 +6334,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "T-34-85"
     },
     {
       "id": "sv-tank-kv1s",
@@ -6199,7 +6368,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "KV-1S"
     },
     {
       "id": "sv-tank-kv85",
@@ -6231,7 +6401,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "KV-85"
     },
     {
       "id": "sv-tank-is2",
@@ -6265,7 +6436,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "IS-2"
     },
     {
       "id": "sv-tank-ot34",
@@ -6301,7 +6473,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "OT-34"
     },
     {
       "id": "sv-tank-kv8s",
@@ -6335,7 +6508,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "KV-8"
     },
     {
       "id": "sv-spg-su76m",
@@ -6370,7 +6544,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "SU-76"
     },
     {
       "id": "sv-spg-su85",
@@ -6404,7 +6579,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "SU-85"
     },
     {
       "id": "sv-spg-su122",
@@ -6439,7 +6615,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "SU-122"
     },
     {
       "id": "sv-spg-su152",
@@ -6475,7 +6652,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "SU-152"
     },
     {
       "id": "sv-spg-isu122",
@@ -6510,7 +6688,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "ISU-122"
     },
     {
       "id": "sv-spg-isu152",
@@ -6545,7 +6724,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "ISU-152"
     },
     {
       "id": "sv-spa-katyusha",
@@ -6581,7 +6761,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Katyusha_rocket_launcher"
     },
     {
       "id": "sv-spaa-dshk",
@@ -6620,7 +6801,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "DShK"
     },
     {
       "id": "sv-spaa-zsu-m17",
@@ -6656,7 +6838,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "M17_MGMC"
     },
     {
       "id": "sv-ac-ba64",
@@ -6691,7 +6874,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "BA-64"
     },
     {
       "id": "sv-transport-ford-gpa",
@@ -6728,7 +6912,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Ford_GPA"
     },
     {
       "id": "sv-transport-zis-truck",
@@ -6765,7 +6950,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "ZIS-5"
     },
     {
       "id": "sv-transport-horse-wagon",
@@ -6803,7 +6989,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Horse-drawn_vehicle"
     },
     {
       "id": "sv-transport-stalinets",
@@ -6840,7 +7027,8 @@
         "qty": 3,
         "leader": false,
         "fo": false
-      }
+      },
+      "wiki": "Stalinets_(tractor)"
     }
   ]
 }

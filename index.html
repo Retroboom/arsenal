@@ -44,7 +44,7 @@
     border-bottom: 1px solid var(--border);
     padding: 0 24px;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
     gap: 8px;
     min-height: 80px;
@@ -58,6 +58,8 @@
     display: flex;
     align-items: center;
     gap: 2px;
+    min-width: 0;
+    overflow: hidden;
     overflow: hidden;
     justify-content: center;
     padding: 4px 0;
@@ -282,6 +284,13 @@
     letter-spacing: 3px;
     opacity: 0.6;
     white-space: nowrap;
+    max-width: 200px;
+    overflow: hidden;
+    transition: max-width 0.25s ease, opacity 0.25s ease;
+  }
+
+  @media (max-width: 1060px) {
+    .logo span { max-width: 0; opacity: 0; }
   }
 
   .header-right {
@@ -703,12 +712,9 @@
 
   .note-tag.special { color: var(--text); border-color: var(--border); }
 
-  .note-tag[data-tip]:hover::after {
-    content: attr(data-tip);
-    position: absolute;
-    bottom: calc(100% + 6px);
-    left: 50%;
-    transform: translateX(-50%);
+  /* Global tooltip — position: fixed so it escapes overflow containers */
+  .global-tooltip {
+    position: fixed;
     background: #1e1c18;
     border: 1px solid var(--border);
     color: var(--text2);
@@ -719,20 +725,21 @@
     padding: 7px 10px;
     width: 240px;
     white-space: normal;
-    z-index: 9999;
+    z-index: 99999;
     pointer-events: none;
     text-transform: none;
+    display: none;
+    transform: translateY(calc(-100% - 8px));
   }
-
-  .note-tag[data-tip]:hover::before {
+  .global-tooltip.visible { display: block; }
+  .global-tooltip::before {
     content: '';
     position: absolute;
-    bottom: calc(100% + 1px);
-    left: 50%;
+    bottom: -6px;
+    left: var(--arrow-left, 50%);
     transform: translateX(-50%);
     border: 5px solid transparent;
     border-top-color: var(--border);
-    z-index: 10000;
     pointer-events: none;
   }
 
@@ -2651,11 +2658,8 @@
       content: ' · ' !important;
       color: #999 !important;
     }
-    /* Suppress tooltip pseudo-elements entirely in print */
-    .note-tag::after,
-    .note-tag::before,
-    .note-tag[data-tip]::after,
-    .note-tag[data-tip]::before { display: none !important; content: none !important; }
+    /* Suppress global tooltip in print */
+    .global-tooltip { display: none !important; }
   }
 
   /* ANIMATIONS */
@@ -2971,21 +2975,22 @@ function updateNavLabels() {
   const nav = document.querySelector('.header-nav');
   if (!nav) return;
   const tabs = [...nav.querySelectorAll('.header-nav-tab')];
+  const GAP = 2; // matches gap: 2px in CSS
 
-  // Restore all labels first
+  // Restore all labels first (forces reflow on next offsetWidth read)
   tabs.forEach(t => { t.textContent = t.dataset.label; });
 
-  // If nav overflows, truncate inactive tabs to '…' one by one until it fits
-  if (nav.scrollWidth > nav.clientWidth) {
+  // Sum individual tab widths — reliable even when nav container is overflow-hidden at 0px
+  const totalW = () => tabs.reduce((s, t) => s + t.offsetWidth, 0) + (tabs.length - 1) * GAP;
+
+  if (totalW() > nav.clientWidth) {
+    // Truncate inactive tabs to '…' one by one until content fits
     const inactiveTabs = tabs.filter(t => !t.classList.contains('active'));
     for (const t of inactiveTabs) {
       t.textContent = '…';
-      if (nav.scrollWidth <= nav.clientWidth) return;
+      if (totalW() <= nav.clientWidth) return;
     }
-  }
-
-  // If still overflowing, truncate the active tab too
-  if (nav.scrollWidth > nav.clientWidth) {
+    // Still doesn't fit — truncate the active tab too
     const activeTab = tabs.find(t => t.classList.contains('active'));
     if (activeTab) activeTab.textContent = '…';
   }
@@ -3957,7 +3962,9 @@ function openUnitDetail(unitId) {
   // Lore
   const loreEl = document.getElementById('udp-lore');
   if (unit.lore) {
-    const wikiUrl = `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(unit.name)}`;
+    const wikiUrl = unit.wiki
+      ? `https://en.wikipedia.org/wiki/${unit.wiki}`
+      : `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(unit.name)}`;
     loreEl.innerHTML = `${unit.lore.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}<br><a class="wiki-link" href="${wikiUrl}" target="_blank" rel="noopener">↗ Wikipedia</a>`;
     loreEl.style.display = '';
   } else {
@@ -4634,6 +4641,54 @@ if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 if (new URLSearchParams(window.location.search).get('preview') === 'true') {
   window.addEventListener('DOMContentLoaded', enterGuestMode);
 }
+
+// ── GLOBAL TOOLTIP ────────────────────────────────────────────────────────────
+// Uses position:fixed so it escapes overflow:auto scroll containers (e.g. force panel)
+(function () {
+  const tip = document.createElement('div');
+  tip.className = 'global-tooltip';
+  tip.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(tip);
+
+  function show(el) {
+    tip.textContent = el.dataset.tip;
+    tip.classList.add('visible');
+    position(el);
+  }
+
+  function hide() {
+    tip.classList.remove('visible');
+  }
+
+  function position(el) {
+    const rect = el.getBoundingClientRect();
+    const tipW = 240;
+    const vw   = window.innerWidth;
+
+    // Center tooltip on the tag, clamp within viewport
+    let left = rect.left + rect.width / 2 - tipW / 2;
+    if (left < 8) left = 8;
+    if (left + tipW > vw - 8) left = vw - 8 - tipW;
+
+    // Arrow points at the tag's horizontal center from within the (possibly clamped) tooltip
+    const arrowLeft = rect.left + rect.width / 2 - left;
+
+    tip.style.left = left + 'px';
+    tip.style.top  = rect.top + 'px';   // translateY(calc(-100% - 8px)) moves it above
+    tip.style.setProperty('--arrow-left', arrowLeft + 'px');
+  }
+
+  // Event delegation — works for dynamically rendered note-tags
+  document.addEventListener('mouseover', e => {
+    const el = e.target.closest('[data-tip]');
+    if (el) show(el);
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest('[data-tip]')) hide();
+  });
+  // Also hide on scroll (avoids tooltip floating in wrong place)
+  document.addEventListener('scroll', hide, true);
+})();
 
 // Nav label resize observer — truncate tabs to '…' when nav overflows
 (function () {
