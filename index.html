@@ -59,7 +59,7 @@
   }
 
   .logo-img {
-    height: 36px;
+    height: 56px;
     width: auto;
     mix-blend-mode: screen;
     filter: drop-shadow(0 0 8px rgba(224,192,96,0.25));
@@ -2561,7 +2561,7 @@ function renderGrid(container, forceIds) {
   let cardIndex = 0;
 
   const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
-  const typeOrder = ['Infantry', 'Weapons', 'Armored', 'Anti-Tank', 'Artillery', 'Anti-Air', 'Recon', 'Transport'];
+  const typeOrder = ['Infantry', 'Armored', 'Anti-Tank', 'Artillery', 'Anti-Air', 'Recon', 'Transport'];
 
   nationOrder.forEach(nation => {
     if (!byNation[nation]) return;
@@ -2688,7 +2688,7 @@ function renderTable(container, forceIds) {
       <tbody>
   `;
 
-  const typeOrder = ['Infantry', 'Weapons', 'Armored', 'Anti-Tank', 'Artillery', 'Anti-Air', 'Recon', 'Transport'];
+  const typeOrder = ['Infantry', 'Armored', 'Anti-Tank', 'Artillery', 'Anti-Air', 'Recon', 'Transport'];
   const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
   const byNation = {};
   filteredUnits.forEach(u => {
