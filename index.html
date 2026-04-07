@@ -44,35 +44,45 @@
     background: var(--bg2);
     border-bottom: 1px solid var(--border);
     padding: 0 24px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: 80px auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     position: sticky;
     top: 0;
     z-index: 100;
   }
 
   .logo {
-    grid-column: 1;
-    grid-row: 1;
+    flex: 0 0 auto;
+    height: 80px;
     align-self: center;
   }
 
+  .header-end {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .header-end.is-wrapped {
+    border-top: 1px solid var(--border);
+    width: 100%;
+    padding-bottom: 4px;
+  }
+
   .header-right {
-    grid-column: 2;
-    grid-row: 1;
+    flex: 0 0 auto;
     align-self: center;
   }
 
   .header-nav {
-    grid-column: 1 / -1;
-    grid-row: 2;
+    flex: 1 1 auto;
     display: flex;
     align-items: center;
     gap: 2px;
     justify-content: flex-start;
     padding: 0;
-    border-top: 1px solid var(--border);
   }
   .header-nav-tab {
     padding: 6px 14px;
@@ -107,8 +117,7 @@
     box-sizing: border-box;
   }
 
-  .lib-section-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
-  .lib-section-search { margin-bottom: 16px; }
+  .lib-section-tabs { display: flex; border-bottom: 1px solid var(--border); }
 
   .section-stub {
     display: flex;
@@ -276,12 +285,10 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    overflow: hidden;
-    min-width: 0;
   }
 
   .logo-img {
-    height: 64px;
+    height: 77px;
     width: auto;
     mix-blend-mode: screen;
     filter: drop-shadow(0 0 8px rgba(224,192,96,0.25));
@@ -289,10 +296,9 @@
 
   .logo span {
     color: var(--text3);
-    font-size: 14px;
+    font-size: 26px;
     font-family: var(--mono);
     letter-spacing: 3px;
-    opacity: 0.6;
     white-space: nowrap;
   }
 
@@ -300,7 +306,6 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    justify-self: end;
   }
 
   .force-toggle-btn {
@@ -1557,7 +1562,7 @@
 
   .auth-gate-label {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 3px;
     color: var(--text3);
     opacity: 0.6;
@@ -1566,7 +1571,7 @@
 
   .auth-gate-sub {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 13px;
     color: var(--text3);
     letter-spacing: 0.5px;
     margin-bottom: 28px;
@@ -1579,7 +1584,7 @@
     border: 1px solid var(--border);
     color: var(--text);
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: 1px;
     padding: 12px 24px;
     cursor: pointer;
@@ -1593,7 +1598,7 @@
 
   .auth-gate-note {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 12px;
     color: var(--text3);
     letter-spacing: 0.5px;
     margin-top: 20px;
@@ -1823,15 +1828,39 @@
   .force-card-btn:hover { border-color: var(--accent); color: var(--accent); }
   .force-card-btn.danger:hover { border-color: var(--red); color: #ff9a9a; }
 
-  .lib-search-bar {
+  /* Library filter panel */
+  .lib-filters { flex-shrink: 0; border-bottom: 1px solid var(--border); }
+  .lib-filter-top {
     display: flex;
     gap: 8px;
     align-items: center;
-    padding: 12px 20px;
+    padding: 10px 20px;
     border-bottom: 1px solid var(--border);
-    flex-shrink: 0;
     flex-wrap: wrap;
   }
+  .lib-sort-select {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    padding: 4px 8px;
+    cursor: pointer;
+  }
+  .lib-sort-select:focus { outline: none; border-color: var(--accent); }
+  .lib-filter-rows { padding: 8px 20px 10px; display: flex; flex-direction: column; gap: 6px; }
+  .lib-filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .lib-filter-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--text3);
+    text-transform: uppercase;
+    width: 64px;
+    flex-shrink: 0;
+  }
+  .lib-chip-group { display: flex; gap: 4px; flex-wrap: wrap; }
 
   .lib-search-input {
     background: var(--bg3);
@@ -1847,12 +1876,6 @@
 
   .lib-search-input:focus { outline: none; border-color: var(--accent); }
   .lib-search-input::placeholder { color: var(--text3); }
-
-  .lib-nation-chips {
-    display: flex;
-    gap: 4px;
-    flex-wrap: wrap;
-  }
 
   .lib-chip {
     background: none;
@@ -2223,6 +2246,42 @@
   .quality-chip.active.q-elite  { border-color: var(--accent); color: var(--accent); background: rgba(224,192,96,0.08); }
   .quality-chip.active.q-regular { border-color: var(--green); color: var(--green); background: rgba(90,154,110,0.08); }
   .quality-chip.active.q-poor   { border-color: var(--red); color: #ff9a9a; background: rgba(160,69,69,0.08); }
+
+  /* TYPE + YEAR ROW */
+  .type-year-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .force-year-select {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    padding: 3px 6px;
+    cursor: pointer;
+  }
+  .force-year-select:focus { outline: none; border-color: var(--accent); }
+  .force-type-chips { display: flex; gap: 4px; flex-wrap: wrap; }
+  .force-type-chip {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.12s;
+  }
+  .force-type-chip:hover { border-color: var(--text2); color: var(--text2); }
+  .force-type-chip.active { border-color: var(--accent); color: var(--accent); background: rgba(224,192,96,0.08); }
 
   /* RATING BADGE (admin only) */
   .rating-badge {
@@ -2739,17 +2798,19 @@
     <img src="logo.png" alt="Hail of Fire" class="logo-img">
     <span>// ARSENAL</span>
   </div>
-  <nav class="header-nav">
-    <button class="header-nav-tab active" data-section="units" data-label="Units" onclick="setSection('units')">Units</button>
-    <button class="header-nav-tab" data-section="library" data-label="Force Library" onclick="setSection('library')">Force Library</button>
-    <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="setSection('fieldmanual')">Field Manual</button>
-  </nav>
-  <div class="header-right">
-    <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
-      Force Builder <span class="force-count-badge" id="force-count">0</span>
-    </button>
-    <div id="auth-area">
-      <button class="auth-btn" onclick="signIn()">Sign In</button>
+  <div class="header-end" id="header-end">
+    <nav class="header-nav">
+      <button class="header-nav-tab active" data-section="units" data-label="Units" onclick="setSection('units')">Units</button>
+      <button class="header-nav-tab" data-section="library" data-label="Force Library" onclick="setSection('library')">Force Library</button>
+      <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="setSection('fieldmanual')">Field Manual</button>
+    </nav>
+    <div class="header-right">
+      <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
+        Force Builder <span class="force-count-badge" id="force-count">0</span>
+      </button>
+      <div id="auth-area">
+        <button class="auth-btn" onclick="signIn()">Sign In</button>
+      </div>
     </div>
   </div>
 </header>
@@ -2822,7 +2883,7 @@
     <div id="whats-new" class="whats-new" style="display:none">
       <div class="whats-new-header">
         <span class="whats-new-label">★ Recent Briefings</span>
-        <button class="whats-new-dismiss" onclick="dismissWhatsNew()" title="Dismiss">✕</button>
+        <button class="lib-featured-link" onclick="setSection('fieldmanual')">Browse All →</button>
       </div>
       <div class="whats-new-cards" id="whats-new-cards"></div>
     </div>
@@ -2844,9 +2905,65 @@
     <button class="library-tab active" id="tab-browse" onclick="switchLibTab('browse')">Browse</button>
     <button class="library-tab" id="tab-mine" onclick="switchLibTab('mine')">My Forces</button>
   </div>
-  <div class="lib-search-bar lib-section-search">
-    <input type="text" id="lib-search" class="lib-search-input" placeholder="Search forces…" oninput="applyLibFilters()">
-    <span id="lib-result-count" class="lib-result-count"></span>
+  <div class="lib-filters">
+    <div class="lib-filter-top">
+      <input type="text" id="lib-search" class="lib-search-input" placeholder="Search forces…" oninput="applyLibFilters()">
+      <select class="lib-sort-select" id="lib-sort" onchange="applyLibFilters()">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+        <option value="name">Name A–Z</option>
+        <option value="platoons">Most platoons</option>
+      </select>
+      <span id="lib-result-count" class="lib-result-count"></span>
+    </div>
+    <div class="lib-filter-rows">
+      <div class="lib-filter-row">
+        <span class="lib-filter-label">Nation</span>
+        <div class="lib-chip-group">
+          <button class="lib-chip" data-filter="nation" data-value="United States" onclick="toggleLibChip(this)">US</button>
+          <button class="lib-chip" data-filter="nation" data-value="Germany"       onclick="toggleLibChip(this)">GER</button>
+          <button class="lib-chip" data-filter="nation" data-value="Britain"       onclick="toggleLibChip(this)">BR</button>
+          <button class="lib-chip" data-filter="nation" data-value="Soviet Union"  onclick="toggleLibChip(this)">SOV</button>
+        </div>
+      </div>
+      <div class="lib-filter-row">
+        <span class="lib-filter-label">Quality</span>
+        <div class="lib-chip-group">
+          <button class="lib-chip" data-filter="quality" data-value="Elite"   onclick="toggleLibChip(this)">Elite</button>
+          <button class="lib-chip" data-filter="quality" data-value="Regular" onclick="toggleLibChip(this)">Regular</button>
+          <button class="lib-chip" data-filter="quality" data-value="Poor"    onclick="toggleLibChip(this)">Poor</button>
+        </div>
+      </div>
+      <div class="lib-filter-row">
+        <span class="lib-filter-label">Type</span>
+        <div class="lib-chip-group">
+          <button class="lib-chip" data-filter="type" data-value="Infantry"   onclick="toggleLibChip(this)">Infantry</button>
+          <button class="lib-chip" data-filter="type" data-value="Mechanized" onclick="toggleLibChip(this)">Mechanized</button>
+          <button class="lib-chip" data-filter="type" data-value="Armored"    onclick="toggleLibChip(this)">Armored</button>
+          <button class="lib-chip" data-filter="type" data-value="Airborne"   onclick="toggleLibChip(this)">Airborne</button>
+        </div>
+      </div>
+      <div class="lib-filter-row">
+        <span class="lib-filter-label">Year</span>
+        <div class="lib-chip-group">
+          <button class="lib-chip" data-filter="year" data-value="1939" onclick="toggleLibChip(this)">1939</button>
+          <button class="lib-chip" data-filter="year" data-value="1940" onclick="toggleLibChip(this)">1940</button>
+          <button class="lib-chip" data-filter="year" data-value="1941" onclick="toggleLibChip(this)">1941</button>
+          <button class="lib-chip" data-filter="year" data-value="1942" onclick="toggleLibChip(this)">1942</button>
+          <button class="lib-chip" data-filter="year" data-value="1943" onclick="toggleLibChip(this)">1943</button>
+          <button class="lib-chip" data-filter="year" data-value="1944" onclick="toggleLibChip(this)">1944</button>
+          <button class="lib-chip" data-filter="year" data-value="1945" onclick="toggleLibChip(this)">1945</button>
+        </div>
+      </div>
+      <div class="lib-filter-row">
+        <span class="lib-filter-label">Platoons</span>
+        <div class="lib-chip-group">
+          <button class="lib-chip" data-filter="platoons" data-value="1-2" onclick="toggleLibChip(this)">1–2</button>
+          <button class="lib-chip" data-filter="platoons" data-value="3-4" onclick="toggleLibChip(this)">3–4</button>
+          <button class="lib-chip" data-filter="platoons" data-value="5+"  onclick="toggleLibChip(this)">5+</button>
+        </div>
+      </div>
+    </div>
   </div>
   <div id="library-body" class="library-body"></div>
 </div>
@@ -2905,6 +3022,19 @@
       <button class="quality-chip q-elite"   data-quality="Elite"   onclick="setForceQuality('Elite')"  >★ Elite</button>
       <button class="quality-chip q-regular active" data-quality="Regular" onclick="setForceQuality('Regular')">● Regular</button>
       <button class="quality-chip q-poor"    data-quality="Poor"    onclick="setForceQuality('Poor')"  >▼ Poor</button>
+    </div>
+  </div>
+  <div class="type-year-row">
+    <select class="force-year-select" id="force-year" onchange="forceYear = this.value ? parseInt(this.value) : null">
+      <option value="">-- Year --</option>
+      <option>1939</option><option>1940</option><option>1941</option>
+      <option>1942</option><option>1943</option><option>1944</option><option>1945</option>
+    </select>
+    <div class="force-type-chips">
+      <button class="force-type-chip" data-type="Infantry"   onclick="setForceType('Infantry')"  >Infantry</button>
+      <button class="force-type-chip" data-type="Mechanized" onclick="setForceType('Mechanized')">Mechanized</button>
+      <button class="force-type-chip" data-type="Armored"    onclick="setForceType('Armored')"   >Armored</button>
+      <button class="force-type-chip" data-type="Airborne"   onclick="setForceType('Airborne')"  >Airborne</button>
     </div>
   </div>
   <div class="force-notes-area">
@@ -3675,6 +3805,9 @@ function clearForce() {
     currentForceId = null;
     document.getElementById('force-name').value = '';
     document.getElementById('force-notes').value = '';
+    forceYear = null;
+    document.getElementById('force-year').value = '';
+    setForceType(null);
     updateForceUI();
     renderUnits();
   }
@@ -3733,7 +3866,6 @@ function showSubscribePrompt() {
 let currentLibTab = 'browse';
 let currentForceId = null;
 let libAllForces = [];     // full fetched list for the current tab
-let libNationFilter = [];  // active nation chips
 
 function getForceData() {
   return {
@@ -3747,6 +3879,8 @@ function getForceData() {
       return u ? u.nation : null;
     }).filter(Boolean)))],
     quality: forceQuality,
+    year: forceYear ? parseInt(forceYear, 10) : null,
+    forceType: forceType || null,
     platoonCount: platoons.length,
     breakLimit: 5 + (platoons.length * 2),
     platoons: platoons.map(p => ({
@@ -3768,6 +3902,9 @@ function loadForceData(data) {
   document.getElementById('force-name').value = data.name || '';
   document.getElementById('force-notes').value = data.notes || '';
   setForceQuality(data.quality || 'Regular');
+  forceYear = data.year || null;
+  document.getElementById('force-year').value = forceYear || '';
+  setForceType(data.forceType || null);
   platoons = toArr(data.platoons).map((p, i) => ({
     id: `pl-${Date.now()}-${i}`,
     name: p.name,
@@ -3854,40 +3991,67 @@ function switchLibTab(tab) {
   // Reset search/filters on tab switch
   const s = document.getElementById('lib-search');
   if (s) s.value = '';
-  libNationFilter = [];
-  document.querySelectorAll('.lib-chip').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('#section-library .lib-chip').forEach(c => c.classList.remove('active'));
   loadLibraryTab(tab);
 }
 
-function toggleLibNation(btn) {
-  const nation = btn.dataset.nation;
+function toggleLibChip(btn) {
   btn.classList.toggle('active');
-  if (libNationFilter.includes(nation)) {
-    libNationFilter = libNationFilter.filter(n => n !== nation);
-  } else {
-    libNationFilter.push(nation);
-  }
   applyLibFilters();
 }
 
 function applyLibFilters() {
   const body = document.getElementById('library-body');
-  const search = (document.getElementById('lib-search').value || '').toLowerCase().trim();
+  const search = (document.getElementById('lib-search')?.value || '').toLowerCase().trim();
+  const sort   = document.getElementById('lib-sort')?.value || 'newest';
+
+  // Collect active chip values by filter group
+  const active = { nation: [], quality: [], type: [], year: [], platoons: [] };
+  document.querySelectorAll('#section-library .lib-chip.active').forEach(c => {
+    const grp = c.dataset.filter;
+    if (active[grp]) active[grp].push(c.dataset.value);
+  });
+
+  function toArrLocal(val) {
+    if (!val) return [];
+    return Array.isArray(val) ? val : Object.values(val);
+  }
 
   let visible = libAllForces.filter(f => {
     if (search && !f.name.toLowerCase().includes(search) && !(f.notes || '').toLowerCase().includes(search)) return false;
-    if (libNationFilter.length > 0) {
-      const fNations = Array.isArray(f.nations) ? f.nations : Object.values(f.nations || {});
-      if (!libNationFilter.some(n => fNations.includes(n))) return false;
+    if (active.nation.length > 0) {
+      const fNations = toArrLocal(f.nations);
+      if (!active.nation.some(n => fNations.includes(n))) return false;
+    }
+    if (active.quality.length > 0 && !active.quality.includes(f.quality)) return false;
+    if (active.type.length > 0 && !active.type.includes(f.forceType)) return false;
+    if (active.year.length > 0 && !active.year.includes(String(f.year))) return false;
+    if (active.platoons.length > 0) {
+      const pc = f.platoonCount || 0;
+      const match = active.platoons.some(r => {
+        if (r === '1-2') return pc >= 1 && pc <= 2;
+        if (r === '3-4') return pc >= 3 && pc <= 4;
+        if (r === '5+')  return pc >= 5;
+        return false;
+      });
+      if (!match) return false;
     }
     return true;
   });
 
+  // Sort
+  if (sort === 'newest')        visible.sort((a, b) => (b.created || 0) - (a.created || 0));
+  else if (sort === 'oldest')   visible.sort((a, b) => (a.created || 0) - (b.created || 0));
+  else if (sort === 'name')     visible.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+  else if (sort === 'platoons') visible.sort((a, b) => (b.platoonCount || 0) - (a.platoonCount || 0));
+
   const countEl = document.getElementById('lib-result-count');
-  if (countEl) countEl.textContent = `${visible.length} of ${libAllForces.length}`;
+  if (countEl) countEl.textContent = visible.length === libAllForces.length
+    ? `${visible.length} force${visible.length !== 1 ? 's' : ''}`
+    : `${visible.length} of ${libAllForces.length}`;
 
   if (visible.length === 0) {
-    body.innerHTML = `<div class="lib-empty">No forces match your search.</div>`;
+    body.innerHTML = `<div class="lib-empty">No forces match your filters.</div>`;
     return;
   }
 
@@ -4256,6 +4420,8 @@ function renderLibForces(body, forces) {
         <span>By <strong style="color:var(--text2)">${f.author || 'Unknown'}</strong></span>
         <span style="color:var(--border)">|</span>
         <span style="display:flex;gap:4px">${nationBadges}</span>
+        ${f.year      ? `<span style="color:var(--border)">|</span><span>${f.year}</span>` : ''}
+        ${f.forceType ? `<span style="color:var(--border)">|</span><span>${f.forceType}</span>` : ''}
         <span style="color:var(--border)">|</span>
         <span>${platoonArr.length} platoons</span>
         <span style="color:var(--border)">|</span>
@@ -4319,6 +4485,8 @@ async function checkUrlForce() {
 
 // ── ADMIN ─────────────────────────────────────────────────────────────────────
 let forceQuality = 'Regular';
+let forceYear = null;   // integer 1939-1945 or null
+let forceType = null;   // 'Infantry' | 'Mechanized' | 'Armored' | 'Airborne' | null
 let isAdmin = false;
 let unitRatings = {};   // { unitId: { rating, wins, losses, comparisons } }
 
@@ -4327,6 +4495,12 @@ function setForceQuality(q) {
   document.querySelectorAll('.quality-bar .quality-chip').forEach(c => {
     c.classList.toggle('active', c.dataset.quality === q);
   });
+}
+
+function setForceType(t) {
+  forceType = (t === forceType) ? null : t;
+  document.querySelectorAll('.force-type-chip').forEach(c =>
+    c.classList.toggle('active', c.dataset.type === forceType));
 }
 
 
@@ -4713,6 +4887,21 @@ if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 if (new URLSearchParams(window.location.search).get('preview') === 'true') {
   window.addEventListener('DOMContentLoaded', enterGuestMode);
 }
+
+// ── HEADER RESIZE OBSERVER ────────────────────────────────────────────────────
+// Updates --header-h and toggles is-wrapped on header-end as the header reflowss
+(function () {
+  const headerEl   = document.querySelector('header');
+  const headerEnd  = document.getElementById('header-end');
+  const logoEl     = headerEl.querySelector('.logo');
+  function update() {
+    document.documentElement.style.setProperty('--header-h', headerEl.offsetHeight + 'px');
+    const wrapped = headerEnd.offsetTop > logoEl.offsetTop;
+    headerEnd.classList.toggle('is-wrapped', wrapped);
+  }
+  new ResizeObserver(update).observe(headerEl);
+  update();
+})();
 
 // ── GLOBAL TOOLTIP ────────────────────────────────────────────────────────────
 // Uses position:fixed so it escapes overflow:auto scroll containers (e.g. force panel)
