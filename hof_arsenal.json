@@ -1324,7 +1324,7 @@
       "id": "us-spg-m8-scott",
       "name": "M8 Scott HMC",
       "nation": "United States",
-      "type": "Gun Teams",
+      "type": "Armored",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -1361,7 +1361,7 @@
       "id": "us-spg-105mm-sherman",
       "name": "105mm Sherman",
       "nation": "United States",
-      "type": "Gun Teams",
+      "type": "Armored",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -1573,7 +1573,7 @@
       "id": "us-spa-m7-priest",
       "name": "M7 Priest HMC",
       "nation": "United States",
-      "type": "Gun Teams",
+      "type": "Armored",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -1612,7 +1612,7 @@
       "id": "us-spa-m12",
       "name": "M12 155mm GMC",
       "nation": "United States",
-      "type": "Gun Teams",
+      "type": "Armored",
       "theater": [
         "Western Front"
       ],
@@ -1647,7 +1647,7 @@
       "id": "us-spa-m4-81mm",
       "name": "M4 81mm MMC",
       "nation": "United States",
-      "type": "Gun Teams",
+      "type": "Armored",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -2937,7 +2937,7 @@
       "id": "de-spa-sdkfz251-8cm",
       "name": "Sd Kfz 251/2C (8cm)",
       "nation": "Germany",
-      "type": "Gun Teams",
+      "type": "Armored",
       "theater": [
         "Western Front",
         "Eastern Front"
@@ -2976,7 +2976,7 @@
       "id": "de-spa-sdkfz251-75cm",
       "name": "Sd Kfz 251/9 (7.5cm)",
       "nation": "Germany",
-      "type": "Gun Teams",
+      "type": "Armored",
       "theater": [
         "Western Front",
         "Eastern Front"
@@ -3012,7 +3012,7 @@
       "id": "de-spa-grille",
       "name": "Grille (15cm sIG)",
       "nation": "Germany",
-      "type": "Gun Teams",
+      "type": "Armored",
       "theater": [
         "Western Front",
         "Eastern Front"
@@ -3049,7 +3049,7 @@
       "id": "de-spa-wespe",
       "name": "Wespe",
       "nation": "Germany",
-      "type": "Gun Teams",
+      "type": "Armored",
       "theater": [
         "Western Front",
         "Eastern Front"
@@ -3087,7 +3087,7 @@
       "id": "de-spa-hummel",
       "name": "Hummel",
       "nation": "Germany",
-      "type": "Gun Teams",
+      "type": "Armored",
       "theater": [
         "Western Front",
         "Eastern Front"
@@ -3125,7 +3125,7 @@
       "id": "de-spa-panzerwerfer",
       "name": "Panzerwerfer 42",
       "nation": "Germany",
-      "type": "Gun Teams",
+      "type": "Armored",
       "theater": [
         "Western Front",
         "Eastern Front"
@@ -4649,7 +4649,7 @@
       "id": "br-spa-sexton",
       "name": "Sexton",
       "nation": "Britain",
-      "type": "Gun Teams",
+      "type": "Armored",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -4685,7 +4685,7 @@
       "id": "br-spa-priest",
       "name": "Priest",
       "nation": "Britain",
-      "type": "Gun Teams",
+      "type": "Armored",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -6368,7 +6368,7 @@
       "id": "sv-spa-katyusha",
       "name": "BM-13 Katyusha",
       "nation": "Soviet Union",
-      "type": "Gun Teams",
+      "type": "Armored",
       "theater": [
         "Eastern Front"
       ],

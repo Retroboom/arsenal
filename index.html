@@ -2561,8 +2561,7 @@ function renderGrid(container, forceIds) {
   let cardIndex = 0;
 
   const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
-  const typeOrder = ['Infantry', 'Gun Teams', 'Armored', 'Recon', 'Transport'];
-  const GUN_TEAM_TYPES = new Set(['Gun Teams', 'Anti-Tank', 'Anti-Air']);
+  const typeOrder = ['Infantry', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
 
   nationOrder.forEach(nation => {
     if (!byNation[nation]) return;
@@ -2576,12 +2575,11 @@ function renderGrid(container, forceIds) {
       `;
     }
 
-    // Group by type within nation — AT and AA fold into Gun Teams
+    // Group by type within nation
     const byType = {};
     byNation[nation].forEach(u => {
-      const displayType = GUN_TEAM_TYPES.has(u.type) ? 'Gun Teams' : u.type;
-      if (!byType[displayType]) byType[displayType] = [];
-      byType[displayType].push(u);
+      if (!byType[u.type]) byType[u.type] = [];
+      byType[u.type].push(u);
     });
 
     const activeTypes = typeOrder.filter(t => byType[t]);
@@ -2690,8 +2688,7 @@ function renderTable(container, forceIds) {
       <tbody>
   `;
 
-  const typeOrder = ['Infantry', 'Gun Teams', 'Armored', 'Recon', 'Transport'];
-  const GUN_TEAM_TYPES = new Set(['Gun Teams', 'Anti-Tank', 'Anti-Air']);
+  const typeOrder = ['Infantry', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
   const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
   const byNation = {};
   filteredUnits.forEach(u => {
@@ -2706,12 +2703,10 @@ function renderTable(container, forceIds) {
     if (hasMultipleNations) {
       html += `<tr class="table-type-row"><td colspan="${colSpan}" style="font-family:var(--display);font-size:16px;letter-spacing:3px;color:var(--accent);padding:16px 10px 6px;border-bottom:1px solid var(--border);opacity:0.9">${nation}</td></tr>`;
     }
-    // Group by type — AT and AA fold into Gun Teams for display
     const byType = {};
     byNation[nation].forEach(u => {
-      const displayType = GUN_TEAM_TYPES.has(u.type) ? 'Gun Teams' : u.type;
-      if (!byType[displayType]) byType[displayType] = [];
-      byType[displayType].push(u);
+      if (!byType[u.type]) byType[u.type] = [];
+      byType[u.type].push(u);
     });
     const activeTypes = typeOrder.filter(t => byType[t]);
     const showTypeHeaders = activeTypes.length > 1;
