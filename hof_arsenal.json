@@ -388,7 +388,7 @@
       "lore": "The water-cooled M1917 and air-cooled M1919 HMGs provided battalion-level sustained fire support across every US theater of operations. Their belt-fed fire could maintain suppression for minutes at a time without overheating, making them indispensable for holding defensive lines and suppressing strongpoints during assaults. US infantry doctrine placed HMG platoons where they could deliver flanking or enfilading fire along the most likely enemy approach.",
       "name": "M1917/M1919 HMG",
       "nation": "United States",
-      "type": "Artillery",
+      "type": "Support",
       "theater": [
         "Western Front",
         "Pacific",
@@ -1904,7 +1904,7 @@
       "lore": "The MG34 and MG42 in the sustained-fire role, mounted on the Lafette 34 tripod, gave German battalions concentrated direct fire out to 2,000 meters with an optical sight. The MG42's 1,500 rounds-per-minute cyclic rate — nearly twice any Allied equivalent — created beaten zones that advancing infantry simply could not survive crossing. Allied soldiers were specifically trained to hit the dirt and crawl sideways when they heard the buzzsaw, not freeze and absorb the burst.",
       "name": "MG34/MG42 HMG",
       "nation": "Germany",
-      "type": "Artillery",
+      "type": "Support",
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -3946,7 +3946,7 @@
       "lore": "The Vickers machine gun entered British service in 1912 and was still a front-line weapon in 1945 — a testament to its extraordinary reliability and sustained-fire capability. Water-cooled and belt-fed, it could fire continuously for hours without overheating, allowing it to deliver the \"beaten zone\" fire plans that were a hallmark of British defensive tactics: pre-registered lines of fixed fire that would devastate any night attack regardless of visibility. Vickers companies were assigned at battalion level to provide the long-range suppressive fire that the Bren could not sustain, and their crews became masters of indirect fire over the sights.",
       "name": "Vickers HMG",
       "nation": "Britain",
-      "type": "Artillery",
+      "type": "Support",
       "theater": [
         "Western Front",
         "Mediterranean",
@@ -5707,7 +5707,7 @@
       "lore": "The Maxim M1910 water-cooled heavy machine gun on its distinctive wheeled Sokolov mount was the Soviet infantry's primary crew-served firepower from the Finnish War through Berlin — a weapon design from 1884 still effective sixty years later. Its 7.62mm belt-fed fire could sustain a beaten zone continuously for hours, and Soviet machine-gun sections were famous for their methodical fire discipline, registering fixed lines during daylight and delivering them precisely during night attacks. The Sokolov mount's small wheels allowed it to be rolled forward during an advance, giving it better tactical mobility than the tripod-mounted HMGs of most other armies.",
       "name": "Maksim HMG",
       "nation": "Soviet Union",
-      "type": "Artillery",
+      "type": "Support",
       "theater": [
         "Eastern Front"
       ],
@@ -6407,7 +6407,7 @@
       "lore": "The SU-122 mounted the M-30 122mm howitzer on the T-34 chassis to create a powerful close-support weapon capable of demolishing fortifications and neutralizing anti-tank gun positions that the T-34's direct fire couldn't destroy. Its 21.7kg HE shell could devastate a building, collapse a trench, or destroy a light vehicle with a near miss, while its HEAT round could penetrate any German tank hull at close range — a function Soviet crews rarely relied on as the howitzer's slow reload was a liability in fast-moving tank combat. Used primarily in the direct-fire infantry support role, SU-122s gave Soviet combined-arms attacks an armoured battering ram for fixed defenses.",
       "name": "SU-122",
       "nation": "Soviet Union",
-      "type": "Artillery",
+      "type": "Armored",
       "theater": [
         "Eastern Front"
       ],
@@ -6442,7 +6442,7 @@
       "lore": "The SU-152 earned the nickname \"Zveroboy\" (Beast-Killer) at Kursk in July 1943, where its 152mm ML-20 gun demolished Tiger I and Elephant tank destroyers with a single HE round — not by penetrating their armour, but by physically tearing off turrets and bending hulls with the concussive force of a 43.5kg shell at close range. Designed as a heavy assault gun for fortified positions, it proved unexpectedly effective as a tank destroyer simply because no German armour could survive a direct hit from a weapon in its class. SU-152s served in independent heavy self-propelled artillery regiments attached to tank armies for breakthrough operations.",
       "name": "SU-152",
       "nation": "Soviet Union",
-      "type": "Artillery",
+      "type": "Armored",
       "theater": [
         "Eastern Front"
       ],
@@ -6478,7 +6478,7 @@
       "lore": "The ISU-122 mounted the 122mm D-25S gun — identical to the IS-2's armament — on the IS chassis, creating a dedicated tank destroyer with the firepower to defeat any German vehicle and the armour to survive defensive fire from most German guns. Soviet doctrine used ISU-122 regiments in the anti-armour role, deploying them in hull-down positions to engage German tanks at long range while IS-2s and T-34s conducted the assault. Unlike the earlier SU-122, the ISU-122's high-velocity gun was designed primarily as an anti-armour weapon rather than a howitzer, giving it flat-trajectory accuracy against specific targets at ranges over 1,500 meters.",
       "name": "ISU-122",
       "nation": "Soviet Union",
-      "type": "Artillery",
+      "type": "Armored",
       "theater": [
         "Eastern Front"
       ],
@@ -6513,7 +6513,7 @@
       "lore": "The ISU-152 was the successor to the SU-152, mounting the same 152mm ML-20 howitzer on the superior IS chassis to give it dramatically better armour protection — 90mm of sloped frontal plate versus the SU-152's 60mm — while retaining the devastating firepower that had earned the \"Beast-Killer\" reputation. ISU-152 regiments spearheaded the assault on every major German fortified city in the final campaigns: Königsberg, Breslau, Budapest, Vienna, and Berlin, where their heavy shells could demolish a building occupied by German infantry without exposing assault troops to the direct fire that defended street corners and windows.",
       "name": "ISU-152",
       "nation": "Soviet Union",
-      "type": "Artillery",
+      "type": "Armored",
       "theater": [
         "Eastern Front"
       ],

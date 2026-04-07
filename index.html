@@ -44,7 +44,7 @@
     border-bottom: 1px solid var(--border);
     padding: 0 24px;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
     align-items: center;
     gap: 8px;
     min-height: 80px;
@@ -591,12 +591,34 @@
   .nation-britain { border-color: #3a5a3a; color: #6a9a6a; background: #0d180d; }
   .nation-soviet { border-color: #7c3a3a; color: #bc6a6a; background: #240d0d; }
 
+  /* ── Type colors ──────────────────────────────────────────────────────────── */
+  [data-type="Infantry"]  { --type-color: #6abf6a; }
+  [data-type="Support"]   { --type-color: #a07fd4; }
+  [data-type="Artillery"] { --type-color: #d4a035; }
+  [data-type="Gun Teams"] { --type-color: #c07828; }
+  [data-type="Anti-Tank"] { --type-color: #d45f50; }
+  [data-type="Anti-Air"]  { --type-color: #50a8d4; }
+  [data-type="Armored"]   { --type-color: #5888c4; }
+  [data-type="Recon"]     { --type-color: #3cb8a0; }
+  [data-type="Transport"] { --type-color: #8c9870; }
+
   .type-badge {
     font-family: var(--mono);
     font-size: 9px;
     color: var(--text3);
     letter-spacing: 1px;
     text-transform: uppercase;
+  }
+  .type-badge[data-type] { color: var(--type-color); }
+
+  /* Type filter chips use their type color */
+  .chip[data-type] { color: var(--type-color); }
+  .chip[data-type]:hover { border-color: var(--type-color); color: var(--type-color); }
+  .chip[data-type].active {
+    background: var(--type-color);
+    border-color: var(--type-color);
+    color: #111;
+    font-weight: 600;
   }
 
   .card-stats {
@@ -1900,6 +1922,7 @@
   .whats-new-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-rows: auto;
     column-gap: 10px;
     row-gap: 0;
     grid-auto-rows: 0px;
@@ -1974,6 +1997,7 @@
   .lib-featured-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-rows: auto;
     grid-auto-rows: 0px;
     overflow: hidden;
   }
@@ -2956,7 +2980,7 @@ async function loadData() {
 function buildFilterChips() {
   const nations = [...new Set(allUnits.map(u => u.nation))].sort();
   // Use a fixed order; 'Gun Teams' is a meta-filter (not a real type in data)
-  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
+  const typeOrder = ['Infantry', 'Support', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
   const presentTypes = new Set(allUnits.map(u => u.type));
   // Include all types present in data, plus 'Gun Teams' meta-filter
   const types = typeOrder.filter(t => t === 'Gun Teams' || presentTypes.has(t));
@@ -2969,9 +2993,10 @@ function buildFilterChips() {
 
 function renderChips(containerId, values, filterKey) {
   const container = document.getElementById(containerId);
-  container.innerHTML = values.map(v => `
-    <div class="chip" onclick="toggleFilter('${filterKey}', '${v}')" data-key="${filterKey}" data-val="${v}">${v}</div>
-  `).join('');
+  container.innerHTML = values.map(v => {
+    const typeAttr = filterKey === 'types' ? ` data-type="${v}"` : '';
+    return `<div class="chip" onclick="toggleFilter('${filterKey}', '${v}')" data-key="${filterKey}" data-val="${v}"${typeAttr}>${v}</div>`;
+  }).join('');
 }
 
 function toggleFilter(key, value) {
@@ -3007,7 +3032,7 @@ function applyFilters() {
     if (activeFilters.search && !u.name.toLowerCase().includes(activeFilters.search)) return false;
     if (activeFilters.nations.length && !activeFilters.nations.includes(u.nation)) return false;
     if (activeFilters.types.length) {
-      const GUN_TEAMS_TYPES = ['Artillery', 'Anti-Tank', 'Anti-Air'];
+      const GUN_TEAMS_TYPES = ['Artillery', 'Support', 'Anti-Tank', 'Anti-Air'];
       const hasGunTeams = activeFilters.types.includes('Gun Teams');
       const otherTypes = activeFilters.types.filter(t => t !== 'Gun Teams');
       const matchesDirect = otherTypes.includes(u.type);
@@ -3144,7 +3169,7 @@ function renderGrid(container, forceIds) {
   let cardIndex = 0;
 
   const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
-  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
+  const typeOrder = ['Infantry', 'Support', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
 
   nationOrder.forEach(nation => {
     if (!byNation[nation]) return;
@@ -3192,7 +3217,7 @@ function renderGrid(container, forceIds) {
             <div class="unit-name">${unit.name}</div>
             <div class="card-badges">
               <div class="${nationBadgeClass(unit.nation)}">${unit.nation}</div>
-              <div class="type-badge">${unit.type}</div>
+              <div class="type-badge" data-type="${unit.type}">${unit.type}</div>
             </div>
           </div>
           <div class="card-stats">
@@ -3271,7 +3296,7 @@ function renderTable(container, forceIds) {
       <tbody>
   `;
 
-  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
+  const typeOrder = ['Infantry', 'Support', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
   const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
   const byNation = {};
   filteredUnits.forEach(u => {
@@ -3863,7 +3888,7 @@ function openUnitDetail(unitId) {
   const yearStr = yearRange(unit.years);
   document.getElementById('udp-badges').innerHTML = `
     <span class="${nationBadgeClass(unit.nation)}">${unit.nation}</span>
-    <span class="type-badge" style="font-size:10px;letter-spacing:1px">${unit.type}</span>
+    <span class="type-badge" data-type="${unit.type}" style="font-size:10px;letter-spacing:1px">${unit.type}</span>
     <span class="type-badge" style="font-size:10px">${unit.base || 'Medium'} Base</span>
   `;
 
