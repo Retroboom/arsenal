@@ -11,6 +11,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <style>
   :root {
+    --header-h: 108px; /* 80px logo row + 28px nav row */
     --bg: #0f0e0c;
     --bg2: #1a1916;
     --bg3: #242220;
@@ -44,25 +45,34 @@
     border-bottom: 1px solid var(--border);
     padding: 0 24px;
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 8px;
-    min-height: 80px;
-    height: auto;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 80px auto;
     position: sticky;
     top: 0;
     z-index: 100;
   }
 
+  .logo {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+  }
+
+  .header-right {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+  }
+
   .header-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
     display: flex;
     align-items: center;
     gap: 2px;
-    min-width: 0;
-    overflow: hidden;
-    overflow: hidden;
-    justify-content: center;
-    padding: 4px 0;
+    justify-content: flex-start;
+    padding: 0;
+    border-top: 1px solid var(--border);
   }
   .header-nav-tab {
     padding: 6px 14px;
@@ -89,7 +99,7 @@
   #section-fieldmanual.active {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 80px);
+    min-height: calc(100vh - var(--header-h));
     padding: 32px 40px;
     max-width: 1100px;
     margin: 0 auto;
@@ -279,18 +289,11 @@
 
   .logo span {
     color: var(--text3);
-    font-size: 11px;
+    font-size: 14px;
     font-family: var(--mono);
     letter-spacing: 3px;
     opacity: 0.6;
     white-space: nowrap;
-    max-width: 200px;
-    overflow: hidden;
-    transition: max-width 0.25s ease, opacity 0.25s ease;
-  }
-
-  @media (max-width: 1060px) {
-    .logo span { max-width: 0; opacity: 0; }
   }
 
   .header-right {
@@ -334,7 +337,7 @@
   .app {
     display: grid;
     grid-template-columns: 260px 1fr;
-    min-height: calc(100vh - 80px);
+    min-height: calc(100vh - var(--header-h));
   }
 
   /* SIDEBAR */
@@ -343,8 +346,8 @@
     border-right: 1px solid var(--border);
     padding: 20px 16px;
     position: sticky;
-    top: 80px;
-    height: calc(100vh - 80px);
+    top: var(--header-h);
+    height: calc(100vh - var(--header-h));
     overflow-y: auto;
   }
 
@@ -1071,10 +1074,10 @@
 
   .force-panel {
     position: fixed;
-    top: 80px;
+    top: var(--header-h);
     right: 0;
     width: 360px;
-    height: calc(100vh - 80px);
+    height: calc(100vh - var(--header-h));
     background: var(--bg2);
     border-left: 1px solid var(--border);
     display: flex;
@@ -1539,21 +1542,36 @@
     width: 90%;
   }
 
-  .auth-gate-title {
-    font-family: var(--display);
-    font-size: 28px;
-    letter-spacing: 4px;
-    color: var(--accent);
-    margin-bottom: 6px;
+  .auth-gate-logo {
+    margin-bottom: 20px;
+  }
+
+  .auth-gate-img {
+    width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px;
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 8px rgba(224,192,96,0.25));
+  }
+
+  .auth-gate-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--text3);
+    opacity: 0.6;
+    text-transform: uppercase;
   }
 
   .auth-gate-sub {
     font-family: var(--mono);
     font-size: 11px;
     color: var(--text3);
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     margin-bottom: 28px;
     line-height: 1.7;
+    text-wrap: balance;
   }
 
   .google-btn {
@@ -1580,6 +1598,7 @@
     letter-spacing: 0.5px;
     margin-top: 20px;
     line-height: 1.7;
+    text-wrap: balance;
   }
 
   .auth-gate-note a {
@@ -1676,7 +1695,7 @@
     border: 1px solid var(--border);
     width: 100%;
     max-width: 960px;
-    max-height: calc(100vh - 80px);
+    max-height: calc(100vh - var(--header-h));
     min-height: 400px;
     display: flex;
     flex-direction: column;
@@ -2718,7 +2737,7 @@
 <header>
   <div class="logo" onclick="showHomeView()" style="cursor:pointer" title="Home">
     <img src="logo.png" alt="Hail of Fire" class="logo-img">
-    <span>// ARSENAL DATABASE</span>
+    <span>// ARSENAL</span>
   </div>
   <nav class="header-nav">
     <button class="header-nav-tab active" data-section="units" data-label="Units" onclick="setSection('units')">Units</button>
@@ -2738,12 +2757,14 @@
 <!-- AUTH GATE (shown until user signs in) -->
 <div class="auth-gate" id="auth-gate">
   <div class="auth-gate-box">
-    <div class="auth-gate-title">HOF ARSENAL</div>
-    <div class="auth-gate-sub">Sign in to browse units and build forces.<br>Subscriber content requires a Ko-fi membership.</div>
+    <div class="auth-gate-logo">
+      <img src="logo.png" alt="Hail of Fire" class="auth-gate-img">
+      <div class="auth-gate-label">Arsenal</div>
+    </div>
+    <div class="auth-gate-sub">Sign in to build forces and browse additional content.</div>
     <button class="google-btn" onclick="signIn()">Sign In with Google</button>
     <div class="auth-gate-note">
-      Subscriber? <a href="https://ko-fi.com/retroboom" target="_blank">Join on Ko-fi</a> for $1/month<br>
-      to unlock additional nations, units, and content.
+      <a href="https://ko-fi.com/retroboom" target="_blank">Join on Ko-fi</a> for $1/month to access additional units, nations, scenarios, and other content added regularly.
     </div>
   </div>
 </div>
@@ -3008,32 +3029,6 @@ function setSection(name) {
   });
   if (name === 'library') loadLibraryTab(currentLibTab || 'browse');
   if (name === 'fieldmanual') loadFieldManual();
-  updateNavLabels();
-}
-
-function updateNavLabels() {
-  const nav = document.querySelector('.header-nav');
-  if (!nav) return;
-  const tabs = [...nav.querySelectorAll('.header-nav-tab')];
-  const GAP = 2; // matches gap: 2px in CSS
-
-  // Restore all labels first (forces reflow on next offsetWidth read)
-  tabs.forEach(t => { t.textContent = t.dataset.label; });
-
-  // Sum individual tab widths — reliable even when nav container is overflow-hidden at 0px
-  const totalW = () => tabs.reduce((s, t) => s + t.offsetWidth, 0) + (tabs.length - 1) * GAP;
-
-  if (totalW() > nav.clientWidth) {
-    // Truncate inactive tabs to '…' one by one until content fits
-    const inactiveTabs = tabs.filter(t => !t.classList.contains('active'));
-    for (const t of inactiveTabs) {
-      t.textContent = '…';
-      if (totalW() <= nav.clientWidth) return;
-    }
-    // Still doesn't fit — truncate the active tab too
-    const activeTab = tabs.find(t => t.classList.contains('active'));
-    if (activeTab) activeTab.textContent = '…';
-  }
 }
 
 // ── LOAD DATA ─────────────────────────────────────────────────────────────────
@@ -3677,6 +3672,9 @@ function clearForce() {
     activePlatoonId = null;
     platoonCounter = 0;
     collapsedPlatoons.clear();
+    currentForceId = null;
+    document.getElementById('force-name').value = '';
+    document.getElementById('force-notes').value = '';
     updateForceUI();
     renderUnits();
   }
@@ -4268,7 +4266,7 @@ function renderLibForces(body, forces) {
       <div class="force-card-actions">
         <button class="force-card-btn" onclick="openLibForceSheet('${f.id}')">View Sheet</button>
         <button class="force-card-btn" onclick="loadForceFromLibrary('${f.id}')">Load into Builder</button>
-        <button class="force-card-btn" onclick="copyForceShareUrl('${f.id}')">Copy Share Link</button>
+
         ${currentUser && f.authorUid === currentUser.uid ? `
           ${!f.published ? `<button class="force-card-btn" onclick="publishForceById('${f.id}')">Publish</button>` : ''}
           <button class="force-card-btn danger" onclick="deleteForce('${f.id}')">Delete</button>
@@ -4762,20 +4760,6 @@ if (new URLSearchParams(window.location.search).get('preview') === 'true') {
   });
   // Also hide on scroll (avoids tooltip floating in wrong place)
   document.addEventListener('scroll', hide, true);
-})();
-
-// Nav label resize observer — truncate tabs to '…' when nav overflows
-(function () {
-  const nav = document.querySelector('.header-nav');
-  if (nav && typeof ResizeObserver !== 'undefined') {
-    new ResizeObserver(() => updateNavLabels()).observe(nav);
-  }
-  // Initial call after DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateNavLabels);
-  } else {
-    updateNavLabels();
-  }
 })();
 
 firebase.auth().onAuthStateChanged(async (user) => {
