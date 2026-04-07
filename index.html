@@ -1519,6 +1519,64 @@
   .force-card-platoon-row .pl-name { color: var(--text2); }
   .force-card-platoon-row .pl-teams { color: var(--text3); }
 
+  /* QUALITY SELECTOR */
+  .quality-bar {
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .quality-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--text3);
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .quality-chips {
+    display: flex;
+    gap: 4px;
+  }
+
+  .quality-chip {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    background: none;
+    color: var(--text3);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.12s;
+  }
+
+  .quality-chip:hover { border-color: var(--text2); color: var(--text2); }
+  .quality-chip.active.q-elite  { border-color: var(--accent); color: var(--accent); background: rgba(224,192,96,0.08); }
+  .quality-chip.active.q-regular { border-color: var(--green); color: var(--green); background: rgba(90,154,110,0.08); }
+  .quality-chip.active.q-poor   { border-color: var(--red); color: #ff9a9a; background: rgba(160,69,69,0.08); }
+
+  /* COMPARE QUALITY */
+  .compare-quality-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .compare-quality-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--text3);
+    text-transform: uppercase;
+  }
+
   /* RATING BADGE (admin only) */
   .rating-badge {
     font-family: var(--mono);
@@ -2111,6 +2169,14 @@
     <button class="close-panel-btn" onclick="toggleForcePanel()">✕</button>
   </div>
   <input type="text" class="force-name-input" id="force-name" placeholder="Name your force...">
+  <div class="quality-bar">
+    <span class="quality-label">Quality</span>
+    <div class="quality-chips">
+      <button class="quality-chip q-elite"   onclick="setForceQuality('Elite')"  >Elite</button>
+      <button class="quality-chip q-regular active" onclick="setForceQuality('Regular')">Regular</button>
+      <button class="quality-chip q-poor"    onclick="setForceQuality('Poor')"  >Poor</button>
+    </div>
+  </div>
   <div class="force-notes-area">
     <span class="force-notes-label">Force Notes</span>
     <textarea class="force-notes-input" id="force-notes" placeholder="History, composition, playstyle, context — anything you want to share..."></textarea>
@@ -2188,6 +2254,14 @@
     <div class="compare-card" id="compare-b" onclick="submitComparison('b')">
       <div class="compare-flash" id="flash-b"></div>
       <div id="compare-b-content"></div>
+    </div>
+  </div>
+  <div class="compare-quality-bar">
+    <span class="compare-quality-label">Quality</span>
+    <div class="quality-chips">
+      <button class="quality-chip q-elite"    onclick="setCompareQuality('Elite')"  >Elite</button>
+      <button class="quality-chip q-regular active" onclick="setCompareQuality('Regular')">Regular</button>
+      <button class="quality-chip q-poor"     onclick="setCompareQuality('Poor')"  >Poor</button>
     </div>
   </div>
   <div class="compare-footer">
@@ -2799,6 +2873,7 @@ function getForceData() {
       const u = allUnits.find(u => u.id === t.unitId);
       return u ? u.nation : null;
     }).filter(Boolean)))],
+    quality: forceQuality,
     platoonCount: platoons.length,
     breakLimit: 5 + (platoons.length * 2),
     platoons: platoons.map(p => ({
@@ -2818,6 +2893,7 @@ function loadForceData(data) {
   }
   document.getElementById('force-name').value = data.name || '';
   document.getElementById('force-notes').value = data.notes || '';
+  setForceQuality(data.quality || 'Regular');
   platoons = toArr(data.platoons).map((p, i) => ({
     id: `pl-${Date.now()}-${i}`,
     name: p.name,
@@ -3062,6 +3138,8 @@ function renderLibForces(body, forces) {
         <span>${platoonArr.length} platoons</span>
         <span style="color:var(--border)">|</span>
         <span>BL ${f.breakLimit || 5}</span>
+        <span style="color:var(--border)">|</span>
+        <span>${f.quality || 'Regular'}</span>
       </div>
       ${f.notes ? `<div class="force-card-desc">${f.notes}</div>` : ''}
       <div class="force-card-platoon-list">${platoonRows}</div>
@@ -3120,8 +3198,33 @@ async function checkUrlForce() {
 }
 
 // ── ADMIN ─────────────────────────────────────────────────────────────────────
+let forceQuality = 'Regular';
+let compareQuality = 'Regular';
 let isAdmin = false;
 let unitRatings = {};   // { unitId: { rating, wins, losses, comparisons } }
+
+function setForceQuality(q) {
+  forceQuality = q;
+  document.querySelectorAll('.quality-bar .quality-chip').forEach(c => {
+    c.classList.toggle('active', c.textContent.trim() === q);
+  });
+}
+
+function setCompareQuality(q) {
+  compareQuality = q;
+  document.querySelectorAll('.compare-quality-bar .quality-chip').forEach(c => {
+    c.classList.toggle('active', c.textContent.trim() === q);
+  });
+  // Refresh rating display without loading new pair
+  if (compareUnitA && compareUnitB) {
+    document.getElementById('compare-count').textContent =
+      `${compareSessionCount} comparison${compareSessionCount !== 1 ? 's' : ''} submitted this session`;
+  }
+}
+
+function ratingKey(unitId, quality) {
+  return `${unitId}_${quality}`;
+}
 
 async function checkAdmin(email) {
   if (!email) return false;
@@ -3136,11 +3239,12 @@ async function loadRatings() {
 }
 
 function ratingBadgeHtml(unitId) {
-  const r = unitRatings[unitId];
+  const key = ratingKey(unitId, compareQuality);
+  const r = unitRatings[key];
   if (!r || r.comparisons === 0) {
-    return `<span class="rating-badge unrated">unrated</span>`;
+    return `<span class="rating-badge unrated">${compareQuality} unrated</span>`;
   }
-  return `<span class="rating-badge" title="${r.comparisons} comparisons · ${r.wins}W ${r.losses}L">${Math.round(r.rating)} ELO</span>`;
+  return `<span class="rating-badge" title="${compareQuality} · ${r.comparisons} comparisons · ${r.wins}W ${r.losses}L">${Math.round(r.rating)} ELO (${compareQuality})</span>`;
 }
 
 // ── ELO COMPARISON ────────────────────────────────────────────────────────────
@@ -3232,25 +3336,27 @@ async function submitComparison(winner) {
 
   const idA = compareUnitA.id;
   const idB = compareUnitB.id;
-  const rA = (unitRatings[idA] && unitRatings[idA].rating) || 1200;
-  const rB = (unitRatings[idB] && unitRatings[idB].rating) || 1200;
+  const kA = ratingKey(idA, compareQuality);
+  const kB = ratingKey(idB, compareQuality);
+  const rA = (unitRatings[kA] && unitRatings[kA].rating) || 1200;
+  const rB = (unitRatings[kB] && unitRatings[kB].rating) || 1200;
 
   const { newA, newB } = eloNewRatings(rA, rB, aWon);
 
   // Update local cache
-  if (!unitRatings[idA]) unitRatings[idA] = { rating: 1200, wins: 0, losses: 0, comparisons: 0 };
-  if (!unitRatings[idB]) unitRatings[idB] = { rating: 1200, wins: 0, losses: 0, comparisons: 0 };
-  unitRatings[idA].rating = newA;
-  unitRatings[idA].comparisons++;
-  unitRatings[idA][aWon ? 'wins' : 'losses']++;
-  unitRatings[idB].rating = newB;
-  unitRatings[idB].comparisons++;
-  unitRatings[idB][aWon ? 'losses' : 'wins']++;
+  if (!unitRatings[kA]) unitRatings[kA] = { rating: 1200, wins: 0, losses: 0, comparisons: 0 };
+  if (!unitRatings[kB]) unitRatings[kB] = { rating: 1200, wins: 0, losses: 0, comparisons: 0 };
+  unitRatings[kA].rating = newA;
+  unitRatings[kA].comparisons++;
+  unitRatings[kA][aWon ? 'wins' : 'losses']++;
+  unitRatings[kB].rating = newB;
+  unitRatings[kB].comparisons++;
+  unitRatings[kB][aWon ? 'losses' : 'wins']++;
 
   // Write to Firebase (non-blocking — don't await, keeps UI snappy)
   const db = firebase.database();
-  db.ref(`ratings/${idA}`).set(unitRatings[idA]);
-  db.ref(`ratings/${idB}`).set(unitRatings[idB]);
+  db.ref(`ratings/${kA}`).set(unitRatings[kA]);
+  db.ref(`ratings/${kB}`).set(unitRatings[kB]);
 
   compareSessionCount++;
   document.getElementById('compare-count').textContent =
@@ -3388,6 +3494,8 @@ function openForceSheet(forceData) {
         <div class="fs-meta-item"><strong>${platoonCount}</strong> Platoon${platoonCount !== 1 ? 's' : ''}</div>
         <span class="fs-meta-sep">|</span>
         <div class="fs-meta-item">Break Limit <strong>${breakLimit}</strong></div>
+        <span class="fs-meta-sep">|</span>
+        <div class="fs-meta-item">Quality <strong>${forceData.quality || 'Regular'}</strong></div>
       </div>
       ${notes ? `<div class="fs-notes">${notes}</div>` : ''}
       <div class="fs-body">
