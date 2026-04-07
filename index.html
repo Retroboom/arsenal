@@ -2629,6 +2629,7 @@
       Subscriber? <a href="https://ko-fi.com/retroboom" target="_blank">Join on Ko-fi</a> for $1/month<br>
       to unlock additional nations, units, and content.
     </div>
+    <button onclick="enterGuestMode()" style="margin-top:16px;background:none;border:none;color:var(--text3);font-family:var(--mono);font-size:10px;letter-spacing:1px;cursor:pointer;text-decoration:underline;text-underline-offset:3px">Browse as guest (free content only)</button>
   </div>
 </div>
 
@@ -4433,6 +4434,19 @@ function signIn() {
   });
 }
 
+function enterGuestMode() {
+  const gate = document.getElementById('auth-gate');
+  if (gate) gate.style.display = 'none';
+  currentUser = null;
+  isSubscriber = false;
+  isAdmin = false;
+  const area = document.getElementById('auth-area');
+  if (area) area.innerHTML = `<span style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:1px">GUEST</span>`;
+  loadData();
+  loadFeaturedStrip();
+  loadWhatsNew();
+}
+
 function signOut() {
   firebase.auth().signOut();
 }
@@ -4472,6 +4486,11 @@ const firebaseConfig = {
 };
 
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+
+// Auto guest mode when ?preview=true is in the URL (for local/iframe previews)
+if (new URLSearchParams(window.location.search).get('preview') === 'true') {
+  window.addEventListener('DOMContentLoaded', enterGuestMode);
+}
 
 firebase.auth().onAuthStateChanged(async (user) => {
   currentUser = user;
