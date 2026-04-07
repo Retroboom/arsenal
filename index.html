@@ -448,6 +448,22 @@
 
   .clear-btn:hover { color: var(--text); }
 
+  .rate-teams-btn {
+    width: 100%;
+    margin-top: 24px;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 8px;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .rate-teams-btn:hover { border-color: var(--accent); color: var(--accent); }
+
   /* MAIN CONTENT */
   .main {
     padding: 24px;
@@ -2439,7 +2455,6 @@
     <button class="header-nav-tab" onclick="setSection('fieldmanual')">Field Manual</button>
   </nav>
   <div class="header-right">
-    <button class="lib-nav-btn units-only" id="rate-btn" onclick="openCompare()" style="display:none">▲ Rate Teams</button>
     <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
       Force Builder <span class="force-count-badge" id="force-count">0</span>
     </button>
@@ -2500,6 +2515,8 @@
 
     <div class="results-count" id="results-count">Loading...</div>
     <button class="clear-btn" onclick="clearFilters()">Clear all filters</button>
+
+    <button id="rate-btn" class="rate-teams-btn" onclick="openCompare()" style="display:none">▲ Rate Teams</button>
   </aside>
 
   <main class="main">
