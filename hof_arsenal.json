@@ -2,6 +2,7 @@
   "units": [
     {
       "id": "us-leader",
+      "lore": "US platoon leaders were typically lieutenants trained under the Army's aggressive fire-and-maneuver doctrine. In Normandy and across NW Europe they led from the front, coordinating rifle squads with organic BAR and mortar support. Their willingness to push forward kept the pressure on German defenders during the grinding advance through the hedgerows.",
       "name": "Platoon Leader",
       "nation": "United States",
       "type": "Infantry",
@@ -36,6 +37,7 @@
     },
     {
       "id": "us-fo",
+      "lore": "US forward observers perfected the art of \"time on target\" — massing fires from multiple batteries so every round arrived simultaneously. Their ability to call devastating concentrations within minutes made American artillery the most responsive and feared of any Allied nation. A skilled FO could break up a battalion-sized counterattack before it ever reached friendly lines.",
       "name": "Forward Observer",
       "nation": "United States",
       "type": "Infantry",
@@ -70,6 +72,7 @@
     },
     {
       "id": "de-leader",
+      "lore": "German platoon commanders operated under Auftragstaktik — mission-command doctrine that empowered junior leaders to act independently toward assigned objectives. This decentralized initiative gave German infantry tactical flexibility that Allied commanders struggled to replicate. Even as the war turned against Germany, this culture of aggressive junior leadership inflicted disproportionate casualties on attacking forces.",
       "name": "Platoon Leader",
       "nation": "Germany",
       "type": "Infantry",
@@ -104,6 +107,7 @@
     },
     {
       "id": "de-fo",
+      "lore": "German artillery observers were integral to combined-arms operations, trained to coordinate Feuerwalze creeping barrages and on-call Steilfeuer with infantry assaults. Their expertise in calling precise fires on the Eastern Front earned a fearsome reputation among Soviet infantry. By 1944 dwindling ammunition reserves constrained their effectiveness, but skilled observers could still mass devastating fires at critical points.",
       "name": "Forward Observer",
       "nation": "Germany",
       "type": "Infantry",
@@ -138,6 +142,7 @@
     },
     {
       "id": "br-leader",
+      "lore": "British platoon commanders led three-section rifle platoons built around the Bren LMG as the primary fire base. Trained in fire-and-movement tactics refined from North Africa through Normandy, they coordinated section attacks with artillery and tank support. The British infantry's methodical approach often frustrated senior commanders but consistently preserved lives against prepared defenses.",
       "name": "Platoon Leader",
       "nation": "Britain",
       "type": "Infantry",
@@ -172,6 +177,7 @@
     },
     {
       "id": "br-fo",
+      "lore": "British forward observation officers were Royal Artillerymen attached to infantry battalions, bringing the full weight of 25-pounder and medium battery fire to bear with precision. The Royal Artillery's \"stonk\" — a concentrated battery stonk on a target — became one of the most feared defensive tools in the Allied arsenal. A skilled FOO could call fire within 50 yards of friendly troops after months of exercising with the same battery.",
       "name": "Forward Observer",
       "nation": "Britain",
       "type": "Infantry",
@@ -206,6 +212,7 @@
     },
     {
       "id": "sv-leader",
+      "lore": "Soviet platoon commanders operated under strict commissar oversight in 1941-42, but by 1944 the Red Army had evolved toward pragmatic battlefield leadership that rewarded initiative. Veterans of Kursk and Operation Bagration led assault groups with aggressive combined-arms coordination, pushing forward regardless of flanks. Their willingness to accept casualties in exchange for momentum made Soviet infantry offensives extremely difficult to contain.",
       "name": "Platoon Leader",
       "nation": "Soviet Union",
       "type": "Infantry",
@@ -238,6 +245,7 @@
     },
     {
       "id": "sv-fo",
+      "lore": "Soviet forward observers directed massive artillery concentrations under a doctrine that massed 200 or more guns per kilometer of front for major offensives. By 1944 the Red Army had become the dominant artillery power in the world, and Stalin himself called artillery \"the god of war.\" A Soviet FO calling fire during Bagration or the Vistula-Oder Offensive could bring down a volume of steel that no German defensive position could survive.",
       "name": "Forward Observer",
       "nation": "Soviet Union",
       "type": "Infantry",
@@ -270,6 +278,7 @@
     },
     {
       "id": "us-inf-rifle-mg",
+      "lore": "The standard US rifle squad combined M1 Garand semi-automatic rifles with a Browning Automatic Rifle for fire support, giving individual soldiers a rate-of-fire advantage over bolt-action opponents. Blooded in the hedgerows of Normandy and the Hurtgen Forest, these squads proved adaptable across every theater from the Pacific atolls to the Rhine plain. The Garand's eight-round semi-auto capability was particularly telling in close-range firefights where the enemy's bolt actions couldn't keep pace.",
       "name": "Rifle/MG",
       "nation": "United States",
       "type": "Infantry",
@@ -306,6 +315,7 @@
     },
     {
       "id": "us-inf-mg",
+      "lore": "Armored infantry MG teams equipped with the M1919A4 provided sustained suppressive fire during advances through France and into Germany. Mounted on bipods or vehicle pintles, the .30-cal was the backbone of American squad-level fire superiority in the assault. When the advance stalled on a defended hedgerow, it was the MG team that pinned the defenders while rifle squads maneuvered around the flanks.",
       "name": "MG",
       "nation": "United States",
       "type": "Infantry",
@@ -342,6 +352,7 @@
     },
     {
       "id": "us-inf-bazooka",
+      "lore": "Introduced in 1942, the M1 Bazooka gave American infantry their first portable anti-tank weapon, firing a shaped-charge rocket capable of penetrating 75mm of armor. Though short-ranged and outmatched by late-war German tanks from the front, bazooka teams used the close terrain of the bocage and ruined cities to ambush Panthers and Tigers at point-blank range. The trick was getting within 50 meters — a nerve-testing proposition against a 50-ton tank.",
       "name": "Bazooka",
       "nation": "United States",
       "type": "Infantry",
@@ -374,6 +385,7 @@
     },
     {
       "id": "us-gun-hmg",
+      "lore": "The water-cooled M1917 and air-cooled M1919 HMGs provided battalion-level sustained fire support across every US theater of operations. Their belt-fed fire could maintain suppression for minutes at a time without overheating, making them indispensable for holding defensive lines and suppressing strongpoints during assaults. US infantry doctrine placed HMG platoons where they could deliver flanking or enfilading fire along the most likely enemy approach.",
       "name": "M1917/M1919 HMG",
       "nation": "United States",
       "type": "Gun Teams",
@@ -412,6 +424,7 @@
     },
     {
       "id": "us-gun-60mm-mortar",
+      "lore": "The M2 60mm mortar was the infantryman's own artillery, carried at platoon level and fired in under a minute from set-up to first round. Light enough to follow any advance, it delivered smoke and HE rounds onto enemy positions just beyond grenade range — the dangerous gap where rifle fire lost accuracy and artillery was too slow to respond. In the Pacific, 60mm crews became experts at lobbing rounds into jungle clearings and over reverse slopes that no other weapon could reach.",
       "name": "M2 60mm Mortar",
       "nation": "United States",
       "type": "Gun Teams",
@@ -451,6 +464,7 @@
     },
     {
       "id": "us-gun-81mm-mortar",
+      "lore": "The M1 81mm mortar provided company and battalion commanders immediate indirect fire without going through divisional artillery channels. Its 3kg shells were devastating against troops in the open, and smoke rounds gave infantry crucial concealment during river crossings and advances across open ground. Mortar platoons learned to displace after every fire mission — German counter-mortar radar made staying in one place a death sentence.",
       "name": "M1 81mm Mortar",
       "nation": "United States",
       "type": "Gun Teams",
@@ -491,6 +505,7 @@
     },
     {
       "id": "us-gun-37mm",
+      "lore": "The M3 37mm was already obsolescent against German armor by 1942, outclassed by the Panzer III's frontal plate at any practical combat range. It remained useful in the Pacific against Japanese tanks and as an infantry gun firing canister rounds — a shotgun blast of steel balls lethal to infantry in the open. US anti-tank crews in Europe often loaded their 37mms with canister and positioned them to cover hedgerow gaps where German infantry expected to be safe.",
       "name": "M3 37mm Gun",
       "nation": "United States",
       "type": "Anti-Tank",
@@ -527,6 +542,7 @@
     },
     {
       "id": "us-gun-57mm",
+      "lore": "An Americanized version of the British 6-pounder, the M1 57mm replaced the inadequate 37mm and proved effective against Panzer IVs and StuGs at combat ranges. Light enough to be towed by a jeep and manhandled by its crew, AT platoons rushed it into ambush positions along likely tank approaches. With armor-piercing capped ammunition it could defeat a Panther's side armor — the problem was surviving long enough to get the flank shot.",
       "name": "M1 57mm Gun",
       "nation": "United States",
       "type": "Anti-Tank",
@@ -560,6 +576,7 @@
     },
     {
       "id": "us-gun-3in",
+      "lore": "The towed M5 3-inch gun was derived from the M10 tank destroyer's cannon and gave US tank destroyer battalions a potent anti-armor weapon for static defense. Emplaced in hasty positions with a clear field of fire, it could defeat the frontal armor of most German medium tanks at battle ranges and penetrated Tiger I side armor at 500 meters. Its greatest liability was its weight — once emplaced it was effectively immobile, relying on concealment rather than displacement for protection.",
       "name": "M5 3in Gun",
       "nation": "United States",
       "type": "Anti-Tank",
@@ -594,6 +611,7 @@
     },
     {
       "id": "us-gun-105mm-light",
+      "lore": "The pack howitzer M3 was designed for airborne and mountain units, breaking down into mule-portable loads that could follow troops into terrain heavier guns could never reach. Dropped with the 82nd and 101st Airborne in Normandy and Market Garden, it gave paratroopers organic artillery support during the critical hours before link-up with ground forces. Its 15kg shell lacked the power of full-sized howitzers but was perfectly adequate for the direct support of lightly equipped infantry.",
       "name": "M3 105mm Light Howitzer",
       "nation": "United States",
       "type": "Gun Teams",
@@ -634,6 +652,7 @@
     },
     {
       "id": "us-gun-105mm-howitzer",
+      "lore": "The M2A1 was the workhorse of US divisional artillery, equipping three 105mm battalions in each infantry division for continuous direct support. Time-on-target firing allowed multiple batteries to deliver simultaneous first rounds, catching enemy troops in the open with devastating effect before they could take cover. At the Battle of the Bulge, American artillerymen fired over a million rounds in a single month — a logistical feat that ground down German offensive power.",
       "name": "M2A1 105mm Howitzer",
       "nation": "United States",
       "type": "Gun Teams",
@@ -676,6 +695,7 @@
     },
     {
       "id": "us-gun-155mm-howitzer",
+      "lore": "The M1 155mm \"Long Tom\" gave corps artillery the weight to crack fortifications and interdict supply routes far behind German lines. At Monte Cassino and in the Siegfried Line, its 43kg shells reduced concrete emplacements that lighter guns could only scratch. Counter-battery missions were its specialty — German 88mm crews learned that a Long Tom battery could put rounds on their flash signature within minutes of opening fire.",
       "name": "M1 155mm Howitzer",
       "nation": "United States",
       "type": "Gun Teams",
@@ -718,6 +738,7 @@
     },
     {
       "id": "us-gun-50cal-aa",
+      "lore": "The M2 .50-caliber heavy machine gun was the universal anti-aircraft weapon of US forces, mounted on vehicles, fixed positions, and aircraft in vast numbers. Against low-flying Luftwaffe aircraft it was devastatingly effective at ranges under 500 meters, and its armor-piercing rounds shredded German half-tracks and light vehicles at similar distances. US infantrymen soon discovered the .50-cal was equally persuasive against troops in the open, earning it a dual anti-aircraft and ground support role.",
       "name": "M2 .50cal AA Gun",
       "nation": "United States",
       "type": "Anti-Air",
@@ -757,6 +778,7 @@
     },
     {
       "id": "us-gun-quad-50cal-aa",
+      "lore": "The M45 Quadmount \"Meat Chopper\" mounted four M2HBs on a single power-operated turret, delivering a combined rate of fire that could shred aircraft or infantry with equal efficiency. In the Battle of the Bulge, quad-.50 teams provided critical anti-personnel fire against German infantry attacking through the Ardennes snow, their interlocking streams of tracers illuminating the forest at night. German grenadiers who survived attacks through quad-.50 fire rarely forgot the experience.",
       "name": "M49 Quad .50cal AA Gun",
       "nation": "United States",
       "type": "Anti-Air",
@@ -794,6 +816,7 @@
     },
     {
       "id": "us-gun-bofors",
+      "lore": "The licence-built M1 Bofors 40mm was the primary medium AA gun of US forces, its proximity-fused shells and 120 rounds-per-minute rate of fire making it deadly against low-altitude attackers. Emplaced around airfields, bridges, and supply dumps, Bofors batteries shot down more Luftwaffe aircraft than any other single weapon system. Its 40mm shell was also devastatingly effective in the direct fire ground role, capable of penetrating the side armor of German half-tracks at 600 meters.",
       "name": "M1 Bofors Gun",
       "nation": "United States",
       "type": "Anti-Air",
@@ -833,6 +856,7 @@
     },
     {
       "id": "us-transport-jeep",
+      "lore": "The Willys MB jeep became the defining symbol of American motorization, carrying generals, scouts, and ammunition in equal measure across every theater of the war. Its go-anywhere capability and mechanical simplicity made it the most versatile vehicle in the US inventory — a jeep could be driven through mud, fords, and jungle tracks that stopped trucks and halftracks cold. General George Patton called it \"America's greatest contribution to modern warfare.\"",
       "name": "Jeep",
       "nation": "United States",
       "type": "Transport",
@@ -871,6 +895,7 @@
     },
     {
       "id": "us-transport-dodge",
+      "lore": "The Dodge WC series 3/4-ton truck was the US Army's primary light tactical vehicle, carrying a rifle squad or a ton of supplies with equal reliability. Rugged and easy to maintain, the Dodge fleet kept rifle companies mobile during the pursuit across France after the Cobra breakout, covering 50 miles a day where German infantry could only march. Its four-wheel drive and high clearance made it far more capable off-road than most trucks of its generation.",
       "name": "Dodge 1.5-ton Truck",
       "nation": "United States",
       "type": "Transport",
@@ -911,6 +936,7 @@
     },
     {
       "id": "us-transport-gmc",
+      "lore": "The 2.5-ton \"Deuce and a Half\" GMC CCKW was the truck that kept Allied armies moving, with tens of thousands running day and night along the Red Ball Express after the Normandy breakout. Its cargo capacity and mechanical endurance sustained Patton's Third Army during its sprint across France even when rail and air supply couldn't keep pace. Without the CCKW, the logistical miracle of the ETO advance would have stalled weeks earlier.",
       "name": "GMC 2.5-ton Truck",
       "nation": "United States",
       "type": "Transport",
@@ -951,6 +977,7 @@
     },
     {
       "id": "us-transport-halftrack",
+      "lore": "The M2/M3 half-track carried armored infantry into the assault, combining wheeled road speed with tracked cross-country mobility and enough steel to stop small arms fire. Armored rifle platoons rode half-tracks into the bocage at St. Lo and across the Rhine, dismounting to clear towns and villages while the vehicles provided direct fire support from their ring-mounted .50-cal. Veterans compared the half-track favorably to walking but acknowledged it was no place to be when mortars started falling.",
       "name": "M2/M3 Half-Track",
       "nation": "United States",
       "type": "Transport",
@@ -988,6 +1015,7 @@
     },
     {
       "id": "us-tank-m4-sherman",
+      "lore": "The M4 Sherman was the mount of American armored divisions from North Africa to Berlin — reliable, fast, and available in numbers the Germans could never match. Its 75mm gun struggled against the Panther's frontal armor but could destroy it from the side, and US commanders learned to use terrain, numbers, and coordination with tank destroyers to overcome the firepower disadvantage. General Omar Bradley estimated three Shermans were lost for every German tank destroyed — but the US could absorb those losses and Germany could not.",
       "name": "M4 Sherman",
       "nation": "United States",
       "type": "Armored",
@@ -1024,6 +1052,7 @@
     },
     {
       "id": "us-tank-m4-sherman-76",
+      "lore": "The 76mm-gunned Sherman addressed the firepower gap that haunted US armored units after the Normandy battles revealed the standard 75mm couldn't penetrate Panthers at normal combat ranges. Capable of defeating Panzer IVs and, with HVAP ammunition, Panthers at closer ranges, it gave armored battalions a credible answer to German medium armor. Rushed into service for the St. Lo breakout, it became the standard front-line Sherman variant through the closing campaigns of 1945.",
       "name": "M4 Sherman 76mm",
       "nation": "United States",
       "type": "Armored",
@@ -1056,6 +1085,7 @@
     },
     {
       "id": "us-tank-m4a3e8",
+      "lore": "The M4A3E8 \"Easy Eight\" combined the 76mm gun with the HVSS suspension system, giving crews a notably smoother cross-country ride and better flotation in soft ground. Experienced Sherman crews specifically requested the Easy Eight for the closing battles of Germany in 1945, valuing its improved gun and running gear over the standard M4A3. Its balanced combination of firepower, mobility, and reliability made it the finest Sherman variant to see significant combat.",
       "name": "M4A3E8 Easy Eight",
       "nation": "United States",
       "type": "Armored",
@@ -1088,6 +1118,7 @@
     },
     {
       "id": "us-tank-m4a3e2-jumbo",
+      "lore": "The M4A3E2 Jumbo assault Sherman carried 100mm of frontal hull armor — nearly as thick as a Tiger I — at the cost of several miles per hour of top speed. Assigned to lead tank columns through the Siegfried Line bunkers and town fighting of late 1944, they absorbed hits that would have killed standard Shermans and kept rolling. Patton's crews called them \"the bravest tanks we had\" — not for what they could kill, but for what they could survive.",
       "name": "M4A3E2 Jumbo",
       "nation": "United States",
       "type": "Armored",
@@ -1120,6 +1151,7 @@
     },
     {
       "id": "us-tank-m26-pershing",
+      "lore": "The M26 Pershing finally gave US forces a tank that could meet the Panther and Tiger on equal terms, with its 90mm gun and 100mm of frontal armor arriving too late in numbers to reshape the war's outcome. Its first combat action in February 1945 at Cologne Cathedral — filmed for newsreels — showed a Pershing destroying a Panther at point-blank range in a duel that cost one US crewman. Had it arrived a year earlier, the losses in Normandy's tank battles might have been dramatically reduced.",
       "name": "M26 Pershing",
       "nation": "United States",
       "type": "Armored",
@@ -1150,6 +1182,7 @@
     },
     {
       "id": "us-tank-m5-stuart",
+      "lore": "The light M5 Stuart was too lightly armed for tank-on-tank combat by 1943, but its speed and mechanical reliability made it invaluable for reconnaissance, screening flanks, and infantry support missions. British crews in North Africa nicknamed it the \"Honey\" for its smooth-running twin Cadillac engines, a name that spread through Allied forces. US cavalry squadrons used Stuarts to probe enemy positions, trading a few rounds to locate German anti-tank guns before the Shermans moved up.",
       "name": "M5 Stuart",
       "nation": "United States",
       "type": "Armored",
@@ -1187,6 +1220,7 @@
     },
     {
       "id": "us-tank-m24-chaffee",
+      "lore": "The M24 Chaffee replaced the aging Stuart as the US light tank from late 1944, fitting a 75mm gun into a turret nearly as capable as early Shermans in a lighter, faster package. Rushed to the Ardennes during the Battle of the Bulge, Chaffee crews were surprised to find their 75mm gun could deal with German tanks in the hedged terrain where flanking shots were always available. Its combination of speed, firepower, and low silhouette made it the best Allied light tank of the war.",
       "name": "M24 Chaffee GMC",
       "nation": "United States",
       "type": "Armored",
@@ -1220,6 +1254,7 @@
     },
     {
       "id": "us-td-m10",
+      "lore": "The M10 Wolverine mounted a 3-inch gun on the Sherman M4A2 chassis, giving US tank destroyer battalions mobile anti-armor firepower under the controversial \"tank destroyers will stop the tanks\" doctrine. Its open-topped turret left crews exposed to artillery and mortar fire, a painful vulnerability at Anzio and in the Vosges, but the 3-inch gun was effective against Panzer IVs and StuGs at combat ranges. By late 1944 it was being replaced by the more powerful M36, but M10s served until the end.",
       "name": "M10 3-in GMC",
       "nation": "United States",
       "type": "Armored",
@@ -1255,6 +1290,7 @@
     },
     {
       "id": "us-td-m18-hellcat",
+      "lore": "The M18 Hellcat was the fastest tracked AFV of WWII, capable of 60mph on roads, designed to use speed and flanking maneuver against enemy tanks rather than frontal armor. During the Battle of the Bulge, Creighton Abrams' 37th Tank Battalion Hellcats slashed through German flanks at Bastogne with devastating effect, their speed allowing them to appear where the enemy least expected them. Its 76mm gun lacked the punch for Tiger frontals, but Hellcat crews never intended to meet Tigers head-on.",
       "name": "M18 Hellcat GMC",
       "nation": "United States",
       "type": "Armored",
@@ -1290,6 +1326,7 @@
     },
     {
       "id": "us-td-m36",
+      "lore": "The M36 Jackson mounted a 90mm gun capable of defeating Tiger I frontal armor at combat ranges, filling the critical firepower gap that standard US tank destroyer guns couldn't bridge. Its arrival in the ETO in autumn 1944 gave American tank destroyer battalions a weapon that inspired genuine confidence when facing German heavy tanks. M36 crews learned to identify Tiger Is and Panthers in the approach march and call them in — letting the Jackson crews deal with the heavy work before the Shermans moved up.",
       "name": "M36 90mm GMC",
       "nation": "United States",
       "type": "Armored",
@@ -1322,6 +1359,7 @@
     },
     {
       "id": "us-spg-m8-scott",
+      "lore": "The M8 Scott HMC mounted a short 75mm howitzer on the M5 Stuart chassis, providing armored cavalry and reconnaissance units with on-call direct fire support. Lightly protected but fast, it served in the close support role across NW Europe and the Pacific, often the only artillery available during the rapid exploitation phases after a German line broke. Cavalry squadrons used them to suppress machine gun nests and anti-tank gun positions before Stuarts moved up.",
       "name": "M8 Scott HMC",
       "nation": "United States",
       "type": "Armored",
@@ -1359,6 +1397,7 @@
     },
     {
       "id": "us-spg-105mm-sherman",
+      "lore": "The 105mm howitzer Sherman served as the close support tank of US armored battalions, providing HE and smoke fire missions that direct-fire tank guns couldn't replicate. One 105mm Sherman per company could neutralize anti-tank gun positions and fortified farmhouses that 75mm shells merely punched holes in. Crews nicknamed it the \"Howitzer Motor Carriage\" to distinguish it from its brothers, and valued it most when leading assaults against prepared defenses.",
       "name": "105mm Sherman",
       "nation": "United States",
       "type": "Armored",
@@ -1393,6 +1432,7 @@
     },
     {
       "id": "us-spaa-m13-mgmc",
+      "lore": "The M13 MGMC mounted twin .50-cal machine guns on an M3 half-track for anti-aircraft defense of armored columns. By 1944 the Luftwaffe posed a limited aerial threat in the West, but M13 crews found their twin .50s equally persuasive against German infantry and soft vehicles, providing devastating fire support during road marches. When Ju-87 Stukas appeared over the Ardennes in December 1944, M13 crews who had spent months in the ground role suddenly found their aircraft skills called upon again.",
       "name": "M13 MGMC",
       "nation": "United States",
       "type": "Anti-Air",
@@ -1430,6 +1470,7 @@
     },
     {
       "id": "us-spaa-m15-cgmc",
+      "lore": "The M15 CGMC combined a 37mm Bofors cannon with twin .50-cal machine guns on an M3 half-track, offering a multi-caliber solution to the AA problem. Its 37mm rounds could reach aircraft at higher altitudes than the .50-cals alone, while the twin .50s filled the low-level close-in defense band. Serving alongside M16s in AA battalions, M15 crews increasingly served as fire support vehicles for armored infantry after the Luftwaffe's decline.",
       "name": "M15 CGMC",
       "nation": "United States",
       "type": "Anti-Air",
@@ -1466,6 +1507,7 @@
     },
     {
       "id": "us-spaa-m16-mgmc",
+      "lore": "The M16 \"Meat Chopper\" mounted four M2HB .50-caliber machine guns in the Maxson power turret on an M3 half-track, delivering a combined 2,200 rounds per minute at any target within range. German infantry attacking at the Battle of the Bulge suffered terribly from M16 fire — their interlocking streams of tracer illuminated the Ardennes forest at night and cut down soldiers in the open with a density of fire no rifle platoon could replicate. Survivors rarely attacked again across ground covered by M16s.",
       "name": "M16 MGMC",
       "nation": "United States",
       "type": "Anti-Air",
@@ -1502,6 +1544,7 @@
     },
     {
       "id": "us-ac-m8",
+      "lore": "The M8 Greyhound armored car gave US cavalry and reconnaissance units a fast, well-armed scout vehicle with a 37mm gun capable of handling German armored cars and half-tracks. Organized into cavalry squadrons, M8s screened the flanks of armored divisions from Normandy to the Elbe, probing enemy positions and reporting back while avoiding fights they couldn't win. The Greyhound's high road speed — 55mph — meant that when a patrol found the enemy, escape was always a viable option.",
       "name": "M8 Armoured Car",
       "nation": "United States",
       "type": "Recon",
@@ -1536,6 +1579,7 @@
     },
     {
       "id": "us-ac-m20",
+      "lore": "The M20 utility car was an unarmed M8 variant converted as a command and utility vehicle, mounting a ring-mounted .50-cal for self-defense in the open hull. Reconnaissance troops used it to move commanders and radios forward during the pursuit across France, maintaining the communications net that kept rapidly advancing cavalry squadrons coordinated. Its open top was a liability in combat but allowed commanders an unobstructed view of fast-moving situations.",
       "name": "M20 Scout Car",
       "nation": "United States",
       "type": "Recon",
@@ -1571,6 +1615,7 @@
     },
     {
       "id": "us-spa-m7-priest",
+      "lore": "The M7 Priest self-propelled howitzer gave US armored divisions organic 105mm artillery that could keep pace with Shermans across any terrain. First used at El Alamein in 1942 by the British — who named it for the pulpit-like AA gun ring — it became the standard US armored artillery piece through the end of the war. Priest batteries could displace and re-lay within minutes during the exploitation phase, maintaining continuous fire support as armored columns leaped forward 20 miles a day.",
       "name": "M7 Priest HMC",
       "nation": "United States",
       "type": "Armored",
@@ -1610,6 +1655,7 @@
     },
     {
       "id": "us-spa-m12",
+      "lore": "The M12 155mm GMC mounted a WWI-era GPF cannon on a modified M3 tank chassis, creating a self-propelled siege gun capable of destroying reinforced concrete at direct fire range. At the Siegfried Line in September 1944, M12 crews pulled to within 300 meters of pillboxes and fired directly into embrasures — a role no other weapon could fill. Each hit from its 43kg shell blew through the concrete and killed everyone inside, opening bunker complexes that had resisted days of conventional attack.",
       "name": "M12 155mm GMC",
       "nation": "United States",
       "type": "Armored",
@@ -1645,6 +1691,7 @@
     },
     {
       "id": "us-spa-m4-81mm",
+      "lore": "The M4 Mortar Motor Carriage mounted an 81mm mortar in the hull of an M3 half-track, giving armored infantry battalions organic indirect fire support that could keep pace with tank columns. Standard in US armored infantry battalions throughout NW Europe, it could provide smoke screens, suppress enemy positions, and deliver harassing fire during night halts. Crews learned to pre-register likely targets before any advance, so the first rounds landed on time when the attack began.",
       "name": "M4 81mm MMC",
       "nation": "United States",
       "type": "Armored",
@@ -1681,6 +1728,7 @@
     },
     {
       "id": "de-inf-rifle-mg",
+      "lore": "The German Schützengruppe was built around the MG34 or MG42 as its primary weapon, with riflemen serving as ammunition carriers and security for the gun team. This doctrine gave each infantry squad twice the sustained firepower of Allied equivalents, sacrificing individual rifle capability for machine gun dominance. Allied units attacking German positions quickly learned that the MG was the kill weapon and the riflemen were there to protect it — kill the MG first, or pay a catastrophic price.",
       "name": "Rifle/MG",
       "nation": "Germany",
       "type": "Infantry",
@@ -1717,6 +1765,7 @@
     },
     {
       "id": "de-inf-mg",
+      "lore": "Dedicated MG teams equipped with the MG42 gave German infantry a machine gun delivering up to 1,500 rounds per minute, earning the Allied nickname \"Hitler's Buzzsaw\" for its distinctive tearing sound. Positioned to deliver flanking fire from prepared positions, a single MG42 team could pin down a company-sized force and inflict casualties that stopped an attack cold. Allied training specifically drilled soldiers to advance under MG42 fire — the pause to take cover was more dangerous than moving through the beaten zone.",
       "name": "MG",
       "nation": "Germany",
       "type": "Infantry",
@@ -1753,6 +1802,7 @@
     },
     {
       "id": "de-inf-assault-rifle",
+      "lore": "The StG44 Sturmgewehr was the world's first mass-produced assault rifle, combining the range of a service rifle with the close-range firepower of a submachine gun in a single weapon. Issued to elite and Waffen-SS units from 1944 onward, it gave German infantry a decisive close-range advantage in the hedgerows of Normandy and the rubble of Aachen and Berlin. When Allied soldiers encountered entire companies armed with StG44s, their volume of fire was unlike anything a bolt-action platoon could reply to in kind.",
       "name": "Assault Rifle",
       "nation": "Germany",
       "type": "Infantry",
@@ -1787,6 +1837,7 @@
     },
     {
       "id": "de-inf-panzerschreck",
+      "lore": "The 88mm Raketenpanzerbüchse — \"Tank Terror\" — was reverse-engineered from captured American bazookas and scaled up to carry a larger warhead capable of defeating any Allied tank of the period. Issued to specialist anti-tank teams, it forced Allied infantry to work in close coordination with their armor, since a Sherman without infantry screen was easy prey in close terrain. Panzerschreck teams in Normandy's bocage ambushed hundreds of Allied tanks from concealed positions at ranges under 100 meters.",
       "name": "Panzerschreck",
       "nation": "Germany",
       "type": "Infantry",
@@ -1818,6 +1869,7 @@
     },
     {
       "id": "de-inf-panzerfaust",
+      "lore": "The Panzerfaust was a cheap, disposable single-shot recoilless launcher issued in the millions to German infantry from 1943 onward, capable of penetrating 140-200mm of armor with its hollow-charge warhead. In the close terrain of Normandy hedgerows, Italian hillside villages, and the ruined cities of Germany, it made every German soldier a potential tank killer at ranges under 100 meters. Allied armored commanders learned to sweep infantry clear of buildings and hedgerows before advancing their tanks — one Panzerfaust team could destroy a Sherman in seconds.",
       "name": "Panzerfaust",
       "nation": "Germany",
       "type": "Infantry",
@@ -1849,6 +1901,7 @@
     },
     {
       "id": "de-gun-hmg",
+      "lore": "The MG34 and MG42 in the sustained-fire role, mounted on the Lafette 34 tripod, gave German battalions concentrated direct fire out to 2,000 meters with an optical sight. The MG42's 1,500 rounds-per-minute cyclic rate — nearly twice any Allied equivalent — created beaten zones that advancing infantry simply could not survive crossing. Allied soldiers were specifically trained to hit the dirt and crawl sideways when they heard the buzzsaw, not freeze and absorb the burst.",
       "name": "MG34/MG42 HMG",
       "nation": "Germany",
       "type": "Gun Teams",
@@ -1887,6 +1940,7 @@
     },
     {
       "id": "de-gun-88mm-launcher",
+      "lore": "The 8.8cm Raketenwerfer 43 \"Püppchen\" provided German infantry anti-tank platoons with a recoilless launcher firing the same devastating 88mm warhead in a lighter, more maneuverable package than conventional AT guns. It could be broken down and carried by two men, making it ideal for anti-tank defense in terrain where wheeled guns couldn't follow. At 100 meters its shaped charge could punch through any Allied tank's hull — the trick was surviving long enough to let the target get that close.",
       "name": "8.8cm RW43 Launcher",
       "nation": "Germany",
       "type": "Anti-Tank",
@@ -1920,6 +1974,7 @@
     },
     {
       "id": "de-gun-8cm-mortar",
+      "lore": "The 8cm GrW34 was the standard German medium mortar, equipping mortar platoons at battalion level with a weapon capable of 25 rounds per minute in the hands of a skilled crew. Its combination of accuracy, portability, and rate of fire made it the most effective indirect fire weapon German infantry could call on at short notice. Allied troops crossing open ground within 1,500 meters of a German mortar platoon could expect to be hit within two minutes — a fact that shaped every Allied infantry attack.",
       "name": "8cm GW34 Mortar",
       "nation": "Germany",
       "type": "Gun Teams",
@@ -1960,6 +2015,7 @@
     },
     {
       "id": "de-gun-12cm-mortar",
+      "lore": "The 12cm sGW43 heavy mortar was developed after German engineers examined captured Soviet 120mm mortars in 1941 and recognized their superiority — the German copy outranged and outperformed all Allied medium mortars. Its 15kg bomb had a destructive radius capable of clearing a trench line, and a single battery could saturate a company defensive position in seconds. Allied soldiers who survived 12cm mortar bombardments described it as indistinguishable from light artillery.",
       "name": "12cm sGW43 Mortar",
       "nation": "Germany",
       "type": "Gun Teams",
@@ -1994,6 +2050,7 @@
     },
     {
       "id": "de-gun-75mm-leig",
+      "lore": "The 7.5cm leIG18 infantry gun gave German battalion commanders their own direct and indirect fire support asset, capable of firing HE, smoke, and hollow-charge anti-tank rounds without relying on divisional artillery. Compact enough to be horse-drawn or broken down for pack transport, it served on every German front from Poland to Berlin. In the infantry support role its low-trajectory direct fire could hit targets in dead ground that mortars couldn't reach, making it a genuinely versatile tool for the battalion commander.",
       "name": "7.5cm leIG18 Gun",
       "nation": "Germany",
       "type": "Gun Teams",
@@ -2033,6 +2090,7 @@
     },
     {
       "id": "de-gun-150mm-sig",
+      "lore": "The 15cm sIG33 was the heaviest infantry gun fielded at battalion level in WWII, delivering 38kg shells onto field fortifications that lighter support weapons could only scratch. At Stalingrad and in every subsequent urban battle, sIG33 crews dragged their guns through rubble to engage Soviet strongpoints at direct fire range with devastating effect. Its crushing weight — over 1,800kg — made tactical movement a serious undertaking, limiting its use to situations where the infantry genuinely needed that weight of shell.",
       "name": "15cm sIG33 Gun",
       "nation": "Germany",
       "type": "Gun Teams",
@@ -2073,6 +2131,7 @@
     },
     {
       "id": "de-gun-2cm-flak",
+      "lore": "The 2cm FlaK38 provided German formations low-level air defense against Allied fighter-bombers that increasingly terrorized road columns from 1943 onward. Its 220 rounds per minute of 20mm explosive shells could destroy an aircraft or an unarmored vehicle with equal ease, and it was light enough to be towed by any standard truck. When Allied tactical air power began hunting German supply columns by day, FlaK38 batteries were the only answer that could be positioned fast enough to matter.",
       "name": "2cm FlaK38 Gun",
       "nation": "Germany",
       "type": "Anti-Air",
@@ -2111,6 +2170,7 @@
     },
     {
       "id": "de-gun-88mm-flak",
+      "lore": "The legendary 8.8cm FlaK36 was designed as a high-altitude anti-aircraft gun but became infamous as the war's most feared anti-tank weapon after devastating British Matildas and Valentines at Halfaya Pass in June 1941. Its 1,000 m/s muzzle velocity put an armor-piercing round through any Allied tank's frontal plate at ranges where the Allied guns couldn't reply in kind. Allied tank commanders who crested a ridgeline into the sights of a concealed 88 battery rarely got a second chance.",
       "name": "8.8cm FlaK36 Gun",
       "nation": "Germany",
       "type": "Anti-Air",
@@ -2151,6 +2211,7 @@
     },
     {
       "id": "de-gun-pak38",
+      "lore": "The 5cm PaK38 replaced the inadequate 3.7cm \"door knocker\" as Germany's standard anti-tank gun from 1941, capable of penetrating early T-34s and Soviet heavy tanks with tungsten-core rounds. By 1943 it was outclassed by thicker Allied armor, but it soldiered on as a direct fire infantry support weapon and remained deadly against the flanks of heavier tanks. PaK38 crews who survived long enough to become veterans were invaluable for teaching younger crews the art of the ambush — get a flank shot, fire once, move immediately.",
       "name": "5cm PaK38 Gun",
       "nation": "Germany",
       "type": "Anti-Tank",
@@ -2186,6 +2247,7 @@
     },
     {
       "id": "de-gun-pak40",
+      "lore": "The 7.5cm PaK40 became the backbone of German anti-tank defense from 1942, capable of defeating all but the most heavily armored Allied vehicles at normal combat ranges. Carefully emplaced and camouflaged in depth, PaK40 batteries destroyed hundreds of Soviet tanks at Kursk and Allied armor during the Normandy battles — the first round from a well-sited PaK40 killed the tank before the crew knew they were being engaged. Its 1,500kg weight made displacement difficult under fire, so crews learned to site for the shot they intended and commit to it.",
       "name": "7.5cm PaK40 Gun",
       "nation": "Germany",
       "type": "Anti-Tank",
@@ -2222,6 +2284,7 @@
     },
     {
       "id": "de-gun-pak43",
+      "lore": "The 8.8cm PaK43 was arguably the best anti-tank gun of the war, penetrating 241mm of vertical armor at 1,000 meters — sufficient to defeat any Allied vehicle from any angle at any combat range. Static emplaced in the Siegfried Line, a single PaK43 position could cover kilometers of approach terrain, and Allied commanders had to commit engineers and indirect fire to suppress them rather than simply outmaneuver them. Its 4,400kg weight made it almost immobile in defense and a serious logistics burden, but once in position it was a fort unto itself.",
       "name": "8.8cm PaK43/41 Gun",
       "nation": "Germany",
       "type": "Anti-Tank",
@@ -2256,6 +2319,7 @@
     },
     {
       "id": "de-gun-75mm-gebg36",
+      "lore": "The 7.5cm GebG36 mountain gun was designed for dismantling into pack loads for operations in the Alps, Balkans, and Norwegian mountains where wheeled artillery couldn't operate. Its lightweight construction and curved-fire capability made it valuable for German mountain divisions fighting in terrain that neutralized most conventional fire support. At the Narvik battles in 1940 and throughout the Italian campaign, GebG36 crews manhandled their guns to positions that gave them commanding fields of fire over approaches no tank could use.",
       "name": "7.5cm GebG36 Gun",
       "nation": "Germany",
       "type": "Gun Teams",
@@ -2294,6 +2358,7 @@
     },
     {
       "id": "de-gun-105mm-lefh18",
+      "lore": "The 10.5cm leFH18 was the standard German divisional artillery piece throughout the war, serving on every front from the Arctic to North Africa with a reputation for accuracy and reliability. Its 15kg shell was adequate for most fire support tasks against field fortifications and personnel in the open. By 1943 it was outranged by American and Soviet equivalents, which could engage German battery positions before the leFH18 could reply — a disadvantage that grew worse as the war progressed.",
       "name": "10.5cm leFH18 Gun",
       "nation": "Germany",
       "type": "Gun Teams",
@@ -2336,6 +2401,7 @@
     },
     {
       "id": "de-gun-150mm-sfh18",
+      "lore": "The 15cm sFH18 provided corps-level heavy artillery support, firing a 43kg shell capable of destroying field fortifications at ranges up to 13km with a sustained rate of four rounds per minute. It served as the primary German heavy howitzer from the opening campaigns of 1939 through the final defense of Berlin in 1945. Counter-battery fire from Soviet and American heavy artillery progressively depleted sFH18 batteries from 1943 onward, but those that survived remained the most feared weapons in a German defensive line.",
       "name": "15cm sFH18 Gun",
       "nation": "Germany",
       "type": "Gun Teams",
@@ -2378,6 +2444,7 @@
     },
     {
       "id": "de-gun-nw41-rocket",
+      "lore": "The 15cm Nebelwerfer 41 fired a ripple of six spin-stabilized rockets with a distinctive wailing shriek that earned it the Allied nickname \"Moaning Minnie\" — a sound that veterans never forgot. Its rockets carried twice the explosive payload of equivalent artillery shells, and a battery of six launchers could saturate a football-field-sized target area in seconds before displacing before counter-battery fire arrived. The psychological effect on Allied infantry caught in a Nebelwerfer concentration was profound — the scream of incoming rockets gave no time to take cover.",
       "name": "15cm NW41 Rocket Launcher",
       "nation": "Germany",
       "type": "Gun Teams",
@@ -2415,6 +2482,7 @@
     },
     {
       "id": "de-tank-pz3m",
+      "lore": "The Panzer III was Germany's primary battle tank during the early war years, spearheading the Blitzkrieg campaigns in Poland, France, and the opening phases of Operation Barbarossa with its combination of speed and radio communications that Allied tank formations couldn't match. By 1942 its 5cm gun struggled against the Soviet T-34, and upgunned M variants with the longer L/60 cannon could only match them at close range. Panzer III companies were gradually replaced by Panzer IVs on the Eastern Front but served in North Africa until Rommel's final defeat.",
       "name": "Panzer III M",
       "nation": "Germany",
       "type": "Armored",
@@ -2448,6 +2516,7 @@
     },
     {
       "id": "de-tank-pz3n",
+      "lore": "The Panzer III N mounted a short 7.5cm howitzer in the close support role, replacing the anti-tank gun of earlier marks with a weapon optimized for firing HE and hollow-charge rounds against infantry positions and light fortifications. Assigned to Tiger heavy tank battalions as escort tanks, N variants suppressed anti-tank gun crews who threatened the Tigers while the heavy tanks engaged enemy armor. In this combined-arms role the Panzer III N remained valuable long after its fighting days as a gun tank were over.",
       "name": "Panzer III N",
       "nation": "Germany",
       "type": "Armored",
@@ -2481,6 +2550,7 @@
     },
     {
       "id": "de-tank-pz4h",
+      "lore": "The Panzer IV H was Germany's most-produced tank and the long-gun variant that formed the backbone of Panzer divisions from Kursk to the Rhineland, its 7.5cm L/48 gun able to defeat Shermans and T-34/76s at normal combat ranges. Appliqué armor added to hull and turret provided reasonable protection against Soviet anti-tank rifles and bazookas, though the Panther's frontal slope it was not. Experienced Panzer IV crews who had survived from 1942 onward were amongst the most tactically skilled tank commanders in any army.",
       "name": "Panzer IV H",
       "nation": "Germany",
       "type": "Armored",
@@ -2515,6 +2585,7 @@
     },
     {
       "id": "de-tank-panther",
+      "lore": "The Panther is widely considered the best medium tank of the war, combining an 88mm-class gun with 80mm of heavily sloped frontal armor and a top speed of 46km/h in a package that outclassed the Sherman and T-34 in every category but reliability. First deployed at Kursk in July 1943, early Panthers suffered catastrophic mechanical failures that reduced entire battalions to scrap, but mature production vehicles were devastating. Allied commanders learned to engage Panthers from the flanks only — a frontal engagement was a death sentence.",
       "name": "Panther",
       "nation": "Germany",
       "type": "Armored",
@@ -2550,6 +2621,7 @@
     },
     {
       "id": "de-tank-tiger1",
+      "lore": "The Tiger I E shocked Allied and Soviet crews alike when it first appeared near Leningrad in September 1942, its 88mm gun and 100mm frontal armor making it virtually immune to any tank gun at normal combat ranges. A single Tiger could dominate a battlefield, forcing Allied commanders to commit disproportionate resources — artillery, air support, and multiple tanks — to deal with one vehicle. Its weight and mechanical complexity limited strategic mobility, and breakdowns cost more Tigers than enemy action, but those that fought were a tactical problem of the first order.",
       "name": "Tiger I E",
       "nation": "Germany",
       "type": "Armored",
@@ -2587,6 +2659,7 @@
     },
     {
       "id": "de-tank-tiger2",
+      "lore": "The Tiger II \"King Tiger\" was the most heavily armored production tank of the war, with 185mm of sloped frontal plate that no Allied gun could reliably penetrate at combat ranges and an 88mm KwK43 that could destroy any Allied vehicle at extreme range. At 70 tonnes its weight destroyed bridges and roads, limited it to certain terrain, and created a fuel consumption problem that left entire battalions stranded during the Ardennes Offensive of December 1944. Most King Tigers were abandoned by their crews due to mechanical failure or lack of fuel rather than enemy fire.",
       "name": "Tiger II",
       "nation": "Germany",
       "type": "Armored",
@@ -2621,6 +2694,7 @@
     },
     {
       "id": "de-tank-stug",
+      "lore": "The StuG III Ausf G and StuG IV became Germany's most produced armored vehicle of the war, with over 10,000 built by 1945. Originally conceived as infantry support guns, the mounting of the long 7.5cm StuK40 transformed them into effective tank destroyers that eventually claimed more Allied tank kills than any dedicated Panzer type. Their low silhouette and sloped armor made them difficult targets, and their economics — far cheaper and faster to build than a Panzer IV — kept the Wehrmacht armored force in the field when tank production could not keep pace with losses.",
       "name": "StuG G or IV",
       "nation": "Germany",
       "type": "Armored",
@@ -2657,6 +2731,7 @@
     },
     {
       "id": "de-tank-stuh42",
+      "lore": "The StuH42 mounted the short 10.5cm howitzer on the StuG chassis to provide direct-fire bunker-busting and anti-infantry support that the StuG's long gun could not deliver economically. Each Panzer division's StuG battalion was supposed to include a small number of StuH42s to handle fortified positions, though supply rarely matched doctrine. Against any Allied tank its fat HE round was lethal even on a near miss, making it a feared urban warfare weapon during the battles through French towns and German cities in 1944-45.",
       "name": "StuH42",
       "nation": "Germany",
       "type": "Armored",
@@ -2694,6 +2769,7 @@
     },
     {
       "id": "de-tank-brummbar",
+      "lore": "The Sturmpanzer IV \"Brummbar\" (Grizzly Bear) was built specifically for the grinding close-quarters battles on the Eastern Front, where standard tank guns proved inadequate against Soviet fieldworks and urban fortifications. Its 15cm StuH43 howitzer could demolish a concrete bunker with a direct hit and clear a city block of defenders with a single round. Employed in small assault platoons, Brummbar units supported the bitter defensive battles through Kursk's aftermath, Italy's mountains, and the final defense of the Reich.",
       "name": "Brummbar",
       "nation": "Germany",
       "type": "Armored",
@@ -2730,6 +2806,7 @@
     },
     {
       "id": "de-td-marder",
+      "lore": "The Marder series was a rapid field solution born from the shock of encountering Soviet T-34s and KV-1s that German 37mm and 50mm guns couldn't penetrate — a captured Soviet 76mm or a German PaK40 was simply bolted onto an obsolete tank chassis and sent to the front. Crude and exposed, Marder crews had no protection against even small-arms fire from the flanks or above, and they were told to shoot first and relocate immediately. Despite their vulnerability, Marders served on all fronts from 1942 to 1945 and proved that a cheap improvisation could still be a lethal tank killer.",
       "name": "Marder II or III",
       "nation": "Germany",
       "type": "Armored",
@@ -2767,6 +2844,7 @@
     },
     {
       "id": "de-td-jagdpanzer4",
+      "lore": "The Jagdpanzer IV was designed as a proper purpose-built tank destroyer, replacing the open-topped Marder with a fully enclosed, well-armored superstructure on the proven Panzer IV chassis. Its low silhouette — barely 1.85m tall — made it extremely difficult to spot in a hull-down position, and the long 7.5cm gun could penetrate any Allied tank at typical combat ranges. Guderian famously protested the diversion of Panzer IV production to Jagdpanzers instead of battle tanks, but the Wehrmacht's increasingly defensive posture made tank destroyers more useful than medium tanks by 1944.",
       "name": "Jagdpanzer IV",
       "nation": "Germany",
       "type": "Armored",
@@ -2800,6 +2878,7 @@
     },
     {
       "id": "de-td-jagdpanther",
+      "lore": "Widely considered the finest tank destroyer of the Second World War, the Jagdpanther combined the Panther's reliable and well-sloped hull with the devastating 8.8cm KwK43 — the same gun fitted in the Tiger II. At combat range it could defeat the frontal armor of any Allied vehicle then in service, while its 80mm sloped front plate was nearly impenetrable by return fire. Only 415 were built, spread too thinly across both fronts to achieve the decisive impact their firepower promised; mechanical reliability remained an issue, and many were lost to breakdowns rather than enemy action.",
       "name": "Jagdpanther",
       "nation": "Germany",
       "type": "Armored",
@@ -2833,6 +2912,7 @@
     },
     {
       "id": "de-td-jagdtiger",
+      "lore": "The Jagdtiger was the heaviest production armored fighting vehicle of the war at 71.7 tonnes, carrying the 12.8cm PaK44 that could destroy any Allied vehicle at ranges exceeding two kilometers. Only 89 were completed and they were concentrated in two heavy tank destroyer battalions on the Western Front, where road and bridge conditions were marginally better than in the East. Its catastrophic weight destroyed roads, snapped final drive components, and required special transport considerations; most Jagdtigers were abandoned intact by their crews when they broke down or ran out of fuel, never having fired a shot in anger.",
       "name": "Jagdtiger",
       "nation": "Germany",
       "type": "Armored",
@@ -2867,6 +2947,7 @@
     },
     {
       "id": "de-td-hornisse",
+      "lore": "The Hornisse (Hornet), later renamed Nashorn (Rhinoceros), mounted the formidable 8.8cm PaK43 in a high, open superstructure on the Pz IV/III hybrid chassis — a classic German compromise of firepower over protection. At 2.65m tall it was difficult to conceal, and its open-topped fighting compartment offered no protection against artillery fragments or small arms from above. But its gun could destroy any Allied or Soviet tank at ranges where the enemy couldn't effectively reply, making it a prized long-range sniping weapon deployed by the heavy anti-tank battalions attached to Panzer corps.",
       "name": "Hornisse",
       "nation": "Germany",
       "type": "Armored",
@@ -2902,6 +2983,7 @@
     },
     {
       "id": "de-td-elefant",
+      "lore": "Born from the rejected Porsche Tiger design, the Elefant (originally Ferdinand) combined extraordinary armor — 200mm of frontal plate — with the devastating 8.8cm PaK43 that outranged anything the Soviets could put in the field. All 91 were committed to the Kursk offensive in July 1943, where the absence of a hull machine gun proved catastrophic: Soviet infantry armed with satchel charges closed in and destroyed dozens by jamming the tracks or attacking the engine compartment. Survivors were retrofitted with a bow MG and renamed Elefant, serving with greater success in Italy and the final Eastern Front battles.",
       "name": "Elefant",
       "nation": "Germany",
       "type": "Armored",
@@ -2935,6 +3017,7 @@
     },
     {
       "id": "de-spa-sdkfz251-8cm",
+      "lore": "The Sd Kfz 251/2 brought the standard 8cm GW34 mortar into the halftrack, giving Panzergrenadier units on-the-move indirect fire support without having to dismount and set up a ground-mounted weapon. In the fluid mobile warfare of the Eastern Front this proved enormously valuable for suppressing Soviet anti-tank gun teams before an assault. The open-topped crew compartment remained a vulnerability to Soviet artillery counter-fire, but the combination of mobility and suppressive firepower made these halftrack mortars a staple of Panzergrenadier battalions throughout the war.",
       "name": "Sd Kfz 251/2C (8cm)",
       "nation": "Germany",
       "type": "Armored",
@@ -2974,6 +3057,7 @@
     },
     {
       "id": "de-spa-sdkfz251-75cm",
+      "lore": "The Sd Kfz 251/9 \"Stummel\" (Stump) mounted the short 7.5cm KwK37 howitzer — the same gun fitted on early Panzer IV tanks — onto the standard halftrack hull to give Panzergrenadier platoons direct fire HE and anti-tank capability without requiring a dedicated towed gun. Though the short 7.5cm lacked the penetration to tackle later Soviet armor frontally, it was devastating against infantry in the open and could handle light vehicles at all ranges. The Stummel became an organic heavy weapon within Panzergrenadier platoons, substituting for the half-track mounted mortar when direct fire was needed.",
       "name": "Sd Kfz 251/9 (7.5cm)",
       "nation": "Germany",
       "type": "Armored",
@@ -3010,6 +3094,7 @@
     },
     {
       "id": "de-spa-grille",
+      "lore": "The Grille mounted the massive 15cm sIG33 infantry support gun — originally a horse-drawn weapon — onto the Panzer 38(t) chassis to give infantry divisions a self-propelled howitzer capable of destroying fortified positions that lighter guns could not crack. Its enormous shell could demolish a building, collapse a trench, or neutralize a dug-in anti-tank gun in a single round; the psychological effect on infantry was tremendous. Like all open-topped SPGs it required infantry protection against counter-fire, but its combination of extreme firepower and at least some mobility made it far more useful than the towed version on the mobile Eastern Front.",
       "name": "Grille (15cm sIG)",
       "nation": "Germany",
       "type": "Armored",
@@ -3047,6 +3132,7 @@
     },
     {
       "id": "de-spa-wespe",
+      "lore": "The Wespe (Wasp) solved a critical problem for Panzer divisions: their artillery needed to keep pace with tanks across country that wheeled vehicles couldn't follow. Mounting the standard 10.5cm leFH18 howitzer on the Panzer II chassis gave armored artillery regiments a self-propelled gun that could follow tanks across fields, ford streams, and provide responsive fires without the gun line having to displace before it was overrun. Over 680 were produced and they served on all fronts until the end of the war, becoming the standard light SP artillery piece for German armored formations.",
       "name": "Wespe",
       "nation": "Germany",
       "type": "Armored",
@@ -3085,6 +3171,7 @@
     },
     {
       "id": "de-spa-hummel",
+      "lore": "The Hummel (Bumblebee) paired the heavy 15cm sFH18 field howitzer with the Panzer III/IV hybrid chassis to give armored divisions a self-propelled heavy artillery piece capable of following armored thrusts. Its 43.5kg shell could destroy any fieldwork, bridge, or vehicle at ranges up to 13 kilometers, and the ability to displace quickly after firing was essential against Soviet counter-battery radar. Hummels typically operated in batteries of six, massed to deliver devastating concentrations against prepared Soviet defensive lines before Panzer assaults.",
       "name": "Hummel",
       "nation": "Germany",
       "type": "Armored",
@@ -3123,6 +3210,7 @@
     },
     {
       "id": "de-spa-panzerwerfer",
+      "lore": "The Panzerwerfer 42 mounted the Nebelwerfer 42's ten-round 15cm rocket launcher atop an armored Maultier halftrack, giving rocket artillery units armor protection and cross-country mobility that towed Nebelwerfer batteries lacked. A full salvo of ten rockets ripple-fired in under ten seconds, saturating a large target area with screaming projectiles that Soviet and Allied troops called \"Stalin's Organ\" when fired in mass. After firing, the crew could close their armored hatches and drive to a new position before enemy artillery could respond, making the Panzerwerfer a survivable and devastating fire support asset.",
       "name": "Panzerwerfer 42",
       "nation": "Germany",
       "type": "Armored",
@@ -3158,6 +3246,7 @@
     },
     {
       "id": "de-spaa-sdkfz10",
+      "lore": "The Sd Kfz 10/5 put the ubiquitous 2cm FlaK38 autocannon onto the lightest standard German halftrack, creating a mobile anti-aircraft platform organic to infantry and Panzer divisions for local air defense. As Allied air superiority grew after 1942, these vehicles spent as much time engaging ground targets — infantry in the open, soft-skin vehicles, and light armor — as they did shooting at aircraft. Their high cyclic rate of fire and armor-piercing ammunition made them brutally effective against infantry assault teams, earning a fearsome reputation in the close-range battles of Normandy and Italy.",
       "name": "Sd Kfz 10/5 (2cm)",
       "nation": "Germany",
       "type": "Anti-Air",
@@ -3196,6 +3285,7 @@
     },
     {
       "id": "de-spaa-sdkfz7",
+      "lore": "The Sd Kfz 7/1 mounted the quadruple 2cm FlaK38 Flakvierling on the eight-ton halftrack that normally towed the 88mm FlaK gun, creating a terrifying ground-support weapon as well as an anti-aircraft platform. A four-second burst from the Flakvierling put 128 rounds in the air — a volume of fire that could shred an Allied aircraft or sweep a hillside of infantry equally well. By 1944 these vehicles were almost entirely used in the ground support role, particularly against Allied fighter-bombers, and Allied tank crews learned to identify and target them immediately before any assault.",
       "name": "Sd Kfz 7/1 (Quad 2cm)",
       "nation": "Germany",
       "type": "Anti-Air",
@@ -3234,6 +3324,7 @@
     },
     {
       "id": "de-spaa-sdkfz251-2cm",
+      "lore": "The Sd Kfz 251/17 converted the standard armored halftrack into a self-propelled flak vehicle by fitting the 2cm FlaK38 in a modified open superstructure. It gave Panzergrenadier columns integrated air defense that could move with the column rather than being left behind at the assembly area. When enemy aircraft were absent — which became increasingly rare by 1943 — the 2cm autocannon was turned against enemy infantry, unarmored vehicles, and light positions, making the 251/17 a versatile multi-role vehicle that pulled double duty in almost every engagement.",
       "name": "Sd Kfz 251 (2cm)",
       "nation": "Germany",
       "type": "Anti-Air",
@@ -3269,6 +3360,7 @@
     },
     {
       "id": "de-spaa-sdkfz251-15mm",
+      "lore": "The Sd Kfz 251/21 \"Drilling\" (Triple) mounted three MG151/15mm aircraft cannon in a traversing turret on the halftrack hull, a late-war adaptation that used surplus Luftwaffe weapons as a high-volume anti-aircraft and anti-infantry weapon. The 15mm autocannon's ballistic performance exceeded the 13mm MG131 significantly, and the three-gun mount produced a combined cyclic rate that saturated any aerial target. By the time these entered service in 1944 Allied air supremacy was total, but the Drilling proved extremely effective suppressing infantry and crew-served weapons during the increasingly desperate defensive battles of 1944-45.",
       "name": "Sd Kfz 251 (3x15mm)",
       "nation": "Germany",
       "type": "Anti-Air",
@@ -3303,6 +3395,7 @@
     },
     {
       "id": "de-spaa-wirbelwind",
+      "lore": "The Wirbelwind (Whirlwind) answered Panzer division commanders' desperate need for armored anti-aircraft protection by mounting the quad 2cm Flakvierling in an open-topped nine-sided turret on the Panzer IV hull. Unlike the soft-skinned halftracks, it could accompany tanks through enemy fire while providing anti-aircraft cover. Only 87 were produced before the improved Ostwind replaced it in late 1944, but their concentrated firepower — 1,800 rounds per minute combined — made them dreaded by Allied fighter-bomber pilots who had previously strafed German armored columns with near impunity.",
       "name": "Wirbelwind (Quad 2cm)",
       "nation": "Germany",
       "type": "Anti-Air",
@@ -3337,6 +3430,7 @@
     },
     {
       "id": "de-ft-sdkfz251-flame",
+      "lore": "The Sd Kfz 251/16 mounted two 14mm flame projectors — one on each side of the hull — along with a pressurized fuel tank, creating a halftrack-mounted flamethrower intended for clearing Soviet field fortifications and bunkers that riflemen and grenades couldn't take. Its flame could be projected up to 35 meters, enough to reach over a parapet or through an embrasure. The crews operated under near-constant fear of the fuel tank being hit, but the weapon's psychological effect on Soviet defenders was so extreme that the mere appearance of flame-throwing halftracks could precipitate a position's abandonment.",
       "name": "Sd Kfz 251 (Flame)",
       "nation": "Germany",
       "type": "Armored",
@@ -3374,6 +3468,7 @@
     },
     {
       "id": "de-ft-flammpanzer3",
+      "lore": "The Flammpanzer III replaced the 5cm gun of the Panzer III Ausf M with a 14mm flame projector fed from a 1,000-liter fuel tank, creating a dedicated armored flamethrower for assaulting fortified positions. All 100 produced were assigned to the 2nd and 12th Panzer Divisions on the Eastern Front and in Tunisia, where their armored protection allowed them to close to point-blank range with bunkers and fieldworks that lighter flamethrowers couldn't approach safely. The weapon's 55-meter range and terrifying effect on personnel in enclosed positions made it the most feared variant encountered by Soviet defenders.",
       "name": "Flammpanzer III",
       "nation": "Germany",
       "type": "Armored",
@@ -3406,6 +3501,7 @@
     },
     {
       "id": "de-ac-sdkfz222",
+      "lore": "The Sd Kfz 222 was the standard German light armored car from the Polish campaign through the end of the war, serving in the reconnaissance platoons of every type of division. Its four-wheeled hull and open-top turret mounting the 2cm KwK38 gave it significant firepower for a vehicle in its class, enough to handle enemy armored cars and suppress infantry. Reconnaissance doctrine called for it to find, identify, and report the enemy rather than fight, but in practice the fast-moving battles of the Eastern Front frequently turned reconnaissance into ambush — and the 222 was capable of holding its own against anything short of a proper tank.",
       "name": "Sd Kfz 222 (2cm)",
       "nation": "Germany",
       "type": "Recon",
@@ -3445,6 +3541,7 @@
     },
     {
       "id": "de-ac-sdkfz231",
+      "lore": "The eight-wheeled Sd Kfz 231 was one of the most sophisticated armored cars of the early war period, with all-wheel drive, all-wheel steering, and a rear-facing driver's position that allowed it to reverse at speed without turning around. This made it ideal for reconnaissance hit-and-run: close with the enemy, observe, and withdraw at high speed before the enemy could react. Its 2cm KwK38 gave it combat capability beyond mere observation, and the type served from Poland through North Africa until replaced by the heavier Sd Kfz 234 series in 1943-44.",
       "name": "Sd Kfz 231 (2cm)",
       "nation": "Germany",
       "type": "Recon",
@@ -3481,6 +3578,7 @@
     },
     {
       "id": "de-ac-sdkfz250",
+      "lore": "The Sd Kfz 250/9 adapted the half-size armored halftrack into a reconnaissance vehicle by fitting the open turret from the Sd Kfz 222 armored car, complete with 2cm KwK38 and coaxial MG. As the Sd Kfz 231 and 232 wheeled armored cars became increasingly difficult to produce, the 250/9 became a readily available substitute that could navigate the same cross-country terrain as the tanks it was scouting for. Its half-tracked running gear gave it superior off-road performance to any wheeled armored car, though it paid for this with lower road speed and higher maintenance requirements.",
       "name": "Sd Kfz 250/9 (2cm)",
       "nation": "Germany",
       "type": "Recon",
@@ -3515,6 +3613,7 @@
     },
     {
       "id": "de-ac-puma",
+      "lore": "The Puma was Germany's finest armored car, an eight-wheeled monocoque hull mounting the 5cm KwK39 gun in a fully enclosed turret — the same weapon carried by the Panzer III Ausf J — on a vehicle with a 90 km/h road speed. Intended to give reconnaissance battalions a vehicle capable of fighting through light resistance rather than withdrawing, the Puma could engage most Allied armored cars and light tanks on even terms. Only 101 were built, limiting their impact, but they served in every major theater and became synonymous with the aggressive reconnaissance doctrine of Germany's elite Panzer divisions.",
       "name": "Sd Kfz 234/2 Puma",
       "nation": "Germany",
       "type": "Recon",
@@ -3547,6 +3646,7 @@
     },
     {
       "id": "de-transport-sdkfz251",
+      "lore": "The Sd Kfz 251 halftrack was the defining vehicle of the Panzergrenadier — it let infantry keep pace with tanks across country, delivered them to the assault line under armor, and provided a weapons platform for direct and indirect fire. Over 15,000 were built in more than 20 variants, covering roles from troop carrier to command vehicle, mortar carrier, engineer assault, and flamethrower. In practice, most Panzergrenadier battalions had far too few halftracks to mount all their men, so the vehicle became a mark of elite status; mounted Panzergrenadiers fought alongside tanks while their dismounted comrades followed on foot behind.",
       "name": "Sd Kfz 251",
       "nation": "Germany",
       "type": "Transport",
@@ -3587,6 +3687,7 @@
     },
     {
       "id": "de-transport-sdkfz251-75cm",
+      "lore": "This variant of the Sd Kfz 251 combined the standard troop carrier with the short 7.5cm L/24 infantry gun to create a vehicle that could deliver soldiers to the objective and immediately provide direct HE fire support without requiring a separate weapons carrier. The L/24's limited anti-armor performance was accepted because its primary role was infantry suppression and bunker busting; it could still penetrate older light tanks and all armored cars at combat range. These \"gun halftracks\" were distributed to heavy platoons within Panzergrenadier battalions to give platoon commanders an organic direct fire weapon.",
       "name": "Sd Kfz 251 (7.5cm)",
       "nation": "Germany",
       "type": "Transport",
@@ -3623,6 +3724,7 @@
     },
     {
       "id": "de-transport-maultier",
+      "lore": "The Maultier (Mule) was born from desperate necessity: the Russian winter of 1941-42 immobilized Wehrmacht truck columns on mud and ice, prompting field workshops to convert standard Opel Blitz trucks by replacing their rear axles with Panzer I or II track units. The factory version, standardized in 1942, became a reliable cargo and ammunition carrier that could follow units into terrain that wheeled trucks could not navigate. Over 20,000 were eventually produced, and one famous variant mounted the Nebelwerfer rocket launcher to create the armored Panzerwerfer 42.",
       "name": "Opel Maultier",
       "nation": "Germany",
       "type": "Transport",
@@ -3659,6 +3761,7 @@
     },
     {
       "id": "de-transport-opelblitz",
+      "lore": "The Opel Blitz 3-ton was the backbone of Wehrmacht logistics throughout the war, serving from Norway to North Africa and from the English Channel to the Volga. Its 3.6-liter engine and robust construction made it far more reliable than many of its contemporaries, and over 100,000 were produced in multiple variants including ambulances, command vehicles, and the Maultier conversion. Every German infantry division depended on Opel Blitz columns to move ammunition, rations, and replacements to the front, and the progressive destruction of the Wehrmacht's truck fleet by Allied airpower and Soviet partisan attacks was a major factor in its eventual logistical collapse.",
       "name": "Opel Blitz 3-ton Truck",
       "nation": "Germany",
       "type": "Transport",
@@ -3699,6 +3802,7 @@
     },
     {
       "id": "br-inf-rifle-mg",
+      "lore": "The British section was built around the Bren light machine gun rather than the rifle, reflecting the British Army's belief that the LMG was the primary fire-producing weapon of the infantry. Each ten-man section had one Bren and nine Lee-Enfield-armed riflemen who moved and protected the gun. The Bren's accuracy and reliability were legendary — far superior to the German MG34/42 for static defensive fire — but its 30-round magazine limited sustained fire compared to the belt-fed German weapons that dominated close mobile firefights.",
       "name": "Rifle/MG",
       "nation": "Britain",
       "type": "Infantry",
@@ -3735,6 +3839,7 @@
     },
     {
       "id": "br-inf-mg",
+      "lore": "British Motor battalions and armored infantry carried the Bren as their primary squad automatic weapon but without the full rifle section structure, giving them lighter, more mobile fire teams suited for mounted operations. These MG teams provided suppressive fire from vehicle hatches during mounted advances and dismounted to secure flanks during tank assaults. The Bren's reputation for pinpoint accuracy — it was commonly used for semi-precision fire at specific loopholes and firing positions — made it particularly valued in the deliberate infantry battles of NW Europe.",
       "name": "MG",
       "nation": "Britain",
       "type": "Infantry",
@@ -3771,6 +3876,7 @@
     },
     {
       "id": "br-inf-piat",
+      "lore": "The Projector Infantry Anti-Tank was a spring-operated spigot mortar that lobbed a 2.5lb HEAT bomb with a shaped charge capable of penetrating 100mm of armor — enough for most German tanks at close range. It was notoriously difficult to cock the heavy spring, required awkward prone firing, had minimal effective range (about 100m against a moving target), and the operator was exposed to the blast of his own weapon. Yet in Normandy's hedgerows and Italian villages it was often the only weapon a platoon carried that could stop a Panzer IV, and PIAT gunners regularly earned Victoria Crosses for closing to within touching distance of German armor.",
       "name": "PIAT",
       "nation": "Britain",
       "type": "Infantry",
@@ -3800,6 +3906,7 @@
     },
     {
       "id": "br-inf-2in-mortar",
+      "lore": "The 2-inch mortar was the British platoon's organic indirect fire weapon, light enough for one man to carry and capable of dropping smoke or HE within 500 meters in under a minute. Smoke was its primary wartime use — covering section moves across open ground, masking withdrawals, and screening casualty recovery — though its HE round was effective against infantry in the open and light cover. Every British rifle platoon carried one, and their use of smoke to fix and flank German positions became a trademark of British infantry tactics from El Alamein to the Rhine.",
       "name": "ML 2\" Mortar",
       "nation": "Britain",
       "type": "Gun Teams",
@@ -3836,6 +3943,7 @@
     },
     {
       "id": "br-gun-vickers",
+      "lore": "The Vickers machine gun entered British service in 1912 and was still a front-line weapon in 1945 — a testament to its extraordinary reliability and sustained-fire capability. Water-cooled and belt-fed, it could fire continuously for hours without overheating, allowing it to deliver the \"beaten zone\" fire plans that were a hallmark of British defensive tactics: pre-registered lines of fixed fire that would devastate any night attack regardless of visibility. Vickers companies were assigned at battalion level to provide the long-range suppressive fire that the Bren could not sustain, and their crews became masters of indirect fire over the sights.",
       "name": "Vickers HMG",
       "nation": "Britain",
       "type": "Gun Teams",
@@ -3874,6 +3982,7 @@
     },
     {
       "id": "br-gun-3in-mortar",
+      "lore": "The ML 3-inch mortar was the British battalion's workhorse indirect fire weapon, delivering 4.5lb bombs to 2,560 meters with a rate of fire up to fifteen rounds per minute in emergency. Mortar platoons were masters of smoke and illumination as well as HE, and the British Army's systematic use of mortar smoke to cover river crossings, road moves, and assault consolidation became a tactical signature that German commanders learned to dread. The 3-inch mortar's combination of portability, fire rate, and lethality made it arguably the most cost-effective infantry weapon in the British arsenal.",
       "name": "ML 3\" Mk II Mortar",
       "nation": "Britain",
       "type": "Gun Teams",
@@ -3914,6 +4023,7 @@
     },
     {
       "id": "br-gun-42in-mortar",
+      "lore": "The ML 4.2-inch mortar was a heavy infantry support weapon originally developed for chemical warfare that proved devastatingly effective with conventional HE and smoke rounds. Its 11-pound bomb at maximum range of 3,750 meters produced casualties comparable to a medium artillery shell, and the weapon's high angle of fire allowed it to drop rounds into trenches, gullies, and reverse slopes that flat-trajectory artillery couldn't reach. Medium Mortar batteries were kept at corps level and allocated to brigades for specific operations, making their appearance on the battlefield a sign that a serious deliberate attack was planned.",
       "name": "ML 4.2\" Mortar",
       "nation": "Britain",
       "type": "Gun Teams",
@@ -3950,6 +4060,7 @@
     },
     {
       "id": "br-gun-bofors-40mm",
+      "lore": "The Swedish-designed Bofors 40mm autocannon was adopted by Britain in 1937 and became the standard light anti-aircraft gun of every Commonwealth division, serving alongside American, Australian, Canadian, Indian, and New Zealand forces. Its 2-pound shell could reach aircraft up to 3,800 meters altitude and the weapon's clockwork-like reliability under all conditions made it the basis of every Allied light AA battery for the duration. Like its American and German counterparts, British gun crews discovered by 1944 that the Bofors was equally valuable in the ground role against infantry, light vehicles, and fortified positions.",
       "name": "Bofors 40mm Gun",
       "nation": "Britain",
       "type": "Anti-Air",
@@ -3990,6 +4101,7 @@
     },
     {
       "id": "br-gun-37in-aa",
+      "lore": "The QF 3.7-inch was Britain's equivalent of the German 88mm FlaK — a heavy anti-aircraft gun with a high-velocity shell that could reach bombers at 32,000 feet — but unlike the 88mm it was almost never used in the anti-tank role. The reason was partly doctrinal conservatism and partly that the 3.7-inch was kept in static AA sites and was not designed for the rapid direct-fire engagement that anti-tank work demanded; it was also significantly heavier and less mobile than the 88mm. When it was finally used in the ground role in desperation during the Gazala battles of 1942, it proved just as deadly to German armor as its famous German counterpart.",
       "name": "OQF 3.7\" Gun",
       "nation": "Britain",
       "type": "Anti-Air",
@@ -4029,6 +4141,7 @@
     },
     {
       "id": "br-gun-2pdr",
+      "lore": "The 2-pounder was Britain's standard anti-tank gun at the war's outbreak, and it served adequately against the German armor encountered in France and early North Africa — but by the time of Gazala in 1942, the appearance of the long-gunned Panzer III and Panzer IV made it effectively obsolete. Its high velocity gave it excellent accuracy and it handled easily in tight positions, but the lack of a useful HE round meant it couldn't engage infantry or unarmored targets, forcing gun crews to lie helpless while German infantry worked around their flanks. Replacement by the 6-pounder was too slow to prevent serious losses, and the 2-pounder's limitations contributed directly to the Western Desert defeats of 1942.",
       "name": "OQF 2 pdr Gun",
       "nation": "Britain",
       "type": "Anti-Tank",
@@ -4062,6 +4175,7 @@
     },
     {
       "id": "br-gun-6pdr",
+      "lore": "The 6-pounder restored British anti-tank capability when it entered service in 1942, providing a gun that could defeat German medium tanks at reasonable ranges and had a useful HE round for engaging infantry and crew-served weapons. Its performance at El Alamein, where 6-pounder batteries stopped the Afrika Korps's last armored thrusts, demonstrated that the British Army had finally closed the anti-tank capability gap. By 1944 the 6-pounder was itself being outranged by heavier German armor, but its compact size and ease of concealment in hedgerows and ruins kept it valuable for close-range ambush throughout the NW Europe campaign.",
       "name": "OQF 6 pdr Gun",
       "nation": "Britain",
       "type": "Anti-Tank",
@@ -4094,6 +4208,7 @@
     },
     {
       "id": "br-gun-17pdr",
+      "lore": "The 17-pounder was Britain's definitive anti-tank gun — a long, powerful weapon whose 76mm shot could penetrate the frontal armor of a Panther or Tiger I at combat ranges, making it the first British gun to genuinely match German heavy armor. Entering service in Tunisia in 1943, it was rushed into service lashed to 25-pounder carriages before its own carriage was ready, such was the desperate need for a gun that could stop Tigers. Its one tactical weakness was a massive muzzle blast that instantly revealed its position, requiring careful site selection and immediate displacement after firing.",
       "name": "OQF 17 pdr Gun",
       "nation": "Britain",
       "type": "Anti-Tank",
@@ -4129,6 +4244,7 @@
     },
     {
       "id": "br-gun-75mm-pack",
+      "lore": "The American-designed M1A1 75mm Pack Howitzer was adopted by British and Commonwealth airborne and mountain units because it could be broken down into six mule loads or parachuted in containers — the only artillery piece that could accompany troops beyond road access. Commonwealth airborne units dropped theirs into Arnhem and Sicily, while Indian Army mountain batteries used them throughout the Burma campaign, hauling them along mountain tracks where wheeled vehicles could not go. Its modest range and shell weight were accepted compromises for the extraordinary portability that made it the only game in town for unsupported forces.",
       "name": "M1A1 75mm Pack Howitzer",
       "nation": "Britain",
       "type": "Gun Teams",
@@ -4164,6 +4280,7 @@
     },
     {
       "id": "br-gun-25pdr",
+      "lore": "The 25-pounder was arguably the best all-purpose field gun of the Second World War, combining a high-velocity anti-tank capability with excellent HE range and a well-designed box trail that allowed 360-degree traverse — critical for the fluid desert fighting it was designed for. Commonwealth gunners became masters of \"stonk\" fire plans — precisely timed concentrations from multiple batteries — and the 25-pounder's ability to shift from long-range bombardment to direct anti-tank engagement in seconds saved numerous positions when German armor broke through infantry lines. It served in every theater from 1940 to 1945 and remained in Commonwealth service well into the 1960s.",
       "name": "OQF 25 pdr Gun",
       "nation": "Britain",
       "type": "Gun Teams",
@@ -4202,6 +4319,7 @@
     },
     {
       "id": "br-gun-55in",
+      "lore": "The BL 5.5-inch Medium Gun was the primary heavy field artillery piece of British and Commonwealth divisions from El Alamein onward, firing an 80-pound shell to 14,500 meters with devastating effect against fieldworks, gun positions, and formed troop concentrations. Medium Artillery Regiments equipped with the 5.5-inch were corps assets, allocated to support specific divisional operations and concentrated in \"AGRA\" (Army Group Royal Artillery) groupings that could mass fires from dozens of guns simultaneously. The 5.5-inch's combination of range, shell weight, and reliability made it the weapon of choice for the methodical British artillery fire plans that preceded every major offensive.",
       "name": "BL 5.5\" Gun",
       "nation": "Britain",
       "type": "Gun Teams",
@@ -4240,6 +4358,7 @@
     },
     {
       "id": "br-tank-cromwell4",
+      "lore": "The Cromwell was the fastest British cruiser tank of the war, capable of 64 km/h on road with its Rolls-Royce Meteor engine — a development of the legendary Merlin aero engine — and it handled superbly in the armoured cavalry role. Its 75mm gun could handle most German armour at typical engagement ranges, though it struggled against Panthers and Tigers. The 7th Armoured Division (Desert Rats) equipped with Cromwells fought from Normandy to Germany, and tank crews praised its reliability and speed, but its armour protection compared poorly to the German tanks it frequently encountered in the bocage.",
       "name": "Cromwell IV",
       "nation": "Britain",
       "type": "Armored",
@@ -4273,6 +4392,7 @@
     },
     {
       "id": "br-tank-cromwell6cs",
+      "lore": "The Cromwell VI Close Support carried the 95mm howitzer in place of the 75mm gun to provide immediate HE and smoke fires from within the armoured squadron itself. British armoured doctrine allocated one CS tank per troop headquarters to give squadron commanders a direct-fire smoke capability without waiting for artillery — essential for masking flanking moves and covering tank recoveries under fire. The 95mm CS howitzer could also penetrate the side armour of many German vehicles at close range, making the CS tank a capable emergency anti-armour weapon when surprise was possible.",
       "name": "Cromwell VI CS",
       "nation": "Britain",
       "type": "Armored",
@@ -4306,6 +4426,7 @@
     },
     {
       "id": "br-tank-challenger",
+      "lore": "The A30 Challenger was designed to give Cromwell-equipped regiments a high-velocity long-range anti-tank capability by mounting the 17-pounder gun on an enlarged Cromwell hull, intended as an alternative to the Sherman Firefly. The lengthened hull created hull form weaknesses and the high turret made it conspicuous, while the raised engine deck restricted the 17-pounder's depression — a serious tactical limitation on the rolling terrain of NW Europe. Only two regiments received it, and it was quickly overshadowed by the Firefly; its one undeniable asset was that it could keep pace with the Cromwells it accompanied, unlike the heavier Sherman.",
       "name": "Challenger A30",
       "nation": "Britain",
       "type": "Armored",
@@ -4340,6 +4461,7 @@
     },
     {
       "id": "br-tank-sherman",
+      "lore": "Britain received thousands of Shermans under Lend-Lease and they equipped many Commonwealth armoured brigades from El Alamein through to the end of the war. British crews generally appreciated the Sherman's mechanical reliability and crew comfort compared to their previous Crusaders and Valentines, but the British Army was under no illusions about its limitations — the 75mm gun and 76mm frontal armour were inadequate against German Panthers and Tigers, which is why every Firefly was allocated as a tank-hunter within mixed troops. British Shermans were particularly prominent in Italy and NW Europe, and the Canadians used them at Normandy and through the Scheldt battles.",
       "name": "Sherman I/II/III/V",
       "nation": "Britain",
       "type": "Armored",
@@ -4375,6 +4497,7 @@
     },
     {
       "id": "br-tank-stuart",
+      "lore": "British crews nicknamed the Stuart \"Honey\" for its smooth ride and mechanical reliability after years of experiencing the chronic breakdowns of British cruiser tanks. Used first in North Africa where its speed allowed it to screen flanks and chase retreating infantry, the Stuart was increasingly outgunned by German armour as the war progressed. By NW Europe it served primarily in armoured regiment reconnaissance troops — typically a troop of three Stuarts per squadron — providing eyes-forward and screening the more powerful tanks from being ambushed by hidden anti-tank guns.",
       "name": "Stuart V or VI",
       "nation": "Britain",
       "type": "Armored",
@@ -4410,6 +4533,7 @@
     },
     {
       "id": "br-tank-firefly",
+      "lore": "The Sherman Firefly was a British conversion mounting the formidable 17-pounder anti-tank gun in a modified Sherman turret — the only Allied tank in Normandy that could reliably destroy a Panther or Tiger at battle range. Because production couldn't keep pace with demand, the Firefly was issued one per troop of three or four tanks, where it served as the designated tank-killer while the 75mm Shermans suppressed enemy infantry and anti-tank guns. German tank commanders knew its elongated gun barrel on sight and were ordered to prioritise the Firefly above all other targets; Allied crews camouflaged the long barrel to break up its distinctive silhouette.",
       "name": "Sherman VC Firefly",
       "nation": "Britain",
       "type": "Armored",
@@ -4442,6 +4566,7 @@
     },
     {
       "id": "br-tank-churchill34",
+      "lore": "The Churchill's heavily side-armoured hull and exceptional cross-country ability made it uniquely suited to the close-terrain fighting of Tunisia and Italy, where its ability to climb slopes that German planners considered tank-proof repeatedly delivered tactical surprises. At Longstop Hill, Green Hill, and Cassino, Churchills climbed gradients that broke the tracks of Shermans, bringing direct fire support to infantry where tanks had never operated before. Its 6-pounder gun was adequate into 1944, though by NW Europe crews were aware that it struggled to penetrate Panthers frontally — the Churchill VII's upgrade to a 75mm gun addressed this partially.",
       "name": "Churchill III or IV",
       "nation": "Britain",
       "type": "Armored",
@@ -4478,6 +4603,7 @@
     },
     {
       "id": "br-tank-churchill6",
+      "lore": "The Churchill VI upgraded the earlier marks with a 75mm gun compatible with American ammunition — a significant logistical advantage given that British supply lines ran through US depots — while retaining the Churchill's signature side armour and terrain-crossing ability. It entered service in Italy in late 1943 and served through NW Europe with the 6th Guards Tank Brigade and independent armoured brigades attached to infantry divisions. The Churchill's role as a close infantry support tank meant it operated at shorter ranges than cruiser tanks, where its thick side armour gave it genuine survivability advantage over Shermans.",
       "name": "Churchill VI",
       "nation": "Britain",
       "type": "Armored",
@@ -4512,6 +4638,7 @@
     },
     {
       "id": "br-tank-churchill7",
+      "lore": "The Churchill VII was the most heavily protected British tank of the war, with 152mm of frontal armour that made it nearly impervious to German anti-tank guns below the 88mm class at typical engagement ranges. Introduced in 1944, it served in NW Europe as the definitive close support tank for the infantry divisions' attached armoured brigades. In the battles through the Reichswald Forest, the Siegfried Line, and the Rhine crossings, its combination of infantry cooperation, terrain-crossing ability, and near-immunity to most German anti-tank weapons made it arguably more useful than any cruiser tank in the close fighting that characterized the final campaign.",
       "name": "Churchill VII",
       "nation": "Britain",
       "type": "Armored",
@@ -4546,6 +4673,7 @@
     },
     {
       "id": "br-tank-churchill-croc",
+      "lore": "The Churchill Crocodile was the most feared weapon deployed by the 79th Armoured Division — a Churchill VII with the hull machine gun replaced by a flame projector fed from a 400-gallon armoured trailer, capable of projecting burning fuel 120 yards and around corners. German defenders in fortified positions who might have held against tanks and artillery frequently surrendered or broke when Crocodiles appeared, the psychological impact of burning fuel flowing into a bunker being irresistible. Crocodile crews were reportedly given no quarter if captured, aware of the terror their weapon induced, and they operated in close partnership with infantry who protected the vulnerable trailer from Panzerfaust teams.",
       "name": "Churchill Crocodile",
       "nation": "Britain",
       "type": "Armored",
@@ -4581,6 +4709,7 @@
     },
     {
       "id": "br-td-m10",
+      "lore": "The M10 Wolverine was an American-designed tank destroyer on the Sherman chassis, armed with the 3-inch M7 gun in an open-topped turret and issued to British and Commonwealth anti-tank regiments as a mobile tank destroyer. British crews found the open turret exposed them to shell fragments and small arms in the close country of Normandy and Italy, and they improvised turret covers and additional armour as field modifications. The 3-inch gun was adequate against Panzer IVs and StuGs but struggled with Panthers and Tigers — a limitation addressed when many M10s were re-gunned with the 17-pounder to create the M10C.",
       "name": "M10 3\" SP",
       "nation": "Britain",
       "type": "Armored",
@@ -4615,6 +4744,7 @@
     },
     {
       "id": "br-td-m10c",
+      "lore": "The M10C was a British conversion that replaced the American 3-inch gun with the 17-pounder, creating a self-propelled tank destroyer capable of defeating German heavy armour at battle ranges — the first fully mobile British anti-tank weapon that could hunt Panthers and Tigers on equal terms. The conversion required a counterweight on the turret rear to balance the heavier British gun and a modified breech fitting, but retained the M10's chassis and open turret. British anti-tank regiments used M10Cs to provide mobile protection for advancing infantry and armoured columns through NW Europe and Italy in 1944-45.",
       "name": "M10C 17 pdr SP",
       "nation": "Britain",
       "type": "Armored",
@@ -4647,6 +4777,7 @@
     },
     {
       "id": "br-spa-sexton",
+      "lore": "The Sexton was a Canadian-designed self-propelled gun mounting the British 25-pounder on the American M4 Grizzly (RAM) tank chassis, combining the Commonwealth's preferred field gun with the mobility needed to keep up with armoured formations. It replaced the American M7 Priest in British armoured divisions from 1943 onward, eliminating the mixed ammunition supply problem. Sexton batteries practiced the \"regimental shoot\" — all twenty-four guns of a regiment firing simultaneously — to deliver the massed, precisely-timed fire concentrations that were the signature of British artillery doctrine from El Alamein to the Rhine crossing.",
       "name": "Sexton",
       "nation": "Britain",
       "type": "Armored",
@@ -4683,6 +4814,7 @@
     },
     {
       "id": "br-spa-priest",
+      "lore": "The M7 Priest was the first self-propelled howitzer widely used by British armoured divisions, received under Lend-Lease and first employed at El Alamein in October 1942 where its combination of mobility and 105mm firepower impressed all observers. Its prominent pulpit-mounted .50cal machine gun gave it the nickname that stuck throughout the war. When British armoured divisions converted to the Sexton in 1943, many Priests were transferred to infantry divisions or re-roled as Kangaroo armoured personnel carriers — a grim indication of the infantry's own transport shortage — by removing the howitzer and fitting bench seats.",
       "name": "Priest",
       "nation": "Britain",
       "type": "Armored",
@@ -4721,6 +4853,7 @@
     },
     {
       "id": "br-ac-daimler1",
+      "lore": "The Daimler Armoured Car was the primary British armoured car of NW Europe, considered by many crews to be the finest of its type — its pre-selector Daimler gearbox allowed instant gear changes without a clutch, and the all-independent suspension gave outstanding cross-country performance. Armed with the 2-pounder gun, it carried enough anti-armour capability to handle anything it was likely to encounter on reconnaissance without being drawn into a tank fight. Daimler cars served with the armoured car regiments of every British corps in NW Europe, operating in the classic reconnaissance role of finding the enemy and reporting rather than engaging.",
       "name": "Daimler I",
       "nation": "Britain",
       "type": "Recon",
@@ -4757,6 +4890,7 @@
     },
     {
       "id": "br-ac-m20",
+      "lore": "The M20 Utility Car was the open-topped armoured version of the M8 Greyhound armoured car, used by British and Commonwealth forces in the liaison, command, and light reconnaissance roles. Its .50-calibre M2 ring mount provided air-defence capability and suppressive fire, while its speed — 90 km/h on road — made it ideal for the fast-moving operations in which liaison officers needed to reach forward units quickly. British armoured car regiments used the M20 for troop leaders to operate alongside motorcycle despatch riders and Dingo scout cars in the reconnaissance screen.",
       "name": "M20 Scout Car",
       "nation": "Britain",
       "type": "Recon",
@@ -4790,6 +4924,7 @@
     },
     {
       "id": "br-ac-humber23",
+      "lore": "The Humber armoured car series was produced in large numbers and served with British and Commonwealth reconnaissance regiments from the Middle East through NW Europe. The Mk II and III carried the Besa 15mm heavy machine gun — a Czech design adopted for British service — giving them useful anti-armour capability against light vehicles and aircraft, though the open-topped turret was a compromise in close country. Humbers equipped the divisional cavalry regiments that provided the close reconnaissance screen for infantry divisions, a role that demanded more patrol endurance and less firepower than the armoured corps' armoured car regiments.",
       "name": "Humber II or III",
       "nation": "Britain",
       "type": "Recon",
@@ -4826,6 +4961,7 @@
     },
     {
       "id": "br-ac-humber4",
+      "lore": "The Humber IV was the upgunned variant carrying the American 37mm M6 gun in a redesigned turret, giving the divisional cavalry regiment an armoured car with genuine anti-armour punch against the light armour and armoured cars it was likely to encounter on patrol. The 37mm gave it parity with the German Sd Kfz 222 and superiority over Italian armoured cars, making it a capable fighting vehicle for the aggressive patrolling style of British divisional reconnaissance. The Humber IV served extensively in Italy and NW Europe, often operating as troop leaders' vehicles within mixed reconnaissance troops.",
       "name": "Humber IV",
       "nation": "Britain",
       "type": "Recon",
@@ -4860,6 +4996,7 @@
     },
     {
       "id": "br-ac-aec1",
+      "lore": "The AEC Armoured Car was designed and built without official requirement by the Associated Equipment Company as a private venture, resulting in the heaviest British wheeled armoured car of the war. The Mark I carried the 2-pounder in a Valentine turret on a heavy bus-derived chassis, giving it armor protection that exceeded most conventional armoured cars but at the cost of poor cross-country performance and a stiff ride. It served with the 11th Hussars and other armoured car regiments in North Africa, where its heavy armour was appreciated in the long-range desert patrols where a breakdown hundreds of miles from support could be fatal.",
       "name": "AEC I",
       "nation": "Britain",
       "type": "Recon",
@@ -4898,6 +5035,7 @@
     },
     {
       "id": "br-ac-aec3",
+      "lore": "The AEC Mark III was the final and most powerful variant, replacing the 2-pounder and 6-pounder of earlier marks with the American 75mm M3 gun — the same weapon carried in the Sherman — giving it an unprecedented combination of anti-armour firepower and armoured protection in a wheeled vehicle. With the 75mm it could engage Panzer IVs on even terms and threaten Panthers at short range, making it a capable fighting vehicle rather than merely a reconnaissance asset. AEC III cars served in Italian and NW European armoured car regiments, often leading actions against German rear-area defences where their heavy armament was decisive.",
       "name": "AEC III",
       "nation": "Britain",
       "type": "Recon",
@@ -4935,6 +5073,7 @@
     },
     {
       "id": "br-recon-universal-carrier",
+      "lore": "The Universal Carrier — universally called the Bren Gun Carrier despite carrying far more than just Brens — was the most produced British armoured fighting vehicle of the war with over 113,000 built across the Commonwealth. Open-topped and lightly armoured, it gave infantry platoons and support weapons a cross-country mobility asset that could move a crew-served weapon, carry ammunition, or serve as a command vehicle in the battalion commander's tactical group. Despite its limitations — it was not a fighting vehicle in any serious sense — the Universal Carrier was the logistical backbone of the British infantry at platoon and company level in every theater.",
       "name": "Universal Carrier",
       "nation": "Britain",
       "type": "Recon",
@@ -4974,6 +5113,7 @@
     },
     {
       "id": "br-recon-universal-carrier-boys",
+      "lore": "The Boys anti-tank rifle-armed Universal Carrier was the standard British reconnaissance troop vehicle in 1939-42, before the Boys' marginal penetration against German armour made it obsolete in the anti-tank role. The Boys rifle's 0.55-inch round could penetrate 20mm of armour at 100 meters, which was adequate against the Panzer I, II, and most armoured cars encountered in the early war campaigns. Carrier patrols typically operated in pairs, using speed and cover to observe German positions and withdraw before heavier German vehicles could engage them, the Boys rifle providing enough deterrence against opposing light forces to give the crews confidence to operate independently.",
       "name": "Universal Carrier (Boys)",
       "nation": "Britain",
       "type": "Recon",
@@ -5012,6 +5152,7 @@
     },
     {
       "id": "br-recon-universal-carrier-piat",
+      "lore": "The PIAT-armed Universal Carrier gave British and Commonwealth carrier platoons a vehicle-mounted anti-tank capability from 1943 onward, replacing the obsolete Boys rifle with a weapon that could genuinely threaten German medium tanks at close range. The PIAT's spring-operated mechanism was difficult to cock inside the cramped carrier, so crews typically dismounted to engage armour — the carrier providing rapid mobility to a firing position and quick extraction afterward. These vehicles screened infantry advances, patrolled between defended localities, and provided the close anti-armour protection that battalion commanders needed to deter opportunistic German tank raids against their perimeters.",
       "name": "Universal Carrier (PIAT)",
       "nation": "Britain",
       "type": "Recon",
@@ -5047,6 +5188,7 @@
     },
     {
       "id": "br-recon-universal-carrier-mg",
+      "lore": "Mounting the .50-calibre Browning on the Universal Carrier gave reconnaissance units a vehicle-mounted heavy machine gun for both anti-aircraft and anti-personnel roles. The Browning's flat trajectory and heavy round could engage soft-skin vehicles, gun crews, and low-flying aircraft with equal effectiveness, making these carriers valuable in the advance to contact when air threat and road ambush were constant concerns. Canadian and British reconnaissance regiments employed these as troop fire-support vehicles, providing the suppressive fire while lighter Dingo scout cars pushed forward to observe.",
       "name": "Universal Carrier (.5\" MG)",
       "nation": "Britain",
       "type": "Recon",
@@ -5082,6 +5224,7 @@
     },
     {
       "id": "br-recon-indian-carrier",
+      "lore": "The Indian Pattern Carrier was a simplified Universal Carrier variant produced in Australia and India for the Pacific and Mediterranean theaters, with modifications suited to tropical operations and Commonwealth manufacturing capabilities. Used extensively by Indian Army divisions in Burma, it carried patrol teams through jungle terrain that wheeled vehicles could not negotiate, often serving as the only mechanical transport available to forward battalions operating on jungle tracks. In the Mediterranean, it equipped the carrier platoons of Indian divisions throughout the Italian campaign, providing the same cross-country reconnaissance and weapons-movement capability as the standard Universal Carrier.",
       "name": "Indian Pattern Carrier",
       "nation": "Britain",
       "type": "Recon",
@@ -5118,6 +5261,7 @@
     },
     {
       "id": "br-recon-daimler-dingo",
+      "lore": "The Daimler Dingo scout car was arguably the finest small reconnaissance vehicle of the war — fast, reliable, and so nimble that experienced crews could navigate terrain that frustrated larger vehicles. Its fluid flywheel transmission allowed smooth speed changes in tight terrain, and the small, flat profile made it genuinely difficult to spot in hedgerows and olive groves. The Dingo's role was pure intelligence-gathering: get forward, observe, and report without being seen. It was normally paired with a Daimler armoured car in reconnaissance troops, the Dingo pushing furthest forward while the armoured car provided covering fire from a position to the rear.",
       "name": "Daimler Dingo",
       "nation": "Britain",
       "type": "Recon",
@@ -5155,6 +5299,7 @@
     },
     {
       "id": "br-recon-humber-lrc",
+      "lore": "The Humber Light Reconnaissance Car was a wheeled, lightly armoured vehicle designed for the divisional reconnaissance regiment's close-patrol work — finding the enemy's outpost line and reporting without being drawn into combat. Its Boys anti-tank rifle provided minimal anti-armour capability mainly as a deterrent against other light vehicles, while the rear-mounted AA machine gun gave some air-defence protection during road movement. Humber LRCs typically operated in troops of three, with two cars observing while one maintained communication with higher headquarters, leapfrogging forward in bounds as the advance progressed.",
       "name": "Humber LRC III",
       "nation": "Britain",
       "type": "Recon",
@@ -5192,6 +5337,7 @@
     },
     {
       "id": "br-recon-otter-lrc",
+      "lore": "The Otter was a Canadian-built version of the Humber LRC, produced at the General Motors of Canada plant to meet Commonwealth reconnaissance demands that British factories couldn't fill. Essentially identical in capability and role to the Humber, it served primarily with Canadian reconnaissance regiments in Italy and NW Europe. The Boys anti-tank rifle was its nominal main armament, though by 1943 most crew commanders knew it was nearly useless against German armour and used the vehicle as an observation platform that could survive near misses and reach forward ground quickly rather than as a fighting vehicle.",
       "name": "Otter LRC I",
       "nation": "Britain",
       "type": "Recon",
@@ -5228,6 +5374,7 @@
     },
     {
       "id": "br-spaa-bofors-sp",
+      "lore": "The self-propelled Bofors 40mm mounted on various wheeled or half-tracked vehicles gave British light AA regiments the ability to accompany armoured columns and provide air-defence coverage in the advance rather than remaining static at airfields and supply points. As the Luftwaffe's ground-attack capability declined from 1944, these vehicles increasingly turned their fire against ground targets — the Bofors's 2-pound shell was highly effective against light armour, soft vehicles, and infantry in the open. Commonwealth armoured car regiments sometimes used SP Bofors as close-support vehicles for their wheeled cars, the gun's flat trajectory and high rate of fire providing devastating suppressive fire.",
       "name": "Bofors 40mm SP",
       "nation": "Britain",
       "type": "Anti-Air",
@@ -5263,6 +5410,7 @@
     },
     {
       "id": "br-transport-truck",
+      "lore": "The Canadian Military Pattern (CMP) truck and its British equivalents — the Bedford QL, Morris Commercial, and Austin K-series — formed the logistical backbone of the British and Commonwealth armies. Standardized across all Commonwealth manufacturers to common specifications, they provided the vehicle pool that moved every artillery round, ration pack, and fuel drum from beach or railhead to battalion forward supply point. Motor battalions in armoured divisions rode to battle in these trucks, dismounting to fight while the drivers pulled back to a covered position; their loss to air attack, ambush, or breakdown directly constrained how far and how fast armies could operate.",
       "name": "CMP/Bedford/Morris Truck",
       "nation": "Britain",
       "type": "Transport",
@@ -5302,6 +5450,7 @@
     },
     {
       "id": "br-transport-quad",
+      "lore": "The Morris C8 Field Artillery Tractor — universally called the \"Quad\" — was the standard prime mover for British field and anti-tank guns, designed to tow the 25-pounder and its limber or a 6-pounder anti-tank gun with its crew riding in the enclosed cab and rear ammunition compartment. Its four-wheel drive and heavy-duty suspension allowed it to pull a loaded 25-pounder across fields and through muddy tracks that would stop a wheeled truck, while the enclosed body gave the gun crew some protection against shell fragments and weather during the move to the gun line. The Quad and its gun were an inseparable combination in Commonwealth artillery units throughout the war.",
       "name": "Morris C8/Quad/AT Tractor",
       "nation": "Britain",
       "type": "Transport",
@@ -5341,6 +5490,7 @@
     },
     {
       "id": "br-transport-white-marmon",
+      "lore": "The White Scout Car and its Marmon-Herrington equivalent were lightly armoured, open-topped liaison and command vehicles used throughout the Middle East and Mediterranean campaigns by Commonwealth forces. Their high ground clearance and four-wheel drive made them useful in desert and mountain terrain, and they served as forward headquarters vehicles, liaison officer transports, and mobile command posts. Commonwealth units in North Africa used them extensively in the long-range patrol work of the Western Desert Force, operating hundreds of miles from base with minimal support in a theatre where vehicle reliability and range were as critical as armour and firepower.",
       "name": "White/Marmon Scout Car",
       "nation": "Britain",
       "type": "Transport",
@@ -5378,6 +5528,7 @@
     },
     {
       "id": "br-transport-humber-scout",
+      "lore": "The Humber Scout Car was a small, lightly armoured liaison vehicle used by British divisional headquarters for courier duties, forward observation officer transport, and command-element mobility in the NW Europe campaign. Essentially an armoured version of a light car, it gave officers moving between headquarters and forward battalions a degree of protection against shell fragments and small-arms fire without the bulk or noise of a Universal Carrier. Its single AA machine gun provided some defensive capability, and the enclosed hull protected occupants against weather during the wet autumn and winter campaigns in the Low Countries.",
       "name": "Humber Scout Car",
       "nation": "Britain",
       "type": "Transport",
@@ -5414,6 +5565,7 @@
     },
     {
       "id": "br-transport-m5-halftrack",
+      "lore": "The M5 Half-Track was the International Harvester-produced version of the standard American M3, supplied to Britain under Lend-Lease to equip the motor platoons of armoured divisions that needed infantry transport with cross-country capability. British motor battalions in armoured divisions rode these halftracks in the advance to contact, dismounting to clear villages and hold ground while the tanks pressed on. Unlike American armored infantry who sometimes fought from their halftracks, British doctrine generally had infantry dismount before the final assault, using the halftrack primarily for protected movement rather than as a fighting vehicle.",
       "name": "M5 Half-Track",
       "nation": "Britain",
       "type": "Transport",
@@ -5447,6 +5599,7 @@
     },
     {
       "id": "sv-inf-rifle-mg",
+      "lore": "Soviet rifle sections combined Mosin-Nagant riflemen with the Degtyaryov DP light machine gun — a reliable pan-magazine LMG that gave each squad automatic fire from 1941 onward. Early war infantry suffered catastrophic losses to German encirclements and superior tactics, but survivors became veterans who learned to use ground, mass fire, and sheer persistence to overwhelm German defensive positions. By 1943 the Soviet rifle squad had evolved into one of the war's most tactically effective units, combining the DP's firepower with aggressive close-assault training and the willingness to accept casualties that no other army could match.",
       "name": "Rifle/MG",
       "nation": "Soviet Union",
       "type": "Infantry",
@@ -5481,6 +5634,7 @@
     },
     {
       "id": "sv-inf-smg",
+      "lore": "Soviet submachine gun troops, armed primarily with the PPSh-41 or PPS-43, were among the most feared close-combat soldiers of the war. The PPSh's 71-round drum magazine and 900-round-per-minute cyclic rate gave a single squad the short-range firepower of a machine gun team, and entire battalions were sometimes equipped with nothing else for urban assault operations. At Stalingrad, Kursk, and Berlin, SMG companies led the assault through buildings, sewers, and trenches where rifles were too slow and the submachine gun's volume of fire was decisive; German survivors consistently reported that a Soviet SMG charge at close range was among the most terrifying experiences of the Eastern Front.",
       "name": "SMG",
       "nation": "Soviet Union",
       "type": "Infantry",
@@ -5515,6 +5669,7 @@
     },
     {
       "id": "sv-gun-ptrd",
+      "lore": "The PTRD-41 anti-tank rifle was designed and produced in just two months following the German invasion — a remarkable engineering achievement that gave every Soviet rifle regiment an organic anti-armour weapon when proper anti-tank guns were desperately scarce. Its 14.5mm round could penetrate 25mm of armour at 300 meters, adequate for the Panzer I, II, and light armoured vehicles of 1941 but increasingly marginal as German armour thickened. By 1943 PTRD teams shifted to engaging vehicle optics, track links, and engine grilles rather than attempting frontal penetration, while also serving as a long-range anti-sniper and anti-personnel weapon against dug-in German positions.",
       "name": "PTRD Anti-Tank Rifle",
       "nation": "Soviet Union",
       "type": "Anti-Tank",
@@ -5549,6 +5704,7 @@
     },
     {
       "id": "sv-gun-maksim",
+      "lore": "The Maxim M1910 water-cooled heavy machine gun on its distinctive wheeled Sokolov mount was the Soviet infantry's primary crew-served firepower from the Finnish War through Berlin — a weapon design from 1884 still effective sixty years later. Its 7.62mm belt-fed fire could sustain a beaten zone continuously for hours, and Soviet machine-gun sections were famous for their methodical fire discipline, registering fixed lines during daylight and delivering them precisely during night attacks. The Sokolov mount's small wheels allowed it to be rolled forward during an advance, giving it better tactical mobility than the tripod-mounted HMGs of most other armies.",
       "name": "Maksim HMG",
       "nation": "Soviet Union",
       "type": "Gun Teams",
@@ -5585,6 +5741,7 @@
     },
     {
       "id": "sv-gun-82mm-mortar",
+      "lore": "The Soviet 82mm mortar was the standard indirect fire weapon at battalion level, produced in enormous quantities and organic to every rifle battalion as a six-gun battery. Soviet doctrine placed great emphasis on mortar fire, recognizing that it was the weapon most likely to be available when artillery was not, and mortar platoons were trained to deliver rapid concentrations on German machine-gun nests and anti-tank gun positions just before the assault platoon closed. The 82mm's ability to be broken down and carried by the crew across terrain that defeated wheeled transport made it the Soviet Army's true artillery substitute in the close battles for villages, forests, and river crossings.",
       "name": "82-BM-41 Mortar",
       "nation": "Soviet Union",
       "type": "Gun Teams",
@@ -5620,6 +5777,7 @@
     },
     {
       "id": "sv-gun-120mm-mortar",
+      "lore": "The Soviet 120mm heavy mortar was so effective that the Germans copied it directly after capturing examples in 1941, producing the Granatwerfer 42 from the same basic design. Its 16kg bomb could destroy a timber-roofed bunker with a direct hit and crater an anti-tank gun position from overhead — the high-angle fire reaching targets in dead ground that artillery couldn't reach. Soviet regimental mortar batteries with six 120mm weapons could neutralize a German company strongpoint in minutes, and the weapon's relatively simple construction allowed Soviet industry to produce them in vast quantities even during the catastrophic factory evacuations of 1941-42.",
       "name": "120-PM-38 Mortar",
       "nation": "Soviet Union",
       "type": "Gun Teams",
@@ -5655,6 +5813,7 @@
     },
     {
       "id": "sv-gun-37mm-aa",
+      "lore": "The Soviet 37mm automatic anti-aircraft gun was a direct development of the Swedish Bofors design, firing a 37mm round at 160 rounds per minute to engage aircraft up to 3,000 meters altitude. It equipped Soviet divisional anti-aircraft batteries throughout the war, though the Luftwaffe's early air superiority over the Eastern Front meant that these guns saw almost continuous combat action from 1941 through 1943. As Soviet air power grew after Kursk, the 37mm shifted increasingly to the ground-support role, its flat-trajectory rapid fire effective against infantry concentrations and soft-skin vehicles at ranges the 12.7mm DShK couldn't reach.",
       "name": "37mm obr 1939 Gun",
       "nation": "Soviet Union",
       "type": "Anti-Air",
@@ -5693,6 +5852,7 @@
     },
     {
       "id": "sv-gun-85mm-aa",
+      "lore": "The Soviet 85mm anti-aircraft gun was the Red Army's primary heavy AA weapon, capable of engaging bombers at 7,500 meters altitude with a shell that was also lethal to any German tank. Unlike the Germans, who enthusiastically used their 88mm FlaK in the anti-tank role, the Soviets were slower to employ the 85mm against armour — but when they did at Prokhorovka and in the anti-tank belts at Kursk, batteries of 85mm guns engaged Tiger tanks at ranges where the outcome was not in doubt. The success led directly to the adoption of the 85mm D-5T gun in the T-34/85 and KV-85, ending German heavy tank invulnerability.",
       "name": "85mm obr 1939 Gun",
       "nation": "Soviet Union",
       "type": "Anti-Air",
@@ -5731,6 +5891,7 @@
     },
     {
       "id": "sv-gun-45mm",
+      "lore": "The 45mm anti-tank gun was the Red Army's standard battalion anti-tank weapon from 1941 onward, and its crews earned a desperate reputation for forward positioning — often pushing their guns to within 200-300 meters of approaching German tanks to achieve the close-range angles needed to penetrate thicker armour. The 1942 model with its improved ammunition could penetrate the Panzer III and IV at reasonable range but struggled with the Tiger and Panther even at close range. Soviet anti-tank crews suffered among the highest casualty rates of any branch, but their willingness to hold positions under direct tank fire and the sheer number of guns deployed frequently stopped German armoured breakthroughs that should have succeeded.",
       "name": "45mm obr 1942 Gun",
       "nation": "Soviet Union",
       "type": "Anti-Tank",
@@ -5762,6 +5923,7 @@
     },
     {
       "id": "sv-gun-zis2",
+      "lore": "The ZIS-2 57mm anti-tank gun was originally designed in 1941 but production was halted because its penetration performance exceeded all known German armour — making it apparently over-engineered for the cost. The appearance of the Tiger I and Panther in 1943 reversed this decision immediately, and production restarted at maximum rate. The ZIS-2's high-velocity shot could penetrate the Panther's side armour and threaten the Tiger I from the flanks at combat range, giving Soviet anti-tank regiments a weapon capable of handling the German heavy tanks that had previously been essentially invulnerable to towed guns below 85mm caliber.",
       "name": "57mm ZIS-2 Gun",
       "nation": "Soviet Union",
       "type": "Anti-Tank",
@@ -5794,6 +5956,7 @@
     },
     {
       "id": "sv-gun-zis3",
+      "lore": "The ZIS-3 76mm divisional gun was the most widely produced Soviet artillery piece of the war and arguably the finest all-purpose field gun on any side — light enough for the crew to manhandle, accurate enough for direct fire, and powerful enough in its anti-tank role to defeat most German armour at medium range until 1943. Stalin personally approved its design after initially rejecting it, and the brilliant engineer Vasily Grabin's factory switched to ZIS-3 production without waiting for official permission. At the Battle of Kursk, ZIS-3 batteries dug into the Soviet anti-tank belts destroyed more German tanks than any other weapon, firing over open sights at advancing Panzers.",
       "name": "76mm ZIS-3 Gun",
       "nation": "Soviet Union",
       "type": "Anti-Tank",
@@ -5828,6 +5991,7 @@
     },
     {
       "id": "sv-gun-122mm-howitzer",
+      "lore": "The M-30 122mm howitzer was the standard Soviet divisional artillery piece, an outstanding design that remained in frontline service in some armies into the 21st century. Its 21.7kg shell could collapse a timber bunker, crater a road, or destroy a vehicle behind cover that flat-trajectory guns couldn't reach, and its 5,400-meter range let it reach deep into German defensive positions. Soviet artillery doctrine massed M-30s in concentrations of 200-300 guns per kilometer of breakthrough front, the density creating a rolling barrage that simply demolished everything in the assault lane — a technique perfected at Bagration in June 1944 that tore through German Army Group Centre in under a week.",
       "name": "122mm obr 1938 Howitzer",
       "nation": "Soviet Union",
       "type": "Gun Teams",
@@ -5867,6 +6031,7 @@
     },
     {
       "id": "sv-gun-152mm-howitzer",
+      "lore": "The D-1 152mm howitzer was designed specifically to be lighter and more mobile than its predecessors while still firing the powerful 40kg shell that made the 152mm class so effective against German fortifications. Its breakthrough-fire capability — destroying concrete bunkers, demolishing buildings, and neutralizing dug-in 88mm positions — made it the weapon of choice for the methodical Soviet assault gun preparations before major offensive operations. Batteries of D-1s fired in the counter-battery role against German medium artillery before the main assault, then shifted to direct support as the attack went in, their heavy shells capable of defeating the field fortifications that 122mm fire could only suppress.",
       "name": "152mm obr 1943 Howitzer",
       "nation": "Soviet Union",
       "type": "Gun Teams",
@@ -5902,6 +6067,7 @@
     },
     {
       "id": "sv-tank-t70",
+      "lore": "The T-70 was an attempt to replace the T-60 light tank with a vehicle that could carry a two-man crew and a more useful 45mm gun, while remaining simple enough to be produced in automotive rather than tank factories. Though outclassed by German medium tanks in any direct engagement, T-70s were used in large numbers throughout 1942-43 for cavalry-style exploitation, flank screening, and infantry support in terrain where heavier tanks couldn't follow. At Prokhorovka, T-70s fought alongside T-34s in desperate close-range melee against Tiger I and Panzer IV tanks, their 45mm guns ineffective against German frontal armour but their numbers contributing to the chaos that eventually halted the German advance.",
       "name": "T-70 obr 1942/43",
       "nation": "Soviet Union",
       "type": "Armored",
@@ -5933,6 +6099,7 @@
     },
     {
       "id": "sv-tank-t34-41",
+      "lore": "The T-34 of 1941 shocked German tank crews and commanders when they first encountered it — its sloped armour deflected rounds from the standard 37mm and short 50mm anti-tank guns, while its 76mm F-34 gun could penetrate most German armour at combat range. The early model suffered from a cramped two-man turret, poor visibility, no turret basket, and unreliable transmission, but these mechanical flaws mattered less than its fundamental soundness: the T-34 was faster, better-armoured, and better-gunned than the Panzer III it most commonly fought. German tank tactics and superior crew training overcame the technical surprise in 1941-42, but the T-34 established the template that Soviet tank design would refine throughout the war.",
       "name": "T-34 obr 1941/42",
       "nation": "Soviet Union",
       "type": "Armored",
@@ -5966,6 +6133,7 @@
     },
     {
       "id": "sv-tank-t34-85",
+      "lore": "The T-34/85 was the Soviet response to the Tiger and Panther — a significantly enlarged three-man turret housing the 85mm D-5T gun that could penetrate Panther frontal armour at 500 meters and Tiger I at even shorter range. It entered service in early 1944 and quickly became the standard Soviet medium tank, manufactured in numbers that dwarfed German production: over 35,000 were built by the war's end. At Bagration, Vistula-Oder, and the Berlin operation, T-34/85s spearheaded the great Soviet offensives that destroyed entire German army groups, their superior numbers and adequate firepower achieving through mass what individual German tanks could not match through quality.",
       "name": "T-34/85 obr 1943",
       "nation": "Soviet Union",
       "type": "Armored",
@@ -5998,6 +6166,7 @@
     },
     {
       "id": "sv-tank-kv1s",
+      "lore": "The KV-1s (skorostniy — speedy) was an attempt to address the KV-1's catastrophic speed and reliability problems by reducing armour thickness and fitting a smaller, lighter turret. The result was still slower than the T-34 and carried only the same 76mm gun, raising questions about whether any improvement over the T-34 justified the KV's greater complexity and resource cost. The KV-1s saw heavy use at Kursk and in the summer 1943 operations, but its replacement by the KV-85 — and eventually by the IS-2 — acknowledged that the heavy tank requirement needed a genuinely heavier gun rather than a marginally faster chassis.",
       "name": "KV-1s",
       "nation": "Soviet Union",
       "type": "Armored",
@@ -6030,6 +6199,7 @@
     },
     {
       "id": "sv-tank-kv85",
+      "lore": "The KV-85 was a stopgap measure in 1943, mounting the new 85mm D-5T gun in a new, larger turret on the KV-1s chassis to give the Red Army a heavy tank that could engage Tigers and Panthers on better terms while the IS-2 completed development. Only 148 were produced before IS-2 production began in earnest, but these saw action at Leningrad and in the battles following Kursk. Crews appreciated the powerful gun but were aware that the KV hull's armour — though thick — was vertical rather than sloped, making it less effective than its nominal thickness suggested against the long 88mm of the Tiger I.",
       "name": "KV-85",
       "nation": "Soviet Union",
       "type": "Armored",
@@ -6061,6 +6231,7 @@
     },
     {
       "id": "sv-tank-is2",
+      "lore": "The IS-2 (Iosif Stalin-2) was the Soviet Union's definitive answer to German heavy armour — a tank with 120mm of sloped frontal armour and a 122mm D-25T gun whose 25kg shell could penetrate Tiger I and Panther armour and physically destroy the turret of any German tank through a direct hit. Its slow reload time (two to three rounds per minute due to separate ammunition) was a tactical liability in fast-moving tank battles, but Soviet doctrine used IS-2s as breakthrough weapons rather than tank destroyers — leading assaults through prepared defenses, defeating fortifications, and suppressing heavy anti-tank guns while T-34s handled mobile combat.",
       "name": "IS-2",
       "nation": "Soviet Union",
       "type": "Armored",
@@ -6094,6 +6265,7 @@
     },
     {
       "id": "sv-tank-ot34",
+      "lore": "The OT-34 (Ognemyotny Tank — flamethrower tank) replaced the T-34's hull machine gun with the ATO-42 flame projector, concealing the modification so that German crews couldn't identify flame tanks from battle tanks until they opened fire. Soviet doctrine employed OT-34s in special flamethrower tank battalions attached to rifle corps for assault operations against German prepared positions, where the armoured protection of the T-34 hull allowed them to close to the 60-100 meter range needed for the flame projector. German defenders who held against conventional tanks consistently broke when OT-34s appeared, the combination of armour and fire being psychologically overwhelming.",
       "name": "OT-34",
       "nation": "Soviet Union",
       "type": "Armored",
@@ -6129,6 +6301,7 @@
     },
     {
       "id": "sv-tank-kv8s",
+      "lore": "The KV-8s combined the armoured protection of the KV-1s with an ATO-42 flamethrower replacing the main gun, the 45mm stub gun in the turret being fitted to make the flame tank less identifiable as a specialist vehicle. The KV chassis gave the flamethrower operator 90mm of frontal armour — far more than the OT-34 — allowing it to survive at the very close ranges where flamethrowers are effective even under intensive defensive fire. Assigned to heavy flamethrower tank units, KV-8s were used in the assault on the Dnieper fortifications and in the fighting through the Baltic states in 1944.",
       "name": "KV-8s",
       "nation": "Soviet Union",
       "type": "Armored",
@@ -6162,6 +6335,7 @@
     },
     {
       "id": "sv-spg-su76m",
+      "lore": "The SU-76M was the most produced Soviet armoured fighting vehicle after the T-34, with over 14,000 built, and it served as the primary infantry support weapon for rifle divisions that had no organic armoured assets. Its open-topped superstructure was notorious — crews called it the \"Bitch\" and the \"Glass Coffin\" for its vulnerability to shell fragments — but its ZIS-3 76mm gun provided direct fire support against German machine-gun nests, bunkers, and anti-tank guns at the distances infantry operated. Soviet doctrine paired SU-76 batteries with rifle battalions for the final assault, their mobility allowing them to follow infantry through terrain that towed guns couldn't negotiate.",
       "name": "SU-76M",
       "nation": "Soviet Union",
       "type": "Armored",
@@ -6196,6 +6370,7 @@
     },
     {
       "id": "sv-spg-su85",
+      "lore": "The SU-85 was rushed into production in mid-1943 specifically to counter the Tiger I and Panther after the T-34's 76mm gun proved unable to reliably penetrate their frontal armour at battle ranges. Mounting the 85mm D-5S in the SU-122 chassis, it gave Soviet armoured formations a dedicated tank destroyer capable of engaging German heavy armour at 1,000-1,500 meters — the engagement ranges at which Tigers preferred to fight. SU-85 regiments were attached to tank corps for operations, advancing with the tanks and engaging long-range targets while T-34s handled close-range fighting; the type became obsolete once the T-34/85 entered service, but remained in use until the war's end.",
       "name": "SU-85",
       "nation": "Soviet Union",
       "type": "Armored",
@@ -6229,6 +6404,7 @@
     },
     {
       "id": "sv-spg-su122",
+      "lore": "The SU-122 mounted the M-30 122mm howitzer on the T-34 chassis to create a powerful close-support weapon capable of demolishing fortifications and neutralizing anti-tank gun positions that the T-34's direct fire couldn't destroy. Its 21.7kg HE shell could devastate a building, collapse a trench, or destroy a light vehicle with a near miss, while its HEAT round could penetrate any German tank hull at close range — a function Soviet crews rarely relied on as the howitzer's slow reload was a liability in fast-moving tank combat. Used primarily in the direct-fire infantry support role, SU-122s gave Soviet combined-arms attacks an armoured battering ram for fixed defenses.",
       "name": "SU-122",
       "nation": "Soviet Union",
       "type": "Gun Teams",
@@ -6263,6 +6439,7 @@
     },
     {
       "id": "sv-spg-su152",
+      "lore": "The SU-152 earned the nickname \"Zveroboy\" (Beast-Killer) at Kursk in July 1943, where its 152mm ML-20 gun demolished Tiger I and Elephant tank destroyers with a single HE round — not by penetrating their armour, but by physically tearing off turrets and bending hulls with the concussive force of a 43.5kg shell at close range. Designed as a heavy assault gun for fortified positions, it proved unexpectedly effective as a tank destroyer simply because no German armour could survive a direct hit from a weapon in its class. SU-152s served in independent heavy self-propelled artillery regiments attached to tank armies for breakthrough operations.",
       "name": "SU-152",
       "nation": "Soviet Union",
       "type": "Gun Teams",
@@ -6298,6 +6475,7 @@
     },
     {
       "id": "sv-spg-isu122",
+      "lore": "The ISU-122 mounted the 122mm D-25S gun — identical to the IS-2's armament — on the IS chassis, creating a dedicated tank destroyer with the firepower to defeat any German vehicle and the armour to survive defensive fire from most German guns. Soviet doctrine used ISU-122 regiments in the anti-armour role, deploying them in hull-down positions to engage German tanks at long range while IS-2s and T-34s conducted the assault. Unlike the earlier SU-122, the ISU-122's high-velocity gun was designed primarily as an anti-armour weapon rather than a howitzer, giving it flat-trajectory accuracy against specific targets at ranges over 1,500 meters.",
       "name": "ISU-122",
       "nation": "Soviet Union",
       "type": "Gun Teams",
@@ -6332,6 +6510,7 @@
     },
     {
       "id": "sv-spg-isu152",
+      "lore": "The ISU-152 was the successor to the SU-152, mounting the same 152mm ML-20 howitzer on the superior IS chassis to give it dramatically better armour protection — 90mm of sloped frontal plate versus the SU-152's 60mm — while retaining the devastating firepower that had earned the \"Beast-Killer\" reputation. ISU-152 regiments spearheaded the assault on every major German fortified city in the final campaigns: Königsberg, Breslau, Budapest, Vienna, and Berlin, where their heavy shells could demolish a building occupied by German infantry without exposing assault troops to the direct fire that defended street corners and windows.",
       "name": "ISU-152",
       "nation": "Soviet Union",
       "type": "Gun Teams",
@@ -6366,6 +6545,7 @@
     },
     {
       "id": "sv-spa-katyusha",
+      "lore": "The BM-13 Katyusha rocket launcher — known to Soviet troops as \"Katyusha\" and to German soldiers as \"Stalin's Organ\" for its distinctive wailing howl — became one of the most iconic weapons of the Eastern Front, mounted on Lend-Lease Studebaker trucks and capable of ripple-firing sixteen 132mm rockets in under ten seconds. Its accuracy was poor by conventional artillery standards, but massed Katyusha salvos from entire Guards Mortar regiments created saturation fire effects over large areas that no human target could survive. The Katyusha's psychological effect was immense: the screaming rockets, the sudden total destruction of a target area, and the inability of defenders to identify where the next salvo would land broke unit cohesion as effectively as casualties.",
       "name": "BM-13 Katyusha",
       "nation": "Soviet Union",
       "type": "Armored",
@@ -6401,6 +6581,7 @@
     },
     {
       "id": "sv-spaa-dshk",
+      "lore": "The DShK 12.7mm heavy machine gun mounted on truck or halftrack gave Soviet units mobile anti-aircraft defence against the Luftwaffe ground-attack aircraft that plagued Soviet columns throughout 1941-43. Its heavy round could engage aircraft up to 1,500 meters altitude and penetrate the cockpit armour of most German attack aircraft, making it a meaningful deterrent. DShK-equipped trucks were organic to Soviet armoured and motorised units, positioned at column intervals to create overlapping fields of fire during road movement; they also proved highly effective as ground-fire weapons against infantry, light vehicles, and crew-served weapons when the air threat was absent.",
       "name": "DShK AA MG on Truck",
       "nation": "Soviet Union",
       "type": "Anti-Air",
@@ -6439,6 +6620,7 @@
     },
     {
       "id": "sv-spaa-zsu-m17",
+      "lore": "The M17 Multiple Gun Motor Carriage arrived via Lend-Lease with its quad .50-caliber Browning M45 Maxson turret, and Soviet tank corps used it as a mobile close-range anti-aircraft weapon riding alongside T-34 columns. The four .50-caliber guns produced an overwhelming volume of fire against low-flying German attack aircraft and dive bombers, while the M3 halftrack chassis gave it the cross-country mobility to keep up with armoured units on the move. By 1944, as Soviet air power grew and the Luftwaffe's ground-attack threat diminished, Soviet M17 crews focused primarily on the ground support role — the quadruple .50-caliber fire being devastating against infantry in the open.",
       "name": "ZSU M17 MGMC",
       "nation": "Soviet Union",
       "type": "Anti-Air",
@@ -6474,6 +6656,7 @@
     },
     {
       "id": "sv-ac-ba64",
+      "lore": "The BA-64 was the Soviet Union's primary light armoured car from 1942 onward, a small two-man vehicle intended for reconnaissance, liaison, and flank screening in the motorised cavalry and mechanised roles. Its light armour protected only against small-arms fire, and the open-topped turret mounting a DT machine gun (or PTRD anti-tank rifle in some variants) gave it minimal combat capability against any serious opposition. Soviet reconnaissance doctrine accepted these limitations, using BA-64s in pairs to probe roads and identify German outpost lines while heavier vehicles remained out of contact, their speed and small profile making them difficult targets for anti-tank gun teams.",
       "name": "BA-64",
       "nation": "Soviet Union",
       "type": "Recon",
@@ -6508,6 +6691,7 @@
     },
     {
       "id": "sv-transport-ford-gpa",
+      "lore": "The Ford GPA \"Seep\" (Sea Jeep) was an amphibious version of the Willys Jeep supplied to the Soviet Union under Lend-Lease, used primarily for river crossings and reconnaissance of Soviet waterway obstacles that were ubiquitous on the Eastern Front. Soviet tank armies facing multiple river lines — the Don, Dnieper, Vistula, Oder — used amphibious vehicles to push reconnaissance teams across before engineer bridges were completed, allowing commanders to assess German defensive positions on the far bank before committing main forces to the crossing. The GPA's water performance was modest but adequate for calm rivers, and its cross-country ability on land matched the standard Willys Jeep.",
       "name": "Ford GPA Amphibious Jeep",
       "nation": "Soviet Union",
       "type": "Transport",
@@ -6544,6 +6728,7 @@
     },
     {
       "id": "sv-transport-zis-truck",
+      "lore": "The ZIS-5 3-ton truck was the Soviet Army's standard cargo vehicle from the 1930s onward, supplemented from 1942 by thousands of American Dodge 3/4-ton and Studebaker 6x6 trucks under Lend-Lease — vehicles Soviet commanders praised as superior to their domestic equivalents. Motorised rifle brigades used these trucks to follow tank columns and deploy infantry for the assault on objectives that armour alone could not hold, while logistics units relied on truck columns to push ammunition and fuel forward at the pace needed for deep operations. Soviet commanders credited the massive Lend-Lease truck shipment — over 375,000 vehicles — as essential to the mobility that made operations like Bagration possible.",
       "name": "ZIS-5/6/Dodge Truck",
       "nation": "Soviet Union",
       "type": "Transport",
@@ -6580,6 +6765,7 @@
     },
     {
       "id": "sv-transport-horse-wagon",
+      "lore": "Soviet rifle divisions in 1941-43 relied heavily on horse-drawn transport for artillery, supplies, and wounded because motorized vehicles were desperately scarce. The tachanka — a horse-drawn cart with a Maxim machine gun — had been a signature weapon of the Civil War, and horse cavalry remained a significant force through 1942 when mechanised substitutes were unavailable. Even as the Red Army motorized in 1943-44, horse-drawn wagons continued moving ammunition forward on the final leg to the firing line where trucks couldn't follow due to terrain or enemy fire, and field kitchens, medical units, and engineer bridging equipment often relied on horses throughout the war.",
       "name": "Horse-Drawn Wagon",
       "nation": "Soviet Union",
       "type": "Transport",
@@ -6617,6 +6803,7 @@
     },
     {
       "id": "sv-transport-stalinets",
+      "lore": "The Stalinets S-65 was a Soviet tracked agricultural tractor converted to military use as an artillery prime mover, a common improvisation in an army chronically short of purpose-built military transport. Its powerful diesel engine could haul the heaviest Soviet field guns — 122mm howitzers, 152mm guns, even 203mm howitzers — across the muddy terrain and snow that defeated wheeled vehicles, making it invaluable during the rasputitsa seasons when the Eastern Front ground to a near halt. Slow and mechanically demanding, Stalinets tractors moved at walking pace and consumed enormous quantities of fuel, but in the absence of better options they kept Soviet heavy artillery mobile through the most difficult terrain of the war.",
       "name": "Stalinets",
       "nation": "Soviet Union",
       "type": "Transport",
