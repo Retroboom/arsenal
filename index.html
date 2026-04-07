@@ -58,7 +58,7 @@
     display: flex;
     align-items: center;
     gap: 2px;
-    flex-wrap: wrap;
+    overflow: hidden;
     justify-content: center;
     padding: 4px 0;
   }
@@ -264,6 +264,8 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    overflow: hidden;
+    min-width: 0;
   }
 
   .logo-img {
@@ -1898,7 +1900,10 @@
   .whats-new-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 10px;
+    column-gap: 10px;
+    row-gap: 0;
+    grid-auto-rows: 0px;
+    overflow: hidden;
   }
   .wn-card {
     background: var(--bg3);
@@ -1969,6 +1974,21 @@
   .lib-featured-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: 0px;
+    overflow: hidden;
+  }
+  @media (max-width: 600px) {
+    .whats-new-cards {
+      grid-template-columns: 1fr;
+      grid-auto-rows: auto;
+      overflow: visible;
+      row-gap: 10px;
+    }
+    .lib-featured-cards {
+      grid-template-columns: 1fr;
+      grid-auto-rows: auto;
+      overflow: visible;
+    }
   }
 
   .lib-fc {
@@ -2605,9 +2625,9 @@
     <span>// ARSENAL DATABASE</span>
   </div>
   <nav class="header-nav">
-    <button class="header-nav-tab active" onclick="setSection('units')">Units</button>
-    <button class="header-nav-tab" onclick="setSection('library')">Force Library</button>
-    <button class="header-nav-tab" onclick="setSection('fieldmanual')">Field Manual</button>
+    <button class="header-nav-tab active" data-section="units" data-label="Units" onclick="setSection('units')">Units</button>
+    <button class="header-nav-tab" data-section="library" data-label="Force Library" onclick="setSection('library')">Force Library</button>
+    <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="setSection('fieldmanual')">Field Manual</button>
   </nav>
   <div class="header-right">
     <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
@@ -2885,12 +2905,37 @@ function setSection(name) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById(`section-${name}`).classList.add('active');
   document.querySelectorAll('.header-nav-tab').forEach(t => t.classList.remove('active'));
-  document.querySelector(`.header-nav-tab[onclick="setSection('${name}')"]`).classList.add('active');
+  document.querySelector(`.header-nav-tab[data-section="${name}"]`).classList.add('active');
   document.querySelectorAll('.units-only').forEach(el => {
     el.style.display = name === 'units' ? '' : 'none';
   });
   if (name === 'library') loadLibraryTab(currentLibTab || 'browse');
   if (name === 'fieldmanual') loadFieldManual();
+  updateNavLabels();
+}
+
+function updateNavLabels() {
+  const nav = document.querySelector('.header-nav');
+  if (!nav) return;
+  const tabs = [...nav.querySelectorAll('.header-nav-tab')];
+
+  // Restore all labels first
+  tabs.forEach(t => { t.textContent = t.dataset.label; });
+
+  // If nav overflows, truncate inactive tabs to '…' one by one until it fits
+  if (nav.scrollWidth > nav.clientWidth) {
+    const inactiveTabs = tabs.filter(t => !t.classList.contains('active'));
+    for (const t of inactiveTabs) {
+      t.textContent = '…';
+      if (nav.scrollWidth <= nav.clientWidth) return;
+    }
+  }
+
+  // If still overflowing, truncate the active tab too
+  if (nav.scrollWidth > nav.clientWidth) {
+    const activeTab = tabs.find(t => t.classList.contains('active'));
+    if (activeTab) activeTab.textContent = '…';
+  }
 }
 
 // ── LOAD DATA ─────────────────────────────────────────────────────────────────
@@ -2910,7 +2955,11 @@ async function loadData() {
 // ── FILTER CHIPS ──────────────────────────────────────────────────────────────
 function buildFilterChips() {
   const nations = [...new Set(allUnits.map(u => u.nation))].sort();
-  const types = [...new Set(allUnits.map(u => u.type))].sort();
+  // Use a fixed order; 'Gun Teams' is a meta-filter (not a real type in data)
+  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
+  const presentTypes = new Set(allUnits.map(u => u.type));
+  // Include all types present in data, plus 'Gun Teams' meta-filter
+  const types = typeOrder.filter(t => t === 'Gun Teams' || presentTypes.has(t));
   const theaters = [...new Set(allUnits.flatMap(u => u.theater))].sort();
 
   renderChips('nation-chips', nations, 'nations');
@@ -2957,7 +3006,14 @@ function applyFilters() {
   filteredUnits = allUnits.filter(u => {
     if (activeFilters.search && !u.name.toLowerCase().includes(activeFilters.search)) return false;
     if (activeFilters.nations.length && !activeFilters.nations.includes(u.nation)) return false;
-    if (activeFilters.types.length && !activeFilters.types.includes(u.type)) return false;
+    if (activeFilters.types.length) {
+      const GUN_TEAMS_TYPES = ['Artillery', 'Anti-Tank', 'Anti-Air'];
+      const hasGunTeams = activeFilters.types.includes('Gun Teams');
+      const otherTypes = activeFilters.types.filter(t => t !== 'Gun Teams');
+      const matchesDirect = otherTypes.includes(u.type);
+      const matchesGunTeams = hasGunTeams && GUN_TEAMS_TYPES.includes(u.type) && u.base !== 'Vehicle';
+      if (!matchesDirect && !matchesGunTeams) return false;
+    }
     if (activeFilters.theaters.length && !u.theater.some(t => activeFilters.theaters.includes(t))) return false;
     if (activeFilters.yearFrom && !u.years.some(y => y >= activeFilters.yearFrom)) return false;
     if (activeFilters.yearTo && !u.years.some(y => y <= activeFilters.yearTo)) return false;
@@ -3088,7 +3144,7 @@ function renderGrid(container, forceIds) {
   let cardIndex = 0;
 
   const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
-  const typeOrder = ['Infantry', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
+  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
 
   nationOrder.forEach(nation => {
     if (!byNation[nation]) return;
@@ -3215,7 +3271,7 @@ function renderTable(container, forceIds) {
       <tbody>
   `;
 
-  const typeOrder = ['Infantry', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
+  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
   const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
   const byNation = {};
   filteredUnits.forEach(u => {
@@ -4490,6 +4546,20 @@ if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 if (new URLSearchParams(window.location.search).get('preview') === 'true') {
   window.addEventListener('DOMContentLoaded', enterGuestMode);
 }
+
+// Nav label resize observer — truncate tabs to '…' when nav overflows
+(function () {
+  const nav = document.querySelector('.header-nav');
+  if (nav && typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(() => updateNavLabels()).observe(nav);
+  }
+  // Initial call after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateNavLabels);
+  } else {
+    updateNavLabels();
+  }
+})();
 
 firebase.auth().onAuthStateChanged(async (user) => {
   currentUser = user;

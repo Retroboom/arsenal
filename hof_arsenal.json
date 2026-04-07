@@ -388,7 +388,7 @@
       "lore": "The water-cooled M1917 and air-cooled M1919 HMGs provided battalion-level sustained fire support across every US theater of operations. Their belt-fed fire could maintain suppression for minutes at a time without overheating, making them indispensable for holding defensive lines and suppressing strongpoints during assaults. US infantry doctrine placed HMG platoons where they could deliver flanking or enfilading fire along the most likely enemy approach.",
       "name": "M1917/M1919 HMG",
       "nation": "United States",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Pacific",
@@ -427,7 +427,7 @@
       "lore": "The M2 60mm mortar was the infantryman's own artillery, carried at platoon level and fired in under a minute from set-up to first round. Light enough to follow any advance, it delivered smoke and HE rounds onto enemy positions just beyond grenade range — the dangerous gap where rifle fire lost accuracy and artillery was too slow to respond. In the Pacific, 60mm crews became experts at lobbing rounds into jungle clearings and over reverse slopes that no other weapon could reach.",
       "name": "M2 60mm Mortar",
       "nation": "United States",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Pacific",
@@ -467,7 +467,7 @@
       "lore": "The M1 81mm mortar provided company and battalion commanders immediate indirect fire without going through divisional artillery channels. Its 3kg shells were devastating against troops in the open, and smoke rounds gave infantry crucial concealment during river crossings and advances across open ground. Mortar platoons learned to displace after every fire mission — German counter-mortar radar made staying in one place a death sentence.",
       "name": "M1 81mm Mortar",
       "nation": "United States",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Pacific",
@@ -614,7 +614,7 @@
       "lore": "The pack howitzer M3 was designed for airborne and mountain units, breaking down into mule-portable loads that could follow troops into terrain heavier guns could never reach. Dropped with the 82nd and 101st Airborne in Normandy and Market Garden, it gave paratroopers organic artillery support during the critical hours before link-up with ground forces. Its 15kg shell lacked the power of full-sized howitzers but was perfectly adequate for the direct support of lightly equipped infantry.",
       "name": "M3 105mm Light Howitzer",
       "nation": "United States",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Pacific",
@@ -655,7 +655,7 @@
       "lore": "The M2A1 was the workhorse of US divisional artillery, equipping three 105mm battalions in each infantry division for continuous direct support. Time-on-target firing allowed multiple batteries to deliver simultaneous first rounds, catching enemy troops in the open with devastating effect before they could take cover. At the Battle of the Bulge, American artillerymen fired over a million rounds in a single month — a logistical feat that ground down German offensive power.",
       "name": "M2A1 105mm Howitzer",
       "nation": "United States",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Pacific",
@@ -698,7 +698,7 @@
       "lore": "The M1 155mm \"Long Tom\" gave corps artillery the weight to crack fortifications and interdict supply routes far behind German lines. At Monte Cassino and in the Siegfried Line, its 43kg shells reduced concrete emplacements that lighter guns could only scratch. Counter-battery missions were its specialty — German 88mm crews learned that a Long Tom battery could put rounds on their flash signature within minutes of opening fire.",
       "name": "M1 155mm Howitzer",
       "nation": "United States",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Pacific",
@@ -1904,7 +1904,7 @@
       "lore": "The MG34 and MG42 in the sustained-fire role, mounted on the Lafette 34 tripod, gave German battalions concentrated direct fire out to 2,000 meters with an optical sight. The MG42's 1,500 rounds-per-minute cyclic rate — nearly twice any Allied equivalent — created beaten zones that advancing infantry simply could not survive crossing. Allied soldiers were specifically trained to hit the dirt and crawl sideways when they heard the buzzsaw, not freeze and absorb the burst.",
       "name": "MG34/MG42 HMG",
       "nation": "Germany",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -1977,7 +1977,7 @@
       "lore": "The 8cm GrW34 was the standard German medium mortar, equipping mortar platoons at battalion level with a weapon capable of 25 rounds per minute in the hands of a skilled crew. Its combination of accuracy, portability, and rate of fire made it the most effective indirect fire weapon German infantry could call on at short notice. Allied troops crossing open ground within 1,500 meters of a German mortar platoon could expect to be hit within two minutes — a fact that shaped every Allied infantry attack.",
       "name": "8cm GW34 Mortar",
       "nation": "Germany",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -2018,7 +2018,7 @@
       "lore": "The 12cm sGW43 heavy mortar was developed after German engineers examined captured Soviet 120mm mortars in 1941 and recognized their superiority — the German copy outranged and outperformed all Allied medium mortars. Its 15kg bomb had a destructive radius capable of clearing a trench line, and a single battery could saturate a company defensive position in seconds. Allied soldiers who survived 12cm mortar bombardments described it as indistinguishable from light artillery.",
       "name": "12cm sGW43 Mortar",
       "nation": "Germany",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Eastern Front"
@@ -2053,7 +2053,7 @@
       "lore": "The 7.5cm leIG18 infantry gun gave German battalion commanders their own direct and indirect fire support asset, capable of firing HE, smoke, and hollow-charge anti-tank rounds without relying on divisional artillery. Compact enough to be horse-drawn or broken down for pack transport, it served on every German front from Poland to Berlin. In the infantry support role its low-trajectory direct fire could hit targets in dead ground that mortars couldn't reach, making it a genuinely versatile tool for the battalion commander.",
       "name": "7.5cm leIG18 Gun",
       "nation": "Germany",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -2093,7 +2093,7 @@
       "lore": "The 15cm sIG33 was the heaviest infantry gun fielded at battalion level in WWII, delivering 38kg shells onto field fortifications that lighter support weapons could only scratch. At Stalingrad and in every subsequent urban battle, sIG33 crews dragged their guns through rubble to engage Soviet strongpoints at direct fire range with devastating effect. Its crushing weight — over 1,800kg — made tactical movement a serious undertaking, limiting its use to situations where the infantry genuinely needed that weight of shell.",
       "name": "15cm sIG33 Gun",
       "nation": "Germany",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -2322,7 +2322,7 @@
       "lore": "The 7.5cm GebG36 mountain gun was designed for dismantling into pack loads for operations in the Alps, Balkans, and Norwegian mountains where wheeled artillery couldn't operate. Its lightweight construction and curved-fire capability made it valuable for German mountain divisions fighting in terrain that neutralized most conventional fire support. At the Narvik battles in 1940 and throughout the Italian campaign, GebG36 crews manhandled their guns to positions that gave them commanding fields of fire over approaches no tank could use.",
       "name": "7.5cm GebG36 Gun",
       "nation": "Germany",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Mediterranean"
       ],
@@ -2361,7 +2361,7 @@
       "lore": "The 10.5cm leFH18 was the standard German divisional artillery piece throughout the war, serving on every front from the Arctic to North Africa with a reputation for accuracy and reliability. Its 15kg shell was adequate for most fire support tasks against field fortifications and personnel in the open. By 1943 it was outranged by American and Soviet equivalents, which could engage German battery positions before the leFH18 could reply — a disadvantage that grew worse as the war progressed.",
       "name": "10.5cm leFH18 Gun",
       "nation": "Germany",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -2404,7 +2404,7 @@
       "lore": "The 15cm sFH18 provided corps-level heavy artillery support, firing a 43kg shell capable of destroying field fortifications at ranges up to 13km with a sustained rate of four rounds per minute. It served as the primary German heavy howitzer from the opening campaigns of 1939 through the final defense of Berlin in 1945. Counter-battery fire from Soviet and American heavy artillery progressively depleted sFH18 batteries from 1943 onward, but those that survived remained the most feared weapons in a German defensive line.",
       "name": "15cm sFH18 Gun",
       "nation": "Germany",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -2447,7 +2447,7 @@
       "lore": "The 15cm Nebelwerfer 41 fired a ripple of six spin-stabilized rockets with a distinctive wailing shriek that earned it the Allied nickname \"Moaning Minnie\" — a sound that veterans never forgot. Its rockets carried twice the explosive payload of equivalent artillery shells, and a battery of six launchers could saturate a football-field-sized target area in seconds before displacing before counter-battery fire arrived. The psychological effect on Allied infantry caught in a Nebelwerfer concentration was profound — the scream of incoming rockets gave no time to take cover.",
       "name": "15cm NW41 Rocket Launcher",
       "nation": "Germany",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Eastern Front"
@@ -3909,7 +3909,7 @@
       "lore": "The 2-inch mortar was the British platoon's organic indirect fire weapon, light enough for one man to carry and capable of dropping smoke or HE within 500 meters in under a minute. Smoke was its primary wartime use — covering section moves across open ground, masking withdrawals, and screening casualty recovery — though its HE round was effective against infantry in the open and light cover. Every British rifle platoon carried one, and their use of smoke to fix and flank German positions became a trademark of British infantry tactics from El Alamein to the Rhine.",
       "name": "ML 2\" Mortar",
       "nation": "Britain",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Mediterranean",
@@ -3946,7 +3946,7 @@
       "lore": "The Vickers machine gun entered British service in 1912 and was still a front-line weapon in 1945 — a testament to its extraordinary reliability and sustained-fire capability. Water-cooled and belt-fed, it could fire continuously for hours without overheating, allowing it to deliver the \"beaten zone\" fire plans that were a hallmark of British defensive tactics: pre-registered lines of fixed fire that would devastate any night attack regardless of visibility. Vickers companies were assigned at battalion level to provide the long-range suppressive fire that the Bren could not sustain, and their crews became masters of indirect fire over the sights.",
       "name": "Vickers HMG",
       "nation": "Britain",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Mediterranean",
@@ -3985,7 +3985,7 @@
       "lore": "The ML 3-inch mortar was the British battalion's workhorse indirect fire weapon, delivering 4.5lb bombs to 2,560 meters with a rate of fire up to fifteen rounds per minute in emergency. Mortar platoons were masters of smoke and illumination as well as HE, and the British Army's systematic use of mortar smoke to cover river crossings, road moves, and assault consolidation became a tactical signature that German commanders learned to dread. The 3-inch mortar's combination of portability, fire rate, and lethality made it arguably the most cost-effective infantry weapon in the British arsenal.",
       "name": "ML 3\" Mk II Mortar",
       "nation": "Britain",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Mediterranean",
@@ -4026,7 +4026,7 @@
       "lore": "The ML 4.2-inch mortar was a heavy infantry support weapon originally developed for chemical warfare that proved devastatingly effective with conventional HE and smoke rounds. Its 11-pound bomb at maximum range of 3,750 meters produced casualties comparable to a medium artillery shell, and the weapon's high angle of fire allowed it to drop rounds into trenches, gullies, and reverse slopes that flat-trajectory artillery couldn't reach. Medium Mortar batteries were kept at corps level and allocated to brigades for specific operations, making their appearance on the battlefield a sign that a serious deliberate attack was planned.",
       "name": "ML 4.2\" Mortar",
       "nation": "Britain",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -4247,7 +4247,7 @@
       "lore": "The American-designed M1A1 75mm Pack Howitzer was adopted by British and Commonwealth airborne and mountain units because it could be broken down into six mule loads or parachuted in containers — the only artillery piece that could accompany troops beyond road access. Commonwealth airborne units dropped theirs into Arnhem and Sicily, while Indian Army mountain batteries used them throughout the Burma campaign, hauling them along mountain tracks where wheeled vehicles could not go. Its modest range and shell weight were accepted compromises for the extraordinary portability that made it the only game in town for unsupported forces.",
       "name": "M1A1 75mm Pack Howitzer",
       "nation": "Britain",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Mediterranean",
         "Pacific"
@@ -4283,7 +4283,7 @@
       "lore": "The 25-pounder was arguably the best all-purpose field gun of the Second World War, combining a high-velocity anti-tank capability with excellent HE range and a well-designed box trail that allowed 360-degree traverse — critical for the fluid desert fighting it was designed for. Commonwealth gunners became masters of \"stonk\" fire plans — precisely timed concentrations from multiple batteries — and the 25-pounder's ability to shift from long-range bombardment to direct anti-tank engagement in seconds saved numerous positions when German armor broke through infantry lines. It served in every theater from 1940 to 1945 and remained in Commonwealth service well into the 1960s.",
       "name": "OQF 25 pdr Gun",
       "nation": "Britain",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -4322,7 +4322,7 @@
       "lore": "The BL 5.5-inch Medium Gun was the primary heavy field artillery piece of British and Commonwealth divisions from El Alamein onward, firing an 80-pound shell to 14,500 meters with devastating effect against fieldworks, gun positions, and formed troop concentrations. Medium Artillery Regiments equipped with the 5.5-inch were corps assets, allocated to support specific divisional operations and concentrated in \"AGRA\" (Army Group Royal Artillery) groupings that could mass fires from dozens of guns simultaneously. The 5.5-inch's combination of range, shell weight, and reliability made it the weapon of choice for the methodical British artillery fire plans that preceded every major offensive.",
       "name": "BL 5.5\" Gun",
       "nation": "Britain",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -5707,7 +5707,7 @@
       "lore": "The Maxim M1910 water-cooled heavy machine gun on its distinctive wheeled Sokolov mount was the Soviet infantry's primary crew-served firepower from the Finnish War through Berlin — a weapon design from 1884 still effective sixty years later. Its 7.62mm belt-fed fire could sustain a beaten zone continuously for hours, and Soviet machine-gun sections were famous for their methodical fire discipline, registering fixed lines during daylight and delivering them precisely during night attacks. The Sokolov mount's small wheels allowed it to be rolled forward during an advance, giving it better tactical mobility than the tripod-mounted HMGs of most other armies.",
       "name": "Maksim HMG",
       "nation": "Soviet Union",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Eastern Front"
       ],
@@ -5744,7 +5744,7 @@
       "lore": "The Soviet 82mm mortar was the standard indirect fire weapon at battalion level, produced in enormous quantities and organic to every rifle battalion as a six-gun battery. Soviet doctrine placed great emphasis on mortar fire, recognizing that it was the weapon most likely to be available when artillery was not, and mortar platoons were trained to deliver rapid concentrations on German machine-gun nests and anti-tank gun positions just before the assault platoon closed. The 82mm's ability to be broken down and carried by the crew across terrain that defeated wheeled transport made it the Soviet Army's true artillery substitute in the close battles for villages, forests, and river crossings.",
       "name": "82-BM-41 Mortar",
       "nation": "Soviet Union",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Eastern Front"
       ],
@@ -5780,7 +5780,7 @@
       "lore": "The Soviet 120mm heavy mortar was so effective that the Germans copied it directly after capturing examples in 1941, producing the Granatwerfer 42 from the same basic design. Its 16kg bomb could destroy a timber-roofed bunker with a direct hit and crater an anti-tank gun position from overhead — the high-angle fire reaching targets in dead ground that artillery couldn't reach. Soviet regimental mortar batteries with six 120mm weapons could neutralize a German company strongpoint in minutes, and the weapon's relatively simple construction allowed Soviet industry to produce them in vast quantities even during the catastrophic factory evacuations of 1941-42.",
       "name": "120-PM-38 Mortar",
       "nation": "Soviet Union",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Eastern Front"
       ],
@@ -5994,7 +5994,7 @@
       "lore": "The M-30 122mm howitzer was the standard Soviet divisional artillery piece, an outstanding design that remained in frontline service in some armies into the 21st century. Its 21.7kg shell could collapse a timber bunker, crater a road, or destroy a vehicle behind cover that flat-trajectory guns couldn't reach, and its 5,400-meter range let it reach deep into German defensive positions. Soviet artillery doctrine massed M-30s in concentrations of 200-300 guns per kilometer of breakthrough front, the density creating a rolling barrage that simply demolished everything in the assault lane — a technique perfected at Bagration in June 1944 that tore through German Army Group Centre in under a week.",
       "name": "122mm obr 1938 Howitzer",
       "nation": "Soviet Union",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Eastern Front"
       ],
@@ -6034,7 +6034,7 @@
       "lore": "The D-1 152mm howitzer was designed specifically to be lighter and more mobile than its predecessors while still firing the powerful 40kg shell that made the 152mm class so effective against German fortifications. Its breakthrough-fire capability — destroying concrete bunkers, demolishing buildings, and neutralizing dug-in 88mm positions — made it the weapon of choice for the methodical Soviet assault gun preparations before major offensive operations. Batteries of D-1s fired in the counter-battery role against German medium artillery before the main assault, then shifted to direct support as the attack went in, their heavy shells capable of defeating the field fortifications that 122mm fire could only suppress.",
       "name": "152mm obr 1943 Howitzer",
       "nation": "Soviet Union",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Eastern Front"
       ],
@@ -6407,7 +6407,7 @@
       "lore": "The SU-122 mounted the M-30 122mm howitzer on the T-34 chassis to create a powerful close-support weapon capable of demolishing fortifications and neutralizing anti-tank gun positions that the T-34's direct fire couldn't destroy. Its 21.7kg HE shell could devastate a building, collapse a trench, or destroy a light vehicle with a near miss, while its HEAT round could penetrate any German tank hull at close range — a function Soviet crews rarely relied on as the howitzer's slow reload was a liability in fast-moving tank combat. Used primarily in the direct-fire infantry support role, SU-122s gave Soviet combined-arms attacks an armoured battering ram for fixed defenses.",
       "name": "SU-122",
       "nation": "Soviet Union",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Eastern Front"
       ],
@@ -6442,7 +6442,7 @@
       "lore": "The SU-152 earned the nickname \"Zveroboy\" (Beast-Killer) at Kursk in July 1943, where its 152mm ML-20 gun demolished Tiger I and Elephant tank destroyers with a single HE round — not by penetrating their armour, but by physically tearing off turrets and bending hulls with the concussive force of a 43.5kg shell at close range. Designed as a heavy assault gun for fortified positions, it proved unexpectedly effective as a tank destroyer simply because no German armour could survive a direct hit from a weapon in its class. SU-152s served in independent heavy self-propelled artillery regiments attached to tank armies for breakthrough operations.",
       "name": "SU-152",
       "nation": "Soviet Union",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Eastern Front"
       ],
@@ -6478,7 +6478,7 @@
       "lore": "The ISU-122 mounted the 122mm D-25S gun — identical to the IS-2's armament — on the IS chassis, creating a dedicated tank destroyer with the firepower to defeat any German vehicle and the armour to survive defensive fire from most German guns. Soviet doctrine used ISU-122 regiments in the anti-armour role, deploying them in hull-down positions to engage German tanks at long range while IS-2s and T-34s conducted the assault. Unlike the earlier SU-122, the ISU-122's high-velocity gun was designed primarily as an anti-armour weapon rather than a howitzer, giving it flat-trajectory accuracy against specific targets at ranges over 1,500 meters.",
       "name": "ISU-122",
       "nation": "Soviet Union",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Eastern Front"
       ],
@@ -6513,7 +6513,7 @@
       "lore": "The ISU-152 was the successor to the SU-152, mounting the same 152mm ML-20 howitzer on the superior IS chassis to give it dramatically better armour protection — 90mm of sloped frontal plate versus the SU-152's 60mm — while retaining the devastating firepower that had earned the \"Beast-Killer\" reputation. ISU-152 regiments spearheaded the assault on every major German fortified city in the final campaigns: Königsberg, Breslau, Budapest, Vienna, and Berlin, where their heavy shells could demolish a building occupied by German infantry without exposing assault troops to the direct fire that defended street corners and windows.",
       "name": "ISU-152",
       "nation": "Soviet Union",
-      "type": "Gun Teams",
+      "type": "Artillery",
       "theater": [
         "Eastern Front"
       ],
