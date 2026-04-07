@@ -849,6 +849,161 @@
   .table-add-btn.added:hover { border-color: var(--red); color: #ff9a9a; }
 
   /* FORCE BUILDER PANEL */
+  /* UNIT DETAIL PANEL */
+  .unit-detail-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.72);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+  }
+  .unit-detail-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .unit-detail-panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    width: min(580px, 94vw);
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 28px 32px 24px;
+    position: relative;
+    transform: translateY(14px);
+    transition: transform 0.15s;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.8);
+  }
+  .unit-detail-overlay.open .unit-detail-panel {
+    transform: translateY(0);
+  }
+  .udp-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: var(--text3);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 4px 8px;
+    opacity: 0.6;
+    transition: opacity 0.1s;
+    line-height: 1;
+  }
+  .udp-close:hover { opacity: 1; }
+  .udp-header {
+    margin-bottom: 16px;
+    padding-right: 32px;
+  }
+  .udp-name {
+    font-family: var(--display);
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .udp-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .udp-lore {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--text2);
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    border-left: 2px solid var(--accent);
+    background: rgba(224,192,96,0.04);
+    font-style: italic;
+  }
+  .udp-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 16px 0;
+  }
+  .udp-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .udp-stat {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 10px 6px 8px;
+    text-align: center;
+  }
+  .udp-stat-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--text3);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .udp-stat-value {
+    font-family: var(--mono);
+    font-size: 16px;
+    color: var(--text);
+    font-weight: 600;
+  }
+  .udp-stat-value.null-val { color: var(--text3); font-size: 13px; }
+  .udp-stat-value.armor { font-size: 14px; }
+  .udp-armament {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+  .udp-notes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 20px;
+    min-height: 4px;
+  }
+  .udp-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 16px;
+  }
+  .udp-footer {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .udp-add-btn {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 8px 18px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+  }
+  .udp-add-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .udp-add-btn.primary { border-color: var(--green); color: var(--green); }
+  .udp-add-btn.primary:hover { background: var(--green); color: var(--bg); }
+
   .force-panel {
     position: fixed;
     top: 80px;
@@ -2451,7 +2606,7 @@
   </div>
   <nav class="header-nav">
     <button class="header-nav-tab active" onclick="setSection('units')">Units</button>
-    <button class="header-nav-tab" onclick="setSection('library')">Library</button>
+    <button class="header-nav-tab" onclick="setSection('library')">Force Library</button>
     <button class="header-nav-tab" onclick="setSection('fieldmanual')">Field Manual</button>
   </nav>
   <div class="header-right">
@@ -2581,6 +2736,23 @@
     <span class="fm-result-count" id="fm-result-count"></span>
   </div>
   <div class="fm-grid" id="fm-grid"></div>
+</div>
+
+<!-- UNIT DETAIL PANEL -->
+<div class="unit-detail-overlay" id="unit-detail-overlay" onclick="closeUnitDetail()">
+  <div class="unit-detail-panel" onclick="event.stopPropagation()">
+    <button class="udp-close" onclick="closeUnitDetail()">✕</button>
+    <div class="udp-header">
+      <div class="udp-name" id="udp-name"></div>
+      <div class="udp-badges" id="udp-badges"></div>
+    </div>
+    <div class="udp-lore" id="udp-lore"></div>
+    <div class="udp-stats-grid" id="udp-stats"></div>
+    <div class="udp-armament" id="udp-armament"></div>
+    <div class="udp-notes" id="udp-notes"></div>
+    <div class="udp-meta" id="udp-meta"></div>
+    <div class="udp-footer" id="udp-footer"></div>
+  </div>
 </div>
 
 <!-- FORCE BUILDER PANEL -->
@@ -2958,7 +3130,7 @@ function renderGrid(container, forceIds) {
       cardIndex++;
 
       html += `
-        <div class="unit-card ${inForce ? 'in-force' : ''} ${locked ? 'locked' : ''} ${nc}" id="card-${unit.id}" style="animation-delay:${delay}s">
+        <div class="unit-card ${inForce ? 'in-force' : ''} ${locked ? 'locked' : ''} ${nc}" id="card-${unit.id}" style="animation-delay:${delay}s;cursor:pointer" onclick="openUnitDetail('${unit.id}')">
           ${locked ? '<div class="lock-overlay">🔒</div>' : ''}
           <div class="card-header">
             <div class="unit-name">${unit.name}</div>
@@ -3003,10 +3175,10 @@ function renderGrid(container, forceIds) {
               ${isAdmin ? ratingBadgeHtml(unit.id) : ''}
             </span>
             ${locked
-              ? `<button class="add-force-btn" onclick="showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Ko-fi subscriber only</button>`
+              ? `<button class="add-force-btn" onclick="event.stopPropagation();showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Ko-fi subscriber only</button>`
               : `<div class="card-footer-btns">
-                  ${unit.standard_platoon ? `<button class="add-platoon-standard-btn" onclick="addAsStandardPlatoon('${unit.id}')">New Platoon</button>` : ''}
-                  <button class="add-force-btn" id="btn-${unit.id}" onclick="addTeamToPlatoon('${unit.id}')">
+                  ${unit.standard_platoon ? `<button class="add-platoon-standard-btn" onclick="event.stopPropagation();addAsStandardPlatoon('${unit.id}')">New Platoon</button>` : ''}
+                  <button class="add-force-btn" id="btn-${unit.id}" onclick="event.stopPropagation();addTeamToPlatoon('${unit.id}')">
                     Add to Platoon
                   </button>
                 </div>`
@@ -3619,6 +3791,84 @@ function timeAgoShort(ts) {
   if (s < 86400 * 7) return `${Math.floor(s / 86400)}d ago`;
   if (s < 86400 * 30) return `${Math.floor(s / (86400 * 7))}w ago`;
   return `${Math.floor(s / (86400 * 30))}mo ago`;
+}
+
+// ── UNIT DETAIL PANEL ─────────────────────────────────────────────────────────
+function openUnitDetail(unitId) {
+  const unit = allUnits.find(u => u.id === unitId);
+  if (!unit) return;
+
+  const locked = !unit.free && !isSubscriber;
+
+  // Name
+  document.getElementById('udp-name').textContent = unit.name;
+
+  // Badges
+  const yearStr = yearRange(unit.years);
+  document.getElementById('udp-badges').innerHTML = `
+    <span class="${nationBadgeClass(unit.nation)}">${unit.nation}</span>
+    <span class="type-badge" style="font-size:10px;letter-spacing:1px">${unit.type}</span>
+    <span class="type-badge" style="font-size:10px">${unit.base || 'Medium'} Base</span>
+  `;
+
+  // Lore
+  const loreEl = document.getElementById('udp-lore');
+  if (unit.lore) {
+    loreEl.textContent = unit.lore;
+    loreEl.style.display = '';
+  } else {
+    loreEl.style.display = 'none';
+  }
+
+  // Stats
+  function udpStat(label, val) {
+    const display = val !== null && val !== undefined
+      ? `<span class="udp-stat-value">${val}</span>`
+      : `<span class="udp-stat-value null-val">—</span>`;
+    return `<div class="udp-stat"><span class="udp-stat-label">${label}</span>${display}</div>`;
+  }
+  const armorDisplay = unit.armor_front !== null
+    ? `<span class="udp-stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`
+    : `<span class="udp-stat-value null-val">—</span>`;
+  document.getElementById('udp-stats').innerHTML =
+    udpStat('Range', unit.gun_range) +
+    udpStat('RoF', unit.rof) +
+    udpStat('AT', unit.at) +
+    udpStat('FP', unit.fp) +
+    `<div class="udp-stat"><span class="udp-stat-label">Armor</span>${armorDisplay}</div>`;
+
+  // Armament
+  const armEl = document.getElementById('udp-armament');
+  armEl.textContent = unit.armament || '';
+  armEl.style.display = unit.armament ? '' : 'none';
+
+  // Notes
+  document.getElementById('udp-notes').innerHTML = (unit.notes || []).map(n => noteTag(n)).join('');
+
+  // Meta
+  document.getElementById('udp-meta').innerHTML = `
+    <span>${yearStr}</span>
+    ${unit.theater && unit.theater.length ? `<span>${unit.theater.join(' · ')}</span>` : ''}
+  `;
+
+  // Footer buttons
+  if (locked) {
+    document.getElementById('udp-footer').innerHTML =
+      `<button class="udp-add-btn" onclick="showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Ko-fi subscriber only</button>`;
+  } else {
+    document.getElementById('udp-footer').innerHTML = `
+      ${unit.standard_platoon ? `<button class="udp-add-btn" onclick="addAsStandardPlatoon('${unit.id}');closeUnitDetail()">＋ New Platoon</button>` : ''}
+      <button class="udp-add-btn primary" onclick="addTeamToPlatoon('${unit.id}');closeUnitDetail()">＋ Add to Platoon</button>
+    `;
+  }
+
+  document.getElementById('unit-detail-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeUnitDetail() {
+  document.getElementById('unit-detail-overlay').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 // ── FIELD MANUAL ──────────────────────────────────────────────────────────────
