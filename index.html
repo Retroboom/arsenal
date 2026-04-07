@@ -46,10 +46,79 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 16px;
     height: 56px;
     position: sticky;
     top: 0;
     z-index: 100;
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
+    justify-content: center;
+  }
+  .header-nav-tab {
+    padding: 6px 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text3);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: color 0.12s, border-color 0.12s;
+    white-space: nowrap;
+  }
+  .header-nav-tab:hover { color: var(--text); }
+  .header-nav-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* Section containers */
+  .section { display: none; }
+  .section.active { display: contents; }
+
+  #section-library.active,
+  #section-guides.active,
+  #section-scenarios.active,
+  #section-campaign.active {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 56px);
+    padding: 32px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .lib-section-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+  .lib-section-search { margin-bottom: 16px; }
+
+  .section-stub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 12px;
+    opacity: 0.35;
+    padding: 80px 0;
+  }
+  .section-stub-title {
+    font-family: var(--display);
+    font-size: 32px;
+    letter-spacing: 6px;
+    color: var(--text);
+  }
+  .section-stub-sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text3);
   }
 
   .logo {
@@ -2159,10 +2228,16 @@
     <img src="logo.png" alt="Hail of Fire" class="logo-img">
     <span>// ARSENAL DATABASE</span>
   </div>
+  <nav class="header-nav">
+    <button class="header-nav-tab active" onclick="setSection('units')">Units</button>
+    <button class="header-nav-tab" onclick="setSection('library')">Library</button>
+    <button class="header-nav-tab" onclick="setSection('guides')">Guides</button>
+    <button class="header-nav-tab" onclick="setSection('scenarios')">Scenarios</button>
+    <button class="header-nav-tab" onclick="setSection('campaign')">Campaign</button>
+  </nav>
   <div class="header-right">
-    <button class="lib-nav-btn" onclick="openLibrary()">⊞ Force Library</button>
-    <button class="lib-nav-btn" id="rate-btn" onclick="openCompare()" style="display:none">▲ Rate Teams</button>
-    <button class="force-toggle-btn" onclick="toggleForcePanel()">
+    <button class="lib-nav-btn units-only" id="rate-btn" onclick="openCompare()" style="display:none">▲ Rate Teams</button>
+    <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
       Force Builder <span class="force-count-badge" id="force-count">0</span>
     </button>
     <div id="auth-area">
@@ -2184,6 +2259,7 @@
   </div>
 </div>
 
+<div class="section active" id="section-units">
 <div class="app">
   <aside class="sidebar">
     <div class="filter-section">
@@ -2240,6 +2316,44 @@
     </div>
     <div id="unit-display"></div>
   </main>
+</div>
+</div><!-- end #section-units -->
+
+<!-- LIBRARY SECTION -->
+<div class="section" id="section-library">
+  <div class="lib-section-tabs">
+    <button class="library-tab active" id="tab-browse" onclick="switchLibTab('browse')">Browse</button>
+    <button class="library-tab" id="tab-mine" onclick="switchLibTab('mine')">My Forces</button>
+  </div>
+  <div class="lib-search-bar lib-section-search">
+    <input type="text" id="lib-search" class="lib-search-input" placeholder="Search forces…" oninput="applyLibFilters()">
+    <span id="lib-result-count" class="lib-result-count"></span>
+  </div>
+  <div id="library-body" class="library-body"></div>
+</div>
+
+<!-- GUIDES SECTION -->
+<div class="section" id="section-guides">
+  <div class="section-stub">
+    <div class="section-stub-title">GUIDES</div>
+    <div class="section-stub-sub">Tactics, list-building, and painting guides — coming soon</div>
+  </div>
+</div>
+
+<!-- SCENARIOS SECTION -->
+<div class="section" id="section-scenarios">
+  <div class="section-stub">
+    <div class="section-stub-title">SCENARIOS</div>
+    <div class="section-stub-sub">Mission cards and historical scenarios — coming soon</div>
+  </div>
+</div>
+
+<!-- CAMPAIGN SECTION -->
+<div class="section" id="section-campaign">
+  <div class="section-stub">
+    <div class="section-stub-title">CAMPAIGN</div>
+    <div class="section-stub-sub">Campaign tools and progression — coming soon</div>
+  </div>
 </div>
 
 <!-- FORCE BUILDER PANEL -->
@@ -2365,6 +2479,19 @@ let activeFilters = {
 // Subscriber state — driven by Firebase Auth + Realtime Database check
 let isSubscriber = false;
 let currentUser = null;
+let currentSection = 'units';
+
+function setSection(name) {
+  currentSection = name;
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(`section-${name}`).classList.add('active');
+  document.querySelectorAll('.header-nav-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.header-nav-tab[onclick="setSection('${name}')"]`).classList.add('active');
+  document.querySelectorAll('.units-only').forEach(el => {
+    el.style.display = name === 'units' ? '' : 'none';
+  });
+  if (name === 'library') loadLibraryTab(currentLibTab || 'browse');
+}
 
 // ── LOAD DATA ─────────────────────────────────────────────────────────────────
 async function loadData() {
@@ -3093,8 +3220,7 @@ function copyShareUrl() {
 }
 
 function openLibrary() {
-  document.getElementById('library-modal').classList.add('open');
-  loadLibraryTab(currentLibTab);
+  setSection('library');
 }
 
 function closeLibrary() {
