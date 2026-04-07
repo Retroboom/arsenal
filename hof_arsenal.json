@@ -376,7 +376,7 @@
       "id": "us-gun-hmg",
       "name": "M1917/M1919 HMG",
       "nation": "United States",
-      "type": "Infantry",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Pacific",
@@ -414,7 +414,7 @@
       "id": "us-gun-60mm-mortar",
       "name": "M2 60mm Mortar",
       "nation": "United States",
-      "type": "Infantry",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Pacific",
@@ -1851,7 +1851,7 @@
       "id": "de-gun-hmg",
       "name": "MG34/MG42 HMG",
       "nation": "Germany",
-      "type": "Infantry",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -1922,7 +1922,7 @@
       "id": "de-gun-8cm-mortar",
       "name": "8cm GW34 Mortar",
       "nation": "Germany",
-      "type": "Infantry",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -3802,7 +3802,7 @@
       "id": "br-inf-2in-mortar",
       "name": "ML 2\" Mortar",
       "nation": "Britain",
-      "type": "Infantry",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Mediterranean",
@@ -3838,7 +3838,7 @@
       "id": "br-gun-vickers",
       "name": "Vickers HMG",
       "nation": "Britain",
-      "type": "Infantry",
+      "type": "Artillery",
       "theater": [
         "Western Front",
         "Mediterranean",
@@ -5551,7 +5551,7 @@
       "id": "sv-gun-maksim",
       "name": "Maksim HMG",
       "nation": "Soviet Union",
-      "type": "Infantry",
+      "type": "Artillery",
       "theater": [
         "Eastern Front"
       ],
