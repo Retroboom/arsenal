@@ -57,20 +57,16 @@
   }
 
   .logo {
-    font-family: var(--display);
-    font-size: 22px;
-    letter-spacing: 3px;
-    color: var(--accent);
-    text-transform: uppercase;
-    text-shadow: 0 0 24px rgba(224,192,96,0.3);
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
-  .logo-emblem {
-    font-size: 16px;
-    margin-right: 8px;
-    opacity: 0.7;
-    vertical-align: middle;
-    text-shadow: none;
+  .logo-img {
+    height: 36px;
+    width: auto;
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 8px rgba(224,192,96,0.25));
   }
 
   .logo span {
@@ -78,9 +74,8 @@
     font-size: 11px;
     font-family: var(--mono);
     letter-spacing: 3px;
-    margin-left: 12px;
-    vertical-align: middle;
-    opacity: 0.7;
+    opacity: 0.6;
+    white-space: nowrap;
   }
 
   .header-right {
@@ -2127,7 +2122,10 @@
 <body>
 
 <header>
-  <div class="logo"><span class="logo-emblem">◈</span>Hail of Fire <span>// ARSENAL DATABASE</span></div>
+  <div class="logo">
+    <img src="../../assets/logo.png" alt="Hail of Fire" class="logo-img">
+    <span>// ARSENAL DATABASE</span>
+  </div>
   <div class="header-right">
     <button class="lib-nav-btn" onclick="openLibrary()">⊞ Force Library</button>
     <button class="lib-nav-btn" id="rate-btn" onclick="openCompare()" style="display:none">▲ Rate Teams</button>
