@@ -376,7 +376,7 @@
       "id": "us-gun-hmg",
       "name": "M1917/M1919 HMG",
       "nation": "United States",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Pacific",
@@ -414,7 +414,7 @@
       "id": "us-gun-60mm-mortar",
       "name": "M2 60mm Mortar",
       "nation": "United States",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Pacific",
@@ -453,7 +453,7 @@
       "id": "us-gun-81mm-mortar",
       "name": "M1 81mm Mortar",
       "nation": "United States",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Pacific",
@@ -596,7 +596,7 @@
       "id": "us-gun-105mm-light",
       "name": "M3 105mm Light Howitzer",
       "nation": "United States",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Pacific",
@@ -636,7 +636,7 @@
       "id": "us-gun-105mm-howitzer",
       "name": "M2A1 105mm Howitzer",
       "nation": "United States",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Pacific",
@@ -678,7 +678,7 @@
       "id": "us-gun-155mm-howitzer",
       "name": "M1 155mm Howitzer",
       "nation": "United States",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Pacific",
@@ -1324,7 +1324,7 @@
       "id": "us-spg-m8-scott",
       "name": "M8 Scott HMC",
       "nation": "United States",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -1361,7 +1361,7 @@
       "id": "us-spg-105mm-sherman",
       "name": "105mm Sherman",
       "nation": "United States",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -1573,7 +1573,7 @@
       "id": "us-spa-m7-priest",
       "name": "M7 Priest HMC",
       "nation": "United States",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -1612,7 +1612,7 @@
       "id": "us-spa-m12",
       "name": "M12 155mm GMC",
       "nation": "United States",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front"
       ],
@@ -1647,7 +1647,7 @@
       "id": "us-spa-m4-81mm",
       "name": "M4 81mm MMC",
       "nation": "United States",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -1851,7 +1851,7 @@
       "id": "de-gun-hmg",
       "name": "MG34/MG42 HMG",
       "nation": "Germany",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -1922,7 +1922,7 @@
       "id": "de-gun-8cm-mortar",
       "name": "8cm GW34 Mortar",
       "nation": "Germany",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -1962,7 +1962,7 @@
       "id": "de-gun-12cm-mortar",
       "name": "12cm sGW43 Mortar",
       "nation": "Germany",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Eastern Front"
@@ -1996,7 +1996,7 @@
       "id": "de-gun-75mm-leig",
       "name": "7.5cm leIG18 Gun",
       "nation": "Germany",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -2035,7 +2035,7 @@
       "id": "de-gun-150mm-sig",
       "name": "15cm sIG33 Gun",
       "nation": "Germany",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -2258,7 +2258,7 @@
       "id": "de-gun-75mm-gebg36",
       "name": "7.5cm GebG36 Gun",
       "nation": "Germany",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Mediterranean"
       ],
@@ -2296,7 +2296,7 @@
       "id": "de-gun-105mm-lefh18",
       "name": "10.5cm leFH18 Gun",
       "nation": "Germany",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -2338,7 +2338,7 @@
       "id": "de-gun-150mm-sfh18",
       "name": "15cm sFH18 Gun",
       "nation": "Germany",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -2380,7 +2380,7 @@
       "id": "de-gun-nw41-rocket",
       "name": "15cm NW41 Rocket Launcher",
       "nation": "Germany",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Eastern Front"
@@ -2937,7 +2937,7 @@
       "id": "de-spa-sdkfz251-8cm",
       "name": "Sd Kfz 251/2C (8cm)",
       "nation": "Germany",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Eastern Front"
@@ -2976,7 +2976,7 @@
       "id": "de-spa-sdkfz251-75cm",
       "name": "Sd Kfz 251/9 (7.5cm)",
       "nation": "Germany",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Eastern Front"
@@ -3012,7 +3012,7 @@
       "id": "de-spa-grille",
       "name": "Grille (15cm sIG)",
       "nation": "Germany",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Eastern Front"
@@ -3049,7 +3049,7 @@
       "id": "de-spa-wespe",
       "name": "Wespe",
       "nation": "Germany",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Eastern Front"
@@ -3087,7 +3087,7 @@
       "id": "de-spa-hummel",
       "name": "Hummel",
       "nation": "Germany",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Eastern Front"
@@ -3125,7 +3125,7 @@
       "id": "de-spa-panzerwerfer",
       "name": "Panzerwerfer 42",
       "nation": "Germany",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Eastern Front"
@@ -3802,7 +3802,7 @@
       "id": "br-inf-2in-mortar",
       "name": "ML 2\" Mortar",
       "nation": "Britain",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Mediterranean",
@@ -3838,7 +3838,7 @@
       "id": "br-gun-vickers",
       "name": "Vickers HMG",
       "nation": "Britain",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Mediterranean",
@@ -3876,7 +3876,7 @@
       "id": "br-gun-3in-mortar",
       "name": "ML 3\" Mk II Mortar",
       "nation": "Britain",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Mediterranean",
@@ -3916,7 +3916,7 @@
       "id": "br-gun-42in-mortar",
       "name": "ML 4.2\" Mortar",
       "nation": "Britain",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -4131,7 +4131,7 @@
       "id": "br-gun-75mm-pack",
       "name": "M1A1 75mm Pack Howitzer",
       "nation": "Britain",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Mediterranean",
         "Pacific"
@@ -4166,7 +4166,7 @@
       "id": "br-gun-25pdr",
       "name": "OQF 25 pdr Gun",
       "nation": "Britain",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -4204,7 +4204,7 @@
       "id": "br-gun-55in",
       "name": "BL 5.5\" Gun",
       "nation": "Britain",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -4649,7 +4649,7 @@
       "id": "br-spa-sexton",
       "name": "Sexton",
       "nation": "Britain",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -4685,7 +4685,7 @@
       "id": "br-spa-priest",
       "name": "Priest",
       "nation": "Britain",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -5551,7 +5551,7 @@
       "id": "sv-gun-maksim",
       "name": "Maksim HMG",
       "nation": "Soviet Union",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Eastern Front"
       ],
@@ -5587,7 +5587,7 @@
       "id": "sv-gun-82mm-mortar",
       "name": "82-BM-41 Mortar",
       "nation": "Soviet Union",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Eastern Front"
       ],
@@ -5622,7 +5622,7 @@
       "id": "sv-gun-120mm-mortar",
       "name": "120-PM-38 Mortar",
       "nation": "Soviet Union",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Eastern Front"
       ],
@@ -5830,7 +5830,7 @@
       "id": "sv-gun-122mm-howitzer",
       "name": "122mm obr 1938 Howitzer",
       "nation": "Soviet Union",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Eastern Front"
       ],
@@ -5869,7 +5869,7 @@
       "id": "sv-gun-152mm-howitzer",
       "name": "152mm obr 1943 Howitzer",
       "nation": "Soviet Union",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Eastern Front"
       ],
@@ -6231,7 +6231,7 @@
       "id": "sv-spg-su122",
       "name": "SU-122",
       "nation": "Soviet Union",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Eastern Front"
       ],
@@ -6265,7 +6265,7 @@
       "id": "sv-spg-su152",
       "name": "SU-152",
       "nation": "Soviet Union",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Eastern Front"
       ],
@@ -6300,7 +6300,7 @@
       "id": "sv-spg-isu122",
       "name": "ISU-122",
       "nation": "Soviet Union",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Eastern Front"
       ],
@@ -6334,7 +6334,7 @@
       "id": "sv-spg-isu152",
       "name": "ISU-152",
       "nation": "Soviet Union",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Eastern Front"
       ],
@@ -6368,7 +6368,7 @@
       "id": "sv-spa-katyusha",
       "name": "BM-13 Katyusha",
       "nation": "Soviet Union",
-      "type": "Artillery",
+      "type": "Gun Teams",
       "theater": [
         "Eastern Front"
       ],
