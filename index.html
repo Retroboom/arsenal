@@ -479,6 +479,11 @@
   .main {
     padding: 24px;
     overflow-y: auto;
+    transition: padding-right 0.25s ease;
+  }
+
+  body.panel-open .main {
+    padding-right: 384px; /* 360px panel + 24px original right padding */
   }
 
   /* VIEW TOGGLE */
@@ -1242,9 +1247,46 @@
 
   .platoon-remove-btn:hover { color: var(--red); }
 
+  .platoon-collapse-btn {
+    background: none;
+    border: none;
+    color: var(--text3);
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    font-size: 11px;
+    line-height: 1;
+    transition: transform 0.2s ease, color 0.12s;
+  }
+  .platoon-collapse-btn:hover { color: var(--text); }
+  .platoon-item.is-collapsed .platoon-collapse-btn { transform: rotate(-90deg); }
+
+  .platoon-dupe-btn {
+    background: none;
+    border: none;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 13px;
+    padding: 0 2px;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: color 0.12s;
+  }
+  .platoon-dupe-btn:hover { color: var(--accent); }
+
   .platoon-teams {
     padding: 6px 8px;
     min-height: 28px;
+    overflow: hidden;
+    max-height: 800px;
+    transition: max-height 0.2s ease, padding 0.2s ease, min-height 0.2s ease;
+  }
+
+  .platoon-teams.is-collapsed {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    min-height: 0;
   }
 
   .platoon-team-row {
@@ -1844,13 +1886,13 @@
 
   .force-notes-input {
     width: 100%;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-top: none;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
     color: var(--text2);
     font-family: var(--body);
     font-size: 12px;
-    padding: 8px 10px;
+    padding: 6px 2px;
     outline: none;
     resize: none;
     line-height: 1.5;
@@ -1858,7 +1900,7 @@
     transition: border-color 0.15s;
   }
 
-  .force-notes-input:focus { border-color: var(--accent); }
+  .force-notes-input:focus { border-bottom-color: var(--accent); }
   .force-notes-input::placeholder { color: var(--text3); font-style: italic; }
 
   .force-notes-label {
@@ -1867,10 +1909,7 @@
     letter-spacing: 1px;
     color: var(--text3);
     text-transform: uppercase;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-bottom: none;
-    padding: 4px 10px;
+    padding: 4px 2px 2px;
     display: block;
   }
 
@@ -2942,6 +2981,7 @@ let filteredUnits = [];
 let platoons = [];
 let activePlatoonId = null;
 let platoonCounter = 0;
+const collapsedPlatoons = new Set();
 let currentView = 'grid';
 let activeFilters = {
   search: '',
@@ -3488,7 +3528,7 @@ function addAsStandardPlatoon(unitId) {
   renderUnits();
 
   // Open force panel if not already open
-  document.getElementById('force-panel').classList.add('open');
+  setForcePanel(true);
 }
 
 function addTeamToPlatoon(unitId) {
@@ -3533,8 +3573,37 @@ function updatePlatoonName(id, name) {
   if (platoon) platoon.name = name;
 }
 
+function togglePlatoonCollapse(id) {
+  if (collapsedPlatoons.has(id)) {
+    collapsedPlatoons.delete(id);
+  } else {
+    collapsedPlatoons.add(id);
+  }
+  updateForceUI();
+}
+
+function duplicatePlatoon(id) {
+  const src = platoons.find(p => p.id === id);
+  if (!src) return;
+  platoonCounter++;
+  const newId = `pl-${platoonCounter}`;
+  platoons.splice(
+    platoons.findIndex(p => p.id === id) + 1,
+    0,
+    { id: newId, name: src.name + ' (Copy)', teams: src.teams.map(t => ({ ...t })) }
+  );
+  activePlatoonId = newId;
+  updateForceUI();
+  renderUnits();
+}
+
+function setForcePanel(open) {
+  document.getElementById('force-panel').classList.toggle('open', open);
+  document.body.classList.toggle('panel-open', open);
+}
+
 function toggleForcePanel() {
-  document.getElementById('force-panel').classList.toggle('open');
+  setForcePanel(!document.getElementById('force-panel').classList.contains('open'));
 }
 
 function getAllForceUnitIds() {
@@ -3579,9 +3648,11 @@ function updateForceUI() {
           `;
         }).join('')
 
+    const isCollapsed = collapsedPlatoons.has(platoon.id);
     return `
-      <div class="platoon-item ${isActive ? 'active-platoon' : ''}" id="platoon-${platoon.id}">
+      <div class="platoon-item ${isActive ? 'active-platoon' : ''} ${isCollapsed ? 'is-collapsed' : ''}" id="platoon-${platoon.id}">
         <div class="platoon-header">
+          <button class="platoon-collapse-btn" onclick="togglePlatoonCollapse('${platoon.id}')" data-tip="${isCollapsed ? 'Expand' : 'Collapse'}">▾</button>
           <div class="platoon-active-dot"></div>
           <input class="platoon-name-input" id="pname-${platoon.id}"
             value="${platoon.name}"
@@ -3590,9 +3661,10 @@ function updateForceUI() {
           <button class="platoon-select-btn" onclick="setActivePlatoon('${platoon.id}')">
             ${isActive ? 'Active' : 'Select'}
           </button>
+          <button class="platoon-dupe-btn" onclick="duplicatePlatoon('${platoon.id}')" data-tip="Duplicate platoon">⧉</button>
           <button class="platoon-remove-btn" onclick="removePlatoon('${platoon.id}')">✕</button>
         </div>
-        <div class="platoon-teams">${teamRows}</div>
+        <div class="platoon-teams ${isCollapsed ? 'is-collapsed' : ''}">${teamRows}</div>
       </div>
     `;
   }).join('');
@@ -3604,6 +3676,7 @@ function clearForce() {
     platoons = [];
     activePlatoonId = null;
     platoonCounter = 0;
+    collapsedPlatoons.clear();
     updateForceUI();
     renderUnits();
   }
@@ -3688,6 +3761,7 @@ function getForceData() {
 }
 
 function loadForceData(data) {
+  collapsedPlatoons.clear();
   function toArr(val) {
     if (!val) return [];
     if (Array.isArray(val)) return val;
@@ -4212,7 +4286,7 @@ async function loadForceFromLibrary(forceId) {
   loadForceData(data);
   currentForceId = forceId;
   closeLibrary();
-  document.getElementById('force-panel').classList.add('open');
+  setForcePanel(true);
 }
 
 function copyForceShareUrl(forceId) {
@@ -4241,7 +4315,7 @@ async function checkUrlForce() {
   if (data) {
     loadForceData(data);
     currentForceId = forceId;
-    document.getElementById('force-panel').classList.add('open');
+    setForcePanel(true);
   }
 }
 
