@@ -32,6 +32,10 @@
 
   body {
     background: var(--bg);
+    background-image:
+      linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+    background-size: 24px 24px;
     color: var(--text);
     font-family: var(--body);
     min-height: 100vh;
@@ -58,15 +62,25 @@
     letter-spacing: 3px;
     color: var(--accent);
     text-transform: uppercase;
+    text-shadow: 0 0 24px rgba(224,192,96,0.3);
+  }
+
+  .logo-emblem {
+    font-size: 16px;
+    margin-right: 8px;
+    opacity: 0.7;
+    vertical-align: middle;
+    text-shadow: none;
   }
 
   .logo span {
     color: var(--text3);
-    font-size: 13px;
+    font-size: 11px;
     font-family: var(--mono);
-    letter-spacing: 1px;
-    margin-left: 10px;
+    letter-spacing: 3px;
+    margin-left: 12px;
     vertical-align: middle;
+    opacity: 0.7;
   }
 
   .header-right {
@@ -285,17 +299,42 @@
 
   /* UNIT CARD */
   .unit-card {
-    background: var(--bg2);
+    background: linear-gradient(175deg, var(--bg3) 0%, var(--bg2) 60%);
     border: 1px solid var(--border);
     padding: 14px 16px;
     cursor: pointer;
-    transition: border-color 0.12s, background 0.12s;
+    transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
     position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 2px 6px rgba(0,0,0,0.45);
+    opacity: 0;
+    animation: fadeUp 0.22s ease forwards;
   }
 
-  .unit-card:hover { border-color: var(--accent); background: var(--bg3); }
-  .unit-card.in-force { border-color: var(--green); background: #1a2220; }
+  .unit-card:hover {
+    border-color: var(--accent);
+    background: linear-gradient(175deg, #2e2c28 0%, var(--bg3) 60%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 12px rgba(0,0,0,0.5);
+  }
+  .unit-card.in-force { border-color: var(--green); background: linear-gradient(175deg, #1e2a22 0%, #141e18 60%); }
   .unit-card.in-force:hover { border-color: #6a9c7a; }
+
+  /* Nation watermarks */
+  .unit-card::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 4px;
+    font-size: 88px;
+    line-height: 1;
+    font-family: var(--display);
+    pointer-events: none;
+    user-select: none;
+  }
+  .unit-card.nc-us::after      { content: '★'; color: #4a7aac; opacity: 0.07; }
+  .unit-card.nc-germany::after { content: '✕'; color: #9a8a4a; opacity: 0.08; }
+  .unit-card.nc-britain::after { content: '✦'; color: #4a8a4a; opacity: 0.08; }
+  .unit-card.nc-soviet::after  { content: '★'; color: #ac4a4a; opacity: 0.08; }
 
   .card-header {
     display: flex;
@@ -351,20 +390,20 @@
   }
 
   .stat-cell {
-    background: var(--bg3);
+    background: var(--bg);
     border: 1px solid var(--border);
-    padding: 5px 4px;
+    padding: 6px 4px;
     text-align: center;
   }
 
   .stat-label {
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 9px;
     color: var(--text3);
     letter-spacing: 1px;
     text-transform: uppercase;
     display: block;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
   }
 
   .stat-value {
@@ -545,10 +584,13 @@
     text-align: left;
     padding: 8px 10px;
     border-bottom: 1px solid var(--border);
-    background: var(--bg2);
+    background: rgba(15,14,12,0.92);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     position: sticky;
     top: 0;
     white-space: nowrap;
+    z-index: 2;
   }
 
   .unit-table td {
@@ -559,6 +601,7 @@
     font-size: 11px;
   }
 
+  .unit-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
   .unit-table tr:hover td { background: var(--bg3); }
   .unit-table tr.in-force td { background: #1a2220; }
 
@@ -694,8 +737,9 @@
   .platoon-item {
     border: 1px solid var(--border);
     margin-bottom: 8px;
-    background: var(--bg);
+    background: linear-gradient(175deg, var(--bg3) 0%, var(--bg2) 100%);
     transition: border-color 0.12s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
   }
 
   .platoon-item.active-platoon {
@@ -909,11 +953,14 @@
   /* EMPTY STATE */
   .empty-state {
     text-align: center;
-    padding: 60px 24px;
-    color: var(--text3);
+    padding: 80px 24px;
+    color: var(--text2);
     font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 1px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    animation: fadeUp 0.3s ease forwards;
   }
 
   /* SUBSCRIBER NOTICE */
@@ -1175,12 +1222,16 @@
     border: 1px solid var(--border);
     padding: 14px 16px;
     margin-bottom: 10px;
-    background: var(--bg);
+    background: linear-gradient(175deg, var(--bg3) 0%, var(--bg2) 60%);
     cursor: pointer;
-    transition: border-color 0.12s;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 2px 6px rgba(0,0,0,0.4);
   }
 
-  .force-card:hover { border-color: var(--accent); }
+  .force-card:hover {
+    border-color: var(--accent);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 12px rgba(0,0,0,0.5);
+  }
 
   .force-card-header {
     display: flex;
@@ -1192,7 +1243,7 @@
 
   .force-card-name {
     font-family: var(--display);
-    font-size: 18px;
+    font-size: 20px;
     letter-spacing: 1px;
     color: var(--text);
   }
@@ -1501,7 +1552,7 @@
 
   .force-card-platoon-row {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     letter-spacing: 0.3px;
     display: flex;
@@ -1510,8 +1561,9 @@
   }
 
   .force-card-platoon-row .pl-num {
-    font-size: 8px;
-    color: var(--border);
+    font-size: 9px;
+    color: var(--accent);
+    opacity: 0.5;
     flex-shrink: 0;
     letter-spacing: 1px;
   }
@@ -1680,11 +1732,13 @@
 
   .compare-vs {
     font-family: var(--display);
-    font-size: 36px;
-    color: var(--text3);
-    letter-spacing: 4px;
+    font-size: 56px;
+    color: var(--accent);
+    letter-spacing: 6px;
     flex-shrink: 0;
     user-select: none;
+    text-shadow: 0 0 24px rgba(224,192,96,0.35), 0 0 48px rgba(224,192,96,0.12);
+    animation: pulse 2s ease-in-out infinite;
   }
 
   .compare-footer {
@@ -2057,12 +2111,23 @@
     .note-tag[data-tip]::after,
     .note-tag[data-tip]::before { display: none !important; content: none !important; }
   }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; text-shadow: 0 0 24px rgba(224,192,96,0.35), 0 0 48px rgba(224,192,96,0.12); }
+    50%       { opacity: 0.75; text-shadow: 0 0 12px rgba(224,192,96,0.2), 0 0 24px rgba(224,192,96,0.06); }
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">Hail of Fire <span>// ARSENAL DATABASE</span></div>
+  <div class="logo"><span class="logo-emblem">◈</span>Hail of Fire <span>// ARSENAL DATABASE</span></div>
   <div class="header-right">
     <button class="lib-nav-btn" onclick="openLibrary()">⊞ Force Library</button>
     <button class="lib-nav-btn" id="rate-btn" onclick="openCompare()" style="display:none">▲ Rate Teams</button>
@@ -2156,9 +2221,9 @@
   <div class="quality-bar">
     <span class="quality-label">Quality</span>
     <div class="quality-chips">
-      <button class="quality-chip q-elite"   onclick="setForceQuality('Elite')"  >Elite</button>
-      <button class="quality-chip q-regular active" onclick="setForceQuality('Regular')">Regular</button>
-      <button class="quality-chip q-poor"    onclick="setForceQuality('Poor')"  >Poor</button>
+      <button class="quality-chip q-elite"   onclick="setForceQuality('Elite')"  >★ Elite</button>
+      <button class="quality-chip q-regular active" onclick="setForceQuality('Regular')">● Regular</button>
+      <button class="quality-chip q-poor"    onclick="setForceQuality('Poor')"  >▼ Poor</button>
     </div>
   </div>
   <div class="force-notes-area">
@@ -2361,7 +2426,11 @@ function renderUnits() {
   const forceIds = getAllForceUnitIds();
 
   if (filteredUnits.length === 0) {
-    container.innerHTML = '<div class="empty-state">No units match your filters.</div>';
+    container.innerHTML = `<div class="empty-state">
+      <div style="font-size:28px;margin-bottom:12px;opacity:0.4">⊠</div>
+      <div style="letter-spacing:2px;margin-bottom:6px">NO TEAMS MATCH CURRENT FILTERS</div>
+      <div style="font-size:10px;letter-spacing:0.5px;color:var(--text3);margin-top:4px">Adjust filters or clear to show all available teams</div>
+    </div>`;
     return;
   }
 
@@ -2459,6 +2528,7 @@ function renderGrid(container, forceIds) {
 
   const hasMultipleNations = Object.keys(byNation).length > 1;
   let html = '<div class="unit-grid">';
+  let cardIndex = 0;
 
   const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
 
@@ -2478,9 +2548,11 @@ function renderGrid(container, forceIds) {
       const inForce = forceIds.has(unit.id);
       const locked = !unit.free && !isSubscriber;
       const nc = nationClass(unit.nation);
+      const delay = (Math.min(cardIndex, 20) * 0.025).toFixed(3);
+      cardIndex++;
 
       html += `
-        <div class="unit-card ${inForce ? 'in-force' : ''} ${locked ? 'locked' : ''}" id="card-${unit.id}">
+        <div class="unit-card ${inForce ? 'in-force' : ''} ${locked ? 'locked' : ''} ${nc}" id="card-${unit.id}" style="animation-delay:${delay}s">
           ${locked ? '<div class="lock-overlay">🔒</div>' : ''}
           <div class="card-header">
             <div class="unit-name">${unit.name}</div>
@@ -3090,7 +3162,7 @@ function renderLibForces(body, forces) {
     const platoonRows = platoonArr.map((p, i) => {
       const teamCount = toArr(p.teams).reduce((s, t) => s + (t.qty || 1), 0);
       return `<div class="force-card-platoon-row">
-        <span class="pl-num">${String(i+1).padStart(2,'0')}</span>
+        <span class="pl-num">▸</span>
         <span class="pl-name">${p.name || `Platoon ${i+1}`}</span>
         <span class="pl-teams">${teamCount} teams</span>
       </div>`;
