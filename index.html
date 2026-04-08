@@ -45,11 +45,16 @@
     border-bottom: 1px solid var(--border);
     padding: 0 24px;
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    flex-direction: column;
     position: sticky;
     top: 0;
     z-index: 100;
+  }
+
+  .header-row1 {
+    display: flex;
+    align-items: center;
+    height: 80px;
   }
 
   .logo {
@@ -62,15 +67,15 @@
     flex: 1 0 auto;
     display: flex;
     align-items: center;
-  }
-
-  .header-end.is-wrapped {
     padding-bottom: 4px;
   }
 
   .header-right {
     flex: 0 0 auto;
-    align-self: center;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
   }
 
   .header-nav {
@@ -78,7 +83,7 @@
     display: flex;
     align-items: center;
     gap: 2px;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 0;
   }
   .header-nav-tab {
@@ -2761,9 +2766,16 @@
 <body>
 
 <header>
-  <div class="logo" onclick="showHomeView()" style="cursor:pointer" title="Home">
-    <img src="logo.png" alt="Hail of Fire" class="logo-img">
-    <span><span class="logo-slashes">//</span><span class="logo-word">ARSENAL</span></span>
+  <div class="header-row1">
+    <div class="logo" onclick="showHomeView()" style="cursor:pointer" title="Home">
+      <img src="logo.png" alt="Hail of Fire" class="logo-img">
+      <span><span class="logo-slashes">//</span><span class="logo-word">ARSENAL</span></span>
+    </div>
+    <div class="header-right">
+      <div id="auth-area">
+        <button class="auth-btn" onclick="signIn()">Sign In</button>
+      </div>
+    </div>
   </div>
   <div class="header-end" id="header-end">
     <nav class="header-nav">
@@ -2771,14 +2783,9 @@
       <button class="header-nav-tab" data-section="library" data-label="Force Library" onclick="setSection('library')">Force Library</button>
       <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="setSection('fieldmanual')">Field Manual</button>
     </nav>
-    <div class="header-right">
-      <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
-        Force Builder <span class="force-count-badge" id="force-count">0</span>
-      </button>
-      <div id="auth-area">
-        <button class="auth-btn" onclick="signIn()">Sign In</button>
-      </div>
-    </div>
+    <button class="force-toggle-btn units-only" style="margin-left:auto" onclick="toggleForcePanel()">
+      Force Builder <span class="force-count-badge" id="force-count">0</span>
+    </button>
   </div>
 </header>
 
@@ -4101,6 +4108,7 @@ async function loadFeaturedStrip() {
   }).join('');
 
   strip.style.display = '';
+  checkFeaturedGrids();
 }
 
 let whatsNewDismissed = false;
@@ -4164,6 +4172,26 @@ async function loadWhatsNew() {
   }).join('');
 
   container.style.display = '';
+  checkFeaturedGrids();
+}
+
+function checkFeaturedGrids() {
+  ['whats-new-cards', 'lib-featured-cards'].forEach(id => {
+    const grid = document.getElementById(id);
+    if (!grid) return;
+    const items = Array.from(grid.children);
+    if (items.length === 0) return;
+    // Reset to CSS-driven columns so we can measure natural column count
+    grid.style.gridTemplateColumns = '';
+    // Use rAF so browser has laid out the reset first
+    requestAnimationFrame(() => {
+      const firstTop = items[0].getBoundingClientRect().top;
+      const cols = items.filter(el => Math.abs(el.getBoundingClientRect().top - firstTop) < 2).length;
+      if (cols > 1 && items.length % cols === 1) {
+        grid.style.gridTemplateColumns = '1fr';
+      }
+    });
+  });
 }
 
 function dismissWhatsNew() {
@@ -4904,17 +4932,16 @@ if (new URLSearchParams(window.location.search).get('preview') === 'true') {
 // ── HEADER RESIZE OBSERVER ────────────────────────────────────────────────────
 // Updates --header-h and toggles is-wrapped on header-end as the header reflowss
 (function () {
-  const headerEl   = document.querySelector('header');
-  const headerEnd  = document.getElementById('header-end');
-  const logoEl     = headerEl.querySelector('.logo');
+  const headerEl = document.querySelector('header');
   function update() {
     document.documentElement.style.setProperty('--header-h', headerEl.offsetHeight + 'px');
-    // Wrapped = header grew taller than a single logo row (more reliable than offsetTop compare)
-    const wrapped = headerEl.offsetHeight > logoEl.offsetHeight + 4;
-    headerEnd.classList.toggle('is-wrapped', wrapped);
   }
   new ResizeObserver(update).observe(headerEl);
   update();
+})();
+
+(function () {
+  new ResizeObserver(() => checkFeaturedGrids()).observe(document.documentElement);
 })();
 
 // ── GLOBAL TOOLTIP ────────────────────────────────────────────────────────────
