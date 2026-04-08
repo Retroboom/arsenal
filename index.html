@@ -45,18 +45,15 @@
     border-bottom: 1px solid var(--border);
     padding: 0 24px;
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    flex-direction: column;
     position: sticky;
     top: 0;
     z-index: 100;
   }
 
-  .header-left {
-    flex: 0 0 auto;
+  .header-row1 {
     display: flex;
     align-items: center;
-    gap: 8px;
     height: 80px;
   }
 
@@ -75,13 +72,34 @@
     height: 80px;
   }
 
+  .header-end {
+    display: flex;
+    align-items: center;
+    padding-bottom: 4px;
+  }
+
   .header-nav {
     flex: 0 0 auto;
     display: flex;
     align-items: center;
     gap: 2px;
     justify-content: flex-start;
-    padding: 0 0 4px;
+    padding: 0;
+  }
+
+  /* Single-row layout at wide viewports */
+  @media (min-width: 1100px) {
+    header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      grid-template-rows: 80px;
+      align-items: center;
+      padding-bottom: 0;
+    }
+    .header-row1 { display: contents; }
+    .logo { grid-column: 1; align-self: center; }
+    .header-right { grid-column: 3; height: auto; margin-left: 0; align-self: center; }
+    .header-end { grid-column: 2; height: 80px; padding-bottom: 4px; align-self: center; }
   }
   .header-nav-tab {
     padding: 6px 14px;
@@ -2739,22 +2757,24 @@
 <body>
 
 <header>
-  <div class="header-left">
+  <div class="header-row1">
     <div class="logo" onclick="showHomeView()" style="cursor:pointer" title="Home">
       <img src="logo.png" alt="Hail of Fire" class="logo-img">
       <span><span class="logo-slashes">//</span><span class="logo-word">ARSENAL</span></span>
     </div>
+    <div class="header-right">
+      <div id="auth-area">
+        <button class="auth-btn" onclick="signIn()">Sign In</button>
+      </div>
+    </div>
+  </div>
+  <div class="header-end">
     <nav class="header-nav">
       <button class="header-nav-tab active" data-section="units" data-label="Units" onclick="setSection('units')">Units</button>
       <button class="header-nav-tab" data-section="library" data-label="Force Library" onclick="setSection('library')">Force Library</button>
       <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="setSection('fieldmanual')">Field Manual</button>
     </nav>
-  </div>
-  <div class="header-right">
-    <div id="auth-area">
-      <button class="auth-btn" onclick="signIn()">Sign In</button>
-    </div>
-    <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
+    <button class="force-toggle-btn units-only" style="margin-left:auto" onclick="toggleForcePanel()">
       Force Builder <span class="force-count-badge" id="force-count">0</span>
     </button>
   </div>
