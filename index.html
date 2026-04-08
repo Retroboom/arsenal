@@ -79,8 +79,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
     padding-bottom: 6px;
+  }
+
+  .header-nav-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
   }
 
   .header-nav {
@@ -2007,8 +2012,14 @@
   .whats-new-dismiss:hover { opacity: 1; }
   .whats-new-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 8px;
+  }
+  @media (max-width: 700px) {
+    .whats-new-cards { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 420px) {
+    .whats-new-cards { grid-template-columns: 1fr; }
   }
   .wn-card {
     background: var(--bg3);
@@ -2078,7 +2089,13 @@
 
   .lib-featured-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media (max-width: 700px) {
+    .lib-featured-cards { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 420px) {
+    .lib-featured-cards { grid-template-columns: 1fr; }
   }
 
   .lib-fc {
@@ -2755,14 +2772,16 @@
     </div>
   </div>
   <div class="header-end">
-    <nav class="header-nav">
-      <button class="header-nav-tab active" data-section="units" data-label="Units" onclick="setSection('units')">Units</button>
-      <button class="header-nav-tab" data-section="library" data-label="Force Library" onclick="setSection('library')">Force Library</button>
-      <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="setSection('fieldmanual')">Field Manual</button>
-    </nav>
-    <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
-      Force Builder <span class="force-count-badge" id="force-count">0</span>
-    </button>
+    <div class="header-nav-group">
+      <nav class="header-nav">
+        <button class="header-nav-tab active" data-section="units" data-label="Units" onclick="setSection('units')">Units</button>
+        <button class="header-nav-tab" data-section="library" data-label="Force Library" onclick="setSection('library')">Force Library</button>
+        <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="setSection('fieldmanual')">Field Manual</button>
+      </nav>
+      <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
+        Force Builder <span class="force-count-badge" id="force-count">0</span>
+      </button>
+    </div>
   </div>
 </header>
 
