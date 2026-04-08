@@ -69,7 +69,6 @@
     align-items: center;
     gap: 16px;
     margin-left: auto;
-    height: 80px;
   }
 
   .header-end {
@@ -83,23 +82,6 @@
     display: flex;
     align-items: center;
     gap: 2px;
-    justify-content: flex-start;
-    padding: 0;
-  }
-
-  /* Single-row layout at wide viewports */
-  @media (min-width: 1100px) {
-    header {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      grid-template-rows: 80px;
-      align-items: center;
-      padding-bottom: 0;
-    }
-    .header-row1 { display: contents; }
-    .logo { grid-column: 1; align-self: center; }
-    .header-right { grid-column: 3; height: auto; margin-left: 0; align-self: center; }
-    .header-end { grid-column: 2; height: 80px; padding-bottom: 4px; align-self: center; }
   }
   .header-nav-tab {
     padding: 6px 14px;
@@ -2020,8 +2002,7 @@
   .whats-new-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    column-gap: 10px;
-    row-gap: 8px;
+    gap: 8px;
   }
   .wn-card {
     background: var(--bg3);
@@ -2092,7 +2073,6 @@
   .lib-featured-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    row-gap: 0;
   }
 
   .lib-fc {
@@ -4099,7 +4079,6 @@ async function loadFeaturedStrip() {
   }).join('');
 
   strip.style.display = '';
-  checkFeaturedGrids();
 }
 
 let whatsNewDismissed = false;
@@ -4163,23 +4142,8 @@ async function loadWhatsNew() {
   }).join('');
 
   container.style.display = '';
-  checkFeaturedGrids();
 }
 
-function checkFeaturedGrids() {
-  [
-    { id: 'whats-new-cards',    minW: 220 },
-    { id: 'lib-featured-cards', minW: 200 }
-  ].forEach(({ id, minW }) => {
-    const grid = document.getElementById(id);
-    if (!grid) return;
-    const count = grid.children.length;
-    if (count === 0) { grid.style.gridTemplateColumns = ''; return; }
-    const containerW = grid.offsetWidth || (grid.parentElement ? grid.parentElement.clientWidth : 0);
-    const cols = Math.max(1, Math.floor(containerW / minW));
-    grid.style.gridTemplateColumns = (cols > 1 && count % cols === 1) ? '1fr' : '';
-  });
-}
 
 function dismissWhatsNew() {
   whatsNewDismissed = true;
@@ -4927,7 +4891,6 @@ if (new URLSearchParams(window.location.search).get('preview') === 'true') {
   update();
 })();
 
-window.addEventListener('resize', checkFeaturedGrids);
 
 // ── GLOBAL TOOLTIP ────────────────────────────────────────────────────────────
 // Uses position:fixed so it escapes overflow:auto scroll containers (e.g. force panel)
