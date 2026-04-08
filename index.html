@@ -68,13 +68,6 @@
     padding-bottom: 4px;
   }
 
-  .header-auth {
-    flex: 0 0 auto;
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-  }
-
   .header-right {
     flex: 0 0 auto;
     align-self: center;
@@ -2782,11 +2775,9 @@
       <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
         Force Builder <span class="force-count-badge" id="force-count">0</span>
       </button>
-    </div>
-  </div>
-  <div class="header-auth" id="header-auth">
-    <div id="auth-area">
-      <button class="auth-btn" onclick="signIn()">Sign In</button>
+      <div id="auth-area">
+        <button class="auth-btn" onclick="signIn()">Sign In</button>
+      </div>
     </div>
   </div>
 </header>
