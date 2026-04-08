@@ -8,175 +8,79 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
   :root {
-    --bg: #0f0e0c;
-    --bg2: #1a1916;
-    --bg3: #242220;
-    --border: #333028;
-    --accent: #e0c060;
-    --text: #f5f0e0;
-    --text2: #d0c8b0;
-    --text3: #b0a490;
-    --mono: 'Share Tech Mono', monospace;
-    --body: 'Barlow', sans-serif;
+    --bg: #0f0e0c; --bg2: #1a1916; --bg3: #242220;
+    --border: #333028; --accent: #e0c060;
+    --text: #f5f0e0; --text2: #d0c8b0; --text3: #b0a490;
+    --mono: 'Share Tech Mono', monospace; --body: 'Barlow', sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--body);
-    padding: 40px 32px;
-    max-width: 860px;
-    margin: 0 auto;
-  }
-  h1 {
-    font-family: var(--mono);
-    font-size: 16px;
-    letter-spacing: 3px;
-    color: var(--accent);
-    margin-bottom: 32px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-    text-transform: uppercase;
-  }
-  .section { margin-bottom: 28px; }
-  .section-label {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 2px;
-    color: var(--text3);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
+  body { background: var(--bg); color: var(--text); font-family: var(--body); padding: 32px; max-width: 920px; margin: 0 auto; }
+
+  h1 { font-family: var(--mono); font-size: 15px; letter-spacing: 3px; color: var(--accent); margin-bottom: 28px; padding-bottom: 14px; border-bottom: 1px solid var(--border); text-transform: uppercase; }
+  h2 { font-family: var(--mono); font-size: 9px; letter-spacing: 2px; color: var(--text3); text-transform: uppercase; margin-bottom: 10px; }
+
+  .section { margin-bottom: 24px; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
   .field { display: flex; flex-direction: column; gap: 4px; }
   .field.full { grid-column: 1 / -1; }
   .field.wide { grid-column: span 2; }
-  label {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 1px;
-    color: var(--text3);
-    text-transform: uppercase;
-  }
+
+  label { font-family: var(--mono); font-size: 9px; letter-spacing: 1px; color: var(--text3); text-transform: uppercase; }
   input[type=text], input[type=number], select, textarea {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: var(--mono);
-    font-size: 12px;
-    padding: 6px 8px;
-    outline: none;
-    width: 100%;
-    transition: border-color 0.12s;
+    background: var(--bg3); border: 1px solid var(--border); color: var(--text);
+    font-family: var(--mono); font-size: 12px; padding: 6px 8px; outline: none; width: 100%; transition: border-color 0.12s;
   }
   input:focus, select:focus, textarea:focus { border-color: var(--accent); }
-  textarea { resize: vertical; min-height: 56px; line-height: 1.5; }
+  textarea { resize: vertical; min-height: 52px; line-height: 1.5; }
   .cb-group { display: flex; gap: 14px; flex-wrap: wrap; padding-top: 2px; }
-  .cb-label {
-    display: flex; align-items: center; gap: 5px;
-    font-family: var(--mono); font-size: 11px; color: var(--text2); cursor: pointer;
-  }
+  .cb-label { display: flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 11px; color: var(--text2); cursor: pointer; }
   input[type=checkbox] { width: 13px; height: 13px; accent-color: var(--accent); cursor: pointer; }
 
-  /* Weapons */
-  .weapon-block {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    padding: 12px;
-    margin-bottom: 8px;
-  }
-  .weapon-header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 10px;
-  }
-  .weapon-label { font-family: var(--mono); font-size: 9px; letter-spacing: 1px; color: var(--text3); }
-  .weapon-grid {
-    display: grid;
-    grid-template-columns: 2fr 80px 60px 60px 80px;
-    gap: 8px;
-    align-items: end;
-  }
-  .weapon-extras {
-    display: flex; gap: 14px; flex-wrap: wrap;
-    margin-top: 8px; padding-top: 8px;
-    border-top: 1px solid var(--border);
-  }
-
   /* Buttons */
-  button {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--text2);
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 1px;
-    padding: 6px 14px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: border-color 0.12s, color 0.12s;
-  }
+  button { background: none; border: 1px solid var(--border); color: var(--text2); font-family: var(--mono); font-size: 10px; letter-spacing: 1px; padding: 6px 14px; cursor: pointer; text-transform: uppercase; transition: border-color 0.12s, color 0.12s; }
   button:hover { border-color: var(--accent); color: var(--accent); }
-  .btn-remove { border-color: #3a2020; color: #806050; font-size: 9px; padding: 3px 8px; }
-  .btn-remove:hover { border-color: #a04545; color: #c06060; }
-  .btn-copy { font-size: 9px; padding: 4px 12px; }
-  .btn-clear { font-size: 9px; padding: 4px 12px; border-color: #3a2020; color: #806050; }
-  .btn-clear:hover { border-color: #a04545; color: #c06060; }
+  .btn-accent { border-color: var(--accent); color: var(--accent); }
+  .btn-accent:hover { background: rgba(224,192,96,0.1); }
+  .btn-danger { border-color: #3a2020; color: #806050; }
+  .btn-danger:hover { border-color: #a04545; color: #c06060; }
+  .btn-sm { font-size: 9px; padding: 3px 9px; }
 
-  /* Output */
-  .output-bar {
-    display: flex; align-items: center; gap: 12px;
-    margin-bottom: 10px;
-  }
-  .quality-badge {
-    font-family: var(--mono); font-size: 10px; letter-spacing: 1px;
-    padding: 3px 10px; border: 1px solid var(--border); color: var(--text3);
-  }
-  .quality-badge.elite { border-color: #c0a030; color: #e0c060; }
-  .quality-badge.poor  { border-color: #5a2020; color: #a06060; }
-  pre {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    padding: 16px;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: #9adb9a;
-    overflow-x: auto;
-    white-space: pre-wrap;
-    line-height: 1.7;
-  }
-  .divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
-
-  /* PDF upload */
-  .pdf-upload-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-  .file-label {
-    display: inline-block;
-    background: none;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 1px;
-    padding: 6px 14px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: background 0.12s;
-  }
-  .file-label:hover { background: rgba(224,192,96,0.08); }
+  /* PDF section */
   input[type=file] { display: none; }
+  .file-label { display: inline-block; border: 1px solid var(--accent); color: var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: 1px; padding: 6px 14px; cursor: pointer; text-transform: uppercase; }
+  .file-label:hover { background: rgba(224,192,96,0.08); }
   .pdf-status { font-family: var(--mono); font-size: 10px; color: var(--text3); }
-  .pdf-text-panel { margin-top: 12px; }
-  .pdf-text-header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 6px;
+
+  /* Detected units list */
+  .detected-list { display: flex; flex-direction: column; gap: 4px; max-height: 240px; overflow-y: auto; margin-top: 10px; }
+  .detected-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 10px; background: var(--bg2); border: 1px solid var(--border);
+    cursor: pointer; transition: border-color 0.12s;
   }
-  .btn-autodetect {
-    font-size: 9px; padding: 4px 12px;
-    border-color: var(--accent); color: var(--accent);
-  }
-  .btn-autodetect:hover { background: rgba(224,192,96,0.1); }
-  textarea#pdf-text {
-    font-size: 10px; color: var(--text3); line-height: 1.5; height: 160px;
-  }
+  .detected-item:hover { border-color: var(--accent); }
+  .detected-item.loaded { border-color: var(--accent); background: rgba(224,192,96,0.05); }
+  .detected-name { font-family: var(--mono); font-size: 11px; color: var(--text); }
+  .detected-meta { font-family: var(--mono); font-size: 9px; color: var(--text3); }
+
+  /* Weapons */
+  .weapon-block { background: var(--bg2); border: 1px solid var(--border); padding: 10px; margin-bottom: 6px; }
+  .weapon-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .weapon-label { font-family: var(--mono); font-size: 9px; color: var(--text3); }
+  .weapon-grid { display: grid; grid-template-columns: 2fr 72px 56px 56px 72px; gap: 6px; align-items: end; }
+  .weapon-extras { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+
+  /* Queue */
+  .queue-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+  .queue-count { font-family: var(--mono); font-size: 11px; color: var(--accent); }
+  .queue-list { display: flex; flex-direction: column; gap: 3px; margin-bottom: 12px; max-height: 200px; overflow-y: auto; }
+  .queue-item { display: flex; align-items: center; justify-content: space-between; padding: 5px 10px; background: var(--bg2); border: 1px solid var(--border); font-family: var(--mono); font-size: 10px; color: var(--text2); }
+  .queue-item-name { flex: 1; }
+  .queue-item-meta { color: var(--text3); font-size: 9px; margin: 0 12px; }
+
+  pre { background: var(--bg2); border: 1px solid var(--border); padding: 14px; font-family: var(--mono); font-size: 10px; color: #9adb9a; overflow-x: auto; white-space: pre-wrap; line-height: 1.6; max-height: 400px; overflow-y: auto; }
 </style>
 </head>
 <body>
@@ -185,34 +89,33 @@
 
 <!-- PDF UPLOAD -->
 <div class="section">
-  <div class="section-label">PDF Source</div>
-  <div class="pdf-upload-row">
+  <h2>PDF Source</h2>
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
     <label class="file-label" for="pdf-upload">Upload FoW PDF</label>
     <input type="file" id="pdf-upload" accept=".pdf" onchange="loadPDF(this)">
     <span class="pdf-status" id="pdf-status"></span>
   </div>
-  <div class="pdf-text-panel" id="pdf-text-panel" style="display:none">
-    <div class="pdf-text-header">
-      <span class="section-label" style="margin:0">Extracted Text</span>
-      <button class="btn-autodetect" onclick="autoDetect()">↺ Re-detect Stats</button>
+  <div id="detected-panel" style="display:none;margin-top:14px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+      <h2 style="margin:0">Detected Units — <span id="detected-count">0</span> found · click to load</h2>
+      <button class="btn-sm" onclick="document.getElementById('pdf-raw-panel').style.display = document.getElementById('pdf-raw-panel').style.display==='none'?'block':'none'">Show Raw Text</button>
     </div>
-    <textarea id="pdf-text" readonly placeholder="Extracted PDF text will appear here…"></textarea>
+    <div class="detected-list" id="detected-list"></div>
+    <div id="pdf-raw-panel" style="display:none;margin-top:8px">
+      <textarea id="pdf-text" readonly rows="6" style="font-size:10px;color:var(--text3);line-height:1.5"></textarea>
+    </div>
   </div>
 </div>
 
 <hr class="divider">
 
-<!-- UNIT INFO -->
+<!-- BATCH DEFAULTS -->
 <div class="section">
-  <div class="section-label">Unit Info</div>
+  <h2>Batch Defaults — set once per section, applied to every unit</h2>
   <div class="grid">
-    <div class="field wide">
-      <label>Name</label>
-      <input type="text" id="u-name" oninput="update()" placeholder="e.g. Rifle Platoon">
-    </div>
     <div class="field">
       <label>Nation</label>
-      <select id="u-nation" onchange="update()">
+      <select id="b-nation" onchange="update()">
         <option>United States</option>
         <option>Germany</option>
         <option>Britain</option>
@@ -222,6 +125,54 @@
         <option>Italy</option>
         <option>Japan</option>
       </select>
+    </div>
+    <div class="field">
+      <label>FoW Quality</label>
+      <select id="b-quality" onchange="update()">
+        <option value="Fearless Veteran">Fearless Veteran → Elite</option>
+        <option value="Confident Veteran" selected>Confident Veteran → Regular</option>
+        <option value="Fearless Trained">Fearless Trained → Regular</option>
+        <option value="Confident Trained">Confident Trained → Regular</option>
+        <option value="Reluctant Veteran">Reluctant Veteran → Regular</option>
+        <option value="Confident Conscript">Confident Conscript → Regular</option>
+        <option value="Reluctant Conscript">Reluctant Conscript → Poor</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Year From</label>
+      <input type="number" id="b-year-from" value="1939" min="1939" max="1945" oninput="update()">
+    </div>
+    <div class="field">
+      <label>Year To</label>
+      <input type="number" id="b-year-to" value="1945" min="1939" max="1945" oninput="update()">
+    </div>
+    <div class="field full">
+      <label>Theater</label>
+      <div class="cb-group">
+        <label class="cb-label"><input type="checkbox" class="theater-cb" value="Western Front" onchange="update()"> Western Front</label>
+        <label class="cb-label"><input type="checkbox" class="theater-cb" value="Eastern Front" onchange="update()"> Eastern Front</label>
+        <label class="cb-label"><input type="checkbox" class="theater-cb" value="Mediterranean" onchange="update()"> Mediterranean</label>
+        <label class="cb-label"><input type="checkbox" class="theater-cb" value="Pacific" onchange="update()"> Pacific</label>
+        <label class="cb-label"><input type="checkbox" class="theater-cb" value="North Africa" onchange="update()"> North Africa</label>
+      </div>
+    </div>
+    <div class="field full">
+      <div class="cb-group">
+        <label class="cb-label"><input type="checkbox" id="b-free" onchange="update()"> Free unit (not subscription-gated)</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- UNIT FORM -->
+<div class="section">
+  <h2>Unit</h2>
+  <div class="grid">
+    <div class="field wide">
+      <label>Name</label>
+      <input type="text" id="u-name" oninput="update()" placeholder="e.g. Schützen Platoon">
     </div>
     <div class="field">
       <label>Type</label>
@@ -237,18 +188,6 @@
       </select>
     </div>
     <div class="field">
-      <label>FoW Motivation / Skill</label>
-      <select id="u-quality" onchange="update()">
-        <option value="Fearless Veteran">Fearless Veteran → Elite</option>
-        <option value="Confident Veteran" selected>Confident Veteran → Regular</option>
-        <option value="Fearless Trained">Fearless Trained → Regular</option>
-        <option value="Confident Trained">Confident Trained → Regular</option>
-        <option value="Reluctant Veteran">Reluctant Veteran → Regular</option>
-        <option value="Confident Conscript">Confident Conscript → Regular</option>
-        <option value="Reluctant Conscript">Reluctant Conscript → Poor</option>
-      </select>
-    </div>
-    <div class="field">
       <label>Base</label>
       <select id="u-base" onchange="update()">
         <option>Small</option>
@@ -259,112 +198,89 @@
       </select>
     </div>
     <div class="field">
-      <label>Year From</label>
-      <input type="number" id="u-year-from" value="1939" min="1939" max="1945" oninput="update()">
-    </div>
-    <div class="field">
-      <label>Year To</label>
-      <input type="number" id="u-year-to" value="1945" min="1939" max="1945" oninput="update()">
-    </div>
-    <div class="field">
       <label>Artillery Caliber (mm)</label>
       <input type="number" id="u-arty-mm" placeholder="e.g. 105" min="0" oninput="update()">
     </div>
     <div class="field full">
-      <label>Theater</label>
       <div class="cb-group">
-        <label class="cb-label"><input type="checkbox" class="theater-cb" value="Western Front" onchange="update()"> Western Front</label>
-        <label class="cb-label"><input type="checkbox" class="theater-cb" value="Eastern Front" onchange="update()"> Eastern Front</label>
-        <label class="cb-label"><input type="checkbox" class="theater-cb" value="Mediterranean" onchange="update()"> Mediterranean</label>
-        <label class="cb-label"><input type="checkbox" class="theater-cb" value="Pacific" onchange="update()"> Pacific</label>
-        <label class="cb-label"><input type="checkbox" class="theater-cb" value="North Africa" onchange="update()"> North Africa</label>
-      </div>
-    </div>
-    <div class="field full">
-      <label>Flags</label>
-      <div class="cb-group">
-        <label class="cb-label"><input type="checkbox" id="u-free" onchange="update()"> Free unit (not subscription-gated)</label>
         <label class="cb-label"><input type="checkbox" id="u-light-tank" onchange="update()"> Light tank (→ adds Fast)</label>
       </div>
     </div>
     <div class="field full">
       <label>Wiki Slug</label>
-      <input type="text" id="u-wiki" placeholder="e.g. M4_Sherman" oninput="update()">
+      <input type="text" id="u-wiki" placeholder="e.g. Panzer_IV" oninput="update()">
     </div>
     <div class="field full">
       <label>Lore</label>
-      <textarea id="u-lore" rows="3" oninput="update()" placeholder="Flavor text for the unit card…"></textarea>
+      <textarea id="u-lore" rows="2" oninput="update()" placeholder="Flavor text (can add later)…"></textarea>
     </div>
   </div>
 </div>
-
-<hr class="divider">
 
 <!-- ARMOR -->
 <div class="section">
-  <div class="section-label">Armor (leave blank for infantry / guns)</div>
+  <h2>Armor (leave blank for infantry / guns)</h2>
   <div class="grid">
-    <div class="field">
-      <label>FoW Front Armor</label>
-      <input type="number" id="armor-front" min="0" oninput="update()">
-    </div>
-    <div class="field">
-      <label>FoW Flank Armor</label>
-      <input type="number" id="armor-flank" min="0" oninput="update()">
-    </div>
+    <div class="field"><label>FoW Front Armor</label><input type="number" id="armor-front" min="0" oninput="update()"></div>
+    <div class="field"><label>FoW Flank Armor</label><input type="number" id="armor-flank" min="0" oninput="update()"></div>
   </div>
 </div>
 
-<hr class="divider">
-
 <!-- WEAPONS -->
 <div class="section">
-  <div class="section-label">Weapons — first weapon sets the primary stats; additional weapons become notes</div>
+  <h2>Weapons — first sets primary stats; extras become notes</h2>
   <div id="weapons-container"></div>
   <button onclick="addWeapon()">+ Add Weapon</button>
 </div>
 
-<hr class="divider">
-
-<!-- SPECIAL RULES + NOTES -->
+<!-- SPECIAL / NOTES -->
 <div class="section">
   <div class="grid">
     <div class="field wide">
       <label>Special Rules (one per line)</label>
-      <textarea id="u-special" rows="3" oninput="update()" placeholder="e.g. Stabiliser&#10;Wide Tracks&#10;Semi-Indirect Fire"></textarea>
+      <textarea id="u-special" rows="2" oninput="update()" placeholder="e.g. Semi-Indirect Fire"></textarea>
     </div>
     <div class="field wide">
       <label>Additional Notes (one per line)</label>
-      <textarea id="u-notes" rows="3" oninput="update()" placeholder="e.g. Open Topped&#10;Carries 3 Teams"></textarea>
+      <textarea id="u-notes" rows="2" oninput="update()" placeholder="e.g. Open Topped"></textarea>
     </div>
     <div class="field full">
-      <label>Armament Description (displayed on card)</label>
+      <label>Armament Description</label>
       <input type="text" id="u-armament" oninput="update()" placeholder="e.g. 75mm gun, Co-ax MG, Hull MG">
     </div>
   </div>
 </div>
 
+<div style="display:flex;gap:10px;align-items:center;margin-bottom:24px">
+  <button class="btn-accent" onclick="addToQueue()" style="font-size:11px;padding:8px 20px">+ Add to Queue</button>
+  <button onclick="clearForm()" class="btn-danger btn-sm">Clear Form</button>
+  <span id="quality-badge" style="font-family:var(--mono);font-size:10px;color:var(--text3);border:1px solid var(--border);padding:3px 10px">Regular</span>
+</div>
+
 <hr class="divider">
 
-<!-- OUTPUT -->
+<!-- QUEUE -->
 <div class="section">
-  <div class="output-bar">
-    <span class="section-label" style="margin:0">JSON Output</span>
-    <span class="quality-badge" id="quality-badge">Regular</span>
-    <button class="btn-copy" onclick="copyOutput()">Copy</button>
-    <button class="btn-clear" onclick="clearForm()">Clear Form</button>
+  <div class="queue-bar">
+    <h2 style="margin:0">Queue</h2>
+    <span class="queue-count" id="queue-count">0 units</span>
+    <button class="btn-accent btn-sm" onclick="exportAll()">Export All JSON</button>
+    <button class="btn-danger btn-sm" onclick="clearQueue()">Clear Queue</button>
   </div>
-  <pre id="output"></pre>
+  <div class="queue-list" id="queue-list"></div>
+  <pre id="export-output" style="display:none"></pre>
+  <div id="export-bar" style="display:none;margin-top:8px;display:none">
+    <button class="btn-sm btn-accent" onclick="copyExport()">Copy Export</button>
+  </div>
 </div>
 
 <script>
-// PDF.js worker
 if (typeof pdfjsLib !== 'undefined') {
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 }
 
-// ── PDF Loading & Detection ──────────────────────────────────────────────────
+// ── PDF ───────────────────────────────────────────────────────────────────────
 
 async function loadPDF(input) {
   if (!input.files[0]) return;
@@ -378,9 +294,7 @@ async function loadPDF(input) {
     for (let i = 1; i <= pdf.numPages; i++) {
       const page = await pdf.getPage(i);
       const content = await page.getTextContent();
-      // Reconstruct lines by grouping items with similar Y positions
-      let lastY = null;
-      let line = '';
+      let lastY = null, line = '';
       const lines = [];
       for (const item of content.items) {
         const y = Math.round(item.transform[5]);
@@ -392,90 +306,263 @@ async function loadPDF(input) {
         lastY = y;
       }
       if (line.trim()) lines.push(line.trim());
-      // Pages are bottom-up in PDF coords — reverse to reading order
       fullText += lines.reverse().join('\n') + '\n\n';
     }
 
     document.getElementById('pdf-text').value = fullText;
-    document.getElementById('pdf-text-panel').style.display = 'block';
     status.textContent = `${pdf.numPages} page${pdf.numPages !== 1 ? 's' : ''} loaded`;
-    autoDetect(fullText);
+    detectAllUnits(fullText);
+    document.getElementById('detected-panel').style.display = 'block';
   } catch (e) {
     status.textContent = 'Error: ' + e.message;
   }
 }
 
-function autoDetect(text) {
-  text = text || document.getElementById('pdf-text').value;
-  if (!text) return;
+// ── Unit Block Detection ──────────────────────────────────────────────────────
+// FoW has three table formats:
+//
+//  TANK/TRANSPORT: two rows per unit
+//    Row 1: Name  Mobility(Fully-tracked…)  FrontArmor  SideArmor  TopArmor  Notes
+//    Row 2: WeaponName  Range(16"/40cm)  ROF  AT  FP+  Notes
+//
+//  GUN TEAMS: single row
+//    Name  Mobility(Man-packed/Light/Medium/Heavy/Immobile)  Range  ROF  AT  FP+  Notes
+//    Sub-row: "Firing Bombardment"  Range  -  AT  FP+
+//
+//  INFANTRY TEAMS: single row, no mobility
+//    Name  Range  ROF  AT  FP+  Notes
 
-  // ── Quality ──
-  const qualities = [
-    'Fearless Veteran', 'Confident Veteran', 'Fearless Trained',
-    'Confident Trained', 'Reluctant Veteran', 'Confident Conscript',
-    'Reluctant Conscript',
-  ];
-  for (const q of qualities) {
-    if (text.includes(q)) {
-      const sel = document.getElementById('u-quality');
-      for (const opt of sel.options) {
-        if (opt.value === q) { sel.value = q; break; }
+const QUALITIES = [
+  'Fearless Veteran','Confident Veteran','Fearless Trained',
+  'Confident Trained','Reluctant Veteran','Confident Conscript','Reluctant Conscript',
+];
+
+// Tank/transport mobility (unit row only — no range on same line)
+const TANK_MOB = ['Fully-tracked','Half-tracked','Wheeled','Foot','Horse-drawn','Tracked','Jeep'];
+// Gun team mobility (same line as range)
+const GUN_MOB  = ['Man-packed','Light','Medium','Heavy','Immobile','Self-propelled'];
+
+// Range pattern: 16"/40cm — handles straight and curly quote chars
+const RANGE_RE = /(\d+)["""\u201c\u201d]\/\d+\s*cm/i;
+
+// Section headers that tell us which format to expect
+const SECTION_MAP = {
+  'TANK TEAMS': 'tank', 'TRANSPORT TEAMS': 'tank', 'ARMOURED CARS': 'tank',
+  'GUN TEAMS': 'gun', 'VEHICLE MACHINE': 'gun', 'BUNKERS': 'gun',
+  'INFANTRY TEAMS': 'infantry', 'CAVALRY': 'tank', 'COMBAT TANKS': 'tank',
+  'TANK-HUNTERS': 'tank', 'SELF-PROPELLED': 'tank',
+};
+
+function detectSection(line) {
+  const up = line.toUpperCase();
+  for (const [key, val] of Object.entries(SECTION_MAP)) {
+    if (up.includes(key)) return val;
+  }
+  return null;
+}
+
+function parseRangeRow(line) {
+  // Returns {range, rof, at, fp, notes} or null
+  const rm = line.match(/(\d+)["""\u201c\u201d]\/\d+\s*cm\s+(-|\d+)(?:\/\d+)?\s+(-|\d+)\s+(-|\d+\+|-)\s*(.*)?$/i);
+  if (!rm) return null;
+  return {
+    range:  rm[1],
+    rof:    rm[2] === '-' ? '' : rm[2].split('/')[0],
+    at:     rm[3] === '-' ? '' : rm[3],
+    fp:     rm[4] === '-' ? '' : rm[4],
+    notes:  rm[5] || '',
+  };
+}
+
+function makeWeapon(name, stats, unitNotes) {
+  const un = unitNotes || '';
+  return {
+    weaponName: name,
+    range:   stats.range,
+    rof:     stats.rof,
+    at:      stats.at,
+    fp:      stats.fp,
+    bombard: false,
+    smoke:   /smoke/i.test(stats.notes) || /smoke/i.test(un),
+    coax:    /co.?ax/i.test(stats.notes) || /co.?ax/i.test(un),
+    hull:    /hull/i.test(stats.notes)   || /hull/i.test(un),
+  };
+}
+
+function detectAllUnits(text) {
+  const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+  let currentQuality = null;
+  let sectionType = 'tank'; // default
+  const units = [];
+  let cur = null;
+
+  for (const line of lines) {
+    // Section header detection
+    const sec = detectSection(line);
+    if (sec) { sectionType = sec; cur = null; continue; }
+
+    // Quality tracking
+    for (const q of QUALITIES) {
+      if (line.includes(q)) { currentQuality = q; break; }
+    }
+
+    // ── TANK section: look for unit row (mobility, no range) or weapon row (range) ──
+    if (sectionType === 'tank') {
+      // Firing Bombardment sub-row
+      if (/^firing\s+bombardment/i.test(line)) {
+        const stats = parseRangeRow(line);
+        if (stats && cur) {
+          const w = makeWeapon('Firing Bombardment', stats, '');
+          w.bombard = true; w.range = null; // bombardment = infinite in HoF
+          cur.weapons.push(w);
+        }
+        continue;
       }
-      break;
+
+      // Weapon row (has range, no tank mobility keyword)
+      const hasTankMob = TANK_MOB.some(m => line.includes(m));
+      if (!hasTankMob && RANGE_RE.test(line)) {
+        const nameM = line.match(/^(.+?)\s+\d+["""\u201c\u201d]/);
+        const wname = nameM ? nameM[1].trim() : line;
+        const stats = parseRangeRow(line);
+        if (stats && cur) {
+          cur.weapons.push(makeWeapon(wname, stats, cur.unitNotes));
+        }
+        continue;
+      }
+
+      // Unit row (has tank mobility keyword)
+      for (const mob of TANK_MOB) {
+        const idx = line.indexOf(mob);
+        if (idx === -1) continue;
+        const beforeMob = line.slice(0, idx).trim();
+        const afterMob  = line.slice(idx + mob.length).trim();
+        const sm = afterMob.match(/^(-|\d+)\s+(-|\d+)\s+(-|\d+)\s*(.*)?$/);
+        cur = {
+          unitName:   beforeMob,
+          mobility:   mob,
+          armorFront: sm ? (sm[1] === '-' ? '' : sm[1]) : '',
+          armorSide:  sm ? (sm[2] === '-' ? '' : sm[2]) : '',
+          unitNotes:  sm ? (sm[4] || '') : afterMob,
+          quality:    currentQuality,
+          weapons:    [],
+        };
+        if (cur.unitName.length > 1) units.push(cur);
+        break;
+      }
+      continue;
+    }
+
+    // ── GUN section: single row — Name  GunMobility  Range  ROF  AT  FP  Notes ──
+    if (sectionType === 'gun') {
+      if (/^firing\s+bombardment/i.test(line)) {
+        const stats = parseRangeRow(line);
+        if (stats && cur && cur.weapons.length > 0) {
+          const w = makeWeapon('Firing Bombardment', stats, '');
+          w.bombard = true; w.range = null;
+          cur.weapons.push(w);
+        }
+        continue;
+      }
+      for (const mob of GUN_MOB) {
+        const idx = line.indexOf(mob);
+        if (idx === -1) continue;
+        const unitName = line.slice(0, idx).trim();
+        const afterMob = line.slice(idx + mob.length).trim();
+        const stats = parseRangeRow(afterMob.length ? afterMob : line);
+        if (!stats || unitName.length < 2) break;
+        cur = { unitName, mobility: mob, armorFront: '', armorSide: '', unitNotes: stats.notes, quality: currentQuality, weapons: [] };
+        cur.weapons.push(makeWeapon(unitName, stats, stats.notes));
+        units.push(cur);
+        break;
+      }
+      continue;
+    }
+
+    // ── INFANTRY section: single row — Name  Range  ROF  AT  FP  Notes ──
+    if (sectionType === 'infantry') {
+      if (!RANGE_RE.test(line)) continue;
+      const nameM = line.match(/^(.+?)\s+\d+["""\u201c\u201d]/);
+      const unitName = nameM ? nameM[1].trim() : '';
+      if (unitName.length < 2) continue;
+      const stats = parseRangeRow(line);
+      if (!stats) continue;
+      cur = { unitName, mobility: '', armorFront: '', armorSide: '', unitNotes: stats.notes, quality: currentQuality, weapons: [] };
+      cur.weapons.push(makeWeapon(unitName, stats, stats.notes));
+      units.push(cur);
     }
   }
 
-  // ── Armor ──
-  // Matches: "Front 6  Side 4" / "FA 6 SA 4" / "6/4/1"
-  const armorM = text.match(/(?:front|fa)[:\s]+(\d+).*?(?:side|sa|flank)[:\s]+(\d+)/i);
-  if (armorM) {
-    document.getElementById('armor-front').value = armorM[1];
-    document.getElementById('armor-flank').value = armorM[2];
-  }
+  const valid = units.filter(u => u.unitName && u.unitName.length > 1);
 
-  // ── Weapons ──
-  // Each extracted line may look like: "75mm M3 gun 32" 2 10 3+ Smoke"
-  // Pattern: <name> <range>" <ROF or ROF/ROF> <AT> <FP+> [notes...]
-  const weaponRe = /^(.+?)\s{2,}(\d+)["""\u201c\u201d]\s+(\d+)(?:\/\d+)?\s+(\d+)\s+(\d+\+)/;
-  const altRe    = /^(.+?)\s+(\d+)["""\u201c\u201d]\s+(\d+)(?:\/\d+)?\s+(\d+)\s+(\d+\+)/;
-  const detected = [];
-  for (const line of text.split('\n')) {
-    const m = line.match(weaponRe) || line.match(altRe);
-    if (!m) continue;
-    const name = m[1].trim();
-    // Skip obvious false positives (page headers, unit names, etc.)
-    if (/^\d/.test(name) || name.length < 3) continue;
-    detected.push({
-      name,
-      range: m[2],
-      rof:   m[3].split('/')[0],   // take first ROF (Moving)
-      at:    m[4],
-      fp:    m[5],
-      smoke: line.toLowerCase().includes('smoke'),
-      coax:  /co.?ax/i.test(line),
-      hull:  /hull mg/i.test(line),
-    });
-  }
+  // Render detected list
+  const list = document.getElementById('detected-list');
+  list.innerHTML = '';
+  document.getElementById('detected-count').textContent = valid.length;
+  valid.forEach((u, idx) => {
+    const item = document.createElement('div');
+    item.className = 'detected-item';
+    item.id = `di-${idx}`;
+    const armorInfo = u.armorFront ? `FA${u.armorFront}/SA${u.armorSide}` : 'no armor';
+    item.innerHTML = `
+      <span class="detected-name">${u.unitName}</span>
+      <span class="detected-meta">${u.weapons.length} wpn · ${armorInfo} · ${u.quality || '—'}</span>
+    `;
+    item.onclick = () => loadDetected(u, idx);
+    list.appendChild(item);
+  });
 
-  if (detected.length > 0) {
-    document.getElementById('weapons-container').innerHTML = '';
-    wCount = 0;
-    for (const w of detected) {
-      addWeapon();
-      const id = wCount;
-      document.getElementById(`wn-${id}`).value = w.name;
-      document.getElementById(`wr-${id}`).value = w.range;
-      document.getElementById(`wf-${id}`).value = w.rof;
-      document.getElementById(`wa-${id}`).value = w.at;
-      document.getElementById(`wp-${id}`).value = w.fp;
-      if (w.smoke) document.getElementById(`wb-smk-${id}`).checked = true;
-      if (w.coax)  document.getElementById(`wb-coa-${id}`).checked = true;
-      if (w.hull)  document.getElementById(`wb-hul-${id}`).checked = true;
+  window._detectedUnits = valid;
+}
+
+function loadDetected(u, idx) {
+  // Highlight selected
+  document.querySelectorAll('.detected-item').forEach(el => el.classList.remove('loaded'));
+  document.getElementById(`di-${idx}`)?.classList.add('loaded');
+
+  // Unit name
+  document.getElementById('u-name').value = u.unitName || '';
+
+  // Quality → batch defaults
+  if (u.quality) {
+    const sel = document.getElementById('b-quality');
+    for (const opt of sel.options) {
+      if (opt.value === u.quality) { sel.value = u.quality; break; }
     }
+  }
+
+  // Armor (use armorSide as flank)
+  document.getElementById('armor-front').value = u.armorFront || '';
+  document.getElementById('armor-flank').value = u.armorSide  || '';
+
+  // Armament description from unit notes
+  if (u.unitNotes) {
+    document.getElementById('u-armament').value = u.unitNotes.replace(/\.$/, '').trim();
+  }
+
+  // Weapons
+  document.getElementById('weapons-container').innerHTML = '';
+  wCount = 0;
+  for (const w of u.weapons) {
+    addWeapon();
+    const id = wCount;
+    document.getElementById(`wn-${id}`).value = w.weaponName;
+    document.getElementById(`wr-${id}`).value = w.range;
+    document.getElementById(`wf-${id}`).value = w.rof;
+    document.getElementById(`wa-${id}`).value = w.at;
+    document.getElementById(`wp-${id}`).value = w.fp;
+    if (w.bombard) document.getElementById(`wb-bom-${id}`).checked = true;
+    if (w.smoke)   document.getElementById(`wb-smk-${id}`).checked = true;
+    if (w.coax)    document.getElementById(`wb-coa-${id}`).checked = true;
+    if (w.hull)    document.getElementById(`wb-hul-${id}`).checked = true;
   }
 
   update();
+  document.getElementById('u-name').focus();
+  document.getElementById('u-name').scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
+
+// ── Weapons UI ────────────────────────────────────────────────────────────────
 
 let wCount = 0;
 
@@ -488,10 +575,10 @@ function addWeapon() {
   c.innerHTML = `
     <div class="weapon-header">
       <span class="weapon-label">Weapon ${id}</span>
-      <button class="btn-remove" onclick="removeWeapon(${id})">Remove</button>
+      <button class="btn-danger btn-sm" onclick="removeWeapon(${id})">Remove</button>
     </div>
     <div class="weapon-grid">
-      <div class="field"><label>Name</label><input type="text" id="wn-${id}" oninput="update()" placeholder="e.g. 75mm gun"></div>
+      <div class="field"><label>Name</label><input type="text" id="wn-${id}" oninput="update()" placeholder="e.g. 7.5cm KwK"></div>
       <div class="field"><label>FoW Range"</label><input type="number" id="wr-${id}" min="0" oninput="update()"></div>
       <div class="field"><label>FoW RoF</label><input type="number" id="wf-${id}" min="1" oninput="update()"></div>
       <div class="field"><label>FoW AT</label><input type="number" id="wa-${id}" min="0" oninput="update()"></div>
@@ -504,7 +591,7 @@ function addWeapon() {
       </div>
     </div>
     <div class="weapon-extras">
-      <label class="cb-label"><input type="checkbox" id="wb-bom-${id}" onchange="update()"> Bombardment</label>
+      <label class="cb-label"><input type="checkbox" id="wb-bom-${id}" onchange="update()"> Bombard</label>
       <label class="cb-label"><input type="checkbox" id="wb-smk-${id}" onchange="update()"> Smoke</label>
       <label class="cb-label"><input type="checkbox" id="wb-coa-${id}" onchange="update()"> Co-ax MG</label>
       <label class="cb-label"><input type="checkbox" id="wb-hul-${id}" onchange="update()"> Hull MG</label>
@@ -514,10 +601,7 @@ function addWeapon() {
   update();
 }
 
-function removeWeapon(id) {
-  document.getElementById(`wb-${id}`)?.remove();
-  update();
-}
+function removeWeapon(id) { document.getElementById(`wb-${id}`)?.remove(); update(); }
 
 function activeWeapons() {
   return [...document.querySelectorAll('.weapon-block')].map(b => {
@@ -536,40 +620,30 @@ function activeWeapons() {
   });
 }
 
-// ── Conversion ──────────────────────────────────────────────────────────────
+// ── Conversion ────────────────────────────────────────────────────────────────
 
-function cvtAT(v) {
-  const n = parseInt(v);
-  if (isNaN(n) || v === '') return null;
-  return Math.max(0, Math.ceil(n / 2) - 1);
-}
+function cvtAT(v) { const n = parseInt(v); return (isNaN(n)||v==='') ? null : Math.max(0, Math.ceil(n/2)-1); }
 
 function cvtRange(name, v, bombard) {
   if (bombard) return null;
-  const lc = (name || '').toLowerCase();
+  const lc = (name||'').toLowerCase();
   if (lc.includes('bazooka')) return '6"';
-  if (lc.includes('panzerschreck') || lc.includes('schreck')) return '8"';
+  if (lc.includes('panzerschreck')||lc.includes('schreck')) return '8"';
   const r = parseInt(v);
-  if (isNaN(r) || v === '') return null;
+  if (isNaN(r)||v==='') return null;
   if (r <= 16) return `${r}"`;
   if (r === 24) return '20"';
   if (r === 32) return '24"';
   return `${Math.round(r * 0.75 / 2) * 2}"`;
 }
 
-function cvtROF(v) {
-  const n = parseInt(v);
-  if (isNaN(n) || v === '') return null;
-  return n >= 4 ? n - 1 : n;
-}
+function cvtROF(v) { const n = parseInt(v); return (isNaN(n)||v==='') ? null : (n >= 4 ? n-1 : n); }
 
 function cvtFP(v) {
   if (!v) return null;
   const n = parseInt(v);
   if (isNaN(n)) return null;
-  if (n <= 1) return 3;
-  if (n === 2) return 2;
-  return 1;
+  return n <= 1 ? 3 : n === 2 ? 2 : 1;
 }
 
 function cvtQuality(v) {
@@ -580,33 +654,26 @@ function cvtQuality(v) {
 
 function artyClass(mm) {
   const n = parseInt(mm);
-  if (isNaN(n) || mm === '') return null;
-  if (n < 100) return 'Light Artillery';
-  if (n < 140) return 'Medium Artillery';
-  return 'Heavy Artillery';
+  if (isNaN(n)||mm==='') return null;
+  return n < 100 ? 'Light Artillery' : n < 140 ? 'Medium Artillery' : 'Heavy Artillery';
 }
 
 function makeId(nation, name) {
-  const map = {
-    'United States': 'us', 'Germany': 'de', 'Britain': 'br',
-    'Soviet Union': 'sov', 'Canada': 'ca', 'France': 'fr',
-    'Italy': 'it', 'Japan': 'jp',
-  };
+  const map = { 'United States':'us','Germany':'de','Britain':'br','Soviet Union':'sov','Canada':'ca','France':'fr','Italy':'it','Japan':'jp' };
   const prefix = map[nation] || 'xx';
-  const slug = (name || 'unit').toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
+  const slug = (name||'unit').toLowerCase().replace(/[^a-z0-9\s-]/g,'').trim().replace(/\s+/g,'-');
   return `${prefix}-${slug}`;
 }
 
-function update() {
+function buildEntry() {
   const name      = document.getElementById('u-name').value.trim();
-  const nation    = document.getElementById('u-nation').value;
+  const nation    = document.getElementById('b-nation').value;
   const type      = document.getElementById('u-type').value;
-  const fowQ      = document.getElementById('u-quality').value;
+  const fowQ      = document.getElementById('b-quality').value;
   const base      = document.getElementById('u-base').value;
-  const yFrom     = parseInt(document.getElementById('u-year-from').value) || 1939;
-  const yTo       = parseInt(document.getElementById('u-year-to').value) || 1945;
-  const isFree    = document.getElementById('u-free').checked;
+  const yFrom     = parseInt(document.getElementById('b-year-from').value) || 1939;
+  const yTo       = parseInt(document.getElementById('b-year-to').value) || 1945;
+  const isFree    = document.getElementById('b-free').checked;
   const lightTank = document.getElementById('u-light-tank').checked;
   const wiki      = document.getElementById('u-wiki').value.trim();
   const lore      = document.getElementById('u-lore').value.trim();
@@ -616,111 +683,125 @@ function update() {
   const armament  = document.getElementById('u-armament').value.trim();
 
   const theater = [...document.querySelectorAll('.theater-cb:checked')].map(c => c.value);
-  const years   = [];
-  for (let y = yFrom; y <= yTo; y++) years.push(y);
+  const years   = []; for (let y = yFrom; y <= yTo; y++) years.push(y);
 
-  const quality    = cvtQuality(fowQ);
   const armorFront = fFront !== '' ? cvtAT(fFront) : null;
   const armorFlank = fFlank !== '' ? cvtAT(fFlank) : null;
 
-  // Update quality badge
-  const badge = document.getElementById('quality-badge');
-  badge.textContent = quality;
-  badge.className = 'quality-badge' + (quality === 'Elite' ? ' elite' : quality === 'Poor' ? ' poor' : '');
-
-  // Process weapons
   const weapons = activeWeapons();
-  const mainWeapons = weapons.filter(w => !w.coax && !w.hull);
-
+  const main = weapons.filter(w => !w.coax && !w.hull);
   let gunRange = null, rof = null, at = null, fp = null;
   const notes = [];
 
-  if (mainWeapons.length > 0) {
-    const w = mainWeapons[0];
+  if (main.length > 0) {
+    const w = main[0];
     gunRange = cvtRange(w.name, w.range, w.bombard);
     rof      = cvtROF(w.rof);
     at       = cvtAT(w.at);
     fp       = cvtFP(w.fp);
     if (w.smoke) notes.push('Smoke');
   }
-
-  // Additional weapons → notes
-  mainWeapons.slice(1).forEach(w => {
+  main.slice(1).forEach(w => {
     const parts = [w.name];
     const r = cvtRange(w.name, w.range, w.bombard);
-    const rf = cvtROF(w.rof);
-    const a  = cvtAT(w.at);
-    const f  = cvtFP(w.fp);
-    if (r  !== null) parts.push(r);
-    if (rf !== null) parts.push(`ROF ${rf}`);
-    if (a  !== null) parts.push(`AT ${a}`);
-    if (f  !== null) parts.push(`FP: ${f}`);
+    const rf = cvtROF(w.rof); const a = cvtAT(w.at); const f = cvtFP(w.fp);
+    if (r!==null) parts.push(r); if (rf!==null) parts.push(`ROF ${rf}`);
+    if (a!==null) parts.push(`AT ${a}`); if (f!==null) parts.push(`FP: ${f}`);
     if (w.smoke) parts.push('Smoke');
     notes.push(parts.filter(Boolean).join(' '));
   });
-
   if (weapons.some(w => w.coax)) notes.push('Co-ax MG');
   if (weapons.some(w => w.hull)) notes.push('Hull MG');
+  const ac = artyClass(artyMM); if (ac) notes.push(ac);
 
-  // Artillery classification
-  const ac = artyClass(artyMM);
-  if (ac) notes.push(ac);
-
-  // Special rules
-  const specialRaw = document.getElementById('u-special').value;
-  const specialRules = specialRaw.split('\n').map(s => s.trim()).filter(Boolean);
+  const specialRules = document.getElementById('u-special').value.split('\n').map(s=>s.trim()).filter(Boolean);
   if (lightTank) specialRules.unshift('Fast');
+  document.getElementById('u-notes').value.split('\n').map(s=>s.trim()).filter(Boolean).forEach(n=>notes.push(n));
 
-  // Additional notes
-  const notesRaw = document.getElementById('u-notes').value;
-  notesRaw.split('\n').map(s => s.trim()).filter(Boolean).forEach(n => notes.push(n));
-
-  const entry = {
-    id:            makeId(nation, name),
-    name:          name || 'Unnamed',
-    nation,
-    type,
-    theater,
-    years,
-    gun_range:     gunRange,
-    rof,
-    at,
-    fp,
-    armor_front:   armorFront,
-    armor_flank:   armorFlank,
-    armament:      armament || null,
-    notes,
-    special_rules: specialRules,
-    base,
-    standard_platoon: null,
-    free:          isFree,
-    wiki:          wiki || null,
-    lore:          lore || null,
+  return {
+    id: makeId(nation, name), name: name||'Unnamed', nation, type, theater, years,
+    gun_range: gunRange, rof, at, fp, armor_front: armorFront, armor_flank: armorFlank,
+    armament: armament||null, notes, special_rules: specialRules, base,
+    standard_platoon: null, free: isFree, wiki: wiki||null, lore: lore||null,
   };
-
-  document.getElementById('output').textContent = JSON.stringify(entry, null, 2);
 }
 
-function copyOutput() {
-  navigator.clipboard.writeText(document.getElementById('output').textContent).then(() => {
-    const btn = document.querySelector('.btn-copy');
-    const orig = btn.textContent;
+function update() {
+  const entry   = buildEntry();
+  const quality = cvtQuality(document.getElementById('b-quality').value);
+  const badge   = document.getElementById('quality-badge');
+  badge.textContent = quality;
+  badge.style.color  = quality==='Elite' ? '#e0c060' : quality==='Poor' ? '#a06060' : 'var(--text3)';
+  badge.style.borderColor = quality==='Elite' ? '#c0a030' : quality==='Poor' ? '#5a2020' : 'var(--border)';
+}
+
+// ── Queue ─────────────────────────────────────────────────────────────────────
+
+let queue = [];
+
+function addToQueue() {
+  const entry = buildEntry();
+  if (!entry.name || entry.name === 'Unnamed') {
+    alert('Add a unit name first.');
+    document.getElementById('u-name').focus();
+    return;
+  }
+  queue.push(entry);
+  renderQueue();
+  clearFormFields();
+}
+
+function removeFromQueue(idx) {
+  queue.splice(idx, 1);
+  renderQueue();
+}
+
+function renderQueue() {
+  const list = document.getElementById('queue-list');
+  document.getElementById('queue-count').textContent = `${queue.length} unit${queue.length !== 1 ? 's' : ''}`;
+  list.innerHTML = queue.map((u, i) => `
+    <div class="queue-item">
+      <span class="queue-item-name">${u.name}</span>
+      <span class="queue-item-meta">${u.nation} · ${u.type}</span>
+      <button class="btn-danger btn-sm" onclick="removeFromQueue(${i})">✕</button>
+    </div>
+  `).join('');
+}
+
+function clearQueue() {
+  if (queue.length && !confirm(`Remove all ${queue.length} units from the queue?`)) return;
+  queue = [];
+  renderQueue();
+  document.getElementById('export-output').style.display = 'none';
+  document.getElementById('export-bar').style.display = 'none';
+}
+
+function exportAll() {
+  if (queue.length === 0) { alert('Queue is empty.'); return; }
+  const json = JSON.stringify(queue, null, 2);
+  const out = document.getElementById('export-output');
+  const bar = document.getElementById('export-bar');
+  out.textContent = json;
+  out.style.display = 'block';
+  bar.style.display = 'block';
+  out.scrollIntoView({ behavior: 'smooth' });
+}
+
+function copyExport() {
+  navigator.clipboard.writeText(document.getElementById('export-output').textContent).then(() => {
+    const btn = document.querySelector('#export-bar button');
     btn.textContent = 'Copied!';
-    setTimeout(() => btn.textContent = orig, 1500);
+    setTimeout(() => btn.textContent = 'Copy Export', 1500);
   });
 }
 
-function clearForm() {
-  if (!confirm('Clear all fields?')) return;
+// ── Form helpers ──────────────────────────────────────────────────────────────
+
+function clearFormFields() {
   document.getElementById('u-name').value = '';
-  document.getElementById('u-nation').selectedIndex = 0;
   document.getElementById('u-type').selectedIndex = 0;
-  document.getElementById('u-quality').selectedIndex = 1;
   document.getElementById('u-base').selectedIndex = 0;
-  document.getElementById('u-year-from').value = 1939;
-  document.getElementById('u-year-to').value = 1945;
   document.getElementById('u-arty-mm').value = '';
-  document.getElementById('u-free').checked = false;
   document.getElementById('u-light-tank').checked = false;
   document.getElementById('u-wiki').value = '';
   document.getElementById('u-lore').value = '';
@@ -729,10 +810,15 @@ function clearForm() {
   document.getElementById('u-armament').value = '';
   document.getElementById('armor-front').value = '';
   document.getElementById('armor-flank').value = '';
-  document.querySelectorAll('.theater-cb').forEach(c => c.checked = false);
   document.getElementById('weapons-container').innerHTML = '';
   wCount = 0;
   addWeapon();
+  document.querySelectorAll('.detected-item').forEach(el => el.classList.remove('loaded'));
+}
+
+function clearForm() {
+  if (!confirm('Clear the unit form?')) return;
+  clearFormFields();
 }
 
 // Init
