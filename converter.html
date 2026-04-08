@@ -95,25 +95,13 @@
     <input type="file" id="pdf-upload" accept=".pdf" onchange="loadPDF(this)">
     <span class="pdf-status" id="pdf-status"></span>
   </div>
-  <div style="display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap">
-    <div class="field" style="flex:0 0 auto">
-      <label>Stats pages — from</label>
-      <input type="number" id="page-from" min="1" placeholder="1" style="width:70px">
-    </div>
-    <div class="field" style="flex:0 0 auto">
-      <label>to</label>
-      <input type="number" id="page-to" min="1" placeholder="end" style="width:70px">
-    </div>
-    <div style="padding-top:14px">
-      <button class="btn-sm btn-accent" onclick="reparse()">↺ Reparse Pages</button>
-    </div>
-  </div>
   <div id="detected-panel" style="display:none;margin-top:14px">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:8px">
       <h2 style="margin:0">Detected — <span id="detected-count">0</span> units</h2>
-      <div style="display:flex;gap:8px">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn-sm btn-accent" onclick="addAllToQueue()">+ Add All to Queue</button>
-        <button class="btn-sm" onclick="document.getElementById('pdf-raw-panel').style.display = document.getElementById('pdf-raw-panel').style.display==='none'?'block':'none'">Raw Text</button>
+        <button class="btn-sm" onclick="reparse()">↺ Rescan</button>
+        <button class="btn-sm" onclick="document.getElementById('pdf-raw-panel').style.display=document.getElementById('pdf-raw-panel').style.display==='none'?'block':'none'">Raw Text</button>
       </div>
     </div>
     <div class="detected-list" id="detected-list"></div>
@@ -307,8 +295,7 @@ async function loadPDF(input) {
   try {
     const buf = await input.files[0].arrayBuffer();
     _pdfDoc = await pdfjsLib.getDocument({ data: buf }).promise;
-    status.textContent = `${_pdfDoc.numPages} pages — set page range then click Reparse, or leave blank to scan all`;
-    document.getElementById('page-to').placeholder = _pdfDoc.numPages;
+    status.textContent = `Scanning all ${_pdfDoc.numPages} pages…`;
     await reparse();
   } catch (e) {
     status.textContent = 'Error: ' + e.message;
@@ -318,14 +305,8 @@ async function loadPDF(input) {
 async function reparse() {
   if (!_pdfDoc) return;
   const status = document.getElementById('pdf-status');
-  const fromP = parseInt(document.getElementById('page-from').value) || 1;
-  const toP   = parseInt(document.getElementById('page-to').value)   || _pdfDoc.numPages;
-  const start = Math.max(1, fromP);
-  const end   = Math.min(_pdfDoc.numPages, toP);
-  status.textContent = `Parsing pages ${start}–${end}…`;
-
   let fullText = '';
-  for (let i = start; i <= end; i++) {
+  for (let i = 1; i <= _pdfDoc.numPages; i++) {
     const page = await _pdfDoc.getPage(i);
     const content = await page.getTextContent();
     let lastY = null, line = '';
@@ -341,10 +322,11 @@ async function reparse() {
     }
     if (line.trim()) lines.push(line.trim());
     fullText += lines.reverse().join('\n') + '\n\n';
+    if (i % 20 === 0) status.textContent = `Scanning… ${i}/${_pdfDoc.numPages} pages`;
   }
 
   document.getElementById('pdf-text').value = fullText;
-  status.textContent = `Pages ${start}–${end} parsed`;
+  status.textContent = `${_pdfDoc.numPages} pages scanned`;
   detectAllUnits(fullText);
   document.getElementById('detected-panel').style.display = 'block';
 }
