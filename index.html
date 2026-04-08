@@ -68,6 +68,13 @@
     padding-bottom: 4px;
   }
 
+  .header-auth {
+    flex: 0 0 auto;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+
   .header-right {
     flex: 0 0 auto;
     align-self: center;
@@ -304,7 +311,7 @@
   .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 6px;
   }
 
   .logo-img {
@@ -316,10 +323,19 @@
 
   .logo span {
     color: var(--text3);
-    font-size: 26px;
+    font-size: 33px;
     font-family: var(--mono);
-    letter-spacing: 3px;
     white-space: nowrap;
+    position: relative;
+    top: -3px;
+  }
+  .logo .logo-slashes {
+    font-size: 29px;
+    letter-spacing: 0px;
+    margin-right: 9px;
+  }
+  .logo .logo-word {
+    letter-spacing: 3px;
   }
 
   .header-right {
@@ -2754,7 +2770,12 @@
 <header>
   <div class="logo" onclick="showHomeView()" style="cursor:pointer" title="Home">
     <img src="logo.png" alt="Hail of Fire" class="logo-img">
-    <span>// ARSENAL</span>
+    <span><span class="logo-slashes">//</span><span class="logo-word">ARSENAL</span></span>
+  </div>
+  <div class="header-auth" id="header-auth">
+    <div id="auth-area">
+      <button class="auth-btn" onclick="signIn()">Sign In</button>
+    </div>
   </div>
   <div class="header-end" id="header-end">
     <nav class="header-nav">
@@ -2766,9 +2787,6 @@
       <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
         Force Builder <span class="force-count-badge" id="force-count">0</span>
       </button>
-      <div id="auth-area">
-        <button class="auth-btn" onclick="signIn()">Sign In</button>
-      </div>
     </div>
   </div>
 </header>
@@ -3225,6 +3243,8 @@ function applyFilters() {
   activeFilters.yearTo = parseInt(document.getElementById('year-to').value) || null;
 
   filteredUnits = allUnits.filter(u => {
+    // Leaders and FOs are injected automatically — not browsable
+    if (u.id.endsWith('-leader') || u.id.endsWith('-fo')) return false;
     if (activeFilters.search && !u.name.toLowerCase().includes(activeFilters.search)) return false;
     if (activeFilters.nations.length && !activeFilters.nations.includes(u.nation)) return false;
     if (activeFilters.types.length) {
@@ -3243,8 +3263,9 @@ function applyFilters() {
     return true;
   });
 
+  const browsableTotal = allUnits.filter(u => !u.id.endsWith('-leader') && !u.id.endsWith('-fo')).length;
   document.getElementById('results-count').textContent =
-    `${filteredUnits.length} of ${allUnits.length} units`;
+    `${filteredUnits.length} of ${browsableTotal} units`;
 
   updateStripsVisibility();
   renderUnits();
@@ -3557,10 +3578,34 @@ function renderTable(container, forceIds) {
 }
 
 // ── FORCE BUILDER ─────────────────────────────────────────────────────────────
+function inferNation() {
+  // Check units already in the force for a nation
+  for (const p of platoons) {
+    for (const t of p.teams) {
+      const u = allUnits.find(u => u.id === t.unitId);
+      if (u && u.nation) return u.nation;
+    }
+  }
+  // Fall back to a single active nation filter
+  if (activeFilters.nations.length === 1) return activeFilters.nations[0];
+  return null;
+}
+
 function addPlatoon() {
   platoonCounter++;
   const id = `pl-${platoonCounter}`;
-  platoons.push({ id, name: `Platoon ${platoonCounter}`, teams: [] });
+  const platoon = { id, name: `Platoon ${platoonCounter}`, teams: [] };
+
+  // Auto-prepend platoon leader based on inferred nation
+  const nation = inferNation();
+  if (nation) {
+    const leaderId = `${nationPrefix(nation)}-leader`;
+    if (allUnits.find(u => u.id === leaderId)) {
+      platoon.teams.push({ unitId: leaderId, qty: 1 });
+    }
+  }
+
+  platoons.push(platoon);
   activePlatoonId = id;
   updateForceUI();
   renderUnits();
