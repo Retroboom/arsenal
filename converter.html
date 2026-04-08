@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FoW → HoF Converter</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0e0c;
+    --bg2: #1a1916;
+    --bg3: #242220;
+    --border: #333028;
+    --accent: #e0c060;
+    --text: #f5f0e0;
+    --text2: #d0c8b0;
+    --text3: #b0a490;
+    --mono: 'Share Tech Mono', monospace;
+    --body: 'Barlow', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    padding: 40px 32px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-family: var(--mono);
+    font-size: 16px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    text-transform: uppercase;
+  }
+  .section { margin-bottom: 28px; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field.full { grid-column: 1 / -1; }
+  .field.wide { grid-column: span 2; }
+  label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--text3);
+    text-transform: uppercase;
+  }
+  input[type=text], input[type=number], select, textarea {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 6px 8px;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.12s;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+  textarea { resize: vertical; min-height: 56px; line-height: 1.5; }
+  .cb-group { display: flex; gap: 14px; flex-wrap: wrap; padding-top: 2px; }
+  .cb-label {
+    display: flex; align-items: center; gap: 5px;
+    font-family: var(--mono); font-size: 11px; color: var(--text2); cursor: pointer;
+  }
+  input[type=checkbox] { width: 13px; height: 13px; accent-color: var(--accent); cursor: pointer; }
+
+  /* Weapons */
+  .weapon-block {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 12px;
+    margin-bottom: 8px;
+  }
+  .weapon-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 10px;
+  }
+  .weapon-label { font-family: var(--mono); font-size: 9px; letter-spacing: 1px; color: var(--text3); }
+  .weapon-grid {
+    display: grid;
+    grid-template-columns: 2fr 80px 60px 60px 80px;
+    gap: 8px;
+    align-items: end;
+  }
+  .weapon-extras {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    margin-top: 8px; padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Buttons */
+  button {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: border-color 0.12s, color 0.12s;
+  }
+  button:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-remove { border-color: #3a2020; color: #806050; font-size: 9px; padding: 3px 8px; }
+  .btn-remove:hover { border-color: #a04545; color: #c06060; }
+  .btn-copy { font-size: 9px; padding: 4px 12px; }
+  .btn-clear { font-size: 9px; padding: 4px 12px; border-color: #3a2020; color: #806050; }
+  .btn-clear:hover { border-color: #a04545; color: #c06060; }
+
+  /* Output */
+  .output-bar {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 10px;
+  }
+  .quality-badge {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 1px;
+    padding: 3px 10px; border: 1px solid var(--border); color: var(--text3);
+  }
+  .quality-badge.elite { border-color: #c0a030; color: #e0c060; }
+  .quality-badge.poor  { border-color: #5a2020; color: #a06060; }
+  pre {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #9adb9a;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    line-height: 1.7;
+  }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+</style>
+</head>
+<body>
+
+<h1>Flames of War → Hail of Fire Converter</h1>
+
+<!-- UNIT INFO -->
+<div class="section">
+  <div class="section-label">Unit Info</div>
+  <div class="grid">
+    <div class="field wide">
+      <label>Name</label>
+      <input type="text" id="u-name" oninput="update()" placeholder="e.g. Rifle Platoon">
+    </div>
+    <div class="field">
+      <label>Nation</label>
+      <select id="u-nation" onchange="update()">
+        <option>United States</option>
+        <option>Germany</option>
+        <option>Britain</option>
+        <option>Soviet Union</option>
+        <option>Canada</option>
+        <option>France</option>
+        <option>Italy</option>
+        <option>Japan</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Type</label>
+      <select id="u-type" onchange="update()">
+        <option>Infantry</option>
+        <option>Support</option>
+        <option>Artillery</option>
+        <option>Anti-Tank</option>
+        <option>Anti-Air</option>
+        <option>Armored</option>
+        <option>Recon</option>
+        <option>Transport</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>FoW Motivation / Skill</label>
+      <select id="u-quality" onchange="update()">
+        <option value="Fearless Veteran">Fearless Veteran → Elite</option>
+        <option value="Confident Veteran" selected>Confident Veteran → Regular</option>
+        <option value="Fearless Trained">Fearless Trained → Regular</option>
+        <option value="Confident Trained">Confident Trained → Regular</option>
+        <option value="Reluctant Veteran">Reluctant Veteran → Regular</option>
+        <option value="Confident Conscript">Confident Conscript → Regular</option>
+        <option value="Reluctant Conscript">Reluctant Conscript → Poor</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Base</label>
+      <select id="u-base" onchange="update()">
+        <option>Small</option>
+        <option>Medium</option>
+        <option>Large</option>
+        <option>Vehicle</option>
+        <option>Gun</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Year From</label>
+      <input type="number" id="u-year-from" value="1939" min="1939" max="1945" oninput="update()">
+    </div>
+    <div class="field">
+      <label>Year To</label>
+      <input type="number" id="u-year-to" value="1945" min="1939" max="1945" oninput="update()">
+    </div>
+    <div class="field">
+      <label>Artillery Caliber (mm)</label>
+      <input type="number" id="u-arty-mm" placeholder="e.g. 105" min="0" oninput="update()">
+    </div>
+    <div class="field full">
+      <label>Theater</label>
+      <div class="cb-group">
+        <label class="cb-label"><input type="checkbox" class="theater-cb" value="Western Front" onchange="update()"> Western Front</label>
+        <label class="cb-label"><input type="checkbox" class="theater-cb" value="Eastern Front" onchange="update()"> Eastern Front</label>
+        <label class="cb-label"><input type="checkbox" class="theater-cb" value="Mediterranean" onchange="update()"> Mediterranean</label>
+        <label class="cb-label"><input type="checkbox" class="theater-cb" value="Pacific" onchange="update()"> Pacific</label>
+        <label class="cb-label"><input type="checkbox" class="theater-cb" value="North Africa" onchange="update()"> North Africa</label>
+      </div>
+    </div>
+    <div class="field full">
+      <label>Flags</label>
+      <div class="cb-group">
+        <label class="cb-label"><input type="checkbox" id="u-free" onchange="update()"> Free unit (not subscription-gated)</label>
+        <label class="cb-label"><input type="checkbox" id="u-light-tank" onchange="update()"> Light tank (→ adds Fast)</label>
+      </div>
+    </div>
+    <div class="field full">
+      <label>Wiki Slug</label>
+      <input type="text" id="u-wiki" placeholder="e.g. M4_Sherman" oninput="update()">
+    </div>
+    <div class="field full">
+      <label>Lore</label>
+      <textarea id="u-lore" rows="3" oninput="update()" placeholder="Flavor text for the unit card…"></textarea>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ARMOR -->
+<div class="section">
+  <div class="section-label">Armor (leave blank for infantry / guns)</div>
+  <div class="grid">
+    <div class="field">
+      <label>FoW Front Armor</label>
+      <input type="number" id="armor-front" min="0" oninput="update()">
+    </div>
+    <div class="field">
+      <label>FoW Flank Armor</label>
+      <input type="number" id="armor-flank" min="0" oninput="update()">
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- WEAPONS -->
+<div class="section">
+  <div class="section-label">Weapons — first weapon sets the primary stats; additional weapons become notes</div>
+  <div id="weapons-container"></div>
+  <button onclick="addWeapon()">+ Add Weapon</button>
+</div>
+
+<hr class="divider">
+
+<!-- SPECIAL RULES + NOTES -->
+<div class="section">
+  <div class="grid">
+    <div class="field wide">
+      <label>Special Rules (one per line)</label>
+      <textarea id="u-special" rows="3" oninput="update()" placeholder="e.g. Stabiliser&#10;Wide Tracks&#10;Semi-Indirect Fire"></textarea>
+    </div>
+    <div class="field wide">
+      <label>Additional Notes (one per line)</label>
+      <textarea id="u-notes" rows="3" oninput="update()" placeholder="e.g. Open Topped&#10;Carries 3 Teams"></textarea>
+    </div>
+    <div class="field full">
+      <label>Armament Description (displayed on card)</label>
+      <input type="text" id="u-armament" oninput="update()" placeholder="e.g. 75mm gun, Co-ax MG, Hull MG">
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- OUTPUT -->
+<div class="section">
+  <div class="output-bar">
+    <span class="section-label" style="margin:0">JSON Output</span>
+    <span class="quality-badge" id="quality-badge">Regular</span>
+    <button class="btn-copy" onclick="copyOutput()">Copy</button>
+    <button class="btn-clear" onclick="clearForm()">Clear Form</button>
+  </div>
+  <pre id="output"></pre>
+</div>
+
+<script>
+let wCount = 0;
+
+function addWeapon() {
+  wCount++;
+  const id = wCount;
+  const c = document.createElement('div');
+  c.className = 'weapon-block';
+  c.id = `wb-${id}`;
+  c.innerHTML = `
+    <div class="weapon-header">
+      <span class="weapon-label">Weapon ${id}</span>
+      <button class="btn-remove" onclick="removeWeapon(${id})">Remove</button>
+    </div>
+    <div class="weapon-grid">
+      <div class="field"><label>Name</label><input type="text" id="wn-${id}" oninput="update()" placeholder="e.g. 75mm gun"></div>
+      <div class="field"><label>FoW Range"</label><input type="number" id="wr-${id}" min="0" oninput="update()"></div>
+      <div class="field"><label>FoW RoF</label><input type="number" id="wf-${id}" min="1" oninput="update()"></div>
+      <div class="field"><label>FoW AT</label><input type="number" id="wa-${id}" min="0" oninput="update()"></div>
+      <div class="field"><label>FoW FP</label>
+        <select id="wp-${id}" onchange="update()">
+          <option value="">—</option>
+          <option>6+</option><option>5+</option><option>4+</option>
+          <option>3+</option><option>2+</option><option>1+</option>
+        </select>
+      </div>
+    </div>
+    <div class="weapon-extras">
+      <label class="cb-label"><input type="checkbox" id="wb-bom-${id}" onchange="update()"> Bombardment</label>
+      <label class="cb-label"><input type="checkbox" id="wb-smk-${id}" onchange="update()"> Smoke</label>
+      <label class="cb-label"><input type="checkbox" id="wb-coa-${id}" onchange="update()"> Co-ax MG</label>
+      <label class="cb-label"><input type="checkbox" id="wb-hul-${id}" onchange="update()"> Hull MG</label>
+    </div>
+  `;
+  document.getElementById('weapons-container').appendChild(c);
+  update();
+}
+
+function removeWeapon(id) {
+  document.getElementById(`wb-${id}`)?.remove();
+  update();
+}
+
+function activeWeapons() {
+  return [...document.querySelectorAll('.weapon-block')].map(b => {
+    const id = b.id.replace('wb-', '');
+    return {
+      name:    document.getElementById(`wn-${id}`)?.value ?? '',
+      range:   document.getElementById(`wr-${id}`)?.value ?? '',
+      rof:     document.getElementById(`wf-${id}`)?.value ?? '',
+      at:      document.getElementById(`wa-${id}`)?.value ?? '',
+      fp:      document.getElementById(`wp-${id}`)?.value ?? '',
+      bombard: document.getElementById(`wb-bom-${id}`)?.checked ?? false,
+      smoke:   document.getElementById(`wb-smk-${id}`)?.checked ?? false,
+      coax:    document.getElementById(`wb-coa-${id}`)?.checked ?? false,
+      hull:    document.getElementById(`wb-hul-${id}`)?.checked ?? false,
+    };
+  });
+}
+
+// ── Conversion ──────────────────────────────────────────────────────────────
+
+function cvtAT(v) {
+  const n = parseInt(v);
+  if (isNaN(n) || v === '') return null;
+  return Math.max(0, Math.ceil(n / 2) - 1);
+}
+
+function cvtRange(name, v, bombard) {
+  if (bombard) return null;
+  const lc = (name || '').toLowerCase();
+  if (lc.includes('bazooka')) return '6"';
+  if (lc.includes('panzerschreck') || lc.includes('schreck')) return '8"';
+  const r = parseInt(v);
+  if (isNaN(r) || v === '') return null;
+  if (r <= 16) return `${r}"`;
+  if (r === 24) return '20"';
+  if (r === 32) return '24"';
+  return `${Math.round(r * 0.75 / 2) * 2}"`;
+}
+
+function cvtROF(v) {
+  const n = parseInt(v);
+  if (isNaN(n) || v === '') return null;
+  return n >= 4 ? n - 1 : n;
+}
+
+function cvtFP(v) {
+  if (!v) return null;
+  const n = parseInt(v);
+  if (isNaN(n)) return null;
+  if (n <= 1) return 3;
+  if (n === 2) return 2;
+  return 1;
+}
+
+function cvtQuality(v) {
+  if (v === 'Fearless Veteran') return 'Elite';
+  if (v === 'Reluctant Conscript') return 'Poor';
+  return 'Regular';
+}
+
+function artyClass(mm) {
+  const n = parseInt(mm);
+  if (isNaN(n) || mm === '') return null;
+  if (n < 100) return 'Light Artillery';
+  if (n < 140) return 'Medium Artillery';
+  return 'Heavy Artillery';
+}
+
+function makeId(nation, name) {
+  const map = {
+    'United States': 'us', 'Germany': 'de', 'Britain': 'br',
+    'Soviet Union': 'sov', 'Canada': 'ca', 'France': 'fr',
+    'Italy': 'it', 'Japan': 'jp',
+  };
+  const prefix = map[nation] || 'xx';
+  const slug = (name || 'unit').toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
+  return `${prefix}-${slug}`;
+}
+
+function update() {
+  const name      = document.getElementById('u-name').value.trim();
+  const nation    = document.getElementById('u-nation').value;
+  const type      = document.getElementById('u-type').value;
+  const fowQ      = document.getElementById('u-quality').value;
+  const base      = document.getElementById('u-base').value;
+  const yFrom     = parseInt(document.getElementById('u-year-from').value) || 1939;
+  const yTo       = parseInt(document.getElementById('u-year-to').value) || 1945;
+  const isFree    = document.getElementById('u-free').checked;
+  const lightTank = document.getElementById('u-light-tank').checked;
+  const wiki      = document.getElementById('u-wiki').value.trim();
+  const lore      = document.getElementById('u-lore').value.trim();
+  const artyMM    = document.getElementById('u-arty-mm').value;
+  const fFront    = document.getElementById('armor-front').value;
+  const fFlank    = document.getElementById('armor-flank').value;
+  const armament  = document.getElementById('u-armament').value.trim();
+
+  const theater = [...document.querySelectorAll('.theater-cb:checked')].map(c => c.value);
+  const years   = [];
+  for (let y = yFrom; y <= yTo; y++) years.push(y);
+
+  const quality    = cvtQuality(fowQ);
+  const armorFront = fFront !== '' ? cvtAT(fFront) : null;
+  const armorFlank = fFlank !== '' ? cvtAT(fFlank) : null;
+
+  // Update quality badge
+  const badge = document.getElementById('quality-badge');
+  badge.textContent = quality;
+  badge.className = 'quality-badge' + (quality === 'Elite' ? ' elite' : quality === 'Poor' ? ' poor' : '');
+
+  // Process weapons
+  const weapons = activeWeapons();
+  const mainWeapons = weapons.filter(w => !w.coax && !w.hull);
+
+  let gunRange = null, rof = null, at = null, fp = null;
+  const notes = [];
+
+  if (mainWeapons.length > 0) {
+    const w = mainWeapons[0];
+    gunRange = cvtRange(w.name, w.range, w.bombard);
+    rof      = cvtROF(w.rof);
+    at       = cvtAT(w.at);
+    fp       = cvtFP(w.fp);
+    if (w.smoke) notes.push('Smoke');
+  }
+
+  // Additional weapons → notes
+  mainWeapons.slice(1).forEach(w => {
+    const parts = [w.name];
+    const r = cvtRange(w.name, w.range, w.bombard);
+    const rf = cvtROF(w.rof);
+    const a  = cvtAT(w.at);
+    const f  = cvtFP(w.fp);
+    if (r  !== null) parts.push(r);
+    if (rf !== null) parts.push(`ROF ${rf}`);
+    if (a  !== null) parts.push(`AT ${a}`);
+    if (f  !== null) parts.push(`FP: ${f}`);
+    if (w.smoke) parts.push('Smoke');
+    notes.push(parts.filter(Boolean).join(' '));
+  });
+
+  if (weapons.some(w => w.coax)) notes.push('Co-ax MG');
+  if (weapons.some(w => w.hull)) notes.push('Hull MG');
+
+  // Artillery classification
+  const ac = artyClass(artyMM);
+  if (ac) notes.push(ac);
+
+  // Special rules
+  const specialRaw = document.getElementById('u-special').value;
+  const specialRules = specialRaw.split('\n').map(s => s.trim()).filter(Boolean);
+  if (lightTank) specialRules.unshift('Fast');
+
+  // Additional notes
+  const notesRaw = document.getElementById('u-notes').value;
+  notesRaw.split('\n').map(s => s.trim()).filter(Boolean).forEach(n => notes.push(n));
+
+  const entry = {
+    id:            makeId(nation, name),
+    name:          name || 'Unnamed',
+    nation,
+    type,
+    theater,
+    years,
+    gun_range:     gunRange,
+    rof,
+    at,
+    fp,
+    armor_front:   armorFront,
+    armor_flank:   armorFlank,
+    armament:      armament || null,
+    notes,
+    special_rules: specialRules,
+    base,
+    standard_platoon: null,
+    free:          isFree,
+    wiki:          wiki || null,
+    lore:          lore || null,
+  };
+
+  document.getElementById('output').textContent = JSON.stringify(entry, null, 2);
+}
+
+function copyOutput() {
+  navigator.clipboard.writeText(document.getElementById('output').textContent).then(() => {
+    const btn = document.querySelector('.btn-copy');
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = orig, 1500);
+  });
+}
+
+function clearForm() {
+  if (!confirm('Clear all fields?')) return;
+  document.getElementById('u-name').value = '';
+  document.getElementById('u-nation').selectedIndex = 0;
+  document.getElementById('u-type').selectedIndex = 0;
+  document.getElementById('u-quality').selectedIndex = 1;
+  document.getElementById('u-base').selectedIndex = 0;
+  document.getElementById('u-year-from').value = 1939;
+  document.getElementById('u-year-to').value = 1945;
+  document.getElementById('u-arty-mm').value = '';
+  document.getElementById('u-free').checked = false;
+  document.getElementById('u-light-tank').checked = false;
+  document.getElementById('u-wiki').value = '';
+  document.getElementById('u-lore').value = '';
+  document.getElementById('u-special').value = '';
+  document.getElementById('u-notes').value = '';
+  document.getElementById('u-armament').value = '';
+  document.getElementById('armor-front').value = '';
+  document.getElementById('armor-flank').value = '';
+  document.querySelectorAll('.theater-cb').forEach(c => c.checked = false);
+  document.getElementById('weapons-container').innerHTML = '';
+  wCount = 0;
+  addWeapon();
+}
+
+// Init
+addWeapon();
+update();
+</script>
+</body>
+</html>
