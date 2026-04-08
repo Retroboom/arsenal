@@ -128,6 +128,8 @@
         <option>France</option>
         <option>Italy</option>
         <option>Japan</option>
+        <option>Poland</option>
+        <option>Belgium</option>
       </select>
     </div>
     <div class="field">
@@ -355,8 +357,9 @@ const TANK_MOB = ['Fully-tracked','Half-tracked','Wheeled','Foot','Horse-drawn',
 // Gun team mobility (same line as range)
 const GUN_MOB  = ['Man-packed','Light','Medium','Heavy','Immobile','Self-propelled'];
 
-// Range pattern: 16"/40cm — handles straight and curly quote chars
-const RANGE_RE = /(\d+)["""\u201c\u201d]\/\d+\s*cm/i;
+// Range pattern: 16"/40cm — handles straight, curly, and double-prime quote chars
+// U+0022 " straight, U+201C " left curly, U+201D " right curly, U+2033 ″ double prime
+const RANGE_RE = /(\d+)[""″\u201c\u201d\u2033]\/\d+\s*cm/i;
 
 // Section headers that tell us which format to expect
 const SECTION_MAP = {
@@ -368,22 +371,36 @@ const SECTION_MAP = {
 
 // Nation keywords — order matters (more specific first)
 const NATION_MAP = [
-  { keywords: ['FRENCH','FRANCE'],          nation: 'France'       },
+  { keywords: ['FRENCH','FRANCE','ARMÉE'],          nation: 'France'       },
+  { keywords: ['POLISH','POLAND'],                   nation: 'Poland'       }, // before GERMAN (captured equipment)
   { keywords: ['GERMAN','GERMANY','HEER','PANZER','LUFTWAFFE','WAFFEN'], nation: 'Germany'  },
-  { keywords: ['BRITISH','BRITAIN','BEF','ROYAL TANK'],                  nation: 'Britain'  },
-  { keywords: ['SOVIET','USSR','RED ARMY'], nation: 'Soviet Union' },
-  { keywords: ['AMERICAN','US ARMY','USA'], nation: 'United States'},
-  { keywords: ['ITALIAN','ITALY'],          nation: 'Italy'        },
-  { keywords: ['BELGIAN','BELGIUM'],        nation: 'France'       }, // map Belgium → France placeholder
-  { keywords: ['POLISH','POLAND'],          nation: 'Britain'      }, // map Poland → Britain placeholder
+  { keywords: ['BRITISH','BRITAIN','BEF','ROYAL TANK','COMMONWEALTH'],   nation: 'Britain'  },
+  { keywords: ['SOVIET','USSR','RED ARMY'],          nation: 'Soviet Union' },
+  { keywords: ['AMERICAN','US ARMY','USA'],          nation: 'United States'},
+  { keywords: ['ITALIAN','ITALY'],                   nation: 'Italy'        },
+  { keywords: ['BELGIAN','BELGIUM'],                 nation: 'Belgium'      },
+];
+
+// Unit-name keyword → nation override (catches captured/allied equipment mislabeled by section)
+const NAME_NATION_MAP = [
+  { patterns: [/^char\s+b/i, /^renault\s+r/i, /^hotchkiss/i, /^somua/i, /^panhard/i, /^amc\s/i, /^am[cr]\s/i], nation: 'France' },
+  { patterns: [/^7tp/i, /^tks/i, /^wz\.\s*\d/i, /^tfv\s/i, /^vickers\s+e/i], nation: 'Poland' },
+  { patterns: [/^t-\d+/i, /^bt-\d+/i, /^ba-\d+/i, /^kv-\d+/i, /^su-\d+/i], nation: 'Soviet Union' },
 ];
 
 function detectNation(line) {
   const up = line.toUpperCase();
   // Only fire on lines that look like section headers (short, mostly caps, no range pattern)
-  if (RANGE_RE.test(line) || line.length > 80) return null;
+  if (RANGE_RE.test(line) || line.length > 100) return null;
   for (const { keywords, nation } of NATION_MAP) {
     if (keywords.some(k => up.includes(k))) return nation;
+  }
+  return null;
+}
+
+function nationFromUnitName(name) {
+  for (const { patterns, nation } of NAME_NATION_MAP) {
+    if (patterns.some(re => re.test(name))) return nation;
   }
   return null;
 }
@@ -398,7 +415,8 @@ function detectSection(line) {
 
 function parseRangeRow(line) {
   // Returns {range, rof, at, fp, notes} or null
-  const rm = line.match(/(\d+)["""\u201c\u201d]\/\d+\s*cm\s+(-|\d+)(?:\/\d+)?\s+(-|\d+)\s+(-|\d+\+|-)\s*(.*)?$/i);
+  // Quote chars: straight, curly left/right, double-prime (U+2033)
+  const rm = line.match(/(\d+)[""″\u201c\u201d\u2033]\/\d+\s*cm\s+(-|\d+)(?:\/\d+)?\s+(-|\d+)\s+(-|\d+\+|-)\s*(.*)?$/i);
   if (!rm) return null;
   return {
     range:  rm[1],
@@ -462,7 +480,7 @@ function detectAllUnits(text) {
       // Weapon row (has range, no tank mobility keyword)
       const hasTankMob = TANK_MOB.some(m => line.includes(m));
       if (!hasTankMob && RANGE_RE.test(line)) {
-        const nameM = line.match(/^(.+?)\s+\d+["""\u201c\u201d]/);
+        const nameM = line.match(/^(.+?)\s+\d+[""″\u201c\u201d\u2033]/);
         const wname = nameM ? nameM[1].trim() : line;
         const stats = parseRangeRow(line);
         if (stats && cur) {
@@ -476,8 +494,17 @@ function detectAllUnits(text) {
         const idx = line.indexOf(mob);
         if (idx === -1) continue;
         const beforeMob = line.slice(0, idx).trim();
+        // Filter narrative text: too long, or contains prose phrases
+        const PROSE = ['move as', 'move like', ' are ', 'can be', ' using ', 'teams move',
+                       ' to the ', ' with the ', 'infantry teams', 'all other'];
+        const isNarrative = beforeMob.length > 52 ||
+          PROSE.some(p => beforeMob.toLowerCase().includes(p));
+        if (isNarrative || beforeMob.length < 2) break;
+
         const afterMob  = line.slice(idx + mob.length).trim();
         const sm = afterMob.match(/^(-|\d+)\s+(-|\d+)\s+(-|\d+)\s*(.*)?$/);
+        // Name-based nation override (catches captured/allied equipment)
+        const nameNation = nationFromUnitName(beforeMob);
         cur = {
           unitName:   beforeMob,
           mobility:   mob,
@@ -485,10 +512,10 @@ function detectAllUnits(text) {
           armorSide:  sm ? (sm[2] === '-' ? '' : sm[2]) : '',
           unitNotes:  sm ? (sm[4] || '') : afterMob,
           quality:    currentQuality,
-          nation:     currentNation,
+          nation:     nameNation || currentNation,
           weapons:    [],
         };
-        if (cur.unitName.length > 1) units.push(cur);
+        units.push(cur);
         break;
       }
       continue;
@@ -509,10 +536,12 @@ function detectAllUnits(text) {
         const idx = line.indexOf(mob);
         if (idx === -1) continue;
         const unitName = line.slice(0, idx).trim();
+        if (unitName.length < 2 || unitName.length > 60) break;
         const afterMob = line.slice(idx + mob.length).trim();
         const stats = parseRangeRow(afterMob.length ? afterMob : line);
-        if (!stats || unitName.length < 2) break;
-        cur = { unitName, mobility: mob, armorFront: '', armorSide: '', unitNotes: stats.notes, quality: currentQuality, nation: currentNation, weapons: [] };
+        if (!stats) break;
+        const nameNation = nationFromUnitName(unitName);
+        cur = { unitName, mobility: mob, armorFront: '', armorSide: '', unitNotes: stats.notes, quality: currentQuality, nation: nameNation || currentNation, weapons: [] };
         cur.weapons.push(makeWeapon(unitName, stats, stats.notes));
         units.push(cur);
         break;
@@ -523,18 +552,29 @@ function detectAllUnits(text) {
     // ── INFANTRY section: single row — Name  Range  ROF  AT  FP  Notes ──
     if (sectionType === 'infantry') {
       if (!RANGE_RE.test(line)) continue;
-      const nameM = line.match(/^(.+?)\s+\d+["""\u201c\u201d]/);
+      const nameM = line.match(/^(.+?)\s+\d+[""″\u201c\u201d\u2033]/);
       const unitName = nameM ? nameM[1].trim() : '';
-      if (unitName.length < 2) continue;
+      if (unitName.length < 2 || unitName.length > 60) continue;
+      // Skip lines where the "name" looks like a sentence fragment
+      if (/\s(to|the|and|or|of|as|in|at|by|from|with|for)\s/i.test(unitName)) continue;
       const stats = parseRangeRow(line);
       if (!stats) continue;
-      cur = { unitName, mobility: '', armorFront: '', armorSide: '', unitNotes: stats.notes, quality: currentQuality, nation: currentNation, weapons: [] };
+      const nameNation = nationFromUnitName(unitName);
+      cur = { unitName, mobility: '', armorFront: '', armorSide: '', unitNotes: stats.notes, quality: currentQuality, nation: nameNation || currentNation, weapons: [] };
       cur.weapons.push(makeWeapon(unitName, stats, stats.notes));
       units.push(cur);
     }
   }
 
-  const valid = units.filter(u => u.unitName && u.unitName.length > 1);
+  // Deduplicate — same name+nation can appear on multiple pages
+  const seen = new Set();
+  const valid = units.filter(u => {
+    if (!u.unitName || u.unitName.length <= 1) return false;
+    const key = `${u.nation || ''}|${u.unitName.toLowerCase()}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 
   // Render detected list
   const list = document.getElementById('detected-list');
@@ -545,7 +585,13 @@ function detectAllUnits(text) {
     item.className = 'detected-item';
     item.id = `di-${idx}`;
     const armorInfo = u.armorFront ? `FA${u.armorFront}/SA${u.armorSide}` : '';
-    const meta = [u.nation, u.quality, armorInfo, `${u.weapons.length} wpn`].filter(Boolean).join(' · ');
+    // Quick type inference for display
+    let inferredType = 'Infantry';
+    if (u.armorFront) inferredType = 'Armored';
+    else if (GUN_MOB.includes(u.mobility)) inferredType = u.weapons.some(w=>w.bombard) ? 'Artillery' : 'Gun';
+    else if (TANK_MOB.includes(u.mobility)) inferredType = 'Transport';
+    const wpnInfo = u.weapons.length > 0 ? `${u.weapons[0].range}"` : '—';
+    const meta = [u.nation, inferredType, armorInfo || wpnInfo].filter(Boolean).join(' · ');
     item.innerHTML = `
       <span class="detected-name">${u.unitName}</span>
       <span class="detected-meta">${meta}</span>
@@ -708,7 +754,7 @@ function artyClass(mm) {
 }
 
 function makeId(nation, name) {
-  const map = { 'United States':'us','Germany':'de','Britain':'br','Soviet Union':'sov','Canada':'ca','France':'fr','Italy':'it','Japan':'jp' };
+  const map = { 'United States':'us','Germany':'de','Britain':'br','Soviet Union':'sov','Canada':'ca','France':'fr','Italy':'it','Japan':'jp','Poland':'pl','Belgium':'be' };
   const prefix = map[nation] || 'xx';
   const slug = (name||'unit').toLowerCase().replace(/[^a-z0-9\s-]/g,'').trim().replace(/\s+/g,'-');
   return `${prefix}-${slug}`;
@@ -840,11 +886,31 @@ function addAllToQueue() {
 
     const specialRules = [];
 
+    // Infer type from detected data
+    let unitType = 'Infantry';
+    let unitBase = 'Medium';
+    if (armorFront !== null) {
+      unitType = 'Armored';
+      unitBase = 'Vehicle';
+    } else if (GUN_MOB.includes(u.mobility)) {
+      unitBase = 'Gun';
+      // Artillery if any bombard weapon; Anti-Tank if high AT; else Support
+      const hasBombard = u.weapons.some(w => w.bombard);
+      const atVal = parseInt(main[0]?.at || '');
+      if (hasBombard) { unitType = 'Artillery'; }
+      else if (!isNaN(atVal) && atVal >= 6) { unitType = 'Anti-Tank'; }
+      else { unitType = 'Support'; }
+    } else if (TANK_MOB.includes(u.mobility) && armorFront === null) {
+      // Tracked/wheeled but no armor — transport or recon
+      unitType = 'Transport';
+      unitBase = 'Vehicle';
+    }
+
     queue.push({
       id:            makeId(nation, u.unitName),
       name:          u.unitName,
       nation,
-      type:          'Infantry', // user can correct after reviewing export
+      type:          unitType,
       theater,
       years,
       gun_range:     gunRange,
@@ -854,7 +920,7 @@ function addAllToQueue() {
       armament:      u.unitNotes || null,
       notes,
       special_rules: specialRules,
-      base:          armorFront !== null ? 'Vehicle' : 'Medium',
+      base:          unitBase,
       standard_platoon: null,
       free:          isFree,
       wiki:          null,
