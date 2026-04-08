@@ -62,7 +62,6 @@
     flex: 1 1 auto;
     display: flex;
     align-items: center;
-    min-width: 0;
   }
 
   .header-end.is-wrapped {
@@ -105,7 +104,12 @@
   .section { display: none; }
   .section.active { display: contents; }
 
-  #section-library.active,
+  #section-library.active {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: calc(100vh - var(--header-h));
+  }
+
   #section-fieldmanual.active {
     display: flex;
     flex-direction: column;
@@ -117,7 +121,25 @@
     box-sizing: border-box;
   }
 
-  .lib-section-tabs { display: flex; border-bottom: 1px solid var(--border); }
+  .lib-sidebar {
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    padding: 20px 16px;
+    position: sticky;
+    top: var(--header-h);
+    height: calc(100vh - var(--header-h));
+    overflow-y: auto;
+  }
+
+  .lib-main {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - var(--header-h));
+  }
+
+  .lib-section-tabs { display: flex; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+
+  .library-body { flex: 1; padding: 20px 24px; overflow-y: auto; }
 
   .section-stub {
     display: flex;
@@ -629,15 +651,31 @@
   }
 
   /* ── Type colors ──────────────────────────────────────────────────────────── */
-  [data-type="Infantry"]  { --type-color: #6abf6a; }
-  [data-type="Support"]   { --type-color: #a07fd4; }
-  [data-type="Artillery"] { --type-color: #d4a035; }
-  [data-type="Gun Teams"] { --type-color: #c07828; }
-  [data-type="Anti-Tank"] { --type-color: #d45f50; }
-  [data-type="Anti-Air"]  { --type-color: #50a8d4; }
-  [data-type="Armored"]   { --type-color: #5888c4; }
-  [data-type="Recon"]     { --type-color: #3cb8a0; }
-  [data-type="Transport"] { --type-color: #8c9870; }
+  [data-type="Infantry"]   { --type-color: #6abf6a; }
+  [data-type="Support"]    { --type-color: #a07fd4; }
+  [data-type="Artillery"]  { --type-color: #d4a035; }
+  [data-type="Gun Teams"]  { --type-color: #c07828; }
+  [data-type="Anti-Tank"]  { --type-color: #d45f50; }
+  [data-type="Anti-Air"]   { --type-color: #50a8d4; }
+  [data-type="Armored"]    { --type-color: #5888c4; }
+  [data-type="Mechanized"] { --type-color: #c4964a; }
+  [data-type="Airborne"]   { --type-color: #9ab4d4; }
+  [data-type="Recon"]      { --type-color: #3cb8a0; }
+  [data-type="Transport"]  { --type-color: #8c9870; }
+
+  /* ── Quality colors ───────────────────────────────────────────────────────── */
+  [data-quality="Elite"]   { --quality-color: var(--accent); }
+  [data-quality="Regular"] { --quality-color: var(--green); }
+  [data-quality="Poor"]    { --quality-color: #d46a6a; }
+
+  .chip[data-quality] { color: var(--quality-color); }
+  .chip[data-quality]:hover { border-color: var(--quality-color); color: var(--quality-color); }
+  .chip[data-quality].active {
+    background: var(--quality-color);
+    border-color: var(--quality-color);
+    color: #111;
+    font-weight: 600;
+  }
 
   .type-badge {
     font-family: var(--mono);
@@ -1746,12 +1784,6 @@
   .library-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
   .library-tab:hover { color: var(--text); }
 
-  .library-body {
-    padding: 20px;
-    flex: 1;
-    overflow-y: auto;
-  }
-
   .force-card {
     border: 1px solid var(--border);
     padding: 14px 16px;
@@ -1828,78 +1860,6 @@
   .force-card-btn:hover { border-color: var(--accent); color: var(--accent); }
   .force-card-btn.danger:hover { border-color: var(--red); color: #ff9a9a; }
 
-  /* Library filter panel */
-  .lib-filters { flex-shrink: 0; border-bottom: 1px solid var(--border); }
-  .lib-filter-top {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    padding: 10px 20px;
-    border-bottom: 1px solid var(--border);
-    flex-wrap: wrap;
-  }
-  .lib-sort-select {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    color: var(--text2);
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.5px;
-    padding: 4px 8px;
-    cursor: pointer;
-  }
-  .lib-sort-select:focus { outline: none; border-color: var(--accent); }
-  .lib-filter-rows { padding: 8px 20px 10px; display: flex; flex-direction: column; gap: 6px; }
-  .lib-filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .lib-filter-label {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 1px;
-    color: var(--text3);
-    text-transform: uppercase;
-    width: 64px;
-    flex-shrink: 0;
-  }
-  .lib-chip-group { display: flex; gap: 4px; flex-wrap: wrap; }
-
-  .lib-search-input {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: var(--mono);
-    font-size: 11px;
-    padding: 5px 10px;
-    flex: 1;
-    min-width: 140px;
-    letter-spacing: 0.5px;
-  }
-
-  .lib-search-input:focus { outline: none; border-color: var(--accent); }
-  .lib-search-input::placeholder { color: var(--text3); }
-
-  .lib-chip {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--text3);
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.5px;
-    padding: 3px 8px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.12s;
-  }
-
-  .lib-chip:hover { border-color: var(--text2); color: var(--text2); }
-  .lib-chip.active { border-color: var(--accent); color: var(--accent); background: rgba(224,192,96,0.08); }
-
-  .lib-result-count {
-    font-family: var(--mono);
-    font-size: 9px;
-    color: var(--text3);
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-  }
 
   .lib-empty {
     font-family: var(--mono);
@@ -2901,71 +2861,80 @@
 
 <!-- LIBRARY SECTION -->
 <div class="section" id="section-library">
-  <div class="lib-section-tabs">
-    <button class="library-tab active" id="tab-browse" onclick="switchLibTab('browse')">Browse</button>
-    <button class="library-tab" id="tab-mine" onclick="switchLibTab('mine')">My Forces</button>
-  </div>
-  <div class="lib-filters">
-    <div class="lib-filter-top">
-      <input type="text" id="lib-search" class="lib-search-input" placeholder="Search forces…" oninput="applyLibFilters()">
-      <select class="lib-sort-select" id="lib-sort" onchange="applyLibFilters()">
+  <aside class="lib-sidebar">
+    <div class="filter-section">
+      <div class="filter-label">Search</div>
+      <input type="text" id="lib-search" class="search-input" placeholder="Force name…" oninput="applyLibFilters()">
+    </div>
+    <div class="filter-section">
+      <div class="filter-label">Sort</div>
+      <select class="year-select" id="lib-sort" onchange="applyLibFilters()" style="width:100%">
         <option value="newest">Newest first</option>
         <option value="oldest">Oldest first</option>
         <option value="name">Name A–Z</option>
         <option value="platoons">Most platoons</option>
       </select>
-      <span id="lib-result-count" class="lib-result-count"></span>
     </div>
-    <div class="lib-filter-rows">
-      <div class="lib-filter-row">
-        <span class="lib-filter-label">Nation</span>
-        <div class="lib-chip-group">
-          <button class="lib-chip" data-filter="nation" data-value="United States" onclick="toggleLibChip(this)">US</button>
-          <button class="lib-chip" data-filter="nation" data-value="Germany"       onclick="toggleLibChip(this)">GER</button>
-          <button class="lib-chip" data-filter="nation" data-value="Britain"       onclick="toggleLibChip(this)">BR</button>
-          <button class="lib-chip" data-filter="nation" data-value="Soviet Union"  onclick="toggleLibChip(this)">SOV</button>
-        </div>
-      </div>
-      <div class="lib-filter-row">
-        <span class="lib-filter-label">Quality</span>
-        <div class="lib-chip-group">
-          <button class="lib-chip" data-filter="quality" data-value="Elite"   onclick="toggleLibChip(this)">Elite</button>
-          <button class="lib-chip" data-filter="quality" data-value="Regular" onclick="toggleLibChip(this)">Regular</button>
-          <button class="lib-chip" data-filter="quality" data-value="Poor"    onclick="toggleLibChip(this)">Poor</button>
-        </div>
-      </div>
-      <div class="lib-filter-row">
-        <span class="lib-filter-label">Type</span>
-        <div class="lib-chip-group">
-          <button class="lib-chip" data-filter="type" data-value="Infantry"   onclick="toggleLibChip(this)">Infantry</button>
-          <button class="lib-chip" data-filter="type" data-value="Mechanized" onclick="toggleLibChip(this)">Mechanized</button>
-          <button class="lib-chip" data-filter="type" data-value="Armored"    onclick="toggleLibChip(this)">Armored</button>
-          <button class="lib-chip" data-filter="type" data-value="Airborne"   onclick="toggleLibChip(this)">Airborne</button>
-        </div>
-      </div>
-      <div class="lib-filter-row">
-        <span class="lib-filter-label">Year</span>
-        <div class="lib-chip-group">
-          <button class="lib-chip" data-filter="year" data-value="1939" onclick="toggleLibChip(this)">1939</button>
-          <button class="lib-chip" data-filter="year" data-value="1940" onclick="toggleLibChip(this)">1940</button>
-          <button class="lib-chip" data-filter="year" data-value="1941" onclick="toggleLibChip(this)">1941</button>
-          <button class="lib-chip" data-filter="year" data-value="1942" onclick="toggleLibChip(this)">1942</button>
-          <button class="lib-chip" data-filter="year" data-value="1943" onclick="toggleLibChip(this)">1943</button>
-          <button class="lib-chip" data-filter="year" data-value="1944" onclick="toggleLibChip(this)">1944</button>
-          <button class="lib-chip" data-filter="year" data-value="1945" onclick="toggleLibChip(this)">1945</button>
-        </div>
-      </div>
-      <div class="lib-filter-row">
-        <span class="lib-filter-label">Platoons</span>
-        <div class="lib-chip-group">
-          <button class="lib-chip" data-filter="platoons" data-value="1-2" onclick="toggleLibChip(this)">1–2</button>
-          <button class="lib-chip" data-filter="platoons" data-value="3-4" onclick="toggleLibChip(this)">3–4</button>
-          <button class="lib-chip" data-filter="platoons" data-value="5+"  onclick="toggleLibChip(this)">5+</button>
-        </div>
+    <div class="filter-section">
+      <div class="filter-label">Nation</div>
+      <div class="filter-chips">
+        <button class="chip" data-filter="nation" data-value="United States" data-nation="United States" onclick="toggleLibChip(this)">US</button>
+        <button class="chip" data-filter="nation" data-value="Germany"       data-nation="Germany"       onclick="toggleLibChip(this)">Germany</button>
+        <button class="chip" data-filter="nation" data-value="Britain"       data-nation="Britain"       onclick="toggleLibChip(this)">Britain</button>
+        <button class="chip" data-filter="nation" data-value="Soviet Union"  data-nation="Soviet Union"  onclick="toggleLibChip(this)">Soviet Union</button>
       </div>
     </div>
+    <div class="filter-section">
+      <div class="filter-label">Quality</div>
+      <div class="filter-chips">
+        <button class="chip" data-filter="quality" data-value="Elite"   data-quality="Elite"   onclick="toggleLibChip(this)">Elite</button>
+        <button class="chip" data-filter="quality" data-value="Regular" data-quality="Regular" onclick="toggleLibChip(this)">Regular</button>
+        <button class="chip" data-filter="quality" data-value="Poor"    data-quality="Poor"    onclick="toggleLibChip(this)">Poor</button>
+      </div>
+    </div>
+    <div class="filter-section">
+      <div class="filter-label">Type</div>
+      <div class="filter-chips">
+        <button class="chip" data-filter="type" data-value="Infantry"   data-type="Infantry"   onclick="toggleLibChip(this)">Infantry</button>
+        <button class="chip" data-filter="type" data-value="Mechanized" data-type="Mechanized" onclick="toggleLibChip(this)">Mechanized</button>
+        <button class="chip" data-filter="type" data-value="Armored"    data-type="Armored"    onclick="toggleLibChip(this)">Armored</button>
+        <button class="chip" data-filter="type" data-value="Airborne"   data-type="Airborne"   onclick="toggleLibChip(this)">Airborne</button>
+      </div>
+    </div>
+    <div class="filter-section">
+      <div class="filter-label">Year</div>
+      <div class="year-range">
+        <select class="year-select" id="lib-year-from" onchange="applyLibFilters()">
+          <option value="">Any</option>
+          <option>1939</option><option>1940</option><option>1941</option>
+          <option>1942</option><option>1943</option><option>1944</option><option>1945</option>
+        </select>
+        <span class="year-sep">—</span>
+        <select class="year-select" id="lib-year-to" onchange="applyLibFilters()">
+          <option value="">Any</option>
+          <option>1939</option><option>1940</option><option>1941</option>
+          <option>1942</option><option>1943</option><option>1944</option><option>1945</option>
+        </select>
+      </div>
+    </div>
+    <div class="filter-section">
+      <div class="filter-label">Platoons</div>
+      <div class="filter-chips">
+        <button class="chip" data-filter="platoons" data-value="1-2" onclick="toggleLibChip(this)">1–2</button>
+        <button class="chip" data-filter="platoons" data-value="3-4" onclick="toggleLibChip(this)">3–4</button>
+        <button class="chip" data-filter="platoons" data-value="5+"  onclick="toggleLibChip(this)">5+</button>
+      </div>
+    </div>
+    <div class="results-count" id="lib-result-count"></div>
+    <button class="clear-btn" onclick="clearLibFilters()">Clear all filters</button>
+  </aside>
+  <div class="lib-main">
+    <div class="lib-section-tabs">
+      <button class="library-tab active" id="tab-browse" onclick="switchLibTab('browse')">Browse</button>
+      <button class="library-tab" id="tab-mine" onclick="switchLibTab('mine')">My Forces</button>
+    </div>
+    <div id="library-body" class="library-body"></div>
   </div>
-  <div id="library-body" class="library-body"></div>
 </div>
 
 <!-- FIELD MANUAL SECTION -->
@@ -3988,11 +3957,18 @@ function switchLibTab(tab) {
   currentLibTab = tab;
   document.querySelectorAll('.library-tab').forEach(t => t.classList.remove('active'));
   document.getElementById(`tab-${tab}`).classList.add('active');
-  // Reset search/filters on tab switch
+  clearLibFilters();
+  loadLibraryTab(tab);
+}
+
+function clearLibFilters() {
   const s = document.getElementById('lib-search');
   if (s) s.value = '';
-  document.querySelectorAll('#section-library .lib-chip').forEach(c => c.classList.remove('active'));
-  loadLibraryTab(tab);
+  const yf = document.getElementById('lib-year-from');
+  if (yf) yf.value = '';
+  const yt = document.getElementById('lib-year-to');
+  if (yt) yt.value = '';
+  document.querySelectorAll('#section-library .chip').forEach(c => c.classList.remove('active'));
 }
 
 function toggleLibChip(btn) {
@@ -4002,12 +3978,14 @@ function toggleLibChip(btn) {
 
 function applyLibFilters() {
   const body = document.getElementById('library-body');
-  const search = (document.getElementById('lib-search')?.value || '').toLowerCase().trim();
-  const sort   = document.getElementById('lib-sort')?.value || 'newest';
+  const search   = (document.getElementById('lib-search')?.value || '').toLowerCase().trim();
+  const sort     = document.getElementById('lib-sort')?.value || 'newest';
+  const yearFrom = parseInt(document.getElementById('lib-year-from')?.value) || null;
+  const yearTo   = parseInt(document.getElementById('lib-year-to')?.value)   || null;
 
   // Collect active chip values by filter group
-  const active = { nation: [], quality: [], type: [], year: [], platoons: [] };
-  document.querySelectorAll('#section-library .lib-chip.active').forEach(c => {
+  const active = { nation: [], quality: [], type: [], platoons: [] };
+  document.querySelectorAll('#section-library .chip.active').forEach(c => {
     const grp = c.dataset.filter;
     if (active[grp]) active[grp].push(c.dataset.value);
   });
@@ -4025,7 +4003,8 @@ function applyLibFilters() {
     }
     if (active.quality.length > 0 && !active.quality.includes(f.quality)) return false;
     if (active.type.length > 0 && !active.type.includes(f.forceType)) return false;
-    if (active.year.length > 0 && !active.year.includes(String(f.year))) return false;
+    if (yearFrom && (!f.year || f.year < yearFrom)) return false;
+    if (yearTo   && (!f.year || f.year > yearTo))   return false;
     if (active.platoons.length > 0) {
       const pc = f.platoonCount || 0;
       const match = active.platoons.some(r => {
@@ -4047,7 +4026,7 @@ function applyLibFilters() {
 
   const countEl = document.getElementById('lib-result-count');
   if (countEl) countEl.textContent = visible.length === libAllForces.length
-    ? `${visible.length} force${visible.length !== 1 ? 's' : ''}`
+    ? `${visible.length} of ${libAllForces.length} forces`
     : `${visible.length} of ${libAllForces.length}`;
 
   if (visible.length === 0) {
