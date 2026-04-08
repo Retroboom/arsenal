@@ -4176,21 +4176,17 @@ async function loadWhatsNew() {
 }
 
 function checkFeaturedGrids() {
-  ['whats-new-cards', 'lib-featured-cards'].forEach(id => {
+  [
+    { id: 'whats-new-cards',    minW: 220 },
+    { id: 'lib-featured-cards', minW: 200 }
+  ].forEach(({ id, minW }) => {
     const grid = document.getElementById(id);
     if (!grid) return;
-    const items = Array.from(grid.children);
-    if (items.length === 0) return;
-    // Reset to CSS-driven columns so we can measure natural column count
-    grid.style.gridTemplateColumns = '';
-    // Use rAF so browser has laid out the reset first
-    requestAnimationFrame(() => {
-      const firstTop = items[0].getBoundingClientRect().top;
-      const cols = items.filter(el => Math.abs(el.getBoundingClientRect().top - firstTop) < 2).length;
-      if (cols > 1 && items.length % cols === 1) {
-        grid.style.gridTemplateColumns = '1fr';
-      }
-    });
+    const count = grid.children.length;
+    if (count === 0) { grid.style.gridTemplateColumns = ''; return; }
+    const containerW = (grid.parentElement || grid).clientWidth;
+    const cols = Math.max(1, Math.floor(containerW / minW));
+    grid.style.gridTemplateColumns = (cols > 1 && count % cols === 1) ? '1fr' : '';
   });
 }
 
@@ -4940,9 +4936,7 @@ if (new URLSearchParams(window.location.search).get('preview') === 'true') {
   update();
 })();
 
-(function () {
-  new ResizeObserver(() => checkFeaturedGrids()).observe(document.documentElement);
-})();
+window.addEventListener('resize', checkFeaturedGrids);
 
 // ── GLOBAL TOOLTIP ────────────────────────────────────────────────────────────
 // Uses position:fixed so it escapes overflow:auto scroll containers (e.g. force panel)
