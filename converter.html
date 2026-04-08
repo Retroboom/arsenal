@@ -95,10 +95,26 @@
     <input type="file" id="pdf-upload" accept=".pdf" onchange="loadPDF(this)">
     <span class="pdf-status" id="pdf-status"></span>
   </div>
+  <div style="display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap">
+    <div class="field" style="flex:0 0 auto">
+      <label>Stats pages — from</label>
+      <input type="number" id="page-from" min="1" placeholder="1" style="width:70px">
+    </div>
+    <div class="field" style="flex:0 0 auto">
+      <label>to</label>
+      <input type="number" id="page-to" min="1" placeholder="end" style="width:70px">
+    </div>
+    <div style="padding-top:14px">
+      <button class="btn-sm btn-accent" onclick="reparse()">↺ Reparse Pages</button>
+    </div>
+  </div>
   <div id="detected-panel" style="display:none;margin-top:14px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
-      <h2 style="margin:0">Detected Units — <span id="detected-count">0</span> found · click to load</h2>
-      <button class="btn-sm" onclick="document.getElementById('pdf-raw-panel').style.display = document.getElementById('pdf-raw-panel').style.display==='none'?'block':'none'">Show Raw Text</button>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:8px">
+      <h2 style="margin:0">Detected — <span id="detected-count">0</span> units</h2>
+      <div style="display:flex;gap:8px">
+        <button class="btn-sm btn-accent" onclick="addAllToQueue()">+ Add All to Queue</button>
+        <button class="btn-sm" onclick="document.getElementById('pdf-raw-panel').style.display = document.getElementById('pdf-raw-panel').style.display==='none'?'block':'none'">Raw Text</button>
+      </div>
     </div>
     <div class="detected-list" id="detected-list"></div>
     <div id="pdf-raw-panel" style="display:none;margin-top:8px">
@@ -282,40 +298,55 @@ if (typeof pdfjsLib !== 'undefined') {
 
 // ── PDF ───────────────────────────────────────────────────────────────────────
 
+let _pdfDoc = null;
+
 async function loadPDF(input) {
   if (!input.files[0]) return;
   const status = document.getElementById('pdf-status');
   status.textContent = 'Loading…';
   try {
     const buf = await input.files[0].arrayBuffer();
-    const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
-
-    let fullText = '';
-    for (let i = 1; i <= pdf.numPages; i++) {
-      const page = await pdf.getPage(i);
-      const content = await page.getTextContent();
-      let lastY = null, line = '';
-      const lines = [];
-      for (const item of content.items) {
-        const y = Math.round(item.transform[5]);
-        if (lastY !== null && Math.abs(y - lastY) > 3) {
-          if (line.trim()) lines.push(line.trim());
-          line = '';
-        }
-        line += (line ? ' ' : '') + item.str;
-        lastY = y;
-      }
-      if (line.trim()) lines.push(line.trim());
-      fullText += lines.reverse().join('\n') + '\n\n';
-    }
-
-    document.getElementById('pdf-text').value = fullText;
-    status.textContent = `${pdf.numPages} page${pdf.numPages !== 1 ? 's' : ''} loaded`;
-    detectAllUnits(fullText);
-    document.getElementById('detected-panel').style.display = 'block';
+    _pdfDoc = await pdfjsLib.getDocument({ data: buf }).promise;
+    status.textContent = `${_pdfDoc.numPages} pages — set page range then click Reparse, or leave blank to scan all`;
+    document.getElementById('page-to').placeholder = _pdfDoc.numPages;
+    await reparse();
   } catch (e) {
     status.textContent = 'Error: ' + e.message;
   }
+}
+
+async function reparse() {
+  if (!_pdfDoc) return;
+  const status = document.getElementById('pdf-status');
+  const fromP = parseInt(document.getElementById('page-from').value) || 1;
+  const toP   = parseInt(document.getElementById('page-to').value)   || _pdfDoc.numPages;
+  const start = Math.max(1, fromP);
+  const end   = Math.min(_pdfDoc.numPages, toP);
+  status.textContent = `Parsing pages ${start}–${end}…`;
+
+  let fullText = '';
+  for (let i = start; i <= end; i++) {
+    const page = await _pdfDoc.getPage(i);
+    const content = await page.getTextContent();
+    let lastY = null, line = '';
+    const lines = [];
+    for (const item of content.items) {
+      const y = Math.round(item.transform[5]);
+      if (lastY !== null && Math.abs(y - lastY) > 3) {
+        if (line.trim()) lines.push(line.trim());
+        line = '';
+      }
+      line += (line ? ' ' : '') + item.str;
+      lastY = y;
+    }
+    if (line.trim()) lines.push(line.trim());
+    fullText += lines.reverse().join('\n') + '\n\n';
+  }
+
+  document.getElementById('pdf-text').value = fullText;
+  status.textContent = `Pages ${start}–${end} parsed`;
+  detectAllUnits(fullText);
+  document.getElementById('detected-panel').style.display = 'block';
 }
 
 // ── Unit Block Detection ──────────────────────────────────────────────────────
@@ -352,6 +383,28 @@ const SECTION_MAP = {
   'INFANTRY TEAMS': 'infantry', 'CAVALRY': 'tank', 'COMBAT TANKS': 'tank',
   'TANK-HUNTERS': 'tank', 'SELF-PROPELLED': 'tank',
 };
+
+// Nation keywords — order matters (more specific first)
+const NATION_MAP = [
+  { keywords: ['FRENCH','FRANCE'],          nation: 'France'       },
+  { keywords: ['GERMAN','GERMANY','HEER','PANZER','LUFTWAFFE','WAFFEN'], nation: 'Germany'  },
+  { keywords: ['BRITISH','BRITAIN','BEF','ROYAL TANK'],                  nation: 'Britain'  },
+  { keywords: ['SOVIET','USSR','RED ARMY'], nation: 'Soviet Union' },
+  { keywords: ['AMERICAN','US ARMY','USA'], nation: 'United States'},
+  { keywords: ['ITALIAN','ITALY'],          nation: 'Italy'        },
+  { keywords: ['BELGIAN','BELGIUM'],        nation: 'France'       }, // map Belgium → France placeholder
+  { keywords: ['POLISH','POLAND'],          nation: 'Britain'      }, // map Poland → Britain placeholder
+];
+
+function detectNation(line) {
+  const up = line.toUpperCase();
+  // Only fire on lines that look like section headers (short, mostly caps, no range pattern)
+  if (RANGE_RE.test(line) || line.length > 80) return null;
+  for (const { keywords, nation } of NATION_MAP) {
+    if (keywords.some(k => up.includes(k))) return nation;
+  }
+  return null;
+}
 
 function detectSection(line) {
   const up = line.toUpperCase();
@@ -392,11 +445,16 @@ function makeWeapon(name, stats, unitNotes) {
 function detectAllUnits(text) {
   const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
   let currentQuality = null;
+  let currentNation  = null;
   let sectionType = 'tank'; // default
   const units = [];
   let cur = null;
 
   for (const line of lines) {
+    // Nation detection (section-level header)
+    const nat = detectNation(line);
+    if (nat) { currentNation = nat; }
+
     // Section header detection
     const sec = detectSection(line);
     if (sec) { sectionType = sec; cur = null; continue; }
@@ -445,6 +503,7 @@ function detectAllUnits(text) {
           armorSide:  sm ? (sm[2] === '-' ? '' : sm[2]) : '',
           unitNotes:  sm ? (sm[4] || '') : afterMob,
           quality:    currentQuality,
+          nation:     currentNation,
           weapons:    [],
         };
         if (cur.unitName.length > 1) units.push(cur);
@@ -471,7 +530,7 @@ function detectAllUnits(text) {
         const afterMob = line.slice(idx + mob.length).trim();
         const stats = parseRangeRow(afterMob.length ? afterMob : line);
         if (!stats || unitName.length < 2) break;
-        cur = { unitName, mobility: mob, armorFront: '', armorSide: '', unitNotes: stats.notes, quality: currentQuality, weapons: [] };
+        cur = { unitName, mobility: mob, armorFront: '', armorSide: '', unitNotes: stats.notes, quality: currentQuality, nation: currentNation, weapons: [] };
         cur.weapons.push(makeWeapon(unitName, stats, stats.notes));
         units.push(cur);
         break;
@@ -487,7 +546,7 @@ function detectAllUnits(text) {
       if (unitName.length < 2) continue;
       const stats = parseRangeRow(line);
       if (!stats) continue;
-      cur = { unitName, mobility: '', armorFront: '', armorSide: '', unitNotes: stats.notes, quality: currentQuality, weapons: [] };
+      cur = { unitName, mobility: '', armorFront: '', armorSide: '', unitNotes: stats.notes, quality: currentQuality, nation: currentNation, weapons: [] };
       cur.weapons.push(makeWeapon(unitName, stats, stats.notes));
       units.push(cur);
     }
@@ -503,10 +562,11 @@ function detectAllUnits(text) {
     const item = document.createElement('div');
     item.className = 'detected-item';
     item.id = `di-${idx}`;
-    const armorInfo = u.armorFront ? `FA${u.armorFront}/SA${u.armorSide}` : 'no armor';
+    const armorInfo = u.armorFront ? `FA${u.armorFront}/SA${u.armorSide}` : '';
+    const meta = [u.nation, u.quality, armorInfo, `${u.weapons.length} wpn`].filter(Boolean).join(' · ');
     item.innerHTML = `
       <span class="detected-name">${u.unitName}</span>
-      <span class="detected-meta">${u.weapons.length} wpn · ${armorInfo} · ${u.quality || '—'}</span>
+      <span class="detected-meta">${meta}</span>
     `;
     item.onclick = () => loadDetected(u, idx);
     list.appendChild(item);
@@ -523,11 +583,18 @@ function loadDetected(u, idx) {
   // Unit name
   document.getElementById('u-name').value = u.unitName || '';
 
-  // Quality → batch defaults
+  // Apply detected nation to batch defaults if known
+  if (u.nation) {
+    const nSel = document.getElementById('b-nation');
+    for (const opt of nSel.options) {
+      if (opt.value === u.nation) { nSel.value = u.nation; break; }
+    }
+  }
+  // Apply detected quality to batch defaults if known
   if (u.quality) {
-    const sel = document.getElementById('b-quality');
-    for (const opt of sel.options) {
-      if (opt.value === u.quality) { sel.value = u.quality; break; }
+    const qSel = document.getElementById('b-quality');
+    for (const opt of qSel.options) {
+      if (opt.value === u.quality) { qSel.value = u.quality; break; }
     }
   }
 
@@ -738,6 +805,84 @@ function update() {
 // ── Queue ─────────────────────────────────────────────────────────────────────
 
 let queue = [];
+
+function addAllToQueue() {
+  const units = window._detectedUnits || [];
+  if (units.length === 0) { alert('No detected units.'); return; }
+  if (!confirm(`Add all ${units.length} detected units to the queue?`)) return;
+
+  const theater = [...document.querySelectorAll('.theater-cb:checked')].map(c => c.value);
+  const yFrom   = parseInt(document.getElementById('b-year-from').value) || 1939;
+  const yTo     = parseInt(document.getElementById('b-year-to').value)   || 1945;
+  const isFree  = document.getElementById('b-free').checked;
+  const years   = []; for (let y = yFrom; y <= yTo; y++) years.push(y);
+  const bNation  = document.getElementById('b-nation').value;
+  const bQuality = document.getElementById('b-quality').value;
+
+  for (const u of units) {
+    const nation  = u.nation  || bNation;
+    const fowQ    = u.quality || bQuality;
+    const quality = cvtQuality(fowQ);
+
+    const armorFront = u.armorFront !== '' ? cvtAT(u.armorFront) : null;
+    const armorFlank = u.armorSide  !== '' ? cvtAT(u.armorSide)  : null;
+
+    const main = u.weapons.filter(w => !w.coax && !w.hull && !w.bombard);
+    let gunRange = null, rof = null, at = null, fp = null;
+    const notes = [];
+
+    if (main.length > 0) {
+      const w = main[0];
+      gunRange = cvtRange(w.weaponName, w.range, w.bombard);
+      rof      = cvtROF(w.rof);
+      at       = cvtAT(w.at);
+      fp       = cvtFP(w.fp);
+      if (w.smoke) notes.push('Smoke');
+    }
+    main.slice(1).forEach(w => {
+      const parts = [w.weaponName];
+      const r = cvtRange(w.weaponName, w.range, w.bombard);
+      const rf = cvtROF(w.rof); const a = cvtAT(w.at); const f = cvtFP(w.fp);
+      if (r!==null) parts.push(r); if (rf!==null) parts.push(`ROF ${rf}`);
+      if (a!==null) parts.push(`AT ${a}`); if (f!==null) parts.push(`FP: ${f}`);
+      if (w.smoke) parts.push('Smoke');
+      notes.push(parts.filter(Boolean).join(' '));
+    });
+    if (u.weapons.some(w => w.coax)) notes.push('Co-ax MG');
+    if (u.weapons.some(w => w.hull)) notes.push('Hull MG');
+
+    // Mobility → note
+    if (u.mobility === 'Fully-tracked') notes.push('Tracked');
+    else if (u.mobility === 'Half-tracked') notes.push('Half-Tracked');
+    else if (u.mobility === 'Horse-drawn') notes.push('Horse-drawn');
+
+    const specialRules = [];
+
+    queue.push({
+      id:            makeId(nation, u.unitName),
+      name:          u.unitName,
+      nation,
+      type:          'Infantry', // user can correct after reviewing export
+      theater,
+      years,
+      gun_range:     gunRange,
+      rof, at, fp,
+      armor_front:   armorFront,
+      armor_flank:   armorFlank,
+      armament:      u.unitNotes || null,
+      notes,
+      special_rules: specialRules,
+      base:          armorFront !== null ? 'Vehicle' : 'Medium',
+      standard_platoon: null,
+      free:          isFree,
+      wiki:          null,
+      lore:          null,
+    });
+  }
+
+  renderQueue();
+  alert(`${units.length} units added to queue. Review the exported JSON to set type, base, wiki, and lore.`);
+}
 
 function addToQueue() {
   const entry = buildEntry();
