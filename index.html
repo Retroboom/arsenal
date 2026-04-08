@@ -45,15 +45,18 @@
     border-bottom: 1px solid var(--border);
     padding: 0 24px;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
     position: sticky;
     top: 0;
     z-index: 100;
   }
 
-  .header-row1 {
+  .header-left {
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
+    gap: 8px;
     height: 80px;
   }
 
@@ -63,28 +66,22 @@
     align-self: center;
   }
 
-  .header-end {
-    flex: 1 0 auto;
-    display: flex;
-    align-items: center;
-    padding-bottom: 4px;
-  }
-
   .header-right {
     flex: 0 0 auto;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
     margin-left: auto;
+    height: 80px;
   }
 
   .header-nav {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     gap: 2px;
     justify-content: flex-start;
-    padding: 0;
+    padding: 0 0 4px;
   }
   .header-nav-tab {
     padding: 6px 14px;
@@ -334,12 +331,6 @@
   }
   .logo .logo-word {
     letter-spacing: 3px;
-  }
-
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 16px;
   }
 
   .force-toggle-btn {
@@ -1614,8 +1605,8 @@
     font-family: var(--mono);
     font-size: 26px;
     letter-spacing: 3px;
-    color: var(--text3);
-    opacity: 0.6;
+    color: var(--text2);
+    opacity: 0.85;
     text-transform: uppercase;
   }
 
@@ -2011,11 +2002,8 @@
   .whats-new-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    grid-template-rows: auto;
     column-gap: 10px;
-    row-gap: 0;
-    grid-auto-rows: 0px;
-    overflow: hidden;
+    row-gap: 8px;
   }
   .wn-card {
     background: var(--bg3);
@@ -2086,22 +2074,7 @@
   .lib-featured-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-template-rows: auto;
-    grid-auto-rows: 0px;
-    overflow: hidden;
-  }
-  @media (max-width: 600px) {
-    .whats-new-cards {
-      grid-template-columns: 1fr;
-      grid-auto-rows: auto;
-      overflow: visible;
-      row-gap: 10px;
-    }
-    .lib-featured-cards {
-      grid-template-columns: 1fr;
-      grid-auto-rows: auto;
-      overflow: visible;
-    }
+    row-gap: 0;
   }
 
   .lib-fc {
@@ -2766,24 +2739,22 @@
 <body>
 
 <header>
-  <div class="header-row1">
+  <div class="header-left">
     <div class="logo" onclick="showHomeView()" style="cursor:pointer" title="Home">
       <img src="logo.png" alt="Hail of Fire" class="logo-img">
       <span><span class="logo-slashes">//</span><span class="logo-word">ARSENAL</span></span>
     </div>
-    <div class="header-right">
-      <div id="auth-area">
-        <button class="auth-btn" onclick="signIn()">Sign In</button>
-      </div>
-    </div>
-  </div>
-  <div class="header-end" id="header-end">
     <nav class="header-nav">
       <button class="header-nav-tab active" data-section="units" data-label="Units" onclick="setSection('units')">Units</button>
       <button class="header-nav-tab" data-section="library" data-label="Force Library" onclick="setSection('library')">Force Library</button>
       <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="setSection('fieldmanual')">Field Manual</button>
     </nav>
-    <button class="force-toggle-btn units-only" style="margin-left:auto" onclick="toggleForcePanel()">
+  </div>
+  <div class="header-right">
+    <div id="auth-area">
+      <button class="auth-btn" onclick="signIn()">Sign In</button>
+    </div>
+    <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
       Force Builder <span class="force-count-badge" id="force-count">0</span>
     </button>
   </div>
@@ -4184,7 +4155,7 @@ function checkFeaturedGrids() {
     if (!grid) return;
     const count = grid.children.length;
     if (count === 0) { grid.style.gridTemplateColumns = ''; return; }
-    const containerW = (grid.parentElement || grid).clientWidth;
+    const containerW = grid.offsetWidth || (grid.parentElement ? grid.parentElement.clientWidth : 0);
     const cols = Math.max(1, Math.floor(containerW / minW));
     grid.style.gridTemplateColumns = (cols > 1 && count % cols === 1) ? '1fr' : '';
   });
