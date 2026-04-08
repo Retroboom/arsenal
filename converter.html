@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FoW → HoF Converter</title>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
   :root {
     --bg: #0f0e0c;
@@ -144,11 +145,62 @@
     line-height: 1.7;
   }
   .divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+  /* PDF upload */
+  .pdf-upload-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .file-label {
+    display: inline-block;
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.12s;
+  }
+  .file-label:hover { background: rgba(224,192,96,0.08); }
+  input[type=file] { display: none; }
+  .pdf-status { font-family: var(--mono); font-size: 10px; color: var(--text3); }
+  .pdf-text-panel { margin-top: 12px; }
+  .pdf-text-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 6px;
+  }
+  .btn-autodetect {
+    font-size: 9px; padding: 4px 12px;
+    border-color: var(--accent); color: var(--accent);
+  }
+  .btn-autodetect:hover { background: rgba(224,192,96,0.1); }
+  textarea#pdf-text {
+    font-size: 10px; color: var(--text3); line-height: 1.5; height: 160px;
+  }
 </style>
 </head>
 <body>
 
 <h1>Flames of War → Hail of Fire Converter</h1>
+
+<!-- PDF UPLOAD -->
+<div class="section">
+  <div class="section-label">PDF Source</div>
+  <div class="pdf-upload-row">
+    <label class="file-label" for="pdf-upload">Upload FoW PDF</label>
+    <input type="file" id="pdf-upload" accept=".pdf" onchange="loadPDF(this)">
+    <span class="pdf-status" id="pdf-status"></span>
+  </div>
+  <div class="pdf-text-panel" id="pdf-text-panel" style="display:none">
+    <div class="pdf-text-header">
+      <span class="section-label" style="margin:0">Extracted Text</span>
+      <button class="btn-autodetect" onclick="autoDetect()">↺ Re-detect Stats</button>
+    </div>
+    <textarea id="pdf-text" readonly placeholder="Extracted PDF text will appear here…"></textarea>
+  </div>
+</div>
+
+<hr class="divider">
 
 <!-- UNIT INFO -->
 <div class="section">
@@ -306,6 +358,125 @@
 </div>
 
 <script>
+// PDF.js worker
+if (typeof pdfjsLib !== 'undefined') {
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+}
+
+// ── PDF Loading & Detection ──────────────────────────────────────────────────
+
+async function loadPDF(input) {
+  if (!input.files[0]) return;
+  const status = document.getElementById('pdf-status');
+  status.textContent = 'Loading…';
+  try {
+    const buf = await input.files[0].arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+
+    let fullText = '';
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      // Reconstruct lines by grouping items with similar Y positions
+      let lastY = null;
+      let line = '';
+      const lines = [];
+      for (const item of content.items) {
+        const y = Math.round(item.transform[5]);
+        if (lastY !== null && Math.abs(y - lastY) > 3) {
+          if (line.trim()) lines.push(line.trim());
+          line = '';
+        }
+        line += (line ? ' ' : '') + item.str;
+        lastY = y;
+      }
+      if (line.trim()) lines.push(line.trim());
+      // Pages are bottom-up in PDF coords — reverse to reading order
+      fullText += lines.reverse().join('\n') + '\n\n';
+    }
+
+    document.getElementById('pdf-text').value = fullText;
+    document.getElementById('pdf-text-panel').style.display = 'block';
+    status.textContent = `${pdf.numPages} page${pdf.numPages !== 1 ? 's' : ''} loaded`;
+    autoDetect(fullText);
+  } catch (e) {
+    status.textContent = 'Error: ' + e.message;
+  }
+}
+
+function autoDetect(text) {
+  text = text || document.getElementById('pdf-text').value;
+  if (!text) return;
+
+  // ── Quality ──
+  const qualities = [
+    'Fearless Veteran', 'Confident Veteran', 'Fearless Trained',
+    'Confident Trained', 'Reluctant Veteran', 'Confident Conscript',
+    'Reluctant Conscript',
+  ];
+  for (const q of qualities) {
+    if (text.includes(q)) {
+      const sel = document.getElementById('u-quality');
+      for (const opt of sel.options) {
+        if (opt.value === q) { sel.value = q; break; }
+      }
+      break;
+    }
+  }
+
+  // ── Armor ──
+  // Matches: "Front 6  Side 4" / "FA 6 SA 4" / "6/4/1"
+  const armorM = text.match(/(?:front|fa)[:\s]+(\d+).*?(?:side|sa|flank)[:\s]+(\d+)/i);
+  if (armorM) {
+    document.getElementById('armor-front').value = armorM[1];
+    document.getElementById('armor-flank').value = armorM[2];
+  }
+
+  // ── Weapons ──
+  // Each extracted line may look like: "75mm M3 gun 32" 2 10 3+ Smoke"
+  // Pattern: <name> <range>" <ROF or ROF/ROF> <AT> <FP+> [notes...]
+  const weaponRe = /^(.+?)\s{2,}(\d+)["""\u201c\u201d]\s+(\d+)(?:\/\d+)?\s+(\d+)\s+(\d+\+)/;
+  const altRe    = /^(.+?)\s+(\d+)["""\u201c\u201d]\s+(\d+)(?:\/\d+)?\s+(\d+)\s+(\d+\+)/;
+  const detected = [];
+  for (const line of text.split('\n')) {
+    const m = line.match(weaponRe) || line.match(altRe);
+    if (!m) continue;
+    const name = m[1].trim();
+    // Skip obvious false positives (page headers, unit names, etc.)
+    if (/^\d/.test(name) || name.length < 3) continue;
+    detected.push({
+      name,
+      range: m[2],
+      rof:   m[3].split('/')[0],   // take first ROF (Moving)
+      at:    m[4],
+      fp:    m[5],
+      smoke: line.toLowerCase().includes('smoke'),
+      coax:  /co.?ax/i.test(line),
+      hull:  /hull mg/i.test(line),
+    });
+  }
+
+  if (detected.length > 0) {
+    document.getElementById('weapons-container').innerHTML = '';
+    wCount = 0;
+    for (const w of detected) {
+      addWeapon();
+      const id = wCount;
+      document.getElementById(`wn-${id}`).value = w.name;
+      document.getElementById(`wr-${id}`).value = w.range;
+      document.getElementById(`wf-${id}`).value = w.rof;
+      document.getElementById(`wa-${id}`).value = w.at;
+      document.getElementById(`wp-${id}`).value = w.fp;
+      if (w.smoke) document.getElementById(`wb-smk-${id}`).checked = true;
+      if (w.coax)  document.getElementById(`wb-coa-${id}`).checked = true;
+      if (w.hull)  document.getElementById(`wb-hul-${id}`).checked = true;
+    }
+  }
+
+  update();
+}
+
 let wCount = 0;
 
 function addWeapon() {
