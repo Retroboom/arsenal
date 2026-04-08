@@ -11,7 +11,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <style>
   :root {
-    --header-h: 108px; /* 80px logo row + 28px nav row */
+    --header-h: 60px;
     --bg: #0f0e0c;
     --bg2: #1a1916;
     --bg3: #242220;
@@ -44,55 +44,27 @@
     background: var(--bg2);
     border-bottom: 1px solid var(--border);
     padding: 0 24px;
+    height: 60px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 24px;
     position: sticky;
     top: 0;
     z-index: 100;
   }
 
-  .header-row1 {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80px;
-  }
-
-  .logo {
-    flex: 0 0 auto;
-    height: 80px;
-    align-self: center;
-  }
-
-  .header-right {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .header-end {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 6px;
-  }
-
-  .header-nav-group {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
   .header-nav {
-    flex: 0 0 auto;
+    flex: 1;
     display: flex;
     align-items: center;
     gap: 2px;
+  }
+
+  .header-actions {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
   .header-nav-tab {
     padding: 6px 14px;
@@ -321,7 +293,7 @@
   }
 
   .logo-img {
-    height: 77px;
+    height: 44px;
     width: auto;
     mix-blend-mode: screen;
     filter: drop-shadow(0 0 8px rgba(224,192,96,0.25));
@@ -329,16 +301,14 @@
 
   .logo span {
     color: var(--text3);
-    font-size: 33px;
+    font-size: 20px;
     font-family: var(--mono);
     white-space: nowrap;
-    position: relative;
-    top: -3px;
   }
   .logo .logo-slashes {
-    font-size: 29px;
+    font-size: 17px;
     letter-spacing: 0px;
-    margin-right: 9px;
+    margin-right: 6px;
   }
   .logo .logo-word {
     letter-spacing: 3px;
@@ -2018,7 +1988,7 @@
   @media (max-width: 700px) {
     .whats-new-cards { grid-template-columns: repeat(2, 1fr); }
   }
-  @media (max-width: 420px) {
+  @media (max-width: 500px) {
     .whats-new-cards { grid-template-columns: 1fr; }
   }
   .wn-card {
@@ -2094,7 +2064,7 @@
   @media (max-width: 700px) {
     .lib-featured-cards { grid-template-columns: repeat(2, 1fr); }
   }
-  @media (max-width: 420px) {
+  @media (max-width: 500px) {
     .lib-featured-cards { grid-template-columns: 1fr; }
   }
 
@@ -2760,27 +2730,21 @@
 <body>
 
 <header>
-  <div class="header-row1">
-    <div class="logo" onclick="showHomeView()" style="cursor:pointer" title="Home">
-      <img src="logo.png" alt="Hail of Fire" class="logo-img">
-      <span><span class="logo-slashes">//</span><span class="logo-word">ARSENAL</span></span>
-    </div>
-    <div class="header-right">
-      <div id="auth-area">
-        <button class="auth-btn" onclick="signIn()">Sign In</button>
-      </div>
-    </div>
+  <div class="logo" onclick="showHomeView()" style="cursor:pointer" title="Home">
+    <img src="logo.png" alt="Hail of Fire" class="logo-img">
+    <span><span class="logo-slashes">//</span><span class="logo-word">ARSENAL</span></span>
   </div>
-  <div class="header-end">
-    <div class="header-nav-group">
-      <nav class="header-nav">
-        <button class="header-nav-tab active" data-section="units" data-label="Units" onclick="setSection('units')">Units</button>
-        <button class="header-nav-tab" data-section="library" data-label="Force Library" onclick="setSection('library')">Force Library</button>
-        <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="setSection('fieldmanual')">Field Manual</button>
-      </nav>
-      <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
-        Force Builder <span class="force-count-badge" id="force-count">0</span>
-      </button>
+  <nav class="header-nav">
+    <button class="header-nav-tab active" data-section="units" data-label="Units" onclick="setSection('units')">Units</button>
+    <button class="header-nav-tab" data-section="library" data-label="Force Library" onclick="setSection('library')">Force Library</button>
+    <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="setSection('fieldmanual')">Field Manual</button>
+  </nav>
+  <div class="header-actions">
+    <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
+      Force Builder <span class="force-count-badge" id="force-count">0</span>
+    </button>
+    <div id="auth-area">
+      <button class="auth-btn" onclick="signIn()">Sign In</button>
     </div>
   </div>
 </header>
