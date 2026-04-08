@@ -52,8 +52,10 @@
   }
 
   .header-row1 {
+    position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 80px;
   }
 
@@ -64,17 +66,21 @@
   }
 
   .header-right {
-    flex: 0 0 auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 80px;
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-left: auto;
   }
 
   .header-end {
     display: flex;
     align-items: center;
-    padding-bottom: 4px;
+    justify-content: center;
+    gap: 16px;
+    padding-bottom: 6px;
   }
 
   .header-nav {
@@ -2001,7 +2007,7 @@
   .whats-new-dismiss:hover { opacity: 1; }
   .whats-new-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 8px;
   }
   .wn-card {
@@ -2072,7 +2078,7 @@
 
   .lib-featured-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 
   .lib-fc {
@@ -2754,7 +2760,7 @@
       <button class="header-nav-tab" data-section="library" data-label="Force Library" onclick="setSection('library')">Force Library</button>
       <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="setSection('fieldmanual')">Field Manual</button>
     </nav>
-    <button class="force-toggle-btn units-only" style="margin-left:auto" onclick="toggleForcePanel()">
+    <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
       Force Builder <span class="force-count-badge" id="force-count">0</span>
     </button>
   </div>
