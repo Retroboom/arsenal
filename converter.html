@@ -311,19 +311,20 @@ async function reparse() {
   for (let i = 1; i <= _pdfDoc.numPages; i++) {
     const page = await _pdfDoc.getPage(i);
     const content = await page.getTextContent();
-    let lastY = null, line = '';
-    const lines = [];
+    // Group text items by rounded Y coordinate, then sort Y descending (top of page first).
+    // PDF origins are bottom-left so higher Y = higher on page.
+    // We use a Map keyed by Y so items on the same logical line are merged
+    // regardless of the order PDF.js returns them.
+    const lineMap = new Map();
     for (const item of content.items) {
-      const y = Math.round(item.transform[5]);
-      if (lastY !== null && Math.abs(y - lastY) > 3) {
-        if (line.trim()) lines.push(line.trim());
-        line = '';
-      }
-      line += (line ? ' ' : '') + item.str;
-      lastY = y;
+      const y = Math.round(item.transform[5] / 2) * 2; // round to nearest 2px
+      lineMap.set(y, (lineMap.get(y) ? lineMap.get(y) + ' ' : '') + item.str);
     }
-    if (line.trim()) lines.push(line.trim());
-    fullText += lines.reverse().join('\n') + '\n\n';
+    const sortedLines = [...lineMap.entries()]
+      .sort((a, b) => b[0] - a[0])           // descending Y → top-to-bottom reading order
+      .map(([, text]) => text.trim())
+      .filter(Boolean);
+    fullText += sortedLines.join('\n') + '\n\n';
     if (i % 20 === 0) status.textContent = `Scanning… ${i}/${_pdfDoc.numPages} pages`;
   }
 
@@ -381,10 +382,24 @@ const NATION_MAP = [
   { keywords: ['BELGIAN','BELGIUM'],                 nation: 'Belgium'      },
 ];
 
-// Unit-name keyword → nation override (catches captured/allied equipment mislabeled by section)
+// Unit-name keyword → nation override (catches captured/allied equipment mislabeled by section).
+// Checked against the unit name BEFORE the section-level nation, so more specific wins.
 const NAME_NATION_MAP = [
-  { patterns: [/^char\s+b/i, /^renault\s+r/i, /^hotchkiss/i, /^somua/i, /^panhard/i, /^amc\s/i, /^am[cr]\s/i], nation: 'France' },
-  { patterns: [/^7tp/i, /^tks/i, /^wz\.\s*\d/i, /^tfv\s/i, /^vickers\s+e/i], nation: 'Poland' },
+  { patterns: [
+    /^renault/i,           // Renault R-35, Char B-1 bis (Renault), FT-18, FT-31, AMR-35…
+    /^char\s+b/i,          // Char B-1 (when not prefixed by Renault)
+    /^hotchkiss/i,         // Hotchkiss H-35/H-39, Hotchkiss 25mm gun
+    /^somua/i,             // Somua S-35
+    /^panhard/i,           // Panhard AMD-35, Panhard-Schneider P-16
+    /^laffly/i,            // Laffly W15 TCC
+    /^autocanon/i,         // Autocanon de 75mm
+    /\bmle[.\s]+1[89]\d\d\b/i,   // French modèle designation: mle 1897, mle 1913, mle 1935…
+    /\bmle\s*3[0-9]\b/i,         // mle 35, mle 38, mle 39 (two-digit year)
+    /\bsa[-\s]3[4-9]\b/i,        // SA-34, SA-37 (French semi-auto gun designation)
+    /^25mm\s+sa/i,         // 25mm SA-34 gun/portee
+    /^47mm\s+sa/i,         // 47mm SA-37 gun
+  ], nation: 'France' },
+  { patterns: [/^7tp/i, /^tks\b/i, /^wz\.\s*\d/i, /^vickers\s+e/i, /^ft-17/i], nation: 'Poland' },
   { patterns: [/^t-\d+/i, /^bt-\d+/i, /^ba-\d+/i, /^kv-\d+/i, /^su-\d+/i], nation: 'Soviet Union' },
 ];
 
@@ -449,6 +464,9 @@ function detectAllUnits(text) {
   let sectionType = 'tank'; // default
   const units = [];
   let cur = null;
+  // Weapon rows sometimes arrive before their unit row (PDF ordering).
+  // Buffer the last unmatched weapon row and attach it when the unit row follows.
+  let pendingWeapon = null;
 
   for (const line of lines) {
     // Nation detection (section-level header)
@@ -457,7 +475,7 @@ function detectAllUnits(text) {
 
     // Section header detection
     const sec = detectSection(line);
-    if (sec) { sectionType = sec; cur = null; continue; }
+    if (sec) { sectionType = sec; cur = null; pendingWeapon = null; continue; }
 
     // Quality tracking
     for (const q of QUALITIES) {
@@ -483,8 +501,13 @@ function detectAllUnits(text) {
         const nameM = line.match(/^(.+?)\s+\d+[""″\u201c\u201d\u2033]/);
         const wname = nameM ? nameM[1].trim() : line;
         const stats = parseRangeRow(line);
-        if (stats && cur) {
-          cur.weapons.push(makeWeapon(wname, stats, cur.unitNotes));
+        if (stats) {
+          if (cur) {
+            cur.weapons.push(makeWeapon(wname, stats, cur.unitNotes));
+          } else {
+            // PDF ordering may deliver weapon row before unit row — buffer it
+            pendingWeapon = { wname, stats };
+          }
         }
         continue;
       }
@@ -496,7 +519,8 @@ function detectAllUnits(text) {
         const beforeMob = line.slice(0, idx).trim();
         // Filter narrative text: too long, or contains prose phrases
         const PROSE = ['move as', 'move like', ' are ', 'can be', ' using ', 'teams move',
-                       ' to the ', ' with the ', 'infantry teams', 'all other'];
+                       ' to the ', ' with the ', 'infantry teams', 'all other',
+                       'is removed', 'as if a', 'obstacle', 'had been'];
         const isNarrative = beforeMob.length > 52 ||
           PROSE.some(p => beforeMob.toLowerCase().includes(p));
         if (isNarrative || beforeMob.length < 2) break;
@@ -515,6 +539,11 @@ function detectAllUnits(text) {
           nation:     nameNation || currentNation,
           weapons:    [],
         };
+        // Attach weapon row that arrived before this unit row (PDF ordering quirk)
+        if (pendingWeapon) {
+          cur.weapons.push(makeWeapon(pendingWeapon.wname, pendingWeapon.stats, cur.unitNotes));
+          pendingWeapon = null;
+        }
         units.push(cur);
         break;
       }
@@ -555,8 +584,9 @@ function detectAllUnits(text) {
       const nameM = line.match(/^(.+?)\s+\d+[""″\u201c\u201d\u2033]/);
       const unitName = nameM ? nameM[1].trim() : '';
       if (unitName.length < 2 || unitName.length > 60) continue;
-      // Skip lines where the "name" looks like a sentence fragment
+      // Skip lines where the "name" looks like a sentence fragment or ordinal heading
       if (/\s(to|the|and|or|of|as|in|at|by|from|with|for)\s/i.test(unitName)) continue;
+      if (/\(?\d+\s*(st|nd|rd|th)\b/i.test(unitName)) continue; // "(1 st" heading fragments
       const stats = parseRangeRow(line);
       if (!stats) continue;
       const nameNation = nationFromUnitName(unitName);
@@ -892,6 +922,10 @@ function addAllToQueue() {
     if (armorFront !== null) {
       unitType = 'Armored';
       unitBase = 'Vehicle';
+    } else if (u.mobility === 'Horse-drawn' || u.mobility === 'Foot') {
+      // Horse-drawn and foot-moved teams are infantry/support, not vehicles
+      unitType = 'Infantry';
+      unitBase = 'Small';
     } else if (GUN_MOB.includes(u.mobility)) {
       unitBase = 'Gun';
       // Artillery if any bombard weapon; Anti-Tank if high AT; else Support
