@@ -386,14 +386,18 @@ const NATION_MAP = [
 // Checked against the unit name BEFORE the section-level nation, so more specific wins.
 const NAME_NATION_MAP = [
   { patterns: [
-    /^renault/i,           // Renault R-35, Char B-1 bis (Renault), FT-18, FT-31, AMR-35…
+    /^renault/i,           // Renault R-35, Char B-1 bis (Renault), FT-18, FT-31, AMR-35, UE…
     /^char\s+b/i,          // Char B-1 (when not prefixed by Renault)
     /^hotchkiss/i,         // Hotchkiss H-35/H-39, Hotchkiss 25mm gun
     /^somua/i,             // Somua S-35
     /^panhard/i,           // Panhard AMD-35, Panhard-Schneider P-16
     /^laffly/i,            // Laffly W15 TCC
+    /^lorraine/i,          // Lorraine 38L carrier
     /^autocanon/i,         // Autocanon de 75mm
-    /\bmle[.\s]+1[89]\d\d\b/i,   // French modèle designation: mle 1897, mle 1913, mle 1935…
+    /^gnome.rh[oô]ne/i,   // Gnome-Rhône motorcycle
+    /^citro[eë]n/i,        // Citroën trucks
+    /^vb\s+team/i,         // VB (Vivien-Bessières) grenade team — French only
+    /\bmle[.\s]+1[89]\d\d\b/i,   // French modèle: mle 1897, mle 1913, mle 1935…
     /\bmle\s*3[0-9]\b/i,         // mle 35, mle 38, mle 39 (two-digit year)
     /\bsa[-\s]3[4-9]\b/i,        // SA-34, SA-37 (French semi-auto gun designation)
     /^25mm\s+sa/i,         // 25mm SA-34 gun/portee
@@ -429,21 +433,37 @@ function detectSection(line) {
 }
 
 function parseRangeRow(line) {
-  // Returns {range, rof, at, fp, notes} or null
-  // Quote chars: straight, curly left/right, double-prime (U+2033)
-  const rm = line.match(/(\d+)[""″\u201c\u201d\u2033]\/\d+\s*cm\s+(-|\d+)(?:\/\d+)?\s+(-|\d+)\s+(-|\d+\+|-)\s*(.*)?$/i);
+  // Returns {range, rof, at, fp, notes} or null.
+  // Quote chars: straight (U+0022), curly (U+201C/D), double-prime (U+2033).
+  // Dash chars: hyphen, en-dash (U+2013), em-dash (U+2014) in AT/FP columns.
+  const DASH = '[-\u2013\u2014]';
+  const Q    = '[""″\u201c\u201d\u2033]';
+  // Primary: "16"/40cm  ROF  AT  FP  notes"
+  let rm = line.match(
+    new RegExp(`(\\d+)${Q}\\/\\d+\\s*cm\\s+(${DASH}|\\d+)(?:\\/\\d+)?\\s+(${DASH}|\\d+)\\s+(${DASH}|\\d+\\+)\\s*(.*)?$`, 'i')
+  );
+  if (!rm) {
+    // Fallback: "16"  ROF  AT  FP  notes" (no /cm — some PDFs omit it)
+    rm = line.match(
+      new RegExp(`(\\d+)${Q}\\s+(${DASH}|\\d+)(?:\\/\\d+)?\\s+(${DASH}|\\d+)\\s+(${DASH}|\\d+\\+)\\s*(.*)?$`, 'i')
+    );
+  }
   if (!rm) return null;
+  const isDash = v => /^[-\u2013\u2014]$/.test(v);
   return {
     range:  rm[1],
-    rof:    rm[2] === '-' ? '' : rm[2].split('/')[0],
-    at:     rm[3] === '-' ? '' : rm[3],
-    fp:     rm[4] === '-' ? '' : rm[4],
+    rof:    isDash(rm[2]) ? '' : rm[2].split('/')[0],
+    at:     isDash(rm[3]) ? '' : rm[3],
+    fp:     isDash(rm[4]) ? '' : rm[4],
     notes:  rm[5] || '',
   };
 }
 
 function makeWeapon(name, stats, unitNotes) {
   const un = unitNotes || '';
+  // coax/hull flags only fire when the weapon NAME says it's a secondary MG.
+  // "Co-ax MG" appearing in notes/armament means there IS one alongside the primary weapon,
+  // but the primary weapon row is NOT itself a co-ax — don't misclassify it.
   return {
     weaponName: name,
     range:   stats.range,
@@ -452,8 +472,8 @@ function makeWeapon(name, stats, unitNotes) {
     fp:      stats.fp,
     bombard: false,
     smoke:   /smoke/i.test(stats.notes) || /smoke/i.test(un),
-    coax:    /co.?ax/i.test(stats.notes) || /co.?ax/i.test(un),
-    hull:    /hull/i.test(stats.notes)   || /hull/i.test(un),
+    coax:    /co.?ax/i.test(name),
+    hull:    /hull\s*(mg)?/i.test(name),
   };
 }
 
@@ -585,7 +605,7 @@ function detectAllUnits(text) {
       const unitName = nameM ? nameM[1].trim() : '';
       if (unitName.length < 2 || unitName.length > 60) continue;
       // Skip lines where the "name" looks like a sentence fragment or ordinal heading
-      if (/\s(to|the|and|or|of|as|in|at|by|from|with|for)\s/i.test(unitName)) continue;
+      if (/\s(to|the|and|or|of|as|in|at|by|from|with|for)(\s|$)/i.test(unitName)) continue;
       if (/\(?\d+\s*(st|nd|rd|th)\b/i.test(unitName)) continue; // "(1 st" heading fragments
       const stats = parseRangeRow(line);
       if (!stats) continue;
@@ -906,8 +926,8 @@ function addAllToQueue() {
       if (w.smoke) parts.push('Smoke');
       notes.push(parts.filter(Boolean).join(' '));
     });
-    if (u.weapons.some(w => w.coax)) notes.push('Co-ax MG');
-    if (u.weapons.some(w => w.hull)) notes.push('Hull MG');
+    if (u.weapons.some(w => w.coax) || /co.?ax/i.test(u.unitNotes)) notes.push('Co-ax MG');
+    if (u.weapons.some(w => w.hull) || /hull/i.test(u.unitNotes)) notes.push('Hull MG');
 
     // Mobility → note
     if (u.mobility === 'Fully-tracked') notes.push('Tracked');
