@@ -3343,7 +3343,7 @@ function wrapArmamentMGs(armament) {
   return armament.replace(MG_PATTERN, match => {
     const s = VEHICLE_MG_STATS[match];
     if (!s) return match;
-    const tip = `Range ${s.range} · RoF ${s.rof} · AT ${s.at ?? '—'} · ${s.notes}`;
+    const tip = `Range ${s.range} · RoF ${s.rof} · AT ${s.at ?? '—'} · ${s.notes}`.replace(/"/g, '&quot;');
     return `<span class="mg-tip" data-tip="${tip}">${match}</span>`;
   });
 }
