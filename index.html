@@ -59,7 +59,18 @@
     display: flex;
     align-items: center;
     gap: 2px;
-    flex-wrap: wrap;
+  }
+
+  /* Wrap ALL nav tabs together to a second row when space is tight */
+  @media (max-width: 860px) {
+    header { flex-wrap: wrap; padding: 0 24px 8px; }
+    .header-nav {
+      order: 10;
+      flex: 0 0 100%;
+      padding-top: 4px;
+      border-top: 1px solid var(--border);
+    }
+    .header-actions { margin-left: auto; }
   }
 
   .header-actions {
@@ -556,8 +567,9 @@
     position: relative;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 2px 6px rgba(0,0,0,0.45);
     opacity: 0;
-    animation: fadeUp 0.45s ease forwards;
   }
+
+  .unit-card.anim { animation: fadeUp 0.45s ease forwards; }
 
   .unit-card:hover {
     border-color: var(--accent);
@@ -3671,11 +3683,10 @@ function renderGrid(container, forceIds) {
       const inForce = forceIds.has(unit.id);
       const locked = !unit.free && !isSubscriber;
       const nc = nationClass(unit.nation);
-      const delay = (Math.min(cardIndex, 20) * 0.025).toFixed(3);
       cardIndex++;
 
       html += `
-        <div class="unit-card ${inForce ? 'in-force' : ''} ${locked ? 'locked' : ''} ${nc}" id="card-${unit.id}" style="animation-delay:${delay}s;cursor:pointer" onclick="openUnitDetail('${unit.id}')">
+        <div class="unit-card ${inForce ? 'in-force' : ''} ${locked ? 'locked' : ''} ${nc}" id="card-${unit.id}" data-card-index="${cardIndex}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
           ${locked ? '<div class="lock-overlay">🔒</div>' : ''}
           ${TYPE_ICONS[unit.type] ? `<div class="card-type-watermark">${TYPE_ICONS[unit.type]}</div>` : ''}
           <div class="card-header">
@@ -3725,6 +3736,16 @@ function renderGrid(container, forceIds) {
 
   html += '</div>';
   container.innerHTML = html;
+
+  // Force a layout flush so the browser commits the new DOM before we add
+  // the animation class — this guarantees the `from` keyframe state fires.
+  void container.offsetHeight;
+  container.querySelectorAll('.unit-card').forEach(card => {
+    const idx = parseInt(card.dataset.cardIndex || '0', 10);
+    const delay = (Math.min(idx, 20) * 0.03).toFixed(3);
+    card.style.animationDelay = `${delay}s`;
+    card.classList.add('anim');
+  });
 }
 
 function renderTable(container, forceIds) {
