@@ -362,6 +362,10 @@
     display: grid;
     grid-template-columns: 260px 1fr;
     min-height: calc(100vh - var(--header-h));
+    transition: grid-template-columns 0.25s ease;
+  }
+  .app.sidebar-collapsed {
+    grid-template-columns: 36px 1fr;
   }
 
   /* SIDEBAR */
@@ -372,7 +376,40 @@
     position: sticky;
     top: var(--header-h);
     height: calc(100vh - var(--header-h));
+    overflow-x: hidden;
     overflow-y: auto;
+  }
+
+  .sidebar-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    color: var(--text3);
+    font-size: 12px;
+    padding: 4px 0 8px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    transition: color 0.12s;
+    letter-spacing: 1px;
+  }
+  .sidebar-toggle-btn:hover { color: var(--text); }
+
+  .app.sidebar-collapsed .sidebar {
+    padding: 8px 0;
+    align-items: center;
+  }
+  .app.sidebar-collapsed .sidebar-toggle-btn {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding: 8px 0;
+    writing-mode: unset;
+  }
+  .app.sidebar-collapsed .sidebar > *:not(.sidebar-toggle-btn) {
+    display: none;
   }
 
   .filter-section {
@@ -3019,6 +3056,7 @@
 <div class="section active" id="section-units">
 <div class="app">
   <aside class="sidebar">
+    <button class="sidebar-toggle-btn" id="sidebar-toggle" onclick="toggleSidebar()" data-tip="Collapse filters">« Filters</button>
     <div class="filter-section">
       <div class="filter-label">Search</div>
       <input type="text" class="search-input" placeholder="Unit name..." id="search-input" oninput="applyFilters()">
@@ -3434,6 +3472,14 @@ function toggleFilter(key, value) {
   });
 
   applyFilters();
+}
+
+function toggleSidebar() {
+  const app = document.querySelector('.app');
+  const btn = document.getElementById('sidebar-toggle');
+  const collapsed = app.classList.toggle('sidebar-collapsed');
+  btn.textContent = collapsed ? '»' : '« Filters';
+  btn.dataset.tip = collapsed ? 'Expand filters' : 'Collapse filters';
 }
 
 function clearFilters() {
