@@ -932,7 +932,7 @@
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     position: sticky;
-    top: 0;
+    top: var(--header-h);
     white-space: nowrap;
     z-index: 2;
   }
@@ -3312,6 +3312,7 @@ function toggleTeamLock(platoonId, unitId) {
   updateForceUI();
 }
 let currentView = 'grid';
+const TYPE_ORDER = ['Infantry', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Artillery', 'Armored', 'Recon', 'Transport', 'Upgrade'];
 let activeFilters = {
   search: '',
   nations: [],
@@ -3370,7 +3371,7 @@ const TYPE_ICONS = {
 function buildFilterChips() {
   const nations = [...new Set(allUnits.map(u => u.nation))].sort();
   // Use a fixed order; 'Gun Teams' is a meta-filter (not a real type in data)
-  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport', 'Upgrade'];
+  const typeOrder = TYPE_ORDER;
   const presentTypes = new Set(allUnits.map(u => u.type));
   // Include all types present in data, plus 'Gun Teams' meta-filter
   const types = typeOrder.filter(t => t === 'Gun Teams' || presentTypes.has(t));
@@ -3634,7 +3635,7 @@ function renderGrid(container, forceIds, animate = true) {
   let cardIndex = 0;
 
   const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
-  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport', 'Upgrade'];
+  const typeOrder = TYPE_ORDER;
 
   nationOrder.forEach(nation => {
     if (!byNation[nation]) return;
@@ -3804,10 +3805,12 @@ function renderTable(container, forceIds) {
         <td>
           ${locked
             ? `<span style="font-family:var(--mono);font-size:9px;color:#9a8a5a;">🔒 Sub</span>`
-            : `<div style="display:flex;gap:4px;">
-                ${unit.standard_platoon ? `<button class="table-add-btn" onclick="addAsStandardPlatoon('${unit.id}')">+ Platoon</button>` : ''}
-                <button class="table-add-btn" onclick="addTeamToPlatoon('${unit.id}')">+ Add</button>
-              </div>`
+            : activePlatoonId
+              ? `<div style="display:flex;gap:4px;">
+                  ${unit.standard_platoon ? `<button class="table-add-btn" onclick="addAsStandardPlatoon('${unit.id}')">+ Platoon</button>` : ''}
+                  <button class="table-add-btn" onclick="addTeamToPlatoon('${unit.id}')">+ Add</button>
+                </div>`
+              : ''
           }
         </td>
       </tr>`;
@@ -3818,11 +3821,11 @@ function renderTable(container, forceIds) {
       case 'name':        return u.name.toLowerCase();
       case 'nation':      return u.nation.toLowerCase();
       case 'type':        return u.type.toLowerCase();
-      case 'gun_range':   return u.gun_range ?? -1;
-      case 'rof':         return u.rof ?? -1;
-      case 'at':          return u.at ?? -1;
-      case 'fp':          return u.fp ?? -1;
-      case 'armor_front': return u.armor_front ?? -1;
+      case 'gun_range':   return u.gun_range != null ? parseFloat(u.gun_range) : -1;
+      case 'rof':         return u.rof != null ? parseFloat(u.rof) : -1;
+      case 'at':          return u.at != null ? parseFloat(u.at) : -1;
+      case 'fp':          return u.fp != null ? parseFloat(u.fp) : -1;
+      case 'armor_front': return u.armor_front != null ? parseFloat(u.armor_front) : -1;
       case 'years':       return (u.years && u.years[0]) ? u.years[0] : -1;
       default:            return '';
     }
@@ -3840,7 +3843,7 @@ function renderTable(container, forceIds) {
     sorted.forEach(unit => { html += unitRow(unit); });
   } else {
     // Default grouped view by nation → type
-    const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport', 'Upgrade'];
+    const typeOrder = TYPE_ORDER;
     const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
     const byNation = {};
     filteredUnits.forEach(u => {
