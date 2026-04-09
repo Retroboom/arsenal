@@ -45,7 +45,7 @@
 </div>
 
 <div id="output-section" style="display:none">
-  <div class="meta"><strong id="detected-count">0</strong> units detected</div>
+  <div class="meta"><strong id="detected-count">0</strong> units detected &nbsp;<span style="color:var(--text3);font-size:9px">[build 3]</span></div>
   <button class="btn-accent" onclick="copyExport()">Copy JSON</button>
   <pre id="export-output"></pre>
 </div>
@@ -107,6 +107,94 @@ const TANK_MOB = ['Fully-tracked','Half-tracked','Wheeled','Foot','Horse-drawn',
 const GUN_MOB  = ['Man-packed','Light','Medium','Heavy','Immobile','Self-propelled'];
 
 const RANGE_RE = /(\d+)[""″\u201c\u201d\u2033]\/\d+\s*cm/i;
+
+// FoW text → HoF rule name mappings (more specific phrases before general ones)
+const FOW_TO_HOF_RULES = [
+  // Portability
+  { re: /\bman[- ]?pack(?:ed)?\b/i,               rule: 'Man-Portable'      },
+  // Vehicle traits — compound phrases before single words
+  { re: /\bvery\s+fast\b/i,                        rule: 'Fast'              },
+  { re: /\bvery\s+slow\b/i,                        rule: 'Slow'              },
+  { re: /\bslow\s+tank\b/i,                        rule: 'Slow'              },
+  { re: /\bhull[- ]?mount(?:ed)?\b/i,              rule: 'Hull Mounted'      },
+  { re: /\bopen[- ]?top(?:ped)?\b/i,               rule: 'Open Topped'       },
+  { re: /\bwide\s+tracks?\b/i,                     rule: 'Wide Tracks'       },
+  { re: /\bunreliable\b/i,                         rule: 'Unreliable'        },
+  { re: /\bfast\b/i,                               rule: 'Fast'              },
+  { re: /\bslow\b/i,                               rule: 'Slow'              },
+  { re: /\bimmobile\b/i,                           rule: 'Immobile'          },
+  { re: /\boverloaded\b/i,                         rule: 'Overloaded'        },
+  { re: /\bamphibious\b/i,                         rule: 'Amphibious'        },
+  // Weapons / fire modes
+  { re: /\bsmoke\s+bombardment\b/i,                rule: 'Smoke'             },
+  { re: /\bsmoke\b/i,                              rule: 'Smoke'             },
+  { re: /\bflame[- ]?thrower\b/i,                  rule: 'Flame-Thrower'     },
+  { re: /\bbunker[- ]?buster\b/i,                  rule: 'Bunker Buster'     },
+  { re: /\blimited\s+he\b/i,                       rule: 'Limited HE'        },
+  { re: /\blight\s+mortar\b/i,                     rule: 'Light Mortar'      },
+  { re: /\banti[- ]?aircraft\b/i,                  rule: 'Anti-Air'          },
+  // Artillery classifications
+  { re: /\bheavy\s+artillery\b/i,                  rule: 'Heavy Artillery'   },
+  { re: /\bmedium\s+artillery\b/i,                 rule: 'Medium Artillery'  },
+  { re: /\blight\s+artillery\b/i,                  rule: 'Light Artillery'   },
+  // Transport capacity
+  { re: /\bcarri(?:es|ed?)\s+4\s+teams?\b/i,       rule: 'Carries 4 Teams'   },
+  { re: /\bcarri(?:es|ed?)\s+3\s+teams?\b/i,       rule: 'Carries 3 Teams'   },
+  { re: /\bcarri(?:es|ed?)\s+2\s+teams?\b/i,       rule: 'Carries 2 Teams'   },
+  { re: /\bcarri(?:es|ed?)\s+1\s+team\b/i,         rule: 'Carries 1 Team'    },
+  { re: /\bcarry\s+4\b/i,                           rule: 'Carries 4 Teams'   },
+  { re: /\bcarry\s+3\b/i,                           rule: 'Carries 3 Teams'   },
+  { re: /\bcarry\s+2\b/i,                           rule: 'Carries 2 Teams'   },
+  { re: /\bcarry\s+1\b/i,                           rule: 'Carries 1 Team'    },
+  { re: /\bpassenger[- ]?fired\b/i,                 rule: 'Passenger-fired MG'},
+];
+
+// FoW-only terms with no HoF equivalent — strip silently
+const FOW_DISCARD = [
+  // Vehicle descriptions / layout notes
+  /\bawkward\s+layout\b/i,
+  /\bhmg\s+carrier\b/i,
+  /\brecovery\s+vehicle\b/i,
+  /\btwo[- ]?deck\s+turret\b/i,
+  /\btwo\s+optional\b/i,
+  /\bturret\s+front\b/i,
+  /\bgun\s+shield\b/i,
+  /\bprotected\s+ammo(?:unition)?\b/i,
+  /\bturntable\b/i,
+  /\bspaced\s+armou?r\b/i,
+  /\bhull[- ]?down\b/i,
+  // FoW-specific special rules
+  /\bhen\s+and\s+chicks?\b/i,
+  /\bstabiliz(?:er|ed)\b/i,
+  /\bgyro[\s-]?stabilis(?:er|or|ed)\b/i,
+  /\bsemi[- ]indirect\s+fire\b/i,
+  /\bcautious\s+movement\b/i,
+  /\bvolley\s+fire\b/i,
+  /\bshoots?\s+(?:and|&)\s+scoots?\b/i,
+  /\blaser\s+rangefinder\b/i,
+  /\btank\s+escorts?\b/i,
+  /\btruscott\s+trot\b/i,
+  /\bwarrior\b/i,
+  /\bmission\s+tactics?\b/i,
+  /\btank(?:hunter)?s?\s+(?:last\s+stand|rule)\b/i,
+  /\blast\s+stand\b/i,
+  /\btiger\s+fear\b/i,
+  /\bstormtroopers?\b/i,
+  /\brecce\b/i,
+  /\bexcellent\s+eyes?\b/i,
+  /\bclever\s+hans?\b/i,
+  /\breinforced\s+tracks?\b/i,
+  /\bmountaineers?\b/i,
+  /\bpioneer\b/i,
+  /\btankhunters?\b/i,
+  /\brof\s+\d+\b/i,
+  /\bif\s+(?:stationary|moving)\b/i,
+  /\bpassengers?\b/i,
+  // Stray single words left after compound-phrase extraction above
+  /\btanks?\b/i,
+  /\bvery\b/i,
+  /\baa\b/i,
+];
 
 const SECTION_MAP = {
   'TANK TEAMS': 'tank', 'TRANSPORT TEAMS': 'tank', 'ARMOURED CARS': 'tank',
@@ -255,7 +343,7 @@ function detectAllUnits(text) {
                        'is removed', 'as if a', 'obstacle', 'had been'];
         const isNarrative = beforeMob.length > 52 ||
           PROSE.some(p => beforeMob.toLowerCase().includes(p)) ||
-          /\s(to|the|and|or|of|as|in|at|by|from|with|for)(\s|$)/i.test(beforeMob);
+          /\s(the|of|as|in|at|by|from|with|for)(\s|$)/i.test(beforeMob);
         if (isNarrative || beforeMob.length < 2) break;
         if (/\s\(\d+\s*$/.test(beforeMob)) break;
 
@@ -410,12 +498,31 @@ function exportAll(units) {
       if (w.smoke) parts.push('Smoke');
       notes.push(parts.filter(Boolean).join(' '));
     });
-    if (u.weapons.some(w => w.coax) || /co.?ax/i.test(u.unitNotes)) notes.push('Co-ax MG');
-    if (u.weapons.some(w => w.hull) || /hull/i.test(u.unitNotes)) notes.push('Hull MG');
 
     if (u.mobility === 'Fully-tracked') notes.push('Tracked');
     else if (u.mobility === 'Half-tracked') notes.push('Half-Tracked');
     else if (u.mobility === 'Horse-drawn') notes.push('Horse-drawn');
+    if (u.mobility === 'Immobile'   && !notes.includes('Immobile'))    notes.push('Immobile');
+    if (u.mobility === 'Man-packed' && !notes.includes('Man-Portable')) notes.push('Man-Portable');
+
+    // Extract HoF rules from unitNotes; discard FoW-only terms; remainder = armament
+    let notesRemainder = u.unitNotes || '';
+    for (const { re, rule } of FOW_TO_HOF_RULES) {
+      if (re.test(notesRemainder) && !notes.includes(rule)) {
+        notes.push(rule);
+      }
+      notesRemainder = notesRemainder.replace(re, ' ');
+    }
+    for (const re of FOW_DISCARD) {
+      notesRemainder = notesRemainder.replace(re, ' ');
+    }
+    // Normalize Co-ax → Coax for cleaner armament display
+    notesRemainder = notesRemainder
+      .replace(/\bco[- ]?ax\b/gi, 'Coax')
+      .replace(/\d+\s*points?/gi, '')
+      .replace(/[,;.]+/g, ' ')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
 
     let unitType = 'Infantry';
     let unitBase = 'Medium';
@@ -427,11 +534,43 @@ function exportAll(units) {
       unitBase = 'Gun';
       const hasBombard = u.weapons.some(w => w.bombard);
       const atVal = parseInt(main[0]?.at || '');
-      if (hasBombard) { unitType = 'Artillery'; }
-      else if (!isNaN(atVal) && atVal >= 6) { unitType = 'Anti-Tank'; }
+      if (hasBombard) {
+        unitType = 'Artillery';
+        // Derive artillery class from converted direct-fire FP
+        const artTag = fp === 3 ? 'Heavy Artillery' : fp === 2 ? 'Medium Artillery' : 'Light Artillery';
+        if (!notes.includes(artTag)) notes.push(artTag);
+      } else if (!isNaN(atVal) && atVal >= 6) { unitType = 'Anti-Tank'; }
       else { unitType = 'Support'; }
     } else if (TANK_MOB.includes(u.mobility) && armorFront === null) {
       unitType = 'Transport'; unitBase = 'Vehicle';
+    }
+
+    // For vehicle units: build armament as "Main Gun, Coax MG/Hull MG" etc.
+    const isVehicle = unitType === 'Armored' || unitType === 'Transport' || unitType === 'Mechanized';
+    let armamentText = null;
+    if (isVehicle) {
+      const parts = [];
+      if (main.length > 0 && main[0].weaponName) parts.push(main[0].weaponName);
+
+      const hasMainGun = main.length > 0;
+      const hasCoax = /\bcoax\b/i.test(notesRemainder) || u.weapons.some(w => w.coax);
+      const hasHull = /\bhull\s*mg\b/i.test(notesRemainder) || /\bbow\s*mg\b/i.test(notesRemainder) || u.weapons.some(w => w.hull);
+      const afterKnownMGs = notesRemainder
+        .replace(/\bcoax\s*mg\b/gi, '')
+        .replace(/\bhull\s*mg\b/gi, '')
+        .replace(/\bbow\s*mg\b/gi, '');
+      // Only classify remaining MG as AA MG when there's already a main gun
+      const hasOtherMG = hasMainGun && /\bmg\b/i.test(afterKnownMGs);
+
+      const mgParts = [];
+      if (hasCoax) mgParts.push('Coax MG');
+      if (hasHull) mgParts.push('Hull MG');
+      if (hasOtherMG) mgParts.push('AA MG');
+
+      if (mgParts.length > 0) parts.push(mgParts.join('/'));
+      else if (!hasMainGun && notesRemainder.length > 1) parts.push(notesRemainder); // MG-only vehicle
+
+      armamentText = parts.length > 0 ? parts.join(', ') : null;
     }
 
     return {
@@ -445,7 +584,7 @@ function exportAll(units) {
       rof, at, fp,
       armor_front:   armorFront,
       armor_flank:   armorFlank,
-      armament:      (u.unitNotes && !/\d+\s*points/i.test(u.unitNotes)) ? u.unitNotes : null,
+      armament:      armamentText,
       notes,
       special_rules: [],
       base:          unitBase,

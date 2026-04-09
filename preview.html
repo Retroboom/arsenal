@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit Card Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0e0c; --bg2: #1a1916; --bg3: #242220;
+    --border: #333028; --accent: #e0c060; --accent2: #a04545;
+    --text: #f5f0e0; --text2: #d0c8b0; --text3: #b0a490;
+    --green: #5a9a6e; --red: #a04545; --blue: #4a6a8c;
+    --mono: 'Share Tech Mono', monospace;
+    --display: 'Bebas Neue', sans-serif;
+    --body: 'Barlow', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .header-sub {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 1px;
+  }
+  .header-count {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+  }
+  .header-count strong { color: var(--accent); }
+
+  /* ── Input panel ── */
+  .input-panel {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .input-panel textarea {
+    flex: 1;
+    min-width: 260px;
+    height: 80px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 8px 10px;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.12s;
+    line-height: 1.4;
+  }
+  .input-panel textarea:focus { border-color: var(--accent); }
+  .input-panel textarea::placeholder { color: var(--text3); }
+  .input-controls { display: flex; flex-direction: column; gap: 8px; }
+  .btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: border-color 0.12s, color 0.12s;
+    white-space: nowrap;
+  }
+  .btn:hover { border-color: var(--text2); color: var(--text); }
+  .btn-accent { border-color: var(--accent); color: var(--accent); }
+  .btn-accent:hover { background: rgba(224,192,96,0.08); }
+  .error-msg {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #d46a6a;
+    width: 100%;
+    margin-top: -4px;
+    display: none;
+  }
+
+  /* ── Main grid ── */
+  .main {
+    padding: 24px;
+  }
+
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 0;
+    gap: 12px;
+    opacity: 0.35;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .empty-state .big { font-family: var(--display); font-size: 36px; letter-spacing: 4px; opacity: 0.6; }
+  .empty-state .sub { font-size: 10px; color: var(--text3); letter-spacing: 1px; margin-top: 4px; }
+
+  /* ── Section dividers ── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 28px 0 14px;
+    grid-column: 1 / -1;
+  }
+  .section-divider-label {
+    font-family: var(--display);
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--text2);
+    white-space: nowrap;
+  }
+  .section-divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .type-divider {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 16px 0 8px;
+    grid-column: 1 / -1;
+  }
+  .type-divider-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--text3);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .type-divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    opacity: 0.5;
+  }
+
+  /* ── Unit grid ── */
+  .unit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+
+  /* ── Unit card ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .unit-card {
+    background: linear-gradient(175deg, var(--bg3) 0%, var(--bg2) 60%);
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+    position: relative;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 2px 6px rgba(0,0,0,0.45);
+    opacity: 0;
+    animation: fadeUp 0.22s ease forwards;
+    overflow: hidden;
+  }
+  .unit-card::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 4px;
+    font-size: 88px;
+    line-height: 1;
+    font-family: var(--display);
+    pointer-events: none;
+    user-select: none;
+  }
+  .unit-card.nc-us::after      { content: '★'; color: #4a7aac; opacity: 0.07; }
+  .unit-card.nc-germany::after { content: '✕'; color: #9a8a4a; opacity: 0.08; }
+  .unit-card.nc-britain::after { content: '✦'; color: #4a8a4a; opacity: 0.08; }
+  .unit-card.nc-soviet::after  { content: '★'; color: #ac4a4a; opacity: 0.08; }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    gap: 8px;
+  }
+  .unit-name {
+    font-family: var(--display);
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--text);
+    line-height: 1.1;
+  }
+  .card-badges {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+    flex-shrink: 0;
+  }
+  .nation-badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    padding: 2px 6px;
+    text-transform: uppercase;
+    border: 1px solid;
+  }
+  .nation-us      { border-color: #3a5a7c; color: #6a9abc; background: #0d1a24; }
+  .nation-germany { border-color: #5a4a2a; color: #9a8a5a; background: #1a1508; }
+  .nation-britain { border-color: #3a5a3a; color: #6a9a6a; background: #0d180d; }
+  .nation-soviet  { border-color: #7c3a3a; color: #bc6a6a; background: #240d0d; }
+
+  .type-badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  [data-type="Infantry"]   { color: #6abf6a; }
+  [data-type="Support"]    { color: #a07fd4; }
+  [data-type="Artillery"]  { color: #d4a035; }
+  [data-type="Gun Teams"]  { color: #c07828; }
+  [data-type="Anti-Tank"]  { color: #d45f50; }
+  [data-type="Anti-Air"]   { color: #50a8d4; }
+  [data-type="Armored"]    { color: #5888c4; }
+  [data-type="Mechanized"] { color: #c4964a; }
+  [data-type="Airborne"]   { color: #9ab4d4; }
+  [data-type="Recon"]      { color: #3cb8a0; }
+  [data-type="Transport"]  { color: #8c9870; }
+
+  .card-stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+  .stat-cell {
+    padding: 4px 6px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat-cell:last-child { border-right: none; }
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 3px;
+  }
+  .stat-value {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    display: block;
+    font-weight: 600;
+  }
+  .stat-value.armor { font-size: 11px; }
+  .stat-value.null-val { color: var(--text3); }
+
+  .card-armament {
+    font-size: 11px;
+    color: var(--text2);
+    margin-bottom: 8px;
+    font-style: italic;
+    line-height: 1.3;
+  }
+  .card-notes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+  .note-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 2px 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+  .years-display {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+  }
+  .base-badge {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 0.5px;
+    padding: 1px 5px;
+    text-transform: uppercase;
+    margin-left: 6px;
+  }
+
+  /* ── Filter bar ── */
+  .filter-bar {
+    padding: 10px 24px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .filter-bar input {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 4px 8px;
+    outline: none;
+    transition: border-color 0.12s;
+    width: 200px;
+  }
+  .filter-bar input:focus { border-color: var(--accent); }
+  .filter-chip {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    color: var(--text3);
+    background: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.12s;
+  }
+  .filter-chip:hover { border-color: var(--text2); color: var(--text2); }
+  .filter-chip.active { border-color: var(--accent); color: var(--accent); background: rgba(224,192,96,0.08); }
+  .filter-sep {
+    width: 1px;
+    height: 18px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="header-title">Unit Card Preview</div>
+    <div class="header-sub">Local review — not linked publicly</div>
+  </div>
+  <div class="header-count" id="count-display" style="display:none">
+    Showing <strong id="count-visible">0</strong> of <strong id="count-total">0</strong> units
+  </div>
+</header>
+
+<div class="input-panel">
+  <textarea id="json-input" placeholder="Paste JSON output from converter.html here…" oninput="onInputChange()"></textarea>
+  <div class="input-controls">
+    <button class="btn btn-accent" onclick="loadJSON()">Render Cards</button>
+    <button class="btn" onclick="clearAll()">Clear</button>
+  </div>
+  <div class="error-msg" id="error-msg"></div>
+</div>
+
+<div id="filter-bar" class="filter-bar" style="display:none">
+  <input type="text" id="search-input" placeholder="Search…" oninput="applyFilters()">
+  <div class="filter-sep"></div>
+  <button class="filter-chip" data-filter="nation" data-value="United States" onclick="toggleChip(this)">US</button>
+  <button class="filter-chip" data-filter="nation" data-value="Germany"       onclick="toggleChip(this)">GER</button>
+  <button class="filter-chip" data-filter="nation" data-value="Britain"       onclick="toggleChip(this)">BR</button>
+  <button class="filter-chip" data-filter="nation" data-value="Soviet Union"  onclick="toggleChip(this)">SOV</button>
+  <div class="filter-sep"></div>
+  <button class="filter-chip" data-filter="type" data-value="Infantry"   onclick="toggleChip(this)">Infantry</button>
+  <button class="filter-chip" data-filter="type" data-value="Support"    onclick="toggleChip(this)">Support</button>
+  <button class="filter-chip" data-filter="type" data-value="Artillery"  onclick="toggleChip(this)">Artillery</button>
+  <button class="filter-chip" data-filter="type" data-value="Anti-Tank"  onclick="toggleChip(this)">AT</button>
+  <button class="filter-chip" data-filter="type" data-value="Armored"    onclick="toggleChip(this)">Armored</button>
+  <button class="filter-chip" data-filter="type" data-value="Transport"  onclick="toggleChip(this)">Transport</button>
+</div>
+
+<div class="main" id="main">
+  <div class="empty-state">
+    <div class="big">Arsenal</div>
+    <div>Paste converter JSON above to preview cards</div>
+    <div class="sub">Nothing is saved or published</div>
+  </div>
+</div>
+
+<script>
+let allUnits = [];
+
+const NATION_ORDER = ['United States', 'Germany', 'Britain', 'Soviet Union', 'France', 'Poland', 'Italy', 'Belgium', 'Canada', 'Japan'];
+const TYPE_ORDER   = ['Infantry', 'Support', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Mechanized', 'Recon', 'Transport'];
+
+function nationClass(nation) {
+  return { 'United States': 'us', 'Germany': 'germany', 'Britain': 'britain', 'Soviet Union': 'soviet' }[nation] || 'us';
+}
+
+function nationBadgeClass(nation) {
+  return `nation-badge nation-${nationClass(nation)}`;
+}
+
+function statDisplay(val, isArmor = false) {
+  if (val === null || val === undefined) return `<span class="stat-value null-val">—</span>`;
+  if (isArmor) return `<span class="stat-value armor">${val}</span>`;
+  return `<span class="stat-value">${val}</span>`;
+}
+
+function yearRange(years) {
+  if (!years || years.length === 0) return '';
+  const min = Math.min(...years);
+  const max = Math.max(...years);
+  return min === max ? `${min}` : `${min}–${max}`;
+}
+
+function noteTag(note) {
+  return `<span class="note-tag">${note}</span>`;
+}
+
+function onInputChange() {
+  document.getElementById('error-msg').style.display = 'none';
+}
+
+function loadJSON() {
+  const raw = document.getElementById('json-input').value.trim();
+  const errEl = document.getElementById('error-msg');
+  errEl.style.display = 'none';
+
+  if (!raw) return;
+
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (e) {
+    errEl.textContent = 'Invalid JSON: ' + e.message;
+    errEl.style.display = 'block';
+    return;
+  }
+
+  if (!Array.isArray(parsed)) {
+    errEl.textContent = 'Expected a JSON array of unit objects.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  allUnits = parsed;
+  document.getElementById('filter-bar').style.display = 'flex';
+  document.getElementById('count-display').style.display = 'block';
+  // Reset chips
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  document.getElementById('search-input').value = '';
+  applyFilters();
+}
+
+function clearAll() {
+  allUnits = [];
+  document.getElementById('json-input').value = '';
+  document.getElementById('filter-bar').style.display = 'none';
+  document.getElementById('count-display').style.display = 'none';
+  document.getElementById('error-msg').style.display = 'none';
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  renderCards([]);
+  document.getElementById('main').innerHTML = `
+    <div class="empty-state">
+      <div class="big">Arsenal</div>
+      <div>Paste converter JSON above to preview cards</div>
+      <div class="sub">Nothing is saved or published</div>
+    </div>`;
+}
+
+function toggleChip(btn) {
+  btn.classList.toggle('active');
+  applyFilters();
+}
+
+function applyFilters() {
+  const search = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
+  const active = { nation: [], type: [] };
+  document.querySelectorAll('.filter-chip.active').forEach(c => {
+    const grp = c.dataset.filter;
+    if (active[grp]) active[grp].push(c.dataset.value);
+  });
+
+  let visible = allUnits.filter(u => {
+    if (search && !u.name.toLowerCase().includes(search) &&
+        !(u.armament || '').toLowerCase().includes(search)) return false;
+    if (active.nation.length > 0 && !active.nation.includes(u.nation)) return false;
+    if (active.type.length > 0 && !active.type.includes(u.type)) return false;
+    return true;
+  });
+
+  document.getElementById('count-visible').textContent = visible.length;
+  document.getElementById('count-total').textContent = allUnits.length;
+  renderCards(visible);
+}
+
+function renderCards(units) {
+  const main = document.getElementById('main');
+
+  if (units.length === 0 && allUnits.length > 0) {
+    main.innerHTML = `<div class="empty-state"><div>No units match filters</div></div>`;
+    return;
+  }
+
+  if (units.length === 0) return;
+
+  // Group by nation then type
+  const byNation = {};
+  units.forEach(u => {
+    if (!byNation[u.nation]) byNation[u.nation] = {};
+    const bn = byNation[u.nation];
+    if (!bn[u.type]) bn[u.type] = [];
+    bn[u.type].push(u);
+  });
+
+  const hasMultiNations = Object.keys(byNation).length > 1;
+  let html = '<div class="unit-grid">';
+  let cardIdx = 0;
+
+  NATION_ORDER.forEach(nation => {
+    if (!byNation[nation]) return;
+    if (hasMultiNations) {
+      html += `<div class="section-divider"><span class="section-divider-label">${nation}</span><div class="section-divider-line"></div></div>`;
+    }
+
+    const byType = byNation[nation];
+    const activeTypes = TYPE_ORDER.filter(t => byType[t]);
+    const showTypeHeaders = activeTypes.length > 1;
+
+    activeTypes.forEach(type => {
+      if (showTypeHeaders) {
+        html += `<div class="type-divider"><span class="type-divider-label">${type}</span><div class="type-divider-line"></div></div>`;
+      }
+      byType[type].forEach(unit => {
+        const nc = nationClass(unit.nation);
+        const delay = (Math.min(cardIdx, 20) * 0.025).toFixed(3);
+        cardIdx++;
+        html += `
+          <div class="unit-card nc-${nc}" style="animation-delay:${delay}s">
+            <div class="card-header">
+              <div class="unit-name">${escHtml(unit.name)}</div>
+              <div class="card-badges">
+                <div class="${nationBadgeClass(unit.nation)}">${escHtml(unit.nation)}</div>
+                <div class="type-badge" data-type="${escHtml(unit.type)}">${escHtml(unit.type)}</div>
+              </div>
+            </div>
+            <div class="card-stats">
+              <div class="stat-cell"><span class="stat-label">Range</span>${statDisplay(unit.gun_range)}</div>
+              <div class="stat-cell"><span class="stat-label">RoF</span>${statDisplay(unit.rof)}</div>
+              <div class="stat-cell"><span class="stat-label">AT</span>${statDisplay(unit.at)}</div>
+              <div class="stat-cell"><span class="stat-label">FP</span>${statDisplay(unit.fp)}</div>
+              <div class="stat-cell"><span class="stat-label">Armor</span>${
+                unit.armor_front !== null && unit.armor_front !== undefined
+                  ? `<span class="stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`
+                  : `<span class="stat-value null-val">—</span>`
+              }</div>
+            </div>
+            ${unit.armament ? `<div class="card-armament">${escHtml(unit.armament)}</div>` : ''}
+            <div class="card-notes">${(unit.notes || []).map(n => noteTag(escHtml(n))).join('')}</div>
+            <div class="card-footer">
+              <span class="years-display">
+                ${yearRange(unit.years)}
+                <span class="base-badge">${escHtml(unit.base || 'Medium')}</span>
+              </span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--text3)">${escHtml(unit.id || '')}</span>
+            </div>
+          </div>`;
+      });
+    });
+  });
+
+  html += '</div>';
+  main.innerHTML = html;
+}
+
+function escHtml(str) {
+  if (!str && str !== 0) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// Allow pressing Enter in the textarea to auto-render on paste
+document.getElementById('json-input').addEventListener('paste', () => {
+  setTimeout(loadJSON, 0);
+});
+</script>
+</body>
+</html>
