@@ -1736,7 +1736,7 @@
     font-family: var(--display);
     font-size: 14px;
     letter-spacing: 3px;
-    color: var(--text3);
+    color: var(--nation-color, var(--text3));
     text-transform: uppercase;
     white-space: nowrap;
   }
@@ -1744,8 +1744,22 @@
   .type-divider-line {
     flex: 1;
     height: 1px;
-    background: var(--border);
-    opacity: 0.5;
+    background: linear-gradient(90deg, var(--nation-color, var(--border)) 0%, var(--border) 30%, transparent 100%);
+    opacity: 0.45;
+  }
+
+  /* CARD TYPE WATERMARK */
+  .card-type-watermark {
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+    opacity: 0.065;
+    pointer-events: none;
+    color: var(--text);
+  }
+  .card-type-watermark .type-svg {
+    width: 72px;
+    height: 51px;
   }
 
   /* TYPE ICON (NATO military map symbol SVG) */
@@ -3633,10 +3647,9 @@ function renderGrid(container, forceIds) {
 
     activeTypes.forEach(type => {
       if (showTypeHeaders) {
-        const icon = TYPE_ICONS[type] || '';
         html += `
-          <div class="type-divider">
-            ${icon}<span class="type-divider-label">${type}</span>
+          <div class="type-divider" data-nation="${nation}">
+            <span class="type-divider-label">${type}</span>
             <div class="type-divider-line"></div>
           </div>
         `;
@@ -3652,6 +3665,7 @@ function renderGrid(container, forceIds) {
       html += `
         <div class="unit-card ${inForce ? 'in-force' : ''} ${locked ? 'locked' : ''} ${nc}" id="card-${unit.id}" style="animation-delay:${delay}s;cursor:pointer" onclick="openUnitDetail('${unit.id}')">
           ${locked ? '<div class="lock-overlay">🔒</div>' : ''}
+          ${TYPE_ICONS[unit.type] ? `<div class="card-type-watermark">${TYPE_ICONS[unit.type]}</div>` : ''}
           <div class="card-header">
             <div class="unit-name">${unit.name}</div>
             <div class="card-badges">
