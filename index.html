@@ -2836,43 +2836,6 @@
   .pq-chip.pq-poor    { border-color: var(--red);    color: var(--red);    background: rgba(160,69,69,0.1); }
   .pq-chip.pq-inherit { opacity: 0.4; border-style: dashed; }
 
-  /* ── COMPOSITION BAR ──────────────────────────────────────────────────────── */
-  .composition-bar {
-    display: flex;
-    height: 6px;
-    border-radius: 0;
-    overflow: hidden;
-    margin: 8px 0 4px;
-    gap: 1px;
-  }
-  .composition-bar:empty { display: none; }
-  .comp-segment {
-    height: 100%;
-    transition: width 0.3s ease;
-    min-width: 3px;
-  }
-  .composition-legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 12px;
-    margin-bottom: 4px;
-  }
-  .comp-legend-item {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-family: var(--mono);
-    font-size: 9px;
-    color: var(--text3);
-    letter-spacing: 0.5px;
-  }
-  .comp-legend-swatch {
-    width: 8px;
-    height: 8px;
-    border-radius: 1px;
-    flex-shrink: 0;
-  }
-
   /* ── DRAG HANDLE ──────────────────────────────────────────────────────────── */
   .platoon-drag-handle {
     background: none;
@@ -3167,8 +3130,6 @@
         <span class="summary-stat-value" id="summary-bl">5</span>
       </div>
     </div>
-    <div class="composition-bar" id="composition-bar"></div>
-    <div class="composition-legend" id="composition-legend"></div>
     <div class="force-actions">
       <button class="action-btn" onclick="saveForce()">Save</button>
       <button class="action-btn" onclick="publishForce()">Publish</button>
@@ -3479,27 +3440,13 @@ function showToast(message, type = 'info', duration = 2800) {
 
 // ── STAT TIPS ─────────────────────────────────────────────────────────────────
 const STAT_TIPS = {
-  Range:  'Maximum shooting range in inches. Targets beyond this distance cannot be engaged.',
-  RoF:    'Rate of Fire — number of shot dice rolled when shooting.',
-  AT:     'Anti-Tank — subtract from target armor to determine if a hit penetrates.',
-  FP:     'Firepower — minimum d6 roll needed to destroy a bailed or hit enemy team.',
-  Armor:  'Front armor / Flank armor. AT must exceed armor value to penetrate.',
+  Range:  'Maximum range in inches at which this weapon may fire. Targets at Long Range (up to 2× this distance) apply a +1 modifier to Fire rolls.',
+  RoF:    'Rate of Fire — the number of Fire Dice rolled when this team is given a Fire order. Each die needs 4+ to score a hit.',
+  AT:     'Anti-Tank rating. When firing at an armored vehicle, compare AT to the vehicle\'s Armor Rating. If AT > AR, roll the difference — any 6 destroys. If AT ≤ AR, roll AT dice — any 6 scores RFPs equal to weapon FP.',
+  FP:     'Firepower Rating — the number of Received Fire Points (RFPs) a hit non-vehicle team receives. Most weapons are FP 1; artillery can be 2 (Medium) or 3 (Heavy). Higher FP makes hits harder to survive.',
+  Armor:  'Front Armor / Flank Armor Rating. Incoming AT is compared to the relevant AR to determine the penetration table. Flank armor applies when firing from behind the front hull line.',
 };
 
-// ── COMPOSITION BAR COLORS ────────────────────────────────────────────────────
-const TYPE_COLORS = {
-  Infantry:   '#6abf6a',
-  Support:    '#a07fd4',
-  Artillery:  '#d4a035',
-  'Gun Teams':'#c07828',
-  'Anti-Tank':'#d45f50',
-  'Anti-Air': '#50a8d4',
-  Armored:    '#5888c4',
-  Mechanized: '#c4964a',
-  Airborne:   '#9ab4d4',
-  Recon:      '#3cb8a0',
-  Transport:  '#8c9870',
-};
 
 const RULE_TIPS = {
   // ── Core Special Rules (p.28) ──────────────────────────────────────────────
@@ -3940,8 +3887,6 @@ function updateForceUI() {
       <div class="onboard-title">No Platoons Yet</div>
       <div class="onboard-hint">Find a unit and click<br><strong>New Platoon</strong> to get started.</div>
     </div>`;
-    document.getElementById('composition-bar').innerHTML = '';
-    document.getElementById('composition-legend').innerHTML = '';
     return;
   }
 
@@ -3987,7 +3932,7 @@ function updateForceUI() {
     return `
       <div class="platoon-item ${isActive ? 'active-platoon' : ''} ${isCollapsed ? 'is-collapsed' : ''}" id="platoon-${platoon.id}">
         <div class="platoon-header">
-          <button class="platoon-drag-handle" title="Drag to reorder">⠿</button>
+          <button class="platoon-drag-handle" data-tip="Drag to reorder platoons">⠿</button>
           <button class="platoon-collapse-btn" onclick="togglePlatoonCollapse('${platoon.id}')" data-tip="${isCollapsed ? 'Expand' : 'Collapse'}">▾</button>
           <div class="platoon-active-dot"></div>
           <input class="platoon-name-input" id="pname-${platoon.id}"
@@ -4009,33 +3954,6 @@ function updateForceUI() {
       </div>
     `;
   }).join('');
-
-  // ── Composition bar ────────────────────────────────────────────────────────
-  const typeCounts = {};
-  platoons.forEach(p => p.teams.forEach(t => {
-    const u = allUnits.find(u => u.id === t.unitId);
-    if (u) typeCounts[u.type] = (typeCounts[u.type] || 0) + t.qty;
-  }));
-  const total = Object.values(typeCounts).reduce((a, b) => a + b, 0);
-  const barEl = document.getElementById('composition-bar');
-  const legendEl = document.getElementById('composition-legend');
-  if (total > 0) {
-    const typeOrder = ['Infantry','Support','Artillery','Gun Teams','Anti-Tank','Anti-Air','Armored','Mechanized','Airborne','Recon','Transport'];
-    const segments = typeOrder.filter(t => typeCounts[t]).map(t => {
-      const pct = ((typeCounts[t] / total) * 100).toFixed(1);
-      const color = TYPE_COLORS[t] || '#888';
-      return { t, pct, color, count: typeCounts[t] };
-    });
-    barEl.innerHTML = segments.map(s =>
-      `<div class="comp-segment" style="width:${s.pct}%;background:${s.color}" data-tip="${s.t}: ${s.count}"></div>`
-    ).join('');
-    legendEl.innerHTML = segments.map(s =>
-      `<div class="comp-legend-item"><div class="comp-legend-swatch" style="background:${s.color}"></div>${s.t} ${s.count}</div>`
-    ).join('');
-  } else {
-    barEl.innerHTML = '';
-    legendEl.innerHTML = '';
-  }
 
   // ── Sortable (drag to reorder) ─────────────────────────────────────────────
   if (window.Sortable) {
