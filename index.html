@@ -1728,7 +1728,16 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 0 2px;
+    /* top is set inline per-divider based on whether a nation header is present */
+    position: sticky;
+    z-index: 4;
+    background: var(--bg);
+    margin-left: -24px;
+    margin-right: -24px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 8px;
+    padding-bottom: 4px;
     animation: fadeUp 0.18s ease forwards;
   }
 
@@ -2890,10 +2899,14 @@
   .section-divider[data-nation] .section-divider-line {
     background: linear-gradient(90deg, var(--nation-color, var(--accent)) 0%, var(--border) 40%, transparent 100%);
   }
-  /* sticky within .main's scroll context (not viewport), so top:0 pins to top of .main's visible area */
+  /*
+    Sticky within .main's scroll context. Browsers compute sticky `top`
+    from the scroll container's CONTENT edge (not the padding edge), so
+    we need top: -24px to reach the padding edge = right below the nav.
+  */
   .section-divider {
     position: sticky;
-    top: 0;
+    top: -24px;
     z-index: 5;
     background: var(--bg);
     margin-left: -24px;
@@ -3644,11 +3657,15 @@ function renderGrid(container, forceIds) {
 
     const activeTypes = typeOrder.filter(t => byType[t]);
     const showTypeHeaders = activeTypes.length > 1;
+    // Nation header is ~36px tall, sticking at top:-24px (content-edge relative).
+    // Its bottom = -24 + 36 = 12px from content edge. Type header stacks there.
+    // Single-nation: no section-divider present, stick at same -24px as nation header would.
+    const typeTop = hasMultipleNations ? '12px' : '-24px';
 
     activeTypes.forEach(type => {
       if (showTypeHeaders) {
         html += `
-          <div class="type-divider" data-nation="${nation}">
+          <div class="type-divider" data-nation="${nation}" style="top:${typeTop}">
             <span class="type-divider-label">${type}</span>
             <div class="type-divider-line"></div>
           </div>
