@@ -5054,7 +5054,7 @@ function openForceSheet(forceData) {
     const qIcon = platoonQ === 'Elite' ? '★' : platoonQ === 'Poor' ? '▼' : '●';
     const qColor = platoonQ === 'Elite' ? 'var(--accent)' : platoonQ === 'Poor' ? 'var(--red)' : 'var(--green)';
     const qBadge = qDiffers
-      ? `<span style="font-family:var(--mono);font-size:9px;letter-spacing:1px;color:${qColor};margin-left:10px;opacity:0.9">${qIcon} ${platoonQ.toUpperCase()}</span>`
+      ? `<span style="font-family:var(--mono);font-size:13px;letter-spacing:1.5px;color:${qColor};margin-left:14px;border:1px solid ${qColor};padding:2px 8px;opacity:0.95">${qIcon} ${platoonQ.toUpperCase()}</span>`
       : '';
 
     if (teams.length === 0) {
