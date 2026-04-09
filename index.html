@@ -63,11 +63,11 @@
 
   /* Wrap ALL nav tabs together to a second row when space is tight */
   @media (max-width: 860px) {
-    header { flex-wrap: wrap; padding: 0 24px 8px; }
+    header { flex-wrap: wrap; row-gap: 0; align-items: center; padding: 0 24px; }
     .header-nav {
       order: 10;
       flex: 0 0 100%;
-      padding-top: 4px;
+      padding: 6px 0 8px;
       border-top: 1px solid var(--border);
     }
     .header-actions { margin-left: auto; }
@@ -569,7 +569,7 @@
     opacity: 0;
   }
 
-  .unit-card.anim { animation: fadeUp 0.45s ease forwards; }
+  .unit-card.anim { animation: fadeUp 0.55s ease forwards; }
 
   .unit-card:hover {
     border-color: var(--accent);
@@ -2826,7 +2826,7 @@
 
   /* ANIMATIONS */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
+    from { opacity: 0; transform: translateY(28px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
@@ -3502,7 +3502,9 @@ function setView(view) {
   renderUnits();
 }
 
-function renderUnits() {
+// skipAnim=true skips the stagger animation (force-state updates that only change
+// card border color — e.g. adding/removing a team — pass true here).
+function renderUnits(skipAnim = false) {
   const container = document.getElementById('unit-display');
   const forceIds = getAllForceUnitIds();
 
@@ -3516,7 +3518,7 @@ function renderUnits() {
   }
 
   if (currentView === 'grid') {
-    renderGrid(container, forceIds);
+    renderGrid(container, forceIds, !skipAnim);
   } else {
     renderTable(container, forceIds);
   }
@@ -3629,7 +3631,7 @@ function noteTag(note) {
   return `<span class="note-tag ${isSpecialNote(note) ? 'special' : ''}" ${tip ? `data-tip="${tip.replace(/"/g, '&quot;')}"` : ''}>${note}</span>`;
 }
 
-function renderGrid(container, forceIds) {
+function renderGrid(container, forceIds, animate = true) {
   const byNation = {};
   filteredUnits.forEach(u => {
     if (!byNation[u.nation]) byNation[u.nation] = [];
@@ -3737,15 +3739,22 @@ function renderGrid(container, forceIds) {
   html += '</div>';
   container.innerHTML = html;
 
-  // Force a layout flush so the browser commits the new DOM before we add
-  // the animation class — this guarantees the `from` keyframe state fires.
-  void container.offsetHeight;
-  container.querySelectorAll('.unit-card').forEach(card => {
-    const idx = parseInt(card.dataset.cardIndex || '0', 10);
-    const delay = (Math.min(idx, 20) * 0.03).toFixed(3);
-    card.style.animationDelay = `${delay}s`;
-    card.classList.add('anim');
-  });
+  if (animate) {
+    // Force a layout flush so the browser commits opacity:0 before we add
+    // the animation class — guarantees the `from` keyframe fires.
+    void container.offsetHeight;
+    container.querySelectorAll('.unit-card').forEach(card => {
+      const idx = parseInt(card.dataset.cardIndex || '0', 10);
+      const delay = (Math.min(idx, 20) * 0.05).toFixed(3);
+      card.style.animationDelay = `${delay}s`;
+      card.classList.add('anim');
+    });
+  } else {
+    // No animation — just show cards at full opacity immediately
+    container.querySelectorAll('.unit-card').forEach(card => {
+      card.style.opacity = '1';
+    });
+  }
 }
 
 function renderTable(container, forceIds) {
@@ -3861,7 +3870,7 @@ function addPlatoon() {
   platoons.push(platoon);
   activePlatoonId = id;
   updateForceUI();
-  renderUnits();
+  renderUnits(true);
   // Focus the new platoon name input
   setTimeout(() => {
     const el = document.getElementById(`pname-${id}`);
@@ -3875,13 +3884,13 @@ function removePlatoon(id) {
     activePlatoonId = platoons.length ? platoons[platoons.length - 1].id : null;
   }
   updateForceUI();
-  renderUnits();
+  renderUnits(true);
 }
 
 function setActivePlatoon(id) {
   activePlatoonId = id;
   updateForceUI();
-  renderUnits();
+  renderUnits(true);
 }
 
 function nationPrefix(nation) {
@@ -3916,7 +3925,7 @@ function addAsStandardPlatoon(unitId) {
   platoons.push(platoon);
   activePlatoonId = id;
   updateForceUI();
-  renderUnits();
+  renderUnits(true);
   showToast(`${unit.name} platoon created.`, 'success');
 
   // Open force panel if not already open
@@ -3948,7 +3957,7 @@ function addTeamToPlatoon(unitId) {
   updateForceUI();
   _animUnitId = null;
   _animPlatoonId = null;
-  renderUnits();
+  renderUnits(true);
   const unitName = unit?.name || 'Unit';
   showToast(isUpgrade ? `${unitName} upgrade added.` : `${unitName} added.`);
 }
@@ -3961,7 +3970,7 @@ function changeTeamQty(platoonId, unitId, delta) {
   team.qty = Math.max(0, team.qty + delta);
   if (team.qty === 0) platoon.teams = platoon.teams.filter(t => t.unitId !== unitId);
   updateForceUI();
-  renderUnits();
+  renderUnits(true);
 }
 
 function removeTeamFromPlatoon(platoonId, unitId) {
@@ -3969,7 +3978,7 @@ function removeTeamFromPlatoon(platoonId, unitId) {
   if (!platoon) return;
   platoon.teams = platoon.teams.filter(t => t.unitId !== unitId);
   updateForceUI();
-  renderUnits();
+  renderUnits(true);
 }
 
 function updatePlatoonName(id, name) {
@@ -4006,7 +4015,7 @@ function duplicatePlatoon(id) {
   );
   activePlatoonId = newId;
   updateForceUI();
-  renderUnits();
+  renderUnits(true);
 }
 
 function setForcePanel(open) {
@@ -4152,7 +4161,7 @@ function clearForce() {
     document.getElementById('force-year').value = '';
     setForceType(null);
     updateForceUI();
-    renderUnits();
+    renderUnits(true);
   }
 }
 
@@ -4258,7 +4267,7 @@ function loadForceData(data) {
   platoonCounter = platoons.length;
   activePlatoonId = platoons.length ? platoons[0].id : null;
   updateForceUI();
-  renderUnits();
+  renderUnits(true);
 }
 
 async function saveForce() {
@@ -5013,7 +5022,7 @@ function closeCompare() {
   document.getElementById('compare-modal').classList.remove('open');
   document.body.style.overflow = '';
   // Refresh display so new ratings show
-  if (isAdmin) renderUnits();
+  if (isAdmin) renderUnits(true);
 }
 
 // ── FORCE SHEET ───────────────────────────────────────────────────────────────
