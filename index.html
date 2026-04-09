@@ -9,6 +9,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <style>
   :root {
     --header-h: 60px;
@@ -2740,6 +2741,155 @@
     0%, 100% { opacity: 1; text-shadow: 0 0 24px rgba(224,192,96,0.35), 0 0 48px rgba(224,192,96,0.12); }
     50%       { opacity: 0.75; text-shadow: 0 0 12px rgba(224,192,96,0.2), 0 0 24px rgba(224,192,96,0.06); }
   }
+
+  /* ── TOAST NOTIFICATIONS ──────────────────────────────────────────────────── */
+  #toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8px;
+    pointer-events: none;
+  }
+  .toast {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    padding: 10px 16px;
+    min-width: 180px;
+    max-width: 300px;
+    pointer-events: auto;
+    animation: toast-in 0.18s ease;
+    transition: opacity 0.3s ease;
+  }
+  .toast.success { border-left-color: var(--green); }
+  .toast.error   { border-left-color: var(--red); }
+  .toast.fading  { opacity: 0; }
+  @keyframes toast-in {
+    from { transform: translateX(16px); opacity: 0; }
+    to   { transform: none; opacity: 1; }
+  }
+
+  /* ── ONBOARDING EMPTY STATE ───────────────────────────────────────────────── */
+  .onboard-empty {
+    padding: 28px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .onboard-icon { font-size: 26px; color: var(--accent); opacity: 0.35; }
+  .onboard-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text2);
+  }
+  .onboard-hint { font-size: 12px; color: var(--text3); line-height: 1.6; }
+  .onboard-hint strong { color: var(--accent); font-weight: 600; }
+
+  /* ── NATION-COLORED SECTION DIVIDERS ──────────────────────────────────────── */
+  .section-divider[data-nation] .section-divider-label { color: var(--nation-color, var(--accent)); }
+  .section-divider[data-nation] .section-divider-line {
+    background: linear-gradient(90deg, var(--nation-color, var(--accent)) 0%, var(--border) 40%, transparent 100%);
+  }
+  .section-divider {
+    position: sticky;
+    top: calc(var(--header-h) + 4px);
+    z-index: 5;
+    background: var(--bg);
+    margin-left: -16px;
+    margin-right: -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* ── PER-PLATOON QUALITY OVERRIDE ─────────────────────────────────────────── */
+  .platoon-quality-override { display: flex; gap: 2px; }
+  .pq-chip {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 0.5px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.1s;
+    padding: 0;
+  }
+  .pq-chip:hover { border-color: var(--text2); color: var(--text2); }
+  .pq-chip.pq-elite   { border-color: var(--accent); color: var(--accent); background: rgba(224,192,96,0.1); }
+  .pq-chip.pq-regular { border-color: var(--green);  color: var(--green);  background: rgba(90,154,110,0.1); }
+  .pq-chip.pq-poor    { border-color: var(--red);    color: var(--red);    background: rgba(160,69,69,0.1); }
+  .pq-chip.pq-inherit { opacity: 0.4; border-style: dashed; }
+
+  /* ── COMPOSITION BAR ──────────────────────────────────────────────────────── */
+  .composition-bar {
+    display: flex;
+    height: 6px;
+    border-radius: 0;
+    overflow: hidden;
+    margin: 8px 0 4px;
+    gap: 1px;
+  }
+  .composition-bar:empty { display: none; }
+  .comp-segment {
+    height: 100%;
+    transition: width 0.3s ease;
+    min-width: 3px;
+  }
+  .composition-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    margin-bottom: 4px;
+  }
+  .comp-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+  }
+  .comp-legend-swatch {
+    width: 8px;
+    height: 8px;
+    border-radius: 1px;
+    flex-shrink: 0;
+  }
+
+  /* ── DRAG HANDLE ──────────────────────────────────────────────────────────── */
+  .platoon-drag-handle {
+    background: none;
+    border: none;
+    color: var(--text3);
+    cursor: grab;
+    font-size: 13px;
+    padding: 0 3px;
+    opacity: 0.35;
+    transition: opacity 0.1s;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .platoon-drag-handle:hover { opacity: 1; }
+  .platoon-drag-handle:active { cursor: grabbing; }
+  .platoon-ghost { opacity: 0.35; background: var(--bg3); }
+
 </style>
 </head>
 <body>
@@ -3000,7 +3150,11 @@
     <textarea class="force-notes-input" id="force-notes" placeholder="History, composition, playstyle, context — anything you want to share..."></textarea>
   </div>
   <div class="platoon-list" id="platoon-list">
-    <div class="force-empty" id="platoon-empty">No platoons yet.<br>Click "New Platoon" on a unit card<br>to start building your force.</div>
+    <div class="onboard-empty" id="platoon-empty">
+      <div class="onboard-icon">◈</div>
+      <div class="onboard-title">No Platoons Yet</div>
+      <div class="onboard-hint">Find a unit and click<br><strong>New Platoon</strong> to get started.</div>
+    </div>
   </div>
   <div class="force-summary">
     <div class="force-summary-grid">
@@ -3013,6 +3167,8 @@
         <span class="summary-stat-value" id="summary-bl">5</span>
       </div>
     </div>
+    <div class="composition-bar" id="composition-bar"></div>
+    <div class="composition-legend" id="composition-legend"></div>
     <div class="force-actions">
       <button class="action-btn" onclick="saveForce()">Save</button>
       <button class="action-btn" onclick="publishForce()">Publish</button>
@@ -3295,12 +3451,55 @@ function statDisplay(val, isArmor = false) {
   return `<span class="stat-value">${val}</span>`;
 }
 
+function statCell(label, display) {
+  const tip = STAT_TIPS[label] || '';
+  return `<div class="stat-cell"><span class="stat-label"${tip ? ` data-tip="${tip}"` : ''}>${label}</span>${display}</div>`;
+}
+
 function yearRange(years) {
   if (!years || years.length === 0) return '';
   const min = Math.min(...years);
   const max = Math.max(...years);
   return min === max ? `${min}` : `${min}–${max}`;
 }
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
+function showToast(message, type = 'info', duration = 2800) {
+  const c = document.getElementById('toast-container');
+  if (!c) return;
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.textContent = message;
+  c.appendChild(t);
+  setTimeout(() => {
+    t.classList.add('fading');
+    setTimeout(() => t.remove(), 300);
+  }, duration);
+}
+
+// ── STAT TIPS ─────────────────────────────────────────────────────────────────
+const STAT_TIPS = {
+  Range:  'Maximum shooting range in inches. Targets beyond this distance cannot be engaged.',
+  RoF:    'Rate of Fire — number of shot dice rolled when shooting.',
+  AT:     'Anti-Tank — subtract from target armor to determine if a hit penetrates.',
+  FP:     'Firepower — minimum d6 roll needed to destroy a bailed or hit enemy team.',
+  Armor:  'Front armor / Flank armor. AT must exceed armor value to penetrate.',
+};
+
+// ── COMPOSITION BAR COLORS ────────────────────────────────────────────────────
+const TYPE_COLORS = {
+  Infantry:   '#6abf6a',
+  Support:    '#a07fd4',
+  Artillery:  '#d4a035',
+  'Gun Teams':'#c07828',
+  'Anti-Tank':'#d45f50',
+  'Anti-Air': '#50a8d4',
+  Armored:    '#5888c4',
+  Mechanized: '#c4964a',
+  Airborne:   '#9ab4d4',
+  Recon:      '#3cb8a0',
+  Transport:  '#8c9870',
+};
 
 const RULE_TIPS = {
   // ── Core Special Rules (p.28) ──────────────────────────────────────────────
@@ -3377,7 +3576,7 @@ function renderGrid(container, forceIds) {
 
     if (hasMultipleNations) {
       html += `
-        <div class="section-divider">
+        <div class="section-divider" data-nation="${nation}">
           <span class="section-divider-label">${nation}</span>
           <div class="section-divider-line"></div>
         </div>
@@ -3422,29 +3621,14 @@ function renderGrid(container, forceIds) {
             </div>
           </div>
           <div class="card-stats">
-            <div class="stat-cell">
-              <span class="stat-label">Range</span>
-              ${statDisplay(unit.gun_range)}
-            </div>
-            <div class="stat-cell">
-              <span class="stat-label">RoF</span>
-              ${statDisplay(unit.rof)}
-            </div>
-            <div class="stat-cell">
-              <span class="stat-label">AT</span>
-              ${statDisplay(unit.at)}
-            </div>
-            <div class="stat-cell">
-              <span class="stat-label">FP</span>
-              ${statDisplay(unit.fp)}
-            </div>
-            <div class="stat-cell">
-              <span class="stat-label">Armor</span>
-              ${unit.armor_front !== null
-                ? `<span class="stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`
-                : `<span class="stat-value null-val">—</span>`
-              }
-            </div>
+            ${statCell('Range', statDisplay(unit.gun_range))}
+            ${statCell('RoF',   statDisplay(unit.rof))}
+            ${statCell('AT',    statDisplay(unit.at))}
+            ${statCell('FP',    statDisplay(unit.fp))}
+            ${statCell('Armor', unit.armor_front !== null
+              ? `<span class="stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`
+              : `<span class="stat-value null-val">—</span>`
+            )}
           </div>
           ${unit.armament ? `<div class="card-armament">${unit.armament}</div>` : ''}
           <div class="card-notes">
@@ -3573,7 +3757,7 @@ function inferNation() {
 function addPlatoon() {
   platoonCounter++;
   const id = `pl-${platoonCounter}`;
-  const platoon = { id, name: `Platoon ${platoonCounter}`, teams: [] };
+  const platoon = { id, name: `Platoon ${platoonCounter}`, teams: [], quality: null };
 
   // Auto-prepend platoon leader based on inferred nation
   const nation = inferNation();
@@ -3623,7 +3807,7 @@ function addAsStandardPlatoon(unitId) {
 
   platoonCounter++;
   const id = `pl-${platoonCounter}`;
-  const platoon = { id, name: `${unit.name} Platoon`, teams: [] };
+  const platoon = { id, name: `${unit.name} Platoon`, teams: [], quality: null };
 
   if (sp.leader) {
     const leaderId = `${prefix}-leader`;
@@ -3643,6 +3827,7 @@ function addAsStandardPlatoon(unitId) {
   activePlatoonId = id;
   updateForceUI();
   renderUnits();
+  showToast(`${unit.name} platoon created.`, 'success');
 
   // Open force panel if not already open
   setForcePanel(true);
@@ -3664,6 +3849,8 @@ function addTeamToPlatoon(unitId) {
   }
   updateForceUI();
   renderUnits();
+  const unitName = allUnits.find(u => u.id === unitId)?.name || 'Unit';
+  showToast(`${unitName} added.`);
 }
 
 function changeTeamQty(platoonId, unitId, delta) {
@@ -3690,6 +3877,14 @@ function updatePlatoonName(id, name) {
   if (platoon) platoon.name = name;
 }
 
+function setPlatoonQuality(platoonId, quality) {
+  const platoon = platoons.find(p => p.id === platoonId);
+  if (!platoon) return;
+  // Clicking the already-active override clears it (revert to inherited)
+  platoon.quality = (platoon.quality === quality) ? null : quality;
+  updateForceUI();
+}
+
 function togglePlatoonCollapse(id) {
   if (collapsedPlatoons.has(id)) {
     collapsedPlatoons.delete(id);
@@ -3707,7 +3902,7 @@ function duplicatePlatoon(id) {
   platoons.splice(
     platoons.findIndex(p => p.id === id) + 1,
     0,
-    { id: newId, name: src.name + ' (Copy)', teams: src.teams.map(t => ({ ...t })) }
+    { id: newId, name: src.name + ' (Copy)', teams: src.teams.map(t => ({ ...t })), quality: src.quality || null }
   );
   activePlatoonId = newId;
   updateForceUI();
@@ -3740,8 +3935,13 @@ function updateForceUI() {
   const emptyEl = document.getElementById('platoon-empty');
 
   if (platoons.length === 0) {
-    if (emptyEl) emptyEl.style.display = '';
-    listEl.innerHTML = '<div class="force-empty" id="platoon-empty">No platoons yet.<br>Add a platoon, then select units<br>from the arsenal to fill it.</div>';
+    listEl.innerHTML = `<div class="onboard-empty" id="platoon-empty">
+      <div class="onboard-icon">◈</div>
+      <div class="onboard-title">No Platoons Yet</div>
+      <div class="onboard-hint">Find a unit and click<br><strong>New Platoon</strong> to get started.</div>
+    </div>`;
+    document.getElementById('composition-bar').innerHTML = '';
+    document.getElementById('composition-legend').innerHTML = '';
     return;
   }
 
@@ -3776,15 +3976,29 @@ function updateForceUI() {
         }).join('')
 
     const isCollapsed = collapsedPlatoons.has(platoon.id);
+    const effectiveQ = platoon.quality || forceQuality;
+    function pqClass(q) {
+      const isMatch = effectiveQ === q;
+      const isOverride = platoon.quality === q;
+      if (!isMatch) return 'pq-chip';
+      const color = q === 'Elite' ? 'pq-elite' : q === 'Regular' ? 'pq-regular' : 'pq-poor';
+      return `pq-chip ${color}${!isOverride ? ' pq-inherit' : ''}`;
+    }
     return `
       <div class="platoon-item ${isActive ? 'active-platoon' : ''} ${isCollapsed ? 'is-collapsed' : ''}" id="platoon-${platoon.id}">
         <div class="platoon-header">
+          <button class="platoon-drag-handle" title="Drag to reorder">⠿</button>
           <button class="platoon-collapse-btn" onclick="togglePlatoonCollapse('${platoon.id}')" data-tip="${isCollapsed ? 'Expand' : 'Collapse'}">▾</button>
           <div class="platoon-active-dot"></div>
           <input class="platoon-name-input" id="pname-${platoon.id}"
             value="${platoon.name}"
             oninput="updatePlatoonName('${platoon.id}', this.value)"
             placeholder="Platoon name...">
+          <div class="platoon-quality-override">
+            <button class="${pqClass('Elite')}"   data-tip="Set to Elite"   onclick="setPlatoonQuality('${platoon.id}','Elite')">E</button>
+            <button class="${pqClass('Regular')}" data-tip="Set to Regular" onclick="setPlatoonQuality('${platoon.id}','Regular')">R</button>
+            <button class="${pqClass('Poor')}"    data-tip="Set to Poor"    onclick="setPlatoonQuality('${platoon.id}','Poor')">P</button>
+          </div>
           <button class="platoon-select-btn" onclick="setActivePlatoon('${platoon.id}')">
             ${isActive ? 'Active' : 'Select'}
           </button>
@@ -3795,6 +4009,48 @@ function updateForceUI() {
       </div>
     `;
   }).join('');
+
+  // ── Composition bar ────────────────────────────────────────────────────────
+  const typeCounts = {};
+  platoons.forEach(p => p.teams.forEach(t => {
+    const u = allUnits.find(u => u.id === t.unitId);
+    if (u) typeCounts[u.type] = (typeCounts[u.type] || 0) + t.qty;
+  }));
+  const total = Object.values(typeCounts).reduce((a, b) => a + b, 0);
+  const barEl = document.getElementById('composition-bar');
+  const legendEl = document.getElementById('composition-legend');
+  if (total > 0) {
+    const typeOrder = ['Infantry','Support','Artillery','Gun Teams','Anti-Tank','Anti-Air','Armored','Mechanized','Airborne','Recon','Transport'];
+    const segments = typeOrder.filter(t => typeCounts[t]).map(t => {
+      const pct = ((typeCounts[t] / total) * 100).toFixed(1);
+      const color = TYPE_COLORS[t] || '#888';
+      return { t, pct, color, count: typeCounts[t] };
+    });
+    barEl.innerHTML = segments.map(s =>
+      `<div class="comp-segment" style="width:${s.pct}%;background:${s.color}" data-tip="${s.t}: ${s.count}"></div>`
+    ).join('');
+    legendEl.innerHTML = segments.map(s =>
+      `<div class="comp-legend-item"><div class="comp-legend-swatch" style="background:${s.color}"></div>${s.t} ${s.count}</div>`
+    ).join('');
+  } else {
+    barEl.innerHTML = '';
+    legendEl.innerHTML = '';
+  }
+
+  // ── Sortable (drag to reorder) ─────────────────────────────────────────────
+  if (window.Sortable) {
+    Sortable.create(listEl, {
+      handle: '.platoon-drag-handle',
+      animation: 150,
+      ghostClass: 'platoon-ghost',
+      onEnd(evt) {
+        if (evt.oldIndex !== evt.newIndex) {
+          const moved = platoons.splice(evt.oldIndex, 1)[0];
+          platoons.splice(evt.newIndex, 0, moved);
+        }
+      }
+    });
+  }
 }
 
 function clearForce() {
@@ -3887,6 +4143,7 @@ function getForceData() {
     breakLimit: 5 + (platoons.length * 2),
     platoons: platoons.map(p => ({
       name: p.name,
+      quality: p.quality || null,
       teams: p.teams.map(t => ({ unitId: t.unitId, qty: t.qty }))
     })),
     created: Date.now(),
@@ -3910,6 +4167,7 @@ function loadForceData(data) {
   platoons = toArr(data.platoons).map((p, i) => ({
     id: `pl-${Date.now()}-${i}`,
     name: p.name,
+    quality: p.quality || null,
     teams: toArr(p.teams)
   }));
   platoonCounter = platoons.length;
@@ -3919,28 +4177,26 @@ function loadForceData(data) {
 }
 
 async function saveForce() {
-  if (!currentUser) { alert('Sign in to save forces.'); return; }
-  if (platoons.length === 0) { alert('Add at least one platoon before saving.'); return; }
+  if (!currentUser) { showToast('Sign in to save forces.', 'error'); return; }
+  if (platoons.length === 0) { showToast('Add at least one platoon before saving.', 'error'); return; }
 
   const data = getForceData();
   const db = firebase.database();
 
   if (currentForceId) {
-    // Update existing
     await db.ref(`forces/${currentForceId}`).update(data);
-    alert('Force saved.');
+    showToast('Force saved.', 'success');
   } else {
-    // New save
     const ref = db.ref('forces').push();
     currentForceId = ref.key;
     await ref.set({ ...data, id: currentForceId });
-    alert('Force saved.');
+    showToast('Force saved.', 'success');
   }
 }
 
 async function publishForce() {
-  if (!currentUser) { alert('Sign in to publish forces.'); return; }
-  if (platoons.length === 0) { alert('Add at least one platoon before publishing.'); return; }
+  if (!currentUser) { showToast('Sign in to publish forces.', 'error'); return; }
+  if (platoons.length === 0) { showToast('Add at least one platoon before publishing.', 'error'); return; }
 
   if (!confirm('Publish this force to the public library? Anyone can browse and load it.')) return;
 
@@ -3955,7 +4211,7 @@ async function publishForce() {
     await ref.set({ ...data, id: currentForceId });
   }
 
-  alert('Force published to the library.');
+  showToast('Force published to the library.', 'success');
 }
 
 function shareForce() {
@@ -4225,7 +4481,8 @@ function openUnitDetail(unitId) {
     const display = val !== null && val !== undefined
       ? `<span class="udp-stat-value">${val}</span>`
       : `<span class="udp-stat-value null-val">—</span>`;
-    return `<div class="udp-stat"><span class="udp-stat-label">${label}</span>${display}</div>`;
+    const tip = STAT_TIPS[label] ? ` data-tip="${STAT_TIPS[label]}"` : '';
+    return `<div class="udp-stat"><span class="udp-stat-label"${tip}>${label}</span>${display}</div>`;
   }
   const armorDisplay = unit.armor_front !== null
     ? `<span class="udp-stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`
@@ -4986,5 +5243,6 @@ firebase.auth().onAuthStateChanged(async (user) => {
 });
 </script>
 
+<div id="toast-container"></div>
 </body>
 </html>
