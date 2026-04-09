@@ -1382,6 +1382,21 @@
 
   .team-remove-btn:hover { color: var(--red); }
 
+  .team-lock-btn {
+    background: none;
+    border: none;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 10px;
+    padding: 0 2px;
+    line-height: 1;
+    flex-shrink: 0;
+    opacity: 0.5;
+    transition: opacity 0.12s, color 0.12s;
+  }
+  .team-lock-btn:hover { opacity: 1; color: var(--accent); }
+  .team-lock-btn.unlocked { opacity: 1; color: var(--accent); }
+
   .platoon-empty {
     font-family: var(--mono);
     font-size: 10px;
@@ -3073,6 +3088,17 @@ let platoons = [];
 let activePlatoonId = null;
 let platoonCounter = 0;
 const collapsedPlatoons = new Set();
+const unlockedTeams = new Set(); // keys: `${platoonId}|${unitId}` for PL/FO rows
+
+function isFixedUnit(unitId) {
+  return unitId.endsWith('-leader') || unitId.endsWith('-fo');
+}
+function toggleTeamLock(platoonId, unitId) {
+  const key = `${platoonId}|${unitId}`;
+  if (unlockedTeams.has(key)) unlockedTeams.delete(key);
+  else unlockedTeams.add(key);
+  updateForceUI();
+}
 let currentView = 'grid';
 let activeFilters = {
   search: '',
@@ -3726,15 +3752,25 @@ function updateForceUI() {
       : platoon.teams.map(t => {
           const unit = allUnits.find(u => u.id === t.unitId);
           if (!unit) return '';
+          const fixed = isFixedUnit(t.unitId);
+          const lockKey = `${platoon.id}|${t.unitId}`;
+          const unlocked = unlockedTeams.has(lockKey);
+          const showControls = !fixed || unlocked;
           return `
             <div class="platoon-team-row">
-              <div class="team-qty-btns">
+              ${showControls ? `<div class="team-qty-btns">
                 <button class="qty-btn" onclick="changeTeamQty('${platoon.id}','${t.unitId}',1)">▲</button>
                 <button class="qty-btn" onclick="changeTeamQty('${platoon.id}','${t.unitId}',-1)">▼</button>
-              </div>
+              </div>` : ''}
               <span class="team-qty">${t.qty}×</span>
               <span class="team-name">${unit.name}</span>
-              <button class="team-remove-btn" onclick="removeTeamFromPlatoon('${platoon.id}','${t.unitId}')">✕</button>
+              ${fixed
+                ? `<button class="team-lock-btn ${unlocked ? 'unlocked' : ''}" onclick="toggleTeamLock('${platoon.id}','${t.unitId}')" data-tip="${unlocked ? 'Lock' : 'Unlock to edit'}">
+                    ${unlocked ? '🔓' : '🔒'}
+                  </button>
+                  ${unlocked ? `<button class="team-remove-btn" onclick="removeTeamFromPlatoon('${platoon.id}','${t.unitId}')">✕</button>` : ''}`
+                : `<button class="team-remove-btn" onclick="removeTeamFromPlatoon('${platoon.id}','${t.unitId}')">✕</button>`
+              }
             </div>
           `;
         }).join('')
