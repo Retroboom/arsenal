@@ -2697,6 +2697,18 @@
     margin-top: 1px;
   }
 
+  .mg-tip {
+    border-bottom: 1px dashed var(--text3);
+    cursor: help;
+  }
+
+  .fs-mg-row td {
+    padding-top: 2px;
+    padding-bottom: 4px;
+    border-bottom: none;
+    opacity: 0.75;
+  }
+
   .fs-qty {
     font-family: var(--mono);
     font-size: 14px;
@@ -3314,6 +3326,40 @@ function toggleTeamLock(platoonId, unitId) {
 }
 let currentView = 'grid';
 const TYPE_ORDER = ['Infantry', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Artillery', 'Armored', 'Recon', 'Transport', 'Upgrade'];
+
+// Vehicle MG reference stats (from rulebook Vehicle MGs tables)
+const VEHICLE_MG_STATS = {
+  'Hull MG':    { range: '16"', rof: 2, at: null, notes: 'May Fire Main Gun OR MGs' },
+  'Coax MG':    { range: '16"', rof: 2, at: null, notes: 'May Fire Main Gun OR MGs' },
+  'Co-ax MG':   { range: '16"', rof: 2, at: null, notes: 'May Fire Main Gun OR MGs' },
+  'AA MG':      { range: '16"', rof: 2, at: 1,    notes: 'Anti-Air · May only inflict RFPs · May Fire Main Gun OR MGs' },
+  '.50 cal MG': { range: '16"', rof: 2, at: 1,    notes: 'Anti-Air · May only inflict RFPs · May Fire Main Gun OR MGs' },
+};
+
+// Wrap recognized MG names in armament strings with tooltip spans.
+// Longer/more-specific patterns must come first to avoid partial matches.
+const MG_PATTERN = /(\.(50) cal MG|Co-ax MG|Coax MG|Hull MG|AA MG)/g;
+function wrapArmamentMGs(armament) {
+  return armament.replace(MG_PATTERN, match => {
+    const s = VEHICLE_MG_STATS[match];
+    if (!s) return match;
+    const tip = `Range ${s.range} · RoF ${s.rof} · AT ${s.at ?? '—'} · ${s.notes}`;
+    return `<span class="mg-tip" data-tip="${tip}">${match}</span>`;
+  });
+}
+
+// Return unique MG types found in an armament string.
+function detectMGs(armament) {
+  if (!armament) return [];
+  const found = new Map();
+  let m;
+  MG_PATTERN.lastIndex = 0;
+  while ((m = MG_PATTERN.exec(armament)) !== null) {
+    const name = m[0];
+    if (!found.has(name) && VEHICLE_MG_STATS[name]) found.set(name, VEHICLE_MG_STATS[name]);
+  }
+  return [...found.entries()];
+}
 let activeFilters = {
   search: '',
   nations: [],
@@ -3689,7 +3735,7 @@ function renderGrid(container, forceIds, animate = true) {
             <div class="${nationBadgeClass(unit.nation)}">${unit.nation}</div>
           </div>
           <div class="card-type-row">
-            ${unit.armament ? `<div class="card-armament">${unit.armament}</div>` : '<div></div>'}
+            ${unit.armament ? `<div class="card-armament">${wrapArmamentMGs(unit.armament)}</div>` : '<div></div>'}
             <div class="type-badge" data-type="${unit.type}">${unit.type}</div>
           </div>
           <div class="card-stats">
@@ -5145,18 +5191,30 @@ function openForceSheet(forceData) {
 
       const notes = (unit.notes || []).map(n => noteTag(n)).join(' ');
 
+      const mgs = detectMGs(unit.armament);
+      const mgRows = mgs.map(([name, s]) => `
+        <tr class="fs-mg-row">
+          <td class="fs-qty" style="color:var(--text3)">↳</td>
+          <td><span class="fs-armament" style="font-style:normal">${name}</span></td>
+          <td></td>
+          ${sc(s.range)}${sc(s.rof)}${sc(s.at)}
+          <td class="fs-stat dash">—</td>
+          <td class="fs-stat dash">—</td>
+          <td class="fs-notes-cell" style="color:var(--text3);font-size:10px">${s.notes}</td>
+        </tr>`).join('');
+
       return `
         <tr>
           <td class="fs-qty">${t.qty}×</td>
           <td>
             <span class="fs-unit-name">${unit.name}</span>
-            ${unit.armament ? `<span class="fs-armament">${unit.armament}</span>` : ''}
+            ${unit.armament ? `<span class="fs-armament">${wrapArmamentMGs(unit.armament)}</span>` : ''}
           </td>
           <td style="text-align:center"><span class="base-badge">${unit.base || 'Med'}</span></td>
           ${sc(range)}${sc(rof)}${sc(at)}${sc(fp)}
           <td class="${hasArmor ? 'fs-stat' : 'fs-stat dash'}">${hasArmor ? `${unit.armor_front}/${unit.armor_flank}` : '—'}</td>
           <td class="fs-notes-cell">${notes}</td>
-        </tr>`;
+        </tr>${mgRows}`;
     }).join('');
 
     return `
