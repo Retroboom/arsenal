@@ -3690,6 +3690,7 @@ function renderGrid(container, forceIds, animate = true) {
               <div class="type-badge" data-type="${unit.type}">${unit.type}</div>
             </div>
           </div>
+          ${unit.armament ? `<div class="card-armament">${unit.armament}</div>` : ''}
           <div class="card-stats">
             ${statCell('Range', statDisplay(unit.gun_range))}
             ${statCell('RoF',   statDisplay(unit.rof))}
@@ -3700,7 +3701,6 @@ function renderGrid(container, forceIds, animate = true) {
               : `<span class="stat-value null-val">—</span>`
             )}
           </div>
-          ${unit.armament ? `<div class="card-armament">${unit.armament}</div>` : ''}
           <div class="card-notes">
             ${unit.notes.map(n => noteTag(n)).join('')}
           </div>
