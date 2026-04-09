@@ -2572,6 +2572,20 @@
 
   .fs-print-btn:hover { border-color: var(--accent); color: var(--accent); }
 
+  .fs-share-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.12s;
+  }
+  .fs-share-btn:hover { border-color: var(--green); color: var(--green); }
+
   .fs-close-btn {
     background: none;
     border: none;
@@ -4849,6 +4863,15 @@ async function deleteForce(forceId) {
 
 async function checkUrlForce() {
   const params = new URLSearchParams(window.location.search);
+
+  const sheetId = params.get('sheet');
+  if (sheetId) {
+    const snap = await firebase.database().ref(`forces/${sheetId}`).once('value');
+    const data = snap.val();
+    if (data) openForceSheet(data);
+    return;
+  }
+
   const forceId = params.get('force');
   if (!forceId) return;
   const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
@@ -5128,12 +5151,12 @@ function openForceSheet(forceData) {
             <tr>
               <th class="c" style="width:44px">Qty</th>
               <th>Unit</th>
-              <th class="c">Base</th>
-              <th class="c">Range</th>
-              <th class="c">RoF</th>
-              <th class="c">AT</th>
-              <th class="c">FP</th>
-              <th class="c">Armor</th>
+              <th class="c" data-tip="Base size — Small (1×1&quot;), Medium (2×1&quot;), or Large (2×2&quot;). Base size affects movement through terrain and the area a team occupies.">Base</th>
+              <th class="c" data-tip="${STAT_TIPS.Range.replace(/"/g, '&quot;')}">Range</th>
+              <th class="c" data-tip="${STAT_TIPS.RoF.replace(/"/g, '&quot;')}">RoF</th>
+              <th class="c" data-tip="${STAT_TIPS.AT.replace(/"/g, '&quot;')}">AT</th>
+              <th class="c" data-tip="${STAT_TIPS.FP.replace(/"/g, '&quot;')}">FP</th>
+              <th class="c" data-tip="${STAT_TIPS.Armor.replace(/"/g, '&quot;')}">Armor</th>
               <th>Special Rules</th>
             </tr>
           </thead>
@@ -5148,6 +5171,7 @@ function openForceSheet(forceData) {
       <div class="fs-header">
         <div class="fs-title">${name}</div>
         <div class="fs-header-right">
+          ${forceData.id ? `<button class="fs-share-btn" onclick="copySheetLink('${forceData.id}')" data-tip="Copy shareable link to this force sheet">⎘ Copy Link</button>` : ''}
           <button class="fs-print-btn" onclick="window.print()">⎙ Print</button>
           <button class="fs-close-btn" onclick="closeForceSheet()">✕</button>
         </div>
@@ -5180,7 +5204,7 @@ function openCurrentForceSheet() {
     return;
   }
   const data = getForceData();
-  // getForceData() already serialises platoons correctly
+  if (currentForceId) data.id = currentForceId;
   openForceSheet(data);
 }
 
@@ -5202,6 +5226,15 @@ function closeForceSheet() {
   document.getElementById('force-sheet-modal').classList.remove('open');
   document.body.classList.remove('sheet-open');
   document.body.style.overflow = '';
+}
+
+function copySheetLink(forceId) {
+  const url = `${window.location.origin}${window.location.pathname}?sheet=${forceId}`;
+  navigator.clipboard.writeText(url).then(() => {
+    showToast('Link copied!', 'success');
+  }).catch(() => {
+    prompt('Copy this link:', url);
+  });
 }
 
 // ── AUTH ──────────────────────────────────────────────────────────────────────
