@@ -381,34 +381,30 @@
   }
 
   .sidebar-toggle-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+    position: absolute;
+    top: 19px;
+    right: 14px;
     background: none;
     border: none;
-    border-bottom: 1px solid var(--border);
     color: var(--text3);
-    font-size: 12px;
-    padding: 4px 0 8px;
-    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1;
+    padding: 2px 4px;
     cursor: pointer;
     transition: color 0.12s;
-    letter-spacing: 1px;
+    z-index: 1;
   }
   .sidebar-toggle-btn:hover { color: var(--text); }
 
   .app.sidebar-collapsed .sidebar {
-    padding: 8px 0;
-    align-items: center;
+    padding: 16px 0;
+    display: flex;
+    justify-content: center;
   }
   .app.sidebar-collapsed .sidebar-toggle-btn {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding: 8px 0;
-    writing-mode: unset;
+    position: static;
   }
-  .app.sidebar-collapsed .sidebar > *:not(.sidebar-toggle-btn) {
+  .app.sidebar-collapsed .sidebar-filters {
     display: none;
   }
 
@@ -3056,44 +3052,46 @@
 <div class="section active" id="section-units">
 <div class="app">
   <aside class="sidebar">
-    <button class="sidebar-toggle-btn" id="sidebar-toggle" onclick="toggleSidebar()" data-tip="Collapse filters">« Filters</button>
-    <div class="filter-section">
-      <div class="filter-label">Search</div>
-      <input type="text" class="search-input" placeholder="Unit name..." id="search-input" oninput="applyFilters()">
-    </div>
-
-    <div class="filter-section">
-      <div class="filter-label">Nation</div>
-      <div class="filter-chips" id="nation-chips"></div>
-    </div>
-
-    <div class="filter-section">
-      <div class="filter-label">Type</div>
-      <div class="filter-chips" id="type-chips"></div>
-    </div>
-
-    <div class="filter-section">
-      <div class="filter-label">Theater</div>
-      <div class="filter-chips" id="theater-chips"></div>
-    </div>
-
-    <div class="filter-section">
-      <div class="filter-label">Year</div>
-      <div class="year-range">
-        <select class="year-select" id="year-from" onchange="applyFilters()">
-          <option value="">Any</option><option value="1939">1939</option><option value="1940">1940</option><option value="1941">1941</option><option value="1942">1942</option><option value="1943">1943</option><option value="1944">1944</option><option value="1945">1945</option>
-        </select>
-        <span class="year-sep">—</span>
-        <select class="year-select" id="year-to" onchange="applyFilters()">
-          <option value="">Any</option><option value="1939">1939</option><option value="1940">1940</option><option value="1941">1941</option><option value="1942">1942</option><option value="1943">1943</option><option value="1944">1944</option><option value="1945">1945</option>
-        </select>
+    <button class="sidebar-toggle-btn" id="sidebar-toggle" onclick="toggleSidebar()" data-tip="Collapse filters">‹</button>
+    <div class="sidebar-filters">
+      <div class="filter-section">
+        <div class="filter-label">Search</div>
+        <input type="text" class="search-input" placeholder="Unit name..." id="search-input" oninput="applyFilters()">
       </div>
+
+      <div class="filter-section">
+        <div class="filter-label">Nation</div>
+        <div class="filter-chips" id="nation-chips"></div>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-label">Type</div>
+        <div class="filter-chips" id="type-chips"></div>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-label">Theater</div>
+        <div class="filter-chips" id="theater-chips"></div>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-label">Year</div>
+        <div class="year-range">
+          <select class="year-select" id="year-from" onchange="applyFilters()">
+            <option value="">Any</option><option value="1939">1939</option><option value="1940">1940</option><option value="1941">1941</option><option value="1942">1942</option><option value="1943">1943</option><option value="1944">1944</option><option value="1945">1945</option>
+          </select>
+          <span class="year-sep">—</span>
+          <select class="year-select" id="year-to" onchange="applyFilters()">
+            <option value="">Any</option><option value="1939">1939</option><option value="1940">1940</option><option value="1941">1941</option><option value="1942">1942</option><option value="1943">1943</option><option value="1944">1944</option><option value="1945">1945</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="results-count" id="results-count">Loading...</div>
+      <button class="clear-btn" onclick="clearFilters()">Clear all filters</button>
+
+      <button id="rate-btn" class="rate-teams-btn" onclick="openCompare()" style="display:none">▲ Rate Teams</button>
     </div>
-
-    <div class="results-count" id="results-count">Loading...</div>
-    <button class="clear-btn" onclick="clearFilters()">Clear all filters</button>
-
-    <button id="rate-btn" class="rate-teams-btn" onclick="openCompare()" style="display:none">▲ Rate Teams</button>
   </aside>
 
   <main class="main">
@@ -3478,7 +3476,7 @@ function toggleSidebar() {
   const app = document.querySelector('.app');
   const btn = document.getElementById('sidebar-toggle');
   const collapsed = app.classList.toggle('sidebar-collapsed');
-  btn.textContent = collapsed ? '»' : '« Filters';
+  btn.textContent = collapsed ? '›' : '‹';
   btn.dataset.tip = collapsed ? 'Expand filters' : 'Collapse filters';
 }
 
