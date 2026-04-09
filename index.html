@@ -1760,15 +1760,17 @@
   /* CARD TYPE WATERMARK */
   .card-type-watermark {
     position: absolute;
-    bottom: 6px;
-    right: 10px;
-    opacity: 0.065;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.04;
     pointer-events: none;
     color: var(--text);
   }
   .card-type-watermark .type-svg {
-    width: 72px;
-    height: 51px;
+    width: 140px;
+    height: 99px;
+    display: block;
   }
 
   /* TYPE ICON (NATO military map symbol SVG) */
@@ -3559,9 +3561,9 @@ function showToast(message, type = 'info', duration = 2800) {
 // ── STAT TIPS ─────────────────────────────────────────────────────────────────
 const STAT_TIPS = {
   Range:  'Effective range in inches. Weapons may still fire at Long Range (up to 2× this distance) with a +1 modifier to Fire rolls.',
-  RoF:    'Rate of Fire — the number of Fire Dice rolled when this team is given a Fire order. Each die needs 4+ to score a hit.',
+  RoF:    'Rate of Fire — the number of Fire Dice rolled when this team is given a Fire order.',
   AT:     'Anti-Tank rating. When firing at an armored vehicle, compare AT to the vehicle\'s Armor Rating. If AT > AR, roll the difference — any 6 destroys. If AT ≤ AR, roll AT dice — any 6 scores RFPs equal to weapon FP.',
-  FP:     'Firepower Rating — the number of Received Fire Points (RFPs) a hit non-vehicle team receives. Most weapons are FP 1; artillery can be 2 (Medium) or 3 (Heavy). Higher FP makes hits harder to survive.',
+  FP:     'Firepower Rating — the number of Received Fire Points (RFPs) a hit team receives. Higher FP makes hits harder to survive.',
   Armor:  'Front Armor / Flank Armor Rating. Incoming AT is compared to the relevant AR to determine the penetration table. Flank armor applies when firing from behind the front hull line.',
 };
 
