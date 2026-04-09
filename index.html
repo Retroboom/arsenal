@@ -1326,6 +1326,7 @@
     gap: 6px;
     padding: 3px 0;
     border-bottom: 1px solid var(--border);
+    animation: slideDown 0.15s ease forwards;
   }
 
   .platoon-team-row:last-child { border-bottom: none; }
@@ -1404,6 +1405,7 @@
     gap: 6px;
     padding: 3px 8px;
     border-bottom: 1px solid var(--border);
+    animation: slideDown 0.15s ease forwards;
   }
   .team-upgrade-row:last-child { border-bottom: none; }
   .upgrade-tag {
@@ -1726,6 +1728,7 @@
     align-items: center;
     gap: 10px;
     padding: 10px 0 2px;
+    animation: fadeUp 0.18s ease forwards;
   }
 
   .type-divider-label {
@@ -1742,6 +1745,29 @@
     height: 1px;
     background: var(--border);
     opacity: 0.5;
+  }
+
+  /* TYPE ICON (NATO military map symbol SVG) */
+  .type-svg {
+    width: 18px;
+    height: 13px;
+    flex-shrink: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .chip .type-svg {
+    width: 16px;
+    height: 11px;
+    margin-right: 4px;
+    opacity: 0.75;
+    vertical-align: -2px;
+  }
+  .chip.active .type-svg { opacity: 1; }
+  .type-divider .type-svg {
+    width: 20px;
+    height: 14px;
+    margin-right: 2px;
+    opacity: 0.55;
   }
 
   /* TABLE TYPE HEADER ROW */
@@ -2775,6 +2801,11 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
   @keyframes pulse {
     0%, 100% { opacity: 1; text-shadow: 0 0 24px rgba(224,192,96,0.35), 0 0 48px rgba(224,192,96,0.12); }
     50%       { opacity: 0.75; text-shadow: 0 0 12px rgba(224,192,96,0.2), 0 0 24px rgba(224,192,96,0.06); }
@@ -2839,15 +2870,19 @@
   .section-divider[data-nation] .section-divider-line {
     background: linear-gradient(90deg, var(--nation-color, var(--accent)) 0%, var(--border) 40%, transparent 100%);
   }
+  /* sticky within .main's scroll context (not viewport), so top:0 pins to top of .main's visible area */
   .section-divider {
     position: sticky;
-    top: calc(var(--header-h) + 4px);
+    top: 0;
     z-index: 5;
     background: var(--bg);
-    margin-left: -16px;
-    margin-right: -16px;
-    padding-left: 16px;
-    padding-right: 16px;
+    margin-left: -24px;
+    margin-right: -24px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 8px;
+    padding-bottom: 4px;
+    animation: fadeUp 0.2s ease forwards;
   }
 
   /* ── PER-PLATOON QUALITY OVERRIDE ─────────────────────────────────────────── */
@@ -3296,6 +3331,19 @@ async function loadData() {
   }
 }
 
+// ── TYPE ICONS (NATO military map symbols) ────────────────────────────────────
+const TYPE_ICONS = {
+  Infantry:    `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><line x1="0.75" y1="0.75" x2="19.25" y2="13.25"/><line x1="19.25" y1="0.75" x2="0.75" y2="13.25"/></svg>`,
+  Artillery:   `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><circle cx="10" cy="7" r="2.5" fill="currentColor"/></svg>`,
+  'Gun Teams': `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><line x1="3" y1="7" x2="17" y2="7"/><circle cx="5" cy="10" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1.5" fill="currentColor" stroke="none"/></svg>`,
+  'Anti-Tank': `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><polyline points="13,3 7,7 13,11"/></svg>`,
+  'Anti-Air':  `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><polyline points="5,11 10,3 15,11"/><line x1="5" y1="11" x2="15" y2="11"/></svg>`,
+  Armored:     `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><ellipse cx="10" cy="7" rx="5.5" ry="3.5"/></svg>`,
+  Recon:       `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><line x1="0.75" y1="0.75" x2="19.25" y2="13.25"/></svg>`,
+  Transport:   `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><line x1="0.75" y1="7" x2="19.25" y2="7"/></svg>`,
+  Upgrade:     `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><line x1="10" y1="3" x2="10" y2="11"/><line x1="6" y1="7" x2="14" y2="7"/></svg>`,
+};
+
 // ── FILTER CHIPS ──────────────────────────────────────────────────────────────
 function buildFilterChips() {
   const nations = [...new Set(allUnits.map(u => u.nation))].sort();
@@ -3316,7 +3364,8 @@ function renderChips(containerId, values, filterKey) {
   container.innerHTML = values.map(v => {
     const typeAttr   = filterKey === 'types'   ? ` data-type="${v}"`   : '';
     const nationAttr = filterKey === 'nations' ? ` data-nation="${v}"` : '';
-    return `<div class="chip" onclick="toggleFilter('${filterKey}', '${v}')" data-key="${filterKey}" data-val="${v}"${typeAttr}${nationAttr}>${v}</div>`;
+    const icon = filterKey === 'types' && TYPE_ICONS[v] ? TYPE_ICONS[v] : '';
+    return `<div class="chip" onclick="toggleFilter('${filterKey}', '${v}')" data-key="${filterKey}" data-val="${v}"${typeAttr}${nationAttr}>${icon}${v}</div>`;
   }).join('');
 }
 
@@ -3578,9 +3627,10 @@ function renderGrid(container, forceIds) {
 
     activeTypes.forEach(type => {
       if (showTypeHeaders) {
+        const icon = TYPE_ICONS[type] || '';
         html += `
           <div class="type-divider">
-            <span class="type-divider-label">${type}</span>
+            ${icon}<span class="type-divider-label">${type}</span>
             <div class="type-divider-line"></div>
           </div>
         `;
