@@ -2984,11 +2984,8 @@
     <span class="force-notes-label">Force Notes</span>
     <textarea class="force-notes-input" id="force-notes" placeholder="History, composition, playstyle, context — anything you want to share..."></textarea>
   </div>
-  <div class="add-platoon-bar">
-    <button class="add-platoon-btn" onclick="addPlatoon()">+ Add Platoon</button>
-  </div>
   <div class="platoon-list" id="platoon-list">
-    <div class="force-empty" id="platoon-empty">No platoons yet.<br>Add a platoon, then select units<br>from the arsenal to fill it.</div>
+    <div class="force-empty" id="platoon-empty">No platoons yet.<br>Click "New Platoon" on a unit card<br>to start building your force.</div>
   </div>
   <div class="force-summary">
     <div class="force-summary-grid">
@@ -3437,9 +3434,7 @@ function renderGrid(container, forceIds) {
               ? `<button class="add-force-btn" onclick="event.stopPropagation();showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Ko-fi subscriber only</button>`
               : `<div class="card-footer-btns">
                   ${unit.standard_platoon ? `<button class="add-platoon-standard-btn" onclick="event.stopPropagation();addAsStandardPlatoon('${unit.id}')">New Platoon</button>` : ''}
-                  <button class="add-force-btn" id="btn-${unit.id}" onclick="event.stopPropagation();addTeamToPlatoon('${unit.id}')">
-                    Add to Platoon
-                  </button>
+                  ${activePlatoonId ? `<button class="add-force-btn" id="btn-${unit.id}" onclick="event.stopPropagation();addTeamToPlatoon('${unit.id}')">Add to Platoon</button>` : ''}
                 </div>`
             }
           </div>
@@ -3586,6 +3581,7 @@ function removePlatoon(id) {
 function setActivePlatoon(id) {
   activePlatoonId = id;
   updateForceUI();
+  renderUnits();
 }
 
 function nationPrefix(nation) {
@@ -4226,7 +4222,7 @@ function openUnitDetail(unitId) {
   } else {
     document.getElementById('udp-footer').innerHTML = `
       ${unit.standard_platoon ? `<button class="udp-add-btn" onclick="addAsStandardPlatoon('${unit.id}');closeUnitDetail()">＋ New Platoon</button>` : ''}
-      <button class="udp-add-btn primary" onclick="addTeamToPlatoon('${unit.id}');closeUnitDetail()">＋ Add to Platoon</button>
+      ${activePlatoonId ? `<button class="udp-add-btn primary" onclick="addTeamToPlatoon('${unit.id}');closeUnitDetail()">＋ Add to Platoon</button>` : ''}
     `;
   }
 
