@@ -445,7 +445,7 @@ function exportAll(units) {
       rof, at, fp,
       armor_front:   armorFront,
       armor_flank:   armorFlank,
-      armament:      u.unitNotes || null,
+      armament:      (u.unitNotes && !/\d+\s*points/i.test(u.unitNotes)) ? u.unitNotes : null,
       notes,
       special_rules: [],
       base:          unitBase,
