@@ -515,16 +515,19 @@ function detectAllUnits(text) {
         continue;
       }
 
-      // Weapon row (has range, no tank mobility keyword)
+      // Weapon row (has range, no tank mobility keyword, no gun mobility keyword before range)
       const hasTankMob = TANK_MOB.some(m => line.includes(m));
-      if (!hasTankMob && RANGE_RE.test(line)) {
+      const rangePos = line.search(/\d+[""″\u201c\u201d\u2033]/);
+      const hasGunMobBeforeRange = rangePos > -1 && GUN_MOB.some(m => line.slice(0, rangePos).includes(m));
+      if (!hasTankMob && !hasGunMobBeforeRange && RANGE_RE.test(line)) {
         const nameM = line.match(/^(.+?)\s+\d+[""″\u201c\u201d\u2033]/);
         const wname = nameM ? nameM[1].trim() : line;
         const stats = parseRangeRow(line);
         if (stats) {
-          if (cur) {
+          if (cur && cur.weapons.length === 0) {
+            // Attach first weapon row only — subsequent rows belong to other units
             cur.weapons.push(makeWeapon(wname, stats, cur.unitNotes));
-          } else {
+          } else if (!cur) {
             // PDF ordering may deliver weapon row before unit row — buffer it
             pendingWeapon = { wname, stats };
           }
