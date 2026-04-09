@@ -3337,11 +3337,14 @@ const VEHICLE_MG_STATS = {
 };
 
 // Wrap recognized MG names in armament strings with tooltip spans.
-// Longer/more-specific patterns must come first to avoid partial matches.
-const MG_PATTERN = /(\.(50) cal MG|Co-ax MG|Coax MG|Hull MG|AA MG)/g;
+// Handles both ".50 cal MG" and ".50cal MG" (with or without space).
+const MG_PATTERN = /\.50\s*cal MG|Co-ax MG|Coax MG|Hull MG|AA MG/g;
+function normalizeMGName(match) {
+  return match.startsWith('.50') ? '.50 cal MG' : match;
+}
 function wrapArmamentMGs(armament) {
   return armament.replace(MG_PATTERN, match => {
-    const s = VEHICLE_MG_STATS[match];
+    const s = VEHICLE_MG_STATS[normalizeMGName(match)];
     if (!s) return match;
     const tip = `Range ${s.range} · RoF ${s.rof} · AT ${s.at ?? '—'} · ${s.notes}`.replace(/"/g, '&quot;');
     return `<span class="mg-tip" data-tip="${tip}">${match}</span>`;
@@ -3355,8 +3358,8 @@ function detectMGs(armament) {
   let m;
   MG_PATTERN.lastIndex = 0;
   while ((m = MG_PATTERN.exec(armament)) !== null) {
-    const name = m[0];
-    if (!found.has(name) && VEHICLE_MG_STATS[name]) found.set(name, VEHICLE_MG_STATS[name]);
+    const canonical = normalizeMGName(m[0]);
+    if (!found.has(canonical) && VEHICLE_MG_STATS[canonical]) found.set(canonical, VEHICLE_MG_STATS[canonical]);
   }
   return [...found.entries()];
 }
