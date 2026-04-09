@@ -949,6 +949,11 @@
   .unit-table tr:hover td { background: var(--bg3); }
   .unit-table tr.in-force td { background: #1a2220; }
 
+  .unit-table th.sortable { cursor: pointer; user-select: none; }
+  .unit-table th.sortable:hover { color: var(--text2); }
+  .unit-table th.sort-active { color: var(--accent); }
+  .sort-arrow { margin-left: 4px; opacity: 0.7; }
+
   .table-name {
     font-family: var(--display);
     font-size: 15px;
@@ -3286,6 +3291,8 @@
 // ── DATA ──────────────────────────────────────────────────────────────────────
 let allUnits = [];
 let filteredUnits = [];
+let tableSortCol = null;   // null = default grouped view
+let tableSortDir = 1;      // 1 = asc, -1 = desc
 let platoons = [];
 let activePlatoonId = null;
 // Track which unit was just added/changed so only that row animates
@@ -3479,6 +3486,8 @@ function applyFilters() {
 // ── RENDERING ─────────────────────────────────────────────────────────────────
 function setView(view) {
   currentView = view;
+  tableSortCol = null;
+  tableSortDir = 1;
   document.getElementById('btn-grid').classList.toggle('active', view === 'grid');
   document.getElementById('btn-table').classList.toggle('active', view === 'table');
   renderUnits();
@@ -3739,83 +3748,128 @@ function renderGrid(container, forceIds, animate = true) {
   }
 }
 
+function setTableSort(col) {
+  if (tableSortCol === col) {
+    tableSortDir *= -1;
+  } else {
+    tableSortCol = col;
+    tableSortDir = 1;
+  }
+  renderUnits(true);
+}
+
 function renderTable(container, forceIds) {
-  let html = `
-    <table class="unit-table">
-      <thead>
-        <tr>
-          <th>Unit</th>
-          <th>Nation</th>
-          <th>Branch</th>
-          <th style="text-align:center">Range</th>
-          <th style="text-align:center">RoF</th>
-          <th style="text-align:center">AT</th>
-          <th style="text-align:center">FP</th>
-          <th style="text-align:center">Armor</th>
-          <th>Notes</th>
-          <th>Years</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-  `;
+  const cols = [
+    { key: 'name',        label: 'Unit',   sortable: true  },
+    { key: 'nation',      label: 'Nation', sortable: true  },
+    { key: 'type',        label: 'Type',   sortable: true  },
+    { key: 'gun_range',   label: 'Range',  sortable: true, center: true },
+    { key: 'rof',         label: 'RoF',    sortable: true, center: true },
+    { key: 'at',          label: 'AT',     sortable: true, center: true },
+    { key: 'fp',          label: 'FP',     sortable: true, center: true },
+    { key: 'armor_front', label: 'Armor',  sortable: true, center: true },
+    { key: 'notes',       label: 'Notes',  sortable: false },
+    { key: 'years',       label: 'Years',  sortable: true  },
+    { key: '_actions',    label: '',       sortable: false },
+  ];
 
-  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport', 'Upgrade'];
-  const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
-  const byNation = {};
-  filteredUnits.forEach(u => {
-    if (!byNation[u.nation]) byNation[u.nation] = [];
-    byNation[u.nation].push(u);
-  });
-  const hasMultipleNations = Object.keys(byNation).length > 1;
-  const colSpan = 11;
+  const thHtml = cols.map(c => {
+    const isActive = tableSortCol === c.key;
+    const arrow = isActive ? `<span class="sort-arrow">${tableSortDir === 1 ? '▲' : '▼'}</span>` : '';
+    const cls = [c.sortable ? 'sortable' : '', isActive ? 'sort-active' : ''].filter(Boolean).join(' ');
+    const onClick = c.sortable ? ` onclick="setTableSort('${c.key}')"` : '';
+    const align = c.center ? ' style="text-align:center"' : '';
+    return `<th class="${cls}"${onClick}${align}>${c.label}${arrow}</th>`;
+  }).join('');
 
-  nationOrder.forEach(nation => {
-    if (!byNation[nation]) return;
-    if (hasMultipleNations) {
-      html += `<tr class="table-type-row"><td colspan="${colSpan}" style="font-family:var(--display);font-size:16px;letter-spacing:3px;color:var(--accent);padding:16px 10px 6px;border-bottom:1px solid var(--border);opacity:0.9">${nation}</td></tr>`;
+  let html = `<table class="unit-table"><thead><tr>${thHtml}</tr></thead><tbody>`;
+
+  const colSpan = cols.length;
+
+  function unitRow(unit) {
+    const inForce = forceIds.has(unit.id);
+    const locked = !unit.free && !isSubscriber;
+    return `
+      <tr class="${inForce ? 'in-force' : ''}">
+        <td><span class="table-name">${unit.name}</span></td>
+        <td><span class="${nationBadgeClass(unit.nation)}" style="font-size:9px;padding:2px 5px;">${unit.nation}</span></td>
+        <td style="color:var(--text3);font-size:10px;letter-spacing:0.5px">${unit.type}</td>
+        <td class="table-stat ${unit.gun_range ? '' : 'null'}">${unit.gun_range || '—'}</td>
+        <td class="table-stat ${unit.rof !== null ? '' : 'null'}">${unit.rof !== null ? unit.rof : '—'}</td>
+        <td class="table-stat ${unit.at !== null ? '' : 'null'}">${unit.at !== null ? unit.at : '—'}</td>
+        <td class="table-stat ${unit.fp !== null && unit.fp !== undefined ? '' : 'null'}">${unit.fp !== null && unit.fp !== undefined ? unit.fp : '—'}</td>
+        <td class="table-stat ${unit.armor_front !== null ? '' : 'null'}">${unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '—'}</td>
+        <td class="table-notes">${unit.notes.map(n => noteTag(n)).join(' ')}</td>
+        <td style="color:var(--text3);font-size:10px;white-space:nowrap">${yearRange(unit.years)}${isAdmin ? ' ' + ratingBadgeHtml(unit.id) : ''}</td>
+        <td>
+          ${locked
+            ? `<span style="font-family:var(--mono);font-size:9px;color:#9a8a5a;">🔒 Sub</span>`
+            : `<div style="display:flex;gap:4px;">
+                ${unit.standard_platoon ? `<button class="table-add-btn" onclick="addAsStandardPlatoon('${unit.id}')">+ Platoon</button>` : ''}
+                <button class="table-add-btn" onclick="addTeamToPlatoon('${unit.id}')">+ Add</button>
+              </div>`
+          }
+        </td>
+      </tr>`;
+  }
+
+  function sortVal(u, col) {
+    switch (col) {
+      case 'name':        return u.name.toLowerCase();
+      case 'nation':      return u.nation.toLowerCase();
+      case 'type':        return u.type.toLowerCase();
+      case 'gun_range':   return u.gun_range ?? Infinity;
+      case 'rof':         return u.rof ?? Infinity;
+      case 'at':          return u.at ?? Infinity;
+      case 'fp':          return u.fp ?? Infinity;
+      case 'armor_front': return u.armor_front ?? Infinity;
+      case 'years':       return (u.years && u.years[0]) ? u.years[0] : Infinity;
+      default:            return '';
     }
-    const byType = {};
-    byNation[nation].forEach(u => {
-      if (!byType[u.type]) byType[u.type] = [];
-      byType[u.type].push(u);
-    });
-    const activeTypes = typeOrder.filter(t => byType[t]);
-    const showTypeHeaders = activeTypes.length > 1;
+  }
 
-    activeTypes.forEach(type => {
-      if (showTypeHeaders) {
-        html += `<tr class="table-type-row"><td colspan="${colSpan}">${type}</td></tr>`;
+  if (tableSortCol) {
+    // Flat sorted view — no grouping headers
+    const sorted = [...filteredUnits].sort((a, b) => {
+      const av = sortVal(a, tableSortCol);
+      const bv = sortVal(b, tableSortCol);
+      if (av < bv) return -1 * tableSortDir;
+      if (av > bv) return  1 * tableSortDir;
+      return a.name.localeCompare(b.name);
+    });
+    sorted.forEach(unit => { html += unitRow(unit); });
+  } else {
+    // Default grouped view by nation → type
+    const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport', 'Upgrade'];
+    const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
+    const byNation = {};
+    filteredUnits.forEach(u => {
+      if (!byNation[u.nation]) byNation[u.nation] = [];
+      byNation[u.nation].push(u);
+    });
+    const hasMultipleNations = Object.keys(byNation).length > 1;
+
+    nationOrder.forEach(nation => {
+      if (!byNation[nation]) return;
+      if (hasMultipleNations) {
+        html += `<tr class="table-type-row"><td colspan="${colSpan}" style="font-family:var(--display);font-size:16px;letter-spacing:3px;color:var(--accent);padding:16px 10px 6px;border-bottom:1px solid var(--border);opacity:0.9">${nation}</td></tr>`;
       }
-      byType[type].forEach(unit => {
-        const inForce = forceIds.has(unit.id);
-        const locked = !unit.free && !isSubscriber;
-        html += `
-          <tr class="${inForce ? 'in-force' : ''}">
-            <td><span class="table-name">${unit.name}</span></td>
-            <td><span class="${nationBadgeClass(unit.nation)}" style="font-size:9px;padding:2px 5px;">${unit.nation}</span></td>
-            <td style="color:var(--text3);font-size:10px;letter-spacing:0.5px">${unit.type}</td>
-            <td class="table-stat ${unit.gun_range ? '' : 'null'}">${unit.gun_range || '—'}</td>
-            <td class="table-stat ${unit.rof !== null ? '' : 'null'}">${unit.rof !== null ? unit.rof : '—'}</td>
-            <td class="table-stat ${unit.at !== null ? '' : 'null'}">${unit.at !== null ? unit.at : '—'}</td>
-            <td class="table-stat ${unit.fp !== null && unit.fp !== undefined ? '' : 'null'}">${unit.fp !== null && unit.fp !== undefined ? unit.fp : '—'}</td>
-            <td class="table-stat ${unit.armor_front !== null ? '' : 'null'}">${unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '—'}</td>
-            <td class="table-notes">${unit.notes.map(n => noteTag(n)).join(' ')}</td>
-            <td style="color:var(--text3);font-size:10px;white-space:nowrap">${yearRange(unit.years)}${isAdmin ? ' ' + ratingBadgeHtml(unit.id) : ''}</td>
-            <td>
-              ${locked
-                ? `<span style="font-family:var(--mono);font-size:9px;color:#9a8a5a;">🔒 Sub</span>`
-                : `<div style="display:flex;gap:4px;">
-                    ${unit.standard_platoon ? `<button class="table-add-btn" onclick="addAsStandardPlatoon('${unit.id}')">+ Platoon</button>` : ''}
-                    <button class="table-add-btn" onclick="addTeamToPlatoon('${unit.id}')">+ Add</button>
-                  </div>`
-              }
-            </td>
-          </tr>
-        `;
+      const byType = {};
+      byNation[nation].forEach(u => {
+        if (!byType[u.type]) byType[u.type] = [];
+        byType[u.type].push(u);
+      });
+      const activeTypes = typeOrder.filter(t => byType[t]);
+      const showTypeHeaders = activeTypes.length > 1;
+
+      activeTypes.forEach(type => {
+        if (showTypeHeaders) {
+          html += `<tr class="table-type-row"><td colspan="${colSpan}">${type}</td></tr>`;
+        }
+        byType[type].forEach(unit => { html += unitRow(unit); });
       });
     });
-  });
+  }
 
   html += '</tbody></table>';
   container.innerHTML = html;
