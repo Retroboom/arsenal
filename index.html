@@ -633,8 +633,17 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
     gap: 8px;
+  }
+
+  .card-type-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+    min-height: 18px;
   }
 
   .unit-name {
@@ -645,13 +654,6 @@
     line-height: 1.1;
   }
 
-  .card-badges {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 3px;
-    flex-shrink: 0;
-  }
 
   .nation-badge {
     font-family: var(--mono);
@@ -769,7 +771,6 @@
   .card-armament {
     font-size: 11px;
     color: var(--text2);
-    margin-bottom: 8px;
     font-style: italic;
     line-height: 1.3;
   }
@@ -932,7 +933,7 @@
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     position: sticky;
-    top: var(--header-h);
+    top: -24px;
     white-space: nowrap;
     z-index: 2;
   }
@@ -3685,12 +3686,12 @@ function renderGrid(container, forceIds, animate = true) {
           ${TYPE_ICONS[unit.type] ? `<div class="card-type-watermark">${TYPE_ICONS[unit.type]}</div>` : ''}
           <div class="card-header">
             <div class="unit-name">${unit.name}</div>
-            <div class="card-badges">
-              <div class="${nationBadgeClass(unit.nation)}">${unit.nation}</div>
-              <div class="type-badge" data-type="${unit.type}">${unit.type}</div>
-            </div>
+            <div class="${nationBadgeClass(unit.nation)}">${unit.nation}</div>
           </div>
-          ${unit.armament ? `<div class="card-armament">${unit.armament}</div>` : ''}
+          <div class="card-type-row">
+            ${unit.armament ? `<div class="card-armament">${unit.armament}</div>` : '<div></div>'}
+            <div class="type-badge" data-type="${unit.type}">${unit.type}</div>
+          </div>
           <div class="card-stats">
             ${statCell('Range', statDisplay(unit.gun_range))}
             ${statCell('RoF',   statDisplay(unit.rof))}
