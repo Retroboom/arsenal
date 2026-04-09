@@ -5043,16 +5043,25 @@ function openForceSheet(forceData) {
     `<span class="${nationBadgeClass(n)}">${n}</span>`
   ).join('');
 
+  const forceQ = forceData.quality || 'Regular';
+
   const platoonSections = platoonArr.map((platoon, pi) => {
     const teams = toA(platoon.teams);
     const label = platoon.name || `Platoon ${pi + 1}`;
     const numStr = String(pi + 1).padStart(2, '0');
+    const platoonQ = platoon.quality || null;
+    const qDiffers = platoonQ && platoonQ !== forceQ;
+    const qIcon = platoonQ === 'Elite' ? '★' : platoonQ === 'Poor' ? '▼' : '●';
+    const qColor = platoonQ === 'Elite' ? 'var(--accent)' : platoonQ === 'Poor' ? 'var(--red)' : 'var(--green)';
+    const qBadge = qDiffers
+      ? `<span style="font-family:var(--mono);font-size:9px;letter-spacing:1px;color:${qColor};margin-left:10px;opacity:0.9">${qIcon} ${platoonQ.toUpperCase()}</span>`
+      : '';
 
     if (teams.length === 0) {
       return `
         <div class="fs-platoon">
           <div class="fs-platoon-heading">
-            <span class="fs-platoon-num">${numStr}</span>${label}
+            <span class="fs-platoon-num">${numStr}</span>${label}${qBadge}
           </div>
           <div style="font-family:var(--mono);font-size:11px;color:var(--text3);padding:12px 0;font-style:italic;">Empty platoon</div>
         </div>`;
@@ -5097,7 +5106,7 @@ function openForceSheet(forceData) {
     return `
       <div class="fs-platoon">
         <div class="fs-platoon-heading">
-          <span class="fs-platoon-num">${numStr}</span>${label}
+          <span class="fs-platoon-num">${numStr}</span>${label}${qBadge}
         </div>
         <table class="fs-stats-table">
           <thead>
