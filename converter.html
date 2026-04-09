@@ -11,273 +11,43 @@
     --bg: #0f0e0c; --bg2: #1a1916; --bg3: #242220;
     --border: #333028; --accent: #e0c060;
     --text: #f5f0e0; --text2: #d0c8b0; --text3: #b0a490;
-    --mono: 'Share Tech Mono', monospace; --body: 'Barlow', sans-serif;
+    --mono: 'Share Tech Mono', monospace;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: var(--body); padding: 32px; max-width: 920px; margin: 0 auto; }
+  body { background: var(--bg); color: var(--text); font-family: var(--mono); padding: 32px; max-width: 920px; margin: 0 auto; }
 
-  h1 { font-family: var(--mono); font-size: 15px; letter-spacing: 3px; color: var(--accent); margin-bottom: 28px; padding-bottom: 14px; border-bottom: 1px solid var(--border); text-transform: uppercase; }
-  h2 { font-family: var(--mono); font-size: 9px; letter-spacing: 2px; color: var(--text3); text-transform: uppercase; margin-bottom: 10px; }
+  h1 { font-size: 13px; letter-spacing: 3px; color: var(--accent); margin-bottom: 28px; padding-bottom: 14px; border-bottom: 1px solid var(--border); text-transform: uppercase; }
 
-  .section { margin-bottom: 24px; }
-  .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
-
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
-  .field { display: flex; flex-direction: column; gap: 4px; }
-  .field.full { grid-column: 1 / -1; }
-  .field.wide { grid-column: span 2; }
-
-  label { font-family: var(--mono); font-size: 9px; letter-spacing: 1px; color: var(--text3); text-transform: uppercase; }
-  input[type=text], input[type=number], select, textarea {
-    background: var(--bg3); border: 1px solid var(--border); color: var(--text);
-    font-family: var(--mono); font-size: 12px; padding: 6px 8px; outline: none; width: 100%; transition: border-color 0.12s;
-  }
-  input:focus, select:focus, textarea:focus { border-color: var(--accent); }
-  textarea { resize: vertical; min-height: 52px; line-height: 1.5; }
-  .cb-group { display: flex; gap: 14px; flex-wrap: wrap; padding-top: 2px; }
-  .cb-label { display: flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 11px; color: var(--text2); cursor: pointer; }
-  input[type=checkbox] { width: 13px; height: 13px; accent-color: var(--accent); cursor: pointer; }
-
-  /* Buttons */
-  button { background: none; border: 1px solid var(--border); color: var(--text2); font-family: var(--mono); font-size: 10px; letter-spacing: 1px; padding: 6px 14px; cursor: pointer; text-transform: uppercase; transition: border-color 0.12s, color 0.12s; }
-  button:hover { border-color: var(--accent); color: var(--accent); }
-  .btn-accent { border-color: var(--accent); color: var(--accent); }
-  .btn-accent:hover { background: rgba(224,192,96,0.1); }
-  .btn-danger { border-color: #3a2020; color: #806050; }
-  .btn-danger:hover { border-color: #a04545; color: #c06060; }
-  .btn-sm { font-size: 9px; padding: 3px 9px; }
-
-  /* PDF section */
   input[type=file] { display: none; }
   .file-label { display: inline-block; border: 1px solid var(--accent); color: var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: 1px; padding: 6px 14px; cursor: pointer; text-transform: uppercase; }
   .file-label:hover { background: rgba(224,192,96,0.08); }
-  .pdf-status { font-family: var(--mono); font-size: 10px; color: var(--text3); }
+  .status { font-size: 10px; color: var(--text3); margin-left: 14px; }
 
-  /* Detected units list */
-  .detected-list { display: flex; flex-direction: column; gap: 4px; max-height: 240px; overflow-y: auto; margin-top: 10px; }
-  .detected-item {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 6px 10px; background: var(--bg2); border: 1px solid var(--border);
-    cursor: pointer; transition: border-color 0.12s;
-  }
-  .detected-item:hover { border-color: var(--accent); }
-  .detected-item.loaded { border-color: var(--accent); background: rgba(224,192,96,0.05); }
-  .detected-name { font-family: var(--mono); font-size: 11px; color: var(--text); }
-  .detected-meta { font-family: var(--mono); font-size: 9px; color: var(--text3); }
+  .meta { font-size: 10px; color: var(--text3); margin: 18px 0 10px; }
+  .meta strong { color: var(--accent); }
 
-  /* Weapons */
-  .weapon-block { background: var(--bg2); border: 1px solid var(--border); padding: 10px; margin-bottom: 6px; }
-  .weapon-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-  .weapon-label { font-family: var(--mono); font-size: 9px; color: var(--text3); }
-  .weapon-grid { display: grid; grid-template-columns: 2fr 72px 56px 56px 72px; gap: 6px; align-items: end; }
-  .weapon-extras { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+  button { background: none; border: 1px solid var(--border); color: var(--text2); font-family: var(--mono); font-size: 10px; letter-spacing: 1px; padding: 5px 13px; cursor: pointer; text-transform: uppercase; transition: border-color 0.12s, color 0.12s; }
+  button:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-accent { border-color: var(--accent); color: var(--accent); }
+  .btn-accent:hover { background: rgba(224,192,96,0.1); }
 
-  /* Queue */
-  .queue-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
-  .queue-count { font-family: var(--mono); font-size: 11px; color: var(--accent); }
-  .queue-list { display: flex; flex-direction: column; gap: 3px; margin-bottom: 12px; max-height: 200px; overflow-y: auto; }
-  .queue-item { display: flex; align-items: center; justify-content: space-between; padding: 5px 10px; background: var(--bg2); border: 1px solid var(--border); font-family: var(--mono); font-size: 10px; color: var(--text2); }
-  .queue-item-name { flex: 1; }
-  .queue-item-meta { color: var(--text3); font-size: 9px; margin: 0 12px; }
-
-  pre { background: var(--bg2); border: 1px solid var(--border); padding: 14px; font-family: var(--mono); font-size: 10px; color: #9adb9a; overflow-x: auto; white-space: pre-wrap; line-height: 1.6; max-height: 400px; overflow-y: auto; }
+  pre { background: var(--bg2); border: 1px solid var(--border); padding: 14px; font-size: 10px; color: #9adb9a; overflow-x: auto; white-space: pre-wrap; line-height: 1.6; max-height: 70vh; overflow-y: auto; margin-top: 10px; }
 </style>
 </head>
 <body>
 
 <h1>Flames of War → Hail of Fire Converter</h1>
 
-<!-- PDF UPLOAD -->
-<div class="section">
-  <h2>PDF Source</h2>
-  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-    <label class="file-label" for="pdf-upload">Upload FoW PDF</label>
-    <input type="file" id="pdf-upload" accept=".pdf" onchange="loadPDF(this)">
-    <span class="pdf-status" id="pdf-status"></span>
-  </div>
-  <div id="detected-panel" style="display:none;margin-top:14px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:8px">
-      <h2 style="margin:0">Detected — <span id="detected-count">0</span> units</h2>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn-sm btn-accent" onclick="addAllToQueue()">+ Add All to Queue</button>
-        <button class="btn-sm" onclick="reparse()">↺ Rescan</button>
-        <button class="btn-sm" onclick="document.getElementById('pdf-raw-panel').style.display=document.getElementById('pdf-raw-panel').style.display==='none'?'block':'none'">Raw Text</button>
-      </div>
-    </div>
-    <div class="detected-list" id="detected-list"></div>
-    <div id="pdf-raw-panel" style="display:none;margin-top:8px">
-      <textarea id="pdf-text" readonly rows="6" style="font-size:10px;color:var(--text3);line-height:1.5"></textarea>
-    </div>
-  </div>
+<div>
+  <label class="file-label" for="pdf-upload">Upload FoW PDF</label>
+  <input type="file" id="pdf-upload" accept=".pdf" onchange="loadPDF(this)">
+  <span class="status" id="pdf-status"></span>
 </div>
 
-<hr class="divider">
-
-<!-- BATCH DEFAULTS -->
-<div class="section">
-  <h2>Batch Defaults — set once per section, applied to every unit</h2>
-  <div class="grid">
-    <div class="field">
-      <label>Nation</label>
-      <select id="b-nation" onchange="update()">
-        <option>United States</option>
-        <option>Germany</option>
-        <option>Britain</option>
-        <option>Soviet Union</option>
-        <option>Canada</option>
-        <option>France</option>
-        <option>Italy</option>
-        <option>Japan</option>
-        <option>Poland</option>
-        <option>Belgium</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>FoW Quality</label>
-      <select id="b-quality" onchange="update()">
-        <option value="Fearless Veteran">Fearless Veteran → Elite</option>
-        <option value="Confident Veteran" selected>Confident Veteran → Regular</option>
-        <option value="Fearless Trained">Fearless Trained → Regular</option>
-        <option value="Confident Trained">Confident Trained → Regular</option>
-        <option value="Reluctant Veteran">Reluctant Veteran → Regular</option>
-        <option value="Confident Conscript">Confident Conscript → Regular</option>
-        <option value="Reluctant Conscript">Reluctant Conscript → Poor</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>Year From</label>
-      <input type="number" id="b-year-from" value="1939" min="1939" max="1945" oninput="update()">
-    </div>
-    <div class="field">
-      <label>Year To</label>
-      <input type="number" id="b-year-to" value="1945" min="1939" max="1945" oninput="update()">
-    </div>
-    <div class="field full">
-      <label>Theater</label>
-      <div class="cb-group">
-        <label class="cb-label"><input type="checkbox" class="theater-cb" value="Western Front" onchange="update()"> Western Front</label>
-        <label class="cb-label"><input type="checkbox" class="theater-cb" value="Eastern Front" onchange="update()"> Eastern Front</label>
-        <label class="cb-label"><input type="checkbox" class="theater-cb" value="Mediterranean" onchange="update()"> Mediterranean</label>
-        <label class="cb-label"><input type="checkbox" class="theater-cb" value="Pacific" onchange="update()"> Pacific</label>
-        <label class="cb-label"><input type="checkbox" class="theater-cb" value="North Africa" onchange="update()"> North Africa</label>
-      </div>
-    </div>
-    <div class="field full">
-      <div class="cb-group">
-        <label class="cb-label"><input type="checkbox" id="b-free" onchange="update()"> Free unit (not subscription-gated)</label>
-      </div>
-    </div>
-  </div>
-</div>
-
-<hr class="divider">
-
-<!-- UNIT FORM -->
-<div class="section">
-  <h2>Unit</h2>
-  <div class="grid">
-    <div class="field wide">
-      <label>Name</label>
-      <input type="text" id="u-name" oninput="update()" placeholder="e.g. Schützen Platoon">
-    </div>
-    <div class="field">
-      <label>Type</label>
-      <select id="u-type" onchange="update()">
-        <option>Infantry</option>
-        <option>Support</option>
-        <option>Artillery</option>
-        <option>Anti-Tank</option>
-        <option>Anti-Air</option>
-        <option>Armored</option>
-        <option>Recon</option>
-        <option>Transport</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>Base</label>
-      <select id="u-base" onchange="update()">
-        <option>Small</option>
-        <option>Medium</option>
-        <option>Large</option>
-        <option>Vehicle</option>
-        <option>Gun</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>Artillery Caliber (mm)</label>
-      <input type="number" id="u-arty-mm" placeholder="e.g. 105" min="0" oninput="update()">
-    </div>
-    <div class="field full">
-      <div class="cb-group">
-        <label class="cb-label"><input type="checkbox" id="u-light-tank" onchange="update()"> Light tank (→ adds Fast)</label>
-      </div>
-    </div>
-    <div class="field full">
-      <label>Wiki Slug</label>
-      <input type="text" id="u-wiki" placeholder="e.g. Panzer_IV" oninput="update()">
-    </div>
-    <div class="field full">
-      <label>Lore</label>
-      <textarea id="u-lore" rows="2" oninput="update()" placeholder="Flavor text (can add later)…"></textarea>
-    </div>
-  </div>
-</div>
-
-<!-- ARMOR -->
-<div class="section">
-  <h2>Armor (leave blank for infantry / guns)</h2>
-  <div class="grid">
-    <div class="field"><label>FoW Front Armor</label><input type="number" id="armor-front" min="0" oninput="update()"></div>
-    <div class="field"><label>FoW Flank Armor</label><input type="number" id="armor-flank" min="0" oninput="update()"></div>
-  </div>
-</div>
-
-<!-- WEAPONS -->
-<div class="section">
-  <h2>Weapons — first sets primary stats; extras become notes</h2>
-  <div id="weapons-container"></div>
-  <button onclick="addWeapon()">+ Add Weapon</button>
-</div>
-
-<!-- SPECIAL / NOTES -->
-<div class="section">
-  <div class="grid">
-    <div class="field wide">
-      <label>Special Rules (one per line)</label>
-      <textarea id="u-special" rows="2" oninput="update()" placeholder="e.g. Semi-Indirect Fire"></textarea>
-    </div>
-    <div class="field wide">
-      <label>Additional Notes (one per line)</label>
-      <textarea id="u-notes" rows="2" oninput="update()" placeholder="e.g. Open Topped"></textarea>
-    </div>
-    <div class="field full">
-      <label>Armament Description</label>
-      <input type="text" id="u-armament" oninput="update()" placeholder="e.g. 75mm gun, Co-ax MG, Hull MG">
-    </div>
-  </div>
-</div>
-
-<div style="display:flex;gap:10px;align-items:center;margin-bottom:24px">
-  <button class="btn-accent" onclick="addToQueue()" style="font-size:11px;padding:8px 20px">+ Add to Queue</button>
-  <button onclick="clearForm()" class="btn-danger btn-sm">Clear Form</button>
-  <span id="quality-badge" style="font-family:var(--mono);font-size:10px;color:var(--text3);border:1px solid var(--border);padding:3px 10px">Regular</span>
-</div>
-
-<hr class="divider">
-
-<!-- QUEUE -->
-<div class="section">
-  <div class="queue-bar">
-    <h2 style="margin:0">Queue</h2>
-    <span class="queue-count" id="queue-count">0 units</span>
-    <button class="btn-accent btn-sm" onclick="exportAll()">Export All JSON</button>
-    <button class="btn-danger btn-sm" onclick="clearQueue()">Clear Queue</button>
-  </div>
-  <div class="queue-list" id="queue-list"></div>
-  <pre id="export-output" style="display:none"></pre>
-  <div id="export-bar" style="display:none;margin-top:8px;display:none">
-    <button class="btn-sm btn-accent" onclick="copyExport()">Copy Export</button>
-  </div>
+<div id="output-section" style="display:none">
+  <div class="meta"><strong id="detected-count">0</strong> units detected</div>
+  <button class="btn-accent" onclick="copyExport()">Copy JSON</button>
+  <pre id="export-output"></pre>
 </div>
 
 <script>
@@ -286,14 +56,13 @@ if (typeof pdfjsLib !== 'undefined') {
     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 }
 
-// ── PDF ───────────────────────────────────────────────────────────────────────
-
 let _pdfDoc = null;
 
 async function loadPDF(input) {
   if (!input.files[0]) return;
   const status = document.getElementById('pdf-status');
   status.textContent = 'Loading…';
+  document.getElementById('output-section').style.display = 'none';
   try {
     const buf = await input.files[0].arrayBuffer();
     _pdfDoc = await pdfjsLib.getDocument({ data: buf }).promise;
@@ -311,58 +80,34 @@ async function reparse() {
   for (let i = 1; i <= _pdfDoc.numPages; i++) {
     const page = await _pdfDoc.getPage(i);
     const content = await page.getTextContent();
-    // Group text items by rounded Y coordinate, then sort Y descending (top of page first).
-    // PDF origins are bottom-left so higher Y = higher on page.
-    // We use a Map keyed by Y so items on the same logical line are merged
-    // regardless of the order PDF.js returns them.
     const lineMap = new Map();
     for (const item of content.items) {
-      const y = Math.round(item.transform[5] / 2) * 2; // round to nearest 2px
+      const y = Math.round(item.transform[5] / 2) * 2;
       lineMap.set(y, (lineMap.get(y) ? lineMap.get(y) + ' ' : '') + item.str);
     }
     const sortedLines = [...lineMap.entries()]
-      .sort((a, b) => b[0] - a[0])           // descending Y → top-to-bottom reading order
+      .sort((a, b) => b[0] - a[0])
       .map(([, text]) => text.trim())
       .filter(Boolean);
     fullText += sortedLines.join('\n') + '\n\n';
     if (i % 20 === 0) status.textContent = `Scanning… ${i}/${_pdfDoc.numPages} pages`;
   }
-
-  document.getElementById('pdf-text').value = fullText;
   status.textContent = `${_pdfDoc.numPages} pages scanned`;
   detectAllUnits(fullText);
-  document.getElementById('detected-panel').style.display = 'block';
 }
 
 // ── Unit Block Detection ──────────────────────────────────────────────────────
-// FoW has three table formats:
-//
-//  TANK/TRANSPORT: two rows per unit
-//    Row 1: Name  Mobility(Fully-tracked…)  FrontArmor  SideArmor  TopArmor  Notes
-//    Row 2: WeaponName  Range(16"/40cm)  ROF  AT  FP+  Notes
-//
-//  GUN TEAMS: single row
-//    Name  Mobility(Man-packed/Light/Medium/Heavy/Immobile)  Range  ROF  AT  FP+  Notes
-//    Sub-row: "Firing Bombardment"  Range  -  AT  FP+
-//
-//  INFANTRY TEAMS: single row, no mobility
-//    Name  Range  ROF  AT  FP+  Notes
 
 const QUALITIES = [
   'Fearless Veteran','Confident Veteran','Fearless Trained',
   'Confident Trained','Reluctant Veteran','Confident Conscript','Reluctant Conscript',
 ];
 
-// Tank/transport mobility (unit row only — no range on same line)
 const TANK_MOB = ['Fully-tracked','Half-tracked','Wheeled','Foot','Horse-drawn','Tracked','Jeep'];
-// Gun team mobility (same line as range)
 const GUN_MOB  = ['Man-packed','Light','Medium','Heavy','Immobile','Self-propelled'];
 
-// Range pattern: 16"/40cm — handles straight, curly, and double-prime quote chars
-// U+0022 " straight, U+201C " left curly, U+201D " right curly, U+2033 ″ double prime
 const RANGE_RE = /(\d+)[""″\u201c\u201d\u2033]\/\d+\s*cm/i;
 
-// Section headers that tell us which format to expect
 const SECTION_MAP = {
   'TANK TEAMS': 'tank', 'TRANSPORT TEAMS': 'tank', 'ARMOURED CARS': 'tank',
   'GUN TEAMS': 'gun', 'VEHICLE MACHINE': 'gun', 'BUNKERS': 'gun',
@@ -370,10 +115,9 @@ const SECTION_MAP = {
   'TANK-HUNTERS': 'tank', 'SELF-PROPELLED': 'tank',
 };
 
-// Nation keywords — order matters (more specific first)
 const NATION_MAP = [
   { keywords: ['FRENCH','FRANCE','ARMÉE'],          nation: 'France'       },
-  { keywords: ['POLISH','POLAND'],                   nation: 'Poland'       }, // before GERMAN (captured equipment)
+  { keywords: ['POLISH','POLAND'],                   nation: 'Poland'       },
   { keywords: ['GERMAN','GERMANY','HEER','PANZER','LUFTWAFFE','WAFFEN'], nation: 'Germany'  },
   { keywords: ['BRITISH','BRITAIN','BEF','ROYAL TANK','COMMONWEALTH'],   nation: 'Britain'  },
   { keywords: ['SOVIET','USSR','RED ARMY'],          nation: 'Soviet Union' },
@@ -382,26 +126,12 @@ const NATION_MAP = [
   { keywords: ['BELGIAN','BELGIUM'],                 nation: 'Belgium'      },
 ];
 
-// Unit-name keyword → nation override (catches captured/allied equipment mislabeled by section).
-// Checked against the unit name BEFORE the section-level nation, so more specific wins.
 const NAME_NATION_MAP = [
   { patterns: [
-    /^renault/i,           // Renault R-35, Char B-1 bis (Renault), FT-18, FT-31, AMR-35, UE…
-    /^char\s+b/i,          // Char B-1 (when not prefixed by Renault)
-    /^hotchkiss/i,         // Hotchkiss H-35/H-39, Hotchkiss 25mm gun
-    /^somua/i,             // Somua S-35
-    /^panhard/i,           // Panhard AMD-35, Panhard-Schneider P-16
-    /^laffly/i,            // Laffly W15 TCC
-    /^lorraine/i,          // Lorraine 38L carrier
-    /^autocanon/i,         // Autocanon de 75mm
-    /^gnome.rh[oô]ne/i,   // Gnome-Rhône motorcycle
-    /^citro[eë]n/i,        // Citroën trucks
-    /^vb\s+team/i,         // VB (Vivien-Bessières) grenade team — French only
-    /\bmle[.\s]+1[89]\d\d\b/i,   // French modèle: mle 1897, mle 1913, mle 1935…
-    /\bmle\s*3[0-9]\b/i,         // mle 35, mle 38, mle 39 (two-digit year)
-    /\bsa[-\s]3[4-9]\b/i,        // SA-34, SA-37 (French semi-auto gun designation)
-    /^25mm\s+sa/i,         // 25mm SA-34 gun/portee
-    /^47mm\s+sa/i,         // 47mm SA-37 gun
+    /^renault/i, /^char\s+b/i, /^hotchkiss/i, /^somua/i, /^panhard/i,
+    /^laffly/i, /^lorraine/i, /^autocanon/i, /^gnome.rh[oô]ne/i, /^citro[eë]n/i,
+    /^vb\s+team/i, /\bmle[.\s]+1[89]\d\d\b/i, /\bmle\s*3[0-9]\b/i,
+    /\bsa[-\s]3[4-9]\b/i, /^25mm\s+sa/i, /^47mm\s+sa/i,
   ], nation: 'France' },
   { patterns: [/^7tp/i, /^tks\b/i, /^wz\.\s*\d/i, /^vickers\s+e/i, /^ft-17/i], nation: 'Poland' },
   { patterns: [/^t-\d+/i, /^bt-\d+/i, /^ba-\d+/i, /^kv-\d+/i, /^su-\d+/i], nation: 'Soviet Union' },
@@ -409,7 +139,6 @@ const NAME_NATION_MAP = [
 
 function detectNation(line) {
   const up = line.toUpperCase();
-  // Only fire on lines that look like section headers (short, mostly caps, no range pattern)
   if (RANGE_RE.test(line) || line.length > 100) return null;
   for (const { keywords, nation } of NATION_MAP) {
     if (keywords.some(k => up.includes(k))) return nation;
@@ -433,17 +162,12 @@ function detectSection(line) {
 }
 
 function parseRangeRow(line) {
-  // Returns {range, rof, at, fp, notes} or null.
-  // Quote chars: straight (U+0022), curly (U+201C/D), double-prime (U+2033).
-  // Dash chars: hyphen, en-dash (U+2013), em-dash (U+2014) in AT/FP columns.
   const DASH = '[-\u2013\u2014]';
   const Q    = '[""″\u201c\u201d\u2033]';
-  // Primary: "16"/40cm  ROF  AT  FP  notes"
   let rm = line.match(
     new RegExp(`(\\d+)${Q}\\/\\d+\\s*cm\\s+(${DASH}|\\d+)(?:\\/\\d+)?\\s+(${DASH}|\\d+)\\s+(${DASH}|\\d+\\+)\\s*(.*)?$`, 'i')
   );
   if (!rm) {
-    // Fallback: "16"  ROF  AT  FP  notes" (no /cm — some PDFs omit it)
     rm = line.match(
       new RegExp(`(\\d+)${Q}\\s+(${DASH}|\\d+)(?:\\/\\d+)?\\s+(${DASH}|\\d+)\\s+(${DASH}|\\d+\\+)\\s*(.*)?$`, 'i')
     );
@@ -461,9 +185,6 @@ function parseRangeRow(line) {
 
 function makeWeapon(name, stats, unitNotes) {
   const un = unitNotes || '';
-  // coax/hull flags only fire when the weapon NAME says it's a secondary MG.
-  // "Co-ax MG" appearing in notes/armament means there IS one alongside the primary weapon,
-  // but the primary weapon row is NOT itself a co-ax — don't misclassify it.
   return {
     weaponName: name,
     range:   stats.range,
@@ -481,41 +202,33 @@ function detectAllUnits(text) {
   const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
   let currentQuality = null;
   let currentNation  = null;
-  let sectionType = 'tank'; // default
+  let sectionType = 'tank';
   const units = [];
   let cur = null;
-  // Weapon rows sometimes arrive before their unit row (PDF ordering).
-  // Buffer the last unmatched weapon row and attach it when the unit row follows.
   let pendingWeapon = null;
 
   for (const line of lines) {
-    // Nation detection (section-level header)
     const nat = detectNation(line);
     if (nat) { currentNation = nat; }
 
-    // Section header detection
     const sec = detectSection(line);
     if (sec) { sectionType = sec; cur = null; pendingWeapon = null; continue; }
 
-    // Quality tracking
     for (const q of QUALITIES) {
       if (line.includes(q)) { currentQuality = q; break; }
     }
 
-    // ── TANK section: look for unit row (mobility, no range) or weapon row (range) ──
     if (sectionType === 'tank') {
-      // Firing Bombardment sub-row
       if (/^firing\s+bombardment/i.test(line)) {
         const stats = parseRangeRow(line);
         if (stats && cur) {
           const w = makeWeapon('Firing Bombardment', stats, '');
-          w.bombard = true; w.range = null; // bombardment = infinite in HoF
+          w.bombard = true; w.range = null;
           cur.weapons.push(w);
         }
         continue;
       }
 
-      // Weapon row (has range, no tank mobility keyword, no gun mobility keyword before range)
       const hasTankMob = TANK_MOB.some(m => line.includes(m));
       const rangePos = line.search(/\d+[""″\u201c\u201d\u2033]/);
       const hasGunMobBeforeRange = rangePos > -1 && GUN_MOB.some(m => line.slice(0, rangePos).includes(m));
@@ -525,22 +238,18 @@ function detectAllUnits(text) {
         const stats = parseRangeRow(line);
         if (stats) {
           if (cur && cur.weapons.length === 0) {
-            // Attach first weapon row only — subsequent rows belong to other units
             cur.weapons.push(makeWeapon(wname, stats, cur.unitNotes));
           } else if (!cur) {
-            // PDF ordering may deliver weapon row before unit row — buffer it
             pendingWeapon = { wname, stats };
           }
         }
         continue;
       }
 
-      // Unit row (has tank mobility keyword)
       for (const mob of TANK_MOB) {
         const idx = line.indexOf(mob);
         if (idx === -1) continue;
         const beforeMob = line.slice(0, idx).trim();
-        // Filter narrative text: too long, or contains prose phrases
         const PROSE = ['move as', 'move like', ' are ', 'can be', ' using ', 'teams move',
                        ' to the ', ' with the ', 'infantry teams', 'all other',
                        'is removed', 'as if a', 'obstacle', 'had been'];
@@ -548,12 +257,10 @@ function detectAllUnits(text) {
           PROSE.some(p => beforeMob.toLowerCase().includes(p)) ||
           /\s(to|the|and|or|of|as|in|at|by|from|with|for)(\s|$)/i.test(beforeMob);
         if (isNarrative || beforeMob.length < 2) break;
-        // Filter bare digit-in-parens at end of name e.g. "Pieszych (1"
         if (/\s\(\d+\s*$/.test(beforeMob)) break;
 
         const afterMob  = line.slice(idx + mob.length).trim();
         const sm = afterMob.match(/^(-|\d+)\s+(-|\d+)\s+(-|\d+)\s*(.*)?$/);
-        // Name-based nation override (catches captured/allied equipment)
         const nameNation = nationFromUnitName(beforeMob);
         cur = {
           unitName:   beforeMob,
@@ -565,7 +272,6 @@ function detectAllUnits(text) {
           nation:     nameNation || currentNation,
           weapons:    [],
         };
-        // Attach weapon row that arrived before this unit row (PDF ordering quirk)
         if (pendingWeapon) {
           cur.weapons.push(makeWeapon(pendingWeapon.wname, pendingWeapon.stats, cur.unitNotes));
           pendingWeapon = null;
@@ -576,7 +282,6 @@ function detectAllUnits(text) {
       continue;
     }
 
-    // ── GUN section: single row — Name  GunMobility  Range  ROF  AT  FP  Notes ──
     if (sectionType === 'gun') {
       if (/^firing\s+bombardment/i.test(line)) {
         const stats = parseRangeRow(line);
@@ -604,16 +309,14 @@ function detectAllUnits(text) {
       continue;
     }
 
-    // ── INFANTRY section: single row — Name  Range  ROF  AT  FP  Notes ──
     if (sectionType === 'infantry') {
       if (!RANGE_RE.test(line)) continue;
       const nameM = line.match(/^(.+?)\s+\d+[""″\u201c\u201d\u2033]/);
       const unitName = nameM ? nameM[1].trim() : '';
       if (unitName.length < 2 || unitName.length > 60) continue;
-      // Skip lines where the "name" looks like a sentence fragment or ordinal heading
       if (/\s(to|the|and|or|of|as|in|at|by|from|with|for)(\s|$)/i.test(unitName)) continue;
-      if (/\(?\d+\s*(st|nd|rd|th)\b/i.test(unitName)) continue; // "(1 st" heading fragments
-      if (/\s\(\d+\s*$/.test(unitName)) continue; // bare "(1" at end of name
+      if (/\(?\d+\s*(st|nd|rd|th)\b/i.test(unitName)) continue;
+      if (/\s\(\d+\s*$/.test(unitName)) continue;
       const stats = parseRangeRow(line);
       if (!stats) continue;
       const nameNation = nationFromUnitName(unitName);
@@ -623,7 +326,6 @@ function detectAllUnits(text) {
     }
   }
 
-  // Deduplicate — same name+nation can appear on multiple pages
   const seen = new Set();
   const valid = units.filter(u => {
     if (!u.unitName || u.unitName.length <= 1) return false;
@@ -633,143 +335,9 @@ function detectAllUnits(text) {
     return true;
   });
 
-  // Render detected list
-  const list = document.getElementById('detected-list');
-  list.innerHTML = '';
   document.getElementById('detected-count').textContent = valid.length;
-  valid.forEach((u, idx) => {
-    const item = document.createElement('div');
-    item.className = 'detected-item';
-    item.id = `di-${idx}`;
-    const armorInfo = u.armorFront ? `FA${u.armorFront}/SA${u.armorSide}` : '';
-    // Quick type inference for display
-    let inferredType = 'Infantry';
-    if (u.armorFront) inferredType = 'Armored';
-    else if (GUN_MOB.includes(u.mobility)) inferredType = u.weapons.some(w=>w.bombard) ? 'Artillery' : 'Gun';
-    else if (TANK_MOB.includes(u.mobility)) inferredType = 'Transport';
-    const wpnInfo = u.weapons.length > 0 ? `${u.weapons[0].range}"` : '—';
-    const meta = [u.nation, inferredType, armorInfo || wpnInfo].filter(Boolean).join(' · ');
-    item.innerHTML = `
-      <span class="detected-name">${u.unitName}</span>
-      <span class="detected-meta">${meta}</span>
-    `;
-    item.onclick = () => loadDetected(u, idx);
-    list.appendChild(item);
-  });
-
   window._detectedUnits = valid;
-}
-
-function loadDetected(u, idx) {
-  // Highlight selected
-  document.querySelectorAll('.detected-item').forEach(el => el.classList.remove('loaded'));
-  document.getElementById(`di-${idx}`)?.classList.add('loaded');
-
-  // Unit name
-  document.getElementById('u-name').value = u.unitName || '';
-
-  // Apply detected nation to batch defaults if known
-  if (u.nation) {
-    const nSel = document.getElementById('b-nation');
-    for (const opt of nSel.options) {
-      if (opt.value === u.nation) { nSel.value = u.nation; break; }
-    }
-  }
-  // Apply detected quality to batch defaults if known
-  if (u.quality) {
-    const qSel = document.getElementById('b-quality');
-    for (const opt of qSel.options) {
-      if (opt.value === u.quality) { qSel.value = u.quality; break; }
-    }
-  }
-
-  // Armor (use armorSide as flank)
-  document.getElementById('armor-front').value = u.armorFront || '';
-  document.getElementById('armor-flank').value = u.armorSide  || '';
-
-  // Armament description from unit notes
-  if (u.unitNotes) {
-    document.getElementById('u-armament').value = u.unitNotes.replace(/\.$/, '').trim();
-  }
-
-  // Weapons
-  document.getElementById('weapons-container').innerHTML = '';
-  wCount = 0;
-  for (const w of u.weapons) {
-    addWeapon();
-    const id = wCount;
-    document.getElementById(`wn-${id}`).value = w.weaponName;
-    document.getElementById(`wr-${id}`).value = w.range;
-    document.getElementById(`wf-${id}`).value = w.rof;
-    document.getElementById(`wa-${id}`).value = w.at;
-    document.getElementById(`wp-${id}`).value = w.fp;
-    if (w.bombard) document.getElementById(`wb-bom-${id}`).checked = true;
-    if (w.smoke)   document.getElementById(`wb-smk-${id}`).checked = true;
-    if (w.coax)    document.getElementById(`wb-coa-${id}`).checked = true;
-    if (w.hull)    document.getElementById(`wb-hul-${id}`).checked = true;
-  }
-
-  update();
-  document.getElementById('u-name').focus();
-  document.getElementById('u-name').scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-// ── Weapons UI ────────────────────────────────────────────────────────────────
-
-let wCount = 0;
-
-function addWeapon() {
-  wCount++;
-  const id = wCount;
-  const c = document.createElement('div');
-  c.className = 'weapon-block';
-  c.id = `wb-${id}`;
-  c.innerHTML = `
-    <div class="weapon-header">
-      <span class="weapon-label">Weapon ${id}</span>
-      <button class="btn-danger btn-sm" onclick="removeWeapon(${id})">Remove</button>
-    </div>
-    <div class="weapon-grid">
-      <div class="field"><label>Name</label><input type="text" id="wn-${id}" oninput="update()" placeholder="e.g. 7.5cm KwK"></div>
-      <div class="field"><label>FoW Range"</label><input type="number" id="wr-${id}" min="0" oninput="update()"></div>
-      <div class="field"><label>FoW RoF</label><input type="number" id="wf-${id}" min="1" oninput="update()"></div>
-      <div class="field"><label>FoW AT</label><input type="number" id="wa-${id}" min="0" oninput="update()"></div>
-      <div class="field"><label>FoW FP</label>
-        <select id="wp-${id}" onchange="update()">
-          <option value="">—</option>
-          <option>6+</option><option>5+</option><option>4+</option>
-          <option>3+</option><option>2+</option><option>1+</option>
-        </select>
-      </div>
-    </div>
-    <div class="weapon-extras">
-      <label class="cb-label"><input type="checkbox" id="wb-bom-${id}" onchange="update()"> Bombard</label>
-      <label class="cb-label"><input type="checkbox" id="wb-smk-${id}" onchange="update()"> Smoke</label>
-      <label class="cb-label"><input type="checkbox" id="wb-coa-${id}" onchange="update()"> Co-ax MG</label>
-      <label class="cb-label"><input type="checkbox" id="wb-hul-${id}" onchange="update()"> Hull MG</label>
-    </div>
-  `;
-  document.getElementById('weapons-container').appendChild(c);
-  update();
-}
-
-function removeWeapon(id) { document.getElementById(`wb-${id}`)?.remove(); update(); }
-
-function activeWeapons() {
-  return [...document.querySelectorAll('.weapon-block')].map(b => {
-    const id = b.id.replace('wb-', '');
-    return {
-      name:    document.getElementById(`wn-${id}`)?.value ?? '',
-      range:   document.getElementById(`wr-${id}`)?.value ?? '',
-      rof:     document.getElementById(`wf-${id}`)?.value ?? '',
-      at:      document.getElementById(`wa-${id}`)?.value ?? '',
-      fp:      document.getElementById(`wp-${id}`)?.value ?? '',
-      bombard: document.getElementById(`wb-bom-${id}`)?.checked ?? false,
-      smoke:   document.getElementById(`wb-smk-${id}`)?.checked ?? false,
-      coax:    document.getElementById(`wb-coa-${id}`)?.checked ?? false,
-      hull:    document.getElementById(`wb-hul-${id}`)?.checked ?? false,
-    };
-  });
+  exportAll(valid);
 }
 
 // ── Conversion ────────────────────────────────────────────────────────────────
@@ -804,12 +372,6 @@ function cvtQuality(v) {
   return 'Regular';
 }
 
-function artyClass(mm) {
-  const n = parseInt(mm);
-  if (isNaN(n)||mm==='') return null;
-  return n < 100 ? 'Light Artillery' : n < 140 ? 'Medium Artillery' : 'Heavy Artillery';
-}
-
 function makeId(nation, name) {
   const map = { 'United States':'us','Germany':'de','Britain':'br','Soviet Union':'sov','Canada':'ca','France':'fr','Italy':'it','Japan':'jp','Poland':'pl','Belgium':'be' };
   const prefix = map[nation] || 'xx';
@@ -817,97 +379,12 @@ function makeId(nation, name) {
   return `${prefix}-${slug}`;
 }
 
-function buildEntry() {
-  const name      = document.getElementById('u-name').value.trim();
-  const nation    = document.getElementById('b-nation').value;
-  const type      = document.getElementById('u-type').value;
-  const fowQ      = document.getElementById('b-quality').value;
-  const base      = document.getElementById('u-base').value;
-  const yFrom     = parseInt(document.getElementById('b-year-from').value) || 1939;
-  const yTo       = parseInt(document.getElementById('b-year-to').value) || 1945;
-  const isFree    = document.getElementById('b-free').checked;
-  const lightTank = document.getElementById('u-light-tank').checked;
-  const wiki      = document.getElementById('u-wiki').value.trim();
-  const lore      = document.getElementById('u-lore').value.trim();
-  const artyMM    = document.getElementById('u-arty-mm').value;
-  const fFront    = document.getElementById('armor-front').value;
-  const fFlank    = document.getElementById('armor-flank').value;
-  const armament  = document.getElementById('u-armament').value.trim();
+function exportAll(units) {
+  const years = [1939,1940,1941,1942,1943,1944,1945];
 
-  const theater = [...document.querySelectorAll('.theater-cb:checked')].map(c => c.value);
-  const years   = []; for (let y = yFrom; y <= yTo; y++) years.push(y);
-
-  const armorFront = fFront !== '' ? cvtAT(fFront) : null;
-  const armorFlank = fFlank !== '' ? cvtAT(fFlank) : null;
-
-  const weapons = activeWeapons();
-  const main = weapons.filter(w => !w.coax && !w.hull);
-  let gunRange = null, rof = null, at = null, fp = null;
-  const notes = [];
-
-  if (main.length > 0) {
-    const w = main[0];
-    gunRange = cvtRange(w.name, w.range, w.bombard);
-    rof      = cvtROF(w.rof);
-    at       = cvtAT(w.at);
-    fp       = cvtFP(w.fp);
-    if (w.smoke) notes.push('Smoke');
-  }
-  main.slice(1).forEach(w => {
-    const parts = [w.name];
-    const r = cvtRange(w.name, w.range, w.bombard);
-    const rf = cvtROF(w.rof); const a = cvtAT(w.at); const f = cvtFP(w.fp);
-    if (r!==null) parts.push(r); if (rf!==null) parts.push(`ROF ${rf}`);
-    if (a!==null) parts.push(`AT ${a}`); if (f!==null) parts.push(`FP: ${f}`);
-    if (w.smoke) parts.push('Smoke');
-    notes.push(parts.filter(Boolean).join(' '));
-  });
-  if (weapons.some(w => w.coax)) notes.push('Co-ax MG');
-  if (weapons.some(w => w.hull)) notes.push('Hull MG');
-  const ac = artyClass(artyMM); if (ac) notes.push(ac);
-
-  const specialRules = document.getElementById('u-special').value.split('\n').map(s=>s.trim()).filter(Boolean);
-  if (lightTank) specialRules.unshift('Fast');
-  document.getElementById('u-notes').value.split('\n').map(s=>s.trim()).filter(Boolean).forEach(n=>notes.push(n));
-
-  return {
-    id: makeId(nation, name), name: name||'Unnamed', nation, type, theater, years,
-    gun_range: gunRange, rof, at, fp, armor_front: armorFront, armor_flank: armorFlank,
-    armament: armament||null, notes, special_rules: specialRules, base,
-    standard_platoon: null, free: isFree, wiki: wiki||null, lore: lore||null,
-  };
-}
-
-function update() {
-  const entry   = buildEntry();
-  const quality = cvtQuality(document.getElementById('b-quality').value);
-  const badge   = document.getElementById('quality-badge');
-  badge.textContent = quality;
-  badge.style.color  = quality==='Elite' ? '#e0c060' : quality==='Poor' ? '#a06060' : 'var(--text3)';
-  badge.style.borderColor = quality==='Elite' ? '#c0a030' : quality==='Poor' ? '#5a2020' : 'var(--border)';
-}
-
-// ── Queue ─────────────────────────────────────────────────────────────────────
-
-let queue = [];
-
-function addAllToQueue() {
-  const units = window._detectedUnits || [];
-  if (units.length === 0) { alert('No detected units.'); return; }
-  if (!confirm(`Add all ${units.length} detected units to the queue?`)) return;
-
-  const theater = [...document.querySelectorAll('.theater-cb:checked')].map(c => c.value);
-  const yFrom   = parseInt(document.getElementById('b-year-from').value) || 1939;
-  const yTo     = parseInt(document.getElementById('b-year-to').value)   || 1945;
-  const isFree  = document.getElementById('b-free').checked;
-  const years   = []; for (let y = yFrom; y <= yTo; y++) years.push(y);
-  const bNation  = document.getElementById('b-nation').value;
-  const bQuality = document.getElementById('b-quality').value;
-
-  for (const u of units) {
-    const nation  = u.nation  || bNation;
-    const fowQ    = u.quality || bQuality;
-    const quality = cvtQuality(fowQ);
+  const result = units.map(u => {
+    const nation  = u.nation  || 'Unknown';
+    const fowQ    = u.quality || 'Confident Veteran';
 
     const armorFront = u.armorFront !== '' ? cvtAT(u.armorFront) : null;
     const armorFlank = u.armorSide  !== '' ? cvtAT(u.armorSide)  : null;
@@ -936,43 +413,33 @@ function addAllToQueue() {
     if (u.weapons.some(w => w.coax) || /co.?ax/i.test(u.unitNotes)) notes.push('Co-ax MG');
     if (u.weapons.some(w => w.hull) || /hull/i.test(u.unitNotes)) notes.push('Hull MG');
 
-    // Mobility → note
     if (u.mobility === 'Fully-tracked') notes.push('Tracked');
     else if (u.mobility === 'Half-tracked') notes.push('Half-Tracked');
     else if (u.mobility === 'Horse-drawn') notes.push('Horse-drawn');
 
-    const specialRules = [];
-
-    // Infer type from detected data
     let unitType = 'Infantry';
     let unitBase = 'Medium';
     if (armorFront !== null) {
-      unitType = 'Armored';
-      unitBase = 'Vehicle';
+      unitType = 'Armored'; unitBase = 'Vehicle';
     } else if (u.mobility === 'Horse-drawn' || u.mobility === 'Foot') {
-      // Horse-drawn and foot-moved teams are infantry/support, not vehicles
-      unitType = 'Infantry';
-      unitBase = 'Small';
+      unitType = 'Infantry'; unitBase = 'Small';
     } else if (GUN_MOB.includes(u.mobility)) {
       unitBase = 'Gun';
-      // Artillery if any bombard weapon; Anti-Tank if high AT; else Support
       const hasBombard = u.weapons.some(w => w.bombard);
       const atVal = parseInt(main[0]?.at || '');
       if (hasBombard) { unitType = 'Artillery'; }
       else if (!isNaN(atVal) && atVal >= 6) { unitType = 'Anti-Tank'; }
       else { unitType = 'Support'; }
     } else if (TANK_MOB.includes(u.mobility) && armorFront === null) {
-      // Tracked/wheeled but no armor — transport or recon
-      unitType = 'Transport';
-      unitBase = 'Vehicle';
+      unitType = 'Transport'; unitBase = 'Vehicle';
     }
 
-    queue.push({
+    return {
       id:            makeId(nation, u.unitName),
       name:          u.unitName,
       nation,
       type:          unitType,
-      theater,
+      theater:       [],
       years,
       gun_range:     gunRange,
       rof, at, fp,
@@ -980,104 +447,28 @@ function addAllToQueue() {
       armor_flank:   armorFlank,
       armament:      u.unitNotes || null,
       notes,
-      special_rules: specialRules,
+      special_rules: [],
       base:          unitBase,
       standard_platoon: null,
-      free:          isFree,
+      free:          false,
       wiki:          null,
       lore:          null,
-    });
-  }
+    };
+  });
 
-  renderQueue();
-  alert(`${units.length} units added to queue. Review the exported JSON to set type, base, wiki, and lore.`);
-}
-
-function addToQueue() {
-  const entry = buildEntry();
-  if (!entry.name || entry.name === 'Unnamed') {
-    alert('Add a unit name first.');
-    document.getElementById('u-name').focus();
-    return;
-  }
-  queue.push(entry);
-  renderQueue();
-  clearFormFields();
-}
-
-function removeFromQueue(idx) {
-  queue.splice(idx, 1);
-  renderQueue();
-}
-
-function renderQueue() {
-  const list = document.getElementById('queue-list');
-  document.getElementById('queue-count').textContent = `${queue.length} unit${queue.length !== 1 ? 's' : ''}`;
-  list.innerHTML = queue.map((u, i) => `
-    <div class="queue-item">
-      <span class="queue-item-name">${u.name}</span>
-      <span class="queue-item-meta">${u.nation} · ${u.type}</span>
-      <button class="btn-danger btn-sm" onclick="removeFromQueue(${i})">✕</button>
-    </div>
-  `).join('');
-}
-
-function clearQueue() {
-  if (queue.length && !confirm(`Remove all ${queue.length} units from the queue?`)) return;
-  queue = [];
-  renderQueue();
-  document.getElementById('export-output').style.display = 'none';
-  document.getElementById('export-bar').style.display = 'none';
-}
-
-function exportAll() {
-  if (queue.length === 0) { alert('Queue is empty.'); return; }
-  const json = JSON.stringify(queue, null, 2);
-  const out = document.getElementById('export-output');
-  const bar = document.getElementById('export-bar');
-  out.textContent = json;
-  out.style.display = 'block';
-  bar.style.display = 'block';
-  out.scrollIntoView({ behavior: 'smooth' });
+  const json = JSON.stringify(result, null, 2);
+  document.getElementById('export-output').textContent = json;
+  document.getElementById('output-section').style.display = 'block';
+  document.getElementById('export-output').scrollIntoView({ behavior: 'smooth' });
 }
 
 function copyExport() {
   navigator.clipboard.writeText(document.getElementById('export-output').textContent).then(() => {
-    const btn = document.querySelector('#export-bar button');
+    const btn = document.querySelector('.btn-accent');
     btn.textContent = 'Copied!';
-    setTimeout(() => btn.textContent = 'Copy Export', 1500);
+    setTimeout(() => btn.textContent = 'Copy JSON', 1500);
   });
 }
-
-// ── Form helpers ──────────────────────────────────────────────────────────────
-
-function clearFormFields() {
-  document.getElementById('u-name').value = '';
-  document.getElementById('u-type').selectedIndex = 0;
-  document.getElementById('u-base').selectedIndex = 0;
-  document.getElementById('u-arty-mm').value = '';
-  document.getElementById('u-light-tank').checked = false;
-  document.getElementById('u-wiki').value = '';
-  document.getElementById('u-lore').value = '';
-  document.getElementById('u-special').value = '';
-  document.getElementById('u-notes').value = '';
-  document.getElementById('u-armament').value = '';
-  document.getElementById('armor-front').value = '';
-  document.getElementById('armor-flank').value = '';
-  document.getElementById('weapons-container').innerHTML = '';
-  wCount = 0;
-  addWeapon();
-  document.querySelectorAll('.detected-item').forEach(el => el.classList.remove('loaded'));
-}
-
-function clearForm() {
-  if (!confirm('Clear the unit form?')) return;
-  clearFormFields();
-}
-
-// Init
-addWeapon();
-update();
 </script>
 </body>
 </html>
