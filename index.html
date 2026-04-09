@@ -1844,54 +1844,6 @@
     background: transparent !important;
   }
 
-  /* LIBRARY MODAL */
-  .library-modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(10, 9, 8, 0.92);
-    z-index: 300;
-    display: none;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 40px 16px;
-    overflow-y: auto;
-  }
-
-  .library-modal.open { display: flex; }
-
-  .library-box {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    width: 100%;
-    max-width: 960px;
-    max-height: calc(100vh - var(--header-h));
-    min-height: 400px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .library-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
-    flex-shrink: 0;
-  }
-
-  .library-title {
-    font-family: var(--display);
-    font-size: 22px;
-    letter-spacing: 3px;
-    color: var(--accent);
-  }
-
-  .library-tabs {
-    display: flex;
-    border-bottom: 1px solid var(--border);
-    flex-shrink: 0;
-  }
-
   .library-tab {
     padding: 10px 20px;
     font-family: var(--mono);
@@ -3303,33 +3255,6 @@
   </div>
 </div>
 
-<!-- LIBRARY MODAL -->
-<div class="library-modal" id="library-modal">
-  <div class="library-box">
-    <div class="library-header">
-      <div class="library-title">Force Library</div>
-      <button class="close-panel-btn" onclick="closeLibrary()">✕</button>
-    </div>
-    <div class="library-tabs">
-      <button class="library-tab active" id="tab-browse" onclick="switchLibTab('browse')">Browse</button>
-      <button class="library-tab" id="tab-mine" onclick="switchLibTab('mine')">My Forces</button>
-    </div>
-    <div class="lib-search-bar">
-      <input class="lib-search-input" id="lib-search" type="text" placeholder="Search forces..." oninput="applyLibFilters()">
-      <div class="lib-nation-chips">
-        <button class="lib-chip" data-nation="United States" onclick="toggleLibNation(this)">US</button>
-        <button class="lib-chip" data-nation="Germany" onclick="toggleLibNation(this)">GER</button>
-        <button class="lib-chip" data-nation="Britain" onclick="toggleLibNation(this)">BR</button>
-        <button class="lib-chip" data-nation="Soviet Union" onclick="toggleLibNation(this)">SOV</button>
-      </div>
-      <span class="lib-result-count" id="lib-result-count"></span>
-    </div>
-    <div class="library-body" id="library-body">
-      <div class="lib-loading">Loading...</div>
-    </div>
-  </div>
-</div>
-
 <!-- COMPARISON MODAL -->
 <div class="compare-modal" id="compare-modal">
   <div class="compare-header">
@@ -4106,7 +4031,7 @@ function getAllForceUnitIds() {
 
 function updateForceUI() {
   const count = platoons.length;
-  const breakLimit = 5 + (count * 2);
+  const breakLimit = calcBreakLimit(count);
   document.getElementById('force-count').textContent = count;
   document.getElementById('summary-units').textContent = count;
   document.getElementById('summary-bl').textContent = breakLimit;
@@ -4239,7 +4164,7 @@ function clearForce() {
 function exportForce() {
   if (platoons.length === 0) return;
   const name = document.getElementById('force-name').value || 'Hail of Fire Force';
-  const breakLimit = 5 + (platoons.length * 2);
+  const breakLimit = calcBreakLimit(platoons.length);
   const lines = [
     name.toUpperCase(),
     '─'.repeat(40),
@@ -4282,7 +4207,7 @@ function printForce() {
 }
 
 function showSubscribePrompt() {
-  alert('This content is available to Ko-fi subscribers.\n\nVisit ko-fi.com/retroboom to subscribe.');
+  showToast('Subscriber only — visit ko-fi.com/retroboom to subscribe.', 'info', 4000);
 }
 
 // ── FORCE LIBRARY ─────────────────────────────────────────────────────────────
@@ -4305,7 +4230,7 @@ function getForceData() {
     year: forceYear ? parseInt(forceYear, 10) : null,
     forceType: forceType || null,
     platoonCount: platoons.length,
-    breakLimit: 5 + (platoons.length * 2),
+    breakLimit: calcBreakLimit(platoons.length),
     platoons: platoons.map(p => ({
       name: p.name,
       quality: p.quality || null,
@@ -4318,11 +4243,6 @@ function getForceData() {
 
 function loadForceData(data) {
   collapsedPlatoons.clear();
-  function toArr(val) {
-    if (!val) return [];
-    if (Array.isArray(val)) return val;
-    return Object.values(val);
-  }
   document.getElementById('force-name').value = data.name || '';
   document.getElementById('force-notes').value = data.notes || '';
   setForceQuality(data.quality || 'Regular');
@@ -4381,7 +4301,7 @@ async function publishForce() {
 
 function shareForce() {
   if (!currentForceId) {
-    alert('Save your force first before sharing.');
+    showToast('Save your force first before sharing.', 'error');
     return;
   }
   const url = `${window.location.origin}${window.location.pathname}?force=${currentForceId}`;
@@ -4401,10 +4321,6 @@ function copyShareUrl() {
 
 function openLibrary() {
   setSection('library');
-}
-
-function closeLibrary() {
-  document.getElementById('library-modal').classList.remove('open');
 }
 
 function switchLibTab(tab) {
@@ -4444,15 +4360,11 @@ function applyLibFilters() {
     if (active[grp]) active[grp].push(c.dataset.value);
   });
 
-  function toArrLocal(val) {
-    if (!val) return [];
-    return Array.isArray(val) ? val : Object.values(val);
-  }
 
   let visible = libAllForces.filter(f => {
     if (search && !f.name.toLowerCase().includes(search) && !(f.notes || '').toLowerCase().includes(search)) return false;
     if (active.nation.length > 0) {
-      const fNations = toArrLocal(f.nations);
+      const fNations = toArr(f.nations);
       if (!active.nation.some(n => fNations.includes(n))) return false;
     }
     if (active.quality.length > 0 && !active.quality.includes(f.quality)) return false;
@@ -4813,6 +4725,20 @@ function toArr(val) {
   return Object.values(val);
 }
 
+// Break limit formula: 5 + 2 per platoon
+function calcBreakLimit(platoonCount) {
+  return 5 + platoonCount * 2;
+}
+
+// Escape user-generated strings before injecting into innerHTML
+function htmlEscape(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 function nationCardClass(nations) {
   const n = toArr(nations)[0] || '';
   if (n === 'United States') return 'nc-us';
@@ -4881,16 +4807,16 @@ async function loadForceFromLibrary(forceId) {
   if (platoons.length > 0 && !confirm('Loading this force will replace your current force. Continue?')) return;
   const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
   const data = snap.val();
-  if (!data) { alert('Force not found.'); return; }
+  if (!data) { showToast('Force not found.', 'error'); return; }
   loadForceData(data);
   currentForceId = forceId;
-  closeLibrary();
+  setSection('units');
   setForcePanel(true);
 }
 
 function copyForceShareUrl(forceId) {
   const url = `${window.location.origin}${window.location.pathname}?force=${forceId}`;
-  navigator.clipboard.writeText(url).then(() => alert('Share link copied!'));
+  navigator.clipboard.writeText(url).then(() => showToast('Link copied!', 'success'));
 }
 
 async function publishForceById(forceId) {
@@ -4995,10 +4921,6 @@ function pickPair() {
   const pool = allUnits.filter(u => u.free || isSubscriber);
   if (pool.length < 2) return null;
 
-  pool.sort(() => {
-    // bias: units with fewer comparisons go first, with some randomness
-  });
-
   const weighted = pool.map(u => {
     const r = unitRatings[u.id];
     const comps = r ? r.comparisons : 0;
@@ -5090,7 +5012,7 @@ async function submitComparison(winner) {
 }
 
 function openCompare() {
-  if (allUnits.length < 2) { alert('Unit data not loaded yet.'); return; }
+  if (allUnits.length < 2) { showToast('Unit data not loaded yet.', 'error'); return; }
   compareSessionCount = 0;
   document.getElementById('compare-count').textContent = '0 comparisons submitted';
   loadNextPair();
@@ -5107,19 +5029,13 @@ function closeCompare() {
 
 // ── FORCE SHEET ───────────────────────────────────────────────────────────────
 function openForceSheet(forceData) {
-  function toA(val) {
-    if (!val) return [];
-    if (Array.isArray(val)) return val;
-    return Object.values(val);
-  }
-
-  const name = forceData.name || 'Untitled Force';
-  const author = forceData.author || 'Unknown';
-  const nations = toA(forceData.nations);
-  const platoonArr = toA(forceData.platoons);
+  const name = htmlEscape(forceData.name || 'Untitled Force');
+  const author = htmlEscape(forceData.author || 'Unknown');
+  const nations = toArr(forceData.nations);
+  const platoonArr = toArr(forceData.platoons);
   const platoonCount = platoonArr.length;
   const breakLimit = forceData.breakLimit || (5 + platoonCount * 2);
-  const notes = forceData.notes || '';
+  const notes = htmlEscape(forceData.notes || '');
 
   const nationBadgesHtml = nations.map(n =>
     `<span class="${nationBadgeClass(n)}">${n}</span>`
@@ -5128,8 +5044,8 @@ function openForceSheet(forceData) {
   const forceQ = forceData.quality || 'Regular';
 
   const platoonSections = platoonArr.map((platoon, pi) => {
-    const teams = toA(platoon.teams);
-    const label = platoon.name || `Platoon ${pi + 1}`;
+    const teams = toArr(platoon.teams);
+    const label = htmlEscape(platoon.name || `Platoon ${pi + 1}`);
     const numStr = String(pi + 1).padStart(2, '0');
     const platoonQ = platoon.quality || null;
     const qDiffers = platoonQ && platoonQ !== forceQ;
@@ -5244,7 +5160,7 @@ function openForceSheet(forceData) {
 
 function openCurrentForceSheet() {
   if (platoons.length === 0) {
-    alert('Add platoons to your force before viewing the force sheet.');
+    showToast('Add platoons to your force before viewing.', 'error');
     return;
   }
   const data = getForceData();
@@ -5263,7 +5179,7 @@ async function openLibForceSheet(forceId) {
   const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
   const data = snap.val();
   if (data) openForceSheet(data);
-  else alert('Force not found.');
+  else showToast('Force not found.', 'error');
 }
 
 function closeForceSheet() {
