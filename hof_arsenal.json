@@ -1917,7 +1917,7 @@
       "lore": "The Panzerfaust was a cheap, disposable single-shot recoilless launcher issued in the millions to German infantry from 1943 onward, capable of penetrating 140-200mm of armor with its hollow-charge warhead. In the close terrain of Normandy hedgerows, Italian hillside villages, and the ruined cities of Germany, it made every German soldier a potential tank killer at ranges under 100 meters. Allied armored commanders learned to sweep infantry clear of buildings and hedgerows before advancing their tanks \u2014 one Panzerfaust team could destroy a Sherman in seconds.",
       "name": "Panzerfaust",
       "nation": "Germany",
-      "type": "Support",
+      "type": "Upgrade",
       "infantry_weapon": true,
       "theater": [
         "Western Front",

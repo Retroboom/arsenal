@@ -638,6 +638,7 @@
   /* ── Type colors ──────────────────────────────────────────────────────────── */
   [data-type="Infantry"]   { --type-color: #6abf6a; }
   [data-type="Artillery"]  { --type-color: #d4a035; }
+  [data-type="Upgrade"]    { --type-color: #e0c060; }
   [data-type="Gun Teams"]  { --type-color: #c07828; }
   [data-type="Anti-Tank"]  { --type-color: #d45f50; }
   [data-type="Anti-Air"]   { --type-color: #50a8d4; }
@@ -1396,6 +1397,44 @@
   }
   .team-lock-btn:hover { opacity: 1; color: var(--accent); }
   .team-lock-btn.unlocked { opacity: 1; color: var(--accent); }
+
+  .team-upgrade-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .team-upgrade-row:last-child { border-bottom: none; }
+  .upgrade-tag {
+    flex: 1;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+    border: 1px solid rgba(224,192,96,0.3);
+    background: rgba(224,192,96,0.06);
+    padding: 2px 7px;
+    text-transform: uppercase;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .add-upgrade-btn {
+    background: none;
+    border: 1px solid rgba(224,192,96,0.4);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.12s;
+    white-space: nowrap;
+  }
+  .add-upgrade-btn:hover { background: rgba(224,192,96,0.12); border-color: var(--accent); }
 
   .platoon-empty {
     font-family: var(--mono);
@@ -3261,7 +3300,7 @@ async function loadData() {
 function buildFilterChips() {
   const nations = [...new Set(allUnits.map(u => u.nation))].sort();
   // Use a fixed order; 'Gun Teams' is a meta-filter (not a real type in data)
-  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
+  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport', 'Upgrade'];
   const presentTypes = new Set(allUnits.map(u => u.type));
   // Include all types present in data, plus 'Gun Teams' meta-filter
   const types = typeOrder.filter(t => t === 'Gun Teams' || presentTypes.has(t));
@@ -3513,7 +3552,7 @@ function renderGrid(container, forceIds) {
   let cardIndex = 0;
 
   const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
-  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
+  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport', 'Upgrade'];
 
   nationOrder.forEach(nation => {
     if (!byNation[nation]) return;
@@ -3588,7 +3627,11 @@ function renderGrid(container, forceIds) {
               ? `<button class="add-force-btn" onclick="event.stopPropagation();showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Ko-fi subscriber only</button>`
               : `<div class="card-footer-btns">
                   ${unit.standard_platoon ? `<button class="add-platoon-standard-btn" onclick="event.stopPropagation();addAsStandardPlatoon('${unit.id}')">New Platoon</button>` : ''}
-                  ${activePlatoonId ? `<button class="add-force-btn" id="btn-${unit.id}" onclick="event.stopPropagation();addTeamToPlatoon('${unit.id}')">Add to Platoon</button>` : ''}
+                  ${activePlatoonId
+                    ? unit.type === 'Upgrade'
+                      ? `<button class="add-upgrade-btn" onclick="event.stopPropagation();addTeamToPlatoon('${unit.id}')">Add Upgrade</button>`
+                      : `<button class="add-force-btn" id="btn-${unit.id}" onclick="event.stopPropagation();addTeamToPlatoon('${unit.id}')">Add to Platoon</button>`
+                    : ''}
                 </div>`
             }
           </div>
@@ -3623,7 +3666,7 @@ function renderTable(container, forceIds) {
       <tbody>
   `;
 
-  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
+  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport', 'Upgrade'];
   const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
   const byNation = {};
   filteredUnits.forEach(u => {
@@ -3785,16 +3828,22 @@ function addTeamToPlatoon(unitId) {
   }
   const platoon = platoons.find(p => p.id === activePlatoonId);
   if (!platoon) return;
+  const unit = allUnits.find(u => u.id === unitId);
+  const isUpgrade = unit?.type === 'Upgrade';
   const existing = platoon.teams.find(t => t.unitId === unitId);
   if (existing) {
+    if (isUpgrade) {
+      showToast(`${unit.name} already added to this platoon.`);
+      return;
+    }
     existing.qty++;
   } else {
     platoon.teams.push({ unitId, qty: 1 });
   }
   updateForceUI();
   renderUnits();
-  const unitName = allUnits.find(u => u.id === unitId)?.name || 'Unit';
-  showToast(`${unitName} added.`);
+  const unitName = unit?.name || 'Unit';
+  showToast(isUpgrade ? `${unitName} upgrade added.` : `${unitName} added.`);
 }
 
 function changeTeamQty(platoonId, unitId, delta) {
@@ -3894,6 +3943,17 @@ function updateForceUI() {
       : platoon.teams.map(t => {
           const unit = allUnits.find(u => u.id === t.unitId);
           if (!unit) return '';
+
+          // Upgrade units: binary pill, no qty
+          if (unit.type === 'Upgrade') {
+            return `
+              <div class="team-upgrade-row">
+                <span class="upgrade-tag">${unit.name}</span>
+                <button class="team-remove-btn" onclick="removeTeamFromPlatoon('${platoon.id}','${t.unitId}')">✕</button>
+              </div>
+            `;
+          }
+
           const fixed = isFixedUnit(t.unitId);
           const lockKey = `${platoon.id}|${t.unitId}`;
           const unlocked = unlockedTeams.has(lockKey);
