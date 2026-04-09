@@ -1327,7 +1327,6 @@
     gap: 6px;
     padding: 3px 0;
     border-bottom: 1px solid var(--border);
-    animation: rowFadeIn 0.2s ease forwards;
   }
 
   .platoon-team-row:last-child { border-bottom: none; }
@@ -1406,7 +1405,6 @@
     gap: 6px;
     padding: 3px 8px;
     border-bottom: 1px solid var(--border);
-    animation: rowFadeIn 0.2s ease forwards;
   }
   .team-upgrade-row:last-child { border-bottom: none; }
   .upgrade-tag {
@@ -1781,14 +1779,6 @@
     vertical-align: middle;
     display: inline-block;
   }
-  .chip .type-svg {
-    width: 16px;
-    height: 11px;
-    margin-right: 4px;
-    opacity: 0.75;
-    vertical-align: -2px;
-  }
-  .chip.active .type-svg { opacity: 1; }
   .type-divider .type-svg {
     width: 20px;
     height: 14px;
@@ -3311,6 +3301,9 @@ let allUnits = [];
 let filteredUnits = [];
 let platoons = [];
 let activePlatoonId = null;
+// Track which unit was just added/changed so only that row animates
+let _animUnitId = null;
+let _animPlatoonId = null;
 let platoonCounter = 0;
 const collapsedPlatoons = new Set();
 const unlockedTeams = new Set(); // keys: `${platoonId}|${unitId}` for PL/FO rows
@@ -3368,15 +3361,15 @@ async function loadData() {
 
 // ── TYPE ICONS (NATO military map symbols) ────────────────────────────────────
 const TYPE_ICONS = {
-  Infantry:    `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><line x1="0.75" y1="0.75" x2="19.25" y2="13.25"/><line x1="19.25" y1="0.75" x2="0.75" y2="13.25"/></svg>`,
-  Artillery:   `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><circle cx="10" cy="7" r="2.5" fill="currentColor"/></svg>`,
-  'Gun Teams': `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><line x1="3" y1="7" x2="17" y2="7"/><circle cx="5" cy="10" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1.5" fill="currentColor" stroke="none"/></svg>`,
-  'Anti-Tank': `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><polyline points="13,3 7,7 13,11"/></svg>`,
-  'Anti-Air':  `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><polyline points="5,11 10,3 15,11"/><line x1="5" y1="11" x2="15" y2="11"/></svg>`,
-  Armored:     `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><ellipse cx="10" cy="7" rx="5.5" ry="3.5"/></svg>`,
-  Recon:       `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><line x1="0.75" y1="0.75" x2="19.25" y2="13.25"/></svg>`,
-  Transport:   `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><line x1="0.75" y1="7" x2="19.25" y2="7"/></svg>`,
-  Upgrade:     `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="0.75" y="0.75" width="18.5" height="12.5" rx="1"/><line x1="10" y1="3" x2="10" y2="11"/><line x1="6" y1="7" x2="14" y2="7"/></svg>`,
+  Infantry:    `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="square"><rect x="0.75" y="0.75" width="18.5" height="12.5"/><line x1="0.75" y1="0.75" x2="19.25" y2="13.25"/><line x1="19.25" y1="0.75" x2="0.75" y2="13.25"/></svg>`,
+  Artillery:   `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="0.75"><rect x="0.75" y="0.75" width="18.5" height="12.5"/><circle cx="10" cy="7" r="2.5" fill="currentColor"/></svg>`,
+  'Gun Teams': `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="square"><rect x="0.75" y="0.75" width="18.5" height="12.5"/><line x1="3" y1="7" x2="17" y2="7"/><circle cx="5" cy="10" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1.5" fill="currentColor" stroke="none"/></svg>`,
+  'Anti-Tank': `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="square" stroke-linejoin="miter"><rect x="0.75" y="0.75" width="18.5" height="12.5"/><polyline points="13,3 7,7 13,11"/></svg>`,
+  'Anti-Air':  `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="square" stroke-linejoin="miter"><rect x="0.75" y="0.75" width="18.5" height="12.5"/><polyline points="5,11 10,3 15,11"/><line x1="5" y1="11" x2="15" y2="11"/></svg>`,
+  Armored:     `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="0.75"><rect x="0.75" y="0.75" width="18.5" height="12.5"/><ellipse cx="10" cy="7" rx="5.5" ry="3.5"/></svg>`,
+  Recon:       `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="square"><rect x="0.75" y="0.75" width="18.5" height="12.5"/><line x1="0.75" y1="0.75" x2="19.25" y2="13.25"/></svg>`,
+  Transport:   `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="square"><rect x="0.75" y="0.75" width="18.5" height="12.5"/><line x1="0.75" y1="7" x2="19.25" y2="7"/></svg>`,
+  Upgrade:     `<svg class="type-svg" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="square"><rect x="0.75" y="0.75" width="18.5" height="12.5"/><line x1="10" y1="3" x2="10" y2="11"/><line x1="6" y1="7" x2="14" y2="7"/></svg>`,
 };
 
 // ── FILTER CHIPS ──────────────────────────────────────────────────────────────
@@ -3399,8 +3392,7 @@ function renderChips(containerId, values, filterKey) {
   container.innerHTML = values.map(v => {
     const typeAttr   = filterKey === 'types'   ? ` data-type="${v}"`   : '';
     const nationAttr = filterKey === 'nations' ? ` data-nation="${v}"` : '';
-    const icon = filterKey === 'types' && TYPE_ICONS[v] ? TYPE_ICONS[v] : '';
-    return `<div class="chip" onclick="toggleFilter('${filterKey}', '${v}')" data-key="${filterKey}" data-val="${v}"${typeAttr}${nationAttr}>${icon}${v}</div>`;
+    return `<div class="chip" onclick="toggleFilter('${filterKey}', '${v}')" data-key="${filterKey}" data-val="${v}"${typeAttr}${nationAttr}>${v}</div>`;
   }).join('');
 }
 
@@ -3929,7 +3921,11 @@ function addTeamToPlatoon(unitId) {
   } else {
     platoon.teams.push({ unitId, qty: 1 });
   }
+  _animUnitId = unitId;
+  _animPlatoonId = activePlatoonId;
   updateForceUI();
+  _animUnitId = null;
+  _animPlatoonId = null;
   renderUnits();
   const unitName = unit?.name || 'Unit';
   showToast(isUpgrade ? `${unitName} upgrade added.` : `${unitName} added.`);
@@ -4034,9 +4030,12 @@ function updateForceUI() {
           if (!unit) return '';
 
           // Upgrade units: binary pill, no qty
+          const isNewRow = platoon.id === _animPlatoonId && t.unitId === _animUnitId;
+          const rowAnim  = isNewRow ? ' style="animation: rowFadeIn 0.35s ease forwards; opacity: 0"' : '';
+
           if (unit.type === 'Upgrade') {
             return `
-              <div class="team-upgrade-row">
+              <div class="team-upgrade-row"${rowAnim}>
                 <span class="upgrade-tag">${unit.name}</span>
                 <button class="team-remove-btn" onclick="removeTeamFromPlatoon('${platoon.id}','${t.unitId}')">✕</button>
               </div>
@@ -4048,7 +4047,7 @@ function updateForceUI() {
           const unlocked = unlockedTeams.has(lockKey);
           const showControls = !fixed || unlocked;
           return `
-            <div class="platoon-team-row">
+            <div class="platoon-team-row"${rowAnim}>
               ${showControls ? `<div class="team-qty-btns">
                 <button class="qty-btn" onclick="changeTeamQty('${platoon.id}','${t.unitId}',1)">▲</button>
                 <button class="qty-btn" onclick="changeTeamQty('${platoon.id}','${t.unitId}',-1)">▼</button>
