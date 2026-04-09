@@ -1261,6 +1261,7 @@
 
   .platoon-name-input::placeholder { color: var(--text3); }
 
+
   .platoon-select-btn {
     background: none;
     border: 1px solid var(--border);
@@ -4004,12 +4005,26 @@ function togglePlatoonCollapse(id) {
 function duplicatePlatoon(id) {
   const src = platoons.find(p => p.id === id);
   if (!src) return;
+
+  // Strip any trailing number to get the base name
+  const hasNumber = /\s+\d+$/.test(src.name);
+  const base = src.name.replace(/\s+\d+$/, '').trim();
+
+  // If source has no trailing number, rename it to "<base> 1"
+  if (!hasNumber) src.name = `${base} 1`;
+
+  // Find the next available number for the duplicate
+  const existing = new Set(platoons.map(p => p.name));
+  let n = 2;
+  while (existing.has(`${base} ${n}`)) n++;
+  const dupeName = `${base} ${n}`;
+
   platoonCounter++;
   const newId = `pl-${platoonCounter}`;
   platoons.splice(
     platoons.findIndex(p => p.id === id) + 1,
     0,
-    { id: newId, name: src.name + ' (Copy)', teams: src.teams.map(t => ({ ...t })), quality: src.quality || null }
+    { id: newId, name: dupeName, teams: src.teams.map(t => ({ ...t })), quality: src.quality || null }
   );
   activePlatoonId = newId;
   updateForceUI();
