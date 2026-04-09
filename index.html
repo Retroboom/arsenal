@@ -3570,7 +3570,7 @@ const RULE_TIPS = {
   // ── Core Special Rules (p.28) ──────────────────────────────────────────────
   'Bunker Buster': 'When using direct fire, unarmored Teams within 2" of a hit Target Team each receive 1 RFP. Against bunkers, make a penetration roll at AT 6 vs. Armor 2 to destroy outright.',
   'Fast': 'Add +2" to movement.',
-  'Flame-Thrower': 'Range 4", RoF 3, FP 3. Roll 3 dice at 4+ to hit — no modifiers for concealment or cover. Max 1 hit per non-vehicle Team; each hit applies 3 RFPs. One-shot weapon: after firing, Infantry Flame-Thrower Teams become standard Teams.',
+  'Flame-Thrower': 'Max range 4". RoF 3, FP 3. Roll 3 dice at 4+ to hit — no modifiers for concealment. Each hit applies 3 RFPs. One-shot weapon: after firing, Infantry Flame-Thrower Teams become standard Teams.',
   'Light Mortar': 'When activated by a Leader, may fire at targets within that Leader\'s LoS with a +1 modifier to hit.',
   'Limited HE': 'Does not ignore the Concealment modifier when firing at non-Vehicle Teams.',
   'Man-Portable': 'Moves 2d6". May move through Very Difficult Terrain. Weapon rides in Transports rather than being towed.',
@@ -3818,12 +3818,12 @@ function renderTable(container, forceIds) {
       case 'name':        return u.name.toLowerCase();
       case 'nation':      return u.nation.toLowerCase();
       case 'type':        return u.type.toLowerCase();
-      case 'gun_range':   return u.gun_range ?? Infinity;
-      case 'rof':         return u.rof ?? Infinity;
-      case 'at':          return u.at ?? Infinity;
-      case 'fp':          return u.fp ?? Infinity;
-      case 'armor_front': return u.armor_front ?? Infinity;
-      case 'years':       return (u.years && u.years[0]) ? u.years[0] : Infinity;
+      case 'gun_range':   return u.gun_range ?? -1;
+      case 'rof':         return u.rof ?? -1;
+      case 'at':          return u.at ?? -1;
+      case 'fp':          return u.fp ?? -1;
+      case 'armor_front': return u.armor_front ?? -1;
+      case 'years':       return (u.years && u.years[0]) ? u.years[0] : -1;
       default:            return '';
     }
   }
@@ -3833,11 +3833,6 @@ function renderTable(container, forceIds) {
     const sorted = [...filteredUnits].sort((a, b) => {
       const av = sortVal(a, tableSortCol);
       const bv = sortVal(b, tableSortCol);
-      const aNull = av === Infinity;
-      const bNull = bv === Infinity;
-      if (aNull && bNull) return a.name.localeCompare(b.name);
-      if (aNull) return 1;   // nulls always sink to bottom
-      if (bNull) return -1;
       if (av < bv) return -1 * tableSortDir;
       if (av > bv) return  1 * tableSortDir;
       return a.name.localeCompare(b.name);
