@@ -542,8 +542,11 @@ function detectAllUnits(text) {
                        ' to the ', ' with the ', 'infantry teams', 'all other',
                        'is removed', 'as if a', 'obstacle', 'had been'];
         const isNarrative = beforeMob.length > 52 ||
-          PROSE.some(p => beforeMob.toLowerCase().includes(p));
+          PROSE.some(p => beforeMob.toLowerCase().includes(p)) ||
+          /\s(to|the|and|or|of|as|in|at|by|from|with|for)(\s|$)/i.test(beforeMob);
         if (isNarrative || beforeMob.length < 2) break;
+        // Filter bare digit-in-parens at end of name e.g. "Pieszych (1"
+        if (/\s\(\d+\s*$/.test(beforeMob)) break;
 
         const afterMob  = line.slice(idx + mob.length).trim();
         const sm = afterMob.match(/^(-|\d+)\s+(-|\d+)\s+(-|\d+)\s*(.*)?$/);
@@ -607,6 +610,7 @@ function detectAllUnits(text) {
       // Skip lines where the "name" looks like a sentence fragment or ordinal heading
       if (/\s(to|the|and|or|of|as|in|at|by|from|with|for)(\s|$)/i.test(unitName)) continue;
       if (/\(?\d+\s*(st|nd|rd|th)\b/i.test(unitName)) continue; // "(1 st" heading fragments
+      if (/\s\(\d+\s*$/.test(unitName)) continue; // bare "(1" at end of name
       const stats = parseRangeRow(line);
       if (!stats) continue;
       const nameNation = nationFromUnitName(unitName);
