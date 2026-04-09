@@ -494,6 +494,7 @@
   .main {
     padding: 24px;
     overflow-y: auto;
+    height: calc(100vh - var(--header-h));
     transition: padding-right 0.25s ease;
   }
 
@@ -1326,7 +1327,7 @@
     gap: 6px;
     padding: 3px 0;
     border-bottom: 1px solid var(--border);
-    animation: slideDown 0.15s ease forwards;
+    animation: rowFadeIn 0.2s ease forwards;
   }
 
   .platoon-team-row:last-child { border-bottom: none; }
@@ -1405,7 +1406,7 @@
     gap: 6px;
     padding: 3px 8px;
     border-bottom: 1px solid var(--border);
-    animation: slideDown 0.15s ease forwards;
+    animation: rowFadeIn 0.2s ease forwards;
   }
   .team-upgrade-row:last-child { border-bottom: none; }
   .upgrade-tag {
@@ -2804,6 +2805,11 @@
   @keyframes slideDown {
     from { opacity: 0; transform: translateY(-6px); }
     to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes rowFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
   }
 
   @keyframes pulse {
