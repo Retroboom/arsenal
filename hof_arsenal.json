@@ -365,7 +365,7 @@
       "lore": "Introduced in 1942, the M1 Bazooka gave American infantry their first portable anti-tank weapon, firing a shaped-charge rocket capable of penetrating 75mm of armor. Though short-ranged and outmatched by late-war German tanks from the front, bazooka teams used the close terrain of the bocage and ruined cities to ambush Panthers and Tigers at point-blank range. The trick was getting within 50 meters \u2014 a nerve-testing proposition against a 50-ton tank.",
       "name": "Bazooka",
       "nation": "United States",
-      "type": "Support",
+      "type": "Infantry",
       "infantry_weapon": true,
       "theater": [
         "Western Front",
@@ -399,7 +399,7 @@
       "lore": "The water-cooled M1917 and air-cooled M1919 HMGs provided battalion-level sustained fire support across every US theater of operations. Their belt-fed fire could maintain suppression for minutes at a time without overheating, making them indispensable for holding defensive lines and suppressing strongpoints during assaults. US infantry doctrine placed HMG platoons where they could deliver flanking or enfilading fire along the most likely enemy approach.",
       "name": "M1917/M1919 HMG",
       "nation": "United States",
-      "type": "Support",
+      "type": "Gun Teams",
       "wiki": "M1917_Browning_machine_gun",
       "theater": [
         "Western Front",
@@ -1884,7 +1884,7 @@
       "lore": "The 88mm Raketenpanzerb\u00fcchse \u2014 \"Tank Terror\" \u2014 was reverse-engineered from captured American bazookas and scaled up to carry a larger warhead capable of defeating any Allied tank of the period. Issued to specialist anti-tank teams, it forced Allied infantry to work in close coordination with their armor, since a Sherman without infantry screen was easy prey in close terrain. Panzerschreck teams in Normandy's bocage ambushed hundreds of Allied tanks from concealed positions at ranges under 100 meters.",
       "name": "Panzerschreck",
       "nation": "Germany",
-      "type": "Support",
+      "type": "Infantry",
       "infantry_weapon": true,
       "theater": [
         "Western Front",
@@ -1951,7 +1951,7 @@
       "lore": "The MG34 and MG42 in the sustained-fire role, mounted on the Lafette 34 tripod, gave German battalions concentrated direct fire out to 2,000 meters with an optical sight. The MG42's 1,500 rounds-per-minute cyclic rate \u2014 nearly twice any Allied equivalent \u2014 created beaten zones that advancing infantry simply could not survive crossing. Allied soldiers were specifically trained to hit the dirt and crawl sideways when they heard the buzzsaw, not freeze and absorb the burst.",
       "name": "MG34/MG42 HMG",
       "nation": "Germany",
-      "type": "Support",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Eastern Front",
@@ -3969,7 +3969,7 @@
       "lore": "The Projector Infantry Anti-Tank was a spring-operated spigot mortar that lobbed a 2.5lb HEAT bomb with a shaped charge capable of penetrating 100mm of armor \u2014 enough for most German tanks at close range. It was notoriously difficult to cock the heavy spring, required awkward prone firing, had minimal effective range (about 100m against a moving target), and the operator was exposed to the blast of his own weapon. Yet in Normandy's hedgerows and Italian villages it was often the only weapon a platoon carried that could stop a Panzer IV, and PIAT gunners regularly earned Victoria Crosses for closing to within touching distance of German armor.",
       "name": "PIAT",
       "nation": "Britain",
-      "type": "Support",
+      "type": "Infantry",
       "infantry_weapon": true,
       "theater": [
         "Western Front",
@@ -3999,7 +3999,7 @@
       "lore": "The 2-inch mortar was the British platoon's organic indirect fire weapon, light enough for one man to carry and capable of dropping smoke or HE within 500 meters in under a minute. Smoke was its primary wartime use \u2014 covering section moves across open ground, masking withdrawals, and screening casualty recovery \u2014 though its HE round was effective against infantry in the open and light cover. Every British rifle platoon carried one, and their use of smoke to fix and flank German positions became a trademark of British infantry tactics from El Alamein to the Rhine.",
       "name": "ML 2\" Mortar",
       "nation": "Britain",
-      "type": "Support",
+      "type": "Infantry",
       "theater": [
         "Western Front",
         "Mediterranean",
@@ -4036,7 +4036,7 @@
       "lore": "The Vickers machine gun entered British service in 1912 and was still a front-line weapon in 1945 \u2014 a testament to its extraordinary reliability and sustained-fire capability. Water-cooled and belt-fed, it could fire continuously for hours without overheating, allowing it to deliver the \"beaten zone\" fire plans that were a hallmark of British defensive tactics: pre-registered lines of fixed fire that would devastate any night attack regardless of visibility. Vickers companies were assigned at battalion level to provide the long-range suppressive fire that the Bren could not sustain, and their crews became masters of indirect fire over the sights.",
       "name": "Vickers HMG",
       "nation": "Britain",
-      "type": "Support",
+      "type": "Gun Teams",
       "theater": [
         "Western Front",
         "Mediterranean",
@@ -5841,7 +5841,7 @@
       "lore": "The Maxim M1910 water-cooled heavy machine gun on its distinctive wheeled Sokolov mount was the Soviet infantry's primary crew-served firepower from the Finnish War through Berlin \u2014 a weapon design from 1884 still effective sixty years later. Its 7.62mm belt-fed fire could sustain a beaten zone continuously for hours, and Soviet machine-gun sections were famous for their methodical fire discipline, registering fixed lines during daylight and delivering them precisely during night attacks. The Sokolov mount's small wheels allowed it to be rolled forward during an advance, giving it better tactical mobility than the tripod-mounted HMGs of most other armies.",
       "name": "Maksim HMG",
       "nation": "Soviet Union",
-      "type": "Support",
+      "type": "Gun Teams",
       "theater": [
         "Eastern Front"
       ],

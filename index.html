@@ -637,7 +637,6 @@
 
   /* ── Type colors ──────────────────────────────────────────────────────────── */
   [data-type="Infantry"]   { --type-color: #6abf6a; }
-  [data-type="Support"]    { --type-color: #a07fd4; }
   [data-type="Artillery"]  { --type-color: #d4a035; }
   [data-type="Gun Teams"]  { --type-color: #c07828; }
   [data-type="Anti-Tank"]  { --type-color: #d45f50; }
@@ -3262,7 +3261,7 @@ async function loadData() {
 function buildFilterChips() {
   const nations = [...new Set(allUnits.map(u => u.nation))].sort();
   // Use a fixed order; 'Gun Teams' is a meta-filter (not a real type in data)
-  const typeOrder = ['Infantry', 'Support', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
+  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
   const presentTypes = new Set(allUnits.map(u => u.type));
   // Include all types present in data, plus 'Gun Teams' meta-filter
   const types = typeOrder.filter(t => t === 'Gun Teams' || presentTypes.has(t));
@@ -3346,14 +3345,12 @@ function applyFilters() {
     if (activeFilters.search && !u.name.toLowerCase().includes(activeFilters.search)) return false;
     if (activeFilters.nations.length && !activeFilters.nations.includes(u.nation)) return false;
     if (activeFilters.types.length) {
-      const GUN_TEAMS_TYPES = ['Artillery', 'Support', 'Anti-Tank', 'Anti-Air'];
-      const hasGunTeams  = activeFilters.types.includes('Gun Teams');
-      const hasInfantry  = activeFilters.types.includes('Infantry');
-      const otherTypes   = activeFilters.types.filter(t => t !== 'Gun Teams');
-      const matchesDirect    = otherTypes.includes(u.type);
-      const matchesGunTeams  = hasGunTeams && GUN_TEAMS_TYPES.includes(u.type) && u.base !== 'Vehicle';
-      const matchesInfantry  = hasInfantry && u.type === 'Support' && u.infantry_weapon === true;
-      if (!matchesDirect && !matchesGunTeams && !matchesInfantry) return false;
+      const GUN_TEAMS_TYPES = ['Artillery', 'Anti-Tank', 'Anti-Air', 'Gun Teams'];
+      const hasGunTeams = activeFilters.types.includes('Gun Teams');
+      const otherTypes  = activeFilters.types.filter(t => t !== 'Gun Teams');
+      const matchesDirect   = otherTypes.includes(u.type);
+      const matchesGunTeams = hasGunTeams && GUN_TEAMS_TYPES.includes(u.type) && u.base !== 'Vehicle';
+      if (!matchesDirect && !matchesGunTeams) return false;
     }
     if (activeFilters.theaters.length && !u.theater.some(t => activeFilters.theaters.includes(t))) return false;
     if (activeFilters.yearFrom && !u.years.some(y => y >= activeFilters.yearFrom)) return false;
@@ -3516,7 +3513,7 @@ function renderGrid(container, forceIds) {
   let cardIndex = 0;
 
   const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
-  const typeOrder = ['Infantry', 'Support', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
+  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
 
   nationOrder.forEach(nation => {
     if (!byNation[nation]) return;
@@ -3626,7 +3623,7 @@ function renderTable(container, forceIds) {
       <tbody>
   `;
 
-  const typeOrder = ['Infantry', 'Support', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
+  const typeOrder = ['Infantry', 'Artillery', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Armored', 'Recon', 'Transport'];
   const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
   const byNation = {};
   filteredUnits.forEach(u => {
