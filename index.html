@@ -13,10 +13,10 @@
 <style>
   :root {
     --header-h: 60px;
-    --bg: #0e1009;
-    --bg2: #171c0e;
-    --bg3: #20270f;
-    --border: #2e3818;
+    --bg: #0e0c08;
+    --bg2: #16120a;
+    --bg3: #1e1a10;
+    --border: #3a2e14;
     --accent: #b89040;
     --accent2: #8b3a2a;
     --text: #ede8d0;
@@ -814,20 +814,46 @@
     gap: 12px;
   }
 
-  /* UNIT CARD */
+  /* UNIT CARD — Wheat paper / field manual */
   .unit-card {
     background:
-      repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px),
-      linear-gradient(175deg, var(--bg3) 0%, var(--bg2) 60%);
-    border: 1px solid var(--border);
-    padding: 14px 16px;
+      linear-gradient(180deg, rgba(70,55,15,0.25) 0px, rgba(70,55,15,0.25) 28px, transparent 28px),
+      repeating-linear-gradient(180deg, rgba(0,0,0,0.045) 0px, rgba(0,0,0,0.045) 1px, transparent 1px, transparent 20px),
+      linear-gradient(175deg, #d8cc90 0%, #c8bc7c 60%);
+    border: 1px solid #8a7030;
+    border-left: 7px solid #8a7030;
+    color: #1a1608;
+    padding: 6px 16px 14px;
     cursor: pointer;
-    transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+    transition: border-color 0.15s, box-shadow 0.15s;
     position: relative;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), inset 0 0 40px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.45);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), 0 4px 14px rgba(0,0,0,0.65);
     clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+    filter: url(#paper-grain);
     opacity: 0;
   }
+  .unit-card .unit-name { color: #1a1608; font-weight: 700; }
+  .unit-card .unit-name::before { color: #6a5010; opacity: 0.8; }
+  .unit-card .stat-label { color: #2e2810; font-size: 11px; }
+  .unit-card .stat-value { color: #1a1608; font-size: 15px; }
+  .unit-card .stat-value.null-val { color: #7a6a30; }
+  .unit-card .card-armament { color: #2a2010; font-size: 11px; }
+  .unit-card .type-badge { filter: brightness(0.5) saturate(1.4); }
+  .unit-card .note-tag,
+  .unit-card .note-tag.special { background: rgba(0,0,0,0.07); border-color: rgba(0,0,0,0.16); color: #1e1a08; }
+  .unit-card .base-badge { background: rgba(0,0,0,0.07); border-color: rgba(0,0,0,0.16); color: #3a3018; }
+  .unit-card .years-display { color: #6a5a28; }
+  .unit-card .card-footer { border-top-color: rgba(0,0,0,0.12); }
+  .unit-card .add-force-btn { border-color: rgba(0,0,0,0.2); color: #3a3018; }
+  .unit-card .add-force-btn:hover { border-color: #3a6a3a; color: #2a5020; }
+  .unit-card .add-force-btn.added { border-color: #3a6a3a; color: #2a5020; background: rgba(58,106,58,0.12); }
+  .unit-card .add-platoon-standard-btn { border-color: #6a5010; color: #4a3808; }
+  .unit-card .add-platoon-standard-btn:hover { background: #6a5010; color: #e8d890; }
+  .unit-card .stat-cell { border-right-color: rgba(0,0,0,0.1); }
+  .unit-card .nation-us      { background: rgba(255,255,220,0.22); border-color: #3a5818; color: #2a4010; }
+  .unit-card .nation-germany { background: rgba(255,255,220,0.22); border-color: #3a4838; color: #283028; }
+  .unit-card .nation-britain { background: rgba(255,255,220,0.22); border-color: #705010; color: #4a3808; }
+  .unit-card .nation-soviet  { background: rgba(255,255,220,0.22); border-color: #7a2010; color: #5a1010; }
 
   /* Corner bracket hover effect */
   .unit-card::before {
@@ -852,12 +878,11 @@
   .unit-card.anim { animation: fadeUp 0.55s ease forwards; }
 
   .unit-card:hover {
-    border-color: var(--accent);
-    background: linear-gradient(175deg, #2e2c28 0%, var(--bg3) 60%);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 12px rgba(0,0,0,0.5);
+    border-color: #6a5010;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 6px 20px rgba(0,0,0,0.7);
   }
-  .unit-card.in-force { border-color: var(--green); background: linear-gradient(175deg, #1e2a22 0%, #141e18 60%); }
-  .unit-card.in-force:hover { border-color: #6a9c7a; }
+  .unit-card.in-force { border-color: #3a6a3a; border-left-color: #3a6a3a; background: linear-gradient(180deg, rgba(40,70,25,0.28) 0px, rgba(40,70,25,0.28) 28px, transparent 28px), repeating-linear-gradient(180deg, rgba(0,0,0,0.045) 0px, rgba(0,0,0,0.045) 1px, transparent 1px, transparent 20px), linear-gradient(175deg, #ccd8a0 0%, #bcc890 60%); }
+  .unit-card.in-force:hover { border-color: #2a5a2a; }
 
   /* Nation watermarks */
   .unit-card::after {
@@ -871,15 +896,15 @@
     pointer-events: none;
     user-select: none;
   }
-  .unit-card.nc-us      { background: repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px), linear-gradient(175deg, #1c2210 0%, #151a09 60%); }
-  .unit-card.nc-germany { background: repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px), linear-gradient(175deg, #1a1e14 0%, #141710 60%); }
-  .unit-card.nc-britain { background: repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px), linear-gradient(175deg, #201e0a 0%, #181508 60%); }
-  .unit-card.nc-soviet  { background: repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px), linear-gradient(175deg, #221410 0%, #1a0e0c 60%); }
+  .unit-card.us      { border-left-color: #3a5818; }
+  .unit-card.germany { border-left-color: #3a4838; }
+  .unit-card.britain { border-left-color: #705010; }
+  .unit-card.soviet  { border-left-color: #7a2010; }
 
-  .unit-card.nc-us::after      { content: '★'; color: #8a9a50; opacity: 0.09; }
-  .unit-card.nc-germany::after { content: '✕'; color: #848c70; opacity: 0.10; }
-  .unit-card.nc-britain::after { content: '✦'; color: #a08840; opacity: 0.09; }
-  .unit-card.nc-soviet::after  { content: '★'; color: #a85040; opacity: 0.09; }
+  .unit-card.us::after      { content: ''; width: 86px; height: 86px; font-size: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%234a5040' d='M256 26C129.17 26 26 129.17 26 256s103.192 230 230 230s230-103.192 230-230S382.83 26 256 26m168.813 174.7H298.258L257.442 78.36c78.035.628 144.206 51.81 167.37 122.34zM254.558 78.36L213.786 200.7H87.23c23.123-70.53 89.294-121.71 167.33-122.34zM78.328 256a177 177 0 0 1 7.637-51.49l101.728 75.932l-37.34 118.345A177.52 177.52 0 0 1 78.33 256zm76.66 146.045L256 330.03l101.013 72.015a177.18 177.18 0 0 1-202.026 0zm206.614-3.302l-37.295-118.345l101.728-75.933a177.46 177.46 0 0 1-64.39 194.322z'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.22; }
+  .unit-card.germany::after { content: ''; width: 80px; height: 80px; font-size: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cpath d='M 300,0 V 600 M 0,300 H 600' stroke='%234a5040' stroke-width='280'/%3E%3Cpath d='M 300,0 V 600 M 0,300 H 600' stroke='%23d0c888' stroke-width='260'/%3E%3Cpath d='M 300,0 V 600 M 0,300 H 600' stroke='%234a5040' stroke-width='170'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.22; }
+  .unit-card.britain::after { content: ''; width: 80px; height: 80px; font-size: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='602' height='602'%3E%3Ccircle cx='301' cy='301' r='300' fill='%234a5040'/%3E%3Ccircle cx='301' cy='301' r='200' fill='%23d0c888'/%3E%3Ccircle cx='301' cy='301' r='100' fill='%234a5040'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.22; }
+  .unit-card.soviet::after  { content: ''; width: 90px; height: 90px; font-size: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 135.46707 131.76233'%3E%3Cg transform='translate(-36.59921,-60.708911)'%3E%3Cpath fill='%234a5040' d='m 125.71849,60.708911 c 23.95156,25.785405 39.41279,60.765859 19.29402,84.412259 l -30.97353,-41.54612 17.86074,-13.246441 -27.94631,-10.722553 -36.098635,26.773304 15.1002,20.24986 17.520215,-12.99333 31.63056,42.42207 c -17.39938,9.57446 -41.477875,6.38152 -58.326075,-23.04675 l -11.38845,8.4456 c 0.3549,0.59151 0.69568,1.16818 1.04542,1.74909 -2.05666,-1.9368 -4.46781,-3.5618 -5.4442,-2.90022 -2.34201,1.58782 0.16702,2.66715 -4.7374,6.30448 -4.71773,3.49885 -5.70479,-1.00803 -12.16999,3.78684 -4.92588,3.65325 -5.95395,10.59558 -2.29097,15.50844 l 0.006,0.003 c 3.6631,4.91294 10.62673,5.93291 15.55257,2.27977 6.46519,-4.79484 2.41956,-7.03514 7.1373,-10.53403 4.90444,-3.63736 5.21791,-0.92915 7.41646,-2.70924 0.67487,-0.54339 0.38459,-2.19063 -0.31694,-4.02497 19.0053,26.81568 51.806385,32.21433 73.582565,18.63218 l 14.97066,20.07863 c 0,0 4.74726,5.72184 11.21708,0.92352 6.46997,-4.79835 2.5028,-10.76325 2.5028,-10.76325 l -16.2025,-21.73419 c 23.98879,-23.60134 25.35928,-70.153841 -28.94164,-97.347852 z'/%3E%3C/g%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.22; }
 
   .card-header {
     display: flex;
@@ -897,6 +922,7 @@
     margin-bottom: 8px;
     min-height: 18px;
   }
+  .card-type-row.no-armament { min-height: 0; margin-bottom: 3px; justify-content: flex-end; }
 
   .unit-name {
     font-family: var(--display);
@@ -904,6 +930,10 @@
     letter-spacing: 1px;
     color: var(--text);
     line-height: 1.1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .unit-name::before {
     content: '■ ';
@@ -1960,7 +1990,7 @@
     position: fixed;
     inset: 0;
     background: rgba(15, 14, 12, 0.95);
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     z-index: 200;
@@ -2121,9 +2151,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    opacity: 0.06;
+    opacity: 0.1;
     pointer-events: none;
-    color: var(--nation-color, var(--accent));
+    color: var(--nation-color, #4a3808);
   }
   .card-type-watermark .type-svg {
     width: 140px;
@@ -3301,6 +3331,16 @@
 </head>
 <body>
 
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <defs>
+    <filter id="paper-grain" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.68 0.52" numOctaves="4" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise" result="gray"/>
+      <feComposite in="SourceGraphic" in2="gray" operator="arithmetic" k1="0.16" k2="0.92" k3="0" k4="0"/>
+    </filter>
+  </defs>
+</svg>
+
 <header>
   <div class="logo" onclick="showHomeView()" style="cursor:pointer" title="Home">
     <img src="logo.png" alt="Hail of Fire" class="logo-img">
@@ -4068,13 +4108,12 @@ function renderGrid(container, forceIds, animate = true) {
       html += `
         <div class="unit-card ${inForce ? 'in-force' : ''} ${locked ? 'locked' : ''} ${nc}" id="card-${unit.id}" data-card-index="${cardIndex}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
           ${locked ? '<div class="lock-overlay">RESTRICTED</div>' : ''}
-          ${TYPE_ICONS[unit.type] ? `<div class="card-type-watermark">${TYPE_ICONS[unit.type]}</div>` : ''}
           <div class="card-header">
             <div class="unit-name">${unit.name}</div>
             <div class="${nationBadgeClass(unit.nation)}">${unit.nation}</div>
           </div>
-          <div class="card-type-row">
-            ${unit.armament ? `<div class="card-armament">${wrapArmamentMGs(unit.armament)}</div>` : '<div></div>'}
+          <div class="card-type-row${unit.armament ? '' : ' no-armament'}">
+            ${unit.armament ? `<div class="card-armament">${wrapArmamentMGs(unit.armament)}</div>` : ''}
             <div class="type-badge" data-type="${unit.type}">${unit.type}</div>
           </div>
           <div class="card-stats">
