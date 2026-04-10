@@ -922,7 +922,7 @@
     margin-bottom: 8px;
     min-height: 18px;
   }
-  .card-type-row.no-armament { min-height: 0; margin-bottom: 3px; justify-content: flex-end; }
+  .card-type-row.no-armament { min-height: 0; margin-top: 6px; margin-bottom: 3px; justify-content: flex-end; }
 
   .unit-name {
     font-family: var(--display);
@@ -4109,7 +4109,7 @@ function renderGrid(container, forceIds, animate = true) {
         <div class="unit-card ${inForce ? 'in-force' : ''} ${locked ? 'locked' : ''} ${nc}" id="card-${unit.id}" data-card-index="${cardIndex}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
           ${locked ? '<div class="lock-overlay">RESTRICTED</div>' : ''}
           <div class="card-header">
-            <div class="unit-name">${unit.name}</div>
+            <div class="unit-name" title="${unit.name}">${unit.name}</div>
             <div class="${nationBadgeClass(unit.nation)}">${unit.nation}</div>
           </div>
           <div class="card-type-row${unit.armament ? '' : ' no-armament'}">
