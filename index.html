@@ -299,6 +299,194 @@
     color: var(--text3);
   }
 
+  /* ── RULES PANEL ── */
+  .fm-rules-panel {
+    display: flex;
+    gap: 0;
+    min-height: 400px;
+    position: relative;
+    margin-top: 4px;
+  }
+  .rules-toc {
+    flex: 0 0 200px;
+    position: sticky;
+    top: -24px; /* compensates for .main 24px padding */
+    max-height: calc(100vh - var(--header-h));
+    overflow-y: auto;
+    padding: 0 16px 24px 0;
+    border-right: 1px solid var(--border);
+    align-self: flex-start;
+  }
+  .rules-toc-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .rules-toc-item {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    color: var(--text3);
+    padding: 4px 6px;
+    margin-bottom: 1px;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    transition: color 0.12s, border-color 0.12s;
+    background: none;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    text-align: left;
+    width: 100%;
+  }
+  .rules-toc-item:hover { color: var(--text2); border-left-color: var(--border); }
+  .rules-toc-item.active { color: var(--accent); border-left-color: var(--accent); }
+  .rules-toc-group {
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text3);
+    opacity: 0.5;
+    padding: 10px 6px 3px;
+  }
+  .rules-content {
+    flex: 1;
+    padding: 0 0 40px 24px;
+    min-width: 0;
+  }
+  .rules-section {
+    border: 1px solid var(--border);
+    margin-bottom: 6px;
+    transition: border-color 0.15s;
+  }
+  .rules-section.open { border-color: #44403a; }
+  .rules-section.rules-match { border-color: #6a5a30; }
+  .rules-section.rules-nomatch { opacity: 0.35; }
+  .rules-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--bg2);
+    transition: background 0.12s;
+  }
+  .rules-section-header:hover { background: var(--bg3); }
+  .rules-section.open .rules-section-header { background: var(--bg3); }
+  .rules-section-title {
+    font-family: var(--display);
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: var(--text);
+  }
+  .rules-section-tag {
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-left: 8px;
+  }
+  .rules-section-chevron {
+    font-size: 10px;
+    color: var(--text3);
+    transition: transform 0.15s;
+  }
+  .rules-section.open .rules-section-chevron { transform: rotate(180deg); }
+  .rules-section-body {
+    display: none;
+    padding: 14px 16px 16px;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .rules-section.open .rules-section-body { display: block; }
+  .rules-body-text {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text2);
+  }
+  .rules-body-text p { margin-bottom: 10px; }
+  .rules-body-text p:last-child { margin-bottom: 0; }
+  .rules-body-text strong { color: var(--text); font-weight: 600; }
+  .rules-body-text em { color: var(--accent); font-style: normal; font-weight: 500; }
+  .rules-body-text ul, .rules-body-text ol {
+    margin: 8px 0 10px 20px;
+  }
+  .rules-body-text li { margin-bottom: 5px; line-height: 1.6; }
+  .rules-body-text .rule-term {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .rules-subsection {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .rules-subsection:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+  .rules-subsection-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 8px;
+  }
+  .rules-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0;
+    font-size: 12px;
+  }
+  .rules-table th {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text3);
+    padding: 5px 10px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    background: var(--bg2);
+  }
+  .rules-table td {
+    padding: 5px 10px;
+    color: var(--text2);
+    border-bottom: 1px solid #1e1d1a;
+    vertical-align: top;
+  }
+  .rules-table tr:last-child td { border-bottom: none; }
+  .rules-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  .rules-highlight {
+    background: rgba(224,192,96,0.25);
+    color: var(--text);
+    border-radius: 1px;
+  }
+  .rules-no-results {
+    text-align: center;
+    padding: 60px 0;
+    opacity: 0.4;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: var(--text3);
+  }
+  @media (max-width: 640px) {
+    .rules-toc { display: none; }
+    .rules-content { padding-left: 0; }
+  }
+
   .logo {
     display: flex;
     align-items: center;
@@ -3215,7 +3403,7 @@
 <div class="section" id="section-fieldmanual">
   <div class="fm-section-header">
     <span class="fm-section-title">FIELD MANUAL</span>
-    <span class="fm-section-sub">Guides · Scenarios · Campaign</span>
+    <span class="fm-section-sub">Rules · Guides · Scenarios · Campaign</span>
   </div>
   <div class="fm-controls">
     <input type="text" class="fm-search" id="fm-search" placeholder="Search…" oninput="applyFmFilters()">
@@ -3224,6 +3412,7 @@
       <div class="chip" data-fmtype="Guide" onclick="toggleFmType('Guide')">Guides</div>
       <div class="chip" data-fmtype="Scenario" onclick="toggleFmType('Scenario')">Scenarios</div>
       <div class="chip" data-fmtype="Campaign" onclick="toggleFmType('Campaign')">Campaign</div>
+      <div class="chip" data-fmtype="Rules" onclick="toggleFmType('Rules')">Rules</div>
     </div>
     <select class="fm-sort" id="fm-sort" onchange="applyFmFilters()">
       <option value="newest">Newest First</option>
@@ -3233,6 +3422,14 @@
     <span class="fm-result-count" id="fm-result-count"></span>
   </div>
   <div class="fm-grid" id="fm-grid"></div>
+
+  <!-- RULES PANEL (shown when Rules chip active) -->
+  <div id="fm-rules-panel" class="fm-rules-panel" style="display:none">
+    <nav class="rules-toc" id="rules-toc">
+      <div class="rules-toc-title">Contents</div>
+    </nav>
+    <div class="rules-content" id="rules-content"></div>
+  </div>
 </div>
 
 <!-- UNIT DETAIL PANEL -->
@@ -4816,6 +5013,927 @@ function closeUnitDetail() {
   document.body.style.overflow = '';
 }
 
+// ── RULES DATA ────────────────────────────────────────────────────────────────
+const RULES_DATA = [
+  {
+    id: 'turns-orders',
+    title: 'Turns & Orders',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Players alternate turns. At the start of your turn, roll <strong>2d6 (Order Dice)</strong> and use the <em>higher</em> result as your <strong>Order Points</strong> for the turn.</p>
+        <p>Spend Order Points to activate Units. The <strong>Active Player</strong> activates one Unit at a time. You must finish one Unit's activation completely before starting another.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Turn Structure</div>
+          <ol>
+            <li>Roll 2d6, take the higher die as your Order Points total.</li>
+            <li>Spend Order Points to activate Units (1 OP per Unit activated).</li>
+            <li>Each activated Unit performs its Orders (Move or Fire).</li>
+            <li>When you choose not to spend more OP, pass the turn to your opponent.</li>
+          </ol>
+        </div>
+        <p><strong>Doubles:</strong> When both Order Dice show the same number, re-roll both and gain the new total as <strong>Hero Points</strong> (in addition to your Order Points).</p>
+      </div>`
+  },
+  {
+    id: 'hero-points',
+    title: 'Hero Points',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Before the game, each player rolls their <strong>Hero Die</strong> (kept hidden) to determine their starting Hero Points.</p>
+        <p>Hero Points can be spent at any time — even during your opponent's turn — for powerful effects.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Spending Hero Points</div>
+          <ul>
+            <li>Activate an <strong>already-activated</strong> Team to act again.</li>
+            <li>Activate one of your Teams <strong>during your opponent's turn</strong> (interrupt).</li>
+          </ul>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Gaining Hero Points</div>
+          <ul>
+            <li><strong>Order Dice Doubles:</strong> Re-roll both dice and gain the new total as HP.</li>
+            <li>Some optional rules (e.g., Alternative Order Dice) provide additional HP generation.</li>
+          </ul>
+        </div>
+        <p><em>Note:</em> Any unspent Hero Point at the end of your turn (before your next turn begins) is lost when a new one is generated.</p>
+      </div>`
+  },
+  {
+    id: 'units-checks',
+    title: 'Units & Checks',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Team Types</div>
+          <ul>
+            <li><strong>Infantry Teams</strong> — 2–5 men on a single base.</li>
+            <li><strong>Gun Teams</strong> — Crew-served weapons; man-portable guns can move through difficult terrain.</li>
+            <li><strong>Vehicle Teams</strong> — Tanks, half-tracks, trucks, and other vehicles.</li>
+          </ul>
+          <p><strong>Small Teams</strong> include Leaders, Snipers, Forward Observers, and similarly small elements. They follow special rules for assaults and morale.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Checks (d6)</div>
+          <p>Whenever a rule calls for a Check, roll a d6 and try to <strong>equal or beat the target number</strong> (usually 4+). Checks include:</p>
+          <ul>
+            <li><strong>Assault Check</strong> — Required to attack in close combat.</li>
+            <li><strong>Morale Check</strong> — Required when a Unit falls below half strength.</li>
+            <li><strong>Rally Check</strong> — Attempt to remove suppression from a Team.</li>
+            <li><strong>Training Check</strong> — Various special situations (terrain, leader loss, etc.).</li>
+          </ul>
+          <p><strong>Elite</strong> troops re-roll 1s on all Checks. <strong>Poor</strong> troops re-roll 6s on all Checks.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'activation',
+    title: 'Activation',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>When you activate a Unit, its <strong>Platoon Leader (PL)</strong> activates all Teams in the Unit. The PL may activate any Team within <strong>Line of Sight (LoS)</strong>.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Activation Sequence</div>
+          <ol>
+            <li><strong>Declare Orders</strong> — The PL issues Move or Fire orders to Teams.</li>
+            <li><strong>Rally</strong> — Suppressed Teams with no RFPs make Rally Checks.</li>
+            <li><strong>Resolve RFPs</strong> — Roll for all outstanding Received Fire Points.</li>
+            <li><strong>Execute Orders</strong> — Teams carry out their declared orders.</li>
+          </ol>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Issuing Orders</div>
+          <p>The PL can issue <strong>one order to all Teams</strong>, or <strong>split two different orders</strong> among Teams in the Unit. Any Team not given an order does nothing this activation.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'moving',
+    title: 'Moving',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Movement Rates</div>
+          <table class="rules-table">
+            <tr><th>Team Type</th><th>Move</th></tr>
+            <tr><td>Infantry</td><td>2d6"</td></tr>
+            <tr><td>Gun Teams</td><td>1d6"</td></tr>
+            <tr><td>Vehicles (Tracked/Half-tracked)</td><td>3d6"</td></tr>
+            <tr><td>Vehicles (Wheeled)</td><td>3d6"</td></tr>
+          </table>
+          <p><em>Declare your destination before rolling.</em></p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Terrain & Roads</div>
+          <p>Tracked and Half-Tracked vehicles must make a <strong>Training Check</strong> when entering <em>Difficult Ground</em> or <em>Very Difficult Ground</em>. A failed check means the vehicle cannot enter that terrain this activation.</p>
+          <ul>
+            <li>Moving on <strong>roads</strong>: Tracked/Half-Tracked +6", Wheeled +12".</li>
+          </ul>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Vehicle Pivoting</div>
+          <p>Vehicles may <strong>pivot freely</strong> before moving up to 6". After that, they must move in a <strong>straight line</strong>.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'firing',
+    title: 'Firing',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Fire Arcs</div>
+          <ul>
+            <li><strong>Infantry &amp; rotating turrets:</strong> 360°</li>
+            <li><strong>All others (hull-mounted, fixed guns):</strong> 90° (±45° from forward)</li>
+          </ul>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Attack Procedure</div>
+          <ol>
+            <li>Check target is within range and fire arc.</li>
+            <li>Roll dice equal to the weapon's <strong>Rate of Fire (RoF)</strong>.</li>
+            <li>Each die that rolls <strong>4+</strong> scores a hit.</li>
+            <li>Allocate hits to the target Team, then to Teams within 4" of the target.</li>
+          </ol>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Fire Modifiers</div>
+          <table class="rules-table">
+            <tr><th>Condition</th><th>Modifier</th></tr>
+            <tr><td>Concealed target</td><td>+1 to roll needed (harder to hit)</td></tr>
+            <tr><td>Long Range (over half weapon range)</td><td>+1 to roll needed</td></tr>
+            <tr><td>HE weapons firing</td><td>Ignore concealment modifier</td></tr>
+          </table>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Hits on Non-Vehicle Teams</div>
+          <p>Each hit generates <strong>RFPs</strong> equal to the weapon's <strong>Fire Power (FP)</strong>. Non-vehicle Teams can only receive <strong>1 hit per Fire Order</strong>.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'firing-vehicles',
+    title: 'Firing at Vehicles',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Compare the weapon's <strong>Anti-Tank (AT)</strong> rating against the vehicle's <strong>Armor Rating (AR)</strong>.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">AT vs AR Outcomes</div>
+          <table class="rules-table">
+            <tr><th>Condition</th><th>Roll</th><th>Result on 6</th><th>Result on other</th></tr>
+            <tr><td><strong>AT ≤ AR</strong> (bouncing off)</td><td>AT value dice</td><td>RFPs equal to FP</td><td>No effect</td></tr>
+            <tr><td><strong>AT &gt; AR</strong> (penetrating)</td><td>Difference dice</td><td>Vehicle destroyed</td><td>RFPs equal to FP</td></tr>
+            <tr><td><strong>AR ≥ 2× AT</strong></td><td>—</td><td colspan="2">Ineffective — cannot damage</td></tr>
+          </table>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Armor Facing</div>
+          <p>Vehicles have <strong>Front / Flank</strong> armor values. Artillery barrages and assaults hit <strong>Flank</strong> armor. Direct fire uses Front armor from the front arc, Flank from sides/rear.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'resolving-rfps',
+    title: 'Resolving RFPs',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Roll one d6 per <strong>Received Fire Point (RFP)</strong>. Take the <em>worst</em> result among all rolls.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">RFP Resolution Table</div>
+          <table class="rules-table">
+            <tr><th>Roll</th><th>Hard Cover</th><th>No Hard Cover</th></tr>
+            <tr><td>1</td><td>Killed</td><td>Killed</td></tr>
+            <tr><td>2–3</td><td>Suppressed</td><td>Killed</td></tr>
+            <tr><td>4+</td><td>Ready (no effect)</td><td>Suppressed</td></tr>
+          </table>
+          <p><em>Suppressed Infantry and Gun Teams always resolve as though in Hard Cover, even if they aren't.</em></p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">States</div>
+          <ul>
+            <li><strong>Ready</strong> — Normal operating condition.</li>
+            <li><strong>Suppressed</strong> — Team is pinned. May not act offensively; always benefits from Hard Cover when resolving RFPs.</li>
+            <li><strong>Killed</strong> — Team is removed from the table.</li>
+          </ul>
+        </div>
+      </div>`
+  },
+  {
+    id: 'rally',
+    title: 'Rally',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Suppressed Teams with <strong>no RFPs</strong> may make a <strong>Rally Check</strong> (4+ on d6) at the start of an activation. Success removes suppression; they are now Ready.</p>
+        <p>Teams with outstanding RFPs <strong>cannot rally themselves</strong> — they must resolve those RFPs first.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Fall Back</div>
+          <p>A Suppressed Team that is <strong>outside LoS of all enemy Teams</strong> automatically removes its suppression — no check required.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Leader Rally</div>
+          <p>A Leader in base contact with a suppressed Team may <strong>attempt a Rally</strong> on that Team as one of their Leader Abilities during the activation.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'cover-terrain',
+    title: 'Cover & Terrain',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Terrain Types</div>
+          <table class="rules-table">
+            <tr><th>Terrain</th><th>Cover</th><th>Movement</th></tr>
+            <tr><td>Woods / Fields</td><td>Concealment</td><td>Difficult Ground</td></tr>
+            <tr><td>Buildings / Stone Walls</td><td>Hard Cover + Concealment</td><td>Very Difficult</td></tr>
+            <tr><td>Linear Obstacles (walls, bocage)</td><td>Concealment (fire over) / Hard Cover (touching)</td><td>—</td></tr>
+          </table>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Area Terrain Rules</div>
+          <ul>
+            <li>Grants <strong>Concealment</strong> to any Team touching it.</li>
+            <li>Teams may <strong>fire into</strong> area terrain but <strong>not through it</strong>.</li>
+            <li>Teams inside buildings must <strong>touch an exterior wall</strong> to fire outside.</li>
+          </ul>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Linear Obstacle Details</div>
+          <p>Walls and bocage offer <strong>Concealment</strong> if fire crosses over them. If the target Team is <strong>touching</strong> the obstacle on the side opposite incoming fire, it counts as <strong>Hard Cover</strong>.</p>
+          <p>A Team against a linear obstacle <strong>receives fire from both sides</strong> — all RFPs resolved as from the unprotected side. Tall bocage <strong>blocks LoS</strong> unless Teams are touching it; fire through thick bocage only via a forward 90° arc perpendicular to the hedge.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'leaders',
+    title: 'Leaders',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Infantry and Gun Units each have a <strong>Platoon Leader (PL)</strong> Team. PLs do <em>not</em> fire, but may always Move up to 12" each time they are activated.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Leader Abilities</div>
+          <p>Once per activation, an unsuppressed Leader may improve one Team under their command:</p>
+          <ul>
+            <li><strong>Direct Fire</strong> — Add +1 to the RoF of a Team in base contact.</li>
+            <li><strong>Rally</strong> — Attempt a Rally Check for a Team in base contact. If the PL was ordered to Move, the Leader moves with the rallied Team.</li>
+            <li><strong>Move Up</strong> — Grant a Team +3" of movement, ending in base contact with the Leader.</li>
+          </ul>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Leader Casualties</div>
+          <p>If a Leader is killed after giving orders, only <strong>one Team</strong> may act that activation. Afterward, make a <strong>Training Check</strong> each time any of that Unit's Teams are given orders.</p>
+          <p>If the Training Check succeeds, place a new PL in base contact with the active Team — the new PL immediately gives orders to the rest of the Unit.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Positioning</div>
+          <p>When in base contact with a Team, a Leader's position is abstracted — LoS to and from the Leader is treated the same as LoS to and from that Team.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'assaults',
+    title: 'Assaults',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Teams assault by ending their <strong>Move order</strong> in base contact with enemy Teams. To initiate an assault:</p>
+        <ul>
+          <li>Assaulting Teams must start within <strong>12"</strong> of their intended targets.</li>
+          <li>At least one assaulting Team must be <strong>unsuppressed</strong> and have <strong>LoS</strong>.</li>
+          <li>No more than <strong>2 Teams</strong> may be in base contact with a single enemy Team at once.</li>
+        </ul>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Assault Sequence</div>
+          <ol>
+            <li><strong>Attackers Move</strong> — Assaulting Teams move into base contact with defending Teams.</li>
+            <li><strong>Defenders Respond</strong> — Defending Teams activate immediately (no OP cost). They perform Rally Checks and resolve RFPs. Any defending Team that is <em>not Ready</em> may either Move away or roll an <strong>Assault Check</strong> to destroy one attacking Team.</li>
+            <li><strong>Attackers Strike</strong> — Each attacking Team in base contact may roll an <strong>Assault Check</strong> to destroy one defending Team they are in contact with.</li>
+            <li><strong>Repeat</strong> — Alternate Steps 2 and 3 until no Teams remain in contact.</li>
+          </ol>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Consolidation</div>
+          <p>When a Team in contact finds itself <em>no longer in contact</em> (enemy destroyed or moved away), it may immediately make a <strong>3" consolidation move</strong>, including into contact with another enemy.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Regroup</div>
+          <p>Any Team that made an Assault Check or chose to Move Out of contact is <strong>marked Suppressed</strong> when finishing its activation out of contact with enemy.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Small Teams in Assault</div>
+          <p>Small Teams do not fight in assaults. If <em>contacted while alone</em>, they are <strong>destroyed</strong>. If a friendly Team they are in contact with is killed in assault, they <strong>must move up to 6"</strong> to contact another Team in their Unit, or become suppressed or destroyed.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Leaders in Assault</div>
+          <p>Leaders in contact with a Team from their Unit allow that Team to <strong>re-roll failed Assault Checks</strong>.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'vehicles-assaults',
+    title: 'Vehicles in Assaults',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <p><strong>Vehicle Teams may not assault enemy Vehicle Teams.</strong></p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Infantry vs Vehicles</div>
+          <p>When Infantry or Gun Teams contact an enemy Armored Vehicle, a successful <strong>Assault Check</strong> counts as a hit against the vehicle's <strong>Flank Armor</strong>.</p>
+          <ul>
+            <li>Teams with AT weapons: <strong>AT +1</strong></li>
+            <li>Teams without AT weapons: count as <strong>AT 2</strong></li>
+          </ul>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Close Assault Support</div>
+          <p>An Infantry AT Team (e.g., Bazooka or Panzerschreck) in base contact with a friendly Team <strong>conveys its AT value</strong> to that friendly Team for the assault.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Vehicles vs Enemy Contact</div>
+          <p>Vehicles that fail to become Ready while in base contact with enemy are <strong>destroyed</strong>. <strong>Open-Topped</strong> vehicles are automatically destroyed when resolving RFPs in contact with enemy.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Ambush</div>
+          <p>If starting their Move <em>concealed</em>, Infantry assaulting Vehicle Teams may make their <strong>Assault Checks before the Vehicles do</strong>.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'morale',
+    title: 'Morale',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Units must test Morale when they have lost <strong>more than half</strong> of their starting Teams. (Small Teams — Leaders, Transport Teams — do not count toward this total.)</p>
+        <p>When a Unit falls below half strength, it must immediately make a <strong>Morale Check</strong>.</p>
+        <ul>
+          <li><strong>Success</strong> — The Unit continues fighting.</li>
+          <li><strong>Failure</strong> — The Unit is <strong>destroyed</strong>; all remaining Teams are removed.</li>
+        </ul>
+        <p>The Unit must repeat this Check each time further casualties are revealed.</p>
+        <p><strong>Any Unit reduced to a single Infantry or Man-Portable Gun Team is automatically destroyed</strong> and removed from the table.</p>
+      </div>`
+  },
+  {
+    id: 'artillery',
+    title: 'Artillery',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Artillery Units with at least <strong>2 guns</strong> may fire barrages at targets they cannot see, as long as the target is within the weapon's forward arc and at least one friendly Team in the Unit can observe the target. Artillery has <em>no range restrictions</em> when firing indirectly.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Barrage Sequence</div>
+          <ol>
+            <li><strong>Call for Fire</strong> — Spend your first Order Point activating the artillery Unit. Mark the observing Team as "Observing." All participating Teams (including FOs) must not Move or Fire for the rest of the turn or forfeit observing status.</li>
+            <li><strong>Range In</strong> — At the start of your <em>next</em> turn, place a Range In marker within LoS of the observing Team and at least <strong>16"</strong> from any firing Team.</li>
+            <li><strong>Roll d10 for Deviation</strong> — The marker deviates d10 inches in a random direction (use the pointed end of the d10 for direction).</li>
+            <li><strong>Fire for Effect (FFE)</strong> — Resolve the barrage at the current marker position, OR return the marker to its original position. If no participating Teams activate this turn, a new deviation roll is made automatically next turn. Repeat until FFE or new orders are given.</li>
+          </ol>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Barrage Effects</div>
+          <p>Each Team within <strong>4"</strong> of the Range In marker receives RFPs based on artillery Fire Power:</p>
+          <table class="rules-table">
+            <tr><th>Artillery Type</th><th>RFPs</th></tr>
+            <tr><td>Light</td><td>1 RFP</td></tr>
+            <tr><td>Medium</td><td>2 RFPs</td></tr>
+            <tr><td>Heavy</td><td>3 RFPs</td></tr>
+          </table>
+          <p>Firing with <strong>more than 2 guns</strong> increases the radius by +1" per additional gun.</p>
+          <p>Vehicles subtract their Flank AR from RFPs received (maximum -2). <strong>Open-Topped</strong> vehicles resolve the barrage as a hit against their Flank Armor with AT equal to the RFPs. Any Team that activates and <strong>ends inside the barrage radius</strong> receives RFPs.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Sustained Barrage</div>
+          <p>At the start of the barraging player's next turn, roll <strong>4+</strong> to continue the barrage. On a failure, the barrage ends and an Order Point may be spent to observe for a new barrage. Teams already inside the barrage radius do not receive additional RFPs from a sustained barrage.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Smoke</div>
+          <p>Artillery Units may fire smoke instead of a barrage, following the same procedure. Instead of FFE, place one <strong>3" diameter Smoke marker</strong> per gun firing, arranged so each touches another and one touches the Range In point. Teams touching smoke have no LoS to or from Teams outside the smoke. Smoke is removed at the beginning of the <em>firing player's</em> next turn.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Forward Observers (FOs)</div>
+          <p>FOs activate with the artillery PL and do <em>not</em> need LoS to their PL to Move or observe. FOs may only be targeted if an enemy Team is within 12" or if the FO is not concealed. Suppressed FOs may not observe.</p>
+          <p>If an Artillery Unit deploys in reserve or off-board, its FO may still deploy at the beginning of the game. Any PL may act as an FO for an artillery Unit, but that PL may not move or give orders until their following turn.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Mortars</div>
+          <p>On-table mortars score a direct hit on a deviation roll of <strong>8+</strong>. If at least one on-table Mortar Team can observe for itself, its Unit may FFE immediately and without deviation.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'transports',
+    title: 'Transports',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Vehicle Teams such as trucks, half-tracks, and troop carriers can provide additional mobility to other Teams. Transports carry between <strong>two and four Infantry Teams</strong> and/or <strong>one Man-Portable Gun Team</strong>. One towed Gun Team per Vehicle. Transports may only carry Teams from the Unit they belong to.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Loading & Unloading</div>
+          <p><strong>Loading/unloading</strong> troops and <strong>limbering/unlimbering</strong> guns happen before any participating Teams Move or Fire.</p>
+          <ul>
+            <li>To load, all loading Teams must be within <strong>4" and LoS</strong> of the Transport. Infantry Teams are removed from the table and set aside. Gun Teams may be placed behind the Transport as though being towed.</li>
+            <li>To unload, place the Transported Teams within <strong>4" and LoS</strong> of the Transport.</li>
+          </ul>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Called to the Rear</div>
+          <p>After unloading, Transports are <strong>"Called to the Rear"</strong> and removed from the board. They may return later by placing them within 4" of any Teams from their Unit, as long as no enemy Teams are within 16" and LoS.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Destroyed Transports</div>
+          <p>If a Transport is destroyed, any Teams it is carrying are placed within 4" and immediately resolve a single RFP:</p>
+          <ul>
+            <li>Destroyed by <strong>Penetration Roll</strong>: resolve as though <em>not</em> in Hard Cover.</li>
+            <li>Destroyed by <strong>RFPs</strong>: resolve as though <em>in</em> Hard Cover.</li>
+          </ul>
+          <p>Suppressed Transports may not be Called to the Rear. Transports do not count toward a Unit's total Teams and do not cause Morale Checks when destroyed.</p>
+          <p><strong>Passenger-Fired</strong> weapons require the Transport to be carrying a Team in order to be fired.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'deployment',
+    title: 'Deployment & Hidden Teams',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Setting Up</div>
+          <p>Both players decide which forces and terrain will be placed. One player is the <strong>Defender</strong>, the other the <strong>Attacker</strong>. Often the player with more Vehicle Teams is the Attacker.</p>
+          <ul>
+            <li>The Defender picks a long table edge to deploy from; the Attacker deploys from the opposite edge.</li>
+            <li>The Defender declares one point on their half of the table as an <strong>objective</strong>, outside 6" of the center line and any table edge. The Attacker then declares two more objectives on the Defender's half, within the same restrictions.</li>
+            <li>The Defender must declare <strong>half their Units (rounded down)</strong> to be held in reserve. Vehicle Units must be held in reserve before Non-Vehicle Units.</li>
+            <li>The Defender's remaining Units are considered <strong>"Hidden"</strong> on their half of the table and Dug In (in Hard Cover) until they Move.</li>
+            <li><strong>Dug-In</strong> Teams that only Move during an assault may return to their foxholes.</li>
+            <li>The Attacker then deploys all their Units, either Hidden or revealed, on their side of the table, outside 16" of the center line.</li>
+          </ul>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Hidden Teams</div>
+          <p>Hidden Teams do not need to be pre-plotted and may be revealed at any time without spending an Order Point. They must be revealed inside their deployment zone and either outside LoS of any enemy, or in concealing terrain at least <strong>16"</strong> from enemy Infantry/Gun Teams or <strong>8"</strong> from enemy Vehicle Teams.</p>
+          <table class="rules-table">
+            <tr><th>Hidden Teams are revealed when…</th></tr>
+            <tr><td>Outside LoS, <em>or</em></td></tr>
+            <tr><td>In Concealing Terrain and outside 16" of Infantry and Gun Teams</td></tr>
+            <tr><td>In Concealing Terrain and outside 8" of Vehicle Teams</td></tr>
+          </table>
+          <p>If revealed immediately after enemy movement, subtract the distance moved from these ranges. A position outside LoS of all moving Teams before they moved may be revealed freely, regardless of distance or concealment.</p>
+          <p>Teams from the same Unit cannot be revealed simultaneously but must be revealed within 12" of another Team from their Unit.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'special-rules',
+    title: 'Special Rules',
+    group: 'Reference',
+    body: `
+      <div class="rules-body-text">
+        <p>These keywords appear in unit profiles and modify how those Teams behave.</p>
+        <table class="rules-table">
+          <tr><th>Rule</th><th>Effect</th></tr>
+          <tr><td><strong>AA MGs &amp; .50 cals</strong></td><td>Vehicles firing these weapons count as Open-Topped when assaulted or attacked by Air/Artillery before they next activate.</td></tr>
+          <tr><td><strong>Anti-Air</strong></td><td>See Air Support in Optional Rules.</td></tr>
+          <tr><td><strong>Bunker Buster</strong></td><td>When using direct fire, unarmored Teams within 2" of a hit Target Team each receive 1 RFP.</td></tr>
+          <tr><td><strong>Fast</strong></td><td>Add +2 inches to movement.</td></tr>
+          <tr><td><strong>Flame-thrower</strong></td><td>See Flame-Throwers in Optional Rules.</td></tr>
+          <tr><td><strong>Light Mortar</strong></td><td>When activated by a Leader, may fire at targets within that Leader's LoS with a +1 modifier to hit.</td></tr>
+          <tr><td><strong>Limited HE</strong></td><td>This weapon does not ignore the concealment modifier when firing at non-Vehicle Teams.</td></tr>
+          <tr><td><strong>Man-Portable</strong></td><td>These Gun Teams move 2d6", may move through Very Difficult Terrain, and their weapons ride with them in Transports rather than being towed.</td></tr>
+          <tr><td><strong>Overloaded</strong></td><td>Re-roll successful Terrain Checks.</td></tr>
+          <tr><td><strong>Slow</strong></td><td>Drop the lowest die when making movement rolls.</td></tr>
+          <tr><td><strong>Smoke</strong></td><td>See Tank-Fired Smoke in Optional Rules.</td></tr>
+          <tr><td><strong>Unreliable</strong></td><td>For any movement dice that roll a 1, roll 1d6. On a 1, the tank is immobile this activation.</td></tr>
+          <tr><td><strong>Wide Tracks</strong></td><td>Re-roll failed Terrain Checks.</td></tr>
+        </table>
+      </div>`
+  },
+  {
+    id: 'optional-air-support',
+    title: 'Air Support & Anti-Aircraft',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Players may attempt an Air Support strike <strong>once per turn</strong>. Air Support is limited to <strong>3 successful strikes</strong> per game. Track used strikes with markers or dice.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Air Support Procedure</div>
+          <ol>
+            <li><strong>Air Roll (1d6):</strong>
+              <ul>
+                <li><strong>1</strong> — Mission aborted.</li>
+                <li><strong>2–5</strong> — Proceed to AA Engagement.</li>
+                <li><strong>6</strong> — Attack succeeds automatically.</li>
+              </ul>
+            </li>
+            <li><strong>AA Engagement (if Air rolled 2–5):</strong> Each AA Team that <em>did not activate</em> during its previous turn may attempt to intercept. AA Teams roll a number of dice equal to their RoF. Each die rolling <em>higher</em> than the Air Roll scores one hit. For each hit, the Air Support player rolls 1d6, trying to roll <em>higher</em> than the AA gun's AT rating. If all saves fail, the aircraft is driven off.</li>
+          </ol>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Multiple AA Guns</div>
+          <p>When multiple AA guns operate together as a unit, the first gun uses its full RoF; each additional gun adds +1 die. All dice use the same AT rating as the first gun.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Aircraft Attack Profiles</div>
+          <ul>
+            <li><strong>Bombs</strong> — Place an impact marker, roll d10-3 for deviation. All Teams within 3" of the final marker position receive 3 RFPs. Vehicles subtract their Flank AR (max -2).</li>
+            <li><strong>Rockets</strong> — Declare one enemy Team as the target. If a vehicle, treat as AT 5 vs Flank Armor. Infantry/Gun Teams receive 3 RFPs.</li>
+            <li><strong>Cannons</strong> — Draw a 12" long, 2" wide line across the table. All Teams touching or crossed by the line receive 2 RFPs (Vehicles subtract Flank Armor).</li>
+          </ul>
+          <p><strong>Ground Attack Restriction:</strong> Aircraft may not target enemy Teams within 12" of any friendly Teams.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'optional-troop-quality',
+    title: 'Alternative Troop Quality',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Checks are d6 rolls trying to equal or beat 4+. Most forces are <strong>Regular</strong>. Before the game, players may assign <strong>Elite</strong> or <strong>Poor</strong> quality to Units.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Quality Effects</div>
+          <table class="rules-table">
+            <tr><th>Quality</th><th>Effect on Checks</th><th>Effect vs Vehicles</th></tr>
+            <tr><td><strong>Elite</strong></td><td>Re-roll 1s</td><td>Re-roll 1s when firing at vehicles; also re-roll 1s when resolving RFPs (1–3 Killed, 4+ Suppressed)</td></tr>
+            <tr><td><strong>Regular</strong></td><td>Normal</td><td>Normal</td></tr>
+            <tr><td><strong>Poor</strong></td><td>Re-roll 6s</td><td>Re-roll 6s in all these cases</td></tr>
+          </table>
+        </div>
+      </div>`
+  },
+  {
+    id: 'optional-order-dice',
+    title: 'Alternative Order Dice',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Instead of 2d6, players roll <strong>one Order Die for each friendly PL Team and Vehicle Unit</strong> deployed on the table. Vehicle Units with half or more Teams destroyed or suppressed contribute no dice. FOs count as PL Teams for off-board artillery Units.</p>
+        <p>Each die showing <strong>4+</strong> generates 1 Order Point. Always add +1 to this total.</p>
+        <p>One die must be of a <strong>different color</strong> — this is the <strong>Hero Die</strong>. If the Hero Die rolls 6, reveal and discard any remaining Hero Points, then roll 1d6 (keeping it hidden), gaining a number of Hero Points equal to the new roll.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Hero Point Generation (Alternative)</div>
+          <p>While on the table, generate <strong>1 Hero Point</strong> at the beginning of the player's turn. If this Hero Point is not spent before the start of the player's following turn, it is lost before a new one is generated.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'optional-company-commander',
+    title: 'Company Commander',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>A <strong>Company Commander (CC)</strong> is a unit of one Team. When activated, they may activate a Platoon Leader Team within LoS, who then activates their Teams normally. CCs may perform any Leader Abilities on non-vehicle Teams in the company.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Command Presence</div>
+          <p>If within <strong>4" of Teams in an activated Platoon</strong>, that Platoon may re-roll failed Morale Checks. If the unit flees, the CC flees with them, counting as an additional destroyed unit.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'optional-engineers',
+    title: 'Engineers',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Clearing</div>
+          <p>Engineer (also called Pioneer) Teams may clear Obstacles and Minefields as described in the Obstacles optional rules.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Demolitions</div>
+          <p>An Engineer Team that starts its activation in base contact with a building, bunker, or bridge may spend a full activation attempting to place a demolition charge, requiring a successful <strong>Training Check</strong>. On subsequent activations, if still in base contact, they may detonate it. All Teams inside the targeted structure immediately resolve 3 RFPs as though in Open Ground. A bunker hit by a demolition charge resolves the penetration roll of AT 6 against Armor 2.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Assaulting Vehicles</div>
+          <p>All Engineering Teams count as AT 3 when assaulting Vehicle Teams.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'optional-flame-throwers',
+    title: 'Flame-Throwers',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Flame-thrower teams have a range of <strong>4"</strong> (may not fire at Long Range), Rate of Fire of <strong>3</strong>, and FP: 3.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Firing</div>
+          <p>Roll 3 dice at 4+ to hit, applying no modifiers for concealment or cover. Allocate hits normally, with a maximum of 1 hit per non-vehicle Team. Each hit applies 3 RFPs to the target. Against vehicles, apply 3 RFPs to the vehicle.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">One-Shot Weapon</div>
+          <p>After firing once, the flamethrower fuel is expended. Flame-Thrower Infantry Teams permanently become standard Infantry Teams as the rest of their Unit.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Assault</div>
+          <p>Flamethrower Teams pass Assault Checks on 4+ before their fuel is expended. After expending fuel, they use the normal 4+ Assault Check.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'optional-direct-fire-smoke',
+    title: 'Direct Fire Smoke',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Teams with the <strong>Smoke</strong> ability may fire smoke rounds with direct fire, replacing the Team's normal Fire action.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Procedure</div>
+          <ol>
+            <li>Choose an enemy Team within the shooting weapon's range.</li>
+            <li>Roll one Fire Die to successfully fire smoke, applying normal firing modifiers for concealment and long range.</li>
+            <li>If the roll fails, no smoke is placed.</li>
+            <li>If successful, place a 3" smoke marker on top of the targeted Team.</li>
+          </ol>
+          <p>Smoke dissipates at the beginning of the firing player's next turn. <strong>Firing Order:</strong> Smoke rounds must be resolved before any other fire from the same Unit.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'optional-recon',
+    title: 'Expanded Reconnaissance',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Defensive Recon</div>
+          <p>Defending forces with at least one recon Platoon may deploy all Teams up to <strong>6" beyond the center line</strong>. Defending recon Units may reveal themselves up to 12" beyond the center line. Normal Hidden Team revelation restrictions still apply.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Eyes On</div>
+          <p>Once per activation, if no Teams in the Recon Unit have Moved or Fired, the Recon Unit's Leader may attempt to <strong>"Spot"</strong> one concealed enemy Team within LoS. Make a Training Check. If passed, place a <em>Spotted</em> marker on the target.</p>
+          <p>Until the spotted Team moves, all friendly Teams firing at it or any Team within 4" <strong>ignore the penalty for Long Range</strong>. Remove the Spotted marker if the target moves.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'optional-form-on-me',
+    title: 'Form On Me',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Activated PL Teams may forego moving or using Leader Abilities to give a <strong>Form On Me</strong> order. This may not be given as part of a split order.</p>
+        <p>This order may activate any Teams in the Unit <strong>in and out of LoS</strong>, requiring them to attempt to Move within LoS of the PL Team. Teams that start their move already within LoS of the PL Team may move in any direction, as long as they end their move in LoS of the PL Team and not within 12" of enemy Teams.</p>
+      </div>`
+  },
+  {
+    id: 'optional-fortifications',
+    title: 'Fortifications',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Bunkers</div>
+          <p>Each bunker is its own Unit. Bunkers are always concealed, and an additional <strong>+1</strong> is always applied to the target number needed to hit them. When resolving RFPs, bunkers count <em>Killed</em> results as Suppressed.</p>
+          <p>Enemy Teams that move into contact with the firing points of the bunker may assault it, treating it as any other Team.</p>
+          <p>When hit by direct fire from a weapon with the <strong>Bunker Buster</strong> keyword, make a penetration roll vs Armor Rating 2 to destroy the bunker outright.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Trench Lines</div>
+          <p>Trench lines come in sets of four <strong>8" lengths</strong> that are placed during setup. Infantry and Gun Teams in trenches are <strong>Concealed and in Hard Cover</strong>. Unlike being Dug In in foxholes, moving or leaving the trench does not cause the trench to be removed — Teams can continue to use it or return to it. Enemy Teams that reach the trench may use it as well.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'optional-obstacles',
+    title: 'Obstacles',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Obstacles come in sets of three <strong>8"×2"</strong> markers placed visibly during setup. One set of 3 counts as one "unit equivalent" when using the Force Parity Procedure.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Anti-Tank Obstacles</div>
+          <p>Only Infantry and Man-Portable Gun Teams may cross anti-tank obstacles. Non-Vehicle Teams in base contact count as concealed and in Hard Cover from fire coming from the other side.</p>
+          <p>Teams starting their activation in base contact may attempt to remove the obstacle with a successful <strong>Clearing Check</strong>. Non-Engineer Teams must re-roll successes. Each success applies 1 Clearing Point. An anti-tank obstacle requires <strong>5 Clearing Points</strong> to be removed.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Minefields</div>
+          <p>When a Team's movement brings them into contact with a minefield, that Team must immediately resolve <strong>1 RFP</strong>. If the result is Ready, the Team may complete its remaining movement.</p>
+          <p>Engineer Teams may end their movement in base contact with the edge of a minefield without triggering it. Teams starting in contact may make a Clearing Check — each success applies 1 Clearing Point. A minefield requires <strong>3 Clearing Points</strong> to be removed (clearing takes the Engineer's full activation).</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Wire</div>
+          <p>Infantry and Man-Portable Gun Teams must make a successful <strong>Training Check</strong> to cross wire and complete their movement. A failed check stops the Team in base contact with the wire.</p>
+          <p>Gun Teams and non-Tracked Vehicle Teams may not cross wire. Tracked Vehicles cross wire automatically, removing it in the process.</p>
+          <p>Teams starting their activation in base contact with wire may attempt to remove it with a successful Clearing Check. Non-Engineer Teams must re-roll their first success.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'optional-preliminary-bombardment',
+    title: 'Preliminary Bombardment',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Before deployment, starting with the Defender, players each place a Range In marker (1 for each of their Artillery Units available on Turn 1) on any point of the table. Immediately roll for deviation using standard procedure and shift the marker to its final position. These markers <strong>stay on the table for the remainder of the game</strong>.</p>
+        <p>Any Teams deployed or revealed within the marker's barrage radius are immediately assigned RFPs per the artillery weapon. Teams that move into the radius after being revealed are not affected — the barrage has already passed. Dug-In and Hard Cover Teams resolve these RFPs normally.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Pre-Registered Target</div>
+          <p>Any friendly Artillery Unit may fire on this marker without a forward observer and without the Range In step, proceeding directly to the deviation roll and FFE on the turn the order is given. Normal artillery procedures otherwise apply.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'optional-snipers',
+    title: 'Snipers',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Snipers are Small Teams that are always deployed <strong>Hidden</strong>. Snipers cost <strong>1 Order Point</strong> to reveal — anywhere outside 12" of any enemy Teams. Snipers are destroyed if any enemy Team moves within 4" of them.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Sniper Fire</div>
+          <p>Once per turn, an activated Sniper may place a Sniper Fire marker on one enemy Team within <strong>20" and LoS</strong>. Snipers may target Small Teams, bypassing normal target priority.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Resolution</div>
+          <p>When a marked Team activates, it resolves <strong>1 RFP</strong> as though in open ground. If the Target survives, both the target and the closest Team within 4" become suppressed. If the target is destroyed, the two closest Teams within 4" become suppressed. If no Teams are within 4", only the target is affected. Remove the marker after resolution.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Displace</div>
+          <p>Instead of placing a Sniper Fire marker, an activated Sniper may <strong>Displace</strong> by removing itself from the table. Snipers removed this way do not count as destroyed and may be deployed again.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'optional-hp-vehicle-interrupt',
+    title: 'Hero Point Vehicle Interruption',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>After an opponent rolls for a vehicle's movement, spend <strong>1 Hero Point</strong> to interrupt. Choose a point along the vehicle's movement path and activate one of your Teams to fire at the vehicle at that position.</p>
+        <p>If the vehicle is not destroyed or assigned RFPs, it completes its remaining movement.</p>
+      </div>`
+  },
+  {
+    id: 'optional-national-characteristics',
+    title: 'National Characteristics',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Each nation's forces may use the following special rules, representing broad doctrinal and organizational differences. Players should agree before the game whether to use National Characteristics.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Great Britain</div>
+          <ul>
+            <li><strong>Mike Target</strong> — Any British FO may call fire for any friendly Artillery Unit. When calling for fire, make a Training Check. If passed, place the Range In marker and resolve FFE immediately (deviation still applies).</li>
+            <li><strong>Stubborn Defense</strong> — British Infantry Teams in Hard Cover may re-roll one Suppressed result when resolving RFPs (1–3 = Suppressed, 4+ = Ready). Take the worst result overall.</li>
+          </ul>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Germany</div>
+          <ul>
+            <li><strong>Mission Tactics</strong> — When a German PL is destroyed, immediately make a Training Check. If passed, place a new PL in base contact with any Team in the Unit. If failed, automatically place a new PL the next time any Team in that Unit activates.</li>
+            <li><strong>Tactical Initiative</strong> — German players add +1 to their Order Point total.</li>
+          </ul>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Soviet Union</div>
+          <ul>
+            <li><strong>Artillery Saturation</strong> — The Soviet player may spend 1 Hero Point when a friendly Artillery Unit is about to resolve a barrage, before rolling for deviation, to increase its radius by +2" and inflict +1 RFP to all affected Teams.</li>
+            <li><strong>Massed Assault</strong> — When Soviet Infantry are ordered to move into contact with enemy Teams, 1 Hero Point may be spent to activate any number of Infantry Teams simultaneously, provided all are ordered to Assault the same target Unit.</li>
+          </ul>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">United States</div>
+          <ul>
+            <li><strong>Semi-Automatic Firepower</strong> — US Rifle/MG Teams add +1 to their Rate of Fire when firing at targets within 10".</li>
+            <li><strong>Time on Target</strong> — US Medium and Heavy Artillery barrages inflict +1 RFP to all affected Teams.</li>
+          </ul>
+        </div>
+      </div>`
+  },
+];
+
+// ── RULES PANEL ────────────────────────────────────────────────────────────────
+let rulesRendered = false;
+
+function renderRulesPanel() {
+  const toc  = document.getElementById('rules-toc');
+  const body = document.getElementById('rules-content');
+  if (!toc || !body) return;
+
+  // Build TOC grouped by section group
+  const groups = [];
+  const seen   = new Set();
+  RULES_DATA.forEach(s => { if (!seen.has(s.group)) { seen.add(s.group); groups.push(s.group); } });
+
+  let tocHTML = '<div class="rules-toc-title">Contents</div>';
+  groups.forEach(g => {
+    tocHTML += `<div class="rules-toc-group">${g}</div>`;
+    RULES_DATA.filter(s => s.group === g).forEach(s => {
+      tocHTML += `<button class="rules-toc-item" data-toc="${s.id}" onclick="scrollToRulesSection('${s.id}')">${s.title}</button>`;
+    });
+  });
+  toc.innerHTML = tocHTML;
+
+  // Build accordion
+  body.innerHTML = RULES_DATA.map(s => `
+    <div class="rules-section" id="rs-${s.id}" data-id="${s.id}">
+      <div class="rules-section-header" onclick="toggleRulesSection('${s.id}')">
+        <div>
+          <span class="rules-section-title">${s.title}</span>
+          <span class="rules-section-tag">${s.group}</span>
+        </div>
+        <span class="rules-section-chevron">▼</span>
+      </div>
+      <div class="rules-section-body">${s.body}</div>
+    </div>`).join('');
+
+  rulesRendered = true;
+}
+
+function toggleRulesSection(id) {
+  const el = document.getElementById(`rs-${id}`);
+  if (!el) return;
+  el.classList.toggle('open');
+}
+
+function scrollToRulesSection(id) {
+  const el = document.getElementById(`rs-${id}`);
+  if (!el) return;
+  if (!el.classList.contains('open')) el.classList.add('open');
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Highlight active TOC item
+  document.querySelectorAll('.rules-toc-item').forEach(b => b.classList.remove('active'));
+  const tocBtn = document.querySelector(`.rules-toc-item[data-toc="${id}"]`);
+  if (tocBtn) tocBtn.classList.add('active');
+}
+
+function applyRulesSearch(query) {
+  if (!rulesRendered) return;
+  const q = (query || '').toLowerCase().trim();
+
+  document.querySelectorAll('.rules-section').forEach(el => {
+    const section = RULES_DATA.find(s => s.id === el.dataset.id);
+    if (!section) return;
+
+    if (!q) {
+      el.classList.remove('rules-match', 'rules-nomatch');
+      // Remove any highlights
+      const body = el.querySelector('.rules-section-body');
+      if (body) body.innerHTML = section.body;
+      return;
+    }
+
+    const titleText  = section.title.toLowerCase();
+    const bodyText   = el.querySelector('.rules-section-body')?.textContent?.toLowerCase() || '';
+    const isMatch    = titleText.includes(q) || bodyText.includes(q);
+
+    el.classList.toggle('rules-match',   isMatch);
+    el.classList.toggle('rules-nomatch', !isMatch);
+    if (isMatch) el.classList.add('open');
+
+    // Highlight matches in body text
+    if (isMatch) {
+      const body = el.querySelector('.rules-section-body');
+      if (body) {
+        body.innerHTML = highlightRulesText(section.body, q);
+      }
+    } else {
+      const body = el.querySelector('.rules-section-body');
+      if (body) body.innerHTML = section.body;
+    }
+  });
+
+  // Show/hide no-results message
+  const anyMatch = [...document.querySelectorAll('.rules-section.rules-match')].length > 0;
+  let noResults  = document.getElementById('rules-no-results');
+  if (!anyMatch && q) {
+    if (!noResults) {
+      noResults = document.createElement('div');
+      noResults.id = 'rules-no-results';
+      noResults.className = 'rules-no-results';
+      noResults.textContent = `No rules found for "${query}"`;
+      document.getElementById('rules-content').appendChild(noResults);
+    } else {
+      noResults.style.display = '';
+    }
+  } else if (noResults) {
+    noResults.style.display = 'none';
+  }
+}
+
+function highlightRulesText(html, query) {
+  // Only highlight text nodes — avoid breaking HTML tags
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const re = new RegExp(`(${escaped})`, 'gi');
+  // Simple approach: highlight in text content of tags, careful not to break attributes
+  return html.replace(/>([^<]+)</g, (match, text) => {
+    return '>' + text.replace(re, '<mark class="rules-highlight">$1</mark>') + '<';
+  });
+}
+
 // ── FIELD MANUAL ──────────────────────────────────────────────────────────────
 let fmAllItems = [];
 let fmTypeFilter = 'All';
@@ -4846,13 +5964,40 @@ function toggleFmType(type) {
   document.querySelectorAll('[data-fmtype]').forEach(el => {
     el.classList.toggle('active', el.dataset.fmtype === type);
   });
-  applyFmFilters();
+
+  const grid  = document.getElementById('fm-grid');
+  const rules = document.getElementById('fm-rules-panel');
+  const sort  = document.getElementById('fm-sort');
+  const count = document.getElementById('fm-result-count');
+
+  if (type === 'Rules') {
+    grid.style.display  = 'none';
+    rules.style.display = 'flex';
+    if (sort)  sort.style.display  = 'none';
+    if (count) count.textContent   = '';
+    if (!rulesRendered) renderRulesPanel();
+    // Apply any existing search
+    const q = document.getElementById('fm-search')?.value || '';
+    applyRulesSearch(q);
+  } else {
+    grid.style.display  = '';
+    rules.style.display = 'none';
+    if (sort) sort.style.display = '';
+    applyFmFilters();
+  }
 }
 
 function applyFmFilters() {
+  const query = (document.getElementById('fm-search')?.value || '').toLowerCase().trim();
+
+  // Route to rules search when Rules tab is active
+  if (fmTypeFilter === 'Rules') {
+    applyRulesSearch(query);
+    return;
+  }
+
   const grid = document.getElementById('fm-grid');
   const countEl = document.getElementById('fm-result-count');
-  const query = (document.getElementById('fm-search')?.value || '').toLowerCase().trim();
   const sort = document.getElementById('fm-sort')?.value || 'newest';
 
   let items = fmAllItems.slice();
