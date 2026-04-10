@@ -816,6 +816,7 @@
     transform: translateY(calc(-100% - 8px));
   }
   .global-tooltip.visible { display: block; }
+  /* Arrow pointing down (default — tooltip above element) */
   .global-tooltip::before {
     content: '';
     position: absolute;
@@ -825,6 +826,17 @@
     border: 5px solid transparent;
     border-top-color: var(--border);
     pointer-events: none;
+  }
+  /* Flip below element when near top of screen */
+  .global-tooltip.below {
+    transform: translateY(8px);
+  }
+  /* Arrow pointing up when tooltip is below element */
+  .global-tooltip.below::before {
+    bottom: auto;
+    top: -6px;
+    border-top-color: transparent;
+    border-bottom-color: var(--border);
   }
 
   .card-footer {
@@ -5519,6 +5531,7 @@ if (new URLSearchParams(window.location.search).get('preview') === 'true') {
   function position(el) {
     const rect = el.getBoundingClientRect();
     const tipW = 240;
+    const tipH = 80; // generous estimate; tooltip is display:none so can't measure
     const vw   = window.innerWidth;
 
     // Center tooltip on the tag, clamp within viewport
@@ -5529,8 +5542,11 @@ if (new URLSearchParams(window.location.search).get('preview') === 'true') {
     // Arrow points at the tag's horizontal center from within the (possibly clamped) tooltip
     const arrowLeft = rect.left + rect.width / 2 - left;
 
+    // Flip below if tooltip would go off the top of the screen
+    const wouldClip = rect.top - tipH - 8 < 0;
+    tip.classList.toggle('below', wouldClip);
     tip.style.left = left + 'px';
-    tip.style.top  = rect.top + 'px';   // translateY(calc(-100% - 8px)) moves it above
+    tip.style.top  = wouldClip ? rect.bottom + 'px' : rect.top + 'px';
     tip.style.setProperty('--arrow-left', arrowLeft + 'px');
   }
 
