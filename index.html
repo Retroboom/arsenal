@@ -6385,6 +6385,7 @@ let forceYear = null;   // integer 1939-1945 or null
 let forceType = null;   // 'Infantry' | 'Mechanized' | 'Armored' | 'Airborne' | null
 let isAdmin = false;
 let unitRatings = {};   // { unitId: { rating, wins, losses, comparisons } }
+let eloVisible = false; // session-only: shown only after rating at least one pair
 
 function setForceQuality(q) {
   forceQuality = q;
@@ -6417,6 +6418,7 @@ async function loadRatings() {
 }
 
 function ratingBadgeHtml(unitId) {
+  if (!eloVisible) return '';
   const key = ratingKey(unitId, forceQuality);
   const r = unitRatings[key];
   if (!r || r.comparisons === 0) return '';
@@ -6533,6 +6535,11 @@ async function submitComparison(winner) {
   compareSessionCount++;
   document.getElementById('compare-count').textContent =
     `${compareSessionCount} comparison${compareSessionCount !== 1 ? 's' : ''} submitted this session`;
+
+  if (!eloVisible) {
+    eloVisible = true;
+    renderUnits(true);
+  }
 
   loadNextPair();
 }
