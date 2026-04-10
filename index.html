@@ -3198,6 +3198,21 @@
     }
     /* Suppress global tooltip in print */
     .global-tooltip { display: none !important; }
+
+    /* ── Landscape 2-column layout ── */
+    body.print-landscape .fs-body {
+      columns: 2;
+      column-gap: 28pt;
+      padding: 8px 16px 16px !important;
+    }
+    body.print-landscape .fs-platoon {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      margin-bottom: 10px !important;
+    }
+    body.print-landscape .fs-stats-table {
+      width: 100%;
+    }
   }
 
   /* ANIMATIONS */
@@ -4762,12 +4777,15 @@ function printLandscape() {
   style.id = 'landscape-print-override';
   style.textContent = '@page { size: landscape; }';
   document.head.appendChild(style);
-  window.print();
-  // Remove after print dialog closes
-  setTimeout(() => {
+  document.body.classList.add('print-landscape');
+  function cleanup() {
     const el = document.getElementById('landscape-print-override');
     if (el) el.remove();
-  }, 1000);
+    document.body.classList.remove('print-landscape');
+    window.removeEventListener('afterprint', cleanup);
+  }
+  window.addEventListener('afterprint', cleanup);
+  window.print();
 }
 
 function showSubscribePrompt() {
