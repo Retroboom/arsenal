@@ -5860,7 +5860,9 @@ function scrollToRulesSection(id) {
   document.querySelectorAll('.rules-section').forEach(s => {
     s.classList.toggle('open', s === el);
   });
-  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 108;
+  const top = el.getBoundingClientRect().top + window.scrollY - headerH - 12;
+  window.scrollTo({ top, behavior: 'smooth' });
   // Highlight active TOC item
   document.querySelectorAll('.rules-toc-item').forEach(b => b.classList.remove('active'));
   const tocBtn = document.querySelector(`.rules-toc-item[data-toc="${id}"]`);
