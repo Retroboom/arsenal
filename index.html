@@ -3862,11 +3862,11 @@ function renderTable(container, forceIds) {
     { key: 'name',        label: 'Unit',   sortable: true  },
     { key: 'nation',      label: 'Nation', sortable: true  },
     { key: 'type',        label: 'Type',   sortable: true  },
-    { key: 'gun_range',   label: 'Range',  sortable: true, center: true },
-    { key: 'rof',         label: 'RoF',    sortable: true, center: true },
-    { key: 'at',          label: 'AT',     sortable: true, center: true },
-    { key: 'fp',          label: 'FP',     sortable: true, center: true },
-    { key: 'armor_front', label: 'Armor',  sortable: true, center: true },
+    { key: 'gun_range',   label: 'Range',  sortable: true, center: true, tip: STAT_TIPS.Range },
+    { key: 'rof',         label: 'RoF',    sortable: true, center: true, tip: STAT_TIPS.RoF   },
+    { key: 'at',          label: 'AT',     sortable: true, center: true, tip: STAT_TIPS.AT    },
+    { key: 'fp',          label: 'FP',     sortable: true, center: true, tip: STAT_TIPS.FP    },
+    { key: 'armor_front', label: 'Armor',  sortable: true, center: true, tip: STAT_TIPS.Armor },
     { key: 'notes',       label: 'Notes',  sortable: false },
     { key: 'years',       label: 'Years',  sortable: true  },
     { key: '_actions',    label: '',       sortable: false },
@@ -3878,7 +3878,8 @@ function renderTable(container, forceIds) {
     const cls = [c.sortable ? 'sortable' : '', isActive ? 'sort-active' : ''].filter(Boolean).join(' ');
     const onClick = c.sortable ? ` onclick="setTableSort('${c.key}')"` : '';
     const align = c.center ? ' style="text-align:center"' : '';
-    return `<th class="${cls}"${onClick}${align}>${c.label}${arrow}</th>`;
+    const dataTip = c.tip ? ` data-tip="${c.tip.replace(/"/g, '&quot;')}"` : '';
+    return `<th class="${cls}"${onClick}${align}${dataTip}>${c.label}${arrow}</th>`;
   }).join('');
 
   let html = `<table class="unit-table${tableStacked ? ' stacked' : ''}"><thead><tr>${thHtml}</tr></thead><tbody>`;
