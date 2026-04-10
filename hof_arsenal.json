@@ -5804,7 +5804,7 @@
       "lore": "The PTRD-41 anti-tank rifle was designed and produced in just two months following the German invasion \u2014 a remarkable engineering achievement that gave every Soviet rifle regiment an organic anti-armour weapon when proper anti-tank guns were desperately scarce. Its 14.5mm round could penetrate 25mm of armour at 300 meters, adequate for the Panzer I, II, and light armoured vehicles of 1941 but increasingly marginal as German armour thickened. By 1943 PTRD teams shifted to engaging vehicle optics, track links, and engine grilles rather than attempting frontal penetration, while also serving as a long-range anti-sniper and anti-personnel weapon against dug-in German positions.",
       "name": "PTRD Anti-Tank Rifle",
       "nation": "Soviet Union",
-      "type": "Anti-Tank",
+      "type": "Infantry",
       "theater": [
         "Eastern Front"
       ],
