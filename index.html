@@ -4989,7 +4989,7 @@ function openUnitDetail(unitId) {
     udpStat('RoF', unit.rof) +
     udpStat('AT', unit.at) +
     udpStat('FP', unit.fp) +
-    `<div class="udp-stat"><span class="udp-stat-label">Armor</span>${armorDisplay}</div>`;
+    `<div class="udp-stat"><span class="udp-stat-label" data-tip="${STAT_TIPS.Armor}">Armor</span>${armorDisplay}</div>`;
 
   // Armament
   const armEl = document.getElementById('udp-armament');
