@@ -3414,17 +3414,26 @@
   <div class="fm-controls">
     <input type="text" class="fm-search" id="fm-search" placeholder="Search…" oninput="applyFmFilters()">
     <div class="fm-type-chips" id="fm-type-chips">
-      <div class="chip active" data-fmtype="All" onclick="toggleFmType('All')">News</div>
-      <div class="chip" data-fmtype="Rules" onclick="toggleFmType('Rules')">Rules</div>
+      <div class="chip" data-fmtype="All" onclick="toggleFmType('All')">News</div>
+      <div class="chip active" data-fmtype="Rules" onclick="toggleFmType('Rules')">Rules</div>
     </div>
-    <select class="fm-sort" id="fm-sort" onchange="applyFmFilters()">
+    <select class="fm-sort" id="fm-sort" onchange="applyFmFilters()" style="display:none">
       <option value="newest">Newest First</option>
       <option value="oldest">Oldest First</option>
       <option value="az">A → Z</option>
     </select>
     <span class="fm-result-count" id="fm-result-count"></span>
   </div>
-  <div class="fm-grid" id="fm-grid"></div>
+  <div class="fm-grid" id="fm-grid" style="display:none"></div>
+
+  <!-- Recent Briefings strip (shown in default/Rules view) -->
+  <div id="fm-briefings-strip" class="whats-new" style="display:none">
+    <div class="whats-new-header">
+      <span class="whats-new-label">★ Recent Briefings</span>
+      <button class="lib-featured-link" onclick="toggleFmType('All')">Browse All →</button>
+    </div>
+    <div class="whats-new-cards" id="fm-briefings-cards"></div>
+  </div>
 
   <!-- RULES PANEL (shown when Rules chip active) -->
   <div id="fm-rules-panel" class="fm-rules-panel" style="display:none">
@@ -5935,14 +5944,47 @@ function highlightRulesText(html, query) {
 
 // ── FIELD MANUAL ──────────────────────────────────────────────────────────────
 let fmAllItems = [];
-let fmTypeFilter = 'All';
+let fmTypeFilter = 'Rules';
 let fmLoaded = false;
 
+function renderFmBriefingsStrip() {
+  const strip = document.getElementById('fm-briefings-strip');
+  const cards = document.getElementById('fm-briefings-cards');
+  if (!strip || !cards) return;
+
+  const newest = fmAllItems
+    .slice()
+    .sort((a, b) => (b.created || 0) - (a.created || 0))
+    .slice(0, 4);
+
+  if (newest.length === 0) return;
+
+  cards.innerHTML = newest.map(item => {
+    const age = timeAgoShort(item.created);
+    const typeClass = { Guide: 't-guide', Scenario: 't-scenario', Campaign: 't-campaign' }[item.type] || 't-guide';
+    const dest = item.url ? `window.open('${item.url}','_blank')` : `toggleFmType('All')`;
+    return `
+      <div class="wn-card" onclick="${dest}">
+        <div class="wn-card-badge"><span class="fm-card-type ${typeClass}" style="font-size:9px">${item.type || 'Guide'}</span> · ${age}</div>
+        <div class="wn-card-name">${item.title || 'Untitled'}</div>
+        <div class="wn-card-meta" style="color:var(--text3);font-size:10px">${item.author || 'Hail of Fire'}</div>
+      </div>`;
+  }).join('');
+
+  if (fmTypeFilter === 'Rules') strip.style.display = '';
+}
+
 async function loadFieldManual() {
-  if (fmLoaded) { applyFmFilters(); return; }
-  const grid = document.getElementById('fm-grid');
-  if (!grid) return;
-  grid.innerHTML = `<div class="fm-empty"><div class="fm-empty-title">LOADING</div></div>`;
+  // Rules panel renders immediately from static data — show it right away
+  if (!rulesRendered) renderRulesPanel();
+  const rules = document.getElementById('fm-rules-panel');
+  if (rules) rules.style.display = 'flex';
+
+  if (fmLoaded) {
+    renderFmBriefingsStrip();
+    if (fmTypeFilter !== 'Rules') applyFmFilters();
+    return;
+  }
 
   try {
     const snap = await firebase.database().ref('content').once('value');
@@ -5952,9 +5994,10 @@ async function loadFieldManual() {
       if (v.published) fmAllItems.push(v);
     });
     fmLoaded = true;
-    applyFmFilters();
+    renderFmBriefingsStrip();
+    if (fmTypeFilter !== 'Rules') applyFmFilters();
   } catch(e) {
-    grid.innerHTML = `<div class="fm-empty"><div class="fm-empty-title">ERROR</div><div class="fm-empty-sub">Could not load content.</div></div>`;
+    // rules still visible; briefings strip stays empty — no error state needed
   }
 }
 
@@ -5969,18 +6012,22 @@ function toggleFmType(type) {
   const sort  = document.getElementById('fm-sort');
   const count = document.getElementById('fm-result-count');
 
+  const strip = document.getElementById('fm-briefings-strip');
+  const briefCards = document.getElementById('fm-briefings-cards');
+
   if (type === 'Rules') {
     grid.style.display  = 'none';
     rules.style.display = 'flex';
     if (sort)  sort.style.display  = 'none';
     if (count) count.textContent   = '';
+    if (strip && briefCards && briefCards.innerHTML.trim()) strip.style.display = '';
     if (!rulesRendered) renderRulesPanel();
-    // Apply any existing search
     const q = document.getElementById('fm-search')?.value || '';
     applyRulesSearch(q);
   } else {
     grid.style.display  = '';
     rules.style.display = 'none';
+    if (strip) strip.style.display = 'none';
     if (sort) sort.style.display = '';
     applyFmFilters();
   }
