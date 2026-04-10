@@ -3109,7 +3109,7 @@
       font-family: Arial Black, Arial, sans-serif !important;
       font-size: 22px !important;
     }
-    .fs-close-btn, .fs-print-btn { display: none !important; }
+    .fs-close-btn, .fs-print-btn, .fs-share-btn { display: none !important; }
 
     .fs-meta { border-bottom: 1pt solid #ccc !important; padding: 6px 18px !important; }
     .fs-meta-item, .fs-meta-item strong {
@@ -4755,6 +4755,19 @@ function exportForce() {
 
 function printForce() {
   window.print();
+}
+
+function printLandscape() {
+  const style = document.createElement('style');
+  style.id = 'landscape-print-override';
+  style.textContent = '@page { size: landscape; }';
+  document.head.appendChild(style);
+  window.print();
+  // Remove after print dialog closes
+  setTimeout(() => {
+    const el = document.getElementById('landscape-print-override');
+    if (el) el.remove();
+  }, 1000);
 }
 
 function showSubscribePrompt() {
@@ -6682,7 +6695,8 @@ function openForceSheet(forceData) {
         <div class="fs-title">${name}</div>
         <div class="fs-header-right">
           ${forceData.id ? `<button class="fs-share-btn" onclick="copySheetLink('${forceData.id}')" data-tip="Copy shareable link to this force sheet">⎘ Copy Link</button>` : ''}
-          <button class="fs-print-btn" onclick="window.print()">⎙ Print</button>
+          <button class="fs-print-btn" onclick="window.print()">⎙ Portrait</button>
+          <button class="fs-print-btn" onclick="printLandscape()">⎙ Landscape</button>
           <button class="fs-close-btn" onclick="closeForceSheet()">✕</button>
         </div>
       </div>
