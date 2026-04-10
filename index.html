@@ -3403,15 +3403,12 @@
 <div class="section" id="section-fieldmanual">
   <div class="fm-section-header">
     <span class="fm-section-title">FIELD MANUAL</span>
-    <span class="fm-section-sub">Rules · Guides · Scenarios · Campaign</span>
+    <span class="fm-section-sub">News · Rules Reference</span>
   </div>
   <div class="fm-controls">
     <input type="text" class="fm-search" id="fm-search" placeholder="Search…" oninput="applyFmFilters()">
     <div class="fm-type-chips" id="fm-type-chips">
-      <div class="chip active" data-fmtype="All" onclick="toggleFmType('All')">All</div>
-      <div class="chip" data-fmtype="Guide" onclick="toggleFmType('Guide')">Guides</div>
-      <div class="chip" data-fmtype="Scenario" onclick="toggleFmType('Scenario')">Scenarios</div>
-      <div class="chip" data-fmtype="Campaign" onclick="toggleFmType('Campaign')">Campaign</div>
+      <div class="chip active" data-fmtype="All" onclick="toggleFmType('All')">News</div>
       <div class="chip" data-fmtype="Rules" onclick="toggleFmType('Rules')">Rules</div>
     </div>
     <select class="fm-sort" id="fm-sort" onchange="applyFmFilters()">
@@ -6002,7 +5999,7 @@ function applyFmFilters() {
     grid.innerHTML = `
       <div class="fm-empty">
         <div class="fm-empty-title">${isFiltered ? 'NO RESULTS' : 'NOTHING HERE YET'}</div>
-        <div class="fm-empty-sub">${isFiltered ? 'Try adjusting your search or filter.' : 'Guides, scenarios, and campaign content coming soon.'}</div>
+        <div class="fm-empty-sub">${isFiltered ? 'Try adjusting your search or filter.' : 'News and updates coming soon.'}</div>
       </div>`;
     return;
   }
