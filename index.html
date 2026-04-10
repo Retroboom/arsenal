@@ -34,10 +34,24 @@
 
   body {
     background: var(--bg);
+    background-image:
+      repeating-linear-gradient(rgba(255,255,255,0.018) 0px, transparent 1px, transparent 48px, rgba(255,255,255,0.018) 49px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.018) 0px, transparent 1px, transparent 48px, rgba(255,255,255,0.018) 49px);
     color: var(--text);
     font-family: var(--body);
     min-height: 100vh;
     overflow-x: hidden;
+  }
+
+  /* Grain texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 9998;
   }
 
   /* HEADER */
@@ -796,6 +810,26 @@
     opacity: 0;
   }
 
+  /* Corner bracket hover effect */
+  .unit-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background:
+      linear-gradient(var(--accent), var(--accent)) 0 0 / 10px 1px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) 0 0 / 1px 10px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) 100% 0 / 10px 1px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) 100% 0 / 1px 10px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) 0 100% / 10px 1px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) 0 100% / 1px 10px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) 100% 100% / 10px 1px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) 100% 100% / 1px 10px no-repeat;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .unit-card:hover::before { opacity: 1; }
+
   .unit-card.anim { animation: fadeUp 0.55s ease forwards; }
 
   .unit-card:hover {
@@ -1126,8 +1160,26 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 14px;
-    opacity: 0.6;
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: var(--accent2);
+    border: 1px solid var(--accent2);
+    padding: 2px 5px;
+    transform: rotate(4deg);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .restricted-stamp {
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    color: var(--accent2);
+    border: 1px solid var(--accent2);
+    padding: 1px 4px;
+    opacity: 0.7;
+    white-space: nowrap;
   }
 
   /* TABLE VIEW */
@@ -3987,7 +4039,7 @@ function renderGrid(container, forceIds, animate = true) {
 
       html += `
         <div class="unit-card ${inForce ? 'in-force' : ''} ${locked ? 'locked' : ''} ${nc}" id="card-${unit.id}" data-card-index="${cardIndex}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
-          ${locked ? '<div class="lock-overlay">🔒</div>' : ''}
+          ${locked ? '<div class="lock-overlay">RESTRICTED</div>' : ''}
           ${TYPE_ICONS[unit.type] ? `<div class="card-type-watermark">${TYPE_ICONS[unit.type]}</div>` : ''}
           <div class="card-header">
             <div class="unit-name">${unit.name}</div>
@@ -4119,7 +4171,7 @@ function renderTable(container, forceIds) {
 
   function unitActions(unit) {
     const locked = !unit.free && !isSubscriber;
-    if (locked) return `<span style="font-family:var(--mono);font-size:9px;color:#9a8a5a;">🔒 Sub</span>`;
+    if (locked) return `<span class="restricted-stamp">RESTRICTED</span>`;
     const platoonBtn = unit.standard_platoon
       ? `<button class="table-add-btn" onclick="addAsStandardPlatoon('${unit.id}')">+ Platoon</button>`
       : '';
