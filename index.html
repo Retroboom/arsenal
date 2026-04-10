@@ -6698,10 +6698,10 @@ const firebaseConfig = {
 
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 
-// Auto guest mode when ?preview=true is in the URL (for local/iframe previews)
-if (new URLSearchParams(window.location.search).get('preview') === 'true') {
-  window.addEventListener('DOMContentLoaded', enterGuestMode);
-}
+// Auto guest mode on localhost or when ?preview=true is in the URL
+const isPreviewMode = ['localhost', '127.0.0.1'].includes(location.hostname) ||
+    new URLSearchParams(location.search).get('preview') === 'true';
+if (isPreviewMode) enterGuestMode();
 
 // ── HEADER RESIZE OBSERVER ────────────────────────────────────────────────────
 // Updates --header-h and toggles is-wrapped on header-end as the header reflowss
@@ -6784,7 +6784,7 @@ firebase.auth().onAuthStateChanged(async (user) => {
     await checkUrlForce();
     loadFeaturedStrip();
     loadWhatsNew();
-  } else {
+  } else if (!isPreviewMode) {
     gate.style.display = 'flex';
     isSubscriber = false;
     updateAuthUI(null, false);
