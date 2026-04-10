@@ -4142,7 +4142,7 @@ function renderTable(container, forceIds) {
         unit.armor_front !== null ? `<span class="stacked-stat"><span class="stacked-lbl">ARM</span>${unit.armor_front}/${unit.armor_flank}</span>` : null,
       ].filter(Boolean).join('');
       return `
-        <tr class="stacked-main ${ic}">
+        <tr class="stacked-main ${ic}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
           <td>
             <div class="stacked-header">
               <span class="table-name">${unit.name}</span>
@@ -4150,9 +4150,9 @@ function renderTable(container, forceIds) {
               <span class="stacked-type">${unit.type}</span>
             </div>
           </td>
-          <td class="stacked-actions">${unitActions(unit)}</td>
+          <td class="stacked-actions" onclick="event.stopPropagation()">${unitActions(unit)}</td>
         </tr>
-        <tr class="stacked-stats ${ic}">
+        <tr class="stacked-stats ${ic}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
           <td colspan="2">
             <div class="stacked-stat-row">
               ${stats}
@@ -4164,7 +4164,7 @@ function renderTable(container, forceIds) {
     }
 
     return `
-      <tr class="${ic}">
+      <tr class="${ic}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
         <td><span class="table-name">${unit.name}</span></td>
         <td><span class="${nationBadgeClass(unit.nation)}" style="font-size:9px;padding:2px 5px;">${unit.nation}</span></td>
         <td style="color:var(--text3);font-size:10px;letter-spacing:0.5px">${unit.type}</td>
@@ -4175,7 +4175,7 @@ function renderTable(container, forceIds) {
         <td class="table-stat ${unit.armor_front !== null ? '' : 'null'}">${unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '—'}</td>
         <td class="table-notes">${unit.notes.map(n => noteTag(n)).join(' ')}</td>
         <td style="color:var(--text3);font-size:10px;white-space:nowrap">${yearRange(unit.years)}${isAdmin ? ' ' + ratingBadgeHtml(unit.id) : ''}</td>
-        <td>${unitActions(unit)}</td>
+        <td onclick="event.stopPropagation()">${unitActions(unit)}</td>
       </tr>`;
   }
 
