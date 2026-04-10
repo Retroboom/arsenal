@@ -5021,9 +5021,11 @@ const RULES_DATA = [
     group: 'Core Rules',
     body: `
       <div class="rules-body-text">
-        <p>Each Turn begins with the <strong>Active Player</strong> rolling two <strong>Order Dice</strong> and taking the <em>higher</em> of the two results. This is the number of <strong>Order Points</strong> the Active Player receives for their Turn.</p>
-        <p>The Active Player may spend an Order Point to <strong>activate one of their Teams</strong> and order them to either <strong>Move or Fire</strong>. The Active Player must finish one activation before spending another Order Point to begin a new activation. Teams activated by Order Points may not be activated by another Order Point until their next turn begins.</p>
-        <p>Once the Active Player has spent all of their Order Points, or chooses to end their Turn, the Turn is then over. The Non-Active Player becomes the Active Player and rolls two Order Dice to see how many Order Points they will receive for their turn.</p>
+        <p>Your force consists of several Units (platoons), each made up of Teams (a base of troops or single vehicle). Infantry and Gun Units have a Platoon Leader Team.</p>
+        <p>Each Turn begins with the Active Player rolling <strong>Order Dice</strong> to generate Order Points. Roll <strong>1d6 for each friendly deployed Platoon Leader and Vehicle Unit</strong>. Vehicle Units with half or more Teams destroyed, suppressed, or carrying unresolved RFPs contribute no die. Platoon Leader Teams with unresolved Received Fire Points also contribute no die.</p>
+        <p>Each die showing <strong>4+</strong> generates 1 Order Point. Always <strong>add +1</strong> to the total number of Order Points.</p>
+        <p>The Active Player may spend an Order Point to <strong>activate one of their Teams</strong> and order them to <strong>Move or Fire</strong>. Complete each activation before beginning the next. Teams activated by Order Points may not be activated by Order Point until the Player's next turn.</p>
+        <p>Once all Order Points are spent, or the Player ends their Turn, the Non-Active Player becomes Active and rolls Order Dice.</p>
       </div>`
   },
   {
@@ -5032,15 +5034,14 @@ const RULES_DATA = [
     group: 'Core Rules',
     body: `
       <div class="rules-body-text">
-        <p>Before the first turn, both Players roll a <strong>Hero Die</strong> and keep the result hidden from their opponent. This is the number of <strong>Hero Points</strong> the Player receives. Use a separate die to track how many Hero Points have been <em>spent</em>, counting up from zero.</p>
+        <p>Before the first turn, both Players <strong>roll 1d6</strong> and set it aside, hidden from their opponent. This is the number of <strong>Hero Points</strong> the Player receives. Track spent Hero Points with a separate die, <strong>counting up</strong>.</p>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Spending Hero Points</div>
-          <p>Hero Points may be spent to activate Teams as normal, to <strong>activate Teams that have already been activated</strong> by an Order Point, or to <strong>activate Teams during the other Player's Turn</strong> between their activations.</p>
-          <p>Teams activated with Hero Points may not activate again until the current player's turn ends — once per player turn (with OP or HP), plus once during the opponent's turn (with HP).</p>
+          <p>Hero Points may be spent to activate Teams as normal. They may also <strong>activate Teams already activated this turn</strong>, or <strong>activate Teams during the opponent's Turn</strong> (after an enemy activation resolves, before the next begins). Teams activated with Hero Points may not activate again until the current turn ends.</p>
         </div>
         <div class="rules-subsection">
-          <div class="rules-subsection-title">Doubles — Refreshing Hero Points</div>
-          <p>Any time a Player rolls <strong>doubles</strong> on their Order Dice, that Player reveals their previous Hero Die roll, then rolls it again (keeping the new result hidden), <strong>losing any remaining Hero Points</strong> and gaining a number equal to the new roll.</p>
+          <div class="rules-subsection-title">The Hero Die</div>
+          <p>When rolling Order Dice, make sure one die is of a <strong>different color</strong> — this is the <strong>Hero Die</strong>. If the Hero Die rolls <strong>6</strong>, reveal and discard any remaining Hero Points. Roll 1d6 (keeping it hidden) and gain a number of Hero Points equal to the new roll.</p>
         </div>
       </div>`
   },
@@ -5052,13 +5053,19 @@ const RULES_DATA = [
       <div class="rules-body-text">
         <div class="rules-subsection">
           <div class="rules-subsection-title">Forces & Team Types</div>
-          <p>Each Player commands a supported Company, typically <strong>5–8 Units</strong> on a standard 6'×4' table. All Teams are categorized as <strong>Infantry</strong>, <strong>Gun</strong>, or <strong>Vehicle</strong> Teams.</p>
-          <p><strong>Small Teams</strong> (Leaders, Snipers, FOs) are on bases about half the size of infantry bases. Non-man-portable Gun Teams are on larger bases about twice the size.</p>
+          <p>Each Player commands a supported Company, typically <strong>5–8 Units</strong> on a standard 6'×4' table. All Teams are categorized as <strong>Infantry</strong>, <strong>Gun</strong>, or <strong>Vehicle</strong> Teams. Small Teams (Leaders, Snipers, FOs) are on bases about half the size of infantry bases; non-man-portable Gun Teams are on larger bases about twice the size.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Checks (d6)</div>
-          <p>Rules often reference <strong>Checks</strong> that Teams and Units are required to make (<em>Training Check, Assault Check, Rally Check</em>, etc.). A Check is a d6 roll trying to <strong>equal or beat a specific number</strong>.</p>
-          <p>By default, this number is always <strong>4+</strong>, covering the vast majority of professional forces throughout WWII. To best represent specific troops, some should likely be assigned <strong>3+</strong> for Assault Checks, and some others <strong>5+</strong> for Morale Checks — but unless specified in an official stat line or discussed with your opponent beforehand, <strong>4+ is always the assumed target number</strong>.</p>
+          <p>Rules often reference <strong>Checks</strong> that Teams and Units are required to make (<em>Training Check, Assault Check, Rally Check</em>, etc.). A Check is a d6 roll trying to <strong>equal or beat 4+</strong>.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Troop Quality</div>
+          <p>Most forces throughout WWII are assumed to be <strong>average quality</strong>. To represent troops that were notably better or worse, players may assign Units to be <strong>Elite</strong> or <strong>Poor</strong> quality.</p>
+          <ul>
+            <li><strong>Elite</strong> — Re-roll 1s on all Checks and when firing at vehicles, taking the second result. Elite quality also affects how troops respond when hit (see Resolving RFPs).</li>
+            <li><strong>Poor</strong> — Re-roll 6s in each of these cases.</li>
+          </ul>
         </div>
       </div>`
   },
@@ -5219,6 +5226,11 @@ const RULES_DATA = [
         <div class="rules-subsection">
           <div class="rules-subsection-title">Keep Your Head Down</div>
           <p><strong>Suppressed Infantry and Gun Teams</strong> always resolve RFPs as though in Hard Cover, even when they are not. Teams that are <em>already</em> in Hard Cover <strong>re-roll their first Killed result</strong> each time they resolve RFPs.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Elite and Poor Troops</div>
+          <p><strong>Elite</strong> non-vehicle Teams that roll 1s re-roll those dice. If all re-rolled dice show 4+, the Team is <strong>Suppressed rather than Destroyed</strong>. Otherwise the Team is Destroyed.</p>
+          <p><strong>Poor</strong> non-vehicle Teams that roll 6s re-roll those dice, taking the new result.</p>
         </div>
       </div>`
   },
@@ -5471,10 +5483,10 @@ const RULES_DATA = [
           <ul>
             <li>The Defender picks a long table edge to deploy from; the Attacker deploys from the opposite edge.</li>
             <li>The Defender declares one point on their half of the table as an <strong>objective</strong>, outside 6" of the center line and any table edge. The Attacker then declares two more objectives on the Defender's half, within the same restrictions.</li>
-            <li>The Defender must declare <strong>half their Units (rounded down)</strong> to be held in reserve. Vehicle Units must be held in reserve before Non-Vehicle Units.</li>
+            <li>The Defender selects <strong>half their Units (rounded down)</strong> to be held in reserve. Vehicle Units must be selected before Non-Vehicle Units. <em>Units in reserve do not contribute Order Dice until they arrive.</em></li>
             <li>The Defender's remaining Units are considered <strong>"Hidden"</strong> on their half of the table and Dug In (in Hard Cover) until they Move.</li>
             <li><strong>Dug-In</strong> Teams that only Move during an assault may return to their foxholes.</li>
-            <li>The Attacker then deploys all their Units, either Hidden or revealed, on their side of the table, outside 16" of the center line.</li>
+            <li>The Attacker deploys their Units on their side of the table, outside 16" of the center line, either Hidden or revealed. <strong>Attacking Vehicles must always be deployed revealed.</strong> Any Units may instead arrive on any turn from the Attacker's table edge — Attacking Units held off-table are still considered deployed and <strong>contribute Order Dice each turn</strong>.</li>
           </ul>
         </div>
         <div class="rules-subsection">
@@ -5522,65 +5534,25 @@ const RULES_DATA = [
     group: 'Optional Rules',
     body: `
       <div class="rules-body-text">
-        <p>Players may attempt an Air Support strike <strong>once per turn</strong>. Air Support is limited to <strong>3 successful strikes</strong> per game. Track used strikes with markers or dice.</p>
+        <p>When rolling Order Dice, if the <strong>Hero Die rolls a 1</strong>, an air attack immediately occurs on the Active Player's behalf before they spend any Order Points.</p>
         <div class="rules-subsection">
-          <div class="rules-subsection-title">Air Support Procedure</div>
-          <ol>
-            <li><strong>Air Roll (1d6):</strong>
-              <ul>
-                <li><strong>1</strong> — Mission aborted.</li>
-                <li><strong>2–5</strong> — Proceed to AA Engagement.</li>
-                <li><strong>6</strong> — Attack succeeds automatically.</li>
-              </ul>
-            </li>
-            <li><strong>AA Engagement (if Air rolled 2–5):</strong> Each AA Team that <em>did not activate</em> during its previous turn may attempt to intercept. AA Teams roll a number of dice equal to their RoF. Each die rolling <em>higher</em> than the Air Roll scores one hit. For each hit, the Air Support player rolls 1d6, trying to roll <em>higher</em> than the AA gun's AT rating. If all saves fail, the aircraft is driven off.</li>
-          </ol>
+          <div class="rules-subsection-title">AA Engagement</div>
+          <p>Each AA Team that <em>did not activate</em> during its previous turn may attempt to intercept. AA Teams roll a number of dice equal to their Rate of Fire while the Active Player rolls 1d6 for the aircraft. Each AA die that rolls <em>higher</em> than the aircraft's 1d6 scores one hit on the aircraft. For each hit, the Air Support player rolls 1d6, attempting to roll <em>higher</em> than the AA gun's AT rating. If the Air Support fails any save roll, the aircraft is driven off and no attack occurs.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Multiple AA Guns</div>
           <p>When multiple AA guns operate together as a unit, the first gun uses its full RoF; each additional gun adds +1 die. All dice use the same AT rating as the first gun.</p>
         </div>
         <div class="rules-subsection">
-          <div class="rules-subsection-title">Aircraft Attack Profiles</div>
-          <ul>
-            <li><strong>Bombs</strong> — Place an impact marker, roll d10-3 for deviation. All Teams within 3" of the final marker position receive 3 RFPs. Vehicles subtract their Flank AR (max -2).</li>
-            <li><strong>Rockets</strong> — Declare one enemy Team as the target. If a vehicle, treat as AT 5 vs Flank Armor. Infantry/Gun Teams receive 3 RFPs.</li>
-            <li><strong>Cannons</strong> — Draw a 12" long, 2" wide line across the table. All Teams touching or crossed by the line receive 2 RFPs (Vehicles subtract Flank Armor).</li>
-          </ul>
-          <p><strong>Ground Attack Restriction:</strong> Aircraft may not target enemy Teams within 12" of any friendly Teams.</p>
-        </div>
-      </div>`
-  },
-  {
-    id: 'optional-troop-quality',
-    title: 'Alternative Troop Quality',
-    group: 'Optional Rules',
-    body: `
-      <div class="rules-body-text">
-        <p>Checks are d6 rolls trying to equal or beat 4+. Most forces are <strong>Regular</strong>. Before the game, players may assign <strong>Elite</strong> or <strong>Poor</strong> quality to Units.</p>
-        <div class="rules-subsection">
-          <div class="rules-subsection-title">Quality Effects</div>
+          <div class="rules-subsection-title">Aircraft Ground Attacks</div>
+          <p>Roll 1d6 to determine how the aircraft engages:</p>
           <table class="rules-table">
-            <tr><th>Quality</th><th>Effect on Checks</th><th>Effect vs Vehicles</th></tr>
-            <tr><td><strong>Elite</strong></td><td>Re-roll 1s</td><td>Re-roll 1s when firing at vehicles; also re-roll 1s when resolving RFPs (1–3 Killed, 4+ Suppressed)</td></tr>
-            <tr><td><strong>Regular</strong></td><td>Normal</td><td>Normal</td></tr>
-            <tr><td><strong>Poor</strong></td><td>Re-roll 6s</td><td>Re-roll 6s in all these cases</td></tr>
+            <tr><th>Roll</th><th>Attack Type</th><th>Effect</th></tr>
+            <tr><td><strong>1–2</strong></td><td>Bombs</td><td>Place an impact marker, roll d10-3 for deviation. All Teams within 3" of the final marker receive 3 RFPs. Vehicles subtract their Flank AR (max -2).</td></tr>
+            <tr><td><strong>3–4</strong></td><td>Rockets</td><td>Declare one enemy Team as the target. If a vehicle, treat as AT 5 vs Flank Armor. Infantry/Gun Teams receive 3 RFPs.</td></tr>
+            <tr><td><strong>5–6</strong></td><td>Cannons</td><td>Draw a 12" long, 2" wide line across the table (attacker chooses position and direction). All Teams touching or crossed by the line receive 2 RFPs (Vehicles subtract their Flank Armor).</td></tr>
           </table>
-        </div>
-      </div>`
-  },
-  {
-    id: 'optional-order-dice',
-    title: 'Alternative Order Dice',
-    group: 'Optional Rules',
-    body: `
-      <div class="rules-body-text">
-        <p>Instead of 2d6, players roll <strong>one Order Die for each friendly PL Team and Vehicle Unit</strong> deployed on the table. Vehicle Units with half or more Teams destroyed or suppressed contribute no dice. FOs count as PL Teams for off-board artillery Units.</p>
-        <p>Each die showing <strong>4+</strong> generates 1 Order Point. Always add +1 to this total.</p>
-        <p>One die must be of a <strong>different color</strong> — this is the <strong>Hero Die</strong>. If the Hero Die rolls 6, reveal and discard any remaining Hero Points, then roll 1d6 (keeping it hidden), gaining a number of Hero Points equal to the new roll.</p>
-        <div class="rules-subsection">
-          <div class="rules-subsection-title">Hero Point Generation (Alternative)</div>
-          <p>While on the table, generate <strong>1 Hero Point</strong> at the beginning of the player's turn. If this Hero Point is not spent before the start of the player's following turn, it is lost before a new one is generated.</p>
+          <p><strong>Ground Attack Restriction:</strong> Aircraft may not target enemy Teams within 12" of any friendly Teams.</p>
         </div>
       </div>`
   },
@@ -5590,10 +5562,14 @@ const RULES_DATA = [
     group: 'Optional Rules',
     body: `
       <div class="rules-body-text">
-        <p>A <strong>Company Commander (CC)</strong> is a unit of one Team. When activated, they may activate a Platoon Leader Team within LoS, who then activates their Teams normally. CCs may perform any Leader Abilities on non-vehicle Teams in the company.</p>
+        <p>A <strong>Company Commander (CC)</strong> is a unit of one Team. When rolling Order Dice, the CC <strong>contributes one die regardless of whether he is leading a unit</strong>. When activated, the CC may activate a Platoon Leader Team within LoS, who then activates their Teams normally. CCs may perform any Leader Abilities on non-vehicle Teams in the company. A CC may also lead a <strong>Company HQ unit</strong> containing additional weapons Teams.</p>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Command Presence</div>
           <p>If within <strong>4" of Teams in an activated Platoon</strong>, that Platoon may re-roll failed Morale Checks. If the unit flees, the CC flees with them, counting as an additional destroyed unit.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Hero Point Generation</div>
+          <p>While on the table, the CC generates <strong>1 Hero Point</strong> at the beginning of the player's turn. If this Hero Point is not spent before the start of the player's following turn, it is lost before a new one is generated.</p>
         </div>
       </div>`
   },
@@ -5798,6 +5774,7 @@ const RULES_DATA = [
           <ul>
             <li><strong>Artillery Saturation</strong> — The Soviet player may spend 1 Hero Point when a friendly Artillery Unit is about to resolve a barrage, before rolling for deviation, to increase its radius by +2" and inflict +1 RFP to all affected Teams.</li>
             <li><strong>Massed Assault</strong> — When Soviet Infantry are ordered to move into contact with enemy Teams, 1 Hero Point may be spent to activate any number of Infantry Teams simultaneously, provided all are ordered to Assault the same target Unit.</li>
+            <li><strong>Follow The Leader</strong> — Soviet Platoon Leaders and Vehicle Unit leaders may not split orders between Teams. All activated Teams in the Unit must receive the same order. <em>(Best suited for pre-1944 forces; players representing the more tactically sophisticated Red Army of 1944–45 may waive this rule.)</em></li>
           </ul>
         </div>
         <div class="rules-subsection">
