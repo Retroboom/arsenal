@@ -5856,7 +5856,10 @@ function toggleRulesSection(id) {
 function scrollToRulesSection(id) {
   const el = document.getElementById(`rs-${id}`);
   if (!el) return;
-  if (!el.classList.contains('open')) el.classList.add('open');
+  // Collapse all other sections, open this one
+  document.querySelectorAll('.rules-section').forEach(s => {
+    s.classList.toggle('open', s === el);
+  });
   el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   // Highlight active TOC item
   document.querySelectorAll('.rules-toc-item').forEach(b => b.classList.remove('active'));
