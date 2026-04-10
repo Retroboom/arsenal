@@ -3201,17 +3201,22 @@
 
     /* ── Landscape 2-column layout ── */
     body.print-landscape .fs-body {
-      columns: 2;
-      column-gap: 28pt;
+      -webkit-column-count: 2 !important;
+      column-count: 2 !important;
+      -webkit-column-gap: 28pt !important;
+      column-gap: 28pt !important;
       padding: 8px 16px 16px !important;
     }
     body.print-landscape .fs-platoon {
-      break-inside: avoid;
-      page-break-inside: avoid;
+      display: inline-block !important;
+      width: 100% !important;
+      -webkit-column-break-inside: avoid !important;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
       margin-bottom: 10px !important;
     }
     body.print-landscape .fs-stats-table {
-      width: 100%;
+      width: 100% !important;
     }
   }
 
@@ -4775,7 +4780,7 @@ function printForce() {
 function printLandscape() {
   const style = document.createElement('style');
   style.id = 'landscape-print-override';
-  style.textContent = '@page { size: landscape; }';
+  style.textContent = '@page { size: A4 landscape; }';
   document.head.appendChild(style);
   document.body.classList.add('print-landscape');
   function cleanup() {
@@ -4785,7 +4790,8 @@ function printLandscape() {
     window.removeEventListener('afterprint', cleanup);
   }
   window.addEventListener('afterprint', cleanup);
-  window.print();
+  // Small delay to ensure styles are applied before print capture
+  setTimeout(() => window.print(), 50);
 }
 
 function showSubscribePrompt() {
