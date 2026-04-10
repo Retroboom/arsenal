@@ -895,7 +895,7 @@
       "fp": 1,
       "armor_front": null,
       "armor_flank": null,
-      "armament": "Passenger-fired MG or .50cal MG",
+      "armament": "Passenger-fired .50cal MG",
       "notes": [
         "Wheeled",
         "Open Topped",
@@ -1018,7 +1018,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "Passenger-fired MG or .50cal MG",
+      "armament": "Passenger-fired .50cal MG",
       "notes": [
         "Half-Tracked",
         "Open Topped",

@@ -955,6 +955,18 @@
   .unit-table th.sort-active { color: var(--accent); }
   .sort-arrow { margin-left: 4px; opacity: 0.7; }
 
+  /* Stacked two-row table mode */
+  .unit-table.stacked thead { display: none; }
+  .stacked-main td { padding-bottom: 2px; border-bottom: none; }
+  .stacked-stats td { padding-top: 2px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+  .stacked-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .stacked-type { font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: 0.5px; }
+  .stacked-actions { text-align: right; vertical-align: middle; white-space: nowrap; }
+  .stacked-stat-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .stacked-stat { font-family: var(--mono); font-size: 12px; color: var(--text); white-space: nowrap; }
+  .stacked-lbl { font-size: 9px; color: var(--text3); letter-spacing: 1px; margin-right: 3px; }
+  .stacked-years { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-left: 4px; }
+
   .table-name {
     font-family: var(--display);
     font-size: 15px;
@@ -3314,6 +3326,9 @@ let allUnits = [];
 let filteredUnits = [];
 let tableSortCol = null;   // null = default grouped view
 let tableSortDir = 1;      // 1 = asc, -1 = desc
+let tableStacked = false;  // true = two-row compact format
+let _stackObserver = null;
+let _stackDebounce = null;
 let platoons = [];
 let activePlatoonId = null;
 // Track which unit was just added/changed so only that row animates
@@ -3547,6 +3562,8 @@ function setView(view) {
   currentView = view;
   tableSortCol = null;
   tableSortDir = 1;
+  if (view === 'table') startTableStackObserver();
+  else stopTableStackObserver();
   document.getElementById('btn-grid').classList.toggle('active', view === 'grid');
   document.getElementById('btn-table').classList.toggle('active', view === 'table');
   renderUnits();
@@ -3807,6 +3824,29 @@ function renderGrid(container, forceIds, animate = true) {
   }
 }
 
+function startTableStackObserver() {
+  const el = document.getElementById('unit-display');
+  if (!el || _stackObserver) return;
+  _stackObserver = new ResizeObserver(entries => {
+    const w = entries[0].contentRect.width;
+    const shouldStack = w < 680;
+    if (shouldStack !== tableStacked) {
+      tableStacked = shouldStack;
+      clearTimeout(_stackDebounce);
+      _stackDebounce = setTimeout(() => {
+        if (currentView === 'table') renderUnits(true);
+      }, 60);
+    }
+  });
+  _stackObserver.observe(el);
+}
+
+function stopTableStackObserver() {
+  if (_stackObserver) { _stackObserver.disconnect(); _stackObserver = null; }
+  clearTimeout(_stackDebounce);
+  tableStacked = false;
+}
+
 function setTableSort(col) {
   if (tableSortCol === col) {
     tableSortDir *= -1;
@@ -3841,15 +3881,58 @@ function renderTable(container, forceIds) {
     return `<th class="${cls}"${onClick}${align}>${c.label}${arrow}</th>`;
   }).join('');
 
-  let html = `<table class="unit-table"><thead><tr>${thHtml}</tr></thead><tbody>`;
+  let html = `<table class="unit-table${tableStacked ? ' stacked' : ''}"><thead><tr>${thHtml}</tr></thead><tbody>`;
 
-  const colSpan = cols.length;
+  const colSpan = tableStacked ? 2 : cols.length;
+
+  function unitActions(unit) {
+    const locked = !unit.free && !isSubscriber;
+    return locked
+      ? `<span style="font-family:var(--mono);font-size:9px;color:#9a8a5a;">🔒 Sub</span>`
+      : activePlatoonId
+        ? `<div style="display:flex;gap:4px;">
+            ${unit.standard_platoon ? `<button class="table-add-btn" onclick="addAsStandardPlatoon('${unit.id}')">+ Platoon</button>` : ''}
+            <button class="table-add-btn" onclick="addTeamToPlatoon('${unit.id}')">+ Add</button>
+          </div>`
+        : '';
+  }
 
   function unitRow(unit) {
     const inForce = forceIds.has(unit.id);
-    const locked = !unit.free && !isSubscriber;
+    const ic = inForce ? 'in-force' : '';
+
+    if (tableStacked) {
+      const stats = [
+        unit.gun_range ? `<span class="stacked-stat"><span class="stacked-lbl">RNG</span>${unit.gun_range}</span>` : null,
+        unit.rof !== null ? `<span class="stacked-stat"><span class="stacked-lbl">ROF</span>${unit.rof}</span>` : null,
+        unit.at !== null ? `<span class="stacked-stat"><span class="stacked-lbl">AT</span>${unit.at}</span>` : null,
+        (unit.fp !== null && unit.fp !== undefined) ? `<span class="stacked-stat"><span class="stacked-lbl">FP</span>${unit.fp}</span>` : null,
+        unit.armor_front !== null ? `<span class="stacked-stat"><span class="stacked-lbl">ARM</span>${unit.armor_front}/${unit.armor_flank}</span>` : null,
+      ].filter(Boolean).join('');
+      return `
+        <tr class="stacked-main ${ic}">
+          <td>
+            <div class="stacked-header">
+              <span class="table-name">${unit.name}</span>
+              <span class="${nationBadgeClass(unit.nation)}" style="font-size:9px;padding:2px 5px;">${unit.nation}</span>
+              <span class="stacked-type">${unit.type}</span>
+            </div>
+          </td>
+          <td class="stacked-actions">${unitActions(unit)}</td>
+        </tr>
+        <tr class="stacked-stats ${ic}">
+          <td colspan="2">
+            <div class="stacked-stat-row">
+              ${stats}
+              ${unit.notes.map(n => noteTag(n)).join(' ')}
+              <span class="stacked-years">${yearRange(unit.years)}</span>
+            </div>
+          </td>
+        </tr>`;
+    }
+
     return `
-      <tr class="${inForce ? 'in-force' : ''}">
+      <tr class="${ic}">
         <td><span class="table-name">${unit.name}</span></td>
         <td><span class="${nationBadgeClass(unit.nation)}" style="font-size:9px;padding:2px 5px;">${unit.nation}</span></td>
         <td style="color:var(--text3);font-size:10px;letter-spacing:0.5px">${unit.type}</td>
@@ -3860,17 +3943,7 @@ function renderTable(container, forceIds) {
         <td class="table-stat ${unit.armor_front !== null ? '' : 'null'}">${unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '—'}</td>
         <td class="table-notes">${unit.notes.map(n => noteTag(n)).join(' ')}</td>
         <td style="color:var(--text3);font-size:10px;white-space:nowrap">${yearRange(unit.years)}${isAdmin ? ' ' + ratingBadgeHtml(unit.id) : ''}</td>
-        <td>
-          ${locked
-            ? `<span style="font-family:var(--mono);font-size:9px;color:#9a8a5a;">🔒 Sub</span>`
-            : activePlatoonId
-              ? `<div style="display:flex;gap:4px;">
-                  ${unit.standard_platoon ? `<button class="table-add-btn" onclick="addAsStandardPlatoon('${unit.id}')">+ Platoon</button>` : ''}
-                  <button class="table-add-btn" onclick="addTeamToPlatoon('${unit.id}')">+ Add</button>
-                </div>`
-              : ''
-          }
-        </td>
+        <td>${unitActions(unit)}</td>
       </tr>`;
   }
 
