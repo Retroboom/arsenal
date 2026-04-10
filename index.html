@@ -790,8 +790,18 @@
     padding: 2px 5px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    white-space: nowrap;
     position: relative;
     cursor: default;
+  }
+
+  /* In table view, truncate long note tags with ellipsis — tooltip shows full name */
+  .unit-table .note-tag {
+    display: inline-block;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
   }
 
   .note-tag.special { color: var(--text); border-color: var(--border); }
@@ -3706,8 +3716,8 @@ function isSpecialNote(note) {
 }
 
 function noteTag(note) {
-  const tip = RULE_TIPS[note];
-  return `<span class="note-tag ${isSpecialNote(note) ? 'special' : ''}" ${tip ? `data-tip="${tip.replace(/"/g, '&quot;')}"` : ''}>${note}</span>`;
+  const tip = RULE_TIPS[note] || note;
+  return `<span class="note-tag ${isSpecialNote(note) ? 'special' : ''}" data-tip="${tip.replace(/"/g, '&quot;')}">${note}</span>`;
 }
 
 function renderGrid(container, forceIds, animate = true) {
