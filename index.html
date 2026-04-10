@@ -347,6 +347,9 @@
   }
   .rules-toc-item:hover { color: var(--text2); border-left-color: var(--border); }
   .rules-toc-item.active { color: var(--accent); border-left-color: var(--accent); }
+  .rules-toc-item.toc-match { color: var(--accent); }
+  .rules-toc-item.toc-nomatch { opacity: 0.25; }
+  .rules-toc-group.toc-nomatch { opacity: 0.25; }
   .rules-toc-group {
     font-family: var(--mono);
     font-size: 8px;
@@ -5853,36 +5856,48 @@ function applyRulesSearch(query) {
   if (!rulesRendered) return;
   const q = (query || '').toLowerCase().trim();
 
+  // Track which groups have at least one match
+  const matchedGroups = new Set();
+
   document.querySelectorAll('.rules-section').forEach(el => {
     const section = RULES_DATA.find(s => s.id === el.dataset.id);
     if (!section) return;
 
+    const tocBtn = document.querySelector(`.rules-toc-item[data-toc="${section.id}"]`);
+
     if (!q) {
       el.classList.remove('rules-match', 'rules-nomatch');
-      // Remove any highlights
       const body = el.querySelector('.rules-section-body');
       if (body) body.innerHTML = section.body;
+      if (tocBtn) tocBtn.classList.remove('toc-match', 'toc-nomatch');
       return;
     }
 
-    const titleText  = section.title.toLowerCase();
-    const bodyText   = el.querySelector('.rules-section-body')?.textContent?.toLowerCase() || '';
-    const isMatch    = titleText.includes(q) || bodyText.includes(q);
+    const titleText = section.title.toLowerCase();
+    const bodyText  = el.querySelector('.rules-section-body')?.textContent?.toLowerCase() || '';
+    const isMatch   = titleText.includes(q) || bodyText.includes(q);
 
     el.classList.toggle('rules-match',   isMatch);
     el.classList.toggle('rules-nomatch', !isMatch);
-    if (isMatch) el.classList.add('open');
+    if (isMatch) {
+      el.classList.add('open');
+      matchedGroups.add(section.group);
+    }
+
+    if (tocBtn) {
+      tocBtn.classList.toggle('toc-match',   isMatch);
+      tocBtn.classList.toggle('toc-nomatch', !isMatch);
+    }
 
     // Highlight matches in body text
-    if (isMatch) {
-      const body = el.querySelector('.rules-section-body');
-      if (body) {
-        body.innerHTML = highlightRulesText(section.body, q);
-      }
-    } else {
-      const body = el.querySelector('.rules-section-body');
-      if (body) body.innerHTML = section.body;
-    }
+    const body = el.querySelector('.rules-section-body');
+    if (body) body.innerHTML = isMatch ? highlightRulesText(section.body, q) : section.body;
+  });
+
+  // Dim TOC group labels that have no matches
+  document.querySelectorAll('.rules-toc-group').forEach(g => {
+    if (!q) { g.classList.remove('toc-nomatch'); return; }
+    g.classList.toggle('toc-nomatch', !matchedGroups.has(g.textContent.trim()));
   });
 
   // Show/hide no-results message
