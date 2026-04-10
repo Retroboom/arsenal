@@ -2702,11 +2702,19 @@
     cursor: help;
   }
 
-  .fs-mg-row td {
-    padding-top: 2px;
-    padding-bottom: 4px;
-    border-bottom: none;
-    opacity: 0.75;
+  .fs-mg-reference {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .fs-mg-reference-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 8px;
   }
 
   .fs-qty {
@@ -5150,6 +5158,9 @@ function openForceSheet(forceData) {
 
   const forceQ = forceData.quality || 'Regular';
 
+  // Collect unique MG types across all units in the force
+  const forceMGs = new Map();
+
   const platoonSections = platoonArr.map((platoon, pi) => {
     const teams = toArr(platoon.teams);
     const label = htmlEscape(platoon.name || `Platoon ${pi + 1}`);
@@ -5194,17 +5205,7 @@ function openForceSheet(forceData) {
 
       const notes = (unit.notes || []).map(n => noteTag(n)).join(' ');
 
-      const mgs = detectMGs(unit.armament);
-      const mgRows = mgs.map(([name, s]) => `
-        <tr class="fs-mg-row">
-          <td class="fs-qty" style="color:var(--text3)">↳</td>
-          <td><span class="fs-armament" style="font-style:normal">${name}</span></td>
-          <td></td>
-          ${sc(s.range)}${sc(s.rof)}${sc(s.at)}
-          <td class="fs-stat dash">—</td>
-          <td class="fs-stat dash">—</td>
-          <td class="fs-notes-cell" style="color:var(--text3);font-size:10px">${s.notes}</td>
-        </tr>`).join('');
+      detectMGs(unit.armament).forEach(([name, s]) => forceMGs.set(name, s));
 
       return `
         <tr>
@@ -5217,7 +5218,7 @@ function openForceSheet(forceData) {
           ${sc(range)}${sc(rof)}${sc(at)}${sc(fp)}
           <td class="${hasArmor ? 'fs-stat' : 'fs-stat dash'}">${hasArmor ? `${unit.armor_front}/${unit.armor_flank}` : '—'}</td>
           <td class="fs-notes-cell">${notes}</td>
-        </tr>${mgRows}`;
+        </tr>`;
     }).join('');
 
     return `
@@ -5269,6 +5270,31 @@ function openForceSheet(forceData) {
       ${notes ? `<div class="fs-notes">${notes}</div>` : ''}
       <div class="fs-body">
         ${platoonSections || '<div style="font-family:var(--mono);font-size:11px;color:var(--text3);text-align:center;padding:32px;">No platoons in this force.</div>'}
+        ${forceMGs.size ? `
+        <div class="fs-mg-reference">
+          <div class="fs-mg-reference-title">Vehicle MGs</div>
+          <table class="fs-stats-table">
+            <thead>
+              <tr>
+                <th>Weapon</th>
+                <th class="c">Range</th>
+                <th class="c">RoF</th>
+                <th class="c">AT</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${[...forceMGs.entries()].map(([name, s]) => `
+                <tr>
+                  <td class="fs-unit-name" style="font-size:13px">${name}</td>
+                  <td class="fs-stat">${s.range}</td>
+                  <td class="fs-stat">${s.rof}</td>
+                  <td class="${s.at !== null ? 'fs-stat' : 'fs-stat dash'}">${s.at ?? '—'}</td>
+                  <td class="fs-notes-cell" style="font-size:10px;color:var(--text3)">${s.notes}</td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>` : ''}
       </div>
     </div>`;
 
