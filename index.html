@@ -930,8 +930,9 @@
   [data-nation="Britain"]       { --nation-color: #a08840; }
   [data-nation="Soviet Union"]  { --nation-color: #a85040; }
 
-  /* Nation chips: neutral style (color reserved for badges/dividers) */
-  .chip[data-nation].active { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 600; }
+  .chip[data-nation] { color: var(--nation-color); }
+  .chip[data-nation]:hover { border-color: var(--nation-color); color: var(--nation-color); }
+  .chip[data-nation].active { background: var(--nation-color); border-color: var(--nation-color); color: #111; font-weight: 600; }
 
   /* ── Type colors ──────────────────────────────────────────────────────────── */
   [data-type="Infantry"]   { --type-color: #6abf6a; }
@@ -951,8 +952,9 @@
   [data-quality="Regular"] { --quality-color: var(--green); }
   [data-quality="Poor"]    { --quality-color: #d46a6a; }
 
-  /* Quality chips: neutral style */
-  .chip[data-quality].active { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 600; }
+  .chip[data-quality] { color: var(--quality-color); }
+  .chip[data-quality]:hover { border-color: var(--quality-color); color: var(--quality-color); }
+  .chip[data-quality].active { background: var(--quality-color); border-color: var(--quality-color); color: #111; font-weight: 600; }
 
   .type-badge {
     font-family: var(--mono);
@@ -963,8 +965,9 @@
   }
   .type-badge[data-type] { color: var(--type-color); }
 
-  /* Type filter chips: neutral style (type color reserved for type badges on cards) */
-  .chip[data-type].active { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 600; }
+  .chip[data-type] { color: var(--type-color); }
+  .chip[data-type]:hover { border-color: var(--type-color); color: var(--type-color); }
+  .chip[data-type].active { background: var(--type-color); border-color: var(--type-color); color: #111; font-weight: 600; }
 
   .card-stats {
     display: grid;
