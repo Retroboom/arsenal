@@ -5882,6 +5882,8 @@ function applyRulesSearch(query) {
     if (isMatch) {
       el.classList.add('open');
       matchedGroups.add(section.group);
+    } else {
+      el.classList.remove('open');
     }
 
     if (tocBtn) {
