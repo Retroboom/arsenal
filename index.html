@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hail of Fire — Arsenal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Stardos+Stencil:wght@400;700&family=Share+Tech+Mono&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -26,7 +26,7 @@
     --red: #a04545;
     --blue: #4a6a8c;
     --mono: 'Share Tech Mono', monospace;
-    --display: 'Bebas Neue', sans-serif;
+    --display: 'Stardos Stencil', sans-serif;
     --body: 'Barlow', sans-serif;
   }
 
@@ -858,16 +858,17 @@
     border: 1px solid;
   }
 
-  .nation-us { border-color: #3a5a7c; color: #6a9abc; background: #0d1a24; }
-  .nation-germany { border-color: #5a4a2a; color: #9a8a5a; background: #1a1508; }
-  .nation-britain { border-color: #3a5a3a; color: #6a9a6a; background: #0d180d; }
-  .nation-soviet { border-color: #7c3a3a; color: #bc6a6a; background: #240d0d; }
+  /* US: OD olive drab — Germany: Feldgrau — Britain: khaki — Soviet: earthy crimson */
+  .nation-us      { border-color: #4a5828; color: #8a9a50; background: #0e1208; }
+  .nation-germany { border-color: #4a5040; color: #848c70; background: #0e1010; }
+  .nation-britain { border-color: #6a5828; color: #a08840; background: #181208; }
+  .nation-soviet  { border-color: #6a2c1a; color: #a85040; background: #1a0808; }
 
   /* Nation chip colors — keyed to existing badge palette */
-  [data-nation="United States"] { --nation-color: #6a9abc; }
-  [data-nation="Germany"]       { --nation-color: #9a8a5a; }
-  [data-nation="Britain"]       { --nation-color: #6a9a6a; }
-  [data-nation="Soviet Union"]  { --nation-color: #bc6a6a; }
+  [data-nation="United States"] { --nation-color: #8a9a50; }
+  [data-nation="Germany"]       { --nation-color: #848c70; }
+  [data-nation="Britain"]       { --nation-color: #a08840; }
+  [data-nation="Soviet Union"]  { --nation-color: #a85040; }
 
   .chip[data-nation] { color: var(--nation-color); }
   .chip[data-nation]:hover { border-color: var(--nation-color); color: var(--nation-color); }
@@ -3008,10 +3009,10 @@
       font-family: Arial, sans-serif !important;
       background: white !important;
     }
-    .nation-us    { color: #1a3a5c !important; border-color: #3a5a7c !important; }
-    .nation-germany { color: #3a2a0a !important; border-color: #5a4a2a !important; }
-    .nation-britain { color: #1a3a1a !important; border-color: #3a5a3a !important; }
-    .nation-soviet  { color: #4c0a0a !important; border-color: #7c3a3a !important; }
+    .nation-us      { color: #2a3818 !important; border-color: #4a5828 !important; }
+    .nation-germany { color: #2a3028 !important; border-color: #4a5040 !important; }
+    .nation-britain { color: #3a3018 !important; border-color: #6a5828 !important; }
+    .nation-soviet  { color: #3a1810 !important; border-color: #6a2c1a !important; }
 
     .fs-notes { color: #444 !important; border-bottom: 1pt solid #ccc !important; }
     .fs-body { padding: 16px 24px 32px !important; }
