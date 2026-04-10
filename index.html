@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hail of Fire — Arsenal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Stardos+Stencil:wght@400;700&family=Share+Tech+Mono&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Stardos+Stencil:wght@400;700&family=Special+Elite&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -13,19 +13,19 @@
 <style>
   :root {
     --header-h: 60px;
-    --bg: #100f0b;
-    --bg2: #1b1914;
-    --bg3: #252218;
-    --border: #37321e;
-    --accent: #c8a84a;
-    --accent2: #a04545;
-    --text: #f5f0e0;
-    --text2: #d0c8b0;
-    --text3: #b0a490;
+    --bg: #0e1009;
+    --bg2: #171c0e;
+    --bg3: #20270f;
+    --border: #2e3818;
+    --accent: #b89040;
+    --accent2: #8b3a2a;
+    --text: #ede8d0;
+    --text2: #c8c0a0;
+    --text3: #a09878;
     --green: #5a9a6e;
     --red: #a04545;
     --blue: #4a6a8c;
-    --mono: 'Share Tech Mono', monospace;
+    --mono: 'Special Elite', monospace;
     --display: 'Stardos Stencil', sans-serif;
     --body: 'Barlow', sans-serif;
   }
@@ -54,8 +54,9 @@
   /* HEADER */
   header {
     background: var(--bg2);
+    border-top: 2px solid var(--accent);
     border-bottom: 1px solid var(--border);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 3px 12px rgba(0,0,0,0.6);
+    box-shadow: 0 3px 16px rgba(0,0,0,0.7);
     padding: 0 24px;
     min-height: 60px;
     display: flex;
@@ -530,18 +531,23 @@
   }
 
   .logo span {
-    color: var(--text3);
-    font-size: 20px;
-    font-family: var(--mono);
+    color: var(--text2);
+    font-size: 22px;
+    font-family: var(--display);
     white-space: nowrap;
   }
   .logo .logo-slashes {
-    font-size: 17px;
+    font-size: 14px;
     letter-spacing: 0px;
-    margin-right: 6px;
+    margin-right: 8px;
+    color: var(--accent);
+    opacity: 0.7;
+    font-family: var(--mono);
   }
   .logo .logo-word {
-    letter-spacing: 3px;
+    letter-spacing: 5px;
+    color: var(--accent);
+    text-shadow: 0 0 20px rgba(184,144,64,0.3);
   }
 
   .force-toggle-btn {
@@ -631,9 +637,9 @@
   }
 
   .filter-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 2px;
+    font-family: var(--display);
+    font-size: 11px;
+    letter-spacing: 3px;
     color: var(--text3);
     text-transform: uppercase;
     margin-bottom: 8px;
@@ -865,10 +871,10 @@
     pointer-events: none;
     user-select: none;
   }
-  .unit-card.nc-us      { background: repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px), linear-gradient(175deg, #181e10 0%, #121508 60%); }
-  .unit-card.nc-germany { background: repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px), linear-gradient(175deg, #161a14 0%, #111412 60%); }
-  .unit-card.nc-britain { background: repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px), linear-gradient(175deg, #1c1a0e 0%, #16130a 60%); }
-  .unit-card.nc-soviet  { background: repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px), linear-gradient(175deg, #1e1210 0%, #160e0a 60%); }
+  .unit-card.nc-us      { background: repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px), linear-gradient(175deg, #1c2210 0%, #151a09 60%); }
+  .unit-card.nc-germany { background: repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px), linear-gradient(175deg, #1a1e14 0%, #141710 60%); }
+  .unit-card.nc-britain { background: repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px), linear-gradient(175deg, #201e0a 0%, #181508 60%); }
+  .unit-card.nc-soviet  { background: repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px), linear-gradient(175deg, #221410 0%, #1a0e0c 60%); }
 
   .unit-card.nc-us::after      { content: '★'; color: #8a9a50; opacity: 0.09; }
   .unit-card.nc-germany::after { content: '✕'; color: #848c70; opacity: 0.10; }
@@ -985,10 +991,10 @@
   .stat-cell:last-child { border-right: none; }
 
   .stat-label {
-    font-family: var(--mono);
+    font-family: var(--display);
     font-size: 9px;
     color: var(--text3);
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     display: block;
     margin-bottom: 3px;
