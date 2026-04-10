@@ -5021,18 +5021,9 @@ const RULES_DATA = [
     group: 'Core Rules',
     body: `
       <div class="rules-body-text">
-        <p>Players alternate turns. At the start of your turn, roll <strong>2d6 (Order Dice)</strong> and use the <em>higher</em> result as your <strong>Order Points</strong> for the turn.</p>
-        <p>Spend Order Points to activate Units. The <strong>Active Player</strong> activates one Unit at a time. You must finish one Unit's activation completely before starting another.</p>
-        <div class="rules-subsection">
-          <div class="rules-subsection-title">Turn Structure</div>
-          <ol>
-            <li>Roll 2d6, take the higher die as your Order Points total.</li>
-            <li>Spend Order Points to activate Units (1 OP per Unit activated).</li>
-            <li>Each activated Unit performs its Orders (Move or Fire).</li>
-            <li>When you choose not to spend more OP, pass the turn to your opponent.</li>
-          </ol>
-        </div>
-        <p><strong>Doubles:</strong> When both Order Dice show the same number, re-roll both and gain the new total as <strong>Hero Points</strong> (in addition to your Order Points).</p>
+        <p>Each Turn begins with the <strong>Active Player</strong> rolling two <strong>Order Dice</strong> and taking the <em>higher</em> of the two results. This is the number of <strong>Order Points</strong> the Active Player receives for their Turn.</p>
+        <p>The Active Player may spend an Order Point to <strong>activate one of their Teams</strong> and order them to either <strong>Move or Fire</strong>. The Active Player must finish one activation before spending another Order Point to begin a new activation. Teams activated by Order Points may not be activated by another Order Point until their next turn begins.</p>
+        <p>Once the Active Player has spent all of their Order Points, or chooses to end their Turn, the Turn is then over. The Non-Active Player becomes the Active Player and rolls two Order Dice to see how many Order Points they will receive for their turn.</p>
       </div>`
   },
   {
@@ -5041,23 +5032,16 @@ const RULES_DATA = [
     group: 'Core Rules',
     body: `
       <div class="rules-body-text">
-        <p>Before the game, each player rolls their <strong>Hero Die</strong> (kept hidden) to determine their starting Hero Points.</p>
-        <p>Hero Points can be spent at any time — even during your opponent's turn — for powerful effects.</p>
+        <p>Before the first turn, both Players roll a <strong>Hero Die</strong> and keep the result hidden from their opponent. This is the number of <strong>Hero Points</strong> the Player receives. Use a separate die to track how many Hero Points have been <em>spent</em>, counting up from zero.</p>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Spending Hero Points</div>
-          <ul>
-            <li>Activate an <strong>already-activated</strong> Team to act again.</li>
-            <li>Activate one of your Teams <strong>during your opponent's turn</strong> (interrupt).</li>
-          </ul>
+          <p>Hero Points may be spent to activate Teams as normal, to <strong>activate Teams that have already been activated</strong> by an Order Point, or to <strong>activate Teams during the other Player's Turn</strong> between their activations.</p>
+          <p>Teams activated with Hero Points may not activate again until the current player's turn ends — once per player turn (with OP or HP), plus once during the opponent's turn (with HP).</p>
         </div>
         <div class="rules-subsection">
-          <div class="rules-subsection-title">Gaining Hero Points</div>
-          <ul>
-            <li><strong>Order Dice Doubles:</strong> Re-roll both dice and gain the new total as HP.</li>
-            <li>Some optional rules (e.g., Alternative Order Dice) provide additional HP generation.</li>
-          </ul>
+          <div class="rules-subsection-title">Doubles — Refreshing Hero Points</div>
+          <p>Any time a Player rolls <strong>doubles</strong> on their Order Dice, that Player reveals their previous Hero Die roll, then rolls it again (keeping the new result hidden), <strong>losing any remaining Hero Points</strong> and gaining a number equal to the new roll.</p>
         </div>
-        <p><em>Note:</em> Any unspent Hero Point at the end of your turn (before your next turn begins) is lost when a new one is generated.</p>
       </div>`
   },
   {
@@ -5067,24 +5051,14 @@ const RULES_DATA = [
     body: `
       <div class="rules-body-text">
         <div class="rules-subsection">
-          <div class="rules-subsection-title">Team Types</div>
-          <ul>
-            <li><strong>Infantry Teams</strong> — 2–5 men on a single base.</li>
-            <li><strong>Gun Teams</strong> — Crew-served weapons; man-portable guns can move through difficult terrain.</li>
-            <li><strong>Vehicle Teams</strong> — Tanks, half-tracks, trucks, and other vehicles.</li>
-          </ul>
-          <p><strong>Small Teams</strong> include Leaders, Snipers, Forward Observers, and similarly small elements. They follow special rules for assaults and morale.</p>
+          <div class="rules-subsection-title">Forces & Team Types</div>
+          <p>Each Player commands a supported Company, typically <strong>5–8 Units</strong> on a standard 6'×4' table. All Teams are categorized as <strong>Infantry</strong>, <strong>Gun</strong>, or <strong>Vehicle</strong> Teams.</p>
+          <p><strong>Small Teams</strong> (Leaders, Snipers, FOs) are on bases about half the size of infantry bases. Non-man-portable Gun Teams are on larger bases about twice the size.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Checks (d6)</div>
-          <p>Whenever a rule calls for a Check, roll a d6 and try to <strong>equal or beat the target number</strong> (usually 4+). Checks include:</p>
-          <ul>
-            <li><strong>Assault Check</strong> — Required to attack in close combat.</li>
-            <li><strong>Morale Check</strong> — Required when a Unit falls below half strength.</li>
-            <li><strong>Rally Check</strong> — Attempt to remove suppression from a Team.</li>
-            <li><strong>Training Check</strong> — Various special situations (terrain, leader loss, etc.).</li>
-          </ul>
-          <p><strong>Elite</strong> troops re-roll 1s on all Checks. <strong>Poor</strong> troops re-roll 6s on all Checks.</p>
+          <p>Rules often reference <strong>Checks</strong> that Teams and Units are required to make (<em>Training Check, Assault Check, Rally Check</em>, etc.). A Check is a d6 roll trying to <strong>equal or beat a specific number</strong>.</p>
+          <p>By default, this number is always <strong>4+</strong>, covering the vast majority of professional forces throughout WWII. To best represent specific troops, some should likely be assigned <strong>3+</strong> for Assault Checks, and some others <strong>5+</strong> for Morale Checks — but unless specified in an official stat line or discussed with your opponent beforehand, <strong>4+ is always the assumed target number</strong>.</p>
         </div>
       </div>`
   },
@@ -5094,19 +5068,11 @@ const RULES_DATA = [
     group: 'Core Rules',
     body: `
       <div class="rules-body-text">
-        <p>When you activate a Unit, its <strong>Platoon Leader (PL)</strong> activates all Teams in the Unit. The PL may activate any Team within <strong>Line of Sight (LoS)</strong>.</p>
+        <p>An Order Point may be spent to activate a Team. Infantry and Gun Units have a <strong>Platoon Leader (PL)</strong> Team. If the PL is activated, they may also activate any Teams in their Unit to which they have <strong>Line of Sight (LoS)</strong>, and issue <strong>one order to the entire Unit</strong>, or <strong>two orders split between Teams</strong> in the Unit — allowing Teams to split Fire, Move in different directions, or have some Move while others shoot.</p>
+        <p>Teams activate in four steps: <strong>Declare Orders</strong>, <strong>Rally</strong> (if applicable), <strong>Resolve RFPs</strong>, then <strong>Execute Orders</strong>.</p>
         <div class="rules-subsection">
-          <div class="rules-subsection-title">Activation Sequence</div>
-          <ol>
-            <li><strong>Declare Orders</strong> — The PL issues Move or Fire orders to Teams.</li>
-            <li><strong>Rally</strong> — Suppressed Teams with no RFPs make Rally Checks.</li>
-            <li><strong>Resolve RFPs</strong> — Roll for all outstanding Received Fire Points.</li>
-            <li><strong>Execute Orders</strong> — Teams carry out their declared orders.</li>
-          </ol>
-        </div>
-        <div class="rules-subsection">
-          <div class="rules-subsection-title">Issuing Orders</div>
-          <p>The PL can issue <strong>one order to all Teams</strong>, or <strong>split two different orders</strong> among Teams in the Unit. Any Team not given an order does nothing this activation.</p>
+          <div class="rules-subsection-title">Vehicle Units</div>
+          <p>Vehicle Units do not have designated Leader Teams. Each time a Vehicle in a Unit is activated, the player may <strong>nominate it as the leader</strong>, provided fewer than half the Unit's starting Teams are suppressed or destroyed. The nominated leader may activate any Vehicles in its Unit within LoS and issue one order to all, or two orders split between them.</p>
         </div>
       </div>`
   },
@@ -5120,23 +5086,33 @@ const RULES_DATA = [
           <div class="rules-subsection-title">Movement Rates</div>
           <table class="rules-table">
             <tr><th>Team Type</th><th>Move</th></tr>
-            <tr><td>Infantry</td><td>2d6"</td></tr>
+            <tr><td>Infantry Teams</td><td>2d6"</td></tr>
             <tr><td>Gun Teams</td><td>1d6"</td></tr>
-            <tr><td>Vehicles (Tracked/Half-tracked)</td><td>3d6"</td></tr>
-            <tr><td>Vehicles (Wheeled)</td><td>3d6"</td></tr>
+            <tr><td>Vehicle Teams</td><td>3d6"</td></tr>
           </table>
-          <p><em>Declare your destination before rolling.</em></p>
+          <p>Dice are rolled <em>once per type of Team</em> in the Unit — all Infantry in the Unit share the same roll. A <strong>destination must be declared</strong> before dice are rolled. If the roll is insufficient to reach the declared destination, the Team moves as far as the rolled distance allows toward the destination.</p>
+          <p>If the entire move can be completed <strong>outside LoS of unsuppressed enemy</strong> (or within LoS of only enemy Small Teams), Teams may instead move up to their <strong>maximum possible movement</strong>.</p>
         </div>
         <div class="rules-subsection">
-          <div class="rules-subsection-title">Terrain & Roads</div>
-          <p>Tracked and Half-Tracked vehicles must make a <strong>Training Check</strong> when entering <em>Difficult Ground</em> or <em>Very Difficult Ground</em>. A failed check means the vehicle cannot enter that terrain this activation.</p>
-          <ul>
-            <li>Moving on <strong>roads</strong>: Tracked/Half-Tracked +6", Wheeled +12".</li>
-          </ul>
+          <div class="rules-subsection-title">Terrain Effects</div>
+          <table class="rules-table">
+            <tr><th>Team</th><th>Difficult Terrain</th><th>Very Difficult Terrain</th></tr>
+            <tr><td>Infantry</td><td>No Restriction</td><td>No Restriction</td></tr>
+            <tr><td>Gun</td><td>No Restriction</td><td>May Not Move</td></tr>
+            <tr><td>Tracked</td><td colspan="2">Pass Terrain Check or Stop</td></tr>
+            <tr><td>Half-Tracked</td><td>Pass Terrain Check or Stop</td><td>May Not Move</td></tr>
+            <tr><td>Wheeled</td><td>Pass Terrain Check or Stop</td><td>May Not Move</td></tr>
+          </table>
+          <p>Failure on a Terrain Check causes the Team to stop in contact with the terrain.</p>
         </div>
         <div class="rules-subsection">
-          <div class="rules-subsection-title">Vehicle Pivoting</div>
-          <p>Vehicles may <strong>pivot freely</strong> before moving up to 6". After that, they must move in a <strong>straight line</strong>.</p>
+          <div class="rules-subsection-title">Roads</div>
+          <p>Tracked and Half-Tracked Vehicles add <strong>6"</strong> to their movement if conducted entirely on roads. Wheeled Vehicles add <strong>12"</strong>.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Vehicle Movement</div>
+          <p>Unless following a road, Vehicle Teams may pivot as many times as desired in their <strong>first 6"</strong> of movement. Any movement more than 6" must be conducted in a <strong>straight line</strong>, without pivoting their hulls.</p>
+          <p><strong>Gun Teams may not move into base contact with enemy Teams.</strong></p>
         </div>
       </div>`
   },
@@ -5150,30 +5126,37 @@ const RULES_DATA = [
           <div class="rules-subsection-title">Fire Arcs</div>
           <ul>
             <li><strong>Infantry &amp; rotating turrets:</strong> 360°</li>
-            <li><strong>All others (hull-mounted, fixed guns):</strong> 90° (±45° from forward)</li>
+            <li><strong>All others (hull-mounted, fixed guns):</strong> 90° (±45° from forward) — firing outside this arc requires a Move action to rotate.</li>
           </ul>
         </div>
         <div class="rules-subsection">
-          <div class="rules-subsection-title">Attack Procedure</div>
-          <ol>
-            <li>Check target is within range and fire arc.</li>
-            <li>Roll dice equal to the weapon's <strong>Rate of Fire (RoF)</strong>.</li>
-            <li>Each die that rolls <strong>4+</strong> scores a hit.</li>
-            <li>Allocate hits to the target Team, then to Teams within 4" of the target.</li>
-          </ol>
+          <div class="rules-subsection-title">Firing Over Infantry</div>
+          <p>Unless firing from an elevated position, Teams may not fire <em>through</em> friendly Teams. However, <strong>Gun and Vehicle Teams</strong> may fire over friendly Infantry Teams, and <strong>Infantry Teams</strong> may fire over other friendly Infantry when firing at Gun and Vehicle Teams.</p>
         </div>
         <div class="rules-subsection">
-          <div class="rules-subsection-title">Fire Modifiers</div>
+          <div class="rules-subsection-title">Firing Procedure</div>
+          <p>Teams given a Fire order <strong>declare a single enemy Team as the target</strong>. All firing Teams must have LoS to the target, <em>or</em> to an enemy Team within 4" of the target that is within LoS and range of at least one firing Team.</p>
+          <ol>
+            <li>Roll <strong>Fire Dice</strong> equal to the weapon's <strong>Rate of Fire (RoF)</strong>, trying to roll <strong>4+</strong>, applying the following modifiers:</li>
+          </ol>
           <table class="rules-table">
             <tr><th>Condition</th><th>Modifier</th></tr>
-            <tr><td>Concealed target</td><td>+1 to roll needed (harder to hit)</td></tr>
-            <tr><td>Long Range (over half weapon range)</td><td>+1 to roll needed</td></tr>
-            <tr><td>HE weapons firing</td><td>Ignore concealment modifier</td></tr>
+            <tr><td>Target Concealed from all firing Teams</td><td>+1 (5+ needed)</td></tr>
+            <tr><td>Target at Long Range (up to 2× listed range)</td><td>+1 (5+ needed)</td></tr>
           </table>
+          <p>For each success, allocate one hit to the target Team, then to any other Team within <strong>4"</strong> of the target (even from another Unit) within LoS and range of at least one firing Team. The Firing Player may declare that more vulnerable targets receive hits before other eligible Teams.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Hits on Non-Vehicle Teams</div>
-          <p>Each hit generates <strong>RFPs</strong> equal to the weapon's <strong>Fire Power (FP)</strong>. Non-vehicle Teams can only receive <strong>1 hit per Fire Order</strong>.</p>
+          <p>Each hit allocated to a non-Vehicle Team generates <strong>RFPs</strong> equal to the weapon's <strong>Firepower Rating (FP)</strong> — place a marker. Non-Vehicle Teams may not receive more than <strong>1 hit per Fire Order</strong>. A given Team may not receive additional hits from further activations of the <em>same enemy Unit</em> later in the turn, unless those activations are made using Hero Points.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Shooting at Small Teams</div>
+          <p>Small Teams (including Leaders) are allocated hits <strong>only after all other valid Teams</strong> have received hits.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">High Explosive Rounds</div>
+          <p>Weapons with an AT value (including <strong>AT "0"</strong>) firing at non-Vehicle Teams are assumed to fire <strong>High Explosive (HE)</strong> rounds and <strong>ignore the concealment modifier</strong> from any terrain the target Team occupies.</p>
         </div>
       </div>`
   },
@@ -5183,19 +5166,25 @@ const RULES_DATA = [
     group: 'Core Rules',
     body: `
       <div class="rules-body-text">
-        <p>Compare the weapon's <strong>Anti-Tank (AT)</strong> rating against the vehicle's <strong>Armor Rating (AR)</strong>.</p>
+        <p>Vehicle Teams are either <strong>Armored</strong> (Tanks, Half-Tracks, Self-Propelled Artillery) or <strong>Unarmored</strong> (Trucks, Jeeps). Armored Teams may only be affected by AT weapons. When hits are allocated to Armored Teams, compare the weapon's <strong>Anti-Tank (AT)</strong> rating to the vehicle's <strong>Armor Rating (AR)</strong> and make a <strong>Penetration Roll</strong>.</p>
+        <p><em>Unarmored Vehicles count as AR 0 when hit by AT.</em></p>
         <div class="rules-subsection">
-          <div class="rules-subsection-title">AT vs AR Outcomes</div>
+          <div class="rules-subsection-title">Penetration Roll</div>
           <table class="rules-table">
-            <tr><th>Condition</th><th>Roll</th><th>Result on 6</th><th>Result on other</th></tr>
-            <tr><td><strong>AT ≤ AR</strong> (bouncing off)</td><td>AT value dice</td><td>RFPs equal to FP</td><td>No effect</td></tr>
-            <tr><td><strong>AT &gt; AR</strong> (penetrating)</td><td>Difference dice</td><td>Vehicle destroyed</td><td>RFPs equal to FP</td></tr>
-            <tr><td><strong>AR ≥ 2× AT</strong></td><td>—</td><td colspan="2">Ineffective — cannot damage</td></tr>
+            <tr><th>Condition</th><th>Dice Rolled</th><th>Any 6</th><th>No 6</th></tr>
+            <tr><td><strong>AT ≤ AR</strong></td><td>Dice equal to AT value</td><td>RFPs equal to FP</td><td>No effect</td></tr>
+            <tr><td><strong>AT &gt; AR</strong></td><td>Dice equal to the difference</td><td>Vehicle <strong>Destroyed</strong></td><td>RFPs equal to FP</td></tr>
+            <tr><td><strong>AR ≥ 2× AT</strong></td><td>—</td><td colspan="2">Weapon is ineffective</td></tr>
           </table>
+          <p>Destroyed results are resolved immediately. RFPs are assigned to the vehicle and resolved when it next activates.</p>
         </div>
         <div class="rules-subsection">
-          <div class="rules-subsection-title">Armor Facing</div>
-          <p>Vehicles have <strong>Front / Flank</strong> armor values. Artillery barrages and assaults hit <strong>Flank</strong> armor. Direct fire uses Front armor from the front arc, Flank from sides/rear.</p>
+          <div class="rules-subsection-title">Flank Shots</div>
+          <p>If firing from behind a line drawn across the <strong>front of the Team's hull</strong>, use that Team's <strong>Flank Armor</strong> rating.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Wrecks</div>
+          <p>Destroyed vehicles are <strong>left on the table</strong>, offering concealment when fired through and counting as <strong>Difficult Terrain</strong>.</p>
         </div>
       </div>`
   },
@@ -5205,24 +5194,31 @@ const RULES_DATA = [
     group: 'Core Rules',
     body: `
       <div class="rules-body-text">
-        <p>Roll one d6 per <strong>Received Fire Point (RFP)</strong>. Take the <em>worst</em> result among all rolls.</p>
+        <p>During the activation sequence, a Team's RFPs are resolved and removed by rolling a die for each point assigned to that Team. Take the <strong>worst result</strong>:</p>
         <div class="rules-subsection">
           <div class="rules-subsection-title">RFP Resolution Table</div>
           <table class="rules-table">
             <tr><th>Roll</th><th>Hard Cover</th><th>No Hard Cover</th></tr>
             <tr><td>1</td><td>Killed</td><td>Killed</td></tr>
             <tr><td>2–3</td><td>Suppressed</td><td>Killed</td></tr>
-            <tr><td>4+</td><td>Ready (no effect)</td><td>Suppressed</td></tr>
+            <tr><td>4+</td><td>Ready</td><td>Suppressed</td></tr>
           </table>
-          <p><em>Suppressed Infantry and Gun Teams always resolve as though in Hard Cover, even if they aren't.</em></p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">States</div>
           <ul>
-            <li><strong>Ready</strong> — Normal operating condition.</li>
-            <li><strong>Suppressed</strong> — Team is pinned. May not act offensively; always benefits from Hard Cover when resolving RFPs.</li>
-            <li><strong>Killed</strong> — Team is removed from the table.</li>
+            <li><strong>Killed</strong> — The Team is destroyed and removed.</li>
+            <li><strong>Suppressed</strong> — The Team is marked Suppressed and may not Fire or Move toward visible enemy until rallied. A Team that is already Suppressed ignores Ready results and further Suppressed results.</li>
+            <li><strong>Ready</strong> — The Team may act as normal.</li>
           </ul>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Crews Are Protected</div>
+          <p>Vehicle Teams always resolve RFPs as though in <strong>Hard Cover</strong>.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Keep Your Head Down</div>
+          <p><strong>Suppressed Infantry and Gun Teams</strong> always resolve RFPs as though in Hard Cover, even when they are not. Teams that are <em>already</em> in Hard Cover <strong>re-roll their first Killed result</strong> each time they resolve RFPs.</p>
         </div>
       </div>`
   },
@@ -5232,11 +5228,11 @@ const RULES_DATA = [
     group: 'Core Rules',
     body: `
       <div class="rules-body-text">
-        <p>Suppressed Teams with <strong>no RFPs</strong> may make a <strong>Rally Check</strong> (4+ on d6) at the start of an activation. Success removes suppression; they are now Ready.</p>
-        <p>Teams with outstanding RFPs <strong>cannot rally themselves</strong> — they must resolve those RFPs first.</p>
+        <p>After giving orders, any participating <strong>Suppressed Teams with no RFPs</strong> make a <strong>Rally Check</strong> (4+ on d6). Success removes suppression. Then Teams with RFPs resolve them as normal.</p>
+        <p><strong>Suppressed Teams with RFPs may not Rally themselves.</strong></p>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Fall Back</div>
-          <p>A Suppressed Team that is <strong>outside LoS of all enemy Teams</strong> automatically removes its suppression — no check required.</p>
+          <p>Suppressed Teams that <strong>start or end their activation</strong> outside LoS of any enemy automatically remove their suppression. Enemy Small Teams do not prevent this.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Leader Rally</div>
