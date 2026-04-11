@@ -970,17 +970,15 @@
   .chip[data-nation].active { background: var(--nation-color); border-color: var(--nation-color); color: #111; font-weight: 600; }
 
   /* ── Type colors ──────────────────────────────────────────────────────────── */
-  [data-type="Infantry"]   { --type-color: #6abf6a; }
-  [data-type="Artillery"]  { --type-color: #d4a035; }
-  [data-type="Upgrade"]    { --type-color: #e0c060; }
-  [data-type="Gun Teams"]  { --type-color: #c07828; }
-  [data-type="Anti-Tank"]  { --type-color: #d45f50; }
-  [data-type="Anti-Air"]   { --type-color: #50a8d4; }
-  [data-type="Armored"]    { --type-color: #5888c4; }
-  [data-type="Mechanized"] { --type-color: #c4964a; }
-  [data-type="Airborne"]   { --type-color: #9ab4d4; }
-  [data-type="Recon"]      { --type-color: #3cb8a0; }
-  [data-type="Transport"]  { --type-color: #8c9870; }
+  [data-type="Infantry"]      { --type-color: #6abf6a; }
+  [data-type="Guns"]          { --type-color: #c07828; }
+  [data-type="Tanks"]         { --type-color: #5888c4; }
+  [data-type="SP Artillery"]  { --type-color: #d4a035; }
+  [data-type="SP Anti-Air"]   { --type-color: #50a8d4; }
+  [data-type="Armoured Cars"] { --type-color: #3cb8a0; }
+  [data-type="Recon"]         { --type-color: #9ab4d4; }
+  [data-type="Transport"]     { --type-color: #8c9870; }
+  [data-type="Upgrade"]       { --type-color: #e0c060; }
 
   /* ── Quality colors ───────────────────────────────────────────────────────── */
   [data-quality="Elite"]   { --quality-color: var(--accent); }
@@ -3736,7 +3734,7 @@ function toggleTeamLock(platoonId, unitId) {
   updateForceUI();
 }
 let currentView = 'grid';
-const TYPE_ORDER = ['Infantry', 'Gun Teams', 'Anti-Tank', 'Anti-Air', 'Artillery', 'Armored', 'Recon', 'Transport', 'Upgrade'];
+const TYPE_ORDER = ['Infantry', 'Guns', 'Tanks', 'SP Artillery', 'SP Anti-Air', 'Armoured Cars', 'Recon', 'Transport', 'Upgrade'];
 
 // Vehicle MG reference stats (from rulebook Vehicle MGs tables)
 const VEHICLE_MG_STATS = {
@@ -3831,11 +3829,9 @@ const TYPE_ICONS = {
 // ── FILTER CHIPS ──────────────────────────────────────────────────────────────
 function buildFilterChips() {
   const nations = [...new Set(allUnits.map(u => u.nation))].sort();
-  // Use a fixed order; 'Gun Teams' is a meta-filter (not a real type in data)
   const typeOrder = TYPE_ORDER;
   const presentTypes = new Set(allUnits.map(u => u.type));
-  // Include all types present in data, plus 'Gun Teams' meta-filter
-  const types = typeOrder.filter(t => t === 'Gun Teams' || presentTypes.has(t));
+  const types = typeOrder.filter(t => presentTypes.has(t));
   const theaters = [...new Set(allUnits.flatMap(u => u.theater))].sort();
 
   renderChips('nation-chips', nations, 'nations');
@@ -3923,14 +3919,7 @@ function applyFilters() {
     if (u.id.endsWith('-leader') || u.id.endsWith('-fo')) return false;
     if (activeFilters.search && !u.name.toLowerCase().includes(activeFilters.search)) return false;
     if (activeFilters.nations.length && !activeFilters.nations.includes(u.nation)) return false;
-    if (activeFilters.types.length) {
-      const GUN_TEAMS_TYPES = ['Artillery', 'Anti-Tank', 'Anti-Air', 'Gun Teams'];
-      const hasGunTeams = activeFilters.types.includes('Gun Teams');
-      const otherTypes  = activeFilters.types.filter(t => t !== 'Gun Teams');
-      const matchesDirect   = otherTypes.includes(u.type);
-      const matchesGunTeams = hasGunTeams && GUN_TEAMS_TYPES.includes(u.type) && u.base !== 'Vehicle';
-      if (!matchesDirect && !matchesGunTeams) return false;
-    }
+    if (activeFilters.types.length && !activeFilters.types.includes(u.type)) return false;
     if (activeFilters.theaters.length && !u.theater.some(t => activeFilters.theaters.includes(t))) return false;
     if (activeFilters.yearFrom && !u.years.some(y => y >= activeFilters.yearFrom)) return false;
     if (activeFilters.yearTo && !u.years.some(y => y <= activeFilters.yearTo)) return false;
