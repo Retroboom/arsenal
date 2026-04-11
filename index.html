@@ -4479,6 +4479,17 @@ function addAsStandardPlatoon(unitId) {
   setForcePanel(true);
 }
 
+// Patch just the affected card's border class and button state — no DOM rebuild.
+function patchCardForceState(unitId) {
+  const forceIds = getAllForceUnitIds();
+  const card = document.getElementById(`card-${unitId}`);
+  if (card) {
+    card.classList.toggle('in-force', forceIds.has(unitId));
+    const btn = document.getElementById(`btn-${unitId}`);
+    if (btn) btn.classList.toggle('added', forceIds.has(unitId));
+  }
+}
+
 function addTeamToPlatoon(unitId) {
   if (!activePlatoonId) {
     // Auto-create first platoon
@@ -4504,7 +4515,7 @@ function addTeamToPlatoon(unitId) {
   updateForceUI();
   _animUnitId = null;
   _animPlatoonId = null;
-  renderUnits(true);
+  patchCardForceState(unitId);
   const unitName = unit?.name || 'Unit';
   showToast(isUpgrade ? `${unitName} upgrade added.` : `${unitName} added.`);
 }
@@ -4517,7 +4528,7 @@ function changeTeamQty(platoonId, unitId, delta) {
   team.qty = Math.max(0, team.qty + delta);
   if (team.qty === 0) platoon.teams = platoon.teams.filter(t => t.unitId !== unitId);
   updateForceUI();
-  renderUnits(true);
+  patchCardForceState(unitId);
 }
 
 function removeTeamFromPlatoon(platoonId, unitId) {
@@ -4525,7 +4536,7 @@ function removeTeamFromPlatoon(platoonId, unitId) {
   if (!platoon) return;
   platoon.teams = platoon.teams.filter(t => t.unitId !== unitId);
   updateForceUI();
-  renderUnits(true);
+  patchCardForceState(unitId);
 }
 
 function updatePlatoonName(id, name) {
