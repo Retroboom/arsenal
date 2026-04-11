@@ -3542,10 +3542,18 @@
     </div>
     <div class="filter-section">
       <div class="filter-label">Platoons</div>
-      <div class="filter-chips">
-        <button class="chip" data-filter="platoons" data-value="1-2" onclick="toggleLibChip(this)">1–2</button>
-        <button class="chip" data-filter="platoons" data-value="3-4" onclick="toggleLibChip(this)">3–4</button>
-        <button class="chip" data-filter="platoons" data-value="5+"  onclick="toggleLibChip(this)">5+</button>
+      <div class="year-range">
+        <select class="year-select" id="lib-platoons-from" onchange="applyLibFilters()">
+          <option value="">Any</option>
+          <option>1</option><option>2</option><option>3</option>
+          <option>4</option><option>5</option><option>6</option><option>7</option>
+        </select>
+        <span class="year-sep">—</span>
+        <select class="year-select" id="lib-platoons-to" onchange="applyLibFilters()">
+          <option value="">Any</option>
+          <option>1</option><option>2</option><option>3</option>
+          <option>4</option><option>5</option><option>6</option><option>7</option>
+        </select>
       </div>
     </div>
     <div class="results-count" id="lib-result-count"></div>
@@ -4926,10 +4934,10 @@ function switchLibTab(tab) {
 function clearLibFilters() {
   const s = document.getElementById('lib-search');
   if (s) s.value = '';
-  const yf = document.getElementById('lib-year-from');
-  if (yf) yf.value = '';
-  const yt = document.getElementById('lib-year-to');
-  if (yt) yt.value = '';
+  ['lib-year-from','lib-year-to','lib-platoons-from','lib-platoons-to'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
   document.querySelectorAll('#section-library .chip').forEach(c => c.classList.remove('active'));
 }
 
@@ -4940,18 +4948,19 @@ function toggleLibChip(btn) {
 
 function applyLibFilters() {
   const body = document.getElementById('library-body');
-  const search   = (document.getElementById('lib-search')?.value || '').toLowerCase().trim();
-  const sort     = document.getElementById('lib-sort')?.value || 'newest';
-  const yearFrom = parseInt(document.getElementById('lib-year-from')?.value) || null;
-  const yearTo   = parseInt(document.getElementById('lib-year-to')?.value)   || null;
+  const search      = (document.getElementById('lib-search')?.value || '').toLowerCase().trim();
+  const sort        = document.getElementById('lib-sort')?.value || 'newest';
+  const yearFrom    = parseInt(document.getElementById('lib-year-from')?.value)     || null;
+  const yearTo      = parseInt(document.getElementById('lib-year-to')?.value)       || null;
+  const platoonsFrom = parseInt(document.getElementById('lib-platoons-from')?.value) || null;
+  const platoonsTo   = parseInt(document.getElementById('lib-platoons-to')?.value)   || null;
 
   // Collect active chip values by filter group
-  const active = { nation: [], quality: [], type: [], platoons: [] };
+  const active = { nation: [], quality: [], type: [] };
   document.querySelectorAll('#section-library .chip.active').forEach(c => {
     const grp = c.dataset.filter;
     if (active[grp]) active[grp].push(c.dataset.value);
   });
-
 
   let visible = libAllForces.filter(f => {
     if (search && !f.name.toLowerCase().includes(search) && !(f.notes || '').toLowerCase().includes(search)) return false;
@@ -4963,16 +4972,9 @@ function applyLibFilters() {
     if (active.type.length > 0 && !active.type.includes(f.forceType)) return false;
     if (yearFrom && (!f.year || f.year < yearFrom)) return false;
     if (yearTo   && (!f.year || f.year > yearTo))   return false;
-    if (active.platoons.length > 0) {
-      const pc = f.platoonCount || 0;
-      const match = active.platoons.some(r => {
-        if (r === '1-2') return pc >= 1 && pc <= 2;
-        if (r === '3-4') return pc >= 3 && pc <= 4;
-        if (r === '5+')  return pc >= 5;
-        return false;
-      });
-      if (!match) return false;
-    }
+    const pc = f.platoonCount || 0;
+    if (platoonsFrom && pc < platoonsFrom) return false;
+    if (platoonsTo   && pc > platoonsTo)   return false;
     return true;
   });
 
