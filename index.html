@@ -5326,7 +5326,7 @@ const RULES_DATA = [
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Firing Procedure</div>
-          <p>Teams given a Fire order <strong>declare a single enemy Team as the target</strong>. All firing Teams must have LoS to the target, <em>or</em> to an enemy Team within 4" of the target that is within LoS and range of at least one firing Team.</p>
+          <p>Teams given a Fire order <strong>declare a single enemy Team as the target</strong>. All firing Teams must have LoS to the target, or to an enemy Team within 4" of the target, in order to Fire.</p>
           <ol>
             <li>Roll <strong>Fire Dice</strong> equal to the weapon's <strong>Rate of Fire (RoF)</strong>, trying to roll <strong>4+</strong>, applying the following modifiers:</li>
           </ol>
@@ -5391,8 +5391,9 @@ const RULES_DATA = [
           <table class="rules-table">
             <tr><th>Roll</th><th>Hard Cover</th><th>No Hard Cover</th></tr>
             <tr><td>1</td><td>Killed</td><td>Killed</td></tr>
-            <tr><td>2–3</td><td>Suppressed</td><td>Killed</td></tr>
-            <tr><td>4+</td><td>Ready</td><td>Suppressed</td></tr>
+            <tr><td>2</td><td>Suppressed</td><td>Killed</td></tr>
+            <tr><td>3</td><td>Suppressed</td><td>Suppressed</td></tr>
+            <tr><td>4+</td><td>Ready</td><td>Ready</td></tr>
           </table>
         </div>
         <div class="rules-subsection">
@@ -5502,7 +5503,7 @@ const RULES_DATA = [
         <p>Teams assault by ending their <strong>Move order</strong> in base contact with enemy Teams. To initiate an assault:</p>
         <ul>
           <li>Assaulting Teams must start within <strong>12"</strong> of their intended targets.</li>
-          <li>At least one assaulting Team must be <strong>unsuppressed</strong> and have <strong>LoS</strong>.</li>
+          <li>At least one assaulting Team must be <strong>unsuppressed</strong> and have <strong>LoS to the target before moving</strong>.</li>
           <li>No more than <strong>2 Teams</strong> may be in base contact with a single enemy Team at once.</li>
         </ul>
         <div class="rules-subsection">
@@ -5567,13 +5568,8 @@ const RULES_DATA = [
     group: 'Core Rules',
     body: `
       <div class="rules-body-text">
-        <p>Units must test Morale when they have lost <strong>more than half</strong> of their starting Teams. (Small Teams — Leaders, Transport Teams — do not count toward this total.)</p>
-        <p>When a Unit falls below half strength, it must immediately make a <strong>Morale Check</strong>.</p>
-        <ul>
-          <li><strong>Success</strong> — The Unit continues fighting.</li>
-          <li><strong>Failure</strong> — The Unit is <strong>destroyed</strong>; all remaining Teams are removed.</li>
-        </ul>
-        <p>The Unit must repeat this Check each time further casualties are revealed.</p>
+        <p>Units must test Morale when they have lost <strong>more than half</strong> of their starting Teams. (Small Teams, including Leaders, and Transport Teams do not count toward this total.)</p>
+        <p>When a Unit falls below half strength, it must immediately make a <strong>Morale Check</strong>. If failed, the Unit is <strong>destroyed</strong> and all remaining Teams are removed. The Unit must repeat this Check each time further casualties are revealed.</p>
         <p><strong>Any Unit reduced to a single Infantry or Man-Portable Gun Team is automatically destroyed</strong> and removed from the table.</p>
       </div>`
   },
@@ -5602,12 +5598,12 @@ const RULES_DATA = [
             <tr><td>Medium</td><td>2 RFPs</td></tr>
             <tr><td>Heavy</td><td>3 RFPs</td></tr>
           </table>
-          <p>Firing with <strong>more than 2 guns</strong> increases the radius by +1" per additional gun.</p>
+          <p>Firing with <strong>more than 2 guns</strong> increases the radius by +1" per additional gun (max +2").</p>
           <p>Vehicles subtract their Flank AR from RFPs received (maximum -2). <strong>Open-Topped</strong> vehicles resolve the barrage as a hit against their Flank Armor with AT equal to the RFPs. Any Team that activates and <strong>ends inside the barrage radius</strong> receives RFPs.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Sustained Barrage</div>
-          <p>At the start of the barraging player's next turn, roll <strong>4+</strong> to continue the barrage. On a failure, the barrage ends and an Order Point may be spent to observe for a new barrage. Teams already inside the barrage radius do not receive additional RFPs from a sustained barrage.</p>
+          <p>At the start of the barraging player's next turn, roll <strong>4+</strong> to continue the barrage. On a failure, the barrage ends and an Order Point may be spent to activate a Team to observe for a new barrage. Teams already inside the barrage radius do not receive additional RFPs from a sustained barrage.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Smoke</div>
@@ -5663,7 +5659,7 @@ const RULES_DATA = [
       <div class="rules-body-text">
         <div class="rules-subsection">
           <div class="rules-subsection-title">Setting Up</div>
-          <p>Both players decide which forces and terrain will be placed. One player is the <strong>Defender</strong>, the other the <strong>Attacker</strong>. Often the player with more Vehicle Teams is the Attacker.</p>
+          <p>Both players decide which forces and terrain will be placed. One player is the <strong>Defender</strong>, the other the <strong>Attacker</strong> — agreed upon before the game or set by the scenario. As a guideline, the player with more Vehicle Teams is often the Attacker.</p>
           <ul>
             <li>The Defender picks a long table edge to deploy from; the Attacker deploys from the opposite edge.</li>
             <li>The Defender declares one point on their half of the table as an <strong>objective</strong>, outside 6" of the center line and any table edge. The Attacker then declares two more objectives on the Defender's half, within the same restrictions.</li>
@@ -5683,7 +5679,7 @@ const RULES_DATA = [
             <tr><td>In Concealing Terrain and outside 8" of Vehicle Teams</td></tr>
           </table>
           <p>If revealed immediately after enemy movement, subtract the distance moved from these ranges. A position outside LoS of all moving Teams before they moved may be revealed freely, regardless of distance or concealment.</p>
-          <p>Teams from the same Unit cannot be revealed simultaneously but must be revealed within 12" of another Team from their Unit.</p>
+          <p>Teams from the same Unit do not need to be revealed simultaneously, but each must be revealed within 12" of another Team already revealed from their Unit.</p>
         </div>
       </div>`
   },
