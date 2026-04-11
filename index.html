@@ -5972,6 +5972,68 @@ const RULES_DATA = [
       </div>`
   },
   {
+    id: 'optional-tank-riders',
+    title: 'Tank Riders',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>Tank Units may be equipped with Rider Teams when building a force. Each tank in the Unit carries one Rider Team on the tank model. Rider Teams may not voluntarily dismount for the duration of the game.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Activation</div>
+          <p>Tank Riders are activated independently from their tank Unit, though using the same procedure as activating a Vehicle Unit. When activated, Riders may Fire but may not Move independently. Riders move only when their tank moves, traveling with it automatically.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Concealment</div>
+          <p>Riders count as <strong>Concealed and in Hard Cover</strong> against any fire that would strike the tank's front armor. Riders may be targeted normally by small arms or AT weapons from any other arc.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Taking Fire</div>
+          <p>When the tank is hit by any weapon, the Rider Team immediately resolves <strong>1 RFP</strong> regardless of whether the hit penetrates the tank's armor.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Suppression</div>
+          <p>When the tank becomes Suppressed, the Rider Team immediately becomes Suppressed as well. Riders may only Rally when their tank Rallies.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Reconnaissance</div>
+          <p>Unsuppressed Rider Teams count as Infantry for the purposes of revealing Hidden enemy Teams, requiring them to reveal outside <strong>16"</strong>.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Assaults</div>
+          <p>When the tank is in base contact with an enemy Team, the Rider Team rolls Assault Checks alongside the tank. If an enemy Team makes a successful Assault Check against the tank, the hit is applied to the Rider Team instead — a further successful Assault Check is then required to hit the tank itself. Suppressed Rider Teams do not roll Assault Checks.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">If the Tank is Destroyed</div>
+          <p>The Rider Team is destroyed alongside it.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'optional-terrain-movement',
+    title: 'Terrain Movement Expansion',
+    group: 'Optional Rules',
+    body: `
+      <div class="rules-body-text">
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Difficult Terrain</div>
+          <p>Vehicle Teams crossing Difficult Terrain <strong>remove the lowest die</strong> from their movement roll in addition to making the required Terrain Check. A failed Terrain Check stops the vehicle as normal.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Very Difficult Terrain</div>
+          <p>Infantry Units may only enter or cross Very Difficult Terrain if at least one Team in the current activation begins that activation in base contact with the terrain. This represents the need for lead elements to be in contact before the remainder of the unit can follow through.</p>
+          <p>Vehicle Teams crossing Very Difficult Terrain remove the lowest die from their movement roll and must make a Terrain Check. A failed Terrain Check results in the vehicle becoming <strong>Bogged</strong>.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Bogged</div>
+          <p>A Bogged vehicle may not move from its current position. When activated, its crew must spend the entire activation attempting to free the vehicle — make a <strong>Training Check</strong>. If successful, remove the Bogged status; the vehicle may act normally from its next activation onward. If failed, the vehicle remains Bogged. In either case the vehicle may not move or fire during the freeing activation.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Overloaded Vehicles</div>
+          <p>Vehicles with the <strong>Overloaded</strong> special rule must re-roll successful Terrain Checks when crossing terrain, and must re-roll successful Training Checks when attempting to free themselves from a Bogged status.</p>
+        </div>
+      </div>`
+  },
+  {
     id: 'scenario-test',
     title: 'Test Scenario',
     group: 'Scenarios',
