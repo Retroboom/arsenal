@@ -1012,12 +1012,15 @@
   }
 
   .stat-cell {
-    padding: 4px 6px;
+    padding: 2px 6px;
     text-align: center;
     border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    min-height: 44px;
+    gap: 2px;
   }
   .stat-cell:last-child { border-right: none; }
 
@@ -1028,7 +1031,6 @@
     letter-spacing: 2px;
     text-transform: uppercase;
     display: block;
-    margin-bottom: 3px;
   }
 
   .stat-value {
