@@ -187,7 +187,7 @@
   /* FIELD MANUAL SECTION */
   .fm-section-header {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 16px;
     margin-bottom: 20px;
     padding-bottom: 16px;
@@ -3564,13 +3564,13 @@
 <div class="section" id="section-fieldmanual">
   <div class="fm-section-header">
     <span class="fm-section-title">FIELD MANUAL</span>
-  </div>
-  <div class="fm-controls">
-    <input type="text" class="fm-search" id="fm-search" placeholder="Search…" oninput="applyFmFilters()">
     <div class="fm-type-chips" id="fm-type-chips">
       <div class="chip" data-fmtype="All" onclick="toggleFmType('All')">Briefings</div>
       <div class="chip active" data-fmtype="Rules" onclick="toggleFmType('Rules')">Rules</div>
     </div>
+  </div>
+  <div class="fm-controls">
+    <input type="text" class="fm-search" id="fm-search" placeholder="Search…" oninput="applyFmFilters()">
     <select class="fm-sort" id="fm-sort" onchange="applyFmFilters()" style="display:none">
       <option value="newest">Newest First</option>
       <option value="oldest">Oldest First</option>
