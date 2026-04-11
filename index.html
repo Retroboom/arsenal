@@ -884,16 +884,14 @@
   .unit-card.in-force { border-color: #3a6a3a; border-left-color: #3a6a3a; background: linear-gradient(180deg, rgba(40,70,25,0.28) 0px, rgba(40,70,25,0.28) 28px, transparent 28px), repeating-linear-gradient(180deg, rgba(0,0,0,0.045) 0px, rgba(0,0,0,0.045) 1px, transparent 1px, transparent 20px), linear-gradient(175deg, #ccd8a0 0%, #bcc890 60%); }
   .unit-card.in-force:hover { border-color: #2a5a2a; }
 
-  /* Nation watermarks */
-  .unit-card::after {
+  /* Nation watermarks — anchored to .card-stats so they never enter the name bar */
+  .unit-card .card-stats { position: relative; }
+  .unit-card .card-stats::after {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 120px;
-    line-height: 1;
-    font-family: var(--display);
     pointer-events: none;
     user-select: none;
   }
@@ -902,10 +900,10 @@
   .unit-card.britain { border-left-color: #705010; }
   .unit-card.soviet  { border-left-color: #7a2010; }
 
-  .unit-card.us::after      { content: ''; width: 120px; height: 120px; font-size: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%234a5040' d='M256 26C129.17 26 26 129.17 26 256s103.192 230 230 230s230-103.192 230-230S382.83 26 256 26m168.813 174.7H298.258L257.442 78.36c78.035.628 144.206 51.81 167.37 122.34zM254.558 78.36L213.786 200.7H87.23c23.123-70.53 89.294-121.71 167.33-122.34zM78.328 256a177 177 0 0 1 7.637-51.49l101.728 75.932l-37.34 118.345A177.52 177.52 0 0 1 78.33 256zm76.66 146.045L256 330.03l101.013 72.015a177.18 177.18 0 0 1-202.026 0zm206.614-3.302l-37.295-118.345l101.728-75.933a177.46 177.46 0 0 1-64.39 194.322z'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.11; }
-  .unit-card.germany::after { content: ''; width: 120px; height: 120px; font-size: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cpath d='M 300,0 V 600 M 0,300 H 600' stroke='%234a5040' stroke-width='280'/%3E%3Cpath d='M 300,0 V 600 M 0,300 H 600' stroke='%23d0c888' stroke-width='260'/%3E%3Cpath d='M 300,0 V 600 M 0,300 H 600' stroke='%234a5040' stroke-width='170'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.11; }
-  .unit-card.britain::after { content: ''; width: 120px; height: 120px; font-size: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='602' height='602'%3E%3Ccircle cx='301' cy='301' r='300' fill='%234a5040'/%3E%3Ccircle cx='301' cy='301' r='200' fill='%23d0c888'/%3E%3Ccircle cx='301' cy='301' r='100' fill='%234a5040'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.11; }
-  .unit-card.soviet::after  { content: ''; width: 120px; height: 120px; font-size: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 135.46707 131.76233'%3E%3Cg transform='translate(-36.59921,-60.708911)'%3E%3Cpath fill='%234a5040' d='m 125.71849,60.708911 c 23.95156,25.785405 39.41279,60.765859 19.29402,84.412259 l -30.97353,-41.54612 17.86074,-13.246441 -27.94631,-10.722553 -36.098635,26.773304 15.1002,20.24986 17.520215,-12.99333 31.63056,42.42207 c -17.39938,9.57446 -41.477875,6.38152 -58.326075,-23.04675 l -11.38845,8.4456 c 0.3549,0.59151 0.69568,1.16818 1.04542,1.74909 -2.05666,-1.9368 -4.46781,-3.5618 -5.4442,-2.90022 -2.34201,1.58782 0.16702,2.66715 -4.7374,6.30448 -4.71773,3.49885 -5.70479,-1.00803 -12.16999,3.78684 -4.92588,3.65325 -5.95395,10.59558 -2.29097,15.50844 l 0.006,0.003 c 3.6631,4.91294 10.62673,5.93291 15.55257,2.27977 6.46519,-4.79484 2.41956,-7.03514 7.1373,-10.53403 4.90444,-3.63736 5.21791,-0.92915 7.41646,-2.70924 0.67487,-0.54339 0.38459,-2.19063 -0.31694,-4.02497 19.0053,26.81568 51.806385,32.21433 73.582565,18.63218 l 14.97066,20.07863 c 0,0 4.74726,5.72184 11.21708,0.92352 6.46997,-4.79835 2.5028,-10.76325 2.5028,-10.76325 l -16.2025,-21.73419 c 23.98879,-23.60134 25.35928,-70.153841 -28.94164,-97.347852 z'/%3E%3C/g%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.11; }
+  .unit-card.us      .card-stats::after { width: 120px; height: 120px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%234a5040' d='M256 26C129.17 26 26 129.17 26 256s103.192 230 230 230s230-103.192 230-230S382.83 26 256 26m168.813 174.7H298.258L257.442 78.36c78.035.628 144.206 51.81 167.37 122.34zM254.558 78.36L213.786 200.7H87.23c23.123-70.53 89.294-121.71 167.33-122.34zM78.328 256a177 177 0 0 1 7.637-51.49l101.728 75.932l-37.34 118.345A177.52 177.52 0 0 1 78.33 256zm76.66 146.045L256 330.03l101.013 72.015a177.18 177.18 0 0 1-202.026 0zm206.614-3.302l-37.295-118.345l101.728-75.933a177.46 177.46 0 0 1-64.39 194.322z'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.06; }
+  .unit-card.germany .card-stats::after { width: 120px; height: 120px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cpath d='M 300,0 V 600 M 0,300 H 600' stroke='%234a5040' stroke-width='280'/%3E%3Cpath d='M 300,0 V 600 M 0,300 H 600' stroke='%23d0c888' stroke-width='260'/%3E%3Cpath d='M 300,0 V 600 M 0,300 H 600' stroke='%234a5040' stroke-width='170'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.06; }
+  .unit-card.britain .card-stats::after { width: 120px; height: 120px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='602' height='602'%3E%3Ccircle cx='301' cy='301' r='300' fill='%234a5040'/%3E%3Ccircle cx='301' cy='301' r='200' fill='%23d0c888'/%3E%3Ccircle cx='301' cy='301' r='100' fill='%234a5040'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.06; }
+  .unit-card.soviet  .card-stats::after { width: 120px; height: 120px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 135.46707 131.76233'%3E%3Cg transform='translate(-36.59921,-60.708911)'%3E%3Cpath fill='%234a5040' d='m 125.71849,60.708911 c 23.95156,25.785405 39.41279,60.765859 19.29402,84.412259 l -30.97353,-41.54612 17.86074,-13.246441 -27.94631,-10.722553 -36.098635,26.773304 15.1002,20.24986 17.520215,-12.99333 31.63056,42.42207 c -17.39938,9.57446 -41.477875,6.38152 -58.326075,-23.04675 l -11.38845,8.4456 c 0.3549,0.59151 0.69568,1.16818 1.04542,1.74909 -2.05666,-1.9368 -4.46781,-3.5618 -5.4442,-2.90022 -2.34201,1.58782 0.16702,2.66715 -4.7374,6.30448 -4.71773,3.49885 -5.70479,-1.00803 -12.16999,3.78684 -4.92588,3.65325 -5.95395,10.59558 -2.29097,15.50844 l 0.006,0.003 c 3.6631,4.91294 10.62673,5.93291 15.55257,2.27977 6.46519,-4.79484 2.41956,-7.03514 7.1373,-10.53403 4.90444,-3.63736 5.21791,-0.92915 7.41646,-2.70924 0.67487,-0.54339 0.38459,-2.19063 -0.31694,-4.02497 19.0053,26.81568 51.806385,32.21433 73.582565,18.63218 l 14.97066,20.07863 c 0,0 4.74726,5.72184 11.21708,0.92352 6.46997,-4.79835 2.5028,-10.76325 2.5028,-10.76325 l -16.2025,-21.73419 c 23.98879,-23.60134 25.35928,-70.153841 -28.94164,-97.347852 z'/%3E%3C/g%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.06; }
 
   .card-header {
     display: flex;
@@ -4174,7 +4172,7 @@ function renderGrid(container, forceIds, animate = true) {
             ${locked
               ? `<button class="add-force-btn" onclick="event.stopPropagation();showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Ko-fi subscriber only</button>`
               : `<div class="card-footer-btns">
-                  ${unit.standard_platoon ? `<button class="add-platoon-standard-btn" onclick="event.stopPropagation();addAsStandardPlatoon('${unit.id}')">New Platoon</button>` : ''}
+                  ${unit.standard_platoon ? `<button class="add-platoon-standard-btn" onclick="event.stopPropagation();addAsStandardPlatoon('${unit.id}')">+ New Platoon</button>` : ''}
                   ${activePlatoonId
                     ? unit.type === 'Upgrade'
                       ? `<button class="add-upgrade-btn" onclick="event.stopPropagation();addTeamToPlatoon('${unit.id}')">Add Upgrade</button>`
