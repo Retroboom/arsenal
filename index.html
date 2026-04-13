@@ -138,18 +138,32 @@
     overflow: hidden;
   }
   .org-layout {
-    display: grid;
-    grid-template-columns: 360px 1fr;
+    display: flex;
     flex: 1;
     overflow: hidden;
     min-height: 0;
   }
   .org-browser {
+    width: 480px;
+    max-width: 100%;
     border-right: 1px solid var(--border);
     overflow-y: auto;
     display: flex;
     flex-direction: column;
   }
+  .org-hint {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text3);
+    text-align: center;
+    padding: 48px 32px;
+    gap: 12px;
+  }
+  .org-hint-icon { font-size: 28px; opacity: 0.3; }
+  .org-hint-text { font-size: 13px; line-height: 1.65; max-width: 260px; }
   .org-browser-header {
     padding: 14px 16px;
     border-bottom: 1px solid var(--border);
@@ -3885,20 +3899,9 @@
       </div>
       <div id="org-formation-list"></div>
     </div>
-    <div class="org-builder">
-      <div class="org-builder-header">
-        <div class="org-builder-title">FORCE BUILDER</div>
-        <input type="text" class="builder-force-name" id="builder-force-name" placeholder="Name your force…">
-        <span class="builder-platoon-count" id="builder-platoon-count">No platoons</span>
-        <button class="builder-clear-btn" onclick="clearOrgBuilder()">Clear</button>
-        <button class="builder-save-btn" onclick="saveOrgBuilderForce()">Save Force</button>
-      </div>
-      <div class="org-builder-body" id="org-builder-body">
-        <div class="builder-empty">
-          <div class="builder-empty-icon">◈</div>
-          <div class="builder-empty-text">Select a formation on the left<br>and tap <strong>+ Add</strong> to build your force.</div>
-        </div>
-      </div>
+    <div class="org-hint">
+      <div class="org-hint-icon">◈</div>
+      <div class="org-hint-text">Tap <strong>+ Add</strong> on any platoon to add it to your force.<br><br>Open the <strong>Force Builder</strong> to name, save, and publish.</div>
     </div>
   </div>
 </div>
@@ -7541,7 +7544,6 @@ const HISTORICAL_ORGS = [
 
 let orgSelectedNation = 'United States';
 let orgExpandedFormation = null;
-let builderPlatoons = []; // [{ formationName, platoonName, teams:[{name,qty}] }]
 
 function renderOrgTab() {
   renderOrgBrowser();
@@ -7600,61 +7602,91 @@ function renderOrgBrowser() {
   }).join('');
 }
 
+// Unit ID lookup by nation + display name
+const ORG_UNIT_IDS = {
+  'United States': {
+    'Platoon Leader':    'us-leader',
+    'Forward Observer':  'us-fo',
+    'Bazooka Team':      'us-inf-bazooka',
+    'Rifle/MG Team':     'us-inf-rifle-mg',
+    'LMG Section':       'us-inf-mg',
+    '60mm Mortar Team':  'us-gun-60mm-mortar',
+    '81mm Mortar Team':  'us-gun-81mm-mortar',
+    '57mm AT Gun':       'us-gun-57mm',
+    '105mm Howitzer':    'us-gun-155mm-howitzer',
+    'M4 Sherman':        'us-tank-m4-sherman',
+    'M4A3 Sherman':      'us-tank-m4-sherman',
+    'M5A1 Stuart':       'us-tank-m5-stuart',
+    'M3 Halftrack':      'us-transport-halftrack',
+    'M7 Priest':         'us-spa-m7-priest',
+  },
+  'Germany': {
+    'Platoon Leader':         'de-leader',
+    'Forward Observer':       'de-fo',
+    'Rifle/MG Team':          'de-inf-rifle-mg',
+    'Panzerfaust SMG Team':   'de-inf-panzerfaust',
+    'Panzerschreck Team':     'de-inf-panzerschreck',
+    'MG Team':                'de-inf-mg',
+    'MG42 HMG Team':          'de-inf-mg',
+    '8cm Mortar Team':        'de-gun-8cm-mortar',
+    '7.5cm PaK40':            'de-gun-pak40',
+    '8.8cm FlaK36':           'de-gun-88mm-flak',
+    'StuG III/IV':            'de-tank-stug',
+    'Panzer IV H':            'de-tank-pz4h',
+    'Sd Kfz 251 Halftrack':   'de-transport-sdkfz251',
+    'Sd Kfz 234/2 Puma':      'de-ac-puma',
+    'Wespe SPG':              'de-spa-wespe',
+  },
+  'Soviet Union': {
+    'Platoon Leader':      'sv-leader',
+    'Forward Observer':    'sv-fo',
+    'Rifle/MG Team':       'sv-inf-rifle-mg',
+    'Maxim HMG Team':      'sv-gun-maksim',
+    'PTRD AT Rifle Team':  'sv-gun-ptrd',
+    '82mm Mortar Team':    'sv-gun-82mm-mortar',
+    '45mm AT Gun':         'sv-gun-45mm',
+    '152mm Howitzer':      'sv-gun-152mm-howitzer',
+    'T-34/85':             'sv-tank-t34-85',
+    'SU-85':               'sv-spg-su85',
+    'BM-13 Katyusha':      'sv-spa-katyusha',
+    'ZIS-5 Truck':         'sv-transport-zis-truck',
+    'BA-64':               'sv-ac-ba64',
+  },
+  'Britain': {
+    'Platoon Leader':    'br-leader',
+    'Forward Observer':  'br-fo',
+    'PIAT Team':         'br-inf-piat',
+    '2" Mortar Team':    'br-inf-2in-mortar',
+    'Bren/Rifle Team':   'br-inf-rifle-mg',
+    '3" Mortar Team':    'br-gun-3in-mortar',
+    '6-pdr AT Gun':      'br-gun-6pdr',
+    '25-pdr Field Gun':  'br-gun-55in',
+    'Churchill IV':      'br-tank-churchill34',
+    'Cromwell IV':       'br-tank-cromwell4',
+    'Sherman Firefly VC':'br-tank-firefly',
+    'Stuart V':          'br-tank-stuart',
+    'M5 Halftrack':      'br-transport-m5-halftrack',
+    'Sexton SP':         'br-spa-sexton',
+  },
+};
+
 function addPlatoonToOrgBuilder(formationId, platoonId) {
   const f = HISTORICAL_ORGS.find(o => o.id === formationId);
   const p = f && f.platoons.find(pl => pl.id === platoonId);
   if (!f || !p) return;
-  builderPlatoons.push({ formationName: f.name, platoonName: p.name, teams: p.teams.map(t => ({ ...t })) });
-  renderOrgBuilder();
-}
 
-function removePlatoonFromOrgBuilder(index) {
-  builderPlatoons.splice(index, 1);
-  renderOrgBuilder();
-}
+  const nationMap = ORG_UNIT_IDS[f.nation] || {};
+  const teams = p.teams
+    .map(t => ({ unitId: nationMap[t.name], qty: t.qty }))
+    .filter(t => t.unitId && allUnits.find(u => u.id === t.unitId));
 
-function clearOrgBuilder() {
-  builderPlatoons = [];
-  renderOrgBuilder();
-}
-
-function renderOrgBuilder() {
-  const count = builderPlatoons.length;
-  document.getElementById('builder-platoon-count').textContent =
-    count === 0 ? 'No platoons' : `${count} platoon${count === 1 ? '' : 's'}`;
-  const body = document.getElementById('org-builder-body');
-  if (count === 0) {
-    body.innerHTML = `<div class="builder-empty">
-      <div class="builder-empty-icon">◈</div>
-      <div class="builder-empty-text">Select a formation on the left<br>and tap <strong>+ Add</strong> to build your force.</div>
-    </div>`;
-    return;
-  }
-  body.innerHTML = builderPlatoons.map((p, i) => `
-    <div class="builder-platoon-card">
-      <div class="builder-platoon-card-header">
-        <div>
-          <div class="builder-platoon-card-name">${p.platoonName}</div>
-          <div class="builder-platoon-source">${p.formationName}</div>
-        </div>
-        <button class="builder-platoon-remove" onclick="removePlatoonFromOrgBuilder(${i})" title="Remove">✕</button>
-      </div>
-      <div class="builder-platoon-card-teams">
-        ${p.teams.map(t => `
-          <div class="builder-team-row">
-            <span>${t.name}</span>
-            <span class="builder-team-qty">×${t.qty}</span>
-          </div>`).join('')}
-      </div>
-    </div>
-  `).join('');
-}
-
-function saveOrgBuilderForce() {
-  const name = document.getElementById('builder-force-name').value.trim();
-  if (!name) { showToast('Give your force a name first.', 'error'); return; }
-  if (builderPlatoons.length === 0) { showToast('Add some platoons first.', 'error'); return; }
-  showToast('Save coming in the next version — builder is in preview.', 'info');
+  platoonCounter++;
+  const id = `pl-${platoonCounter}`;
+  platoons.push({ id, name: p.name, teams, quality: null });
+  activePlatoonId = id;
+  updateForceUI();
+  setForcePanel(true);
+  showToast(`${p.name} added to force.`, 'success');
 }
 
 firebase.auth().onAuthStateChanged(async (user) => {
