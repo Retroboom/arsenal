@@ -131,39 +131,12 @@
     min-height: calc(100vh - var(--header-h));
   }
 
-  #section-organizations.active {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - var(--header-h));
-    overflow: hidden;
-  }
-  .org-layout {
-    display: flex;
+  #org-browser-body {
     flex: 1;
-    overflow: hidden;
-    min-height: 0;
-  }
-  .org-browser {
-    width: 480px;
-    max-width: 100%;
-    border-right: 1px solid var(--border);
     overflow-y: auto;
-    display: flex;
+    min-height: 0;
     flex-direction: column;
   }
-  .org-hint {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--text3);
-    text-align: center;
-    padding: 48px 32px;
-    gap: 12px;
-  }
-  .org-hint-icon { font-size: 28px; opacity: 0.3; }
-  .org-hint-text { font-size: 13px; line-height: 1.65; max-width: 260px; }
   .org-browser-header {
     padding: 14px 16px;
     border-bottom: 1px solid var(--border);
@@ -263,137 +236,23 @@
     border-color: var(--accent);
     color: #111;
   }
-  /* Builder panel */
-  .org-builder { display: flex; flex-direction: column; overflow: hidden; }
-  .org-builder-header {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg2);
+  .org-attachments-divider {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex-wrap: wrap;
-  }
-  .org-builder-title {
-    font-family: var(--display);
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    color: var(--text3);
-    white-space: nowrap;
-  }
-  .builder-force-name {
-    flex: 1;
-    min-width: 160px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    color: var(--text);
+    padding: 8px 16px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
     font-family: var(--mono);
-    font-size: 13px;
-    padding: 6px 11px;
-    border-radius: 3px;
-    outline: none;
-  }
-  .builder-force-name:focus { border-color: var(--accent); }
-  .builder-force-name::placeholder { color: var(--text3); }
-  .builder-platoon-count {
-    font-size: 11px;
+    font-size: 9px;
+    letter-spacing: 0.1em;
     color: var(--text3);
-    white-space: nowrap;
-  }
-  .builder-save-btn {
-    background: var(--accent);
-    color: #111;
-    border: none;
-    font-family: var(--body);
-    font-size: 12px;
-    font-weight: 700;
-    padding: 6px 16px;
-    border-radius: 3px;
+    text-transform: uppercase;
     cursor: pointer;
-    letter-spacing: 0.04em;
+    user-select: none;
   }
-  .builder-save-btn:hover { opacity: 0.85; }
-  .builder-clear-btn {
-    background: transparent;
-    color: var(--text3);
-    border: 1px solid var(--border);
-    font-family: var(--body);
-    font-size: 12px;
-    padding: 6px 12px;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  .builder-clear-btn:hover { color: var(--text); border-color: var(--text3); }
-  .org-builder-body {
-    flex: 1;
-    overflow-y: auto;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .builder-empty {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--text3);
-    gap: 12px;
-    text-align: center;
-    padding: 48px 32px;
-  }
-  .builder-empty-icon { font-size: 28px; opacity: 0.35; }
-  .builder-empty-text { font-size: 13px; line-height: 1.65; max-width: 280px; }
-  .builder-platoon-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .builder-platoon-card-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg3);
-  }
-  .builder-platoon-card-name {
-    flex: 1;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text);
-  }
-  .builder-platoon-source {
-    font-size: 10px;
-    color: var(--text3);
-    margin-top: 1px;
-  }
-  .builder-platoon-remove {
-    background: none;
-    border: none;
-    color: var(--text3);
-    cursor: pointer;
-    font-size: 14px;
-    padding: 0 2px;
-    line-height: 1;
-    transition: color 0.15s;
-  }
-  .builder-platoon-remove:hover { color: var(--red); }
-  .builder-platoon-card-teams {
-    padding: 8px 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-  }
-  .builder-team-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 11px;
-    color: var(--text2);
-  }
-  .builder-team-qty { color: var(--text3); }
+  .org-attachments-divider:hover { color: var(--text2); }
+  .org-attachments-divider .org-attach-arrow { margin-left: auto; font-size: 10px; }
 
   #section-fieldmanual.active {
     display: flex;
@@ -3649,7 +3508,6 @@
     <button class="header-nav-tab active" data-section="units" data-label="Units" onclick="setSection('units')">Units</button>
     <button class="header-nav-tab" data-section="library" data-label="Force Library" onclick="setSection('library')">Force Library</button>
     <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="setSection('fieldmanual')">Field Manual</button>
-    <button class="header-nav-tab" data-section="organizations" data-label="Organizations" onclick="setSection('organizations')" id="org-tab" style="display:none">Organizations</button>
   </nav>
   <div class="header-actions">
     <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
@@ -3829,8 +3687,10 @@
     <div class="lib-section-tabs">
       <button class="library-tab active" id="tab-browse" onclick="switchLibTab('browse')">Browse</button>
       <button class="library-tab" id="tab-mine" onclick="switchLibTab('mine')">My Forces</button>
+      <button class="library-tab" id="tab-historical" onclick="switchLibTab('historical')" style="display:none">Historical</button>
     </div>
     <div id="library-body" class="library-body"></div>
+    <div id="org-browser-body" style="display:none"></div>
   </div>
 </div>
 
@@ -3886,23 +3746,6 @@
     <div class="udp-notes" id="udp-notes"></div>
     <div class="udp-meta" id="udp-meta"></div>
     <div class="udp-footer" id="udp-footer"></div>
-  </div>
-</div>
-
-<!-- ORGANIZATIONS SECTION (admin-only preview) -->
-<div class="section" id="section-organizations">
-  <div class="org-layout">
-    <div class="org-browser">
-      <div class="org-browser-header">
-        <div class="org-browser-label">HISTORICAL ORGANIZATIONS</div>
-        <div class="filter-chips" id="org-nation-chips"></div>
-      </div>
-      <div id="org-formation-list"></div>
-    </div>
-    <div class="org-hint">
-      <div class="org-hint-icon">◈</div>
-      <div class="org-hint-text">Tap <strong>+ Add</strong> on any platoon to add it to your force.<br><br>Open the <strong>Force Builder</strong> to name, save, and publish.</div>
-    </div>
   </div>
 </div>
 
@@ -4087,7 +3930,6 @@ function setSection(name) {
   });
   if (name === 'library') loadLibraryTab(currentLibTab || 'browse');
   if (name === 'fieldmanual') loadFieldManual();
-  if (name === 'organizations') renderOrgTab();
 }
 
 // ── LOAD DATA ─────────────────────────────────────────────────────────────────
@@ -5211,8 +5053,19 @@ function switchLibTab(tab) {
   currentLibTab = tab;
   document.querySelectorAll('.library-tab').forEach(t => t.classList.remove('active'));
   document.getElementById(`tab-${tab}`).classList.add('active');
-  clearLibFilters();
-  loadLibraryTab(tab);
+
+  const isHistorical = tab === 'historical';
+  document.getElementById('library-body').style.display    = isHistorical ? 'none' : '';
+  document.getElementById('org-browser-body').style.display = isHistorical ? 'flex' : 'none';
+  document.querySelector('#section-library .lib-sidebar').style.display = isHistorical ? 'none' : '';
+  document.getElementById('section-library').style.gridTemplateColumns  = isHistorical ? '1fr' : '';
+
+  if (isHistorical) {
+    renderOrgBrowser();
+  } else {
+    clearLibFilters();
+    loadLibraryTab(tab);
+  }
 }
 
 function clearLibFilters() {
@@ -7349,7 +7202,7 @@ const HISTORICAL_ORGS = [
   {
     id: 'us-rifle-company', name: 'Rifle Company',
     nation: 'United States', era: '1944–45',
-    note: 'Standard infantry company, NW Europe and Italy. Three rifle platoons with organic anti-tank, mortar, and artillery support. Versatile and well-supplied.',
+    note: 'Standard infantry company, NW Europe and Italy. Three rifle platoons with organic anti-tank, mortar, and heavy weapons support.',
     platoons: [
       { id: 'rifle-platoon', name: 'Rifle Platoon',
         note: 'Typically 3 rifle squads at full strength; often 2 by late 1944 after sustained casualties.',
@@ -7363,9 +7216,14 @@ const HISTORICAL_ORGS = [
       { id: 'mortar-platoon', name: 'Mortar Platoon',
         note: 'Battalion 81mm mortars, often attached at company level for close support.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '81mm Mortar Team', qty: 3 }] },
+    ],
+    attachments: [
       { id: 'tank-platoon', name: 'Tank Platoon',
-        note: 'M4 Shermans attached from armored battalion — typically 3–5 tanks.',
+        note: 'Shermans attached from an armored battalion — typically 3–5 tanks per platoon.',
         teams: [{ name: 'M4 Sherman', qty: 3 }] },
+      { id: 'td-platoon', name: 'Tank Destroyer Platoon',
+        note: 'M10 or M36 tank destroyers from an independent TD battalion.',
+        teams: [{ name: 'M10 3in GMC', qty: 3 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Divisional 105mm or 155mm howitzers in direct support.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: '105mm Howitzer', qty: 4 }] },
@@ -7382,18 +7240,20 @@ const HISTORICAL_ORGS = [
       { id: 'armored-rifle-platoon', name: 'Armored Rifle Platoon',
         note: 'Motorized infantry integral to armored battalions, riding M3 halftracks.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 2 }, { name: '60mm Mortar Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }, { name: 'M3 Halftrack', qty: 4 }] },
-      { id: 'heavy-tank-platoon', name: 'Heavy Tank Platoon',
-        note: 'M26 Pershing heavy tanks — available from early 1945.',
-        teams: [{ name: 'M26 Pershing', qty: 3 }] },
-      { id: 'td-platoon', name: 'Tank Destroyer Platoon',
-        note: 'M10 or M36 tank destroyers attached from independent TD battalion.',
-        teams: [{ name: 'M10 3in GMC', qty: 3 }] },
       { id: 'recon-platoon', name: 'Recon Platoon',
         note: 'M5 Stuarts or M8 Greyhounds providing reconnaissance.',
         teams: [{ name: 'M5A1 Stuart', qty: 3 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'M7 Priest self-propelled howitzers in direct support.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M7 Priest', qty: 3 }] },
+    ],
+    attachments: [
+      { id: 'heavy-tank-platoon', name: 'Heavy Tank Platoon',
+        note: 'M26 Pershing heavy tanks — available from early 1945, attached from separate heavy battalion.',
+        teams: [{ name: 'M26 Pershing', qty: 3 }] },
+      { id: 'td-platoon', name: 'Tank Destroyer Platoon',
+        note: 'M10 or M36 tank destroyers from an independent TD battalion.',
+        teams: [{ name: 'M10 3in GMC', qty: 3 }] },
     ]
   },
   // ── GERMANY ────────────────────────────────────────────────────────────────
@@ -7414,11 +7274,13 @@ const HISTORICAL_ORGS = [
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: '7.5cm PaK40 — the backbone of German anti-tank defence.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '7.5cm PaK40', qty: 3 }] },
+    ],
+    attachments: [
       { id: 'panzer-platoon', name: 'Panzer Platoon',
-        note: 'StuG assault guns most commonly attached to infantry formations by 1944.',
+        note: 'StuG assault guns most commonly attached to infantry formations by 1944; Panzer IVs also possible.',
         teams: [{ name: 'StuG III/IV', qty: 3 }] },
       { id: 'flak-platoon', name: 'Heavy AA Platoon',
-        note: 'The 8.8cm FlaK36 — devastating in its dual anti-aircraft and anti-tank role.',
+        note: 'The 8.8cm FlaK36 — devastating in its dual anti-aircraft and anti-tank role; attached from divisional Flak battalion.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '8.8cm FlaK36', qty: 1 }] },
     ]
   },
@@ -7430,21 +7292,23 @@ const HISTORICAL_ORGS = [
       { id: 'panzer-iv-platoon', name: 'Panzer Platoon (Pz IV)',
         note: '4–5 tanks at full strength. Panzer IV H most common medium tank.',
         teams: [{ name: 'Panzer IV H', qty: 5 }] },
-      { id: 'panther-platoon', name: 'Panzer Platoon (Panther)',
-        note: 'Panther Ausf G increasingly common in 1944–45 — superior gun and armour.',
-        teams: [{ name: 'Panther Ausf G', qty: 4 }] },
       { id: 'panzergrenadier-platoon', name: 'Panzergrenadier Platoon',
         note: 'Motorized infantry riding Sd Kfz 251 halftracks — could dismount to clear terrain.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Panzerschreck Team', qty: 1 }, { name: 'MG Team', qty: 6 }, { name: 'Sd Kfz 251 Halftrack', qty: 4 }] },
-      { id: 'heavy-platoon', name: 'Heavy Tank Platoon',
-        note: 'Tiger I or Königstiger — committed to key breakthrough or defensive actions.',
-        teams: [{ name: 'Tiger I E', qty: 3 }] },
       { id: 'recon-platoon', name: 'Recon Platoon',
         note: 'Sd Kfz 234 Puma or lighter 222 armoured cars providing reconnaissance.',
         teams: [{ name: 'Sd Kfz 234/2 Puma', qty: 2 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Wespe or Hummel self-propelled artillery in direct support.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Wespe SPG', qty: 3 }] },
+    ],
+    attachments: [
+      { id: 'panther-platoon', name: 'Panzer Platoon (Panther)',
+        note: 'Panther Ausf G increasingly common in 1944–45 — often from a separate Panther battalion.',
+        teams: [{ name: 'Panther Ausf G', qty: 4 }] },
+      { id: 'heavy-platoon', name: 'Heavy Tank Platoon',
+        note: 'Tiger I or Königstiger from a separate heavy tank battalion — committed to breakthrough or defensive actions.',
+        teams: [{ name: 'Tiger I E', qty: 3 }] },
     ]
   },
   // ── SOVIET UNION ──────────────────────────────────────────────────────────
@@ -7462,37 +7326,41 @@ const HISTORICAL_ORGS = [
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: '45mm or 76mm ZIS guns providing direct anti-tank support.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '45mm AT Gun', qty: 3 }] },
+    ],
+    attachments: [
       { id: 'tank-platoon', name: 'Tank Platoon',
-        note: 'T-34/85 most common from mid-1944 — typically 3 tanks per platoon.',
+        note: 'T-34/85 most common from mid-1944 — attached from a tank brigade in support.',
         teams: [{ name: 'T-34/85', qty: 3 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Divisional 122mm or 152mm howitzers in direct support.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: '152mm Howitzer', qty: 3 }] },
       { id: 'katyusha-battery', name: 'Katyusha Battery',
-        note: 'BM-13 Katyusha rocket artillery — devastating area suppression.',
+        note: 'BM-13 Katyusha rocket artillery — attached from corps or army-level Guards Mortar units.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'BM-13 Katyusha', qty: 3 }] },
     ]
   },
   {
     id: 'sv-tankovy-company', name: 'Tankovy Company',
     nation: 'Soviet Union', era: '1944',
-    note: 'Soviet armoured company at the height of the Eastern Front. T-34s supported by IS-2 heavy tanks, assault guns, and motorized infantry.',
+    note: 'Soviet armoured company at the height of the Eastern Front. T-34s supported by motorized infantry and reconnaissance.',
     platoons: [
       { id: 'tank-platoon', name: 'Tank Platoon',
         note: 'T-34/85 — typically 3 tanks per platoon, sometimes 5 at full establishment.',
         teams: [{ name: 'T-34/85', qty: 3 }] },
-      { id: 'heavy-tank-platoon', name: 'Heavy Tank Platoon',
-        note: 'IS-2 heavy tanks — committed to breakthrough operations and fortified positions.',
-        teams: [{ name: 'IS-2', qty: 3 }] },
-      { id: 'assault-gun-platoon', name: 'Assault Gun Platoon',
-        note: 'SU-85 or SU-100 tank destroyers providing long-range anti-tank support.',
-        teams: [{ name: 'SU-85', qty: 3 }] },
       { id: 'rifle-platoon', name: 'Rifle Platoon',
         note: 'Motorized infantry often riding on tank hulls or in ZIS trucks.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Maxim HMG Team', qty: 1 }, { name: 'PTRD AT Rifle Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }, { name: 'ZIS-5 Truck', qty: 4 }] },
       { id: 'recon-platoon', name: 'Recon Platoon',
         note: 'BA-64 armoured cars providing reconnaissance.',
         teams: [{ name: 'BA-64', qty: 2 }] },
+    ],
+    attachments: [
+      { id: 'heavy-tank-platoon', name: 'Heavy Tank Platoon',
+        note: 'IS-2 heavy tanks from a separate Guards heavy tank regiment — committed to breakthrough operations.',
+        teams: [{ name: 'IS-2', qty: 3 }] },
+      { id: 'assault-gun-platoon', name: 'Assault Gun Platoon',
+        note: 'SU-85 or ISU-122 from a separate assault gun regiment providing long-range anti-tank support.',
+        teams: [{ name: 'SU-85', qty: 3 }] },
     ]
   },
   // ── BRITAIN ───────────────────────────────────────────────────────────────
@@ -7510,11 +7378,13 @@ const HISTORICAL_ORGS = [
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: '6-pdr or 17-pdr anti-tank guns — the 17-pdr could defeat any German tank.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '6-pdr AT Gun', qty: 3 }] },
-      { id: 'tank-platoon', name: 'Tank Platoon',
-        note: 'Churchill or Sherman tanks attached in the infantry support role.',
+    ],
+    attachments: [
+      { id: 'tank-platoon', name: 'Tank Troop',
+        note: 'Churchill or Cromwell tanks attached from an armoured brigade in the infantry support role.',
         teams: [{ name: 'Churchill IV', qty: 3 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
-        note: '25-pdr field guns or BL 5.5" medium artillery in direct support.',
+        note: '25-pdr field guns or BL 5.5" medium artillery from the divisional artillery regiment.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: '25-pdr Field Gun', qty: 4 }] },
     ]
   },
@@ -7532,11 +7402,13 @@ const HISTORICAL_ORGS = [
       { id: 'motor-platoon', name: 'Motor Platoon',
         note: 'Motor infantry riding M5 halftracks — organic infantry support for armoured operations.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'PIAT Team', qty: 1 }, { name: '2" Mortar Team', qty: 1 }, { name: 'Bren/Rifle Team', qty: 6 }, { name: 'M5 Halftrack', qty: 4 }] },
+    ],
+    attachments: [
       { id: 'at-troop', name: 'Anti-Tank Troop (SP)',
-        note: 'M10C Achilles with 17-pdr — capable of defeating Tigers at range.',
+        note: 'M10C Achilles with 17-pdr — attached from divisional anti-tank regiment, capable of defeating Tigers at range.',
         teams: [{ name: 'M10C 17-pdr SP', qty: 2 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
-        note: 'Sexton self-propelled 25-pdr guns providing mobile artillery support.',
+        note: 'Sexton self-propelled 25-pdr guns from the divisional artillery regiment.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Sexton SP', qty: 3 }] },
     ]
   },
@@ -7544,15 +7416,12 @@ const HISTORICAL_ORGS = [
 
 let orgSelectedNation = 'United States';
 let orgExpandedFormation = null;
-
-function renderOrgTab() {
-  renderOrgBrowser();
-  renderOrgBuilder();
-}
+let orgExpandedAttachments = new Set();
 
 function selectOrgNation(nation) {
   orgSelectedNation = nation;
   orgExpandedFormation = null;
+  orgExpandedAttachments.clear();
   renderOrgBrowser();
 }
 
@@ -7561,45 +7430,81 @@ function toggleOrgFormation(id) {
   renderOrgBrowser();
 }
 
+function toggleOrgAttachments(id) {
+  if (orgExpandedAttachments.has(id)) {
+    orgExpandedAttachments.delete(id);
+  } else {
+    orgExpandedAttachments.add(id);
+  }
+  renderOrgBrowser();
+}
+
 function renderOrgBrowser() {
+  const container = document.getElementById('org-browser-body');
+  if (!container) return;
   const nations = [...new Set(HISTORICAL_ORGS.map(o => o.nation))];
   const formations = HISTORICAL_ORGS.filter(o => o.nation === orgSelectedNation);
 
-  document.getElementById('org-nation-chips').innerHTML = nations.map(n =>
+  const nationChips = nations.map(n =>
     `<button class="chip${n === orgSelectedNation ? ' active' : ''}" onclick="selectOrgNation('${n.replace(/'/g,"\\'")}')">
       ${n}
     </button>`
   ).join('');
 
-  document.getElementById('org-formation-list').innerHTML = formations.map(f => {
+  const formationHTML = formations.map(f => {
     const open = orgExpandedFormation === f.id;
+    const attachOpen = orgExpandedAttachments.has(f.id);
+    const attachments = f.attachments || [];
+    const totalTypes = f.platoons.length + attachments.length;
+
+    const platoonRows = pl => pl.map(p => `
+      <div class="org-platoon-row">
+        <div class="org-platoon-info">
+          <div class="org-platoon-name">${p.name}</div>
+          <div class="org-platoon-teams">${p.teams.map(t => `${t.qty}× ${t.name}`).join(' · ')}</div>
+          ${p.note ? `<div class="org-platoon-hist">${p.note}</div>` : ''}
+        </div>
+        <button class="org-add-btn" onclick="addPlatoonToOrgBuilder('${f.id}','${p.id}')">+ Add</button>
+      </div>
+    `).join('');
+
     return `
       <div class="org-formation">
         <div class="org-formation-header" onclick="toggleOrgFormation('${f.id}')">
           <div>
             <div class="org-formation-name">${f.name}</div>
-            <div class="org-formation-meta">${f.era} · ${f.platoons.length} platoon types</div>
+            <div class="org-formation-meta">${f.era} · ${totalTypes} platoon types</div>
           </div>
           <span style="color:var(--text3);font-size:11px">${open ? '▲' : '▼'}</span>
         </div>
         ${open ? `
           <div class="org-formation-note">${f.note}</div>
           <div class="org-platoon-list open">
-            ${f.platoons.map(p => `
-              <div class="org-platoon-row">
-                <div class="org-platoon-info">
-                  <div class="org-platoon-name">${p.name}</div>
-                  <div class="org-platoon-teams">${p.teams.map(t => `${t.qty}× ${t.name}`).join(' · ')}</div>
-                  ${p.note ? `<div class="org-platoon-hist">${p.note}</div>` : ''}
-                </div>
-                <button class="org-add-btn" onclick="addPlatoonToOrgBuilder('${f.id}','${p.id}')">+ Add</button>
-              </div>
-            `).join('')}
+            ${platoonRows(f.platoons)}
           </div>
+          ${attachments.length > 0 ? `
+            <div class="org-attachments-divider" onclick="toggleOrgAttachments('${f.id}')">
+              Commonly Attached
+              <span class="org-attach-arrow">${attachOpen ? '▲' : '▼'}</span>
+            </div>
+            ${attachOpen ? `
+              <div class="org-platoon-list open">
+                ${platoonRows(attachments)}
+              </div>
+            ` : ''}
+          ` : ''}
         ` : ''}
       </div>
     `;
   }).join('');
+
+  container.innerHTML = `
+    <div class="org-browser-header">
+      <div class="org-browser-label">HISTORICAL ORGANIZATIONS</div>
+      <div class="filter-chips">${nationChips}</div>
+    </div>
+    <div>${formationHTML}</div>
+  `;
 }
 
 // Unit ID lookup by nation + display name
@@ -7689,7 +7594,7 @@ const ORG_UNIT_IDS = {
 
 function addPlatoonToOrgBuilder(formationId, platoonId) {
   const f = HISTORICAL_ORGS.find(o => o.id === formationId);
-  const p = f && f.platoons.find(pl => pl.id === platoonId);
+  const p = f && (f.platoons.find(pl => pl.id === platoonId) || (f.attachments || []).find(pl => pl.id === platoonId));
   if (!f || !p) return;
 
   const nationMap = ORG_UNIT_IDS[f.nation] || {};
@@ -7718,7 +7623,7 @@ firebase.auth().onAuthStateChanged(async (user) => {
     if (isAdmin) {
       await loadRatings();
       document.getElementById('rate-btn').style.display = '';
-      document.getElementById('org-tab').style.display = '';
+      document.getElementById('tab-historical').style.display = '';
     }
     await loadData();
     await checkUrlForce();
