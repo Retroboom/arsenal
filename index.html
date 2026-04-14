@@ -4239,18 +4239,15 @@ function renderGrid(container, forceIds, animate = true) {
     });
 
     const activeTypes = typeOrder.filter(t => byType[t]);
-    const showTypeHeaders = activeTypes.length > 1;
     const typeTop = '12px';
 
     activeTypes.forEach(type => {
-      if (showTypeHeaders) {
-        html += `
-          <div class="type-divider" data-nation="${nation}" style="top:${typeTop}">
-            <span class="type-divider-label">${type}</span>
-            <div class="type-divider-line"></div>
-          </div>
-        `;
-      }
+      html += `
+        <div class="type-divider" data-nation="${nation}" style="top:${typeTop}">
+          <span class="type-divider-label">${type}</span>
+          <div class="type-divider-line"></div>
+        </div>
+      `;
 
     byType[type].forEach(unit => {
       const inForce = forceIds.has(unit.id);
