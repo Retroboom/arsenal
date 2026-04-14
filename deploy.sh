@@ -1,13 +1,18 @@
 #!/bin/bash
-# deploy.sh — upload index.html (and static assets) directly to Netlify
-# without triggering a build. Use this for day-to-day edits to index.html.
+# deploy.sh — upload static files directly to Netlify without any build step.
+# Use this for day-to-day edits to index.html and hof_arsenal.json.
 #
-# For changes to netlify/functions/, just git push — a real build is needed.
+# For changes to netlify/functions/, run: bash deploy.sh --functions
 
 set -e
 
 cd "$(dirname "$0")"
 
-echo "Deploying to arsenal.retroboomgames.com..."
-netlify deploy --prod --message "${1:-manual deploy}"
+if [ "$1" = "--functions" ]; then
+  echo "Deploying with full build (functions changed)..."
+  netlify deploy --prod --message "${2:-deploy with functions}"
+else
+  echo "Deploying static files to arsenal.retroboomgames.com..."
+  netlify deploy --prod --no-build --message "${1:-manual deploy}"
+fi
 echo "Done."
