@@ -1094,8 +1094,8 @@
 
   /* ── Type colors ──────────────────────────────────────────────────────────── */
   [data-type="Infantry"]      { --type-color: #6abf6a; }
-  [data-type="Guns"]          { --type-color: #c07828; }
-  [data-type="Tanks"]         { --type-color: #5888c4; }
+  [data-type="Gun"]           { --type-color: #c07828; }
+  [data-type="Tank"]          { --type-color: #5888c4; }
   [data-type="SP Artillery"]  { --type-color: #d4a035; }
   [data-type="SP Anti-Air"]   { --type-color: #50a8d4; }
   [data-type="Armoured Cars"] { --type-color: #3cb8a0; }
@@ -3867,7 +3867,7 @@ function toggleTeamLock(platoonId, unitId) {
   updateForceUI();
 }
 let currentView = 'grid';
-const TYPE_ORDER = ['Infantry', 'Guns', 'Tanks', 'SP Artillery', 'SP Anti-Air', 'Armoured Cars', 'Recon', 'Transport', 'Upgrade'];
+const TYPE_ORDER = ['Infantry', 'Gun', 'Tank', 'SP Artillery', 'SP Anti-Air', 'Armoured Cars', 'Recon', 'Transport', 'Upgrade'];
 
 // Vehicle MG reference stats (from rulebook Vehicle MGs tables)
 const VEHICLE_MG_STATS = {
