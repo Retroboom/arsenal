@@ -5053,6 +5053,7 @@ function switchLibTab(tab) {
 
   if (isHistorical) {
     renderOrgBrowser();
+    setForcePanel(true);
   } else {
     clearLibFilters();
     loadLibraryTab(tab);
