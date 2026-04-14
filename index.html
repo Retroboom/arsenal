@@ -4215,7 +4215,6 @@ function renderGrid(container, forceIds, animate = true) {
     byNation[u.nation].push(u);
   });
 
-  const hasMultipleNations = Object.keys(byNation).length > 1;
   let html = '<div class="unit-grid">';
   let cardIndex = 0;
 
@@ -4225,14 +4224,12 @@ function renderGrid(container, forceIds, animate = true) {
   nationOrder.forEach(nation => {
     if (!byNation[nation]) return;
 
-    if (hasMultipleNations) {
-      html += `
-        <div class="section-divider" data-nation="${nation}">
-          <span class="section-divider-label">${nation}</span>
-          <div class="section-divider-line"></div>
-        </div>
-      `;
-    }
+    html += `
+      <div class="section-divider" data-nation="${nation}">
+        <span class="section-divider-label">${nation}</span>
+        <div class="section-divider-line"></div>
+      </div>
+    `;
 
     // Group by type within nation
     const byType = {};
@@ -4243,10 +4240,7 @@ function renderGrid(container, forceIds, animate = true) {
 
     const activeTypes = typeOrder.filter(t => byType[t]);
     const showTypeHeaders = activeTypes.length > 1;
-    // Nation header is ~36px tall, sticking at top:-24px (content-edge relative).
-    // Its bottom = -24 + 36 = 12px from content edge. Type header stacks there.
-    // Single-nation: no section-divider present, stick at same -24px as nation header would.
-    const typeTop = hasMultipleNations ? '12px' : '-24px';
+    const typeTop = '12px';
 
     activeTypes.forEach(type => {
       if (showTypeHeaders) {
