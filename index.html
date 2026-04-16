@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hail of Fire — Arsenal</title>
+<title>Hail of Fire // Arsenal</title>
 <link rel="icon" type="image/png" href="rb.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Stardos+Stencil:wght@400;700&family=Special+Elite&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
@@ -253,6 +253,68 @@
   }
   .org-attachments-divider:hover { color: var(--text2); }
   .org-attachments-divider .org-attach-arrow { margin-left: auto; font-size: 10px; }
+
+  .org-tier-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    user-select: none;
+  }
+  .org-tier-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    text-transform: uppercase;
+  }
+  .org-tier-slots {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    margin-left: auto;
+  }
+  .org-tier-full .org-tier-label,
+  .org-tier-full .org-tier-slots { color: var(--warn, #f5a623); }
+
+  .org-formation-locked { opacity: 0.38; pointer-events: none; }
+
+  .org-add-btn-full {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .org-slot-tracker {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+  }
+  .slot-row {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 4px;
+    border-right: 1px solid var(--border);
+  }
+  .slot-row:last-child { border-right: none; }
+  .slot-label {
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 0.08em;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .slot-value {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text1);
+  }
 
   #section-fieldmanual.active {
     display: flex;
@@ -893,6 +955,9 @@
 
   body.panel-open .main {
     padding-right: 384px; /* 360px panel + 24px original right padding */
+  }
+  body.panel-open #org-browser-body {
+    padding-right: 360px;
   }
 
   /* VIEW TOGGLE */
@@ -3485,6 +3550,245 @@
   .platoon-drag-handle:active { cursor: grabbing; }
   .platoon-ghost { opacity: 0.35; background: var(--bg3); }
 
+  /* ── FPP ──────────────────────────────────────────────────────────────────── */
+  #section-fpp.active { display: flex; flex-direction: column; min-height: calc(100vh - var(--header-h)); }
+  .fpp-body { flex: 1; max-width: 720px; width: 100%; margin: 0 auto; padding: 32px 20px 60px; display: flex; flex-direction: column; gap: 24px; }
+
+  /* Step progress pips */
+  .fpp-steps { display: flex; align-items: center; justify-content: center; }
+  .fpp-pip { width: 9px; height: 9px; border-radius: 50%; background: var(--border); flex-shrink: 0; transition: background 0.2s; }
+  .fpp-pip.done { background: color-mix(in srgb, var(--accent) 55%, var(--border)); }
+  .fpp-pip.active { background: var(--accent); width: 11px; height: 11px; box-shadow: 0 0 6px color-mix(in srgb, var(--accent) 60%, transparent); }
+  .fpp-pip-line { width: 28px; height: 2px; background: var(--border); flex-shrink: 0; }
+  .fpp-pip-line.done { background: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+
+  /* Step header */
+  .fpp-step-header { text-align: center; }
+  .fpp-step-title { font-family: var(--display); font-size: 26px; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 8px; }
+  .fpp-step-sub { font-size: 15px; color: var(--text2); line-height: 1.6; max-width: 560px; margin: 0 auto; }
+
+  /* Setup */
+  .fpp-setup-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: start; }
+  .fpp-vs { font-family: var(--display); font-size: 22px; color: var(--text3); align-self: center; padding-top: 24px; }
+  .fpp-player-setup { display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 8px; border-top: 3px solid var(--border); background: var(--bg2); }
+  .fpp-player-setup.fpp-allied { border-top-color: #8b1e1e; }
+  .fpp-player-setup.fpp-axis   { border-top-color: #36454f; }
+  .fpp-player-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; color: var(--text3); }
+  .fpp-allied .fpp-player-label { color: #c94444; }
+  .fpp-axis   .fpp-player-label { color: #5a6a72; }
+  .fpp-name-input { background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 9px 10px; color: var(--text1); font-size: 15px; width: 100%; }
+  .fpp-name-input:focus { outline: none; border-color: var(--accent); }
+  .fpp-force-summary { background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 10px 12px; }
+  .fpp-force-name { font-size: 15px; font-weight: 600; color: var(--text1); }
+  .fpp-force-meta { font-size: 13px; color: var(--text3); margin-top: 3px; }
+  .fpp-load-btn { background: var(--bg3); border: 1px dashed var(--border); border-radius: 4px; padding: 24px 10px; color: var(--text2); font-size: 15px; cursor: pointer; width: 100%; text-align: center; }
+  .fpp-load-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Action buttons */
+  .fpp-next-btn { background: var(--accent); color: var(--bg); border: none; border-radius: 4px; padding: 14px 32px; font-family: var(--mono); font-size: 14px; letter-spacing: 0.1em; cursor: pointer; align-self: center; transition: opacity 0.15s; }
+  .fpp-next-btn:hover { opacity: 0.85; }
+  .fpp-next-btn:disabled { opacity: 0.35; cursor: default; }
+  .fpp-back-btn { background: none; border: 1px solid var(--border); border-radius: 4px; padding: 11px 24px; font-family: var(--mono); font-size: 13px; color: var(--text2); cursor: pointer; align-self: center; }
+  .fpp-back-btn:hover { border-color: var(--text2); }
+  .fpp-restart-btn { background: none; border: none; font-family: var(--mono); font-size: 13px; color: var(--text3); cursor: pointer; align-self: center; padding: 4px 8px; letter-spacing: 0.04em; }
+  .fpp-restart-btn:hover { color: var(--text2); text-decoration: underline; }
+  .fpp-result-actions { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+
+  /* Ranking */
+  .fpp-rank-list { display: flex; flex-direction: column; gap: 8px; }
+  .fpp-rank-item { display: flex; align-items: center; gap: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; cursor: default; user-select: none; }
+  .fpp-rank-item:hover { border-color: var(--text3); }
+  .fpp-rank-num { font-family: var(--mono); font-size: 14px; color: var(--text3); width: 22px; flex-shrink: 0; }
+  .fpp-rank-info { flex: 1; min-width: 0; }
+  .fpp-rank-name { font-size: 15px; font-weight: 600; color: var(--text1); }
+  .fpp-rank-teams { font-size: 13px; color: var(--text3); margin-top: 3px; }
+  .fpp-rank-handle { color: var(--text3); cursor: grab; font-size: 20px; padding: 0 4px; }
+  .fpp-rank-handle:active { cursor: grabbing; }
+  .sortable-ghost { opacity: 0.3; background: var(--bg3); }
+
+  /* Pairings — attacker/defender column labels */
+  .fpp-col-headers { display: flex; justify-content: space-between; padding: 2px 14px; }
+  .fpp-col-a, .fpp-col-b { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; }
+  .fpp-col-b { text-align: right; }
+  .fpp-col-attacker { color: var(--accent); }
+  .fpp-col-defender { color: var(--text3); }
+
+  /* Live score tally */
+  .fpp-score-tally { display: flex; justify-content: center; align-items: center; gap: 24px; padding: 14px 20px; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; }
+  .fpp-tally-block { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .fpp-tally-label { font-family: var(--mono); font-size: 12px; color: var(--text3); letter-spacing: 0.04em; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .fpp-tally-num { font-family: var(--mono); font-size: 34px; color: var(--text2); line-height: 1; }
+  .fpp-tally-num.leading { color: var(--accent); }
+  .fpp-tally-sep { font-family: var(--mono); font-size: 24px; color: var(--border); }
+
+  /* Pairings rows */
+  .fpp-pairings-list { display: flex; flex-direction: column; gap: 12px; }
+  .fpp-pairing-row { display: grid; grid-template-columns: 24px 1fr auto 1fr; gap: 10px; align-items: center; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 14px 12px 10px; }
+  .fpp-pairing-resolved { border-color: color-mix(in srgb, var(--accent) 60%, var(--border)); }
+  .fpp-pairing-num { font-family: var(--mono); font-size: 13px; color: var(--text3); text-align: center; }
+  .fpp-pairing-unit { padding: 6px 8px; border-radius: 4px; transition: background 0.15s; min-width: 0; }
+  .fpp-unit-winner { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  .fpp-unit-player { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--text3); margin-bottom: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .fpp-unit-name { font-size: 14px; font-weight: 600; color: var(--text1); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .fpp-unit-teams { font-size: 13px; color: var(--text3); margin-top: 2px; }
+  .fpp-pairing-btns { display: flex; flex-direction: column; gap: 5px; align-items: center; flex-shrink: 0; }
+  .fpp-winner-btn { background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 7px 11px; font-family: var(--mono); font-size: 12px; color: var(--text2); cursor: pointer; white-space: nowrap; transition: all 0.1s; }
+  .fpp-winner-btn:hover { border-color: var(--text2); }
+  .fpp-winner-btn.active { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+  .fpp-def-btn { background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 5px 8px; font-family: var(--mono); font-size: 11px; color: var(--text3); cursor: pointer; white-space: nowrap; transition: all 0.1s; }
+  .fpp-def-btn:hover { border-color: var(--text2); color: var(--text2); }
+  .fpp-def-btn.active { background: var(--text3); color: var(--bg); border-color: var(--text3); }
+  /* Size bonus — full-width row, no absolute positioning */
+  .fpp-size-bonus-row { grid-column: 1 / -1; font-family: var(--mono); font-size: 12px; color: var(--accent); text-align: center; padding-top: 8px; border-top: 1px solid color-mix(in srgb, var(--accent) 20%, transparent); }
+  .fpp-extra-units { text-align: center; font-size: 14px; color: var(--text2); padding: 12px; background: var(--bg2); border-radius: 4px; border: 1px solid var(--border); }
+
+  /* Result */
+  .fpp-result-summary { text-align: center; font-size: 15px; color: var(--text1); line-height: 1.7; padding: 16px 24px; background: color-mix(in srgb, var(--accent) 7%, var(--bg2)); border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--border)); border-radius: 8px; }
+  .fpp-result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .fpp-result-player { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 24px 20px; text-align: center; border-top: 3px solid transparent; }
+  .fpp-result-player.fpp-allied { border-top-color: #8b1e1e; }
+  .fpp-result-player.fpp-axis   { border-top-color: #36454f; }
+  .fpp-result-name { font-family: var(--display); font-size: 20px; margin-bottom: 4px; }
+  .fpp-result-player.fpp-allied .fpp-result-name { color: #c94444; }
+  .fpp-result-player.fpp-axis   .fpp-result-name { color: #5a6a72; }
+  .fpp-result-score { font-family: var(--mono); font-size: 13px; color: var(--text3); letter-spacing: 0.06em; margin-bottom: 16px; }
+  .fpp-result-bl-label { font-family: var(--mono); font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+  .fpp-result-bl-value { font-family: var(--mono); font-size: 56px; color: var(--accent); line-height: 1; text-shadow: 2px 2px 0 rgba(0,0,0,0.5); }
+  .fpp-result-bl-note { font-family: var(--mono); font-size: 12px; color: #c94444; margin-top: 4px; }
+
+  /* Force picker modal */
+  .fpp-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; display: flex; align-items: center; justify-content: center; }
+  .fpp-modal { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; width: min(480px, 94vw); max-height: 70vh; display: flex; flex-direction: column; }
+  .fpp-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--text2); }
+  .fpp-modal-close { background: none; border: none; color: var(--text3); font-size: 16px; cursor: pointer; }
+  .fpp-picker-list { overflow-y: auto; padding: 8px; }
+  .fpp-picker-item { padding: 12px 14px; border-radius: 4px; cursor: pointer; border: 1px solid transparent; }
+  .fpp-picker-item:hover { background: var(--bg3); border-color: var(--border); }
+  .fpp-picker-name { font-size: 14px; font-weight: 600; color: var(--text1); }
+  .fpp-picker-meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .fpp-picker-loading, .fpp-picker-empty { padding: 24px; text-align: center; color: var(--text3); font-size: 13px; }
+
+  /* ── GAME OVERLAY ──────────────────────────────────────────────────────────── */
+  .game-overlay { position: fixed; inset: 0; background: var(--bg); z-index: 300; flex-direction: column; overflow-y: auto; }
+  .game-body { display: flex; flex-direction: column; padding: 16px; max-width: 860px; margin: 0 auto; width: 100%; }
+  .game-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .game-title { font-family: var(--display); font-size: 16px; letter-spacing: 0.1em; color: var(--accent); }
+  .game-close-btn { background: none; border: 1px solid var(--border); border-radius: 4px; padding: 6px 14px; color: var(--text2); font-size: 12px; cursor: pointer; font-family: var(--mono); }
+  .game-close-btn:hover { border-color: var(--text2); color: var(--text1); }
+  /* Two-panel grid */
+  .game-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 600px) { .game-panels { grid-template-columns: 1fr; } }
+  /* Individual panel */
+  .game-panel { background: var(--bg2); border-radius: 8px; padding: 24px 20px; text-align: center; border-top: 4px solid transparent; }
+  .game-panel.gp-allied { border-top-color: #8b1e1e; }
+  .game-panel.gp-axis   { border-top-color: #36454f; }
+  /* broken state intentionally has no visible outline — score must be revealed to see it */
+  /* Player name */
+  .game-player-name { font-family: var(--display); font-size: 26px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+  .gp-allied .game-player-name { color: #c94444; }
+  .gp-axis   .game-player-name { color: #5a6a72; }
+  /* Break limit subtitle */
+  .game-bl { font-family: var(--mono); font-size: 13px; color: var(--text3); letter-spacing: 0.08em; margin-bottom: 16px; }
+  /* Last Roll box */
+  .game-last-roll { background: rgba(0,0,0,0.25); border-radius: 6px; padding: 10px 12px; margin-bottom: 14px; min-height: 60px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 3px; }
+  .game-last-roll-label { font-family: var(--mono); font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 2px; }
+  .game-last-roll-value { font-family: var(--mono); font-size: 19px; white-space: nowrap; }
+  .game-last-roll-value .die { color: var(--text3); }
+  .game-last-roll-value .bp  { color: var(--accent); }
+  /* Button row */
+  .game-btn-row { display: flex; gap: 8px; margin-bottom: 10px; }
+  /* Generate button */
+  .game-generate-btn { flex: 1; padding: 13px 8px; font-family: var(--mono); font-size: 14px; letter-spacing: 0.05em; border: none; border-radius: 4px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; line-height: 1.4; }
+  .gp-allied .game-generate-btn { background: linear-gradient(180deg, #c94444, #8b1e1e); color: #fff; }
+  .gp-axis   .game-generate-btn { background: linear-gradient(180deg, #5a6a72, #36454f); color: #fff; }
+  .game-generate-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.35); }
+  .game-generate-btn:active { transform: translateY(0); }
+  @keyframes game-shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+  .game-generate-btn.rolling { animation: game-shake 0.3s ease-in-out; }
+  /* Show/Hide Score toggle */
+  .game-toggle-score-btn { background: transparent; border: 1px solid var(--text3); color: var(--text3); padding: 8px 10px; font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em; cursor: pointer; border-radius: 4px; transition: all 0.2s; white-space: nowrap; }
+  .game-toggle-score-btn:hover { border-color: var(--text1); color: var(--text1); }
+  /* Undo button */
+  .game-undo-btn { background: none; border: none; font-family: var(--mono); font-size: 12px; color: var(--text3); cursor: pointer; padding: 2px 4px; margin-bottom: 10px; transition: color 0.15s; }
+  .game-undo-btn:hover { color: var(--text2); }
+  /* Score reveal section */
+  .game-score-section { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .game-score-section.visible { display: block; }
+  .game-score-label { font-family: var(--mono); font-size: 13px; color: var(--text3); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+  .game-score-value { font-family: var(--mono); font-size: 5rem; color: var(--accent); line-height: 1; margin-bottom: 2px; text-shadow: 2px 2px 0 rgba(0,0,0,0.7), 3px 3px 6px rgba(0,0,0,0.5); }
+  .game-score-value.game-bp-broken { color: #c94444; }
+  /* BP progress bar (inside score section) */
+  .game-progress-bar { width: 100%; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; margin: 8px 0 12px; overflow: hidden; }
+  .game-progress-fill { height: 100%; border-radius: 3px; transition: width 0.3s ease, background 0.3s ease; }
+  .game-draws-label { font-family: var(--mono); font-size: 12px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; margin-bottom: 6px; }
+  .game-draws-history { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+  .game-draw-chip { background: rgba(255,255,255,0.08); padding: 3px 8px; border-radius: 4px; font-family: var(--mono); font-size: 14px; font-weight: 600; }
+  .game-draw-chip.bp-1 { color: #6b9b6b; }
+  .game-draw-chip.bp-2 { color: #c9a227; }
+  .game-draw-chip.bp-3 { color: #c94444; }
+  /* Score hidden placeholder */
+  .game-score-hidden { margin-top: 12px; padding: 10px; font-family: var(--mono); font-size: 12px; color: var(--text3); letter-spacing: 0.08em; opacity: 0.5; }
+  /* Breaking banner — lives inside score section so it's hidden until revealed */
+  .game-breaking-label { font-family: var(--display); font-size: 22px; color: #c94444; letter-spacing: 0.1em; margin-bottom: 10px; }
+  /* Full-overlay broken flash — three pulses tapering off */
+  @keyframes game-overlay-flash {
+    0%   { background: var(--bg); }
+    5%   { background: color-mix(in srgb, #c94444 50%, var(--bg)); }
+    12%  { background: color-mix(in srgb, #c94444 10%, var(--bg)); }
+    20%  { background: color-mix(in srgb, #c94444 42%, var(--bg)); }
+    30%  { background: color-mix(in srgb, #c94444 8%, var(--bg)); }
+    40%  { background: color-mix(in srgb, #c94444 30%, var(--bg)); }
+    56%  { background: color-mix(in srgb, #c94444 4%, var(--bg)); }
+    72%  { background: color-mix(in srgb, #c94444 14%, var(--bg)); }
+    100% { background: var(--bg); }
+  }
+  .game-overlay.broken-flash { animation: game-overlay-flash 3.5s ease-out; }
+  /* Bullet-hole animation */
+  @keyframes game-bullet-impact { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(1); opacity: 0.85; } }
+  @keyframes game-bullet-fade  { 0% { opacity: 0.85; } 100% { opacity: 0; } }
+  @keyframes game-flash-pulse  { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
+  .game-bullet-hole { position: fixed; pointer-events: none; z-index: 9999; width: 20px; height: 20px; border-radius: 50%; background: radial-gradient(circle, #111 30%, #2a2a2a 60%, transparent 70%); animation: game-bullet-impact 0.15s ease-out forwards; }
+  .game-bullet-hole::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.25) 70%); }
+  .game-bullet-hole.fade-out { animation: game-bullet-fade 0.5s ease-out forwards; }
+  .game-muzzle-flash { position: fixed; pointer-events: none; z-index: 9999; width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle, rgba(255,220,100,0.9) 20%, rgba(255,100,0,0.5) 60%, transparent 80%); animation: game-flash-pulse 0.08s ease-out forwards; }
+
+  /* ── FM TRACKER BUTTON ────────────────────────────────────────────────────── */
+  .fm-tracker-btn {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  .fm-tracker-btn:hover { background: var(--accent); color: var(--bg); }
+
+  /* ── QUICK TRACKER MODAL ──────────────────────────────────────────────────── */
+  .qt-modal { width: min(520px, 94vw); }
+  .qt-body { padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+  .qt-hint { font-family: var(--mono); font-size: 12px; color: var(--text3); }
+  .qt-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 480px) { .qt-row { grid-template-columns: 1fr; } }
+  .qt-player-block { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 6px; border-top: 3px solid transparent; background: var(--bg3); }
+  .qt-allied { border-top-color: #8b1e1e; }
+  .qt-axis   { border-top-color: #36454f; }
+  .qt-player-label { font-family: var(--display); font-size: 14px; letter-spacing: 0.08em; }
+  .qt-allied .qt-player-label { color: #c94444; }
+  .qt-axis   .qt-player-label { color: #5a6a72; }
+  .qt-input { background: var(--bg2); border: 1px solid var(--border); color: var(--text1); font-family: var(--mono); font-size: 13px; padding: 7px 9px; border-radius: 4px; outline: none; width: 100%; transition: border-color 0.15s; }
+  .qt-input:focus { border-color: var(--accent); }
+  .qt-bl-row { display: flex; align-items: center; gap: 8px; }
+  .qt-bl-label { font-family: var(--mono); font-size: 11px; color: var(--text3); white-space: nowrap; }
+  .qt-bl-input { width: 64px; text-align: center; flex: none; }
+  .qt-launch-btn { background: var(--accent); color: var(--bg); border: none; border-radius: 4px; padding: 12px; font-family: var(--mono); font-size: 13px; letter-spacing: 0.06em; cursor: pointer; transition: opacity 0.15s; }
+  .qt-launch-btn:hover { opacity: 0.85; }
+
 </style>
 </head>
 <body>
@@ -3508,6 +3812,7 @@
     <button class="header-nav-tab active" data-section="units" data-label="Units" onclick="setSection('units')">Units</button>
     <button class="header-nav-tab" data-section="library" data-label="Force Library" onclick="setSection('library')">Force Library</button>
     <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="setSection('fieldmanual')">Field Manual</button>
+    <button class="header-nav-tab" data-section="fpp" data-label="FPP" onclick="setSection('fpp')">FPP</button>
   </nav>
   <div class="header-actions">
     <button class="force-toggle-btn units-only" onclick="toggleForcePanel()">
@@ -3565,7 +3870,7 @@
           <select class="year-select" id="year-from" onchange="applyFilters()">
             <option value="">Any</option><option value="1939">1939</option><option value="1940">1940</option><option value="1941">1941</option><option value="1942">1942</option><option value="1943">1943</option><option value="1944">1944</option><option value="1945">1945</option>
           </select>
-          <span class="year-sep">—</span>
+          <span class="year-sep">-</span>
           <select class="year-select" id="year-to" onchange="applyFilters()">
             <option value="">Any</option><option value="1939">1939</option><option value="1940">1940</option><option value="1941">1941</option><option value="1942">1942</option><option value="1943">1943</option><option value="1944">1944</option><option value="1945">1945</option>
           </select>
@@ -3656,7 +3961,7 @@
           <option>1939</option><option>1940</option><option>1941</option>
           <option>1942</option><option>1943</option><option>1944</option><option>1945</option>
         </select>
-        <span class="year-sep">—</span>
+        <span class="year-sep">-</span>
         <select class="year-select" id="lib-year-to" onchange="applyLibFilters()">
           <option value="">Any</option>
           <option>1939</option><option>1940</option><option>1941</option>
@@ -3672,7 +3977,7 @@
           <option>1</option><option>2</option><option>3</option>
           <option>4</option><option>5</option><option>6</option><option>7</option>
         </select>
-        <span class="year-sep">—</span>
+        <span class="year-sep">-</span>
         <select class="year-select" id="lib-platoons-to" onchange="applyLibFilters()">
           <option value="">Any</option>
           <option>1</option><option>2</option><option>3</option>
@@ -3687,7 +3992,7 @@
     <div class="lib-section-tabs">
       <button class="library-tab active" id="tab-browse" onclick="switchLibTab('browse')">Browse</button>
       <button class="library-tab" id="tab-mine" onclick="switchLibTab('mine')">My Forces</button>
-      <button class="library-tab" id="tab-historical" onclick="switchLibTab('historical')" style="display:none">Historical</button>
+      <button class="library-tab" id="tab-historical" onclick="switchLibTab('historical')">Historical</button>
     </div>
     <div id="library-body" class="library-body"></div>
     <div id="org-browser-body" style="display:none"></div>
@@ -3702,6 +4007,7 @@
       <div class="chip" data-fmtype="All" onclick="toggleFmType('All')">Briefings</div>
       <div class="chip active" data-fmtype="Rules" onclick="toggleFmType('Rules')">Rules</div>
     </div>
+    <button class="fm-tracker-btn" onclick="openQuickTracker()">⚑ Break Point Tracker</button>
   </div>
   <div class="fm-controls">
     <input type="text" class="fm-search" id="fm-search" placeholder="Search…" oninput="applyFmFilters()">
@@ -3729,6 +4035,59 @@
       <div class="rules-toc-title">Contents</div>
     </nav>
     <div class="rules-content" id="rules-content"></div>
+  </div>
+</div>
+
+<!-- FPP SECTION -->
+<div class="section" id="section-fpp">
+  <div id="fpp-body" class="fpp-body"></div>
+</div>
+
+<!-- QUICK TRACKER SETUP MODAL -->
+<div id="qt-modal" class="fpp-modal-overlay" style="display:none" onclick="if(event.target===this)closeQuickTracker()">
+  <div class="fpp-modal qt-modal">
+    <div class="fpp-modal-header">
+      <span>⚑ Break Point Tracker</span>
+      <button class="fpp-modal-close" onclick="closeQuickTracker()">✕</button>
+    </div>
+    <div class="qt-body">
+      <p class="qt-hint">Enter player names and break limits, then launch.</p>
+      <div class="qt-row">
+        <div class="qt-player-block qt-allied">
+          <div class="qt-player-label">Player 1</div>
+          <input class="qt-input" id="qt-name-a" placeholder="Name…" maxlength="32">
+          <div class="qt-bl-row">
+            <label class="qt-bl-label">Break Limit</label>
+            <input class="qt-input qt-bl-input" id="qt-bl-a" type="number" min="1" max="99" value="9">
+          </div>
+        </div>
+        <div class="qt-player-block qt-axis">
+          <div class="qt-player-label">Player 2</div>
+          <input class="qt-input" id="qt-name-b" placeholder="Name…" maxlength="32">
+          <div class="qt-bl-row">
+            <label class="qt-bl-label">Break Limit</label>
+            <input class="qt-input qt-bl-input" id="qt-bl-b" type="number" min="1" max="99" value="9">
+          </div>
+        </div>
+      </div>
+      <button class="qt-launch-btn" onclick="launchQuickTracker()">Launch Tracker →</button>
+    </div>
+  </div>
+</div>
+
+<!-- GAME OVERLAY (full-screen, above everything) -->
+<div id="game-overlay" class="game-overlay" style="display:none">
+  <div id="game-body" class="game-body"></div>
+</div>
+
+<!-- OPPONENT FORCE PICKER MODAL -->
+<div id="fpp-picker-modal" class="fpp-modal-overlay" style="display:none">
+  <div class="fpp-modal">
+    <div class="fpp-modal-header">
+      <span>Select Opponent Force</span>
+      <button class="fpp-modal-close" onclick="closeForcePicker()">✕</button>
+    </div>
+    <div id="fpp-picker-list" class="fpp-picker-list"></div>
   </div>
 </div>
 
@@ -3779,13 +4138,31 @@
   </div>
   <div class="force-notes-area">
     <span class="force-notes-label">Force Notes</span>
-    <textarea class="force-notes-input" id="force-notes" placeholder="History, composition, playstyle, context — anything you want to share..."></textarea>
+    <textarea class="force-notes-input" id="force-notes" placeholder="History, composition, playstyle, context. Anything you want to share..."></textarea>
   </div>
   <div class="platoon-list" id="platoon-list">
     <div class="onboard-empty" id="platoon-empty">
       <div class="onboard-icon">◈</div>
       <div class="onboard-title">No Platoons Yet</div>
       <div class="onboard-hint">Find a unit and click<br><strong>New Platoon</strong> to get started.</div>
+    </div>
+  </div>
+  <div id="org-slot-tracker" class="org-slot-tracker" style="display:none">
+    <div class="slot-row">
+      <span class="slot-label">Combat</span>
+      <span class="slot-value" id="slot-combat">0</span>
+    </div>
+    <div class="slot-row">
+      <span class="slot-label">Weapons</span>
+      <span class="slot-value" id="slot-weapons">0 / 0</span>
+    </div>
+    <div class="slot-row">
+      <span class="slot-label">Regimental</span>
+      <span class="slot-value" id="slot-regimental">0 / 0</span>
+    </div>
+    <div class="slot-row">
+      <span class="slot-label">Divisional</span>
+      <span class="slot-value" id="slot-divisional">0 / 0</span>
     </div>
   </div>
   <div class="force-summary">
@@ -3802,6 +4179,7 @@
     <div class="force-actions">
       <button class="action-btn" onclick="saveForce()">Save</button>
       <button class="action-btn" onclick="publishForce()">Publish</button>
+      <button class="action-btn" onclick="copyFppShareLink()">Share</button>
       <button class="action-btn" onclick="openCurrentForceSheet()">View</button>
       <button class="action-btn danger" onclick="clearForce()">Clear</button>
     </div>
@@ -3888,7 +4266,7 @@ function wrapArmamentMGs(armament) {
   return armament.replace(MG_PATTERN, match => {
     const s = VEHICLE_MG_STATS[normalizeMGName(match)];
     if (!s) return match;
-    const tip = `Range ${s.range} · RoF ${s.rof} · AT ${s.at ?? '—'} · ${s.notes}`.replace(/"/g, '&quot;');
+    const tip = `Range ${s.range} · RoF ${s.rof} · AT ${s.at ?? '-'} · ${s.notes}`.replace(/"/g, '&quot;');
     return `<span class="mg-tip" data-tip="${tip}">${match}</span>`;
   });
 }
@@ -3930,6 +4308,7 @@ function setSection(name) {
   });
   if (name === 'library') loadLibraryTab(currentLibTab || 'browse');
   if (name === 'fieldmanual') loadFieldManual();
+  if (name === 'fpp') renderFPP();
 }
 
 // ── LOAD DATA ─────────────────────────────────────────────────────────────────
@@ -4111,7 +4490,7 @@ function nationBadgeClass(nation) {
 }
 
 function statDisplay(val, isArmor = false) {
-  if (val === null || val === undefined) return `<span class="stat-value null-val">—</span>`;
+  if (val === null || val === undefined) return `<span class="stat-value null-val">-</span>`;
   if (isArmor) return `<span class="stat-value armor">${val}</span>`;
   return `<span class="stat-value">${val}</span>`;
 }
@@ -4145,9 +4524,9 @@ function showToast(message, type = 'info', duration = 2800) {
 // ── STAT TIPS ─────────────────────────────────────────────────────────────────
 const STAT_TIPS = {
   Range:  'Effective range in inches. Weapons may still fire at Long Range (up to 2× this distance) with a +1 modifier to Fire rolls.',
-  RoF:    'Rate of Fire — the number of Fire Dice rolled when this team is given a Fire order.',
-  AT:     'Anti-Tank rating. When firing at an armored vehicle, compare AT to the vehicle\'s Armor Rating. If AT > AR, roll the difference — any 6 destroys. If AT ≤ AR, roll AT dice — any 6 scores RFPs equal to weapon FP.',
-  FP:     'Firepower Rating — the number of Received Fire Points (RFPs) a hit team receives. Higher FP makes hits harder to survive.',
+  RoF:    'Rate of Fire: the number of Fire Dice rolled when this team is given a Fire order.',
+  AT:     'Anti-Tank rating. When firing at an armored vehicle, compare AT to the vehicle\'s Armor Rating. If AT > AR, roll the difference (any 6 destroys). If AT ≤ AR, roll AT dice (any 6 scores RFPs equal to weapon FP).',
+  FP:     'Firepower Rating: the number of Received Fire Points (RFPs) a hit team receives. Higher FP makes hits harder to survive.',
   Armor:  'Front Armor / Flank Armor Rating. Incoming AT is compared to the relevant AR to determine the penetration table. Flank armor applies when firing from behind the front hull line.',
 };
 
@@ -4156,7 +4535,7 @@ const RULE_TIPS = {
   // ── Core Special Rules (p.28) ──────────────────────────────────────────────
   'Bunker Buster': 'When using direct fire, unarmored Teams within 2" of a hit Target Team each receive 1 RFP. Against bunkers, make a penetration roll at AT 6 vs. Armor 2 to destroy outright.',
   'Fast': 'Add +2" to movement.',
-  'Flame-Thrower': 'Max range 4". RoF 3, FP 3. Roll 3 dice at 4+ to hit — no modifiers for concealment. Each hit applies 3 RFPs. One-shot weapon: after firing, Infantry Flame-Thrower Teams become standard Teams.',
+  'Flame-Thrower': 'Max range 4". RoF 3, FP 3. Roll 3 dice at 4+ to hit, no modifiers for concealment. Each hit applies 3 RFPs. One-shot weapon: after firing, Infantry Flame-Thrower Teams become standard Teams.',
   'Light Mortar': 'When activated by a Leader, may fire at targets within that Leader\'s LoS with a +1 modifier to hit.',
   'Limited HE': 'Does not ignore the Concealment modifier when firing at non-Vehicle Teams.',
   'Man-Portable': 'Moves 2d6". May move through Very Difficult Terrain. Weapon rides in Transports rather than being towed.',
@@ -4173,7 +4552,7 @@ const RULE_TIPS = {
   'Hull Mounted': 'Gun has a limited forward arc of fire.',
   'Hull-Mounted': 'Gun has a limited forward arc of fire.',
   'Open Topped': 'Destroyed if it resolves RFPs while in base contact with an enemy Team during an assault. Also counts as Open Topped when assaulted or attacked by air/artillery before next activation if AA MGs or .50 cals were fired.',
-  'Anti-Air': 'May attempt to intercept aircraft. When rolling Order Dice, a Hero Die roll of 1 triggers an immediate air attack. AA Teams that did not activate last turn roll RoF dice vs. the aircraft\'s 1d6 — each die rolling higher scores a hit.',
+  'Anti-Air': 'May attempt to intercept aircraft. When rolling Order Dice, a Hero Die roll of 1 triggers an immediate air attack. AA Teams that did not activate last turn roll RoF dice vs. the aircraft\'s 1d6. Each die rolling higher scores a hit.',
   'May only inflict RFPs': 'Cannot cause Kill results. All hits generate Received Fire Points only.',
   'Immobile': 'Cannot move once deployed.',
   // ── Movement Types ─────────────────────────────────────────────────────────
@@ -4185,7 +4564,7 @@ const RULE_TIPS = {
   'Re-roll failed Assault Checks': 'When assaulting, may re-roll any failed Assault Checks.',
   'Cannot fire from buildings': 'This weapon cannot be used from within a building.',
   'May only be used in assault and only in the first round': 'Single-use weapon. May only be used during the first round of an assault.',
-  'Additional weapon assigned to other Teams': 'Not a separate team — distributed as an additional weapon to other Teams in the platoon.',
+  'Additional weapon assigned to other Teams': 'Not a separate team. Distributed as an additional weapon to other Teams in the platoon.',
   'RoF 3 if less than 8" from target': 'Rate of Fire increases to 3 when firing at targets within 8".',
   // ── Transport ──────────────────────────────────────────────────────────────
   'Carries 1 Team': 'Transport capacity: 1 Infantry or Man-Portable Gun Team.',
@@ -4273,7 +4652,7 @@ function renderGrid(container, forceIds, animate = true) {
             ${statCell('FP',    statDisplay(unit.fp))}
             ${statCell('Armor', unit.armor_front !== null
               ? `<span class="stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`
-              : `<span class="stat-value null-val">—</span>`
+              : `<span class="stat-value null-val">-</span>`
             )}
           </div>
           <div class="card-notes">
@@ -4437,11 +4816,11 @@ function renderTable(container, forceIds) {
         <td><span class="table-name">${unit.name}</span></td>
         <td><span class="${nationBadgeClass(unit.nation)}" style="font-size:9px;padding:2px 5px;">${unit.nation}</span></td>
         <td style="color:var(--text3);font-size:10px;letter-spacing:0.5px">${unit.type}</td>
-        <td class="table-stat ${unit.gun_range ? '' : 'null'}">${unit.gun_range || '—'}</td>
-        <td class="table-stat ${unit.rof !== null ? '' : 'null'}">${unit.rof !== null ? unit.rof : '—'}</td>
-        <td class="table-stat ${unit.at !== null ? '' : 'null'}">${unit.at !== null ? unit.at : '—'}</td>
-        <td class="table-stat ${unit.fp !== null && unit.fp !== undefined ? '' : 'null'}">${unit.fp !== null && unit.fp !== undefined ? unit.fp : '—'}</td>
-        <td class="table-stat ${unit.armor_front !== null ? '' : 'null'}">${unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '—'}</td>
+        <td class="table-stat ${unit.gun_range ? '' : 'null'}">${unit.gun_range || '-'}</td>
+        <td class="table-stat ${unit.rof !== null ? '' : 'null'}">${unit.rof !== null ? unit.rof : '-'}</td>
+        <td class="table-stat ${unit.at !== null ? '' : 'null'}">${unit.at !== null ? unit.at : '-'}</td>
+        <td class="table-stat ${unit.fp !== null && unit.fp !== undefined ? '' : 'null'}">${unit.fp !== null && unit.fp !== undefined ? unit.fp : '-'}</td>
+        <td class="table-stat ${unit.armor_front !== null ? '' : 'null'}">${unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '-'}</td>
         <td class="table-notes">${unit.notes.map(n => noteTag(n)).join(' ')}</td>
         <td style="color:var(--text3);font-size:10px;white-space:nowrap">${yearRange(unit.years)}${isAdmin ? ' ' + ratingBadgeHtml(unit.id) : ''}</td>
         <td onclick="event.stopPropagation()">${unitActions(unit)}</td>
@@ -4554,8 +4933,20 @@ function removePlatoon(id) {
   if (activePlatoonId === id) {
     activePlatoonId = platoons.length ? platoons[platoons.length - 1].id : null;
   }
+  if (orgLockedFormation && !platoons.some(p => p.formationId)) {
+    orgLockedFormation = null;
+    // Reset auto-populated fields so next formation starts fresh
+    if (!platoons.length) {
+      document.getElementById('force-name').value = '';
+      forceYear = null;
+      document.getElementById('force-year').value = '';
+      setForceType(null);
+      setForceQuality('Regular');
+    }
+  }
   updateForceUI();
   renderUnits(true);
+  renderOrgBrowser();
 }
 
 function setActivePlatoon(id) {
@@ -4736,6 +5127,20 @@ function updateForceUI() {
   document.getElementById('summary-units').textContent = count;
   document.getElementById('summary-bl').textContent = breakLimit;
 
+  const hasTiers = platoons.some(p => p.tier);
+  const tracker = document.getElementById('org-slot-tracker');
+  if (tracker) {
+    tracker.style.display = hasTiers ? 'flex' : 'none';
+    if (hasTiers) {
+      const slots = getOrgSlots();
+      const used  = getOrgUsed();
+      document.getElementById('slot-combat').textContent     = used.combat;
+      document.getElementById('slot-weapons').textContent    = `${used.weapons} / ${slots.weapons}`;
+      document.getElementById('slot-regimental').textContent = `${used.regimental} / ${slots.regimental}`;
+      document.getElementById('slot-divisional').textContent = `${used.divisional} / ${slots.divisional}`;
+    }
+  }
+
   const listEl = document.getElementById('platoon-list');
   const emptyEl = document.getElementById('platoon-empty');
 
@@ -4751,7 +5156,7 @@ function updateForceUI() {
   listEl.innerHTML = platoons.map(platoon => {
     const isActive = platoon.id === activePlatoonId;
     const teamRows = platoon.teams.length === 0
-      ? `<div class="platoon-empty">No teams yet — select units from the arsenal.</div>`
+      ? `<div class="platoon-empty">No teams yet. Select units from the arsenal.</div>`
       : platoon.teams.map(t => {
           const unit = allUnits.find(u => u.id === t.unitId);
           if (!unit) return '';
@@ -4851,6 +5256,7 @@ function clearForce() {
     platoonCounter = 0;
     collapsedPlatoons.clear();
     currentForceId = null;
+    orgLockedFormation = null;
     document.getElementById('force-name').value = '';
     document.getElementById('force-notes').value = '';
     forceYear = null;
@@ -4858,6 +5264,7 @@ function clearForce() {
     setForceType(null);
     updateForceUI();
     renderUnits(true);
+    renderOrgBrowser();
   }
 }
 
@@ -4924,7 +5331,7 @@ function printLandscape() {
 }
 
 function showSubscribePrompt() {
-  showToast('Subscriber only — visit ko-fi.com/retroboom to subscribe.', 'info', 4000);
+  showToast('Subscriber only. Visit ko-fi.com/retroboom to subscribe.', 'info', 4000);
 }
 
 // ── FORCE LIBRARY ─────────────────────────────────────────────────────────────
@@ -5033,6 +5440,19 @@ function copyShareUrl() {
     const btn = document.querySelector('.copy-btn');
     btn.textContent = 'Copied!';
     setTimeout(() => btn.textContent = 'Copy', 1500);
+  });
+}
+
+function copyFppShareLink() {
+  if (!currentForceId) {
+    showToast('Save your force first.', 'warning');
+    return;
+  }
+  const url = `${window.location.origin}${window.location.pathname}?fpp=${currentForceId}`;
+  navigator.clipboard.writeText(url).then(() => {
+    showToast('FPP link copied — send it to your opponent.', 'success');
+  }).catch(() => {
+    prompt('Copy this link and send it to your opponent:', url);
   });
 }
 
@@ -5280,13 +5700,13 @@ function openUnitDetail(unitId) {
   function udpStat(label, val) {
     const display = val !== null && val !== undefined
       ? `<span class="udp-stat-value">${val}</span>`
-      : `<span class="udp-stat-value null-val">—</span>`;
+      : `<span class="udp-stat-value null-val">-</span>`;
     const tip = STAT_TIPS[label] ? ` data-tip="${STAT_TIPS[label]}"` : '';
     return `<div class="udp-stat"><span class="udp-stat-label"${tip}>${label}</span>${display}</div>`;
   }
   const armorDisplay = unit.armor_front !== null
     ? `<span class="udp-stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`
-    : `<span class="udp-stat-value null-val">—</span>`;
+    : `<span class="udp-stat-value null-val">-</span>`;
   document.getElementById('udp-stats').innerHTML =
     udpStat('Range', unit.gun_range) +
     udpStat('RoF', unit.rof) +
@@ -5356,7 +5776,7 @@ const RULES_DATA = [
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">The Hero Die</div>
-          <p>When rolling Order Dice, make sure one die is of a <strong>different color</strong> — this is the <strong>Hero Die</strong>. If the Hero Die rolls <strong>6</strong>, reveal and discard any remaining Hero Points. Roll 1d6 (keeping it hidden) and gain a number of Hero Points equal to the new roll.</p>
+          <p>When rolling Order Dice, make sure one die is of a <strong>different color</strong> (this is the <strong>Hero Die</strong>). If the Hero Die rolls <strong>6</strong>, reveal and discard any remaining Hero Points. Roll 1d6 (keeping it hidden) and gain a number of Hero Points equal to the new roll.</p>
         </div>
       </div>`
   },
@@ -5378,8 +5798,8 @@ const RULES_DATA = [
           <div class="rules-subsection-title">Troop Quality</div>
           <p>Most forces throughout WWII are assumed to be <strong>average quality</strong>. To represent troops that were notably better or worse, players may assign Units to be <strong>Elite</strong> or <strong>Poor</strong> quality.</p>
           <ul>
-            <li><strong>Elite</strong> — Re-roll 1s on all Checks and when firing at vehicles, taking the second result. Elite quality also affects how troops respond when hit (see Resolving RFPs).</li>
-            <li><strong>Poor</strong> — Re-roll 6s in each of these cases.</li>
+            <li><strong>Elite</strong>: Re-roll 1s on all Checks and when firing at vehicles, taking the second result. Elite quality also affects how troops respond when hit (see Resolving RFPs).</li>
+            <li><strong>Poor</strong>: Re-roll 6s in each of these cases.</li>
           </ul>
         </div>
       </div>`
@@ -5390,7 +5810,7 @@ const RULES_DATA = [
     group: 'Core Rules',
     body: `
       <div class="rules-body-text">
-        <p>An Order Point may be spent to activate a Team. Infantry and Gun Units have a <strong>Platoon Leader (PL)</strong> Team. If the PL is activated, they may also activate any Teams in their Unit to which they have <strong>Line of Sight (LoS)</strong>, and issue <strong>one order to the entire Unit</strong>, or <strong>two orders split between Teams</strong> in the Unit — allowing Teams to split Fire, Move in different directions, or have some Move while others shoot.</p>
+        <p>An Order Point may be spent to activate a Team. Infantry and Gun Units have a <strong>Platoon Leader (PL)</strong> Team. If the PL is activated, they may also activate any Teams in their Unit to which they have <strong>Line of Sight (LoS)</strong>, and issue <strong>one order to the entire Unit</strong>, or <strong>two orders split between Teams</strong> in the Unit, allowing Teams to split Fire, Move in different directions, or have some Move while others shoot.</p>
         <p>Teams activate in four steps: <strong>Declare Orders</strong>, <strong>Rally</strong> (if applicable), <strong>Resolve RFPs</strong>, then <strong>Execute Orders</strong>.</p>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Vehicle Units</div>
@@ -5412,7 +5832,7 @@ const RULES_DATA = [
             <tr><td>Gun Teams</td><td>1d6"</td></tr>
             <tr><td>Vehicle Teams</td><td>3d6"</td></tr>
           </table>
-          <p>Dice are rolled <em>once per type of Team</em> in the Unit — all Infantry in the Unit share the same roll. A <strong>destination must be declared</strong> before dice are rolled. If the roll is insufficient to reach the declared destination, the Team moves as far as the rolled distance allows toward the destination.</p>
+          <p>Dice are rolled <em>once per type of Team</em> in the Unit (all Infantry in the Unit share the same roll). A <strong>destination must be declared</strong> before dice are rolled. If the roll is insufficient to reach the declared destination, the Team moves as far as the rolled distance allows toward the destination.</p>
           <p>If the entire move can be completed <strong>outside LoS of unsuppressed enemy</strong> (or within LoS of only enemy Small Teams), Teams may instead move up to their <strong>maximum possible movement</strong>.</p>
         </div>
         <div class="rules-subsection">
@@ -5448,7 +5868,7 @@ const RULES_DATA = [
           <div class="rules-subsection-title">Fire Arcs</div>
           <ul>
             <li><strong>Infantry &amp; rotating turrets:</strong> 360°</li>
-            <li><strong>All others (hull-mounted, fixed guns):</strong> 90° (±45° from forward) — firing outside this arc requires a Move action to rotate.</li>
+            <li><strong>All others (hull-mounted, fixed guns):</strong> 90° (±45° from forward); firing outside this arc requires a Move action to rotate.</li>
           </ul>
         </div>
         <div class="rules-subsection">
@@ -5470,7 +5890,7 @@ const RULES_DATA = [
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Hits on Non-Vehicle Teams</div>
-          <p>Each hit allocated to a non-Vehicle Team generates <strong>RFPs</strong> equal to the weapon's <strong>Firepower Rating (FP)</strong> — place a marker. Non-Vehicle Teams may not receive more than <strong>1 hit per Fire Order</strong>. A given Team may not receive additional hits from further activations of the <em>same enemy Unit</em> later in the turn, unless those activations are made using Hero Points.</p>
+          <p>Each hit allocated to a non-Vehicle Team generates <strong>RFPs</strong> equal to the weapon's <strong>Firepower Rating (FP)</strong>; place a marker. Non-Vehicle Teams may not receive more than <strong>1 hit per Fire Order</strong>. A given Team may not receive additional hits from further activations of the <em>same enemy Unit</em> later in the turn, unless those activations are made using Hero Points.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Shooting at Small Teams</div>
@@ -5496,7 +5916,7 @@ const RULES_DATA = [
             <tr><th>Condition</th><th>Dice Rolled</th><th>Any 6</th><th>No 6</th></tr>
             <tr><td><strong>AT ≤ AR</strong></td><td>Dice equal to AT value</td><td>RFPs equal to FP</td><td>No effect</td></tr>
             <tr><td><strong>AT &gt; AR</strong></td><td>Dice equal to the difference</td><td>Vehicle <strong>Destroyed</strong></td><td>RFPs equal to FP</td></tr>
-            <tr><td><strong>AR ≥ 2× AT</strong></td><td>—</td><td colspan="2">Weapon is ineffective</td></tr>
+            <tr><td><strong>AR ≥ 2× AT</strong></td><td>-</td><td colspan="2">Weapon is ineffective</td></tr>
           </table>
           <p>Destroyed results are resolved immediately. RFPs are assigned to the vehicle and resolved when it next activates.</p>
         </div>
@@ -5530,9 +5950,9 @@ const RULES_DATA = [
         <div class="rules-subsection">
           <div class="rules-subsection-title">States</div>
           <ul>
-            <li><strong>Killed</strong> — The Team is destroyed and removed.</li>
-            <li><strong>Suppressed</strong> — The Team is marked Suppressed and may not Fire or Move toward visible enemy until rallied. A Team that is already Suppressed ignores Ready results and further Suppressed results.</li>
-            <li><strong>Ready</strong> — The Team may act as normal.</li>
+            <li><strong>Killed</strong>: The Team is destroyed and removed.</li>
+            <li><strong>Suppressed</strong>: The Team is marked Suppressed and may not Fire or Move toward visible enemy until rallied. A Team that is already Suppressed ignores Ready results and further Suppressed results.</li>
+            <li><strong>Ready</strong>: The Team may act as normal.</li>
           </ul>
         </div>
         <div class="rules-subsection">
@@ -5580,7 +6000,7 @@ const RULES_DATA = [
             <tr><th>Terrain</th><th>Cover</th><th>Movement</th></tr>
             <tr><td>Woods / Fields</td><td>Concealment</td><td>Difficult Ground</td></tr>
             <tr><td>Buildings / Stone Walls</td><td>Hard Cover + Concealment</td><td>Very Difficult</td></tr>
-            <tr><td>Linear Obstacles (walls, bocage)</td><td>Concealment (fire over) / Hard Cover (touching)</td><td>—</td></tr>
+            <tr><td>Linear Obstacles (walls, bocage)</td><td>Concealment (fire over) / Hard Cover (touching)</td><td>-</td></tr>
           </table>
         </div>
         <div class="rules-subsection">
@@ -5594,7 +6014,7 @@ const RULES_DATA = [
         <div class="rules-subsection">
           <div class="rules-subsection-title">Linear Obstacle Details</div>
           <p>Walls and bocage offer <strong>Concealment</strong> if fire crosses over them. If the target Team is <strong>touching</strong> the obstacle on the side opposite incoming fire, it counts as <strong>Hard Cover</strong>.</p>
-          <p>A Team against a linear obstacle <strong>receives fire from both sides</strong> — all RFPs resolved as from the unprotected side. Tall bocage <strong>blocks LoS</strong> unless Teams are touching it; fire through thick bocage only via a forward 90° arc perpendicular to the hedge.</p>
+          <p>A Team against a linear obstacle <strong>receives fire from both sides</strong>, with all RFPs resolved as from the unprotected side. Tall bocage <strong>blocks LoS</strong> unless Teams are touching it; fire through thick bocage only via a forward 90° arc perpendicular to the hedge.</p>
         </div>
       </div>`
   },
@@ -5609,19 +6029,19 @@ const RULES_DATA = [
           <div class="rules-subsection-title">Leader Abilities</div>
           <p>Once per activation, an unsuppressed Leader may improve one Team under their command:</p>
           <ul>
-            <li><strong>Direct Fire</strong> — Add +1 to the RoF of a Team in base contact.</li>
-            <li><strong>Rally</strong> — Attempt a Rally Check for a Team in base contact. If the PL was ordered to Move, the Leader moves with the rallied Team.</li>
-            <li><strong>Move Up</strong> — Grant a Team +3" of movement, ending in base contact with the Leader.</li>
+            <li><strong>Direct Fire</strong>: Add +1 to the RoF of a Team in base contact.</li>
+            <li><strong>Rally</strong>: Attempt a Rally Check for a Team in base contact. If the PL was ordered to Move, the Leader moves with the rallied Team.</li>
+            <li><strong>Move Up</strong>: Grant a Team +3" of movement, ending in base contact with the Leader.</li>
           </ul>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Leader Casualties</div>
           <p>If a Leader is killed after giving orders, only <strong>one Team</strong> may act that activation. Afterward, make a <strong>Training Check</strong> each time any of that Unit's Teams are given orders.</p>
-          <p>If the Training Check succeeds, place a new PL in base contact with the active Team — the new PL immediately gives orders to the rest of the Unit.</p>
+          <p>If the Training Check succeeds, place a new PL in base contact with the active Team. The new PL immediately gives orders to the rest of the Unit.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Positioning</div>
-          <p>When in base contact with a Team, a Leader's position is abstracted — LoS to and from the Leader is treated the same as LoS to and from that Team.</p>
+          <p>When in base contact with a Team, a Leader's position is abstracted: LoS to and from the Leader is treated the same as LoS to and from that Team.</p>
         </div>
       </div>`
   },
@@ -5640,10 +6060,10 @@ const RULES_DATA = [
         <div class="rules-subsection">
           <div class="rules-subsection-title">Assault Sequence</div>
           <ol>
-            <li><strong>Attackers Move</strong> — Assaulting Teams move into base contact with defending Teams.</li>
-            <li><strong>Defenders Respond</strong> — Defending Teams activate immediately (no OP cost). They perform Rally Checks and resolve RFPs. Any defending Team that is <em>not Ready</em> may either Move away or roll an <strong>Assault Check</strong> to destroy one attacking Team.</li>
-            <li><strong>Attackers Strike</strong> — Each attacking Team in base contact may roll an <strong>Assault Check</strong> to destroy one defending Team they are in contact with.</li>
-            <li><strong>Repeat</strong> — Alternate Steps 2 and 3 until no Teams remain in contact.</li>
+            <li><strong>Attackers Move</strong>: Assaulting Teams move into base contact with defending Teams.</li>
+            <li><strong>Defenders Respond</strong>: Defending Teams activate immediately (no OP cost). They perform Rally Checks and resolve RFPs. Any defending Team that is <em>not Ready</em> may either Move away or roll an <strong>Assault Check</strong> to destroy one attacking Team.</li>
+            <li><strong>Attackers Strike</strong>: Each attacking Team in base contact may roll an <strong>Assault Check</strong> to destroy one defending Team they are in contact with.</li>
+            <li><strong>Repeat</strong>: Alternate Steps 2 and 3 until no Teams remain in contact.</li>
           </ol>
         </div>
         <div class="rules-subsection">
@@ -5714,10 +6134,10 @@ const RULES_DATA = [
         <div class="rules-subsection">
           <div class="rules-subsection-title">Barrage Sequence</div>
           <ol>
-            <li><strong>Call for Fire</strong> — Spend your first Order Point activating the artillery Unit. Mark the observing Team as "Observing." All participating Teams (including FOs) must not Move or Fire for the rest of the turn or forfeit observing status.</li>
-            <li><strong>Range In</strong> — At the start of your <em>next</em> turn, place a Range In marker within LoS of the observing Team and at least <strong>16"</strong> from any firing Team.</li>
-            <li><strong>Roll d10 for Deviation</strong> — The marker deviates d10 inches in a random direction (use the pointed end of the d10 for direction).</li>
-            <li><strong>Fire for Effect (FFE)</strong> — Resolve the barrage at the current marker position, OR return the marker to its original position. If no participating Teams activate this turn, a new deviation roll is made automatically next turn. Repeat until FFE or new orders are given.</li>
+            <li><strong>Call for Fire</strong>: Spend your first Order Point activating the artillery Unit. Mark the observing Team as "Observing." All participating Teams (including FOs) must not Move or Fire for the rest of the turn or forfeit observing status.</li>
+            <li><strong>Range In</strong>: At the start of your <em>next</em> turn, place a Range In marker within LoS of the observing Team and at least <strong>16"</strong> from any firing Team.</li>
+            <li><strong>Roll d10 for Deviation</strong>: The marker deviates d10 inches in a random direction (use the pointed end of the d10 for direction).</li>
+            <li><strong>Fire for Effect (FFE)</strong>: Resolve the barrage at the current marker position, OR return the marker to its original position. If no participating Teams activate this turn, a new deviation roll is made automatically next turn. Repeat until FFE or new orders are given.</li>
           </ol>
         </div>
         <div class="rules-subsection">
@@ -5797,7 +6217,7 @@ const RULES_DATA = [
             <li>The Defender selects <strong>half their Units (rounded down)</strong> to be held in reserve. Vehicle Units must be selected before Non-Vehicle Units. <em>Units in reserve do not contribute Order Dice until they arrive.</em></li>
             <li>The Defender's remaining Units are considered <strong>"Hidden"</strong> on their half of the table and Dug In (in Hard Cover) until they Move.</li>
             <li><strong>Dug-In</strong> Teams that only Move during an assault may return to their foxholes.</li>
-            <li>The Attacker deploys their Units on their side of the table, outside 16" of the center line, either Hidden or revealed. <strong>Attacking Vehicles must always be deployed revealed.</strong> Any Units may instead arrive on any turn from the Attacker's table edge — Attacking Units held off-table are still considered deployed and <strong>contribute Order Dice each turn</strong>.</li>
+            <li>The Attacker deploys their Units on their side of the table, outside 16" of the center line, either Hidden or revealed. <strong>Attacking Vehicles must always be deployed revealed.</strong> Any Units may instead arrive on any turn from the Attacker's table edge. Attacking Units held off-table are still considered deployed and <strong>contribute Order Dice each turn</strong>.</li>
           </ul>
         </div>
         <div class="rules-subsection">
@@ -5858,8 +6278,8 @@ const RULES_DATA = [
           <ul>
             <li>A Unit is <strong>reduced below half strength</strong>: 1 roll</li>
             <li>A Unit is <strong>destroyed</strong>: 1 roll (2 rolls total if destroyed before falling below half)</li>
-            <li>At the <strong>end of each turn — Attacker</strong>: 1 roll if they do not control all objectives</li>
-            <li>At the <strong>end of each turn — Defender</strong>: 1 roll if enemy Units occupy their table half; 1 roll for each objective they do not control</li>
+            <li>At the <strong>end of each turn (Attacker)</strong>: 1 roll if they do not control all objectives</li>
+            <li>At the <strong>end of each turn (Defender)</strong>: 1 roll if enemy Units occupy their table half; 1 roll for each objective they do not control</li>
           </ul>
         </div>
         <p><em>Controlling an objective requires a Player be the only one with at least one Infantry Team within 4" of the objective. Vehicles may contest but cannot control.</em></p>
@@ -6036,7 +6456,7 @@ const RULES_DATA = [
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Trench Lines</div>
-          <p>Trench lines come in sets of four <strong>8" lengths</strong> that are placed during setup. Infantry and Gun Teams in trenches are <strong>Concealed and in Hard Cover</strong>. Unlike being Dug In in foxholes, moving or leaving the trench does not cause the trench to be removed — Teams can continue to use it or return to it. Enemy Teams that reach the trench may use it as well.</p>
+          <p>Trench lines come in sets of four <strong>8" lengths</strong> that are placed during setup. Infantry and Gun Teams in trenches are <strong>Concealed and in Hard Cover</strong>. Unlike being Dug In in foxholes, moving or leaving the trench does not cause the trench to be removed. Teams can continue to use it or return to it. Enemy Teams that reach the trench may use it as well.</p>
         </div>
       </div>`
   },
@@ -6055,7 +6475,7 @@ const RULES_DATA = [
         <div class="rules-subsection">
           <div class="rules-subsection-title">Minefields</div>
           <p>When a Team's movement brings them into contact with a minefield, that Team must immediately resolve <strong>1 RFP</strong>. If the result is Ready, the Team may complete its remaining movement.</p>
-          <p>Engineer Teams may end their movement in base contact with the edge of a minefield without triggering it. Teams starting in contact may make a Clearing Check — each success applies 1 Clearing Point. A minefield requires <strong>3 Clearing Points</strong> to be removed (clearing takes the Engineer's full activation).</p>
+          <p>Engineer Teams may end their movement in base contact with the edge of a minefield without triggering it. Teams starting in contact may make a Clearing Check; each success applies 1 Clearing Point. A minefield requires <strong>3 Clearing Points</strong> to be removed (clearing takes the Engineer's full activation).</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Wire</div>
@@ -6072,7 +6492,7 @@ const RULES_DATA = [
     body: `
       <div class="rules-body-text">
         <p>Before deployment, starting with the Defender, players each place a Range In marker (1 for each of their Artillery Units available on Turn 1) on any point of the table. Immediately roll for deviation using standard procedure and shift the marker to its final position. These markers <strong>stay on the table for the remainder of the game</strong>.</p>
-        <p>Any Teams deployed or revealed within the marker's barrage radius are immediately assigned RFPs per the artillery weapon. Teams that move into the radius after being revealed are not affected — the barrage has already passed. Dug-In and Hard Cover Teams resolve these RFPs normally.</p>
+        <p>Any Teams deployed or revealed within the marker's barrage radius are immediately assigned RFPs per the artillery weapon. Teams that move into the radius after being revealed are not affected, as the barrage has already passed. Dug-In and Hard Cover Teams resolve these RFPs normally.</p>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Pre-Registered Target</div>
           <p>Any friendly Artillery Unit may fire on this marker without a forward observer and without the Range In step, proceeding directly to the deviation roll and FFE on the turn the order is given. Normal artillery procedures otherwise apply.</p>
@@ -6085,7 +6505,7 @@ const RULES_DATA = [
     group: 'Optional Rules',
     body: `
       <div class="rules-body-text">
-        <p>Snipers are Small Teams that are always deployed <strong>Hidden</strong>. Snipers cost <strong>1 Order Point</strong> to reveal — anywhere outside 12" of any enemy Teams. Snipers are destroyed if any enemy Team moves within 4" of them.</p>
+        <p>Snipers are Small Teams that are always deployed <strong>Hidden</strong>. Snipers cost <strong>1 Order Point</strong> to reveal, anywhere outside 12" of any enemy Teams. Snipers are destroyed if any enemy Team moves within 4" of them.</p>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Sniper Fire</div>
           <p>Once per turn, an activated Sniper may place a Sniper Fire marker on one enemy Team within <strong>20" and LoS</strong>. Snipers may target Small Teams, bypassing normal target priority.</p>
@@ -6120,30 +6540,30 @@ const RULES_DATA = [
         <div class="rules-subsection">
           <div class="rules-subsection-title">Great Britain</div>
           <ul>
-            <li><strong>Mike Target</strong> — Any British FO may call fire for any friendly Artillery Unit. When calling for fire, make a Training Check. If passed, place the Range In marker and resolve FFE immediately (deviation still applies).</li>
-            <li><strong>Stubborn Defense</strong> — British Infantry Teams in Hard Cover may re-roll one Suppressed result when resolving RFPs (1–3 = Suppressed, 4+ = Ready). Take the worst result overall.</li>
+            <li><strong>Mike Target</strong>: Any British FO may call fire for any friendly Artillery Unit. When calling for fire, make a Training Check. If passed, place the Range In marker and resolve FFE immediately (deviation still applies).</li>
+            <li><strong>Stubborn Defense</strong>: British Infantry Teams in Hard Cover may re-roll one Suppressed result when resolving RFPs (1-3 = Suppressed, 4+ = Ready). Take the worst result overall.</li>
           </ul>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Germany</div>
           <ul>
-            <li><strong>Mission Tactics</strong> — When a German PL is destroyed, immediately make a Training Check. If passed, place a new PL in base contact with any Team in the Unit. If failed, automatically place a new PL the next time any Team in that Unit activates.</li>
-            <li><strong>Tactical Initiative</strong> — German players add +1 to their Order Point total.</li>
+            <li><strong>Mission Tactics</strong>: When a German PL is destroyed, immediately make a Training Check. If passed, place a new PL in base contact with any Team in the Unit. If failed, automatically place a new PL the next time any Team in that Unit activates.</li>
+            <li><strong>Tactical Initiative</strong>: German players add +1 to their Order Point total.</li>
           </ul>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Soviet Union</div>
           <ul>
-            <li><strong>Artillery Saturation</strong> — The Soviet player may spend 1 Hero Point when a friendly Artillery Unit is about to resolve a barrage, before rolling for deviation, to increase its radius by +2" and inflict +1 RFP to all affected Teams.</li>
-            <li><strong>Massed Assault</strong> — When Soviet Infantry are ordered to move into contact with enemy Teams, 1 Hero Point may be spent to activate any number of Infantry Teams simultaneously, provided all are ordered to Assault the same target Unit.</li>
-            <li><strong>Follow The Leader</strong> — Soviet Platoon Leaders and Vehicle Unit leaders may not split orders between Teams. All activated Teams in the Unit must receive the same order. <em>(Best suited for pre-1944 forces; players representing the more tactically sophisticated Red Army of 1944–45 may waive this rule.)</em></li>
+            <li><strong>Artillery Saturation</strong>: The Soviet player may spend 1 Hero Point when a friendly Artillery Unit is about to resolve a barrage, before rolling for deviation, to increase its radius by +2" and inflict +1 RFP to all affected Teams.</li>
+            <li><strong>Massed Assault</strong>: When Soviet Infantry are ordered to move into contact with enemy Teams, 1 Hero Point may be spent to activate any number of Infantry Teams simultaneously, provided all are ordered to Assault the same target Unit.</li>
+            <li><strong>Follow The Leader</strong>: Soviet Platoon Leaders and Vehicle Unit leaders may not split orders between Teams. All activated Teams in the Unit must receive the same order. <em>(Best suited for pre-1944 forces; players representing the more tactically sophisticated Red Army of 1944–45 may waive this rule.)</em></li>
           </ul>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">United States</div>
           <ul>
-            <li><strong>Semi-Automatic Firepower</strong> — US Rifle/MG Teams add +1 to their Rate of Fire when firing at targets within 10".</li>
-            <li><strong>Time on Target</strong> — US Medium and Heavy Artillery barrages inflict +1 RFP to all affected Teams.</li>
+            <li><strong>Semi-Automatic Firepower</strong>: US Rifle/MG Teams add +1 to their Rate of Fire when firing at targets within 10".</li>
+            <li><strong>Time on Target</strong>: US Medium and Heavy Artillery barrages inflict +1 RFP to all affected Teams.</li>
           </ul>
         </div>
       </div>`
@@ -6177,7 +6597,7 @@ const RULES_DATA = [
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Assaults</div>
-          <p>When the tank is in base contact with an enemy Team, the Rider Team rolls Assault Checks alongside the tank. If an enemy Team makes a successful Assault Check against the tank, the hit is applied to the Rider Team instead — a further successful Assault Check is then required to hit the tank itself. Suppressed Rider Teams do not roll Assault Checks.</p>
+          <p>When the tank is in base contact with an enemy Team, the Rider Team rolls Assault Checks alongside the tank. If an enemy Team makes a successful Assault Check against the tank, the hit is applied to the Rider Team instead. A further successful Assault Check is then required to hit the tank itself. Suppressed Rider Teams do not roll Assault Checks.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">If the Tank is Destroyed</div>
@@ -6202,7 +6622,7 @@ const RULES_DATA = [
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Bogged</div>
-          <p>A Bogged vehicle may not move from its current position. When activated, its crew must spend the entire activation attempting to free the vehicle — make a <strong>Training Check</strong>. If successful, remove the Bogged status; the vehicle may act normally from its next activation onward. If failed, the vehicle remains Bogged. In either case the vehicle may not move or fire during the freeing activation.</p>
+          <p>A Bogged vehicle may not move from its current position. When activated, its crew must spend the entire activation attempting to free the vehicle by making a <strong>Training Check</strong>. If successful, remove the Bogged status; the vehicle may act normally from its next activation onward. If failed, the vehicle remains Bogged. In either case the vehicle may not move or fire during the freeing activation.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Overloaded Vehicles</div>
@@ -6661,6 +7081,15 @@ async function checkUrlForce() {
     return;
   }
 
+  // ?fpp=forceId — load opponent's force directly into FPP (no publishing required)
+  const fppId = params.get('fpp');
+  if (fppId) {
+    await selectOpponentForce(fppId);
+    setSection('fpp');
+    showToast('Opponent force loaded — enter your name and start FPP.', 'success');
+    return;
+  }
+
   const forceId = params.get('force');
   if (!forceId) return;
   const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
@@ -6767,7 +7196,7 @@ function pickPair() {
 
 function compareCardHtml(unit) {
   const armor = unit.armor_front !== null && unit.armor_front !== undefined
-    ? `${unit.armor_front}/${unit.armor_flank}` : '—';
+    ? `${unit.armor_front}/${unit.armor_flank}` : '-';
   return `
     <div class="${nationBadgeClass(unit.nation)}" style="display:inline-block;margin-bottom:8px;font-size:9px;padding:2px 6px">${unit.nation}</div>
     <div class="compare-card-name">${unit.name}</div>
@@ -6911,7 +7340,7 @@ function openForceSheet(forceData) {
       const hasArmor = unit.armor_front !== null && unit.armor_front !== undefined;
 
       function sc(val) {
-        return val !== null ? `<td class="fs-stat">${val}</td>` : `<td class="fs-stat dash">—</td>`;
+        return val !== null ? `<td class="fs-stat">${val}</td>` : `<td class="fs-stat dash">-</td>`;
       }
 
       const notes = (unit.notes || []).map(n => noteTag(n)).join(' ');
@@ -6927,7 +7356,7 @@ function openForceSheet(forceData) {
           </td>
           <td style="text-align:center"><span class="base-badge">${unit.base || 'Med'}</span></td>
           ${sc(range)}${sc(rof)}${sc(at)}${sc(fp)}
-          <td class="${hasArmor ? 'fs-stat' : 'fs-stat dash'}">${hasArmor ? `${unit.armor_front}/${unit.armor_flank}` : '—'}</td>
+          <td class="${hasArmor ? 'fs-stat' : 'fs-stat dash'}">${hasArmor ? `${unit.armor_front}/${unit.armor_flank}` : '-'}</td>
           <td class="fs-notes-cell">${notes}</td>
         </tr>`;
     }).join('');
@@ -6942,7 +7371,7 @@ function openForceSheet(forceData) {
             <tr>
               <th class="c" style="width:44px">Qty</th>
               <th>Unit</th>
-              <th class="c" data-tip="Base size — Small (1×1&quot;), Medium (2×1&quot;), or Large (2×2&quot;). Base size affects movement through terrain and the area a team occupies.">Base</th>
+              <th class="c" data-tip="Base size: Small (1×1&quot;), Medium (2×1&quot;), or Large (2×2&quot;). Base size affects movement through terrain and the area a team occupies.">Base</th>
               <th class="c" data-tip="${STAT_TIPS.Range.replace(/"/g, '&quot;')}">Range</th>
               <th class="c" data-tip="${STAT_TIPS.RoF.replace(/"/g, '&quot;')}">RoF</th>
               <th class="c" data-tip="${STAT_TIPS.AT.replace(/"/g, '&quot;')}">AT</th>
@@ -7000,7 +7429,7 @@ function openForceSheet(forceData) {
                   <td class="fs-unit-name" style="font-size:13px">${name}</td>
                   <td class="fs-stat">${s.range}</td>
                   <td class="fs-stat">${s.rof}</td>
-                  <td class="${s.at !== null ? 'fs-stat' : 'fs-stat dash'}">${s.at ?? '—'}</td>
+                  <td class="${s.at !== null ? 'fs-stat' : 'fs-stat dash'}">${s.at ?? '-'}</td>
                   <td class="fs-notes-cell" style="font-size:10px;color:var(--text3)">${s.notes}</td>
                 </tr>`).join('')}
             </tbody>
@@ -7072,7 +7501,7 @@ function enterGuestMode() {
   isSubscriber = false;
   isAdmin = false;
   const area = document.getElementById('auth-area');
-  if (area) area.innerHTML = `<span style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:1px">GUEST</span>`;
+  if (area) area.innerHTML = `<button class="auth-btn" onclick="signIn()">Sign In</button>`;
   loadData();
   loadFeaturedStrip();
   loadWhatsNew();
@@ -7194,24 +7623,27 @@ const HISTORICAL_ORGS = [
   {
     id: 'us-airborne-company', name: 'Airborne Infantry Company',
     nation: 'United States', era: '1944–45',
-    note: 'Parachute or glider infantry company, 82nd and 101st Airborne Divisions. Fought light — no organic tanks, limited artillery — relying on firepower, aggression, and supporting arms from the division.',
-    platoons: [
+    note: 'Parachute or glider infantry company, 82nd and 101st Airborne Divisions. Fought light (no organic tanks, limited artillery), relying on firepower, aggression, and supporting arms from the division.',
+    combatPlatoons: [
       { id: 'para-rifle-platoon', name: 'Parachute Rifle Platoon',
         note: '3 rifle squads plus a small platoon HQ with bazooka and 60mm mortar. Same structure as leg infantry but trained for independent action.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 1 }, { name: '60mm Mortar Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }] },
+    ],
+    weaponsPlatoons: [
       { id: 'hq-weapons', name: 'HQ Weapons Section',
         note: 'Company-level LMG sections and bazookas providing additional firepower.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'LMG Section', qty: 2 }, { name: 'Bazooka Team', qty: 2 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
-        note: 'Airborne-towed 57mm AT guns — light enough to be dropped by glider or parachute.',
+        note: 'Airborne-towed 57mm AT guns, light enough to be dropped by glider or parachute.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '57mm AT Gun', qty: 2 }] },
-    ],
-    attachments: [
       { id: 'mortar-platoon', name: 'Mortar Platoon',
-        note: 'Battalion 81mm mortars — glider-delivered or captured, providing crucial indirect fire.',
+        note: 'Battalion 81mm mortars, glider-delivered or captured, providing crucial indirect fire.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '81mm Mortar Team', qty: 3 }] },
+    ],
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'td-platoon', name: 'Tank Destroyer Platoon',
-        note: 'M10 or M36 TDs linked up after breakout — critical once the airhead was relieved.',
+        note: 'M10 or M36 TDs linked up after breakout, critical once the airhead was relieved.',
         teams: [{ name: 'M10 3in GMC', qty: 3 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Divisional 105mm howitzers in direct support once the lodgement was secure.',
@@ -7222,48 +7654,54 @@ const HISTORICAL_ORGS = [
     id: 'us-armored-infantry-company', name: 'Armored Infantry Company',
     nation: 'United States', era: '1944–45',
     note: 'Mechanized infantry integral to US armored divisions, riding M3 halftracks. Designed to operate alongside tanks in fluid combined-arms battles.',
-    platoons: [
+    combatPlatoons: [
       { id: 'armored-rifle-platoon', name: 'Armored Rifle Platoon',
         note: 'Rode to the objective in M3 halftracks, dismounted to fight. Bazookas and a light mortar gave each platoon punch.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 2 }, { name: '60mm Mortar Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }, { name: 'M3 Halftrack', qty: 4 }] },
+    ],
+    weaponsPlatoons: [
       { id: 'weapons-platoon', name: 'Weapons Platoon',
         note: 'LMG sections and 81mm mortars providing company-level heavy support.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'LMG Section', qty: 2 }, { name: '81mm Mortar Team', qty: 2 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
-        note: '57mm AT guns towed behind halftracks — primary organic anti-tank defence.',
+        note: '57mm AT guns towed behind halftracks, the primary organic anti-tank defence.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '57mm AT Gun', qty: 3 }] },
     ],
-    attachments: [
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'tank-platoon', name: 'Tank Platoon',
-        note: 'Shermans working in direct support — the standard combined-arms pairing.',
+        note: 'Shermans working in direct support, the standard combined-arms pairing.',
         teams: [{ name: 'M4A3 Sherman', qty: 5 }] },
       { id: 'td-platoon', name: 'Tank Destroyer Platoon',
         note: 'M10 or M36 TDs from an independent TD battalion.',
         teams: [{ name: 'M10 3in GMC', qty: 3 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
-        note: 'M7 Priest self-propelled 105mm howitzers — mobile artillery matched to the division\'s tempo.',
+        note: 'M7 Priest self-propelled 105mm howitzers, mobile artillery matched to the division\'s tempo.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M7 Priest', qty: 3 }] },
     ]
   },
   {
     id: 'us-td-company', name: 'Tank Destroyer Company',
     nation: 'United States', era: '1944–45',
-    note: 'Independent tank destroyer battalion company — the "seek, strike, destroy" doctrine. Fast-moving M10s and M36s designed to mass against enemy armour and kill tanks at range.',
-    platoons: [
+    note: 'Independent tank destroyer battalion company following the "seek, strike, destroy" doctrine. Fast-moving M10s and M36s designed to mass against enemy armour and kill tanks at range.',
+    combatPlatoons: [
       { id: 'td-platoon', name: 'Tank Destroyer Platoon',
         note: '4 M10 or M36 tank destroyers at full strength. M36 mounting the 90mm gun could defeat Tigers frontally.',
         teams: [{ name: 'M10 3in GMC', qty: 4 }] },
       { id: 'heavy-td-platoon', name: 'Heavy TD Platoon',
-        note: 'M36 Jackson mounting the 90mm gun — capable of defeating any German tank at combat ranges.',
+        note: 'M36 Jackson mounting the 90mm gun, capable of defeating any German tank at combat ranges.',
         teams: [{ name: 'M36 90mm GMC', qty: 4 }] },
+    ],
+    weaponsPlatoons: [
       { id: 'recon-platoon', name: 'Recon Platoon',
         note: 'M5A1 Stuarts and jeep teams providing forward reconnaissance for the TD battalion.',
         teams: [{ name: 'M5A1 Stuart', qty: 3 }] },
-    ],
-    attachments: [
       { id: 'infantry-security', name: 'Infantry Security Platoon',
         note: 'Rifle platoon attached to protect TDs from enemy infantry at close range.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 4 }] },
+    ],
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Divisional 105mm howitzers in direct support.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: '105mm Howitzer', qty: 4 }] },
@@ -7272,44 +7710,80 @@ const HISTORICAL_ORGS = [
   {
     id: 'us-rifle-company', name: 'Rifle Company',
     nation: 'United States', era: '1944–45',
-    note: 'Standard infantry company, NW Europe and Italy. Three rifle platoons with organic anti-tank, mortar, and heavy weapons support.',
-    platoons: [
+    note: 'Standard US infantry company, NW Europe and Italy (Fortress Europe). Must field at least two Rifle Platoons. May add one of each Weapons Platoon. One Support Platoon from each Division Support box shown.',
+    combatPlatoons: [
       { id: 'rifle-platoon', name: 'Rifle Platoon',
-        note: 'Typically 3 rifle squads at full strength; often 2 by late 1944 after sustained casualties.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }] },
+        note: 'Three rifle squads with a bazooka and 60mm mortar in the platoon HQ. The backbone of American infantry tactics.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 1 }, { name: '60mm Mortar Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }] },
       { id: 'weapons-platoon', name: 'Weapons Platoon',
-        note: 'Organic heavy weapons — LMG sections, bazookas, and 60mm mortars.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'LMG Section', qty: 2 }, { name: 'Bazooka Team', qty: 2 }, { name: '60mm Mortar Team', qty: 2 }] },
-      { id: 'at-platoon', name: 'Anti-Tank Platoon',
-        note: 'Battalion 57mm AT guns attached at company level.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '57mm AT Gun', qty: 3 }] },
-      { id: 'mortar-platoon', name: 'Mortar Platoon',
-        note: 'Battalion 81mm mortars, often attached at company level for close support.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '81mm Mortar Team', qty: 3 }] },
+        note: 'Company-level organic heavy weapons: M1917/M1919 HMGs, bazookas, and 60mm mortars providing immediate fire support.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'M1917/M1919 HMG', qty: 2 }, { name: 'Bazooka Team', qty: 2 }, { name: '60mm Mortar Team', qty: 2 }] },
     ],
-    attachments: [
+    weaponsPlatoons: [
+      { id: 'mg-platoon', name: 'Machine-Gun Platoon',
+        note: 'M1917/M1919 Browning HMGs, attached from the battalion heavy weapons company for sustained suppressive fire.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'M1917/M1919 HMG', qty: 4 }] },
+      { id: 'mortar-platoon', name: 'Mortar Platoon',
+        note: '81mm M1 mortars, the battalion\'s primary indirect fire weapon, effective out to 3,000 yards.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '81mm Mortar Team', qty: 4 }] },
+      { id: 'at-platoon', name: 'Anti-Tank Platoon',
+        note: '57mm M1 AT guns from the battalion AT platoon, effective against all but the heaviest German armour.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '57mm AT Gun', qty: 3 }] },
+      { id: 'engineer-platoon', name: 'Engineer Platoon',
+        note: 'Combat engineers handling obstacles, mines, demolitions, and fortifications at battalion level.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 4 }] },
+    ],
+    regimentalSupport: [
+      { id: 'reg-at-platoon', name: 'Anti-Tank Platoon',
+        note: 'Regimental AT company with 57mm guns covering the regiment\'s frontage against armoured counterattacks.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '57mm AT Gun', qty: 4 }] },
+      { id: 'recon-platoon', name: 'Intelligence & Recon Platoon',
+        note: 'Regimental I&R platoon of jeep-mounted scouts gathering intelligence and screening the regiment\'s front.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Rifle/MG Team', qty: 3 }, { name: 'Jeep', qty: 3 }] },
+    ],
+    divisionalSupport: [
       { id: 'tank-platoon', name: 'Tank Platoon',
-        note: 'Shermans attached from an armored battalion — typically 3–5 tanks per platoon.',
+        note: 'M4 or M4A1 Shermans from an armored battalion in the infantry support role.',
         teams: [{ name: 'M4 Sherman', qty: 3 }] },
+      { id: 'light-tank-platoon', name: 'Light Tank Platoon',
+        note: 'M5A1 Stuarts from a cavalry or armored recon unit, fast and aggressive but lightly armoured.',
+        teams: [{ name: 'M5A1 Stuart', qty: 3 }] },
       { id: 'td-platoon', name: 'Tank Destroyer Platoon',
-        note: 'M10 or M36 tank destroyers from an independent TD battalion.',
+        note: 'M10 3-inch or M36 90mm GMC from an independent TD battalion, hunting German armour.',
         teams: [{ name: 'M10 3in GMC', qty: 3 }] },
-      { id: 'artillery-battery', name: 'Artillery Battery',
-        note: 'Divisional 105mm or 155mm howitzers in direct support.',
+      { id: 'towed-td-platoon', name: 'Towed Tank Destroyer Platoon',
+        note: 'M5 3-inch AT guns from a TD battalion, effective against all German armour at combat ranges.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'M5 3in Gun', qty: 3 }] },
+      { id: 'ranger-platoon', name: 'Ranger Platoon',
+        note: 'US Army Rangers: elite assault infantry for raids, infiltration, and leading attacks on fortified positions.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 2 }, { name: 'Rifle/MG Team', qty: 6 }] },
+      { id: 'engineer-platoon', name: 'Engineer Combat Platoon',
+        note: 'Combat engineers breaching obstacles, clearing minefields, and assaulting fortifications.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 4 }] },
+      { id: 'cav-recon-platoon', name: 'Cavalry Recon Platoon',
+        note: 'Mechanised cavalry from a recon squadron, screening flanks and reporting enemy movements.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Rifle/MG Team', qty: 3 }] },
+      { id: 'artillery-battery', name: 'Field Artillery Battery',
+        note: 'M2A1 105mm howitzers from the divisional artillery regiment, the standard US direct support battery.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: '105mm Howitzer', qty: 4 }] },
+      { id: 'heavy-arty-battery', name: 'Heavy Artillery Battery',
+        note: '155mm Long Tom guns from corps artillery, providing massive firepower for breakthrough operations.',
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '155mm Howitzer', qty: 3 }] },
     ]
   },
   {
     id: 'us-tank-company', name: 'Tank Company',
     nation: 'United States', era: '1944–45',
     note: 'Armored company from an armored division or independent tank battalion. Combined arms with Shermans, armored rifles, and M7 Priest artillery support.',
-    platoons: [
+    combatPlatoons: [
       { id: 'tank-platoon', name: 'Tank Platoon',
-        note: '5 Shermans at full establishment — 1 command tank plus 4 line tanks.',
+        note: '5 Shermans at full establishment: 1 command tank plus 4 line tanks.',
         teams: [{ name: 'M4A3 Sherman', qty: 5 }] },
       { id: 'armored-rifle-platoon', name: 'Armored Rifle Platoon',
         note: 'Motorized infantry integral to armored battalions, riding M3 halftracks.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 2 }, { name: '60mm Mortar Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }, { name: 'M3 Halftrack', qty: 4 }] },
+    ],
+    weaponsPlatoons: [
       { id: 'recon-platoon', name: 'Recon Platoon',
         note: 'M5 Stuarts or M8 Greyhounds providing reconnaissance.',
         teams: [{ name: 'M5A1 Stuart', qty: 3 }] },
@@ -7317,9 +7791,10 @@ const HISTORICAL_ORGS = [
         note: 'M7 Priest self-propelled howitzers in direct support.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M7 Priest', qty: 3 }] },
     ],
-    attachments: [
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'heavy-tank-platoon', name: 'Heavy Tank Platoon',
-        note: 'M26 Pershing heavy tanks — available from early 1945, attached from separate heavy battalion.',
+        note: 'M26 Pershing heavy tanks, available from early 1945, attached from separate heavy battalion.',
         teams: [{ name: 'M26 Pershing', qty: 3 }] },
       { id: 'td-platoon', name: 'Tank Destroyer Platoon',
         note: 'M10 or M36 tank destroyers from an independent TD battalion.',
@@ -7331,26 +7806,29 @@ const HISTORICAL_ORGS = [
     id: 'de-grenadier-company', name: 'Grenadier Company',
     nation: 'Germany', era: '1944–45',
     note: 'Late-war German infantry company. Panzerfausts widely issued by 1944, giving every team a meaningful anti-tank capability at close range.',
-    platoons: [
+    combatPlatoons: [
       { id: 'grenadier-platoon', name: 'Grenadier Platoon',
         note: 'Typically 3 squads, each built around the MG42. Panzerfaust teams distributed from 1944.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }, { name: 'Panzerfaust SMG Team', qty: 2 }] },
+    ],
+    weaponsPlatoons: [
       { id: 'mg-platoon', name: 'Machine-Gun Platoon',
-        note: 'Company heavy weapons — MG42s in the sustained fire role.',
+        note: 'Company heavy weapons: MG42s in the sustained fire role.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'MG42 HMG Team', qty: 4 }] },
       { id: 'mortar-platoon', name: 'Mortar Platoon',
         note: '8cm GW34 mortars providing organic indirect fire support.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '8cm Mortar Team', qty: 3 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
-        note: '7.5cm PaK40 — the backbone of German anti-tank defence.',
+        note: '7.5cm PaK40, the backbone of German anti-tank defence.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '7.5cm PaK40', qty: 3 }] },
     ],
-    attachments: [
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'panzer-platoon', name: 'Panzer Platoon',
         note: 'StuG assault guns most commonly attached to infantry formations by 1944; Panzer IVs also possible.',
         teams: [{ name: 'StuG III/IV', qty: 3 }] },
       { id: 'flak-platoon', name: 'Heavy AA Platoon',
-        note: 'The 8.8cm FlaK36 — devastating in its dual anti-aircraft and anti-tank role; attached from divisional Flak battalion.',
+        note: 'The 8.8cm FlaK36, devastating in its dual anti-aircraft and anti-tank role; attached from divisional Flak battalion.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '8.8cm FlaK36', qty: 1 }] },
     ]
   },
@@ -7358,13 +7836,15 @@ const HISTORICAL_ORGS = [
     id: 'de-panzer-company', name: 'Panzer Company',
     nation: 'Germany', era: '1944–45',
     note: 'Late-war German armoured company. Typically 3–4 Panzer platoons at establishment; often fielding 2 by 1944–45 due to attrition.',
-    platoons: [
+    combatPlatoons: [
       { id: 'panzer-iv-platoon', name: 'Panzer Platoon (Pz IV)',
         note: '4–5 tanks at full strength. Panzer IV H most common medium tank.',
         teams: [{ name: 'Panzer IV H', qty: 5 }] },
       { id: 'panzergrenadier-platoon', name: 'Panzergrenadier Platoon',
-        note: 'Motorized infantry riding Sd Kfz 251 halftracks — could dismount to clear terrain.',
+        note: 'Motorized infantry riding Sd Kfz 251 halftracks; could dismount to clear terrain.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Panzerschreck Team', qty: 1 }, { name: 'MG Team', qty: 6 }, { name: 'Sd Kfz 251 Halftrack', qty: 4 }] },
+    ],
+    weaponsPlatoons: [
       { id: 'recon-platoon', name: 'Recon Platoon',
         note: 'Sd Kfz 234 Puma or lighter 222 armoured cars providing reconnaissance.',
         teams: [{ name: 'Sd Kfz 234/2 Puma', qty: 2 }] },
@@ -7372,87 +7852,97 @@ const HISTORICAL_ORGS = [
         note: 'Wespe or Hummel self-propelled artillery in direct support.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Wespe SPG', qty: 3 }] },
     ],
-    attachments: [
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'panther-platoon', name: 'Panzer Platoon (Panther)',
-        note: 'Panther Ausf G increasingly common in 1944–45 — often from a separate Panther battalion.',
+        note: 'Panther Ausf G increasingly common in 1944-45, often from a separate Panther battalion.',
         teams: [{ name: 'Panther Ausf G', qty: 4 }] },
       { id: 'heavy-platoon', name: 'Heavy Tank Platoon',
-        note: 'Tiger I or Königstiger from a separate heavy tank battalion — committed to breakthrough or defensive actions.',
+        note: 'Tiger I or Königstiger from a separate heavy tank battalion, committed to breakthrough or defensive actions.',
         teams: [{ name: 'Tiger I E', qty: 3 }] },
     ]
   },
   {
     id: 'de-panzergrenadier-company', name: 'Panzergrenadier Company',
     nation: 'Germany', era: '1943–45',
-    note: 'Mechanized infantry of the Panzergrenadier divisions, riding Sd Kfz 251 halftracks into battle. Designed to fight alongside tanks and exploit breakthroughs — more mobile and better equipped than standard Grenadiers.',
-    platoons: [
+    note: 'Mechanized infantry of the Panzergrenadier divisions, riding Sd Kfz 251 halftracks into battle. Designed to fight alongside tanks and exploit breakthroughs, more mobile and better equipped than standard Grenadiers.',
+    combatPlatoons: [
       { id: 'panzergrenadier-platoon', name: 'Panzergrenadier Platoon',
         note: '3 squads riding Sd Kfz 251 halftracks. Could fight mounted (using the halftrack\'s MG42) or dismount to clear buildings and terrain.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Panzerschreck Team', qty: 1 }, { name: 'MG Team', qty: 6 }, { name: 'Sd Kfz 251 Halftrack', qty: 4 }] },
+    ],
+    weaponsPlatoons: [
       { id: 'mg-platoon', name: 'Heavy Weapons Platoon',
         note: 'MG42s in the sustained fire role providing company-level fire support.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'MG42 HMG Team', qty: 4 }] },
       { id: 'mortar-platoon', name: 'Mortar Platoon',
-        note: '8cm mortars — often halftrack-towed to keep pace with the mechanized formation.',
+        note: '8cm mortars, often halftrack-towed to keep pace with the mechanized formation.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '8cm Mortar Team', qty: 3 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: '7.5cm PaK40 towed by halftracks. Often deployed to cover flanks during armoured advances.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '7.5cm PaK40', qty: 3 }] },
     ],
-    attachments: [
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'panzer-platoon', name: 'Panzer Platoon',
         note: 'StuG assault guns or Panzer IVs working in direct support of the Panzergrenadiers.',
         teams: [{ name: 'StuG III/IV', qty: 3 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
-        note: 'Wespe self-propelled 105mm — keeping pace with the mechanized advance.',
+        note: 'Wespe self-propelled 105mm, keeping pace with the mechanized advance.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Wespe SPG', qty: 3 }] },
     ]
   },
   {
     id: 'de-fallschirmjager-company', name: 'Fallschirmjäger Company',
     nation: 'Germany', era: '1943–45',
-    note: 'German paratroopers — elite light infantry who fought on foot after the early airborne operations. Renowned for tenacious defence, high MG density, and individual initiative. By 1944 fighting primarily in Italy and the Western Front.',
-    platoons: [
+    note: 'German paratroopers who fought on foot after the early airborne operations. Renowned for tenacious defence, high MG density, and individual initiative. By 1944 fighting primarily in Italy and the Western Front.',
+    combatPlatoons: [
       { id: 'fj-platoon', name: 'Fallschirmjäger Platoon',
-        note: 'Higher MG42 density than standard Grenadiers — each squad built around two guns. Panzerfausts widely issued.',
+        note: 'Higher MG42 density than standard Grenadiers, with each squad built around two guns. Panzerfausts widely issued.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }, { name: 'Panzerfaust SMG Team', qty: 2 }, { name: 'Panzerschreck Team', qty: 1 }] },
+    ],
+    weaponsPlatoons: [
       { id: 'mg-platoon', name: 'Machine-Gun Platoon',
-        note: 'MG42s in the sustained fire role — the cornerstone of Fallschirmjäger defensive positions.',
+        note: 'MG42s in the sustained fire role, the cornerstone of Fallschirmjäger defensive positions.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'MG42 HMG Team', qty: 4 }] },
       { id: 'mortar-platoon', name: 'Mortar Platoon',
         note: '8cm mortars providing organic indirect fire support.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '8cm Mortar Team', qty: 4 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
-        note: '7.5cm PaK40 — essential for holding defensive lines against Allied armour.',
+        note: '7.5cm PaK40, essential for holding defensive lines against Allied armour.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '7.5cm PaK40', qty: 3 }] },
     ],
-    attachments: [
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'panzer-platoon', name: 'Panzer Platoon',
         note: 'StuG assault guns most commonly attached in Italy and Normandy defensive operations.',
         teams: [{ name: 'StuG III/IV', qty: 3 }] },
       { id: 'flak-platoon', name: 'Heavy AA Platoon',
-        note: '8.8cm FlaK36 — frequently deployed in the direct-fire anti-tank role in defensive positions.',
+        note: '8.8cm FlaK36, frequently deployed in the direct-fire anti-tank role in defensive positions.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '8.8cm FlaK36', qty: 2 }] },
     ]
   },
   {
     id: 'de-heavy-panzer-company', name: 'Schwere Panzer Kompanie',
     nation: 'Germany', era: '1943–45',
-    note: 'Heavy tank company of the schwere Panzerabteilungen — independent heavy tank battalions attached to key sectors. Tiger Is and Tiger IIs committed to decisive actions. Feared and operationally scarce.',
-    platoons: [
+    note: 'Heavy tank company of the schwere Panzerabteilungen (independent heavy tank battalions attached to key sectors). Tiger Is and Tiger IIs committed to decisive actions. Feared and operationally scarce.',
+    combatPlatoons: [
       { id: 'tiger-platoon', name: 'Tiger Platoon',
-        note: '4 Tiger I E at full strength — typically 3–4 per platoon in practice. Near-invulnerable frontally to most Allied guns at range.',
+        note: '4 Tiger I E at full strength (typically 3-4 per platoon in practice). Near-invulnerable frontally to most Allied guns at range.',
         teams: [{ name: 'Tiger I E', qty: 4 }] },
       { id: 'tiger2-platoon', name: 'Königstiger Platoon',
-        note: 'Tiger II — the most powerful tank of the war. Deployed from late 1944, combining massive armour with the long 8.8cm KwK 43.',
+        note: 'Tiger II, the most powerful tank of the war. Deployed from late 1944, combining massive armour with the long 8.8cm KwK 43.',
         teams: [{ name: 'Tiger II', qty: 3 }] },
     ],
-    attachments: [
+    weaponsPlatoons: [
       { id: 'panzergrenadier-platoon', name: 'Panzergrenadier Platoon',
-        note: 'Mechanized infantry riding Sd Kfz 251 halftracks — protecting Tigers from enemy infantry at close range.',
+        note: 'Mechanized infantry riding Sd Kfz 251 halftracks, protecting Tigers from enemy infantry at close range.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Panzerschreck Team', qty: 1 }, { name: 'MG Team', qty: 6 }, { name: 'Sd Kfz 251 Halftrack', qty: 4 }] },
+    ],
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'artillery-battery', name: 'Artillery Battery',
-        note: 'Hummel self-propelled 150mm — heavy fire support matching the heavy tank battalion\'s punch.',
+        note: 'Hummel self-propelled 150mm, providing heavy fire support matching the heavy tank battalion\'s punch.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Hummel SPG', qty: 3 }] },
     ]
   },
@@ -7461,10 +7951,12 @@ const HISTORICAL_ORGS = [
     id: 'sv-strelkovy-company', name: 'Strelkovy Company',
     nation: 'Soviet Union', era: '1944',
     note: 'Soviet rifle company at full strength. Platoons were notably larger than Western equivalents, with organic HMG and AT rifle teams at platoon level.',
-    platoons: [
+    combatPlatoons: [
       { id: 'rifle-platoon', name: 'Rifle Platoon',
         note: 'Up to 50 men at full strength. Maxim HMG and PTRD AT rifle organic to each platoon.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Maxim HMG Team', qty: 1 }, { name: 'PTRD AT Rifle Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }] },
+    ],
+    weaponsPlatoons: [
       { id: 'mortar-platoon', name: 'Mortar Platoon',
         note: '82mm mortars providing the company\'s organic indirect fire.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '82mm Mortar Team', qty: 4 }] },
@@ -7472,15 +7964,16 @@ const HISTORICAL_ORGS = [
         note: '45mm or 76mm ZIS guns providing direct anti-tank support.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '45mm AT Gun', qty: 3 }] },
     ],
-    attachments: [
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'tank-platoon', name: 'Tank Platoon',
-        note: 'T-34/85 most common from mid-1944 — attached from a tank brigade in support.',
+        note: 'T-34/85 most common from mid-1944, attached from a tank brigade in support.',
         teams: [{ name: 'T-34/85', qty: 3 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Divisional 122mm or 152mm howitzers in direct support.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: '152mm Howitzer', qty: 3 }] },
       { id: 'katyusha-battery', name: 'Katyusha Battery',
-        note: 'BM-13 Katyusha rocket artillery — attached from corps or army-level Guards Mortar units.',
+        note: 'BM-13 Katyusha rocket artillery, attached from corps or army-level Guards Mortar units.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'BM-13 Katyusha', qty: 3 }] },
     ]
   },
@@ -7488,20 +7981,23 @@ const HISTORICAL_ORGS = [
     id: 'sv-tankovy-company', name: 'Tankovy Company',
     nation: 'Soviet Union', era: '1944',
     note: 'Soviet armoured company at the height of the Eastern Front. T-34s supported by motorized infantry and reconnaissance.',
-    platoons: [
+    combatPlatoons: [
       { id: 'tank-platoon', name: 'Tank Platoon',
-        note: 'T-34/85 — typically 3 tanks per platoon, sometimes 5 at full establishment.',
+        note: 'T-34/85, typically 3 tanks per platoon, sometimes 5 at full establishment.',
         teams: [{ name: 'T-34/85', qty: 3 }] },
       { id: 'rifle-platoon', name: 'Rifle Platoon',
         note: 'Motorized infantry often riding on tank hulls or in ZIS trucks.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Maxim HMG Team', qty: 1 }, { name: 'PTRD AT Rifle Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }, { name: 'ZIS-5 Truck', qty: 4 }] },
+    ],
+    weaponsPlatoons: [
       { id: 'recon-platoon', name: 'Recon Platoon',
         note: 'BA-64 armoured cars providing reconnaissance.',
         teams: [{ name: 'BA-64', qty: 2 }] },
     ],
-    attachments: [
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'heavy-tank-platoon', name: 'Heavy Tank Platoon',
-        note: 'IS-2 heavy tanks from a separate Guards heavy tank regiment — committed to breakthrough operations.',
+        note: 'IS-2 heavy tanks from a separate Guards heavy tank regiment, committed to breakthrough operations.',
         teams: [{ name: 'IS-2', qty: 3 }] },
       { id: 'assault-gun-platoon', name: 'Assault Gun Platoon',
         note: 'SU-85 or ISU-122 from a separate assault gun regiment providing long-range anti-tank support.',
@@ -7511,21 +8007,24 @@ const HISTORICAL_ORGS = [
   {
     id: 'sv-guards-rifle-company', name: 'Guards Rifle Company',
     nation: 'Soviet Union', era: '1943–45',
-    note: 'Elite Guards infantry — the same organisation as a standard Strelkovy company but with higher morale, better equipment priority, and experienced cadres. Guards formations were the spearhead of major Soviet offensives.',
-    platoons: [
+    note: 'Elite Guards infantry with the same organisation as a standard Strelkovy company but higher morale, better equipment priority, and experienced cadres. Guards formations were the spearhead of major Soviet offensives.',
+    combatPlatoons: [
       { id: 'guards-rifle-platoon', name: 'Guards Rifle Platoon',
         note: 'Same structure as standard Strelkovy but with veteran soldiers. Each platoon had organic Maxim HMG and PTRD AT rifle.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Maxim HMG Team', qty: 1 }, { name: 'PTRD AT Rifle Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }] },
+    ],
+    weaponsPlatoons: [
       { id: 'mortar-platoon', name: 'Mortar Platoon',
-        note: '82mm mortars — organic indirect fire and the primary counter to enemy heavy weapons.',
+        note: '82mm mortars providing organic indirect fire and the primary counter to enemy heavy weapons.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '82mm Mortar Team', qty: 4 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
-        note: '76mm ZIS-3 — the workhorse Soviet AT gun, equally effective against infantry positions.',
+        note: '76mm ZIS-3, the workhorse Soviet AT gun, equally effective against infantry positions.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '76mm ZIS-3', qty: 4 }] },
     ],
-    attachments: [
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'tank-platoon', name: 'Tank Platoon',
-        note: 'T-34/85 — Guards infantry frequently operated in direct co-ordination with tank brigades.',
+        note: 'T-34/85. Guards infantry frequently operated in direct co-ordination with tank brigades.',
         teams: [{ name: 'T-34/85', qty: 3 }] },
       { id: 'heavy-tank-platoon', name: 'IS-2 Platoon',
         note: 'IS-2 heavy tanks attached from Guards heavy tank regiments for breakthrough operations.',
@@ -7539,18 +8038,20 @@ const HISTORICAL_ORGS = [
     id: 'sv-isu-company', name: 'ISU Assault Gun Company',
     nation: 'Soviet Union', era: '1943–45',
     note: 'Heavy assault gun regiment company, operating ISU-122 and ISU-152 self-propelled guns. Used for direct infantry support, bunker busting, and anti-tank work. The ISU-152 earned the nickname "Beast Killer" for its ability to destroy any German AFV.',
-    platoons: [
+    combatPlatoons: [
       { id: 'isu122-platoon', name: 'ISU-122 Platoon',
-        note: '122mm gun — excellent anti-tank performance at long range. Lethal against Panthers and Tigers.',
+        note: '122mm gun with excellent anti-tank performance at long range. Lethal against Panthers and Tigers.',
         teams: [{ name: 'ISU-122', qty: 3 }] },
       { id: 'isu152-platoon', name: 'ISU-152 Platoon',
-        note: 'The "Beast Killer" — 152mm gun devastating against all armour and fortifications alike.',
+        note: 'The "Beast Killer": 152mm gun devastating against all armour and fortifications alike.',
         teams: [{ name: 'ISU-152', qty: 3 }] },
       { id: 'rifle-security', name: 'Rifle Security Platoon',
-        note: 'Infantry protecting assault guns from enemy close-assault teams — essential in urban and wooded terrain.',
+        note: 'Infantry protecting assault guns from enemy close-assault teams, essential in urban and wooded terrain.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'PTRD AT Rifle Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 4 }] },
     ],
-    attachments: [
+    weaponsPlatoons: [],
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'tank-platoon', name: 'Tank Platoon',
         note: 'T-34/85 working alongside the assault guns for mutual support.',
         teams: [{ name: 'T-34/85', qty: 3 }] },
@@ -7562,16 +8063,18 @@ const HISTORICAL_ORGS = [
   {
     id: 'sv-heavy-tank-company', name: 'IS-2 Heavy Tank Company',
     nation: 'Soviet Union', era: '1944–45',
-    note: 'Guards heavy tank regiment company, built around the IS-2 — the most powerful Soviet tank of the war. Committed to breakthrough operations, eliminating Tiger and Panther tanks, and destroying fortifications.',
-    platoons: [
+    note: 'Guards heavy tank regiment company, built around the IS-2, the most powerful Soviet tank of the war. Committed to breakthrough operations, eliminating Tiger and Panther tanks, and destroying fortifications.',
+    combatPlatoons: [
       { id: 'is2-platoon', name: 'IS-2 Platoon',
         note: '3–4 IS-2 heavy tanks. The 122mm gun could defeat any German tank and demolish buildings with a single round.',
         teams: [{ name: 'IS-2', qty: 3 }] },
       { id: 'rifle-riders', name: 'Tank Rider Platoon',
-        note: 'Infantry riding on the hull of the IS-2s — a common Soviet combined-arms tactic.',
+        note: 'Infantry riding on the hull of the IS-2s, a common Soviet combined-arms tactic.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'PTRD AT Rifle Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }] },
     ],
-    attachments: [
+    weaponsPlatoons: [],
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'su85-platoon', name: 'Assault Gun Platoon',
         note: 'SU-85 or ISU-122 providing long-range fire support alongside the IS-2s.',
         teams: [{ name: 'SU-85', qty: 3 }] },
@@ -7585,18 +8088,21 @@ const HISTORICAL_ORGS = [
     id: 'br-rifle-company', name: 'Rifle Company',
     nation: 'Britain', era: '1944–45',
     note: 'Standard British infantry company from NW Europe. Each rifle platoon carries a PIAT and 2" mortar as organic support weapons.',
-    platoons: [
+    combatPlatoons: [
       { id: 'rifle-platoon', name: 'Rifle Platoon',
         note: '3 sections each with a Bren gun. PIAT and 2" mortar organic to the platoon HQ.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'PIAT Team', qty: 1 }, { name: '2" Mortar Team', qty: 1 }, { name: 'Bren/Rifle Team', qty: 6 }] },
+    ],
+    weaponsPlatoons: [
       { id: 'support-platoon', name: 'Support Platoon',
         note: 'Vickers HMGs and 3" mortars providing sustained fire and indirect support.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Vickers HMG Team', qty: 3 }, { name: '3" Mortar Team', qty: 3 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
-        note: '6-pdr or 17-pdr anti-tank guns — the 17-pdr could defeat any German tank.',
+        note: '6-pdr or 17-pdr anti-tank guns; the 17-pdr could defeat any German tank.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '6-pdr AT Gun', qty: 3 }] },
     ],
-    attachments: [
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'tank-platoon', name: 'Tank Troop',
         note: 'Churchill or Cromwell tanks attached from an armoured brigade in the infantry support role.',
         teams: [{ name: 'Churchill IV', qty: 3 }] },
@@ -7609,20 +8115,23 @@ const HISTORICAL_ORGS = [
     id: 'br-armoured-squadron', name: 'Armoured Squadron',
     nation: 'Britain', era: '1944–45',
     note: 'British armoured squadron from NW Europe. Each troop pairs Cromwells with a Sherman Firefly, combining speed with long-range anti-tank punch.',
-    platoons: [
+    combatPlatoons: [
       { id: 'tank-troop', name: 'Tank Troop',
-        note: '3 Cromwell IVs and 1 Sherman Firefly VC — standard troop composition in Normandy.',
+        note: '3 Cromwell IVs and 1 Sherman Firefly VC, standard troop composition in Normandy.',
         teams: [{ name: 'Cromwell IV', qty: 3 }, { name: 'Sherman Firefly VC', qty: 1 }] },
+      { id: 'motor-platoon', name: 'Motor Platoon',
+        note: 'Motor infantry riding M5 halftracks, providing organic infantry support for armoured operations.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'PIAT Team', qty: 1 }, { name: '2" Mortar Team', qty: 1 }, { name: 'Bren/Rifle Team', qty: 6 }, { name: 'M5 Halftrack', qty: 4 }] },
+    ],
+    weaponsPlatoons: [],
+    regimentalSupport: [
       { id: 'light-troop', name: 'Light Tank Troop',
         note: 'Stuart V light tanks providing reconnaissance and flank security.',
         teams: [{ name: 'Stuart V', qty: 3 }] },
-      { id: 'motor-platoon', name: 'Motor Platoon',
-        note: 'Motor infantry riding M5 halftracks — organic infantry support for armoured operations.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'PIAT Team', qty: 1 }, { name: '2" Mortar Team', qty: 1 }, { name: 'Bren/Rifle Team', qty: 6 }, { name: 'M5 Halftrack', qty: 4 }] },
     ],
-    attachments: [
+    divisionalSupport: [
       { id: 'at-troop', name: 'Anti-Tank Troop (SP)',
-        note: 'M10C Achilles with 17-pdr — attached from divisional anti-tank regiment, capable of defeating Tigers at range.',
+        note: 'M10C Achilles with 17-pdr, attached from divisional anti-tank regiment, capable of defeating Tigers at range.',
         teams: [{ name: 'M10C 17-pdr SP', qty: 2 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Sexton self-propelled 25-pdr guns from the divisional artillery regiment.',
@@ -7632,21 +8141,24 @@ const HISTORICAL_ORGS = [
   {
     id: 'br-airborne-company', name: 'Airborne Infantry Company',
     nation: 'Britain', era: '1944',
-    note: '6th Airborne Division — Normandy, Arnhem, the Rhine crossing. Parachute and glider infantry companies fought light but hard, relying on organic firepower and aggressive tactics to compensate for limited heavy support.',
-    platoons: [
+    note: '6th Airborne Division (Normandy, Arnhem, the Rhine crossing). Parachute and glider infantry companies fought light but hard, relying on organic firepower and aggressive tactics to compensate for limited heavy support.',
+    combatPlatoons: [
       { id: 'para-rifle-platoon', name: 'Parachute Rifle Platoon',
-        note: '3 sections each with a Bren gun. PIAT and 2" mortar organic to the platoon HQ — maximum anti-armour capability for light troops.',
+        note: '3 sections each with a Bren gun. PIAT and 2" mortar organic to the platoon HQ, providing maximum anti-armour capability for light troops.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'PIAT Team', qty: 1 }, { name: '2" Mortar Team', qty: 1 }, { name: 'Bren/Rifle Team', qty: 6 }] },
+    ],
+    weaponsPlatoons: [
       { id: 'support-platoon', name: 'Support Platoon',
-        note: 'Vickers HMGs and 3" mortars — glider-delivered to provide the battalion with sustained fire capability.',
+        note: 'Vickers HMGs and 3" mortars, glider-delivered to provide the battalion with sustained fire capability.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Vickers HMG Team', qty: 2 }, { name: '3" Mortar Team', qty: 2 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
-        note: '6-pdr AT guns delivered by Horsa glider — essential against German armoured counterattacks.',
+        note: '6-pdr AT guns delivered by Horsa glider, essential against German armoured counterattacks.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '6-pdr AT Gun', qty: 2 }] },
     ],
-    attachments: [
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'at-troop', name: 'Anti-Tank Troop (SP)',
-        note: 'M10C Achilles linked up after ground relief — critical once armoured counterattacks intensified.',
+        note: 'M10C Achilles linked up after ground relief, critical once armoured counterattacks intensified.',
         teams: [{ name: 'M10C 17-pdr SP', qty: 2 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: '25-pdr field guns in support once ground contact was established.',
@@ -7656,11 +8168,13 @@ const HISTORICAL_ORGS = [
   {
     id: 'br-motor-company', name: 'Motor Company',
     nation: 'Britain', era: '1944–45',
-    note: 'Motorized infantry of the armoured divisions — the motor battalions rode in carriers and trucks, providing the infantry element for combined-arms operations. Fought dismounted but moved by vehicle.',
-    platoons: [
+    note: 'Motorized infantry of the armoured divisions. The motor battalions rode in carriers and trucks, providing the infantry element for combined-arms operations. Fought dismounted but moved by vehicle.',
+    combatPlatoons: [
       { id: 'motor-platoon', name: 'Motor Platoon',
-        note: '3 sections riding M5 halftracks or carriers. PIAT and 2" mortar organic — could fight mounted or on foot.',
+        note: '3 sections riding M5 halftracks or carriers. PIAT and 2" mortar organic; could fight mounted or on foot.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'PIAT Team', qty: 1 }, { name: '2" Mortar Team', qty: 1 }, { name: 'Bren/Rifle Team', qty: 6 }, { name: 'M5 Halftrack', qty: 4 }] },
+    ],
+    weaponsPlatoons: [
       { id: 'support-platoon', name: 'Support Platoon',
         note: 'Vickers HMGs and 3" mortars providing battalion-level sustained fire support.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Vickers HMG Team', qty: 3 }, { name: '3" Mortar Team', qty: 3 }] },
@@ -7668,7 +8182,8 @@ const HISTORICAL_ORGS = [
         note: '6-pdr or 17-pdr anti-tank guns providing organic anti-armour defence.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '6-pdr AT Gun', qty: 4 }] },
     ],
-    attachments: [
+    regimentalSupport: [],
+    divisionalSupport: [
       { id: 'tank-troop', name: 'Tank Troop',
         note: 'Cromwell or Churchill tanks working in direct support of the motor infantry.',
         teams: [{ name: 'Cromwell IV', qty: 3 }, { name: 'Sherman Firefly VC', qty: 1 }] },
@@ -7683,8 +8198,8 @@ const HISTORICAL_ORGS = [
   {
     id: 'br-churchill-squadron', name: 'Churchill Squadron',
     nation: 'Britain', era: '1943–45',
-    note: 'Churchill infantry tank squadron of the independent armoured brigades — designed to work directly with infantry, not exploit breakthroughs. Heavily armoured, slow, and formidable in the infantry support role. Fought in Italy and NW Europe.',
-    platoons: [
+    note: 'Churchill infantry tank squadron of the independent armoured brigades, designed to work directly with infantry, not exploit breakthroughs. Heavily armoured, slow, and formidable in the infantry support role. Fought in Italy and NW Europe.',
+    combatPlatoons: [
       { id: 'churchill-troop', name: 'Churchill Troop',
         note: '3 Churchill IVs. Extremely heavy armour made them difficult for most German AT guns to defeat frontally.',
         teams: [{ name: 'Churchill IV', qty: 3 }] },
@@ -7692,10 +8207,13 @@ const HISTORICAL_ORGS = [
         note: 'Sherman Firefly VC assigned to provide long-range anti-tank punch the Churchill lacked.',
         teams: [{ name: 'Sherman Firefly VC', qty: 2 }] },
     ],
-    attachments: [
+    weaponsPlatoons: [],
+    regimentalSupport: [
       { id: 'infantry-platoon', name: 'Rifle Platoon',
-        note: 'Infantry working directly alongside the Churchills — the classic infantry-tank co-operation role.',
+        note: 'Infantry working directly alongside the Churchills in the classic infantry-tank co-operation role.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'PIAT Team', qty: 1 }, { name: '2" Mortar Team', qty: 1 }, { name: 'Bren/Rifle Team', qty: 6 }] },
+    ],
+    divisionalSupport: [
       { id: 'at-troop', name: 'Anti-Tank Troop (SP)',
         note: 'M10C Achilles providing long-range AT support to the Churchill squadron.',
         teams: [{ name: 'M10C 17-pdr SP', qty: 2 }] },
@@ -7708,6 +8226,7 @@ const HISTORICAL_ORGS = [
 
 let orgSelectedNation = 'United States';
 let orgExpandedFormation = null;
+let orgLockedFormation = null; // set once first tiered platoon is added
 let orgExpandedAttachments = new Set();
 
 function selectOrgNation(nation) {
@@ -7731,6 +8250,25 @@ function toggleOrgAttachments(id) {
   renderOrgBrowser();
 }
 
+function getOrgSlots() {
+  const c = platoons.filter(p => p.tier === 'combat').length;
+  return {
+    combat:     Infinity,
+    weapons:    c,
+    regimental: c,
+    divisional: 1 + Math.floor(c / 3),
+  };
+}
+
+function getOrgUsed() {
+  return {
+    combat:     platoons.filter(p => p.tier === 'combat').length,
+    weapons:    platoons.filter(p => p.tier === 'weapons').length,
+    regimental: platoons.filter(p => p.tier === 'regimental').length,
+    divisional: platoons.filter(p => p.tier === 'divisional').length,
+  };
+}
+
 function renderOrgBrowser() {
   const container = document.getElementById('org-browser-body');
   if (!container) return;
@@ -7743,48 +8281,60 @@ function renderOrgBrowser() {
     </button>`
   ).join('');
 
+  const slots = getOrgSlots();
+  const used  = getOrgUsed();
+
+  const platoonRows = (pl, tier, tierFull) => pl.map(p => {
+    const disabled = tierFull ? ' disabled class="org-add-btn org-add-btn-full"' : ' class="org-add-btn"';
+    return `
+    <div class="org-platoon-row">
+      <div class="org-platoon-info">
+        <div class="org-platoon-name">${p.name}</div>
+        <div class="org-platoon-teams">${p.teams.map(t => `${t.qty}× ${t.name}`).join(' · ')}</div>
+        ${p.note ? `<div class="org-platoon-hist">${p.note}</div>` : ''}
+      </div>
+      <button${disabled} onclick="addPlatoonToOrgBuilder('${p._fid}','${p.id}','${tier}')">+ Add</button>
+    </div>
+  `}).join('');
+
+  const tierSection = (label, tier, pl, fid) => {
+    if (pl.length === 0) return '';
+    const taggedPl = pl.map(p => ({ ...p, _fid: fid }));
+    const slotLabel = tier === 'combat'
+      ? ''
+      : ` <span class="org-tier-slots">${used[tier]} / ${slots[tier] === Infinity ? '∞' : slots[tier]} slots</span>`;
+    const full = tier !== 'combat' && used[tier] >= slots[tier];
+    return `
+      <div class="org-tier-header${full ? ' org-tier-full' : ''}">
+        <span class="org-tier-label">${label}</span>${slotLabel}
+      </div>
+      <div class="org-platoon-list open">
+        ${platoonRows(taggedPl, tier, full)}
+      </div>
+    `;
+  };
+
   const formationHTML = formations.map(f => {
     const open = orgExpandedFormation === f.id;
-    const attachOpen = orgExpandedAttachments.has(f.id);
-    const attachments = f.attachments || [];
-    const totalTypes = f.platoons.length + attachments.length;
-
-    const platoonRows = pl => pl.map(p => `
-      <div class="org-platoon-row">
-        <div class="org-platoon-info">
-          <div class="org-platoon-name">${p.name}</div>
-          <div class="org-platoon-teams">${p.teams.map(t => `${t.qty}× ${t.name}`).join(' · ')}</div>
-          ${p.note ? `<div class="org-platoon-hist">${p.note}</div>` : ''}
-        </div>
-        <button class="org-add-btn" onclick="addPlatoonToOrgBuilder('${f.id}','${p.id}')">+ Add</button>
-      </div>
-    `).join('');
+    const locked = orgLockedFormation && orgLockedFormation !== f.id;
+    const totalTypes = (f.combatPlatoons||[]).length + (f.weaponsPlatoons||[]).length +
+                       (f.regimentalSupport||[]).length + (f.divisionalSupport||[]).length;
 
     return `
-      <div class="org-formation">
-        <div class="org-formation-header" onclick="toggleOrgFormation('${f.id}')">
+      <div class="org-formation${locked ? ' org-formation-locked' : ''}">
+        <div class="org-formation-header" onclick="${locked ? '' : `toggleOrgFormation('${f.id}')`}" style="${locked ? 'cursor:default' : ''}">
           <div>
             <div class="org-formation-name">${f.name}</div>
-            <div class="org-formation-meta">${f.era} · ${totalTypes} platoon types</div>
+            <div class="org-formation-meta">${f.era} · ${totalTypes} platoon types${locked ? ' · 🔒 locked' : ''}</div>
           </div>
-          <span style="color:var(--text3);font-size:11px">${open ? '▲' : '▼'}</span>
+          ${!locked ? `<span style="color:var(--text3);font-size:11px">${open ? '▲' : '▼'}</span>` : ''}
         </div>
-        ${open ? `
+        ${open && !locked ? `
           <div class="org-formation-note">${f.note}</div>
-          <div class="org-platoon-list open">
-            ${platoonRows(f.platoons)}
-          </div>
-          ${attachments.length > 0 ? `
-            <div class="org-attachments-divider" onclick="toggleOrgAttachments('${f.id}')">
-              Commonly Attached
-              <span class="org-attach-arrow">${attachOpen ? '▲' : '▼'}</span>
-            </div>
-            ${attachOpen ? `
-              <div class="org-platoon-list open">
-                ${platoonRows(attachments)}
-              </div>
-            ` : ''}
-          ` : ''}
+          ${tierSection('COMBAT', 'combat', f.combatPlatoons||[], f.id)}
+          ${tierSection('WEAPONS', 'weapons', f.weaponsPlatoons||[], f.id)}
+          ${tierSection('REGIMENTAL', 'regimental', f.regimentalSupport||[], f.id)}
+          ${tierSection('DIVISIONAL', 'divisional', f.divisionalSupport||[], f.id)}
         ` : ''}
       </div>
     `;
@@ -7802,11 +8352,15 @@ function renderOrgBrowser() {
 // Unit ID lookup by nation + display name
 const ORG_UNIT_IDS = {
   'United States': {
-    'Platoon Leader':    'us-leader',
-    'Forward Observer':  'us-fo',
-    'Bazooka Team':      'us-inf-bazooka',
-    'Rifle/MG Team':     'us-inf-rifle-mg',
-    'LMG Section':       'us-inf-mg',
+    'Platoon Leader':      'us-leader',
+    'Forward Observer':    'us-fo',
+    'Bazooka Team':        'us-inf-bazooka',
+    'Rifle/MG Team':       'us-inf-rifle-mg',
+    'LMG Section':         'us-inf-mg',
+    'M1917/M1919 HMG':     'us-gun-hmg',
+    'M5 3in Gun':          'us-gun-3in',
+    '155mm Howitzer':      'us-gun-155mm',
+    'Jeep':                'us-transport-jeep',
     '60mm Mortar Team':  'us-gun-60mm-mortar',
     '81mm Mortar Team':  'us-gun-81mm-mortar',
     '57mm AT Gun':       'us-gun-57mm',
@@ -7884,23 +8438,779 @@ const ORG_UNIT_IDS = {
   },
 };
 
-function addPlatoonToOrgBuilder(formationId, platoonId) {
+function addPlatoonToOrgBuilder(formationId, platoonId, tier) {
   const f = HISTORICAL_ORGS.find(o => o.id === formationId);
-  const p = f && (f.platoons.find(pl => pl.id === platoonId) || (f.attachments || []).find(pl => pl.id === platoonId));
+  const allTiers = [
+    ...(f?.combatPlatoons    || []),
+    ...(f?.weaponsPlatoons   || []),
+    ...(f?.regimentalSupport || []),
+    ...(f?.divisionalSupport || []),
+  ];
+  const p = f && allTiers.find(pl => pl.id === platoonId);
   if (!f || !p) return;
+
+  // Enforce formation lock
+  if (orgLockedFormation && orgLockedFormation !== formationId) {
+    showToast('Remove all org platoons first to switch formations.', 'warning');
+    return;
+  }
+
+  if (tier && tier !== 'combat') {
+    const slots = getOrgSlots();
+    const used  = getOrgUsed();
+    if (used[tier] >= slots[tier]) {
+      const labels = { weapons: 'Weapons', regimental: 'Regimental', divisional: 'Divisional' };
+      showToast(`No ${labels[tier]} slots available. Add more combat platoons first.`, 'warning');
+      return;
+    }
+  }
 
   const nationMap = ORG_UNIT_IDS[f.nation] || {};
   const teams = p.teams
     .map(t => ({ unitId: nationMap[t.name], qty: t.qty }))
     .filter(t => t.unitId && allUnits.find(u => u.id === t.unitId));
 
+  // Auto-populate force metadata on the very first org platoon added
+  if (!orgLockedFormation) {
+    const ORG_FORCE_TYPE = {
+      'us-rifle-company':            'Infantry',
+      'us-airborne-company':         'Airborne',
+      'us-armored-infantry-company': 'Mechanized',
+      'us-td-company':               'Armored',
+      'us-tank-company':             'Armored',
+      'de-grenadier-company':        'Infantry',
+      'de-fallschirmjager-company':  'Airborne',
+      'de-panzergrenadier-company':  'Mechanized',
+      'de-panzer-company':           'Armored',
+      'de-heavy-panzer-company':     'Armored',
+      'sv-strelkovy-company':        'Infantry',
+      'sv-guards-rifle-company':     'Infantry',
+      'sv-tankovy-company':          'Armored',
+      'sv-isu-company':              'Armored',
+      'sv-heavy-tank-company':       'Armored',
+      'br-rifle-company':            'Infantry',
+      'br-airborne-company':         'Airborne',
+      'br-motor-company':            'Mechanized',
+      'br-armoured-squadron':        'Armored',
+      'br-churchill-squadron':       'Armored',
+    };
+    // Name
+    const nameEl = document.getElementById('force-name');
+    if (!nameEl.value.trim()) nameEl.value = f.name;
+    // Year — take the first 4-digit year from the era string
+    if (!forceYear) {
+      const m = (f.era || '').match(/\d{4}/);
+      if (m) {
+        forceYear = parseInt(m[0]);
+        document.getElementById('force-year').value = forceYear;
+      }
+    }
+    // Quality — default Regular
+    setForceQuality('Regular');
+    // Force type
+    const fType = ORG_FORCE_TYPE[formationId];
+    if (fType) { forceType = null; setForceType(fType); } // reset first so toggle lands correctly
+  }
+
   platoonCounter++;
   const id = `pl-${platoonCounter}`;
-  platoons.push({ id, name: p.name, teams, quality: null });
+  platoons.push({ id, name: p.name, teams, quality: null, tier: tier || null, formationId });
+  if (!orgLockedFormation) orgLockedFormation = formationId;
   activePlatoonId = id;
   updateForceUI();
+  renderOrgBrowser();
   setForcePanel(true);
   showToast(`${p.name} added to force.`, 'success');
+}
+
+// ── FPP ───────────────────────────────────────────────────────────────────────
+
+function esc(str) {
+  return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+let fppState = {
+  step: 'setup',
+  a: { name: '', platoons: [], bl: 0, vehicleCount: 0 },
+  b: { name: '', platoons: [], bl: 0, vehicleCount: 0, forceId: null },
+  rankByA: [], rankByB: [],
+  pairings: [], extraA: 0, extraB: 0,
+  scores: { a: 0, b: 0 },
+  finalBL: { a: 0, b: 0 },
+  attacker: null,
+};
+
+let gameMode = {
+  active: false,
+  a: { name: '', bp: 0, bl: 0, hidden: true, rolls: [] },
+  b: { name: '', bp: 0, bl: 0, hidden: true, rolls: [] },
+};
+
+function countVehicleTeams(platoonList) {
+  let count = 0;
+  for (const pl of platoonList) {
+    for (const t of (pl.teams || [])) {
+      const unit = allUnits.find(u => u.id === t.unitId);
+      if (unit && ['Tank','Vehicle','SP Artillery','Tank Destroyer','Armored Car','Transport'].includes(unit.type)) {
+        count += (t.qty || 1);
+      }
+    }
+  }
+  return count;
+}
+
+function countCombatTeams(platoon) {
+  const skip = ['Platoon Leader', 'Forward Observer'];
+  return (platoon.teams || [])
+    .filter(t => !skip.includes(t.name))
+    .reduce((s, t) => s + (t.qty || 1), 0);
+}
+
+// Step pip indicator — pass the active step number (1–5)
+function fppStepIndicator(active) {
+  return `<div class="fpp-steps">` +
+    [1,2,3,4,5].map((n, i) => {
+      const pip = `<div class="fpp-pip ${n < active ? 'done' : n === active ? 'active' : ''}"></div>`;
+      const line = i < 4 ? `<div class="fpp-pip-line ${n < active ? 'done' : ''}"></div>` : '';
+      return pip + line;
+    }).join('') +
+  `</div>`;
+}
+
+function resetFPP() {
+  fppState.step = 'setup';
+  fppState.a = { name: fppState.a.name, platoons: [], bl: 0, vehicleCount: 0 };
+  fppState.b = { name: fppState.b.name, platoons: [], bl: 0, vehicleCount: 0 };
+  fppState.rankByA = []; fppState.rankByB = []; fppState.pairings = [];
+  fppState.scores = null; fppState.finalBL = null;
+  renderFPP();
+}
+
+function renderFPP() {
+  const body = document.getElementById('fpp-body');
+  if (!body) return;
+  switch (fppState.step) {
+    case 'setup':    renderFPPSetup(body);       break;
+    case 'rank-a':   renderFPPRank(body, 'a');    break;
+    case 'rank-b':   renderFPPRank(body, 'b');    break;
+    case 'pairings': renderFPPPairings(body);     break;
+    case 'result':   renderFPPResult(body);       break;
+  }
+}
+
+function renderFPPSetup(body) {
+  const aName   = fppState.a.name || (currentUser?.displayName || '');
+  const bLoaded = fppState.b.platoons.length > 0;
+  const hasRun  = fppState.scores != null;
+  body.innerHTML = `
+    ${fppStepIndicator(1)}
+    <div class="fpp-step-header">
+      <div class="fpp-step-title">FORCE PARITY PROCEDURE</div>
+      <div class="fpp-step-sub">Size up the match before battle. Each player ranks the opponent's force. The stronger side fights with a reduced Break Limit.</div>
+    </div>
+    <div class="fpp-setup-grid">
+      <div class="fpp-player-setup fpp-allied">
+        <div class="fpp-player-label">PLAYER A: YOU</div>
+        <input class="fpp-name-input" id="fpp-name-a" placeholder="Your name…" value="${esc(aName)}">
+        <div class="fpp-force-summary">
+          <div class="fpp-force-name">${esc(document.getElementById('force-name')?.value || 'Current Force')}</div>
+          <div class="fpp-force-meta">${platoons.length} platoons · BL ${calcBreakLimit(platoons.length)}</div>
+        </div>
+      </div>
+      <div class="fpp-vs">VS</div>
+      <div class="fpp-player-setup fpp-axis">
+        <div class="fpp-player-label">PLAYER B: OPPONENT</div>
+        <input class="fpp-name-input" id="fpp-name-b" placeholder="Opponent name…" value="${esc(fppState.b.name)}">
+        <button class="fpp-load-btn" onclick="openForcePicker()">
+          ${bLoaded ? `✓ ${fppState.b.platoons.length} platoons loaded` : '+ Load Opponent Force'}
+        </button>
+      </div>
+    </div>
+    <button class="fpp-next-btn" onclick="startFPP()" ${!bLoaded || !platoons.length ? 'disabled' : ''}>
+      Begin Ranking →
+    </button>
+    ${hasRun ? '<button class="fpp-restart-btn" onclick="resetFPP()">↺ Start Over</button>' : ''}
+  `;
+}
+
+function startFPP() {
+  fppState.a.name = document.getElementById('fpp-name-a')?.value.trim() || 'Player A';
+  fppState.b.name = document.getElementById('fpp-name-b')?.value.trim() || 'Player B';
+  fppState.a.platoons = JSON.parse(JSON.stringify(platoons));
+  fppState.a.bl = calcBreakLimit(fppState.a.platoons.length);
+  fppState.b.bl = calcBreakLimit(fppState.b.platoons.length);
+  fppState.a.vehicleCount = countVehicleTeams(fppState.a.platoons);
+  fppState.b.vehicleCount = countVehicleTeams(fppState.b.platoons);
+  fppState.attacker = fppState.a.vehicleCount >= fppState.b.vehicleCount ? 'a' : 'b';
+  fppState.rankByA = [...fppState.b.platoons];
+  fppState.rankByB = [...fppState.a.platoons];
+  fppState.step = 'rank-a';
+  renderFPP();
+}
+
+function renderFPPRank(body, player) {
+  const opponent = player === 'a' ? fppState.b : fppState.a;
+  const ranker   = player === 'a' ? fppState.a : fppState.b;
+  const ranked   = player === 'a' ? fppState.rankByA : fppState.rankByB;
+  body.innerHTML = `
+    ${fppStepIndicator(player === 'a' ? 2 : 3)}
+    <div class="fpp-step-header">
+      <div class="fpp-step-title">${esc(ranker.name)}: Rank ${esc(opponent.name)}'s Force</div>
+      <div class="fpp-step-sub">Drag to order from <strong>most threatening</strong> at the top to least threatening at the bottom. Hand the device to ${esc(ranker.name)}.</div>
+    </div>
+    <div class="fpp-rank-list" id="fpp-rank-list">
+      ${ranked.map((pl, i) => `
+        <div class="fpp-rank-item" data-index="${i}">
+          <span class="fpp-rank-num">${i + 1}</span>
+          <div class="fpp-rank-info">
+            <div class="fpp-rank-name">${esc(pl.name)}</div>
+            <div class="fpp-rank-teams">${(pl.teams || []).map(t => { const u = allUnits.find(u => u.id === t.unitId); return `${t.qty}× ${u?.name ?? t.unitId ?? '?'}`; }).join(' · ')}</div>
+          </div>
+          <span class="fpp-rank-handle">⠿</span>
+        </div>
+      `).join('')}
+    </div>
+    <button class="fpp-next-btn" onclick="confirmRanking('${player}')">Confirm Ranking →</button>
+  `;
+  const list = document.getElementById('fpp-rank-list');
+  if (list) {
+    Sortable.create(list, {
+      handle: '.fpp-rank-handle',
+      animation: 150,
+      onEnd() {
+        list.querySelectorAll('.fpp-rank-item').forEach((el, i) => {
+          el.querySelector('.fpp-rank-num').textContent = i + 1;
+        });
+      }
+    });
+  }
+}
+
+function confirmRanking(player) {
+  const list = document.getElementById('fpp-rank-list');
+  const items = [...list.querySelectorAll('.fpp-rank-item')];
+  const source = player === 'a' ? fppState.b.platoons : fppState.a.platoons;
+  const reordered = items.map(el => source[parseInt(el.dataset.index)]);
+  if (player === 'a') {
+    fppState.rankByA = reordered;
+    fppState.step = 'rank-b';
+  } else {
+    fppState.rankByB = reordered;
+    computePairings();
+    fppState.step = 'pairings';
+  }
+  renderFPP();
+}
+
+function computePairings() {
+  const len = Math.min(fppState.rankByA.length, fppState.rankByB.length);
+  fppState.pairings = Array.from({ length: len }, (_, i) => ({
+    a: fppState.rankByB[i],
+    b: fppState.rankByA[i],
+    winner: null,
+  }));
+  fppState.extraA = Math.max(0, fppState.rankByB.length - fppState.rankByA.length);
+  fppState.extraB = Math.max(0, fppState.rankByA.length - fppState.rankByB.length);
+}
+
+function computeLiveTally() {
+  const defender = fppState.attacker === 'a' ? 'b' : 'a';
+  let sA = fppState.extraA || 0, sB = fppState.extraB || 0;
+  for (const p of fppState.pairings) {
+    if (!p.winner) continue;
+    const aT = countCombatTeams(p.a), bT = countCombatTeams(p.b);
+    const w = p.winner === 'defender' ? defender : p.winner;
+    if (w === 'a') { sA += 1; if (aT > bT) sA += 1; }
+    else if (w === 'b') { sB += 1; if (bT > aT) sB += 1; }
+  }
+  return { a: sA, b: sB };
+}
+
+function renderFPPPairings(body) {
+  const allResolved  = fppState.pairings.every(p => p.winner);
+  const attacker     = fppState.attacker;
+  const defender     = attacker === 'a' ? 'b' : 'a';
+  const attackerName = fppState[attacker].name;
+  const defenderName = fppState[defender].name;
+  const tally        = computeLiveTally();
+  const aLeading     = tally.a > tally.b, bLeading = tally.b > tally.a;
+  body.innerHTML = `
+    ${fppStepIndicator(4)}
+    <div class="fpp-step-header">
+      <div class="fpp-step-title">Compare Pairings</div>
+      <div class="fpp-step-sub">Which platoon is more threatening to its opponent? Award <strong>Def. Advantage</strong> if neither clearly wins.</div>
+    </div>
+    <div class="fpp-score-tally">
+      <div class="fpp-tally-block">
+        <div class="fpp-tally-label">${esc(fppState.a.name)}</div>
+        <div class="fpp-tally-num ${aLeading ? 'leading' : ''}">${tally.a}</div>
+      </div>
+      <div class="fpp-tally-sep">vs</div>
+      <div class="fpp-tally-block">
+        <div class="fpp-tally-label">${esc(fppState.b.name)}</div>
+        <div class="fpp-tally-num ${bLeading ? 'leading' : ''}">${tally.b}</div>
+      </div>
+    </div>
+    <div class="fpp-col-headers">
+      <div class="fpp-col-a ${attacker === 'a' ? 'fpp-col-attacker' : 'fpp-col-defender'}">
+        ${attacker === 'a' ? '⚔ ' : '🛡 '}${esc(fppState.a.name)}
+      </div>
+      <div class="fpp-col-b ${attacker === 'b' ? 'fpp-col-attacker' : 'fpp-col-defender'}">
+        ${esc(fppState.b.name)}${attacker === 'b' ? ' ⚔' : ' 🛡'}
+      </div>
+    </div>
+    <div class="fpp-pairings-list">
+      ${fppState.pairings.map((p, i) => renderPairingRow(p, i)).join('')}
+    </div>
+    ${(fppState.extraA || fppState.extraB) ? `
+      <div class="fpp-extra-units">
+        Extra Units: ${fppState.extraA ? `${esc(fppState.a.name)} +${fppState.extraA} pt${fppState.extraA > 1 ? 's' : ''}` : ''}${fppState.extraA && fppState.extraB ? ' · ' : ''}${fppState.extraB ? `${esc(fppState.b.name)} +${fppState.extraB} pt${fppState.extraB > 1 ? 's' : ''}` : ''}
+      </div>
+    ` : ''}
+    <button class="fpp-next-btn" onclick="finalizeFPP()" ${!allResolved ? 'disabled' : ''}>
+      Calculate Break Limits →
+    </button>
+  `;
+}
+
+function renderPairingRow(p, i) {
+  const aTeams = countCombatTeams(p.a);
+  const bTeams = countCombatTeams(p.b);
+  const w = p.winner;
+  const defender = fppState.attacker === 'a' ? 'b' : 'a';
+  const effectiveWinner = w === 'defender' ? defender : w;
+  const sizeBonus = effectiveWinner === 'a' ? aTeams > bTeams : effectiveWinner === 'b' ? bTeams > aTeams : false;
+  const truncate = n => n.length > 9 ? n.slice(0, 8) + '…' : n;
+  return `
+    <div class="fpp-pairing-row ${w ? 'fpp-pairing-resolved' : ''}">
+      <div class="fpp-pairing-num">${i + 1}</div>
+      <div class="fpp-pairing-unit ${effectiveWinner === 'a' ? 'fpp-unit-winner' : ''}">
+        <div class="fpp-unit-player">${esc(fppState.a.name)}</div>
+        <div class="fpp-unit-name">${esc(p.a.name)}</div>
+        <div class="fpp-unit-teams">${aTeams} team${aTeams !== 1 ? 's' : ''}</div>
+      </div>
+      <div class="fpp-pairing-btns">
+        <button class="fpp-winner-btn ${w === 'a' ? 'active' : ''}" onclick="setPairingWinner(${i},'a')">◀ ${esc(truncate(fppState.a.name))}</button>
+        <button class="fpp-def-btn   ${w === 'defender' ? 'active' : ''}" onclick="setPairingWinner(${i},'defender')">Def. Adv.</button>
+        <button class="fpp-winner-btn ${w === 'b' ? 'active' : ''}" onclick="setPairingWinner(${i},'b')">${esc(truncate(fppState.b.name))} ▶</button>
+      </div>
+      <div class="fpp-pairing-unit ${effectiveWinner === 'b' ? 'fpp-unit-winner' : ''}">
+        <div class="fpp-unit-player">${esc(fppState.b.name)}</div>
+        <div class="fpp-unit-name">${esc(p.b.name)}</div>
+        <div class="fpp-unit-teams">${bTeams} team${bTeams !== 1 ? 's' : ''}</div>
+      </div>
+      ${sizeBonus ? '<div class="fpp-size-bonus-row">+1 Size Advantage</div>' : ''}
+    </div>
+  `;
+}
+
+function setPairingWinner(index, winner) {
+  fppState.pairings[index].winner = winner;
+  renderFPPPairings(document.getElementById('fpp-body'));
+}
+
+function finalizeFPP() {
+  const defender = fppState.attacker === 'a' ? 'b' : 'a';
+  let scoreA = fppState.extraA, scoreB = fppState.extraB;
+  for (const p of fppState.pairings) {
+    const aTeams = countCombatTeams(p.a);
+    const bTeams = countCombatTeams(p.b);
+    const winner = p.winner === 'defender' ? defender : p.winner;
+    if (winner === 'a') { scoreA += 1; if (aTeams > bTeams) scoreA += 1; }
+    else if (winner === 'b') { scoreB += 1; if (bTeams > aTeams) scoreB += 1; }
+  }
+  fppState.scores = { a: scoreA, b: scoreB };
+  let blA = fppState.a.bl, blB = fppState.b.bl;
+  const diff = scoreA - scoreB;
+  if (diff > 0) blA = Math.max(1, blA - diff * 2);
+  else if (diff < 0) blB = Math.max(1, blB - Math.abs(diff) * 2);
+  fppState.finalBL = { a: blA, b: blB };
+  fppState.step = 'result';
+  renderFPP();
+}
+
+function renderFPPResult(body) {
+  const { a, b, scores, finalBL } = fppState;
+  const diff   = Math.abs(scores.a - scores.b);
+  const higher = scores.a > scores.b ? a : scores.b > scores.a ? b : null;
+  const lower  = higher === a ? b : a;
+  const reduction = diff * 2;
+  let summaryText;
+  if (!higher) {
+    summaryText = 'Forces are evenly matched. No break limit adjustment.';
+  } else {
+    summaryText = `${esc(higher.name)} scored ${diff} more pairing${diff !== 1 ? 's' : ''}. ${esc(lower.name)}'s Break Limit is reduced by ${reduction}.`;
+  }
+  body.innerHTML = `
+    ${fppStepIndicator(5)}
+    <div class="fpp-step-header">
+      <div class="fpp-step-title">Parity Complete</div>
+    </div>
+    <div class="fpp-result-summary">${summaryText}</div>
+    <div class="fpp-result-grid">
+      <div class="fpp-result-player fpp-allied">
+        <div class="fpp-result-name">${esc(a.name)}</div>
+        <div class="fpp-result-score">${scores.a} pt${scores.a !== 1 ? 's' : ''}</div>
+        <div class="fpp-result-bl-label">Break Limit</div>
+        <div class="fpp-result-bl-value">${finalBL.a}</div>
+        ${finalBL.a < a.bl ? `<div class="fpp-result-bl-note">−${a.bl - finalBL.a} from ${a.bl}</div>` : ''}
+      </div>
+      <div class="fpp-result-player fpp-axis">
+        <div class="fpp-result-name">${esc(b.name)}</div>
+        <div class="fpp-result-score">${scores.b} pt${scores.b !== 1 ? 's' : ''}</div>
+        <div class="fpp-result-bl-label">Break Limit</div>
+        <div class="fpp-result-bl-value">${finalBL.b}</div>
+        ${finalBL.b < b.bl ? `<div class="fpp-result-bl-note">−${b.bl - finalBL.b} from ${b.bl}</div>` : ''}
+      </div>
+    </div>
+    <div class="fpp-result-actions">
+      <button class="fpp-next-btn" onclick="startGame()">Start Game →</button>
+      <button class="fpp-back-btn" onclick="fppState.step='pairings'; renderFPP()">← Redo Pairings</button>
+      <button class="fpp-restart-btn" onclick="resetFPP()">↺ Start Over</button>
+    </div>
+  `;
+}
+
+// ── GAME MODE ─────────────────────────────────────────────────────────────────
+
+function startGame() {
+  gameMode.a = { name: fppState.a.name, bp: 0, bl: fppState.finalBL.a, scoreVisible: false, rolls: [], dieRolls: [], lastDie: null, lastRoll: null };
+  gameMode.b = { name: fppState.b.name, bp: 0, bl: fppState.finalBL.b, scoreVisible: false, rolls: [], dieRolls: [], lastDie: null, lastRoll: null };
+  gameMode.active = true;
+  document.getElementById('game-overlay').style.display = 'flex';
+  renderGame();
+}
+
+function renderGame() {
+  const body = document.getElementById('game-body');
+  if (!body) return;
+  body.innerHTML = `
+    <div class="game-header">
+      <span class="game-title">HAIL OF FIRE // BREAK POINT TRACKER</span>
+      <button class="game-close-btn" onclick="endGame()">End Game</button>
+    </div>
+    <div class="game-panels">
+      ${renderGamePanel('a', 'gp-allied')}
+      ${renderGamePanel('b', 'gp-axis')}
+    </div>
+  `;
+}
+
+function renderGamePanel(player, sideClass) {
+  const g = gameMode[player];
+  const broken   = g.bp >= g.bl;
+  const pct      = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
+  const barColor = pct < 50 ? '#6b9b6b' : pct < 80 ? '#c9a227' : '#c94444';
+  const lastRollHTML = g.lastDie != null
+    ? `<span class="game-last-roll-value"><span class="die">🎲 ${g.lastDie}</span> &rarr; <span class="bp">${g.lastRoll} BP</span></span>`
+    : `<span class="game-last-roll-value">--</span>`;
+  const chipsHTML = g.rolls.map(r => `<span class="game-draw-chip bp-${r}">${r} BP</span>`).join('');
+  return `
+    <div class="game-panel ${sideClass}" id="game-panel-${player}">
+      <div class="game-player-name">${esc(g.name)}</div>
+      <div class="game-bl">Break Limit: ${g.bl}</div>
+      <div class="game-last-roll" id="game-last-roll-${player}">
+        <span class="game-last-roll-label">Last Roll</span>
+        ${lastRollHTML}
+      </div>
+      <div class="game-btn-row">
+        <button class="game-generate-btn" id="game-gen-btn-${player}" onclick="rollBP('${player}')">Generate<br>Break Points</button>
+        <button class="game-toggle-score-btn" onclick="toggleGameScore('${player}')">${g.scoreVisible ? 'Hide Score' : 'Show Score'}</button>
+      </div>
+      ${g.rolls.length ? `<button class="game-undo-btn" id="game-undo-${player}" onclick="undoLastRoll('${player}')">↩ Undo Last Roll</button>` : ''}
+      <div class="game-score-section ${g.scoreVisible ? 'visible' : ''}" id="game-score-${player}">
+        ${broken ? `<div class="game-breaking-label" id="game-breaking-${player}">⚑ Breaking</div>` : `<div class="game-breaking-label" id="game-breaking-${player}" style="display:none">⚑ Breaking</div>`}
+        <p class="game-score-label">Break Points</p>
+        <p class="game-score-value${broken ? ' game-bp-broken' : ''}">${g.bp} / ${g.bl}</p>
+        <div class="game-progress-bar"><div class="game-progress-fill" style="width:${pct}%;background:${barColor}"></div></div>
+        <p class="game-draws-label">History</p>
+        <div class="game-draws-history">${chipsHTML}</div>
+      </div>
+      ${!g.scoreVisible ? `<div class="game-score-hidden">Score hidden</div>` : ''}
+    </div>
+  `;
+}
+
+function toggleGameScore(player) {
+  gameMode[player].scoreVisible = !gameMode[player].scoreVisible;
+  const section = document.getElementById(`game-score-${player}`);
+  const btn = document.querySelector(`#game-panel-${player} .game-toggle-score-btn`);
+  if (section) section.classList.toggle('visible', gameMode[player].scoreVisible);
+  if (btn) btn.textContent = gameMode[player].scoreVisible ? 'Hide Score' : 'Show Score';
+}
+
+function rollBP(player) {
+  const die  = Math.floor(Math.random() * 6) + 1;
+  const bp   = die <= 3 ? 1 : die <= 5 ? 2 : 3;
+  const g    = gameMode[player];
+  const wasAlreadyBroken = g.bp >= g.bl;
+  g.bp += bp;
+  g.rolls.push(bp);
+  g.dieRolls.push(die);
+  g.lastDie  = die;
+  g.lastRoll = bp;
+
+  // Shake the Generate button
+  const btn = document.getElementById(`game-gen-btn-${player}`);
+  if (btn) {
+    btn.classList.remove('rolling');
+    void btn.offsetWidth;
+    btn.classList.add('rolling');
+    setTimeout(() => btn.classList.remove('rolling'), 350);
+  }
+
+  // Show/update undo button
+  let undoBtn = document.getElementById(`game-undo-${player}`);
+  if (!undoBtn) {
+    const panel = document.getElementById(`game-panel-${player}`);
+    const btnRow = panel?.querySelector('.game-btn-row');
+    if (btnRow) {
+      undoBtn = document.createElement('button');
+      undoBtn.className = 'game-undo-btn';
+      undoBtn.id = `game-undo-${player}`;
+      undoBtn.textContent = '↩ Undo Last Roll';
+      undoBtn.onclick = () => undoLastRoll(player);
+      btnRow.after(undoBtn);
+    }
+  }
+
+  // Update Last Roll display in-place
+  const lastRollEl = document.getElementById(`game-last-roll-${player}`);
+  if (lastRollEl) {
+    lastRollEl.innerHTML = `<span class="game-last-roll-label">Last Roll</span>
+      <span class="game-last-roll-value"><span class="die">🎲 ${die}</span> &rarr; <span class="bp">${bp} BP</span></span>`;
+  }
+
+  // Update score section in-place
+  const section = document.getElementById(`game-score-${player}`);
+  if (section) {
+    const scoreEl = section.querySelector('.game-score-value');
+    const fillEl  = section.querySelector('.game-progress-fill');
+    const histEl  = section.querySelector('.game-draws-history');
+    const nowBroken = g.bp >= g.bl;
+    const pct = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
+    const barColor = pct < 50 ? '#6b9b6b' : pct < 80 ? '#c9a227' : '#c94444';
+    if (scoreEl) { scoreEl.textContent = `${g.bp} / ${g.bl}`; scoreEl.classList.toggle('game-bp-broken', nowBroken); }
+    if (fillEl)  { fillEl.style.width = pct + '%'; fillEl.style.background = barColor; }
+    if (histEl)  histEl.innerHTML = g.rolls.map(r => `<span class="game-draw-chip bp-${r}">${r} BP</span>`).join('');
+  }
+
+  // Breaking label (hidden inside score section — only visible when score is revealed)
+  const nowBroken = g.bp >= g.bl;
+  const breakingEl = document.getElementById(`game-breaking-${player}`);
+  if (breakingEl) breakingEl.style.display = nowBroken ? '' : 'none';
+
+  // Overlay flash fires once on first break
+  if (nowBroken && !wasAlreadyBroken) {
+    const overlay = document.getElementById('game-overlay');
+    if (overlay) {
+      overlay.classList.remove('broken-flash');
+      void overlay.offsetWidth;
+      overlay.classList.add('broken-flash');
+      setTimeout(() => overlay.classList.remove('broken-flash'), 1500);
+    }
+  }
+
+  // Sound + visual burst
+  playGunBurst(player);
+  shootGameBullets(player);
+}
+
+// ── AUDIO ──────────────────────────────────────────────────────────────────────
+// Synthesised machine-gun bursts via Web Audio API — no external files needed.
+// Allied panel → 3 slower shots (M1 Garand cadence)
+// Axis panel   → 5 faster shots  (MG42 cadence)
+
+let _audioCtx = null;
+function getAudioCtx() {
+  if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  // Resume if suspended (browser autoplay policy)
+  if (_audioCtx.state === 'suspended') _audioCtx.resume();
+  return _audioCtx;
+}
+
+function playGunBurst(player) {
+  try {
+    const ctx     = getAudioCtx();
+    const allied  = player === 'a';
+    const shots   = allied ? 3 : 6;        // fewer, heavier vs rapid fire
+    const gap     = allied ? 0.13 : 0.055; // seconds between shots
+    const freq    = allied ? 600  : 1100;  // filter cutoff — lower=heavier boom
+
+    for (let i = 0; i < shots; i++) {
+      const t = ctx.currentTime + i * gap;
+
+      // White-noise buffer (~80 ms)
+      const len = Math.ceil(ctx.sampleRate * 0.08);
+      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      const d   = buf.getChannelData(0);
+      for (let j = 0; j < len; j++) d[j] = Math.random() * 2 - 1;
+
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+
+      // Low-pass shapes the crack/boom character
+      const lpf = ctx.createBiquadFilter();
+      lpf.type = 'lowpass';
+      lpf.frequency.value = freq;
+      lpf.Q.value = 0.8;
+
+      // Fast attack, exponential decay
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0, t);
+      gain.gain.linearRampToValueAtTime(allied ? 0.9 : 0.7, t + 0.003);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.075);
+
+      src.connect(lpf);
+      lpf.connect(gain);
+      gain.connect(ctx.destination);
+      src.start(t);
+      src.stop(t + 0.08);
+    }
+  } catch (e) { /* silently ignore — audio not available */ }
+}
+
+function undoLastRoll(player) {
+  const g = gameMode[player];
+  if (!g.rolls.length) return;
+  const lastBP  = g.rolls.pop();
+  const lastDie = g.dieRolls.pop();
+  g.bp -= lastBP;
+  g.lastDie  = g.dieRolls.length ? g.dieRolls[g.dieRolls.length - 1] : null;
+  g.lastRoll = g.rolls.length    ? g.rolls[g.rolls.length - 1]        : null;
+
+  // Update Last Roll display
+  const lastRollEl = document.getElementById(`game-last-roll-${player}`);
+  if (lastRollEl) {
+    lastRollEl.innerHTML = g.lastDie != null
+      ? `<span class="game-last-roll-label">Last Roll</span><span class="game-last-roll-value"><span class="die">🎲 ${g.lastDie}</span> &rarr; <span class="bp">${g.lastRoll} BP</span></span>`
+      : `<span class="game-last-roll-label">Last Roll</span><span class="game-last-roll-value">--</span>`;
+  }
+
+  // Update score section
+  const section = document.getElementById(`game-score-${player}`);
+  if (section) {
+    const scoreEl = section.querySelector('.game-score-value');
+    const fillEl  = section.querySelector('.game-progress-fill');
+    const histEl  = section.querySelector('.game-draws-history');
+    const stillBroken = g.bp >= g.bl;
+    const pct = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
+    const barColor = pct < 50 ? '#6b9b6b' : pct < 80 ? '#c9a227' : '#c94444';
+    if (scoreEl) { scoreEl.textContent = `${g.bp} / ${g.bl}`; scoreEl.classList.toggle('game-bp-broken', stillBroken); }
+    if (fillEl)  { fillEl.style.width = pct + '%'; fillEl.style.background = barColor; }
+    if (histEl)  histEl.innerHTML = g.rolls.map(r => `<span class="game-draw-chip bp-${r}">${r} BP</span>`).join('');
+  }
+
+  // Update breaking label
+  const breakingEl = document.getElementById(`game-breaking-${player}`);
+  if (breakingEl) breakingEl.style.display = (g.bp >= g.bl) ? '' : 'none';
+
+  // Hide undo button if no rolls left
+  if (!g.rolls.length) {
+    const undoBtn = document.getElementById(`game-undo-${player}`);
+    if (undoBtn) undoBtn.remove();
+  }
+}
+
+function shootGameBullets(player) {
+  const panel = document.getElementById(`game-panel-${player}`);
+  if (!panel) return;
+  const rect = panel.getBoundingClientRect();
+  const count = 8;
+  for (let i = 0; i < count; i++) {
+    setTimeout(() => {
+      const x = rect.left + Math.random() * rect.width;
+      const y = rect.top  + Math.random() * rect.height;
+
+      const flash = document.createElement('div');
+      flash.className = 'game-muzzle-flash';
+      flash.style.cssText = `left:${x - 15}px;top:${y - 15}px`;
+      document.body.appendChild(flash);
+      setTimeout(() => flash.remove(), 120);
+
+      const hole = document.createElement('div');
+      hole.className = 'game-bullet-hole';
+      hole.style.cssText = `left:${x - 10}px;top:${y - 10}px`;
+      document.body.appendChild(hole);
+      setTimeout(() => {
+        hole.classList.add('fade-out');
+        setTimeout(() => hole.remove(), 600);
+      }, 900);
+    }, i * 55);
+  }
+}
+
+function endGame() {
+  gameMode.active = false;
+  document.getElementById('game-overlay').style.display = 'none';
+}
+
+// ── QUICK TRACKER (Field Manual shortcut) ─────────────────────────────────────
+
+function openQuickTracker() {
+  // Pre-fill names from current force if available
+  const myName = (document.getElementById('force-name')?.value || '').trim();
+  if (myName) document.getElementById('qt-name-a').value = myName;
+  document.getElementById('qt-modal').style.display = 'flex';
+  document.getElementById('qt-name-a').focus();
+}
+
+function closeQuickTracker() {
+  document.getElementById('qt-modal').style.display = 'none';
+}
+
+function launchQuickTracker() {
+  const nameA = (document.getElementById('qt-name-a').value || '').trim() || 'Player 1';
+  const nameB = (document.getElementById('qt-name-b').value || '').trim() || 'Player 2';
+  const blA   = Math.max(1, parseInt(document.getElementById('qt-bl-a').value) || 9);
+  const blB   = Math.max(1, parseInt(document.getElementById('qt-bl-b').value) || 9);
+  closeQuickTracker();
+  // Populate gameMode directly, bypassing FPP
+  gameMode.a = { name: nameA, bp: 0, bl: blA, scoreVisible: false, rolls: [], dieRolls: [], lastDie: null, lastRoll: null };
+  gameMode.b = { name: nameB, bp: 0, bl: blB, scoreVisible: false, rolls: [], dieRolls: [], lastDie: null, lastRoll: null };
+  gameMode.active = true;
+  document.getElementById('game-overlay').style.display = 'flex';
+  renderGame();
+}
+
+// ── FORCE PICKER ──────────────────────────────────────────────────────────────
+
+async function openForcePicker() {
+  const modal = document.getElementById('fpp-picker-modal');
+  const list  = document.getElementById('fpp-picker-list');
+  modal.style.display = 'flex';
+  list.innerHTML = '<div class="fpp-picker-loading">Loading forces…</div>';
+  try {
+    const snap = await firebase.database().ref('forces').once('value');
+    const forces = [];
+    snap.forEach(c => { const v = c.val(); if (v && v.published) forces.push({ id: c.key, ...v }); });
+    forces.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+    if (!forces.length) { list.innerHTML = '<div class="fpp-picker-empty">No published forces found. Your opponent can also send you a direct share link from their force builder — no publishing required.</div>'; return; }
+    list.innerHTML = forces.map(f => {
+      const count = toArr(f.platoons).length;
+      return `<div class="fpp-picker-item" onclick="selectOpponentForce('${f.id}')">
+        <div class="fpp-picker-name">${esc(f.name || 'Untitled Force')}</div>
+        <div class="fpp-picker-meta">${esc(f.author || '')} · ${count} platoon${count !== 1 ? 's' : ''} · BL ${f.breakLimit || calcBreakLimit(count)}</div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    list.innerHTML = '<div class="fpp-picker-empty">Could not load forces.</div>';
+  }
+}
+
+function closeForcePicker() {
+  document.getElementById('fpp-picker-modal').style.display = 'none';
+}
+
+async function selectOpponentForce(forceId) {
+  closeForcePicker();
+  const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
+  const data = snap.val();
+  if (!data) return;
+  fppState.b.platoons = toArr(data.platoons);
+  fppState.b.forceId  = forceId;
+  if (!fppState.b.name) fppState.b.name = data.author || '';
+  renderFPP();
 }
 
 firebase.auth().onAuthStateChanged(async (user) => {
@@ -7915,15 +9225,15 @@ firebase.auth().onAuthStateChanged(async (user) => {
     if (isAdmin) {
       await loadRatings();
       document.getElementById('rate-btn').style.display = '';
-      document.getElementById('tab-historical').style.display = '';
     }
     await loadData();
     await checkUrlForce();
     loadFeaturedStrip();
     loadWhatsNew();
-  } else if (!isPreviewMode) {
-    gate.style.display = 'flex';
+  } else {
+    if (!isPreviewMode) gate.style.display = 'flex';
     isSubscriber = false;
+    isAdmin = false;
     updateAuthUI(null, false);
   }
 });
