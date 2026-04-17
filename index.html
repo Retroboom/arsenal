@@ -5443,11 +5443,21 @@ function copyShareUrl() {
   });
 }
 
-function copyFppShareLink() {
-  if (!currentForceId) {
-    showToast('Save your force first.', 'warning');
-    return;
+async function copyFppShareLink() {
+  if (!currentUser) { showToast('Sign in to share your force.', 'warning'); return; }
+  if (platoons.length === 0) { showToast('Add at least one platoon before sharing.', 'warning'); return; }
+
+  // Auto-save so the link always reflects the current force state
+  const data = getForceData();
+  const db = firebase.database();
+  if (currentForceId) {
+    await db.ref(`forces/${currentForceId}`).update(data);
+  } else {
+    const ref = db.ref('forces').push();
+    currentForceId = ref.key;
+    await ref.set({ ...data, id: currentForceId });
   }
+
   const url = `${window.location.origin}${window.location.pathname}?fpp=${currentForceId}`;
   navigator.clipboard.writeText(url).then(() => {
     showToast('FPP link copied — send it to your opponent.', 'success');
