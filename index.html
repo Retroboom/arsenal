@@ -283,7 +283,7 @@
 
   .org-add-btn-full {
     opacity: 0.35;
-    cursor: not-allowed;
+    cursor: help;
   }
 
   .org-slot-tracker {
@@ -7635,7 +7635,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'LMG Section', qty: 2 }, { name: 'Bazooka Team', qty: 2 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: 'Airborne-towed 57mm AT guns, light enough to be dropped by glider or parachute.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '57mm AT Gun', qty: 2 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'M1 57mm Gun Team', qty: 2 }] },
       { id: 'mortar-platoon', name: 'Mortar Platoon',
         note: 'Battalion 81mm mortars, glider-delivered or captured, providing crucial indirect fire.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '81mm Mortar Team', qty: 3 }] },
@@ -7644,10 +7644,10 @@ const HISTORICAL_ORGS = [
     divisionalSupport: [
       { id: 'td-platoon', name: 'Tank Destroyer Platoon',
         note: 'M10 or M36 TDs linked up after breakout, critical once the airhead was relieved.',
-        teams: [{ name: 'M10 3in GMC', qty: 3 }] },
+        teams: [{ name: 'M10 3-in GMC', qty: 3 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Divisional 105mm howitzers in direct support once the lodgement was secure.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '105mm Howitzer', qty: 4 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M2A1 105mm Howitzer Team', qty: 4 }] },
     ]
   },
   {
@@ -7657,7 +7657,7 @@ const HISTORICAL_ORGS = [
     combatPlatoons: [
       { id: 'armored-rifle-platoon', name: 'Armored Rifle Platoon',
         note: 'Rode to the objective in M3 halftracks, dismounted to fight. Bazookas and a light mortar gave each platoon punch.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 2 }, { name: '60mm Mortar Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }, { name: 'M3 Halftrack', qty: 4 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 2 }, { name: '60mm Mortar Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }, { name: 'M2/M3 Half-Track', qty: 4 }] },
     ],
     weaponsPlatoons: [
       { id: 'weapons-platoon', name: 'Weapons Platoon',
@@ -7665,19 +7665,19 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'LMG Section', qty: 2 }, { name: '81mm Mortar Team', qty: 2 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: '57mm AT guns towed behind halftracks, the primary organic anti-tank defence.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '57mm AT Gun', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'M1 57mm Gun Team', qty: 3 }] },
     ],
     regimentalSupport: [],
     divisionalSupport: [
       { id: 'tank-platoon', name: 'Tank Platoon',
         note: 'Shermans working in direct support, the standard combined-arms pairing.',
-        teams: [{ name: 'M4A3 Sherman', qty: 5 }] },
+        teams: [{ name: 'M4 Sherman', qty: 5 }] },
       { id: 'td-platoon', name: 'Tank Destroyer Platoon',
         note: 'M10 or M36 TDs from an independent TD battalion.',
-        teams: [{ name: 'M10 3in GMC', qty: 3 }] },
+        teams: [{ name: 'M10 3-in GMC', qty: 3 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'M7 Priest self-propelled 105mm howitzers, mobile artillery matched to the division\'s tempo.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M7 Priest', qty: 3 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M7 Priest HMC', qty: 3 }] },
     ]
   },
   {
@@ -7687,7 +7687,7 @@ const HISTORICAL_ORGS = [
     combatPlatoons: [
       { id: 'td-platoon', name: 'Tank Destroyer Platoon',
         note: '4 M10 or M36 tank destroyers at full strength. M36 mounting the 90mm gun could defeat Tigers frontally.',
-        teams: [{ name: 'M10 3in GMC', qty: 4 }] },
+        teams: [{ name: 'M10 3-in GMC', qty: 4 }] },
       { id: 'heavy-td-platoon', name: 'Heavy TD Platoon',
         note: 'M36 Jackson mounting the 90mm gun, capable of defeating any German tank at combat ranges.',
         teams: [{ name: 'M36 90mm GMC', qty: 4 }] },
@@ -7695,7 +7695,7 @@ const HISTORICAL_ORGS = [
     weaponsPlatoons: [
       { id: 'recon-platoon', name: 'Recon Platoon',
         note: 'M5A1 Stuarts and jeep teams providing forward reconnaissance for the TD battalion.',
-        teams: [{ name: 'M5A1 Stuart', qty: 3 }] },
+        teams: [{ name: 'M5 Stuart', qty: 3 }] },
       { id: 'infantry-security', name: 'Infantry Security Platoon',
         note: 'Rifle platoon attached to protect TDs from enemy infantry at close range.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 4 }] },
@@ -7704,7 +7704,7 @@ const HISTORICAL_ORGS = [
     divisionalSupport: [
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Divisional 105mm howitzers in direct support.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '105mm Howitzer', qty: 4 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M2A1 105mm Howitzer Team', qty: 4 }] },
     ]
   },
   {
@@ -7717,29 +7717,29 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }] },
       { id: 'weapons-platoon', name: 'Weapons Platoon',
         note: 'Company-level organic heavy weapons: M1917/M1919 HMGs, bazookas, and 60mm mortars. Individual teams were routinely attached out to rifle platoons to reinforce specific actions.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'M1917/M1919 HMG', qty: 2 }, { name: 'Bazooka Team', qty: 2 }, { name: '60mm Mortar Team', qty: 2 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'M1917/M1919 HMG Team', qty: 2 }, { name: 'Bazooka Team', qty: 2 }, { name: '60mm Mortar Team', qty: 2 }] },
     ],
     weaponsPlatoons: [
       { id: 'mg-platoon', name: 'Machine-Gun Platoon',
         note: 'M1917/M1919 Browning HMGs, attached from the battalion heavy weapons company for sustained suppressive fire. Individual gun teams were routinely attached out to rifle platoons to reinforce specific actions.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'M1917/M1919 HMG', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'M1917/M1919 HMG Team', qty: 3 }] },
       { id: 'mortar-platoon', name: 'Mortar Platoon',
         note: '81mm M1 mortars, the battalion\'s primary indirect fire weapon, effective out to 3,000 yards.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '81mm Mortar Team', qty: 3 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: '57mm M1 AT guns from the battalion AT platoon, effective against all but the heaviest German armour.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '57mm AT Gun', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'M1 57mm Gun Team', qty: 3 }] },
     ],
     regimentalSupport: [
       { id: 'reg-at-platoon', name: 'Anti-Tank Platoon',
         note: 'Regimental AT company with 57mm guns covering the regiment\'s frontage against armoured counterattacks.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '57mm AT Gun', qty: 3 }] },
-      { id: 'recon-platoon', name: 'Intelligence & Recon Platoon',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'M1 57mm Gun Team', qty: 3 }] },
+      { id: 'recon-platoon', name: 'Recon Platoon',
         note: 'Regimental I&R platoon of jeep-mounted scouts gathering intelligence and screening the regiment\'s front.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Rifle/MG Team', qty: 3 }, { name: 'Jeep', qty: 3 }] },
       { id: 'engineer-platoon', name: 'Engineer Combat Platoon',
         note: 'Combat engineers breaching obstacles, clearing minefields, and assaulting fortifications.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 2 }, { name: 'Rifle', qty: 6 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 2 }, { name: 'Rifle Team', qty: 6 }] },
     ],
     divisionalSupport: [
       { id: 'tank-platoon', name: 'Tank Platoon',
@@ -7747,52 +7747,73 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'M4 Sherman', qty: 3 }] },
       { id: 'light-tank-platoon', name: 'Light Tank Platoon',
         note: 'M5A1 Stuarts from a cavalry or armored recon unit, fast and aggressive but lightly armoured.',
-        teams: [{ name: 'M5A1 Stuart', qty: 3 }] },
+        teams: [{ name: 'M5 Stuart', qty: 3 }] },
       { id: 'td-platoon', name: 'Tank Destroyer Platoon',
         note: 'M10 3-inch or M36 90mm GMC from an independent TD battalion, hunting German armour.',
-        teams: [{ name: 'M10 3in GMC', qty: 3 }] },
+        teams: [{ name: 'M10 3-in GMC', qty: 3 }] },
       { id: 'towed-td-platoon', name: 'Towed Tank Destroyer Platoon',
         note: 'M5 3-inch AT guns from a TD battalion, effective against all German armour at combat ranges.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'M5 3in Gun', qty: 3 }, { name: 'M3 Halftrack', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'M5 3in Gun', qty: 3 }, { name: 'M2/M3 Half-Track', qty: 3 }] },
       { id: 'cav-recon-platoon', name: 'Cavalry Recon Platoon',
         note: 'Mechanised cavalry from a recon squadron, screening flanks and reporting enemy movements.',
-        teams: [{ name: 'M8 Armored Car', qty: 2 }, { name: 'Jeep', qty: 2 }] },
+        teams: [{ name: 'M8 Armoured Car', qty: 2 }, { name: 'Jeep', qty: 2 }] },
       { id: 'artillery-battery', name: 'Field Artillery Battery',
         note: 'M2A1 105mm howitzers from the divisional artillery regiment, the standard US direct support battery.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '105mm Howitzer', qty: 3 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M2A1 105mm Howitzer Team', qty: 3 }] },
       { id: 'heavy-arty-battery', name: 'Heavy Artillery Battery',
         note: '155mm Long Tom guns from corps artillery, providing massive firepower for breakthrough operations.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '155mm Howitzer', qty: 3 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M1 155mm Howitzer Team', qty: 3 }] },
     ]
   },
   {
     id: 'us-tank-company', name: 'Tank Company',
     nation: 'United States', era: '1944–45',
-    note: 'Armored company from an armored division or independent tank battalion. Combined arms with Shermans, armored rifles, and M7 Priest artillery support.',
+    note: 'Armored company from a US armored division or independent tank battalion. Must field at least two Tank Platoons. May add one of each Weapons Platoon. One support platoon from each Division Support box.',
     combatPlatoons: [
-      { id: 'tank-platoon', name: 'Tank Platoon',
-        note: '5 Shermans at full establishment: 1 command tank plus 4 line tanks.',
-        teams: [{ name: 'M4A3 Sherman', qty: 5 }] },
-      { id: 'armored-rifle-platoon', name: 'Armored Rifle Platoon',
-        note: 'Motorized infantry integral to armored battalions, riding M3 halftracks.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 2 }, { name: '60mm Mortar Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }, { name: 'M3 Halftrack', qty: 4 }] },
+      { id: 'tank-platoon', name: 'Tank Platoon (75mm)',
+        note: 'M4 or M4A1 Shermans with the 75mm gun, the standard workhorse of US armored operations. Excellent HE but limited against late-war German armour.',
+        teams: [{ name: 'M4 Sherman', qty: 3 }] },
+      { id: 'tank-platoon-76', name: 'Tank Platoon (76mm)',
+        note: 'M4A1 or M4A3 Shermans up-gunned with the 76mm M1, significantly improving anti-tank capability. Increasingly common from mid-1944 onward.',
+        teams: [{ name: 'M4 Sherman 76mm', qty: 3 }] },
     ],
     weaponsPlatoons: [
+      { id: 'assault-gun-platoon', name: 'Assault Gun Platoon',
+        note: 'M4 105mm assault gun Shermans providing close fire support with HE. Three per platoon, organic to the armored battalion.',
+        teams: [{ name: '105mm Sherman', qty: 3 }] },
+      { id: 'armored-mortar-platoon', name: 'Armored Mortar Platoon',
+        note: 'M21 mortar carrier halftracks mounting the 81mm M1 mortar, providing organic indirect fire while keeping pace with the armored advance.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'M21 81mm MMC', qty: 3 }] },
+      { id: 'light-tank-platoon', name: 'Light Tank Platoon',
+        note: 'M5A1 Stuart light tanks providing flank security, screening, and exploitation. Fast but lightly armed and armored.',
+        teams: [{ name: 'M5 Stuart', qty: 3 }] },
       { id: 'recon-platoon', name: 'Recon Platoon',
-        note: 'M5 Stuarts or M8 Greyhounds providing reconnaissance.',
-        teams: [{ name: 'M5A1 Stuart', qty: 3 }] },
-      { id: 'artillery-battery', name: 'Artillery Battery',
-        note: 'M7 Priest self-propelled howitzers in direct support.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M7 Priest', qty: 3 }] },
+        note: 'Jeep-mounted scouts providing organic reconnaissance for the battalion.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Rifle/MG Team', qty: 3 }, { name: 'Jeep', qty: 3 }] },
     ],
     regimentalSupport: [],
     divisionalSupport: [
-      { id: 'heavy-tank-platoon', name: 'Heavy Tank Platoon',
-        note: 'M26 Pershing heavy tanks, available from early 1945, attached from separate heavy battalion.',
-        teams: [{ name: 'M26 Pershing', qty: 3 }] },
       { id: 'td-platoon', name: 'Tank Destroyer Platoon',
-        note: 'M10 or M36 tank destroyers from an independent TD battalion.',
-        teams: [{ name: 'M10 3in GMC', qty: 3 }] },
+        note: 'M10 or M36 tank destroyers from an independent TD battalion, hunting enemy armour.',
+        teams: [{ name: 'M10 3-in GMC', qty: 3 }] },
+      { id: 'armored-rifle-platoon', name: 'Armored Rifle Platoon',
+        note: 'Infantry riding M3 halftracks, dismounting to clear terrain the tanks could not handle alone.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 2 }, { name: '60mm Mortar Team', qty: 1 }, { name: 'MG Team', qty: 6 }, { name: 'M2/M3 Half-Track', qty: 4 }] },
+      { id: 'engineer-platoon', name: 'Engineer Combat Platoon',
+        note: 'Combat engineers breaching obstacles and clearing minefields ahead of the armored advance.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 2 }, { name: 'Rifle Team', qty: 6 }, { name: 'GMC 2.5-ton Truck', qty: 4 }] },
+      { id: 'cav-recon-platoon', name: 'Cavalry Recon Platoon',
+        note: 'Divisional cavalry screening flanks and reporting enemy movements.',
+        teams: [{ name: 'M8 Armoured Car', qty: 2 }, { name: 'Jeep', qty: 2 }] },
+      { id: 'armored-arty-battery', name: 'Armored Field Artillery Battery',
+        note: 'M7 Priest self-propelled 105mm howitzers keeping pace with the armored advance.',
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M7 Priest HMC', qty: 3 }] },
+      { id: 'heavy-arty-battery', name: 'Heavy Artillery Battery',
+        note: 'M12 Gun Motor Carriage mounting the 155mm M1A1 gun on an M3 Lee hull. Devastating against fortifications and used extensively in the Siegfried Line campaign.',
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M12 155mm GMC', qty: 3 }] },
+      { id: 'aa-platoon', name: 'Anti-Aircraft Platoon',
+        note: 'M16 MGMC quad-.50cal half-tracks providing anti-aircraft and anti-infantry fire.',
+        teams: [{ name: 'M16 MGMC', qty: 3 }] },
     ]
   },
   // ── GERMANY ────────────────────────────────────────────────────────────────
@@ -7814,7 +7835,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '8cm Mortar Team', qty: 3 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: '7.5cm PaK40, the backbone of German anti-tank defence.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '7.5cm PaK40', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '7.5cm PaK40 Team', qty: 3 }] },
     ],
     regimentalSupport: [],
     divisionalSupport: [
@@ -7823,7 +7844,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'StuG III/IV', qty: 3 }] },
       { id: 'flak-platoon', name: 'Heavy AA Platoon',
         note: 'The 8.8cm FlaK36, devastating in its dual anti-aircraft and anti-tank role; attached from divisional Flak battalion.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '8.8cm FlaK36', qty: 1 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '8.8cm FlaK36 Team', qty: 1 }] },
     ]
   },
   {
@@ -7874,7 +7895,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '8cm Mortar Team', qty: 3 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: '7.5cm PaK40 towed by halftracks. Often deployed to cover flanks during armoured advances.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '7.5cm PaK40', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '7.5cm PaK40 Team', qty: 3 }] },
     ],
     regimentalSupport: [],
     divisionalSupport: [
@@ -7904,7 +7925,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '8cm Mortar Team', qty: 4 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: '7.5cm PaK40, essential for holding defensive lines against Allied armour.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '7.5cm PaK40', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '7.5cm PaK40 Team', qty: 3 }] },
     ],
     regimentalSupport: [],
     divisionalSupport: [
@@ -7913,7 +7934,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'StuG III/IV', qty: 3 }] },
       { id: 'flak-platoon', name: 'Heavy AA Platoon',
         note: '8.8cm FlaK36, frequently deployed in the direct-fire anti-tank role in defensive positions.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '8.8cm FlaK36', qty: 2 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '8.8cm FlaK36 Team', qty: 2 }] },
     ]
   },
   {
@@ -7956,7 +7977,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '82mm Mortar Team', qty: 4 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: '45mm or 76mm ZIS guns providing direct anti-tank support.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '45mm AT Gun', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '45mm AT Gun Team', qty: 3 }] },
     ],
     regimentalSupport: [],
     divisionalSupport: [
@@ -8013,7 +8034,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '82mm Mortar Team', qty: 4 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: '76mm ZIS-3, the workhorse Soviet AT gun, equally effective against infantry positions.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '76mm ZIS-3', qty: 4 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '76mm ZIS-3 Team', qty: 4 }] },
     ],
     regimentalSupport: [],
     divisionalSupport: [
@@ -8093,7 +8114,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Vickers HMG Team', qty: 3 }, { name: '3" Mortar Team', qty: 3 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: '6-pdr or 17-pdr anti-tank guns; the 17-pdr could defeat any German tank.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '6-pdr AT Gun', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '6-pdr AT Gun Team', qty: 3 }] },
     ],
     regimentalSupport: [],
     divisionalSupport: [
@@ -8102,7 +8123,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Churchill IV', qty: 3 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: '25-pdr field guns or BL 5.5" medium artillery from the divisional artillery regiment.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '25-pdr Field Gun', qty: 4 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '25-pdr Field Gun Team', qty: 4 }] },
     ]
   },
   {
@@ -8147,7 +8168,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Vickers HMG Team', qty: 2 }, { name: '3" Mortar Team', qty: 2 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: '6-pdr AT guns delivered by Horsa glider, essential against German armoured counterattacks.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '6-pdr AT Gun', qty: 2 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '6-pdr AT Gun Team', qty: 2 }] },
     ],
     regimentalSupport: [],
     divisionalSupport: [
@@ -8156,7 +8177,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'M10C 17-pdr SP', qty: 2 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: '25-pdr field guns in support once ground contact was established.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '25-pdr Field Gun', qty: 4 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '25-pdr Field Gun Team', qty: 4 }] },
     ]
   },
   {
@@ -8174,7 +8195,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Vickers HMG Team', qty: 3 }, { name: '3" Mortar Team', qty: 3 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: '6-pdr or 17-pdr anti-tank guns providing organic anti-armour defence.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '6-pdr AT Gun', qty: 4 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '6-pdr AT Gun Team', qty: 4 }] },
     ],
     regimentalSupport: [],
     divisionalSupport: [
@@ -8213,7 +8234,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'M10C 17-pdr SP', qty: 2 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: '25-pdr field guns in direct support, often firing smoke and HE ahead of the advance.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '25-pdr Field Gun', qty: 4 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '25-pdr Field Gun Team', qty: 4 }] },
     ]
   },
 ];
@@ -8279,7 +8300,9 @@ function renderOrgBrowser() {
   const used  = getOrgUsed();
 
   const platoonRows = (pl, tier, tierFull) => pl.map(p => {
-    const disabled = tierFull ? ' disabled class="org-add-btn org-add-btn-full"' : ' class="org-add-btn"';
+    const btnAttrs = tierFull
+      ? ' class="org-add-btn org-add-btn-full" data-tip="Add more Combat Platoons to unlock this slot"'
+      : ' class="org-add-btn"';
     return `
     <div class="org-platoon-row">
       <div class="org-platoon-info">
@@ -8287,7 +8310,7 @@ function renderOrgBrowser() {
         <div class="org-platoon-teams">${p.teams.map(t => `${t.qty}× ${t.name}`).join(' · ')}</div>
         ${p.note ? `<div class="org-platoon-hist">${p.note}</div>` : ''}
       </div>
-      <button${disabled} onclick="addPlatoonToOrgBuilder('${p._fid}','${p.id}','${tier}')">+ Add</button>
+      <button${btnAttrs} onclick="addPlatoonToOrgBuilder('${p._fid}','${p.id}','${tier}')">+ Add</button>
     </div>
   `}).join('');
 
@@ -8349,32 +8372,32 @@ const ORG_UNIT_IDS = {
     'Platoon Leader':      'us-leader',
     'Forward Observer':    'us-fo',
     'Bazooka Team':        'us-inf-bazooka',
-    'Rifle/MG Team':       'us-inf-rifle-mg',
+    'Rifle/MG':       'us-inf-rifle-mg',
     'LMG Section':         'us-inf-mg',
     'M1917/M1919 HMG':     'us-gun-hmg',
     'M5 3in Gun':          'us-gun-3in',
-    '155mm Howitzer':      'us-gun-155mm',
+    'M1 155mm Howitzer':      'us-gun-155mm',
     'Jeep':                'us-transport-jeep',
     '60mm Mortar Team':  'us-gun-60mm-mortar',
     '81mm Mortar Team':  'us-gun-81mm-mortar',
-    '57mm AT Gun':       'us-gun-57mm',
-    '105mm Howitzer':    'us-gun-105mm-howitzer',
+    'M1 57mm Gun':       'us-gun-57mm',
+    'M2A1 105mm Howitzer':    'us-gun-105mm-howitzer',
     'M4 Sherman':        'us-tank-m4-sherman',
-    'M4A3 Sherman':      'us-tank-m4-sherman',
+    'M4 Sherman':      'us-tank-m4-sherman',
     'M26 Pershing':      'us-tank-m26-pershing',
-    'M5A1 Stuart':       'us-tank-m5-stuart',
-    'M3 Halftrack':      'us-transport-halftrack',
-    'M7 Priest':         'us-spa-m7-priest',
-    'M10 3in GMC':       'us-td-m10',
+    'M5 Stuart':       'us-tank-m5-stuart',
+    'M2/M3 Half-Track':      'us-transport-halftrack',
+    'M7 Priest HMC':         'us-spa-m7-priest',
+    'M10 3-in GMC':       'us-td-m10',
     'M36 90mm GMC':      'us-td-m36',
   },
   'Germany': {
     'Platoon Leader':         'de-leader',
     'Forward Observer':       'de-fo',
-    'Rifle/MG Team':          'de-inf-rifle-mg',
+    'Rifle/MG':          'de-inf-rifle-mg',
     'Panzerfaust SMG Team':   'de-inf-panzerfaust',
     'Panzerschreck Team':     'de-inf-panzerschreck',
-    'MG Team':                'de-inf-mg',
+    'MG':                'de-inf-mg',
     'MG42 HMG Team':          'de-gun-hmg',
     '8cm Mortar Team':        'de-gun-8cm-mortar',
     '7.5cm PaK40':            'de-gun-pak40',
@@ -8393,7 +8416,7 @@ const ORG_UNIT_IDS = {
   'Soviet Union': {
     'Platoon Leader':      'sv-leader',
     'Forward Observer':    'sv-fo',
-    'Rifle/MG Team':       'sv-inf-rifle-mg',
+    'Rifle/MG':       'sv-inf-rifle-mg',
     'Maxim HMG Team':      'sv-gun-maksim',
     'PTRD AT Rifle Team':  'sv-gun-ptrd',
     '82mm Mortar Team':    'sv-gun-82mm-mortar',
