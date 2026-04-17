@@ -5459,7 +5459,8 @@ async function copyFppShareLink() {
       await ref.set({ ...data, id: currentForceId });
     }
   } catch (e) {
-    showToast('Could not save force — check your connection and try again.', 'error');
+    console.error('copyFppShareLink save error:', e);
+    showToast(`Save failed: ${e?.message || e?.code || String(e)}`, 'error');
     return;
   }
 
