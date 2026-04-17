@@ -3612,6 +3612,10 @@
   .fpp-col-b { text-align: right; }
   .fpp-col-attacker { color: var(--accent); }
   .fpp-col-defender { color: var(--text3); }
+  .fpp-col-role { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 2px; }
+  .fpp-role-atk { color: var(--accent); }
+  .fpp-role-def { color: var(--text3); }
+  .fpp-role-banner { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; margin-top: 10px; padding: 6px 10px; background: var(--bg2); border: 1px solid var(--border); border-radius: 4px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
 
   /* Live score tally */
   .fpp-score-tally { display: flex; justify-content: center; align-items: center; gap: 24px; padding: 14px 20px; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; }
@@ -8822,14 +8826,20 @@ function startFPP() {
 }
 
 function renderFPPRank(body, player) {
-  const opponent = player === 'a' ? fppState.b : fppState.a;
-  const ranker   = player === 'a' ? fppState.a : fppState.b;
-  const ranked   = player === 'a' ? fppState.rankByA : fppState.rankByB;
+  const opponent     = player === 'a' ? fppState.b : fppState.a;
+  const ranker       = player === 'a' ? fppState.a : fppState.b;
+  const ranked       = player === 'a' ? fppState.rankByA : fppState.rankByB;
+  const attacker     = fppState.attacker;
+  const defender     = attacker === 'a' ? 'b' : 'a';
   body.innerHTML = `
     ${fppStepIndicator(player === 'a' ? 2 : 3)}
     <div class="fpp-step-header">
       <div class="fpp-step-title">${esc(ranker.name)}: Rank ${esc(opponent.name)}'s Force</div>
       <div class="fpp-step-sub">Drag to order from <strong>most threatening</strong> at the top to least threatening at the bottom. Hand the device to ${esc(ranker.name)}.</div>
+      <div class="fpp-role-banner">
+        <span class="fpp-role-atk">⚔ ${esc(fppState[attacker].name)} — Attacker</span>
+        <span class="fpp-role-def"> · 🛡 ${esc(fppState[defender].name)} — Defender</span>
+      </div>
     </div>
     <div class="fpp-rank-list" id="fpp-rank-list">
       ${ranked.map((pl, i) => `
@@ -8912,6 +8922,10 @@ function renderFPPPairings(body) {
     <div class="fpp-step-header">
       <div class="fpp-step-title">Compare Pairings</div>
       <div class="fpp-step-sub">Which platoon is more threatening to its opponent? Award <strong>Def. Advantage</strong> if neither clearly wins.</div>
+      <div class="fpp-role-banner">
+        <span class="fpp-role-atk">⚔ ${esc(attackerName)} — Attacker</span>
+        <span class="fpp-role-def"> · 🛡 ${esc(defenderName)} — Defender</span>
+      </div>
     </div>
     <div class="fpp-score-tally">
       <div class="fpp-tally-block">
@@ -8925,11 +8939,13 @@ function renderFPPPairings(body) {
       </div>
     </div>
     <div class="fpp-col-headers">
-      <div class="fpp-col-a ${attacker === 'a' ? 'fpp-col-attacker' : 'fpp-col-defender'}">
-        ${attacker === 'a' ? '⚔ ' : '🛡 '}${esc(fppState.a.name)}
+      <div class="fpp-col-a">
+        <div class="fpp-col-role fpp-role-${attacker === 'a' ? 'atk' : 'def'}">${attacker === 'a' ? '⚔ ATTACKER' : '🛡 DEFENDER'}</div>
+        <div>${esc(fppState.a.name)}</div>
       </div>
-      <div class="fpp-col-b ${attacker === 'b' ? 'fpp-col-attacker' : 'fpp-col-defender'}">
-        ${esc(fppState.b.name)}${attacker === 'b' ? ' ⚔' : ' 🛡'}
+      <div class="fpp-col-b">
+        <div class="fpp-col-role fpp-role-${attacker === 'b' ? 'atk' : 'def'}">${attacker === 'b' ? '⚔ ATTACKER' : '🛡 DEFENDER'}</div>
+        <div>${esc(fppState.b.name)}</div>
       </div>
     </div>
     <div class="fpp-pairings-list">
@@ -8960,7 +8976,7 @@ function renderPairingRow(p, i) {
       <div class="fpp-pairing-unit ${effectiveWinner === 'a' ? 'fpp-unit-winner' : ''}">
         <div class="fpp-unit-player">${esc(fppState.a.name)}</div>
         <div class="fpp-unit-name">${esc(p.a.name)}</div>
-        <div class="fpp-unit-teams">${aTeams} team${aTeams !== 1 ? 's' : ''}</div>
+        <div class="fpp-unit-teams">${(p.a.teams || []).map(t => { const u = allUnits.find(u => u.id === t.unitId); return `${t.qty}× ${u?.name ?? t.unitId ?? '?'}`; }).join(' · ')}</div>
       </div>
       <div class="fpp-pairing-btns">
         <button class="fpp-winner-btn ${w === 'a' ? 'active' : ''}" onclick="setPairingWinner(${i},'a')">◀ ${esc(truncate(fppState.a.name))}</button>
@@ -8970,7 +8986,7 @@ function renderPairingRow(p, i) {
       <div class="fpp-pairing-unit ${effectiveWinner === 'b' ? 'fpp-unit-winner' : ''}">
         <div class="fpp-unit-player">${esc(fppState.b.name)}</div>
         <div class="fpp-unit-name">${esc(p.b.name)}</div>
-        <div class="fpp-unit-teams">${bTeams} team${bTeams !== 1 ? 's' : ''}</div>
+        <div class="fpp-unit-teams">${(p.b.teams || []).map(t => { const u = allUnits.find(u => u.id === t.unitId); return `${t.qty}× ${u?.name ?? t.unitId ?? '?'}`; }).join(' · ')}</div>
       </div>
       ${sizeBonus ? '<div class="fpp-size-bonus-row">+1 Size Advantage</div>' : ''}
     </div>
