@@ -590,7 +590,7 @@
     {
       "id": "us-gun-57mm",
       "lore": "An Americanized version of the British 6-pounder, the M1 57mm replaced the inadequate 37mm and proved effective against Panzer IVs and StuGs at combat ranges. Light enough to be towed by a jeep and manhandled by its crew, AT platoons rushed it into ambush positions along likely tank approaches. With armor-piercing capped ammunition it could defeat a Panther's side armor \u2014 the problem was surviving long enough to get the flank shot.",
-      "name": "M1 57mm Gun Team",
+      "name": "M1 57mm Gun",
       "nation": "United States",
       "type": "Gun",
       "theater": [
@@ -701,7 +701,7 @@
     {
       "id": "us-gun-105mm-howitzer",
       "lore": "The M2A1 was the workhorse of US divisional artillery, equipping three 105mm battalions in each infantry division for continuous direct support. Time-on-target firing allowed multiple batteries to deliver simultaneous first rounds, catching enemy troops in the open with devastating effect before they could take cover. At the Battle of the Bulge, American artillerymen fired over a million rounds in a single month \u2014 a logistical feat that ground down German offensive power.",
-      "name": "M2A1 105mm Howitzer Team",
+      "name": "M2A1 105mm Howitzer",
       "nation": "United States",
       "type": "Gun",
       "theater": [
@@ -744,7 +744,7 @@
     {
       "id": "us-gun-155mm-howitzer",
       "lore": "The M1 155mm \"Long Tom\" gave corps artillery the weight to crack fortifications and interdict supply routes far behind German lines. At Monte Cassino and in the Siegfried Line, its 43kg shells reduced concrete emplacements that lighter guns could only scratch. Counter-battery missions were its specialty \u2014 German 88mm crews learned that a Long Tom battery could put rounds on their flash signature within minutes of opening fire.",
-      "name": "M1 155mm Howitzer Team",
+      "name": "M1 155mm Howitzer",
       "nation": "United States",
       "type": "Gun",
       "theater": [
