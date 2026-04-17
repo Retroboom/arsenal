@@ -285,6 +285,38 @@
       "wiki": "Forward_observer"
     },
     {
+      "id": "us-inf-rifle",
+      "lore": "Combat engineers, pioneers, and support troops armed with M1 Garand rifles but without the BAR that gave the standard rifle squad its automatic firepower. In the assault engineer role, the rifle was secondary to demolition charges, mine probes, and wire cutters — but when the shooting started, these men fought with the same weapon as any rifleman.",
+      "name": "Rifle",
+      "nation": "United States",
+      "type": "Infantry",
+      "wiki": "M1_Garand",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939, 1940, 1941, 1942, 1943, 1944, 1945
+      ],
+      "gun_range": "16\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [],
+      "special_rules": [],
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      }
+    },
+    {
       "id": "us-inf-rifle-mg",
       "lore": "The standard US rifle squad combined M1 Garand semi-automatic rifles with a Browning Automatic Rifle for fire support, giving individual soldiers a rate-of-fire advantage over bolt-action opponents. Blooded in the hedgerows of Normandy and the Hurtgen Forest, these squads proved adaptable across every theater from the Pacific atolls to the Rhine plain. The Garand's eight-round semi-auto capability was particularly telling in close-range firefights where the enemy's bolt actions couldn't keep pace.",
       "name": "Rifle/MG",
@@ -1766,6 +1798,38 @@
         "fo": false
       },
       "wiki": "M4_mortar_carrier"
+    },
+    {
+      "id": "de-inf-rifle",
+      "lore": "Pionier troops and assault engineer teams armed with Karabiner 98k rifles, operating without the squad MG that defined German infantry doctrine. Where the standard Schützengruppe was built around the MG42, pioneer units relied on individual marksmanship, demolition expertise, and close-assault training to breach obstacles, clear minefields, and storm fortifications.",
+      "name": "Rifle",
+      "nation": "Germany",
+      "type": "Infantry",
+      "wiki": "Karabiner_98k",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939, 1940, 1941, 1942, 1943, 1944, 1945
+      ],
+      "gun_range": "16\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [],
+      "special_rules": [],
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "de-inf-rifle-mg",
@@ -3889,6 +3953,38 @@
       "wiki": "Opel_Blitz"
     },
     {
+      "id": "br-inf-rifle",
+      "lore": "Pioneer and engineer troops armed with Lee-Enfield rifles, operating without the section Bren gun. British combat engineers clearing the bocage, breaching the Rhine defences, or gapping minefields at Alamein carried their rifles as secondary weapons — the primary tools were Bangalore torpedoes, mine detectors, and demolition charges.",
+      "name": "Rifle",
+      "nation": "Britain",
+      "type": "Infantry",
+      "wiki": "Lee-Enfield",
+      "theater": [
+        "Western Front",
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1939, 1940, 1941, 1942, 1943, 1944, 1945
+      ],
+      "gun_range": "16\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [],
+      "special_rules": [],
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      }
+    },
+    {
       "id": "br-inf-rifle-mg",
       "lore": "The British section was built around the Bren light machine gun rather than the rifle, reflecting the British Army's belief that the LMG was the primary fire-producing weapon of the infantry. Each ten-man section had one Bren and nine Lee-Enfield-armed riflemen who moved and protected the gun. The Bren's accuracy and reliability were legendary \u2014 far superior to the German MG34/42 for static defensive fire \u2014 but its 30-round magazine limited sustained fire compared to the belt-fed German weapons that dominated close mobile firefights.",
       "name": "Rifle/MG",
@@ -5726,6 +5822,36 @@
         "fo": false
       },
       "wiki": "M5_Half-Track"
+    },
+    {
+      "id": "sv-inf-rifle",
+      "lore": "Sapper and combat engineer teams armed with Mosin-Nagant rifles, without the DP light machine gun of the standard rifle section. Soviet inzhenerno-sapernye troops were specialists in bridging, minefield breaching, and assault demolitions — storming fortifications with satchel charges and flamethrowers while their rifles stayed slung until the close fight.",
+      "name": "Rifle",
+      "nation": "Soviet Union",
+      "type": "Infantry",
+      "wiki": "Mosin-Nagant",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939, 1940, 1941, 1942, 1943, 1944, 1945
+      ],
+      "gun_range": "16\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [],
+      "special_rules": [],
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      }
     },
     {
       "id": "sv-inf-rifle-mg",
