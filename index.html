@@ -5448,14 +5448,19 @@ async function copyFppShareLink() {
   if (platoons.length === 0) { showToast('Add at least one platoon before sharing.', 'warning'); return; }
 
   // Auto-save so the link always reflects the current force state
-  const data = getForceData();
-  const db = firebase.database();
-  if (currentForceId) {
-    await db.ref(`forces/${currentForceId}`).update(data);
-  } else {
-    const ref = db.ref('forces').push();
-    currentForceId = ref.key;
-    await ref.set({ ...data, id: currentForceId });
+  try {
+    const data = getForceData();
+    const db = firebase.database();
+    if (currentForceId) {
+      await db.ref(`forces/${currentForceId}`).update(data);
+    } else {
+      const ref = db.ref('forces').push();
+      currentForceId = ref.key;
+      await ref.set({ ...data, id: currentForceId });
+    }
+  } catch (e) {
+    showToast('Could not save force — check your connection and try again.', 'error');
+    return;
   }
 
   const url = `${window.location.origin}${window.location.pathname}?fpp=${currentForceId}`;
