@@ -3642,6 +3642,8 @@
   .fpp-def-btn { background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 5px 8px; font-family: var(--mono); font-size: 11px; color: var(--text3); cursor: pointer; white-space: nowrap; transition: all 0.1s; }
   .fpp-def-btn:hover { border-color: var(--text2); color: var(--text2); }
   .fpp-def-btn.active { background: var(--text3); color: var(--bg); border-color: var(--text3); }
+  .fpp-def-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .fpp-def-hint { font-family: var(--mono); font-size: 10px; color: var(--text3); text-align: center; letter-spacing: 0.03em; }
   /* Size bonus — full-width row, no absolute positioning */
   .fpp-size-bonus-row { grid-column: 1 / -1; font-family: var(--mono); font-size: 12px; color: var(--accent); text-align: center; padding-top: 8px; border-top: 1px solid color-mix(in srgb, var(--accent) 20%, transparent); }
   .fpp-extra-units { text-align: center; font-size: 14px; color: var(--text2); padding: 12px; background: var(--bg2); border-radius: 4px; border: 1px solid var(--border); }
@@ -8921,7 +8923,7 @@ function renderFPPPairings(body) {
     ${fppStepIndicator(4)}
     <div class="fpp-step-header">
       <div class="fpp-step-title">Compare Pairings</div>
-      <div class="fpp-step-sub">Which platoon is more threatening to its opponent? Award <strong>Def. Advantage</strong> if neither clearly wins.</div>
+      <div class="fpp-step-sub">Pick the more threatening platoon. If neither clearly dominates, choose <strong>Neither Wins</strong> — the point goes to the defender.</div>
       <div class="fpp-role-banner">
         <span class="fpp-role-atk">⚔ ${esc(attackerName)} — Attacker</span>
         <span class="fpp-role-def"> · 🛡 ${esc(defenderName)} — Defender</span>
@@ -8980,7 +8982,10 @@ function renderPairingRow(p, i) {
       </div>
       <div class="fpp-pairing-btns">
         <button class="fpp-winner-btn ${w === 'a' ? 'active' : ''}" onclick="setPairingWinner(${i},'a')">◀ ${esc(truncate(fppState.a.name))}</button>
-        <button class="fpp-def-btn   ${w === 'defender' ? 'active' : ''}" onclick="setPairingWinner(${i},'defender')">Def. Adv.</button>
+        <div class="fpp-def-wrap">
+          <button class="fpp-def-btn ${w === 'defender' ? 'active' : ''}" onclick="setPairingWinner(${i},'defender')">Neither Wins</button>
+          <div class="fpp-def-hint">🛡 ${esc(fppState[defender].name)} scores</div>
+        </div>
         <button class="fpp-winner-btn ${w === 'b' ? 'active' : ''}" onclick="setPairingWinner(${i},'b')">${esc(truncate(fppState.b.name))} ▶</button>
       </div>
       <div class="fpp-pairing-unit ${effectiveWinner === 'b' ? 'fpp-unit-winner' : ''}">
