@@ -7861,8 +7861,8 @@ const HISTORICAL_ORGS = [
     note: 'Grenadierkompanie — standard German infantry company, NW Europe and Italy. Built around the MG42 and Panzerfaust, relying on firepower and defensive depth rather than manpower.',
     combatPlatoons: [
       { id: 'grenadier-platoon', name: 'Grenadier Platoon',
-        note: 'Three squads each built around the MG42 LMG. Panzerfausts were distributed across all teams by 1944 as individual upgrades, not separate units — every rifleman was a potential tank killer at close range.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }] },
+        note: 'Three squads each built around the MG42 LMG. Panzerfausts were distributed as individual upgrades by 1944, making every rifleman a potential tank killer at close range.',
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }, { name: 'Panzerfaust', qty: 1 }] },
     ],
     weaponsPlatoons: [
       { id: 'mg-platoon', name: 'Grenadier Machine-Gun Platoon',
@@ -7890,7 +7890,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '2cm FlaK38 Gun', qty: 4 }] },
       { id: 'pioneer-platoon', name: 'Grenadier Pioneer Platoon',
         note: 'Combat engineers breaching obstacles, laying and clearing mines, and fighting as assault infantry.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }, { name: 'Panzerfaust SMG Team', qty: 2 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }, { name: 'Panzerfaust', qty: 1 }] },
     ],
     divisionalSupport: [
       { id: 'panzer-platoon', name: 'Panzer Platoon',
@@ -7911,7 +7911,7 @@ const HISTORICAL_ORGS = [
       { id: 'fallschirmjager-platoon', name: 'Fallschirmjäger Platoon',
         note: 'Elite parachute infantry attached from a Fallschirmjäger regiment, fighting as assault infantry.',
         defaultQuality: 'Elite',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Panzerschreck Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Panzerschreck', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Divisional 10.5cm leFH18 howitzers in general support, firing on-call missions for the company.',
         teams: [{ name: 'Forward Observer', qty: 1 }, { name: '10.5cm leFH18 Gun', qty: 4 }] },
@@ -7939,7 +7939,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Panzer IV H', qty: 5 }] },
       { id: 'panzergrenadier-platoon', name: 'Panzergrenadier Platoon',
         note: 'Motorized infantry riding Sd Kfz 251 halftracks; could dismount to clear terrain.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Panzerschreck Team', qty: 1 }, { name: 'MG Team', qty: 6 }, { name: 'Sd Kfz 251 Halftrack', qty: 4 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Panzerschreck', qty: 1 }, { name: 'MG Team', qty: 6 }, { name: 'Sd Kfz 251 Halftrack', qty: 4 }] },
     ],
     weaponsPlatoons: [
       { id: 'recon-platoon', name: 'Recon Platoon',
@@ -7966,7 +7966,7 @@ const HISTORICAL_ORGS = [
     combatPlatoons: [
       { id: 'panzergrenadier-platoon', name: 'Panzergrenadier Platoon',
         note: '3 squads riding Sd Kfz 251 halftracks. Could fight mounted (using the halftrack\'s MG42) or dismount to clear buildings and terrain.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Panzerschreck Team', qty: 1 }, { name: 'MG Team', qty: 6 }, { name: 'Sd Kfz 251 Halftrack', qty: 4 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Panzerschreck', qty: 1 }, { name: 'MG Team', qty: 6 }, { name: 'Sd Kfz 251 Halftrack', qty: 4 }] },
     ],
     weaponsPlatoons: [
       { id: 'mg-platoon', name: 'Heavy Weapons Platoon',
@@ -7996,7 +7996,7 @@ const HISTORICAL_ORGS = [
     combatPlatoons: [
       { id: 'fj-platoon', name: 'Fallschirmjäger Platoon',
         note: 'Higher MG42 density than standard Grenadiers, with each squad built around two guns. Panzerfausts widely issued.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }, { name: 'Panzerfaust SMG Team', qty: 2 }, { name: 'Panzerschreck Team', qty: 1 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }, { name: 'Panzerfaust', qty: 1 }, { name: 'Panzerschreck', qty: 1 }] },
     ],
     weaponsPlatoons: [
       { id: 'mg-platoon', name: 'Machine-Gun Platoon',
@@ -8034,7 +8034,7 @@ const HISTORICAL_ORGS = [
     weaponsPlatoons: [
       { id: 'panzergrenadier-platoon', name: 'Panzergrenadier Platoon',
         note: 'Mechanized infantry riding Sd Kfz 251 halftracks, protecting Tigers from enemy infantry at close range.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Panzerschreck Team', qty: 1 }, { name: 'MG Team', qty: 6 }, { name: 'Sd Kfz 251 Halftrack', qty: 4 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Panzerschreck', qty: 1 }, { name: 'MG Team', qty: 6 }, { name: 'Sd Kfz 251 Halftrack', qty: 4 }] },
     ],
     regimentalSupport: [],
     divisionalSupport: [
@@ -8490,8 +8490,8 @@ const ORG_UNIT_IDS = {
     'Forward Observer':          'de-fo',
     'Rifle/MG Team':             'de-inf-rifle-mg',
     'MG Team':                   'de-inf-mg',
-    'Panzerfaust SMG Team':      'de-inf-panzerfaust',
-    'Panzerschreck Team':        'de-inf-panzerschreck',
+    'Panzerfaust':               'de-inf-panzerfaust',
+    'Panzerschreck':             'de-inf-panzerschreck',
     'MG42 HMG Team':             'de-gun-hmg',
     '8cm Mortar Team':           'de-gun-8cm-mortar',
     '7.5cm leIG18 Gun':          'de-gun-75mm-leig',
