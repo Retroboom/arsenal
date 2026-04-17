@@ -5485,11 +5485,29 @@ async function copyFppShareLink() {
   }
 
   const url = `${window.location.origin}${window.location.pathname}?fpp=${currentForceId}`;
-  navigator.clipboard.writeText(url).then(() => {
+  // navigator.clipboard requires an active user gesture and fails after an await.
+  // Use the execCommand fallback which works in async context.
+  let copied = false;
+  try {
+    await navigator.clipboard.writeText(url);
+    copied = true;
+  } catch {
+    const el = document.createElement('textarea');
+    el.value = url;
+    el.setAttribute('readonly', '');
+    Object.assign(el.style, { position: 'absolute', left: '-9999px' });
+    document.body.appendChild(el);
+    el.select();
+    copied = document.execCommand('copy');
+    document.body.removeChild(el);
+  }
+  if (copied) {
     showToast('FPP link copied — send it to your opponent.', 'success');
-  }).catch(() => {
-    prompt('Copy this link and send it to your opponent:', url);
-  });
+  } else {
+    document.getElementById('share-url-input').value = url;
+    document.getElementById('share-url-bar').style.display = 'flex';
+    showToast('Link ready — copy it from the bar below.', 'success');
+  }
 }
 
 function openLibrary() {
