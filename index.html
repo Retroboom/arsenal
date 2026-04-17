@@ -7746,32 +7746,6 @@ const HISTORICAL_ORGS = [
     ]
   },
   {
-    id: 'us-td-company', name: 'Tank Destroyer Company',
-    nation: 'United States', era: '1944–45',
-    note: 'Independent tank destroyer battalion company following the "seek, strike, destroy" doctrine. Fast-moving M10s and M36s designed to mass against enemy armour and kill tanks at range.',
-    combatPlatoons: [
-      { id: 'td-platoon', name: 'Tank Destroyer Platoon',
-        note: '4 M10 or M36 tank destroyers at full strength. M36 mounting the 90mm gun could defeat Tigers frontally.',
-        teams: [{ name: 'M10 3-in GMC', qty: 4 }] },
-      { id: 'heavy-td-platoon', name: 'Heavy TD Platoon',
-        note: 'M36 Jackson mounting the 90mm gun, capable of defeating any German tank at combat ranges.',
-        teams: [{ name: 'M36 90mm GMC', qty: 4 }] },
-    ],
-    weaponsPlatoons: [
-      { id: 'recon-platoon', name: 'Recon Platoon',
-        note: 'M5A1 Stuarts and jeep teams providing forward reconnaissance for the TD battalion.',
-        teams: [{ name: 'M5 Stuart', qty: 3 }] },
-      { id: 'infantry-security', name: 'Infantry Security Platoon',
-        note: 'Rifle platoon attached to protect TDs from enemy infantry at close range.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Bazooka Team', qty: 1 }, { name: 'Rifle/MG Team', qty: 4 }] },
-    ],
-    regimentalSupport: [],
-    divisionalSupport: [
-      { id: 'artillery-battery', name: 'Artillery Battery',
-        note: 'Divisional 105mm howitzers in direct support.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M2A1 105mm Howitzer', qty: 4 }] },
-    ]
-  },
   {
     id: 'us-rifle-company', name: 'Rifle Company',
     nation: 'United States', era: '1944–45',
@@ -8571,7 +8545,6 @@ function addPlatoonToOrgBuilder(formationId, platoonId, tier) {
       'us-rifle-company':            'Infantry',
       'us-airborne-company':         'Parachute',
       'us-armored-infantry-company': 'Mechanized',
-      'us-td-company':               'Armored',
       'us-tank-company':             'Armored',
       'de-grenadier-company':        'Infantry',
       'de-fallschirmjager-company':  'Airborne',
