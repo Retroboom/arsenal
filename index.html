@@ -9328,7 +9328,7 @@ async function selectOpponentForce(forceId) {
   if (!data) return;
   fppState.b.platoons = toArr(data.platoons);
   fppState.b.forceId  = forceId;
-  if (!fppState.b.name) fppState.b.name = data.author || '';
+  fppState.b.name = data.author || data.authorEmail || fppState.b.name || '';
   renderFPP();
 }
 
