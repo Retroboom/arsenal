@@ -8715,7 +8715,7 @@ function esc(str) {
 let fppState = {
   step: 'setup',
   a: { name: '', platoons: [], bl: 0, vehicleCount: 0 },
-  b: { name: '', platoons: [], bl: 0, vehicleCount: 0, forceId: null },
+  b: { name: '', forceName: '', platoons: [], bl: 0, vehicleCount: 0, forceId: null },
   rankByA: [], rankByB: [],
   pairings: [], extraA: 0, extraB: 0,
   scores: { a: 0, b: 0 },
@@ -8763,7 +8763,7 @@ function fppStepIndicator(active) {
 function resetFPP() {
   fppState.step = 'setup';
   fppState.a = { name: fppState.a.name, platoons: [], bl: 0, vehicleCount: 0 };
-  fppState.b = { name: fppState.b.name, platoons: [], bl: 0, vehicleCount: 0 };
+  fppState.b = { name: fppState.b.name, forceName: '', platoons: [], bl: 0, vehicleCount: 0 };
   fppState.rankByA = []; fppState.rankByB = []; fppState.pairings = [];
   fppState.scores = null; fppState.finalBL = null;
   renderFPP();
@@ -8806,7 +8806,10 @@ function renderFPPSetup(body) {
         <div class="fpp-player-label">PLAYER B: OPPONENT</div>
         <input class="fpp-name-input" id="fpp-name-b" placeholder="Opponent name…" value="${esc(fppState.b.name)}">
         <button class="fpp-load-btn" onclick="openForcePicker()">
-          ${bLoaded ? `✓ ${fppState.b.platoons.length} platoons loaded` : '+ Load Opponent Force'}
+          ${bLoaded ? `
+            <div class="fpp-force-name">✓ ${esc(fppState.b.forceName || 'Opponent Force')}</div>
+            <div class="fpp-force-meta">${fppState.b.platoons.length} platoons · BL ${calcBreakLimit(fppState.b.platoons.length)}</div>
+          ` : '+ Load Opponent Force'}
         </button>
       </div>
     </div>
@@ -9417,8 +9420,9 @@ async function selectOpponentForce(forceId) {
   const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
   const data = snap.val();
   if (!data) return;
-  fppState.b.platoons = toArr(data.platoons);
-  fppState.b.forceId  = forceId;
+  fppState.b.platoons   = toArr(data.platoons);
+  fppState.b.forceId    = forceId;
+  fppState.b.forceName  = data.name || '';
   fppState.b.name = data.author || data.authorEmail || fppState.b.name || '';
   renderFPP();
 }
