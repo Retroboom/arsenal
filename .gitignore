@@ -2,3 +2,6 @@
 .netlify
 node_modules/
 netlify/functions/node_modules/
+
+# Cloudflare local secrets (never commit)
+.dev.vars

@@ -1,18 +1,27 @@
 #!/bin/bash
-# deploy.sh — upload static files directly to Netlify without any build step.
-# Use this for day-to-day edits to index.html and hof_arsenal.json.
+# deploy.sh — publish the arsenal to Cloudflare Pages.
 #
-# For changes to netlify/functions/, run: bash deploy.sh --functions
+# One-time setup:
+#   npm install -g wrangler
+#   wrangler login
+#   wrangler pages project create hof-arsenal   (first time only)
+#
+# Add secrets (one-time, or when they change):
+#   wrangler pages secret put FIREBASE_SERVICE_ACCOUNT --project-name=hof-arsenal
+#   wrangler pages secret put KOFI_VERIFICATION_TOKEN  --project-name=hof-arsenal
+#
+# Local dev (no deploys needed):
+#   python3 -m http.server 8080   (static files + Firebase work; functions won't run)
+#   wrangler pages dev .          (static + functions, reads .dev.vars for secrets)
 
 set -e
 
 cd "$(dirname "$0")"
 
-if [ "$1" = "--functions" ]; then
-  echo "Deploying with full build (functions changed)..."
-  netlify deploy --prod --message "${2:-deploy with functions}"
-else
-  echo "Deploying static files to arsenal.retroboomgames.com..."
-  netlify deploy --prod --no-build --message "${1:-manual deploy}"
-fi
+echo "Deploying to Cloudflare Pages (arsenal.retroboomgames.com)..."
+wrangler pages deploy . \
+  --project-name=hof-arsenal \
+  --branch=main \
+  --commit-dirty=true \
+  --commit-message "${1:-manual deploy}"
 echo "Done."
