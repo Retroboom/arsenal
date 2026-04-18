@@ -3646,6 +3646,12 @@
   .fpp-size-bonus-row { grid-column: 1 / -1; font-family: var(--mono); font-size: 12px; color: var(--accent); text-align: center; padding-top: 8px; border-top: 1px solid color-mix(in srgb, var(--accent) 20%, transparent); }
   .fpp-extra-units { text-align: center; font-size: 14px; color: var(--text2); padding: 12px; background: var(--bg2); border-radius: 4px; border: 1px solid var(--border); }
 
+  /* Handoff */
+  .fpp-handoff { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 48px 20px; gap: 14px; }
+  .fpp-handoff-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--text3); text-transform: uppercase; }
+  .fpp-handoff-name { font-size: 32px; font-weight: 700; color: var(--text1); }
+  .fpp-handoff-sub { font-size: 15px; color: var(--text2); max-width: 300px; line-height: 1.6; }
+
   /* Result */
   .fpp-result-summary { text-align: center; font-size: 15px; color: var(--text1); line-height: 1.7; padding: 16px 24px; background: color-mix(in srgb, var(--accent) 7%, var(--bg2)); border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--border)); border-radius: 8px; }
   .fpp-result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -8769,6 +8775,7 @@ function renderFPP() {
   switch (fppState.step) {
     case 'setup':    renderFPPSetup(body);       break;
     case 'rank-a':   renderFPPRank(body, 'a');    break;
+    case 'handoff':  renderFPPHandoff(body);      break;
     case 'rank-b':   renderFPPRank(body, 'b');    break;
     case 'pairings': renderFPPPairings(body);     break;
     case 'result':   renderFPPResult(body);       break;
@@ -8835,7 +8842,7 @@ function renderFPPRank(body, player) {
     ${fppStepIndicator(player === 'a' ? 2 : 3)}
     <div class="fpp-step-header">
       <div class="fpp-step-title">${esc(ranker.name)}: Rank ${esc(opponent.name)}'s Force</div>
-      <div class="fpp-step-sub">Drag to order from <strong>most threatening</strong> at the top to least threatening at the bottom. Hand the device to ${esc(ranker.name)}.</div>
+      <div class="fpp-step-sub">Which of these platoons threatens <strong>your</strong> force most? Drag the scariest to the top. Your #1 will face their #1 — your #2 their #2, and so on.</div>
       <div class="fpp-role-banner">
         <span class="fpp-role-atk">⚔ ${esc(fppState[attacker].name)} — Attacker</span>
         <span class="fpp-role-def"> · 🛡 ${esc(fppState[defender].name)} — Defender</span>
@@ -8874,13 +8881,30 @@ function confirmRanking(player) {
   const reordered = items.map(el => source[parseInt(el.dataset.index)]);
   if (player === 'a') {
     fppState.rankByA = reordered;
-    fppState.step = 'rank-b';
+    fppState.step = 'handoff';
   } else {
     fppState.rankByB = reordered;
     computePairings();
     fppState.step = 'pairings';
   }
   renderFPP();
+}
+
+function renderFPPHandoff(body) {
+  const attacker = fppState.attacker;
+  const defender = attacker === 'a' ? 'b' : 'a';
+  body.innerHTML = `
+    <div class="fpp-handoff">
+      <div class="fpp-handoff-eyebrow">Next Up</div>
+      <div class="fpp-handoff-name">${esc(fppState.b.name)}</div>
+      <div class="fpp-handoff-sub">Rank ${esc(fppState.a.name)}'s force from most to least threatening to yours.</div>
+      <div class="fpp-role-banner" style="justify-content:center">
+        <span class="fpp-role-atk">⚔ ${esc(fppState[attacker].name)} — Attacker</span>
+        <span class="fpp-role-def"> · 🛡 ${esc(fppState[defender].name)} — Defender</span>
+      </div>
+      <button class="fpp-next-btn" onclick="fppState.step='rank-b'; renderFPP()">I'm Ready →</button>
+    </div>
+  `;
 }
 
 function computePairings() {
@@ -9023,9 +9047,9 @@ function renderFPPResult(body) {
   const reduction = diff * 2;
   let summaryText;
   if (!higher) {
-    summaryText = 'Forces are evenly matched. No break limit adjustment.';
+    summaryText = 'Forces are evenly matched — no adjustment needed.';
   } else {
-    summaryText = `${esc(higher.name)} scored ${diff} more pairing${diff !== 1 ? 's' : ''}. ${esc(lower.name)}'s Break Limit is reduced by ${reduction}.`;
+    summaryText = `${esc(lower.name)}'s Break Limit is reduced by ${reduction} — their force collapses sooner.`;
   }
   body.innerHTML = `
     ${fppStepIndicator(5)}
