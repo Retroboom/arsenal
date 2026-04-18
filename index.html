@@ -8984,7 +8984,7 @@ function renderPairingRow(p, i) {
         <button class="fpp-winner-btn ${w === 'a' ? 'active' : ''}" onclick="setPairingWinner(${i},'a')">◀ ${esc(truncate(fppState.a.name))}</button>
         <div class="fpp-def-wrap">
           <button class="fpp-def-btn ${w === 'defender' ? 'active' : ''}" onclick="setPairingWinner(${i},'defender')">Even Match</button>
-          <div class="fpp-def-hint">🛡 ${esc(fppState[defender].name)} scores</div>
+          <div class="fpp-def-hint">${defender === 'a' ? '← ' : ''}Defender Advantage${defender === 'b' ? ' →' : ''}</div>
         </div>
         <button class="fpp-winner-btn ${w === 'b' ? 'active' : ''}" onclick="setPairingWinner(${i},'b')">${esc(truncate(fppState.b.name))} ▶</button>
       </div>
