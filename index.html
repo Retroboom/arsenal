@@ -3596,14 +3596,14 @@
 
   /* Ranking */
   .fpp-rank-list { display: flex; flex-direction: column; gap: 8px; }
-  .fpp-rank-item { display: flex; align-items: center; gap: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; cursor: default; user-select: none; }
+  .fpp-rank-item { display: flex; align-items: center; gap: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; cursor: grab; user-select: none; }
   .fpp-rank-item:hover { border-color: var(--text3); }
+  .fpp-rank-item:active { cursor: grabbing; }
   .fpp-rank-num { font-family: var(--mono); font-size: 14px; color: var(--text3); width: 22px; flex-shrink: 0; }
   .fpp-rank-info { flex: 1; min-width: 0; }
   .fpp-rank-name { font-size: 15px; font-weight: 600; color: var(--text1); }
-  .fpp-rank-teams { font-size: 13px; color: var(--text3); margin-top: 3px; }
-  .fpp-rank-handle { color: var(--text3); cursor: grab; font-size: 20px; padding: 0 4px; }
-  .fpp-rank-handle:active { cursor: grabbing; }
+  .fpp-rank-teams { font-size: 13px; color: var(--text3); margin-top: 3px; line-height: 1.5; }
+  .fpp-team-entry { white-space: nowrap; }
   .sortable-ghost { opacity: 0.3; background: var(--bg3); }
 
   /* Pairings — attacker/defender column labels */
@@ -8847,9 +8847,8 @@ function renderFPPRank(body, player) {
           <span class="fpp-rank-num">${i + 1}</span>
           <div class="fpp-rank-info">
             <div class="fpp-rank-name">${esc(pl.name)}</div>
-            <div class="fpp-rank-teams">${(pl.teams || []).map(t => { const u = allUnits.find(u => u.id === t.unitId); return `${t.qty}× ${u?.name ?? t.unitId ?? '?'}`; }).join(' · ')}</div>
+            <div class="fpp-rank-teams">${(pl.teams || []).map(t => { const u = allUnits.find(u => u.id === t.unitId); return `<span class="fpp-team-entry">${t.qty}× ${u?.name ?? t.unitId ?? '?'}</span>`; }).join(' · ')}</div>
           </div>
-          <span class="fpp-rank-handle">⠿</span>
         </div>
       `).join('')}
     </div>
@@ -8858,7 +8857,6 @@ function renderFPPRank(body, player) {
   const list = document.getElementById('fpp-rank-list');
   if (list) {
     Sortable.create(list, {
-      handle: '.fpp-rank-handle',
       animation: 150,
       onEnd() {
         list.querySelectorAll('.fpp-rank-item').forEach((el, i) => {
@@ -8969,7 +8967,7 @@ function renderPairingRow(p, i) {
   const defender = fppState.attacker === 'a' ? 'b' : 'a';
   const effectiveWinner = w === 'defender' ? defender : w;
   const sizeBonus = effectiveWinner === 'a' ? aTeams > bTeams : effectiveWinner === 'b' ? bTeams > aTeams : false;
-  const teamList = pl => (pl.teams || []).map(t => { const u = allUnits.find(u => u.id === t.unitId); return `${t.qty}× ${u?.name ?? t.unitId ?? '?'}`; }).join(' · ');
+  const teamList = pl => (pl.teams || []).map(t => { const u = allUnits.find(u => u.id === t.unitId); return `<span class="fpp-team-entry">${t.qty}× ${u?.name ?? t.unitId ?? '?'}</span>`; }).join(' · ');
   return `
     <div class="fpp-pairing-row ${w ? 'fpp-pairing-resolved' : ''}">
       <div class="fpp-pairing-num">${i + 1}</div>
