@@ -3583,6 +3583,7 @@
   .fpp-force-meta { font-size: 13px; color: var(--text3); margin-top: 3px; }
   .fpp-load-btn { background: var(--bg3); border: 1px dashed var(--border); border-radius: 4px; padding: 24px 10px; color: var(--text2); font-size: 15px; cursor: pointer; width: 100%; text-align: center; }
   .fpp-load-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .fpp-load-btn.loaded { text-align: left; padding: 10px 12px; border-style: solid; color: inherit; }
 
   /* Action buttons */
   .fpp-next-btn { background: var(--accent); color: var(--bg); border: none; border-radius: 4px; padding: 14px 32px; font-family: var(--mono); font-size: 14px; letter-spacing: 0.1em; cursor: pointer; align-self: center; transition: opacity 0.15s; }
@@ -8805,10 +8806,10 @@ function renderFPPSetup(body) {
       <div class="fpp-player-setup fpp-axis">
         <div class="fpp-player-label">PLAYER B: OPPONENT</div>
         <input class="fpp-name-input" id="fpp-name-b" placeholder="Opponent name…" value="${esc(fppState.b.name)}">
-        <button class="fpp-load-btn" onclick="openForcePicker()">
+        <button class="fpp-load-btn ${bLoaded ? 'loaded' : ''}" onclick="openForcePicker()">
           ${bLoaded ? `
-            <div class="fpp-force-name">✓ ${esc(fppState.b.forceName || 'Opponent Force')}</div>
-            <div class="fpp-force-meta">${fppState.b.platoons.length} platoons · BL ${calcBreakLimit(fppState.b.platoons.length)}</div>
+            <div class="fpp-force-name">${esc(fppState.b.forceName || 'Opponent Force')}</div>
+            <div class="fpp-force-meta">✓ ${fppState.b.platoons.length} platoons · BL ${calcBreakLimit(fppState.b.platoons.length)}</div>
           ` : '+ Load Opponent Force'}
         </button>
       </div>
