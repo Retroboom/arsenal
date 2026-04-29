@@ -5673,7 +5673,7 @@ function renderDeployModal() {
         ` : `
           <div class="deploy-remaining">${teamSummary} remaining</div>
           <div class="deploy-quick-actions">
-            <button class="deploy-action-btn" onclick="deployKeep()">⬡ Keep as Weapons Section</button>
+            ${deployModalState.tier !== 'hq' ? `<button class="deploy-action-btn" onclick="deployKeep()">⬡ Keep as Weapons Section</button>` : ''}
             ${combatTargets.length ? `<button class="deploy-action-btn" onclick="deploySpread()">⇢ Spread across Combat Platoons</button>` : ''}
             ${hqPlatoon ? `<button class="deploy-action-btn" onclick="deployAllToHQ('${hqPlatoon.id}')">⇢ All to ${hqPlatoon.name}</button>` : ''}
           </div>
@@ -5691,7 +5691,7 @@ function renderDeployModal() {
       <div class="deploy-modal-footer">
         ${done
           ? `<span></span><button class="deploy-btn-primary" onclick="deployFinalize()">Done</button>`
-          : `<button class="deploy-btn-keep" onclick="deployKeep()">Keep remaining as section</button>
+          : `${deployModalState.tier !== 'hq' ? `<button class="deploy-btn-keep" onclick="deployKeep()">Keep remaining as section</button>` : '<span></span>'}
              <button class="deploy-btn-primary" onclick="deployFinalize()">Done</button>`}
       </div>
     </div>
