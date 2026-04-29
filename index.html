@@ -4504,8 +4504,8 @@
     <div class="lib-section-tabs">
       <button class="library-tab active" id="tab-browse" onclick="switchLibTab('browse')">Browse</button>
       <button class="library-tab" id="tab-mine" onclick="switchLibTab('mine')">My Forces</button>
-      <button class="library-tab" id="tab-historical" onclick="switchLibTab('historical')" style="display:none">ORBAT</button>
-      <button class="library-tab" id="tab-orbat" onclick="switchLibTab('orbat')">Historical</button>
+      <button class="library-tab" id="tab-historical" onclick="switchLibTab('historical')">Historical</button>
+      <button class="library-tab" id="tab-orbat" onclick="switchLibTab('orbat')" style="display:none">ORBAT</button>
     </div>
     <div id="library-body" class="library-body"></div>
     <div id="org-browser-body" style="display:none"></div>
@@ -5473,7 +5473,7 @@ function removePlatoon(id) {
   updateForceUI();
   renderUnits(true);
   renderOrgBrowser();
-  if (currentLibTab === 'orbat') renderOrbatBrowser();
+  if (currentLibTab === 'historical') renderOrbatBrowser();
 }
 
 // ── Attach-out mechanic ───────────────────────────────────────────────────
@@ -5543,7 +5543,7 @@ function confirmAttach(sourcePlatoonId, unitId, targetPlatoonId) {
     showToast(`1\xd7 ${unit?.name || 'team'} attached to ${target.name}.`, 'success');
   }
   updateForceUI();
-  if (currentLibTab === 'orbat') renderOrbatBrowser();
+  if (currentLibTab === 'historical') renderOrbatBrowser();
 }
 
 function setActivePlatoon(id) {
@@ -6262,16 +6262,16 @@ function switchLibTab(tab) {
   const hideMain     = isHistorical || isOrbat;
 
   document.getElementById('library-body').style.display        = hideMain    ? 'none' : '';
-  document.getElementById('org-browser-body').style.display    = isHistorical ? 'flex' : 'none';
-  document.getElementById('orbat-browser-body').style.display  = isOrbat     ? 'block' : 'none';
+  document.getElementById('org-browser-body').style.display    = isOrbat      ? 'flex' : 'none';
+  document.getElementById('orbat-browser-body').style.display  = isHistorical ? 'block' : 'none';
   document.querySelector('#section-library .lib-sidebar').style.display = hideMain ? 'none' : '';
   document.getElementById('section-library').style.gridTemplateColumns  = hideMain ? '1fr' : '';
 
   if (isHistorical) {
-    renderOrgBrowser();
+    renderOrbatBrowser();
     setForcePanel(true);
   } else if (isOrbat) {
-    renderOrbatBrowser();
+    renderOrgBrowser();
     setForcePanel(true);
   } else {
     clearLibFilters();
@@ -11550,7 +11550,7 @@ firebase.auth().onAuthStateChanged(async (user) => {
       document.getElementById('rate-btn').style.display = '';
       document.getElementById('score-toggle-btn').style.display = '';
       document.getElementById('hof-publish-btn').style.display = '';
-      document.getElementById('tab-historical').style.display = '';
+      document.getElementById('tab-orbat').style.display = '';
     }
     await loadData();
     await checkUrlForce();
