@@ -2367,6 +2367,75 @@
   }
   .attach-picker-cancel:hover { color: var(--text1); }
 
+  /* ── Deploy Modal ─────────────────────────────────────── */
+  .deploy-modal-overlay {
+    position: fixed; inset: 0; z-index: 9100;
+    background: rgba(0,0,0,0.65);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .deploy-modal-box {
+    background: var(--bg2); border: 1px solid var(--accent);
+    border-radius: 8px; width: 90%; max-width: 400px;
+    display: flex; flex-direction: column;
+  }
+  .deploy-modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 11px 14px; border-bottom: 1px solid var(--border);
+  }
+  .deploy-modal-title {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 1px;
+    color: var(--accent); text-transform: uppercase;
+  }
+  .deploy-modal-close {
+    background: transparent; border: none; color: var(--text3);
+    cursor: pointer; font-size: 14px; padding: 0 2px;
+  }
+  .deploy-modal-body { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .deploy-remaining {
+    font-family: var(--mono); font-size: 10px; color: var(--text2);
+    padding: 6px 8px; background: var(--bg3); border-radius: 4px;
+  }
+  .deploy-quick-actions { display: flex; flex-direction: column; gap: 5px; }
+  .deploy-action-btn {
+    width: 100%; padding: 7px 10px; text-align: left;
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    border-radius: 4px; color: var(--accent);
+    font-family: var(--mono); font-size: 10px; cursor: pointer; transition: background 0.1s;
+  }
+  .deploy-action-btn:hover { background: color-mix(in srgb, var(--accent) 18%, transparent); }
+  .deploy-divider {
+    border: none; border-top: 1px solid var(--border); margin: 2px 0;
+  }
+  .deploy-targets-label {
+    font-family: var(--mono); font-size: 9px; color: var(--text3);
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .deploy-targets { display: flex; flex-direction: column; gap: 3px; }
+  .deploy-target-btn {
+    width: 100%; padding: 6px 10px; text-align: left;
+    background: transparent; border: 1px solid var(--border);
+    border-radius: 4px; color: var(--text1);
+    font-family: var(--mono); font-size: 10px; cursor: pointer; transition: border-color 0.1s;
+  }
+  .deploy-target-btn:hover { border-color: var(--text3); background: var(--bg3); }
+  .deploy-no-targets { font-family: var(--mono); font-size: 10px; color: var(--text3); }
+  .deploy-done-msg { font-family: var(--mono); font-size: 10px; color: var(--text2); line-height: 1.5; }
+  .deploy-modal-footer {
+    padding: 10px 14px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  }
+  .deploy-btn-primary {
+    padding: 6px 14px; background: var(--accent); color: var(--bg1);
+    border: none; border-radius: 4px; font-family: var(--mono); font-size: 10px; cursor: pointer;
+  }
+  .deploy-btn-keep {
+    padding: 6px 14px; background: transparent; color: var(--text3);
+    border: 1px solid var(--border); border-radius: 4px;
+    font-family: var(--mono); font-size: 10px; cursor: pointer;
+  }
+  .deploy-btn-keep:hover { color: var(--text1); border-color: var(--text3); }
+
   .team-upgrade-row {
     display: flex;
     align-items: center;
@@ -5495,7 +5564,10 @@ function removePlatoon(id) {
 
 function attachTeamOut(sourcePlatoonId, unitId, btnEl) {
   closeAttachPicker();
-  const targets = platoons.filter(p => p.id !== sourcePlatoonId && !p.teams.some(t => t.unitId === unitId));
+  const targets = platoons.filter(p =>
+    p.id !== sourcePlatoonId &&
+    (p.tier === null || !p.teams.some(t => t.unitId === unitId))  // HQ always eligible
+  );
   if (!targets.length) {
     const allOthers = platoons.filter(p => p.id !== sourcePlatoonId);
     const msg = allOthers.length
@@ -5533,6 +5605,232 @@ function closeAttachPicker() {
   const p = document.getElementById('attach-picker');
   if (p) p.remove();
   document.removeEventListener('click', _closePickerOutside, { capture: true });
+}
+
+// ── DEPLOY MODAL ──────────────────────────────────────────────────────────────
+function openDeployModal(formationId, platoonId, tier, f, p) {
+  const nationMap  = ORG_UNIT_IDS[f.nation] || {};
+  const leaderIds  = new Set(['us-leader', 'de-leader', 'sv-leader', 'br-leader']);
+  const weaponTeams = [], leaderTeams = [];
+
+  p.teams.forEach(t => {
+    const unitId = nationMap[t.name];
+    const unit   = unitId && allUnits.find(u => u.id === unitId);
+    if (!unitId || !unit) return;
+    const entry = { unitId, displayName: unit.name !== t.name ? t.name : undefined };
+    for (let i = 0; i < t.qty; i++)
+      (leaderIds.has(unitId) ? leaderTeams : weaponTeams).push({ ...entry });
+  });
+
+  deployModalState = {
+    formationId, platoonId, tier, f, p,
+    sectionName: p.name,
+    weaponTeams,
+    leaderTeams,
+    remaining: [...weaponTeams],
+  };
+  renderDeployModal();
+}
+
+function renderDeployModal() {
+  document.getElementById('deploy-modal-overlay')?.remove();
+  if (!deployModalState) return;
+
+  const { sectionName, remaining, leaderTeams } = deployModalState;
+  const done = remaining.length === 0;
+
+  // Summarise remaining teams
+  const countMap = {};
+  remaining.forEach(t => {
+    const label = t.displayName || allUnits.find(u => u.id === t.unitId)?.name || t.unitId;
+    countMap[label] = (countMap[label] || 0) + 1;
+  });
+  const teamSummary = Object.entries(countMap).map(([n, q]) => `${q}× ${n}`).join(', ');
+
+  const nextUnitId    = remaining[0]?.unitId;
+  const hqPlatoon     = platoons.find(pl => pl.tier === null && pl.orbatPlatoonId);
+  const combatTargets = platoons.filter(pl => pl.tier === 'combat' && !pl.teams.some(t => t.unitId === nextUnitId));
+  const individualTargets = platoons.filter(pl =>
+    pl.tier === null || !pl.teams.some(t => t.unitId === nextUnitId)
+  );
+
+  const overlay = document.createElement('div');
+  overlay.id        = 'deploy-modal-overlay';
+  overlay.className = 'deploy-modal-overlay';
+  overlay.onclick   = e => { if (e.target === overlay) closeDeployModal(); };
+
+  overlay.innerHTML = `
+    <div class="deploy-modal-box">
+      <div class="deploy-modal-header">
+        <span class="deploy-modal-title">Deploy: ${sectionName}</span>
+        <button class="deploy-modal-close" onclick="closeDeployModal()">✕</button>
+      </div>
+      <div class="deploy-modal-body">
+        ${done ? `
+          <p class="deploy-done-msg">
+            All teams deployed.${leaderTeams.length ? '<br>Section commander added as a residual element.' : '<br>Section dissolved — no centralized element remains.'}
+          </p>
+        ` : `
+          <div class="deploy-remaining">${teamSummary} remaining</div>
+          <div class="deploy-quick-actions">
+            <button class="deploy-action-btn" onclick="deployKeep()">⬡ Keep as Weapons Section</button>
+            ${combatTargets.length ? `<button class="deploy-action-btn" onclick="deploySpread()">⇢ Spread across Combat Platoons</button>` : ''}
+            ${hqPlatoon ? `<button class="deploy-action-btn" onclick="deployAllToHQ('${hqPlatoon.id}')">⇢ All to ${hqPlatoon.name}</button>` : ''}
+          </div>
+          ${individualTargets.length ? `
+            <hr class="deploy-divider">
+            <div class="deploy-targets-label">Or assign next team individually:</div>
+            <div class="deploy-targets">
+              ${individualTargets.map(pl => `
+                <button class="deploy-target-btn" onclick="deployAssignOne('${pl.id}')">${pl.name}</button>
+              `).join('')}
+            </div>
+          ` : `<div class="deploy-no-targets">No eligible platoons for remaining teams.</div>`}
+        `}
+      </div>
+      <div class="deploy-modal-footer">
+        ${done
+          ? `<span></span><button class="deploy-btn-primary" onclick="deployFinalize()">Done</button>`
+          : `<button class="deploy-btn-keep" onclick="deployKeep()">Keep remaining as section</button>
+             <button class="deploy-btn-primary" onclick="deployFinalize()">Done</button>`}
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+}
+
+function closeDeployModal() {
+  document.getElementById('deploy-modal-overlay')?.remove();
+  deployModalState = null;
+}
+
+function _deployInitFormation() {
+  if (!deployModalState || orgLockedFormation) return;
+  const { formationId, f } = deployModalState;
+  orgLockedFormation = formationId;
+  const ORBAT_FORCE_TYPE = { 'us-rifle-co-normandy-1944': 'Infantry' };
+  const nameEl = document.getElementById('force-name');
+  if (!nameEl.value.trim()) nameEl.value = f.name;
+  if (!forceYear) {
+    const m = (f.era || '').match(/\d{4}/);
+    if (m) { forceYear = parseInt(m[0]); document.getElementById('force-year').value = forceYear; }
+  }
+  setForceQuality('Regular');
+  const fType = ORBAT_FORCE_TYPE[formationId];
+  if (fType) { forceType = null; setForceType(fType); }
+}
+
+function _assignTeamToForce(team, targetPlatoonId) {
+  const target = platoons.find(p => p.id === targetPlatoonId);
+  if (!target) return;
+  const existing = target.teams.find(t => t.unitId === team.unitId);
+  if (existing) existing.qty += 1;
+  else target.teams.push({ unitId: team.unitId, qty: 1, ...(team.displayName ? { displayName: team.displayName } : {}) });
+}
+
+function _addDeployResidual() {
+  if (!deployModalState) return;
+  const { leaderTeams, remaining, sectionName, tier, formationId, platoonId, p } = deployModalState;
+  const residual = [...leaderTeams, ...remaining];
+  if (!residual.length) return;
+
+  // Slot check — only if keeping a real section in a tracked tier
+  if (tier && tier !== 'combat' && tier !== 'hq') {
+    const slots = getOrgSlots(), used = getOrgUsed();
+    if ((used[tier] || 0) >= (slots[tier] || 0)) {
+      showToast('No slot available for residual section — section commander not added.', 'warning');
+      return;
+    }
+  }
+
+  const teamMap = {};
+  residual.forEach(t => {
+    if (!teamMap[t.unitId]) teamMap[t.unitId] = { unitId: t.unitId, qty: 0, ...(t.displayName ? { displayName: t.displayName } : {}) };
+    teamMap[t.unitId].qty += 1;
+  });
+
+  platoonCounter++;
+  const id = `pl-${platoonCounter}`;
+  platoons.push({
+    id, name: sectionName, teams: Object.values(teamMap),
+    quality: p.defaultQuality || null,
+    tier: (tier === 'hq') ? null : (tier || null),
+    formationId, orbatPlatoonId: platoonId, orbatBaseName: sectionName,
+    attachable: false,
+  });
+  activePlatoonId = id;
+  deployModalState.remaining = [];
+}
+
+function deployAssignOne(targetPlatoonId) {
+  if (!deployModalState || !deployModalState.remaining.length) return;
+  const team = deployModalState.remaining.shift();
+  _deployInitFormation();
+  _assignTeamToForce(team, targetPlatoonId);
+  updateForceUI();
+  if (deployModalState.remaining.length === 0) {
+    _addDeployResidual();
+    updateForceUI();
+    renderOrbatBrowser();
+  }
+  renderDeployModal();
+}
+
+function deploySpread() {
+  if (!deployModalState) return;
+  const combatPlatoons = platoons.filter(pl => pl.tier === 'combat');
+  const newRemaining = [];
+  for (const team of deployModalState.remaining) {
+    const target = combatPlatoons.find(pl => !pl.teams.some(t => t.unitId === team.unitId));
+    if (target) _assignTeamToForce(team, target.id);
+    else newRemaining.push(team);
+  }
+  deployModalState.remaining = newRemaining;
+  _deployInitFormation();
+  updateForceUI();
+  if (!newRemaining.length) { _addDeployResidual(); updateForceUI(); renderOrbatBrowser(); }
+  renderDeployModal();
+}
+
+function deployAllToHQ(hqPlatoonId) {
+  if (!deployModalState) return;
+  for (const team of deployModalState.remaining) _assignTeamToForce(team, hqPlatoonId);
+  deployModalState.remaining = [];
+  _deployInitFormation();
+  updateForceUI();
+  _addDeployResidual();
+  updateForceUI();
+  renderOrbatBrowser();
+  renderDeployModal();
+}
+
+function deployKeep() {
+  // Add ALL remaining weapon teams + leader as a centralized section
+  if (!deployModalState) return;
+  const { tier, remaining, leaderTeams } = deployModalState;
+
+  if (tier && tier !== 'combat' && tier !== 'hq') {
+    const slots = getOrgSlots(), used = getOrgUsed();
+    if ((used[tier] || 0) >= (slots[tier] || 0)) {
+      const labels = { weapons: 'Weapons Support', regimental: 'Regimental Support', divisional: 'Divisional Support' };
+      showToast(`No ${labels[tier] || tier} slots available. Add more Combat platoons first.`, 'warning');
+      return;
+    }
+  }
+
+  _deployInitFormation();
+  _addDeployResidual();
+  updateForceUI();
+  renderOrbatBrowser();
+  setForcePanel(true);
+  closeDeployModal();
+}
+
+function deployFinalize() {
+  updateForceUI();
+  renderOrbatBrowser();
+  setForcePanel(true);
+  closeDeployModal();
 }
 
 function confirmAttach(sourcePlatoonId, unitId, targetPlatoonId) {
@@ -9293,6 +9591,7 @@ const HISTORICAL_ORGS = [
 let orgSelectedNation = 'United States';
 let orgExpandedFormation = null;
 let orgLockedFormation = null; // set once first tiered platoon is added
+let deployModalState   = null; // active deploy-modal session
 let orgExpandedAttachments = new Set();
 
 // ── ORBAT (Order of Battle) — admin-only historical formations ─────────────
@@ -10214,6 +10513,12 @@ function addPlatoonFromOrbat(formationId, platoonId, tier) {
       showToast(msg, 'warning');
       return;
     }
+  }
+
+  // Attachable sections skip direct add — show deploy modal instead
+  if (p.attachable) {
+    openDeployModal(formationId, platoonId, tier, f, p);
+    return;
   }
 
   // Slot enforcement (combat and hq tiers are always free)
