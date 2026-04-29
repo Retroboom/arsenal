@@ -5459,6 +5459,15 @@ function removePlatoon(id) {
   if (activePlatoonId === id) {
     activePlatoonId = platoons.length ? platoons[platoons.length - 1].id : null;
   }
+
+  // If a sibling group is now down to one, strip the ordinal prefix back to plain name
+  const groups = {};
+  platoons.filter(p => p.orbatPlatoonId && p.orbatBaseName).forEach(p => {
+    (groups[p.orbatPlatoonId] = groups[p.orbatPlatoonId] || []).push(p);
+  });
+  Object.values(groups).forEach(group => {
+    if (group.length === 1) group[0].name = group[0].orbatBaseName;
+  });
   if (orgLockedFormation && !platoons.some(p => p.formationId)) {
     orgLockedFormation = null;
     // Reset auto-populated fields so next formation starts fresh
@@ -10238,12 +10247,19 @@ function addPlatoonFromOrbat(formationId, platoonId, tier) {
   platoonCounter++;
   const id = `pl-${platoonCounter}`;
 
-  // Ordinal name: "1st Rifle Platoon", "2nd Rifle Platoon" etc.
-  // HQ sections are unique by definition — no ordinal.
+  // Ordinal naming — only applied when 2+ of the same platoon type are in the force.
+  // HQ sections are unique by definition and never get ordinals.
   let platoonName = p.name;
   if (tier !== 'hq') {
-    const existing = platoons.filter(pl => pl.orbatPlatoonId === p.id).length;
-    platoonName = `${ordinal(existing + 1)} ${p.name}`;
+    const siblings = platoons.filter(pl => pl.orbatPlatoonId === p.id);
+    if (siblings.length === 1) {
+      // Second of this type: retroactively prefix the first, then name this one "2nd"
+      siblings[0].name = `1st ${siblings[0].orbatBaseName || p.name}`;
+      platoonName = `2nd ${p.name}`;
+    } else if (siblings.length > 1) {
+      platoonName = `${ordinal(siblings.length + 1)} ${p.name}`;
+    }
+    // else siblings.length === 0: plain name, no prefix
   }
 
   // HQ tier platoons use null tier so slot tracking ignores them
@@ -10255,6 +10271,7 @@ function addPlatoonFromOrbat(formationId, platoonId, tier) {
     tier: (tier === 'hq') ? null : (tier || null),
     formationId,
     orbatPlatoonId: p.id,
+    orbatBaseName: p.name,
     attachable: !!p.attachable,
   });
   if (!orgLockedFormation) orgLockedFormation = formationId;
