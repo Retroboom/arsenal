@@ -5460,13 +5460,17 @@ function removePlatoon(id) {
     activePlatoonId = platoons.length ? platoons[platoons.length - 1].id : null;
   }
 
-  // If a sibling group is now down to one, strip the ordinal prefix back to plain name
+  // Re-sequence ordinals for all sibling groups after removal
   const groups = {};
   platoons.filter(p => p.orbatPlatoonId && p.orbatBaseName).forEach(p => {
     (groups[p.orbatPlatoonId] = groups[p.orbatPlatoonId] || []).push(p);
   });
   Object.values(groups).forEach(group => {
-    if (group.length === 1) group[0].name = group[0].orbatBaseName;
+    if (group.length === 1) {
+      group[0].name = group[0].orbatBaseName;
+    } else {
+      group.forEach((pl, i) => { pl.name = `${ordinal(i + 1)} ${pl.orbatBaseName}`; });
+    }
   });
   if (orgLockedFormation && !platoons.some(p => p.formationId)) {
     orgLockedFormation = null;
