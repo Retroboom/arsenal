@@ -4313,7 +4313,6 @@
     <button class="header-nav-tab active" data-section="units" data-label="Units" onclick="setSection('units')">Units</button>
     <button class="header-nav-tab" data-section="library" data-label="Force Library" onclick="setSection('library')">Force Library</button>
     <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="setSection('fieldmanual')">Field Manual</button>
-    <button class="header-nav-tab" data-section="fpp" data-label="FPP" onclick="setSection('fpp')">FPP</button>
   </nav>
   <div class="header-actions">
     <button class="force-toggle-btn" onclick="toggleForcePanel()">
@@ -4506,10 +4505,12 @@
       <button class="library-tab" id="tab-mine" onclick="switchLibTab('mine')">My Forces</button>
       <button class="library-tab" id="tab-historical" onclick="switchLibTab('historical')">Historical</button>
       <button class="library-tab" id="tab-orbat" onclick="switchLibTab('orbat')" style="display:none">ORBAT</button>
+      <button class="library-tab" id="tab-fpp" onclick="switchLibTab('fpp')">FPP</button>
     </div>
     <div id="library-body" class="library-body"></div>
     <div id="org-browser-body" style="display:none"></div>
     <div id="orbat-browser-body" style="display:none"></div>
+    <div id="fpp-body" class="fpp-body" style="display:none"></div>
   </div>
 </div>
 
@@ -4550,11 +4551,6 @@
     </nav>
     <div class="rules-content" id="rules-content"></div>
   </div>
-</div>
-
-<!-- FPP SECTION -->
-<div class="section" id="section-fpp">
-  <div id="fpp-body" class="fpp-body"></div>
 </div>
 
 <!-- QUICK TRACKER SETUP MODAL -->
@@ -4809,17 +4805,23 @@ let currentUser = null;
 let currentSection = 'units';
 
 function setSection(name) {
+  // FPP lives inside Force Library now — redirect transparently
+  if (name === 'fpp') {
+    currentLibTab = 'fpp';
+    setSection('library');
+    return;
+  }
   currentSection = name;
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById(`section-${name}`).classList.add('active');
   document.querySelectorAll('.header-nav-tab').forEach(t => t.classList.remove('active'));
-  document.querySelector(`.header-nav-tab[data-section="${name}"]`).classList.add('active');
+  const navTab = document.querySelector(`.header-nav-tab[data-section="${name}"]`);
+  if (navTab) navTab.classList.add('active');
   document.querySelectorAll('.units-only').forEach(el => {
     el.style.display = name === 'units' ? '' : 'none';
   });
-  if (name === 'library') loadLibraryTab(currentLibTab || 'browse');
+  if (name === 'library') switchLibTab(currentLibTab || 'browse');
   if (name === 'fieldmanual') loadFieldManual();
-  if (name === 'fpp') renderFPP();
 }
 
 // ── LOAD DATA ─────────────────────────────────────────────────────────────────
@@ -6272,11 +6274,13 @@ function switchLibTab(tab) {
 
   const isHistorical = tab === 'historical';
   const isOrbat      = tab === 'orbat';
-  const hideMain     = isHistorical || isOrbat;
+  const isFpp        = tab === 'fpp';
+  const hideMain     = isHistorical || isOrbat || isFpp;
 
-  document.getElementById('library-body').style.display        = hideMain    ? 'none' : '';
-  document.getElementById('org-browser-body').style.display    = isOrbat      ? 'flex' : 'none';
-  document.getElementById('orbat-browser-body').style.display  = isHistorical ? 'block' : 'none';
+  document.getElementById('library-body').style.display        = hideMain      ? 'none'  : '';
+  document.getElementById('org-browser-body').style.display    = isOrbat       ? 'flex'  : 'none';
+  document.getElementById('orbat-browser-body').style.display  = isHistorical  ? 'block' : 'none';
+  document.getElementById('fpp-body').style.display            = isFpp         ? 'flex'  : 'none';
   document.querySelector('#section-library .lib-sidebar').style.display = hideMain ? 'none' : '';
   document.getElementById('section-library').style.gridTemplateColumns  = hideMain ? '1fr' : '';
 
@@ -6286,6 +6290,9 @@ function switchLibTab(tab) {
   } else if (isOrbat) {
     renderOrgBrowser();
     setForcePanel(true);
+  } else if (isFpp) {
+    setForcePanel(false);
+    renderFPP();
   } else {
     clearLibFilters();
     loadLibraryTab(tab);
