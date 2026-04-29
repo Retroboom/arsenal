@@ -5495,9 +5495,13 @@ function removePlatoon(id) {
 
 function attachTeamOut(sourcePlatoonId, unitId, btnEl) {
   closeAttachPicker();
-  const targets = platoons.filter(p => p.id !== sourcePlatoonId);
+  const targets = platoons.filter(p => p.id !== sourcePlatoonId && !p.teams.some(t => t.unitId === unitId));
   if (!targets.length) {
-    showToast('No other platoons to attach to — add a combat platoon first.', 'warning');
+    const allOthers = platoons.filter(p => p.id !== sourcePlatoonId);
+    const msg = allOthers.length
+      ? 'All platoons already have this team attached.'
+      : 'No other platoons to attach to — add a combat platoon first.';
+    showToast(msg, 'warning');
     return;
   }
   const picker = document.createElement('div');
