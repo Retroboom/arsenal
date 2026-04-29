@@ -5889,10 +5889,11 @@ function updateForceUI() {
           const isNewRow = platoon.id === _animPlatoonId && t.unitId === _animUnitId;
           const rowAnim  = isNewRow ? ' style="animation: rowFadeIn 0.5s ease forwards; opacity: 0"' : '';
 
+          const teamLabel = t.displayName || unit.name;
           if (unit.type === 'Upgrade') {
             return `
               <div class="team-upgrade-row"${rowAnim}>
-                <span class="upgrade-tag">${unit.name}</span>
+                <span class="upgrade-tag">${teamLabel}</span>
                 <button class="team-remove-btn" onclick="removeTeamFromPlatoon('${platoon.id}','${t.unitId}')">✕</button>
               </div>
             `;
@@ -5903,7 +5904,7 @@ function updateForceUI() {
             return `
               <div class="platoon-team-row"${rowAnim}>
                 <span class="team-qty">${t.qty}×</span>
-                <span class="team-name">${unit.name}</span>
+                <span class="team-name">${teamLabel}</span>
                 <button class="team-attach-btn" onclick="attachTeamOut('${platoon.id}','${t.unitId}',this)" data-tip="Attach one team to another platoon">⇢ Attach</button>
                 <button class="team-remove-btn" onclick="removeTeamFromPlatoon('${platoon.id}','${t.unitId}')" data-tip="Remove from force">✕</button>
               </div>
@@ -5921,7 +5922,7 @@ function updateForceUI() {
                 <button class="qty-btn" onclick="changeTeamQty('${platoon.id}','${t.unitId}',-1)">▼</button>
               </div>` : ''}
               <span class="team-qty">${t.qty}×</span>
-              <span class="team-name">${unit.name}</span>
+              <span class="team-name">${teamLabel}</span>
               ${fixed
                 ? `<button class="team-lock-btn ${unlocked ? 'unlocked' : ''}" onclick="toggleTeamLock('${platoon.id}','${t.unitId}')" data-tip="${unlocked ? 'Lock' : 'Unlock to edit'}">
                     ${unlocked ? '🔓' : '🔒'}
@@ -10224,7 +10225,11 @@ function addPlatoonFromOrbat(formationId, platoonId, tier) {
 
   const nationMap = ORG_UNIT_IDS[f.nation] || {};
   const teams = p.teams
-    .map(t => ({ unitId: nationMap[t.name], qty: t.qty }))
+    .map(t => {
+      const unitId = nationMap[t.name];
+      const unit   = unitId && allUnits.find(u => u.id === unitId);
+      return { unitId, qty: t.qty, ...(unit && unit.name !== t.name ? { displayName: t.name } : {}) };
+    })
     .filter(t => t.unitId && allUnits.find(u => u.id === t.unitId));
 
   // Auto-populate force metadata on very first add
