@@ -10166,6 +10166,12 @@ function renderOrbatBrowser() {
   `;
 }
 
+function ordinal(n) {
+  const s = ['th','st','nd','rd'];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+
 function addPlatoonFromOrbat(formationId, platoonId, tier) {
   const f = ORBAT_FORMATIONS.find(o => o.id === formationId);
   const allSections = [
@@ -10231,10 +10237,19 @@ function addPlatoonFromOrbat(formationId, platoonId, tier) {
 
   platoonCounter++;
   const id = `pl-${platoonCounter}`;
+
+  // Ordinal name: "1st Rifle Platoon", "2nd Rifle Platoon" etc.
+  // HQ sections are unique by definition — no ordinal.
+  let platoonName = p.name;
+  if (tier !== 'hq') {
+    const existing = platoons.filter(pl => pl.orbatPlatoonId === p.id).length;
+    platoonName = `${ordinal(existing + 1)} ${p.name}`;
+  }
+
   // HQ tier platoons use null tier so slot tracking ignores them
   platoons.push({
     id,
-    name: p.name,
+    name: platoonName,
     teams,
     quality: p.defaultQuality || null,
     tier: (tier === 'hq') ? null : (tier || null),
@@ -10247,7 +10262,7 @@ function addPlatoonFromOrbat(formationId, platoonId, tier) {
   updateForceUI();
   renderOrbatBrowser();
   setForcePanel(true);
-  showToast(`${p.name} added to force.`, 'success');
+  showToast(`${platoonName} added to force.`, 'success');
 }
 
 // Unit ID lookup by nation + display name
