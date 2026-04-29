@@ -34,6 +34,8 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
+    margin: 0;
+    padding: 0;
     background: var(--bg);
     color: var(--text);
     font-family: var(--body);
@@ -96,6 +98,15 @@
       border-top: 1px solid var(--border);
     }
     .header-actions { margin-left: auto; }
+
+    /* Hide-on-scroll: slide header up when user scrolls down, back on scroll up */
+    header {
+      transition: transform 0.22s ease;
+      will-change: transform;
+    }
+    header.header-hidden {
+      transform: translateY(-100%);
+    }
   }
 
   .header-actions {
@@ -129,6 +140,22 @@
     display: grid;
     grid-template-columns: 260px 1fr;
     min-height: calc(100vh - var(--header-h));
+  }
+  #section-library.active.lib-filters-collapsed {
+    grid-template-columns: 36px 1fr;
+  }
+  #section-library.lib-filters-collapsed .lib-sidebar {
+    padding: 12px 0;
+    overflow: hidden;
+  }
+  #section-library.lib-filters-collapsed .lib-sidebar-title,
+  #section-library.lib-filters-collapsed .lib-filters-body {
+    display: none;
+  }
+  #section-library.lib-filters-collapsed .lib-sidebar-header {
+    justify-content: center;
+    border-bottom: none;
+    margin-bottom: 0;
   }
 
   #org-browser-body {
@@ -316,6 +343,238 @@
     color: var(--text1);
   }
 
+  /* ── ORBAT BROWSER ──────────────────────────────────────────────────── */
+  #orbat-browser-body {
+    overflow-y: auto;
+    min-height: 0;
+  }
+
+  /* Formation container */
+  .orbat-formation { border-bottom: 1px solid var(--border); }
+
+  /* Company header — gold top accent, full-width clickable */
+  .orbat-company-header {
+    background: var(--bg2);
+    border-top: 3px solid var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .orbat-company-header:hover { background: var(--bg3); }
+  .orbat-company-header.orbat-locked {
+    cursor: default;
+    opacity: 0.38;
+    pointer-events: none;
+  }
+  .orbat-company-name {
+    font-family: var(--display);
+    font-size: 14px;
+    letter-spacing: 0.03em;
+    color: var(--text1);
+    margin-bottom: 4px;
+  }
+  .orbat-company-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+  }
+  .orbat-formation-note {
+    font-size: 11px;
+    color: var(--text3);
+    padding: 8px 18px 14px;
+    line-height: 1.55;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    font-style: italic;
+  }
+
+  /* Tree trunk */
+  .orbat-tree {
+    border-left: 2px solid var(--border);
+    margin-left: 18px;
+    padding: 14px 0 8px;
+  }
+
+  /* Tier block — positioned so ::before can reach the trunk */
+  .orbat-tier {
+    position: relative;
+    margin-left: 24px;
+    margin-bottom: 20px;
+  }
+  .orbat-tier:last-child { margin-bottom: 6px; }
+
+  /* Branch connector from trunk to tier header */
+  .orbat-tier::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: -26px;
+    width: 24px;
+  }
+  /* Solid 2px — organic tiers */
+  .orbat-tier.orbat-hq::before    { height: 2px; background: var(--accent); }
+  .orbat-tier.orbat-combat::before { height: 2px; background: #6b9e6b; }
+  /* Dashed 1px — support tiers */
+  .orbat-tier.orbat-weapons::before,
+  .orbat-tier.orbat-regimental::before,
+  .orbat-tier.orbat-divisional::before { height: 1px; }
+  .orbat-tier.orbat-weapons::before {
+    background: repeating-linear-gradient(to right,
+      #6e9dbf 0, #6e9dbf 5px, transparent 5px, transparent 9px);
+  }
+  .orbat-tier.orbat-regimental::before {
+    background: repeating-linear-gradient(to right,
+      #b8905a 0, #b8905a 5px, transparent 5px, transparent 9px);
+  }
+  .orbat-tier.orbat-divisional::before {
+    background: repeating-linear-gradient(to right,
+      #9a72b8 0, #9a72b8 5px, transparent 5px, transparent 9px);
+  }
+
+  /* Tier header: pill + slot count + colored rule line */
+  .orbat-tier-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    height: 28px;
+  }
+  .orbat-tier-pill {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .orbat-hq         .orbat-tier-pill { background: rgba(201,169,110,0.15); color: var(--accent); }
+  .orbat-combat     .orbat-tier-pill { background: rgba(107,158,107,0.18); color: #6b9e6b; }
+  .orbat-weapons    .orbat-tier-pill { background: rgba(110,157,191,0.18); color: #6e9dbf; }
+  .orbat-regimental .orbat-tier-pill { background: rgba(184,144, 90,0.18); color: #b8905a; }
+  .orbat-divisional .orbat-tier-pill { background: rgba(154,114,184,0.18); color: #9a72b8; }
+
+  .orbat-tier-slots {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    flex-shrink: 0;
+  }
+  .orbat-tier.orbat-full .orbat-tier-slots,
+  .orbat-tier.orbat-full .orbat-tier-pill { color: var(--warn, #f5a623); }
+
+  /* Horizontal rule extending to the right of the tier header */
+  .orbat-tier-rule { flex: 1; height: 1px; opacity: 0.18; }
+  .orbat-hq         .orbat-tier-rule { background: var(--accent); }
+  .orbat-combat     .orbat-tier-rule { background: #6b9e6b; }
+  .orbat-weapons    .orbat-tier-rule { background: #6e9dbf; }
+  .orbat-regimental .orbat-tier-rule { background: #b8905a; }
+  .orbat-divisional .orbat-tier-rule { background: #9a72b8; }
+
+  /* Platoon list — sub-trunk with connector lines */
+  .orbat-platoon-list {
+    margin-left: 6px;
+    border-left: 1px solid var(--border);
+  }
+  .orbat-hq .orbat-platoon-list { border-left-color: rgba(201,169,110,0.25); }
+  .orbat-weapons    .orbat-platoon-list,
+  .orbat-regimental .orbat-platoon-list,
+  .orbat-divisional .orbat-platoon-list {
+    border-left-style: dashed;
+    border-left-color: rgba(255,255,255,0.09);
+  }
+
+  /* Platoon row */
+  .orbat-platoon-row {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 14px 10px 28px;
+  }
+  .orbat-platoon-row + .orbat-platoon-row {
+    border-top: 1px solid rgba(255,255,255,0.035);
+  }
+  .orbat-platoon-row:hover { background: rgba(255,255,255,0.025); }
+
+  /* Horizontal connector from sub-trunk to row */
+  .orbat-platoon-row::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 20px;
+    width: 22px;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .orbat-platoon-info { flex: 1; min-width: 0; }
+  .orbat-platoon-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text1);
+    margin-bottom: 2px;
+  }
+  .orbat-platoon-teams {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    line-height: 1.55;
+  }
+  .orbat-platoon-note {
+    font-size: 10px;
+    color: var(--text3);
+    margin-top: 4px;
+    font-style: italic;
+    line-height: 1.45;
+  }
+
+  /* Badges */
+  .orbat-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 1px 5px;
+    border-radius: 2px;
+    margin-top: 3px;
+    margin-right: 4px;
+    font-style: normal;
+  }
+  .orbat-badge-attach { background: rgba(110,157,191,0.18); color: #6e9dbf; }
+  .orbat-badge-req    { background: rgba(184,144, 90,0.18); color: #b8905a; }
+
+  /* Locked platoon (prereq not met) */
+  .orbat-platoon-locked { opacity: 0.35; }
+
+  /* Add button — transparent, hover → gold accent */
+  .orbat-add-btn {
+    flex-shrink: 0;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text3);
+    border-radius: 2px;
+    padding: 5px 11px;
+    font-size: 10px;
+    font-family: var(--mono);
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color 0.15s, color 0.15s;
+    margin-top: 1px;
+  }
+  .orbat-add-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .orbat-add-btn.orbat-add-btn-dimmed { opacity: 0.3; cursor: help; }
+
   #section-fieldmanual.active {
     display: flex;
     flex-direction: column;
@@ -336,6 +595,32 @@
     height: calc(100vh - var(--header-h));
     overflow-y: auto;
   }
+  .lib-sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .lib-sidebar-title {
+    font-family: var(--display);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text3);
+  }
+  .lib-sidebar-toggle {
+    background: none;
+    border: none;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 18px;
+    padding: 2px 4px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .lib-sidebar-toggle:hover { color: var(--text1); }
 
   .lib-main {
     display: flex;
@@ -790,29 +1075,49 @@
     overflow-y: auto;
   }
 
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .sidebar-header-title {
+    font-family: var(--display);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text3);
+  }
   .sidebar-toggle-btn {
-    position: absolute;
-    top: 19px;
-    right: 14px;
     background: none;
     border: none;
     color: var(--text3);
-    font-size: 14px;
+    font-size: 18px;
     line-height: 1;
     padding: 2px 4px;
     cursor: pointer;
     transition: color 0.12s;
-    z-index: 1;
+    flex-shrink: 0;
   }
   .sidebar-toggle-btn:hover { color: var(--text); }
 
   .app.sidebar-collapsed .sidebar {
-    padding: 16px 0;
+    padding: 12px 0;
     display: flex;
     justify-content: center;
+    align-items: flex-start;
   }
-  .app.sidebar-collapsed .sidebar-toggle-btn {
-    position: static;
+  .app.sidebar-collapsed .sidebar-header {
+    justify-content: center;
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .app.sidebar-collapsed .sidebar-header-title {
+    display: none;
   }
   .app.sidebar-collapsed .sidebar-filters {
     display: none;
@@ -944,6 +1249,15 @@
     transition: border-color 0.15s, color 0.15s;
   }
   .rate-teams-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .rate-teams-btn.active { border-color: var(--accent); color: var(--accent); }
+  .platoon-score-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
 
   /* MAIN CONTENT */
   .main {
@@ -957,6 +1271,9 @@
     padding-right: 384px; /* 360px panel + 24px original right padding */
   }
   body.panel-open #org-browser-body {
+    padding-right: 360px;
+  }
+  body.panel-open #orbat-browser-body {
     padding-right: 360px;
   }
 
@@ -1970,6 +2287,85 @@
   }
   .team-lock-btn:hover { opacity: 1; color: var(--accent); }
   .team-lock-btn.unlocked { opacity: 1; color: var(--accent); }
+
+  /* ── Attach-out mechanic ──────────────────────────────────────── */
+  .team-attach-btn {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+    color: var(--accent);
+    border-radius: 3px;
+    padding: 1px 7px;
+    font-size: 9px;
+    cursor: pointer;
+    font-family: var(--mono);
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+    transition: background 0.12s, color 0.12s;
+  }
+  .team-attach-btn:hover { background: var(--accent); color: var(--bg1); }
+
+  .attach-hint {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.4px;
+    color: var(--accent);
+    opacity: 0.65;
+    padding: 3px 0 5px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2px;
+  }
+
+  .attach-picker {
+    position: fixed;
+    z-index: 9999;
+    background: var(--bg2);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    padding: 6px;
+    min-width: 180px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.6);
+    animation: fadeIn 0.1s ease;
+  }
+  .attach-picker-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--text3);
+    text-transform: uppercase;
+    padding: 2px 4px 6px;
+  }
+  .attach-picker-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 5px 8px;
+    background: transparent;
+    border: none;
+    border-radius: 3px;
+    color: var(--text1);
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 11px;
+    transition: background 0.1s;
+  }
+  .attach-picker-btn:hover { background: var(--accent); color: var(--bg1); }
+  .attach-picker-cancel {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 4px 8px;
+    background: transparent;
+    border: none;
+    border-top: 1px solid var(--border);
+    color: var(--text3);
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 9px;
+    margin-top: 4px;
+    transition: color 0.1s;
+  }
+  .attach-picker-cancel:hover { color: var(--text1); }
 
   .team-upgrade-row {
     display: flex;
@@ -3262,6 +3658,44 @@
   .fs-notes-cell { position: relative; overflow: visible; }
 
   /* PRINT */
+  /* ── FORCE BUILDER MOBILE ───────────────────────────────────────── */
+  @media (max-width: 640px) {
+    /* Nav tabs: scrollable row so all tabs are reachable */
+    .header-nav { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; flex-shrink: 0; }
+    .header-nav::-webkit-scrollbar { display: none; }
+    .header-nav-tab { padding: 10px 14px; flex-shrink: 0; }
+
+    /* Sidebar: always show as 36px strip; expanded state overlays content */
+    .app, .app.sidebar-collapsed { grid-template-columns: 36px 1fr; }
+    .app:not(.sidebar-collapsed) .sidebar {
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      width: 280px;
+      height: calc(100vh - var(--header-h));
+      z-index: 100;
+      box-shadow: 4px 0 32px rgba(0,0,0,0.6);
+      padding: 16px 14px;
+      overflow-y: auto;
+    }
+    /* Sidebar backdrop */
+    .sidebar-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 99; display: none; }
+    .sidebar-backdrop.visible { display: block; }
+    /* Bigger sidebar toggle */
+    .sidebar-toggle-btn { padding: 10px 8px; font-size: 16px; }
+
+    /* Main: less padding */
+    .main { padding: 14px; }
+    body.panel-open .main { padding-right: 14px; } /* force panel overlays, no push */
+
+    /* Force panel: full width, use dynamic viewport height so iOS browser chrome doesn't cut it off */
+    .force-panel { width: 100vw; height: calc(100dvh - var(--header-h)); }
+    .force-panel .force-panel-body { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+
+    /* Filter chips: bigger for touch */
+    .chip { font-size: 12px; padding: 7px 10px; }
+  }
+
   @media print {
     body { background: white !important; color: black !important; }
 
@@ -3593,13 +4027,21 @@
   .fpp-back-btn:hover { border-color: var(--text2); }
   .fpp-restart-btn { background: none; border: none; font-family: var(--mono); font-size: 13px; color: var(--text3); cursor: pointer; align-self: center; padding: 4px 8px; letter-spacing: 0.04em; }
   .fpp-restart-btn:hover { color: var(--text2); text-decoration: underline; }
+  .fpp-restart-btn:disabled { opacity: 0.35; cursor: default; text-decoration: none; }
+  .fpp-auto-btn { background: none; border: 1px solid var(--accent); color: var(--accent); border-radius: 4px; padding: 14px 32px; font-family: var(--mono); font-size: 14px; letter-spacing: 0.1em; cursor: pointer; align-self: center; transition: opacity 0.15s; }
+  .fpp-auto-btn:hover { opacity: 0.75; }
+  .fpp-auto-btn:disabled { opacity: 0.35; cursor: default; }
+  .fpp-setup-actions { display: flex; flex-direction: column; gap: 10px; align-items: center; }
   .fpp-result-actions { display: flex; flex-direction: column; gap: 10px; align-items: center; }
 
   /* Ranking */
   .fpp-rank-list { display: flex; flex-direction: column; gap: 8px; }
-  .fpp-rank-item { display: flex; align-items: center; gap: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; cursor: grab; user-select: none; }
+  .fpp-rank-item { display: flex; align-items: center; gap: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; cursor: default; user-select: none; }
   .fpp-rank-item:hover { border-color: var(--text3); }
-  .fpp-rank-item:active { cursor: grabbing; }
+  .fpp-pts-badge { font-family: var(--mono); font-size: 11px; color: var(--accent); white-space: nowrap; margin-left: auto; }
+  .fpp-unit-pts { font-family: var(--mono); font-size: 11px; color: var(--accent); margin-top: 2px; }
+  .fpp-rank-handle { cursor: grab; color: var(--text3); font-size: 18px; padding: 4px 8px; flex-shrink: 0; touch-action: none; line-height: 1; }
+  .fpp-rank-handle:active { cursor: grabbing; }
   .fpp-rank-num { font-family: var(--mono); font-size: 14px; color: var(--text3); width: 22px; flex-shrink: 0; }
   .fpp-rank-info { flex: 1; min-width: 0; }
   .fpp-rank-name { font-size: 15px; font-weight: 600; color: var(--text1); }
@@ -3668,15 +4110,55 @@
   .fpp-modal { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; width: min(480px, 94vw); max-height: 70vh; display: flex; flex-direction: column; }
   .fpp-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--text2); }
   .fpp-modal-close { background: none; border: none; color: var(--text3); font-size: 16px; cursor: pointer; }
-  .fpp-picker-list { overflow-y: auto; padding: 8px; }
+  .fpp-picker-list { overflow-y: auto; padding: 8px; flex: 1; min-height: 0; }
   .fpp-picker-item { padding: 12px 14px; border-radius: 4px; cursor: pointer; border: 1px solid transparent; }
   .fpp-picker-item:hover { background: var(--bg3); border-color: var(--border); }
   .fpp-picker-name { font-size: 14px; font-weight: 600; color: var(--text1); }
   .fpp-picker-meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
   .fpp-picker-loading, .fpp-picker-empty { padding: 24px; text-align: center; color: var(--text3); font-size: 13px; }
+  .fpp-picker-section { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); padding: 10px 14px 4px; }
+
+  /* ── FPP MOBILE ──────────────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .fpp-body { padding: 16px 12px 40px; gap: 16px; }
+    .fpp-step-title { font-size: 20px; }
+    .fpp-step-sub { font-size: 14px; }
+
+    /* Setup: stack player panels vertically, show VS as a thin divider */
+    .fpp-setup-grid { grid-template-columns: 1fr; gap: 0; }
+    .fpp-vs { font-size: 14px; text-align: center; padding: 8px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin: 0; }
+
+    /* Pairing rows: stack A / Unclear / B vertically */
+    .fpp-pairing-row { grid-template-columns: 1fr; gap: 6px; }
+    .fpp-pairing-num { text-align: left; font-size: 11px; }
+    .fpp-pairing-unit { padding: 12px; }
+    .fpp-unit-player { white-space: normal; }
+    .fpp-unit-name { white-space: normal; }
+    .fpp-def-btn { padding: 12px 16px; font-size: 12px; width: 100%; }
+
+    /* Score tally: tighten */
+    .fpp-score-tally { padding: 10px 12px; gap: 16px; }
+    .fpp-tally-num { font-size: 26px; }
+
+    /* Result: stack the two player cards */
+    .fpp-result-grid { grid-template-columns: 1fr; gap: 10px; }
+    .fpp-result-player { padding: 16px; }
+    .fpp-result-bl-value { font-size: 44px; }
+
+    /* Buttons: full width for easier tapping */
+    .fpp-next-btn { align-self: stretch; text-align: center; padding: 16px; }
+    .fpp-back-btn { align-self: stretch; text-align: center; }
+
+    /* Rank items: more padding for drag comfort */
+    .fpp-rank-item { padding: 14px 12px; }
+
+    /* Force picker: full width */
+    .fpp-modal { width: 96vw; max-height: 82vh; }
+    .fpp-picker-item { padding: 14px; }
+  }
 
   /* ── GAME OVERLAY ──────────────────────────────────────────────────────────── */
-  .game-overlay { position: fixed; inset: 0; background: var(--bg); z-index: 300; flex-direction: column; overflow-y: auto; }
+  .game-overlay { position: fixed; inset: var(--header-h) 0 0 0; background: var(--bg); z-index: 99; flex-direction: column; overflow-y: auto; }
   .game-body { display: flex; flex-direction: column; padding: 16px; max-width: 860px; margin: 0 auto; width: 100%; }
   .game-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
   .game-title { font-family: var(--display); font-size: 16px; letter-spacing: 0.1em; color: var(--accent); }
@@ -3684,7 +4166,13 @@
   .game-close-btn:hover { border-color: var(--text2); color: var(--text1); }
   /* Two-panel grid */
   .game-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 600px) { .game-panels { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) {
+    .game-panels { grid-template-columns: 1fr; }
+    .game-panel { padding: 16px 14px; }
+    .game-player-name { font-size: 20px; }
+    .game-trigger-btn { padding: 11px 10px; font-size: 13px; }
+    .game-close-btn { padding: 10px 16px; }
+  }
   /* Individual panel */
   .game-panel { background: var(--bg2); border-radius: 8px; padding: 24px 20px; text-align: center; border-top: 4px solid transparent; }
   .game-panel.gp-allied { border-top-color: #8b1e1e; }
@@ -3697,21 +4185,27 @@
   /* Break limit subtitle */
   .game-bl { font-family: var(--mono); font-size: 13px; color: var(--text3); letter-spacing: 0.08em; margin-bottom: 16px; }
   /* Last Roll box */
-  .game-last-roll { background: rgba(0,0,0,0.25); border-radius: 6px; padding: 10px 12px; margin-bottom: 14px; min-height: 60px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 3px; }
-  .game-last-roll-label { font-family: var(--mono); font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 2px; }
-  .game-last-roll-value { font-family: var(--mono); font-size: 19px; white-space: nowrap; }
-  .game-last-roll-value .die { color: var(--text3); }
-  .game-last-roll-value .bp  { color: var(--accent); }
+  /* Trigger groups */
+  .game-trigger-group { margin-bottom: 10px; }
+  .game-trigger-group-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--text3); text-transform: uppercase; margin-bottom: 5px; padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .game-trigger-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 10px; margin-bottom: 3px; background: rgba(255,255,255,0.04); border: 1px solid transparent; border-radius: 4px; cursor: pointer; font-family: var(--mono); color: var(--text2); font-size: 12px; text-align: left; transition: background 0.12s, border-color 0.12s, color 0.12s; }
+  .game-trigger-btn:hover { background: rgba(255,255,255,0.08); color: var(--text1); }
+  .game-trigger-btn:active { background: rgba(255,255,255,0.13); }
+  .gp-allied .game-trigger-btn:hover { border-color: rgba(201,68,68,0.4); }
+  .gp-axis   .game-trigger-btn:hover { border-color: rgba(90,106,114,0.5); }
+  .trigger-name { flex: 1; line-height: 1.35; }
+  .trigger-sub { font-size: 10px; color: var(--text3); }
+  .trigger-badge { font-size: 12px; font-weight: 700; color: var(--accent); background: rgba(201,162,39,0.12); border-radius: 3px; padding: 1px 5px; white-space: nowrap; flex-shrink: 0; }
+  .game-role-tag { font-family: var(--mono); font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; }
+  /* Score footer (last roll + score section, hidden until first trigger) */
+  .game-score-footer { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .game-score-footer.visible { display: block; }
+  .game-last-roll-inline { font-family: var(--mono); font-size: 16px; text-align: center; margin-bottom: 10px; color: var(--text2); }
+  .game-last-roll-inline .die { color: var(--text3); }
+  .game-last-roll-inline .bp  { color: var(--accent); font-weight: 700; }
   /* Button row */
-  .game-btn-row { display: flex; gap: 8px; margin-bottom: 10px; }
-  /* Generate button */
-  .game-generate-btn { flex: 1; padding: 13px 8px; font-family: var(--mono); font-size: 14px; letter-spacing: 0.05em; border: none; border-radius: 4px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; line-height: 1.4; }
-  .gp-allied .game-generate-btn { background: linear-gradient(180deg, #c94444, #8b1e1e); color: #fff; }
-  .gp-axis   .game-generate-btn { background: linear-gradient(180deg, #5a6a72, #36454f); color: #fff; }
-  .game-generate-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.35); }
-  .game-generate-btn:active { transform: translateY(0); }
+  .game-btn-row { display: flex; gap: 8px; margin-top: 10px; }
   @keyframes game-shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-  .game-generate-btn.rolling { animation: game-shake 0.3s ease-in-out; }
   /* Show/Hide Score toggle */
   .game-toggle-score-btn { background: transparent; border: 1px solid var(--text3); color: var(--text3); padding: 8px 10px; font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em; cursor: pointer; border-radius: 4px; transition: all 0.2s; white-space: nowrap; }
   .game-toggle-score-btn:hover { border-color: var(--text1); color: var(--text1); }
@@ -3849,7 +4343,10 @@
 <div class="section active" id="section-units">
 <div class="app">
   <aside class="sidebar">
-    <button class="sidebar-toggle-btn" id="sidebar-toggle" onclick="toggleSidebar()" data-tip="Collapse filters">‹</button>
+    <div class="sidebar-header">
+      <span class="sidebar-header-title">Filters</span>
+      <button class="sidebar-toggle-btn" id="sidebar-toggle" onclick="toggleSidebar()" data-tip="Collapse filters">‹</button>
+    </div>
     <div class="sidebar-filters">
       <div class="filter-section">
         <div class="filter-label">Search</div>
@@ -3888,6 +4385,7 @@
       <button class="clear-btn" onclick="clearFilters()">Clear all filters</button>
 
       <button id="rate-btn" class="rate-teams-btn" onclick="openCompare()" style="display:none">▲ Rate Teams</button>
+      <button id="score-toggle-btn" class="rate-teams-btn" onclick="toggleScoreDisplay()" style="display:none">pts</button>
     </div>
   </aside>
 
@@ -3921,6 +4419,11 @@
 <!-- LIBRARY SECTION -->
 <div class="section" id="section-library">
   <aside class="lib-sidebar">
+    <div class="lib-sidebar-header">
+      <span class="lib-sidebar-title">Filters</span>
+      <button class="lib-sidebar-toggle" id="lib-filter-toggle" onclick="toggleLibFilters()" title="Collapse filters">‹</button>
+    </div>
+    <div class="lib-filters-body">
     <div class="filter-section">
       <div class="filter-label">Search</div>
       <input type="text" id="lib-search" class="search-input" placeholder="Force name…" oninput="applyLibFilters()">
@@ -3928,6 +4431,7 @@
     <div class="filter-section">
       <div class="filter-label">Sort</div>
       <select class="year-select" id="lib-sort" onchange="applyLibFilters()" style="width:100%">
+        <option value="order">Curated Order</option>
         <option value="newest">Newest first</option>
         <option value="oldest">Oldest first</option>
         <option value="name">Name A–Z</option>
@@ -3994,15 +4498,18 @@
     </div>
     <div class="results-count" id="lib-result-count"></div>
     <button class="clear-btn" onclick="clearLibFilters()">Clear all filters</button>
+    </div><!-- /.lib-filters-body -->
   </aside>
   <div class="lib-main">
     <div class="lib-section-tabs">
       <button class="library-tab active" id="tab-browse" onclick="switchLibTab('browse')">Browse</button>
       <button class="library-tab" id="tab-mine" onclick="switchLibTab('mine')">My Forces</button>
-      <button class="library-tab" id="tab-historical" onclick="switchLibTab('historical')">Historical</button>
+      <button class="library-tab" id="tab-historical" onclick="switchLibTab('historical')" style="display:none">ORBAT</button>
+      <button class="library-tab" id="tab-orbat" onclick="switchLibTab('orbat')">Historical</button>
     </div>
     <div id="library-body" class="library-body"></div>
     <div id="org-browser-body" style="display:none"></div>
+    <div id="orbat-browser-body" style="display:none"></div>
   </div>
 </div>
 
@@ -4091,7 +4598,7 @@
 <div id="fpp-picker-modal" class="fpp-modal-overlay" style="display:none">
   <div class="fpp-modal">
     <div class="fpp-modal-header">
-      <span>Select Opponent Force</span>
+      <span id="fpp-picker-title">Select Opponent Force</span>
       <button class="fpp-modal-close" onclick="closeForcePicker()">✕</button>
     </div>
     <div id="fpp-picker-list" class="fpp-picker-list"></div>
@@ -4189,6 +4696,7 @@
       <button class="action-btn" onclick="copyFppShareLink()">Share</button>
       <button class="action-btn" onclick="openCurrentForceSheet()">View</button>
       <button class="action-btn danger" onclick="clearForce()">Clear</button>
+      <button class="action-btn" id="hof-publish-btn" onclick="publishAsHoF()" style="display:none" title="Publish as an official Hail of Fire example force">HoF</button>
     </div>
   </div>
 </div>
@@ -4383,6 +4891,18 @@ function toggleSidebar() {
   const collapsed = app.classList.toggle('sidebar-collapsed');
   btn.textContent = collapsed ? '›' : '‹';
   btn.dataset.tip = collapsed ? 'Expand filters' : 'Collapse filters';
+  // Mobile: show/hide backdrop
+  if (window.innerWidth <= 640) {
+    let bd = document.getElementById('sidebar-backdrop');
+    if (!bd) {
+      bd = document.createElement('div');
+      bd.id = 'sidebar-backdrop';
+      bd.className = 'sidebar-backdrop';
+      bd.onclick = () => { if (!document.querySelector('.app').classList.contains('sidebar-collapsed')) toggleSidebar(); };
+      document.body.appendChild(bd);
+    }
+    bd.classList.toggle('visible', !collapsed);
+  }
 }
 
 function clearFilters() {
@@ -4563,7 +5083,10 @@ const RULE_TIPS = {
   'Wheeled': 'Move 3d6". +12" on roads. Must make a Terrain Check to cross Difficult Terrain or stop. Cannot enter Very Difficult Terrain.',
   'Half-Tracked': 'Move 3d6". +6" on roads. Must make a Terrain Check to cross Difficult Terrain or stop. Cannot enter Very Difficult Terrain.',
   'Wagon': 'Moves 2d6".',
+  // ── Terrain / Special Equipment ────────────────────────────────────────────
+  'Bocage Breacher': 'When this team passes a Terrain Check to cross bocage, mark the crossing point. Other teams may cross at that point this turn without requiring a Terrain Check. This team benefits from its own breach.',
   // ── Infantry ───────────────────────────────────────────────────────────────
+  'Sniper': 'When this team hits a non-Vehicle target, the owning player may assign the hit to any Team in the target platoon that is in Line of Sight, including the Platoon Leader. May not fire and move in the same activation.',
   'Re-roll failed Assault Checks': 'When assaulting, may re-roll any failed Assault Checks.',
   'Cannot fire from buildings': 'This weapon cannot be used from within a building.',
   'May only be used in assault and only in the first round': 'Single-use weapon. May only be used during the first round of an assault.',
@@ -4581,7 +5104,7 @@ const RULE_TIPS = {
 };
 
 function isSpecialNote(note) {
-  const special = ['Flame-Thrower', 'Bunker Buster', 'Wide Tracks', 'Unreliable', 'Fast', 'Slow', 'Hull Mounted', 'Open Topped'];
+  const special = ['Flame-Thrower', 'Bunker Buster', 'Wide Tracks', 'Unreliable', 'Fast', 'Slow', 'Hull Mounted', 'Open Topped', 'Bocage Breacher', 'Sniper'];
   return special.includes(note);
 }
 
@@ -4950,6 +5473,77 @@ function removePlatoon(id) {
   updateForceUI();
   renderUnits(true);
   renderOrgBrowser();
+  if (currentLibTab === 'orbat') renderOrbatBrowser();
+}
+
+// ── Attach-out mechanic ───────────────────────────────────────────────────
+
+function attachTeamOut(sourcePlatoonId, unitId, btnEl) {
+  closeAttachPicker();
+  const targets = platoons.filter(p => p.id !== sourcePlatoonId);
+  if (!targets.length) {
+    showToast('No other platoons to attach to — add a combat platoon first.', 'warning');
+    return;
+  }
+  const picker = document.createElement('div');
+  picker.id = 'attach-picker';
+  picker.className = 'attach-picker';
+  picker.innerHTML = `
+    <div class="attach-picker-label">Attach to platoon:</div>
+    ${targets.map(t =>
+      `<button class="attach-picker-btn" onclick="confirmAttach('${sourcePlatoonId}','${unitId}','${t.id}')">${t.name || 'Unnamed platoon'}</button>`
+    ).join('')}
+    <button class="attach-picker-cancel" onclick="closeAttachPicker()">Cancel</button>
+  `;
+  document.body.appendChild(picker);
+  const rect = btnEl.getBoundingClientRect();
+  const pw = 200;
+  let left = rect.left;
+  if (left + pw > window.innerWidth - 12) left = window.innerWidth - pw - 12;
+  picker.style.top  = (rect.bottom + 4) + 'px';
+  picker.style.left = left + 'px';
+  setTimeout(() => document.addEventListener('click', _closePickerOutside, { capture: true }), 0);
+}
+
+function _closePickerOutside(e) {
+  const p = document.getElementById('attach-picker');
+  if (p && !p.contains(e.target)) closeAttachPicker();
+}
+
+function closeAttachPicker() {
+  const p = document.getElementById('attach-picker');
+  if (p) p.remove();
+  document.removeEventListener('click', _closePickerOutside, { capture: true });
+}
+
+function confirmAttach(sourcePlatoonId, unitId, targetPlatoonId) {
+  closeAttachPicker();
+  const source = platoons.find(p => p.id === sourcePlatoonId);
+  const target = platoons.find(p => p.id === targetPlatoonId);
+  if (!source || !target) return;
+  const srcTeam = source.teams.find(t => t.unitId === unitId);
+  if (!srcTeam) return;
+
+  // Move one unit from source → target
+  srcTeam.qty -= 1;
+  if (srcTeam.qty <= 0) source.teams = source.teams.filter(t => t.unitId !== unitId);
+  const tgtTeam = target.teams.find(t => t.unitId === unitId);
+  if (tgtTeam) tgtTeam.qty += 1;
+  else target.teams.push({ unitId, qty: 1 });
+
+  // Auto-dissolve empty section
+  if (source.teams.length === 0) {
+    platoons = platoons.filter(p => p.id !== sourcePlatoonId);
+    if (activePlatoonId === sourcePlatoonId) {
+      activePlatoonId = platoons.length ? platoons[platoons.length - 1].id : null;
+    }
+    showToast('Section dissolved — all teams attached.', 'success');
+  } else {
+    const unit = allUnits.find(u => u.id === unitId);
+    showToast(`1\xd7 ${unit?.name || 'team'} attached to ${target.name}.`, 'success');
+  }
+  updateForceUI();
+  if (currentLibTab === 'orbat') renderOrbatBrowser();
 }
 
 function setActivePlatoon(id) {
@@ -5123,6 +5717,116 @@ function getAllForceUnitIds() {
   return ids;
 }
 
+// ── Force Score ────────────────────────────────────────────────────────────────
+const FS_AT_TIERS  = {0:0,1:1,2:2,3:3,4:5,5:8,6:12,7:17,8:23};
+const FS_DEF_TIERS = {0:0,1:1,2:4,3:7,4:11,5:16,6:23,7:31};
+const FS_FP_BONUS  = {1:0,2:2,3:5};
+const FS_BARRAGE   = {'Light Artillery':6,'Medium Artillery':10,'Heavy Artillery':16};
+const FS_VEHICLES  = new Set(['Tank','SP Artillery','Half-Track','Armored Car','Tank Destroyer','Artillery','AA Vehicle','Recon Vehicle']);
+// FPP auto-resolve: attacker must exceed defender score by this margin to win a pairing.
+// Reflects the rule: "when it's not obvious which unit is more threatening, the defender has the edge."
+const FPP_DEFENDER_MARGIN = 0.15;
+
+function calcTeamScore(unit) {
+  if (!unit) return 0;
+  if (unit.name === 'Platoon Leader') return 0;
+  if (unit.type === 'Upgrade') return 0;
+
+  const notes  = unit.notes  || [];
+  const utype  = unit.type   || '';
+  const rngStr = unit.gun_range || '';
+  const rof    = +(unit.rof)  || 0;
+  const at     = unit.at != null ? +unit.at : null;
+  const fp     = +(unit.fp)   || 1;
+  const armor  = unit.armor_front != null ? +unit.armor_front : null;
+  const arm    = unit.armament || '';
+
+  const noDirect = !rngStr || rngStr === '-';
+  let ai = 0, atScore = 0, fpBonus = 0;
+
+  if (!noDirect) {
+    const range = parseInt(rngStr);
+    const steps = Math.max(0, Math.floor((range - 16) / 4));
+
+    // AI
+    let adjRof = rof;
+    if (range <= 6) adjRof -= 1;
+    if (notes.includes('Limited HE')) adjRof -= 1;
+    ai = notes.includes('Flame-Thrower') ? adjRof + 3 : adjRof + steps;
+
+    // AT
+    if (at !== null && at > 0) {
+      const effAt = at + (fp - 1) * 0.5;
+      const lo    = Math.floor(effAt);
+      const frac  = effAt - lo;
+      const tLo   = FS_AT_TIERS[lo]     ?? 0;
+      const tHi   = FS_AT_TIERS[lo + 1] ?? tLo;
+      const tier  = tLo + frac * (tHi - tLo);
+
+      const isVehicle  = FS_VEHICLES.has(utype);
+      const isTurreted = isVehicle && !notes.includes('Hull Mounted');
+      const turretMult = isTurreted ? 1.5 : 1.0;
+      const rangeMult  = 1.0 + steps * 0.1;
+      const rfpMult    = notes.includes('May only inflict RFPs') ? 0.5 : 1.0;
+
+      atScore = (!isVehicle && range <= 8)
+        ? tier * 0.5 * rfpMult
+        : tier * turretMult * rangeMult * rfpMult;
+    }
+
+    fpBonus = FS_FP_BONUS[fp] || 0;
+  }
+
+  // Defense
+  let defScore = armor !== null ? (FS_DEF_TIERS[armor] || 0) : 0;
+  if (notes.includes('Open Topped')) defScore = Math.max(0, defScore - 1);
+
+  // Mobility
+  let mob = 0;
+  if (FS_VEHICLES.has(utype)) {
+    if      (notes.includes('Tracked'))      mob = 3;
+    else if (notes.includes('Half-Tracked')) mob = 2;
+    else if (notes.includes('Wheeled'))      mob = 2;
+    if (notes.includes('Slow'))        mob -= 1;
+    if (notes.includes('Fast'))        mob += 1;
+    if (notes.includes('Wide Tracks')) mob += 2;
+    if (notes.includes('Unreliable'))  mob -= 2;
+    if (notes.includes('Overloaded'))  mob -= 2;
+    mob = Math.max(0, mob);
+  }
+
+  // Vehicle MG bonus
+  // Passenger-fired weapons score as regular MGs (+2), not AA MGs (+4).
+  let mgScore = 0;
+  if (arm) {
+    const scoringArm = arm.replace(/Passenger-fired AA MG/gi, 'Hull MG');
+    const coax  = (scoringArm.match(/Co-?ax/gi)  || []).length;
+    const hull  = (scoringArm.match(/Hull MG/gi) || []).length;
+    const aa    = (scoringArm.match(/AA MG/gi)   || []).length;
+    const fifty = (scoringArm.match(/\.50/g)     || []).length;
+    const total = coax + hull + aa + fifty;
+    if      (total === 1) mgScore = (aa || fifty) ? 4 : 2;
+    else if (total  >  1) mgScore = total * 2;
+  }
+
+  // Barrage bonus (not for Light Mortar)
+  let barrageScore = 0;
+  if (!notes.includes('Light Mortar')) {
+    for (const [key, val] of Object.entries(FS_BARRAGE)) {
+      if (notes.includes(key)) { barrageScore = val; break; }
+    }
+  }
+
+  return 1 + ai + atScore + defScore + mob + fpBonus + mgScore + barrageScore;
+}
+
+function calcPlatoonScore(platoon) {
+  return (platoon.teams || []).reduce((sum, t) => {
+    const unit = allUnits.find(u => u.id === t.unitId);
+    return sum + calcTeamScore(unit) * (t.qty || 1);
+  }, 0);
+}
+
 function updateForceUI() {
   const count = platoons.length;
   const breakLimit = calcBreakLimit(count);
@@ -5179,6 +5883,18 @@ function updateForceUI() {
             `;
           }
 
+          // Attachable section: show ⇢ Attach button, no qty controls
+          if (platoon.attachable) {
+            return `
+              <div class="platoon-team-row"${rowAnim}>
+                <span class="team-qty">${t.qty}×</span>
+                <span class="team-name">${unit.name}</span>
+                <button class="team-attach-btn" onclick="attachTeamOut('${platoon.id}','${t.unitId}',this)" data-tip="Attach one team to another platoon">⇢ Attach</button>
+                <button class="team-remove-btn" onclick="removeTeamFromPlatoon('${platoon.id}','${t.unitId}')" data-tip="Remove from force">✕</button>
+              </div>
+            `;
+          }
+
           const fixed = isFixedUnit(t.unitId);
           const lockKey = `${platoon.id}|${t.unitId}`;
           const unlocked = unlockedTeams.has(lockKey);
@@ -5221,6 +5937,7 @@ function updateForceUI() {
             value="${platoon.name}"
             oninput="updatePlatoonName('${platoon.id}', this.value)"
             placeholder="Platoon name...">
+          ${showScores ? `<span class="platoon-score-badge">${calcPlatoonScore(platoon)} pts</span>` : ''}
           <div class="platoon-quality-override">
             <button class="${pqClass('Elite')}"   data-tip="Set to Elite"   onclick="setPlatoonQuality('${platoon.id}','Elite')">E</button>
             <button class="${pqClass('Regular')}" data-tip="Set to Regular" onclick="setPlatoonQuality('${platoon.id}','Regular')">R</button>
@@ -5232,7 +5949,10 @@ function updateForceUI() {
           <button class="platoon-dupe-btn" onclick="duplicatePlatoon('${platoon.id}')" data-tip="Duplicate platoon">⧉</button>
           <button class="platoon-remove-btn" onclick="removePlatoon('${platoon.id}')">✕</button>
         </div>
-        <div class="platoon-teams ${isCollapsed ? 'is-collapsed' : ''}">${teamRows}</div>
+        <div class="platoon-teams ${isCollapsed ? 'is-collapsed' : ''}">
+          ${platoon.attachable ? `<div class="attach-hint">⇢ Use Attach to distribute teams to other platoons</div>` : ''}
+          ${teamRows}
+        </div>
       </div>
     `;
   }).join('');
@@ -5256,6 +5976,7 @@ function updateForceUI() {
 function clearForce() {
   if (platoons.length === 0) return;
   if (confirm('Clear all platoons from your force?')) {
+    discardTempForce(); // delete from Firebase if it was only an FPP temp save
     platoons = [];
     activePlatoonId = null;
     platoonCounter = 0;
@@ -5342,7 +6063,18 @@ function showSubscribePrompt() {
 // ── FORCE LIBRARY ─────────────────────────────────────────────────────────────
 let currentLibTab = 'browse';
 let currentForceId = null;
+let currentForceFppTemp = false; // true when the current force was auto-saved via FPP share, not by the user
+
+// Delete the current force from Firebase if it was only saved as an FPP temp record.
+// Called when the builder is cleared or a new force is loaded over it.
+async function discardTempForce() {
+  if (!currentForceFppTemp || !currentForceId || !currentUser) return;
+  try { await firebase.database().ref(`forces/${currentForceId}`).remove(); } catch(e) {}
+  currentForceFppTemp = false;
+  currentForceId = null;
+}
 let libAllForces = [];     // full fetched list for the current tab
+let libVisibleForces = []; // currently displayed (filtered + sorted) list
 
 function getForceData() {
   return {
@@ -5394,7 +6126,7 @@ async function saveForce() {
   if (!currentUser) { showToast('Sign in to save forces.', 'error'); return; }
   if (platoons.length === 0) { showToast('Add at least one platoon before saving.', 'error'); return; }
 
-  const data = getForceData();
+  const data = { ...getForceData(), fppTemp: null }; // null removes the field in Firebase
   const db = firebase.database();
 
   try {
@@ -5413,6 +6145,7 @@ async function saveForce() {
       currentForceId = ref.key;
       await ref.set({ ...data, id: currentForceId });
     }
+    currentForceFppTemp = false;
     showToast('Force saved.', 'success');
   } catch (e) {
     console.error('saveForce error:', e);
@@ -5438,6 +6171,26 @@ async function publishForce() {
   }
 
   showToast('Force published to the library.', 'success');
+}
+
+async function publishAsHoF() {
+  if (!isAdmin) return;
+  if (platoons.length === 0) { showToast('Add at least one platoon first.', 'error'); return; }
+  const forceName = document.getElementById('force-name')?.value.trim() || 'Untitled Force';
+  if (!confirm(`Publish "${forceName}" as an official Hail of Fire force?`)) return;
+
+  const platoonCount = platoons.length;
+  const data = {
+    ...getForceData(),
+    author: 'Hail of Fire',
+    authorUid: null,
+    authorEmail: null,
+    published: true,
+  };
+  // Always create a fresh entry — never overwrite an existing force
+  const ref = firebase.database().ref('forces').push();
+  await ref.set({ ...data, id: ref.key });
+  showToast(`"${forceName}" published as a Hail of Fire force.`, 'success');
 }
 
 function shareForce() {
@@ -5479,8 +6232,9 @@ async function copyFppShareLink() {
   showToast('FPP link copied — send it to your opponent.', 'success');
 
   // Save in the background — doesn't block the copy.
+  // Mark as fppTemp so it doesn't appear in the user's saved forces list.
   try {
-    const data = getForceData();
+    const data = { ...getForceData(), fppTemp: true };
     try {
       await db.ref(`forces/${currentForceId}`).update(data);
     } catch {
@@ -5488,6 +6242,7 @@ async function copyFppShareLink() {
       currentForceId = ref.key;
       await ref.set({ ...data, id: currentForceId });
     }
+    currentForceFppTemp = true;
   } catch (e) {
     console.error('copyFppShareLink save error:', e);
   }
@@ -5503,18 +6258,33 @@ function switchLibTab(tab) {
   document.getElementById(`tab-${tab}`).classList.add('active');
 
   const isHistorical = tab === 'historical';
-  document.getElementById('library-body').style.display    = isHistorical ? 'none' : '';
-  document.getElementById('org-browser-body').style.display = isHistorical ? 'flex' : 'none';
-  document.querySelector('#section-library .lib-sidebar').style.display = isHistorical ? 'none' : '';
-  document.getElementById('section-library').style.gridTemplateColumns  = isHistorical ? '1fr' : '';
+  const isOrbat      = tab === 'orbat';
+  const hideMain     = isHistorical || isOrbat;
+
+  document.getElementById('library-body').style.display        = hideMain    ? 'none' : '';
+  document.getElementById('org-browser-body').style.display    = isHistorical ? 'flex' : 'none';
+  document.getElementById('orbat-browser-body').style.display  = isOrbat     ? 'block' : 'none';
+  document.querySelector('#section-library .lib-sidebar').style.display = hideMain ? 'none' : '';
+  document.getElementById('section-library').style.gridTemplateColumns  = hideMain ? '1fr' : '';
 
   if (isHistorical) {
     renderOrgBrowser();
+    setForcePanel(true);
+  } else if (isOrbat) {
+    renderOrbatBrowser();
     setForcePanel(true);
   } else {
     clearLibFilters();
     loadLibraryTab(tab);
   }
+}
+
+function toggleLibFilters() {
+  const sec = document.getElementById('section-library');
+  const btn = document.getElementById('lib-filter-toggle');
+  const collapsed = sec.classList.toggle('lib-filters-collapsed');
+  btn.textContent = collapsed ? '›' : '‹';
+  btn.title = collapsed ? 'Expand filters' : 'Collapse filters';
 }
 
 function clearLibFilters() {
@@ -5565,10 +6335,21 @@ function applyLibFilters() {
   });
 
   // Sort
-  if (sort === 'newest')        visible.sort((a, b) => (b.created || 0) - (a.created || 0));
-  else if (sort === 'oldest')   visible.sort((a, b) => (a.created || 0) - (b.created || 0));
-  else if (sort === 'name')     visible.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
-  else if (sort === 'platoons') visible.sort((a, b) => (b.platoonCount || 0) - (a.platoonCount || 0));
+  if (sort === 'order') {
+    visible.sort((a, b) => {
+      const aHas = a.sortOrder != null, bHas = b.sortOrder != null;
+      if (aHas && bHas) return a.sortOrder - b.sortOrder;
+      if (aHas) return -1;
+      if (bHas) return 1;
+      return (a.name || '').localeCompare(b.name || '');
+    });
+  }
+  else if (sort === 'newest')        visible.sort((a, b) => (b.created || 0) - (a.created || 0));
+  else if (sort === 'oldest')        visible.sort((a, b) => (a.created || 0) - (b.created || 0));
+  else if (sort === 'name')          visible.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+  else if (sort === 'platoons')      visible.sort((a, b) => (b.platoonCount || 0) - (a.platoonCount || 0));
+
+  libVisibleForces = visible;
 
   const countEl = document.getElementById('lib-result-count');
   if (countEl) countEl.textContent = visible.length === libAllForces.length
@@ -5607,7 +6388,7 @@ async function loadFeaturedStrip() {
     return `
       <div class="lib-fc ${nc}" onclick="openLibForceSheet('${f.id}')">
         <div class="lib-fc-name">${f.name}</div>
-        <div class="lib-fc-meta">By ${f.author || 'Unknown'} · ${platoonCount} platoons · BL ${f.breakLimit || 5}</div>
+        <div class="lib-fc-meta">By ${formatAuthorName(f.author)} · ${platoonCount} platoons · BL ${f.breakLimit || 5}</div>
         <div class="lib-fc-nations">${nationBadges}</div>
       </div>`;
   }).join('');
@@ -5634,7 +6415,7 @@ async function loadWhatsNew() {
 
   forcesSnap.forEach(child => {
     const f = child.val();
-    if (f.published) combined.push({ _wnType: 'force', ...f });
+    if (f.published && f.briefing) combined.push({ _wnType: 'force', ...f });
   });
 
   if (contentSnap) {
@@ -5691,6 +6472,17 @@ function showHomeView() {
   loadWhatsNew();
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Format a stored author name for public display.
+// "Brandon Fraley" → "Brandon F."  |  "Hail of Fire" (3 words) → unchanged
+// Single-word names and email addresses also pass through safely.
+function formatAuthorName(name) {
+  if (!name || name === 'Unknown' || name === 'Anonymous') return name || 'Unknown';
+  if (name.includes('@')) return name.split('@')[0]; // email → local part only
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 2) return parts[0] + ' ' + parts[1][0].toUpperCase() + '.';
+  return name; // 1 word or 3+ words (org names) → unchanged
 }
 
 function timeAgoShort(ts) {
@@ -6979,7 +7771,7 @@ async function loadLibraryTab(tab) {
 
   const filtered = tab === 'browse'
     ? all.filter(f => f.published)
-    : all.filter(f => currentUser && f.authorUid === currentUser.uid);
+    : all.filter(f => currentUser && f.authorUid === currentUser.uid && !f.fppTemp);
 
   filtered.sort((a, b) => (b.created || 0) - (a.created || 0));
   libAllForces = filtered;
@@ -7054,7 +7846,7 @@ function renderLibForces(body, forces) {
         <span style="font-family:var(--mono);font-size:9px;color:var(--text3);white-space:nowrap">${f.published ? '● Published' : '○ Private'}</span>
       </div>
       <div class="force-card-meta" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px">
-        <span>By <strong style="color:var(--text2)">${f.author || 'Unknown'}</strong></span>
+        <span>By <strong style="color:var(--text2)">${formatAuthorName(f.author)}</strong></span>
         <span style="color:var(--border)">|</span>
         <span style="display:flex;gap:4px">${nationBadges}</span>
         ${f.year      ? `<span style="color:var(--border)">|</span><span>${f.year}</span>` : ''}
@@ -7074,13 +7866,60 @@ function renderLibForces(body, forces) {
           ${!f.published ? `<button class="force-card-btn" onclick="publishForceById('${f.id}')">Publish</button>` : ''}
           <button class="force-card-btn danger" onclick="deleteForce('${f.id}')">Delete</button>
         ` : ''}
+        ${isAdmin ? `
+          <button class="force-card-btn${f.briefing ? ' active' : ''}" onclick="toggleBriefingFlag('${f.id}', ${!!f.briefing})" title="Toggle whether this force appears in Recent Briefings">
+            ${f.briefing ? '★ Briefing' : '☆ Briefing'}
+          </button>
+        ` : ''}
+        ${isAdmin && currentLibTab === 'browse' && (document.getElementById('lib-sort')?.value || 'order') === 'order' ? `
+          <button class="force-card-btn" onclick="moveForceOrder('${f.id}', -1)" title="Move up">▲</button>
+          <button class="force-card-btn" onclick="moveForceOrder('${f.id}', 1)" title="Move down">▼</button>
+        ` : ''}
       </div>
     </div>`;
   }).join('');
 }
 
+async function moveForceOrder(forceId, direction) {
+  const idx = libVisibleForces.findIndex(f => f.id === forceId);
+  if (idx < 0) return;
+  const swapIdx = idx + direction;
+  if (swapIdx < 0 || swapIdx >= libVisibleForces.length) return;
+
+  const a = libVisibleForces[idx];
+  const b = libVisibleForces[swapIdx];
+
+  // Assign a sortOrder if the force doesn't have one yet (use position × 10)
+  if (a.sortOrder == null) a.sortOrder = idx * 10;
+  if (b.sortOrder == null) b.sortOrder = swapIdx * 10;
+
+  // If they're equal after assignment, space them out first
+  if (a.sortOrder === b.sortOrder) {
+    a.sortOrder = idx * 10;
+    b.sortOrder = swapIdx * 10;
+  }
+
+  // Swap
+  [a.sortOrder, b.sortOrder] = [b.sortOrder, a.sortOrder];
+
+  const db = firebase.database();
+  await Promise.all([
+    db.ref(`forces/${a.id}`).update({ sortOrder: a.sortOrder }),
+    db.ref(`forces/${b.id}`).update({ sortOrder: b.sortOrder }),
+  ]);
+
+  // Update libAllForces in place so filters don't clobber the new values
+  for (const f of libAllForces) {
+    if (f.id === a.id) f.sortOrder = a.sortOrder;
+    if (f.id === b.id) f.sortOrder = b.sortOrder;
+  }
+
+  applyLibFilters();
+}
+
 async function loadForceFromLibrary(forceId) {
   if (platoons.length > 0 && !confirm('Loading this force will replace your current force. Continue?')) return;
+  await discardTempForce(); // clean up any FPP temp save before replacing the builder
   const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
   const data = snap.val();
   if (!data) { showToast('Force not found.', 'error'); return; }
@@ -7098,6 +7937,17 @@ function copyForceShareUrl(forceId) {
 async function publishForceById(forceId) {
   await firebase.database().ref(`forces/${forceId}`).update({ published: true });
   loadLibraryTab(currentLibTab);
+}
+
+async function toggleBriefingFlag(forceId, currentlyBriefing) {
+  try {
+    await firebase.database().ref(`forces/${forceId}`).update({ briefing: !currentlyBriefing });
+    showToast(currentlyBriefing ? 'Removed from Recent Briefings.' : 'Added to Recent Briefings.', 'success');
+    loadLibraryTab(currentLibTab);
+  } catch(e) {
+    console.error('toggleBriefingFlag failed:', e);
+    showToast('Could not update briefing flag — check Firebase rules.', 'error');
+  }
 }
 
 async function deleteForce(forceId) {
@@ -7152,6 +8002,7 @@ let forceType = null;   // 'Infantry' | 'Mechanized' | 'Armored' | 'Airborne' | 
 let isAdmin = false;
 let unitRatings = {};   // { unitId: { rating, wins, losses, comparisons } }
 let eloVisible = false; // session-only: shown only after rating at least one pair
+let showScores = false; // admin-only: show force scores on platoon cards
 
 function setForceQuality(q) {
   forceQuality = q;
@@ -7176,6 +8027,13 @@ async function checkAdmin(email) {
   const key = emailToKey(email);
   const snap = await firebase.database().ref(`admins/${key}`).once('value');
   return snap.val() === true;
+}
+
+function toggleScoreDisplay() {
+  showScores = !showScores;
+  const btn = document.getElementById('score-toggle-btn');
+  if (btn) btn.classList.toggle('active', showScores);
+  updateForceUI();
 }
 
 async function loadRatings() {
@@ -7329,7 +8187,7 @@ function closeCompare() {
 // ── FORCE SHEET ───────────────────────────────────────────────────────────────
 function openForceSheet(forceData) {
   const name = htmlEscape(forceData.name || 'Untitled Force');
-  const author = htmlEscape(forceData.author || 'Unknown');
+  const author = htmlEscape(formatAuthorName(forceData.author));
   const nations = toArr(forceData.nations);
   const platoonArr = toArr(forceData.platoons);
   const platoonCount = platoonArr.length;
@@ -7607,6 +8465,48 @@ if (isPreviewMode) enterGuestMode();
   update();
 })();
 
+// ── MOBILE SCROLL-HIDE HEADER ─────────────────────────────────────────────────
+// On narrow screens: slide header away on scroll-down, immediately restore on scroll-up.
+// Uses capture-phase scroll listener to catch both window scroll and inner
+// overflow containers (e.g. .main in force builder, .library-body, etc.).
+(function () {
+  const header = document.querySelector('header');
+  if (!header) return;
+  const lastY = new Map();
+  let hidden = false;
+
+  function handle() {
+    if (window.innerWidth > 860) {
+      if (hidden) { header.classList.remove('header-hidden'); hidden = false; }
+      return;
+    }
+    // Only watch window scroll — inner containers (force builder .main, etc.) have their
+    // own fixed-height scroll and hiding the header there would leave a black gap.
+    const y = window.scrollY;
+    const prev = lastY.has(window) ? lastY.get(window) : y;
+    const delta = y - prev;
+    lastY.set(window, y);
+
+    if (delta > 6 && y > 80) {
+      // Scrolling down past threshold — hide header
+      if (!hidden) { header.classList.add('header-hidden'); hidden = true; }
+    } else if (delta < -2 || y < 10) {
+      // Any upward movement, or near top — show header immediately
+      if (hidden) { header.classList.remove('header-hidden'); hidden = false; }
+    }
+  }
+
+  window.addEventListener('scroll', handle, { passive: true });
+
+  // Always restore on resize back to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 860 && hidden) {
+      header.classList.remove('header-hidden');
+      hidden = false;
+    }
+  });
+})();
+
 
 // ── GLOBAL TOOLTIP ────────────────────────────────────────────────────────────
 // Uses position:fixed so it escapes overflow:auto scroll containers (e.g. force panel)
@@ -7716,16 +8616,16 @@ const HISTORICAL_ORGS = [
       { id: 'para-arty-battery', name: 'Parachute Field Artillery Battery',
         note: 'Divisional 75mm pack howitzers delivered by parachute or glider — light enough to jump with the division and provide immediate fire support.',
         defaultQuality: 'Elite',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M1A1 75mm Pack Howitzer', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: 'M1A1 75mm Pack Howitzer', qty: 3 }] },
       { id: 'glider-arty-battery', name: 'Glider Field Artillery Battery',
         note: '105mm howitzers delivered by glider, providing heavier fire support once the landing zone was secured.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M2A1 105mm Howitzer', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: 'M2A1 105mm Howitzer', qty: 3 }] },
       { id: 'corps-arty-battery', name: 'Corps Artillery Battery',
         note: 'Corps 155mm howitzers in general support, firing in direct support of the airborne division.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M1 155mm Howitzer', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: 'M1 155mm Howitzer', qty: 3 }] },
       { id: 'corps-armored-arty', name: 'Corps Armored FA Battery',
         note: 'M7 Priest self-propelled 105mm howitzers from corps artillery providing mobile fire support.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M7 Priest HMC', qty: 3 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Jeep', qty: 1 }, { name: 'M7 Priest HMC', qty: 3 }] },
       { id: 'aa-platoon', name: 'Airborne AA Platoon',
         note: 'Divisional anti-aircraft platoon protecting the airhead from Luftwaffe air attack.',
         defaultQuality: 'Elite',
@@ -7780,10 +8680,10 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'M8 Armoured Car', qty: 2 }, { name: 'Jeep', qty: 2 }] },
       { id: 'armored-arty-battery', name: 'Armored Field Artillery Battery',
         note: 'M7 Priest self-propelled 105mm howitzers keeping pace with the armored advance.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M7 Priest HMC', qty: 3 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Jeep', qty: 1 }, { name: 'M7 Priest HMC', qty: 3 }] },
       { id: 'heavy-arty-battery', name: 'Heavy Artillery Battery',
         note: 'M12 155mm self-propelled guns from corps artillery providing heavy fire support.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M12 155mm GMC', qty: 3 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Jeep', qty: 1 }, { name: 'M12 155mm GMC', qty: 3 }] },
       { id: 'aa-platoon', name: 'Anti-Aircraft Platoon',
         note: 'M16 MGMC quad-.50cal half-tracks providing anti-aircraft and anti-infantry fire.',
         teams: [{ name: 'M16 MGMC', qty: 3 }] },
@@ -7841,10 +8741,10 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'M8 Armoured Car', qty: 2 }, { name: 'Jeep', qty: 2 }] },
       { id: 'artillery-battery', name: 'Field Artillery Battery',
         note: 'M2A1 105mm howitzers from the divisional artillery regiment, the standard US direct support battery.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M2A1 105mm Howitzer', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: 'M2A1 105mm Howitzer', qty: 3 }] },
       { id: 'heavy-arty-battery', name: 'Heavy Artillery Battery',
         note: '155mm Long Tom guns from corps artillery, providing massive firepower for breakthrough operations.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M1 155mm Howitzer', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: 'M1 155mm Howitzer', qty: 3 }] },
     ]
   },
   {
@@ -7889,10 +8789,10 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'M8 Armoured Car', qty: 2 }, { name: 'Jeep', qty: 2 }] },
       { id: 'armored-arty-battery', name: 'Armored Field Artillery Battery',
         note: 'M7 Priest self-propelled 105mm howitzers keeping pace with the armored advance.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M7 Priest HMC', qty: 3 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Jeep', qty: 1 }, { name: 'M7 Priest HMC', qty: 3 }] },
       { id: 'heavy-arty-battery', name: 'Heavy Artillery Battery',
         note: 'M12 Gun Motor Carriage mounting the 155mm M1A1 gun on an M3 Lee hull. Devastating against fortifications and used extensively in the Siegfried Line campaign.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M12 155mm GMC', qty: 3 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Jeep', qty: 1 }, { name: 'M12 155mm GMC', qty: 3 }] },
       { id: 'aa-platoon', name: 'Anti-Aircraft Platoon',
         note: 'M16 MGMC quad-.50cal half-tracks providing anti-aircraft and anti-infantry fire.',
         teams: [{ name: 'M16 MGMC', qty: 3 }] },
@@ -7913,13 +8813,10 @@ const HISTORICAL_ORGS = [
         note: 'Battalion-level MG42 HMGs in the sustained fire role. Individual gun teams may be attached out to Grenadier Platoons.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'MG42 HMG Team', qty: 4 }] },
       { id: 'mortar-platoon', name: 'Grenadier Mortar Platoon',
-        note: '8cm GW34 mortars providing organic indirect fire. Teams may be attached out to Grenadier Platoons.',
+        note: '8cm GW34 mortars providing the battalion\'s organic indirect fire, firing from concealed positions in support of the rifle companies.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '8cm Mortar Team', qty: 4 }] },
     ],
     regimentalSupport: [
-      { id: 'looted-panzer-platoon', name: 'Looted Panzer Platoon',
-        note: 'Captured Allied or Soviet tanks pressed into German service — Shermans, T-34s, or requisitioned Panzer IVs from reserve stocks.',
-        teams: [{ name: 'Panzer IV H', qty: 3 }] },
       { id: 'infantry-gun-platoon', name: 'Grenadier Infantry Gun Platoon',
         note: 'Regimental 7.5cm leIG18 infantry guns providing close direct-fire support to the rifle companies.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '7.5cm leIG18 Gun', qty: 3 }] },
@@ -7938,17 +8835,20 @@ const HISTORICAL_ORGS = [
     ],
     divisionalSupport: [
       { id: 'panzer-platoon', name: 'Panzer Platoon',
-        note: 'Panzer III, Panzer IV, or StuG G attached from a divisional panzer battalion in direct support of the infantry.',
+        note: 'StuG III/IV assault guns attached from a divisional panzer battalion in direct support of the infantry.',
         teams: [{ name: 'StuG III/IV', qty: 3 }] },
       { id: 'heavy-tank-platoon', name: 'Heavy Tank Platoon',
         note: 'Tiger I from a separate schwere Panzerabteilung committed to breakthrough or defensive actions.',
-        teams: [{ name: 'Tiger I E', qty: 3 }] },
+        teams: [{ name: 'Tiger I E', qty: 2 }] },
       { id: 'assault-gun-platoon', name: 'Assault Gun Platoon',
         note: 'StuG III/IV assault guns providing direct infantry support, neutralising strongpoints and anti-tank guns.',
         teams: [{ name: 'StuG III/IV', qty: 3 }] },
       { id: 'tank-hunter-platoon', name: 'Tank-Hunter Platoon',
-        note: 'Jagdpanzer IV or Marder tank destroyers hunting enemy armour from ambush positions.',
+        note: 'Jagdpanzer IV tank destroyers hunting enemy armour from ambush positions.',
         teams: [{ name: 'Jagdpanzer IV', qty: 3 }] },
+      { id: 'marder-platoon', name: 'Marder Tank-Hunter Platoon',
+        note: 'Marder II or III self-propelled anti-tank guns. Open-topped and lightly armoured, but the high-velocity gun made them effective in ambush and defensive roles.',
+        teams: [{ name: 'Marder II or III', qty: 3 }] },
       { id: 'div-at-platoon', name: 'Anti-Tank Gun Platoon',
         note: 'Divisional 7.5cm PaK40 battery providing additional anti-tank depth.',
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '7.5cm PaK40 Team', qty: 3 }] },
@@ -7958,13 +8858,13 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Panzerschreck', qty: 1 }, { name: 'Rifle/MG Team', qty: 6 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Divisional 10.5cm leFH18 howitzers in general support, firing on-call missions for the company.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '10.5cm leFH18 Gun', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '10.5cm leFH18 Gun', qty: 3 }] },
       { id: 'rocket-battery', name: 'Rocket Launcher Battery',
         note: '15cm Nebelwerfer 41 rocket artillery providing area suppression — its distinctive screaming sound earned it the Allied nickname "Screaming Mimi".',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '15cm NW41 Rocket Launcher', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '15cm NW41 Rocket Launcher', qty: 3 }] },
       { id: 'armoured-rocket-battery', name: 'Armoured Rocket Battery',
         note: 'Panzerwerfer 42 self-propelled rocket launchers providing mobile area fire support.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Panzerwerfer 42', qty: 3 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Sd Kfz 251 Halftrack', qty: 1 }, { name: 'Panzerwerfer 42', qty: 3 }] },
       { id: 'div-aa-platoon', name: 'Anti-Aircraft Gun Platoon',
         note: 'Divisional light AA guns protecting the company area from air attack.',
         teams: [{ name: '2cm FlaK38 Gun', qty: 3 }] },
@@ -7991,7 +8891,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Sd Kfz 234/2 Puma', qty: 2 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Wespe or Hummel self-propelled artillery in direct support.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Wespe SPG', qty: 3 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Sd Kfz 251 Halftrack', qty: 1 }, { name: 'Wespe SPG', qty: 3 }] },
     ],
     regimentalSupport: [],
     divisionalSupport: [
@@ -8000,7 +8900,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Panther Ausf G', qty: 3 }] },
       { id: 'heavy-platoon', name: 'Heavy Tank Platoon',
         note: 'Tiger I or Königstiger from a separate heavy tank battalion, committed to breakthrough or defensive actions.',
-        teams: [{ name: 'Tiger I E', qty: 3 }] },
+        teams: [{ name: 'Tiger I E', qty: 2 }] },
     ]
   },
   {
@@ -8021,7 +8921,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '8cm Mortar Team', qty: 3 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: '7.5cm PaK40 towed by halftracks. Often deployed to cover flanks during armoured advances.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '7.5cm PaK40', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '7.5cm PaK40 Team', qty: 3 }] },
     ],
     regimentalSupport: [],
     divisionalSupport: [
@@ -8030,7 +8930,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'StuG III/IV', qty: 3 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Wespe self-propelled 105mm, keeping pace with the mechanized advance.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Wespe SPG', qty: 3 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Sd Kfz 251 Halftrack', qty: 1 }, { name: 'Wespe SPG', qty: 3 }] },
     ]
   },
   {
@@ -8051,7 +8951,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '8cm Mortar Team', qty: 4 }] },
       { id: 'at-platoon', name: 'Anti-Tank Platoon',
         note: '7.5cm PaK40, essential for holding defensive lines against Allied armour.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '7.5cm PaK40', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '7.5cm PaK40 Team', qty: 3 }] },
     ],
     regimentalSupport: [],
     divisionalSupport: [
@@ -8060,7 +8960,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'StuG III/IV', qty: 3 }] },
       { id: 'flak-platoon', name: 'Heavy AA Platoon',
         note: '8.8cm FlaK36, frequently deployed in the direct-fire anti-tank role in defensive positions.',
-        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '8.8cm FlaK36', qty: 2 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: '8.8cm FlaK36 Team', qty: 2 }] },
     ]
   },
   {
@@ -8069,11 +8969,11 @@ const HISTORICAL_ORGS = [
     note: 'Heavy tank company of the schwere Panzerabteilungen (independent heavy tank battalions attached to key sectors). Tiger Is and Tiger IIs committed to decisive actions. Feared and operationally scarce.',
     combatPlatoons: [
       { id: 'tiger-platoon', name: 'Tiger Platoon',
-        note: '4 Tiger I E at full strength (typically 3-4 per platoon in practice). Near-invulnerable frontally to most Allied guns at range.',
-        teams: [{ name: 'Tiger I E', qty: 3 }] },
+        note: '2 Tiger I E. Near-invulnerable frontally to most Allied guns at range.',
+        teams: [{ name: 'Tiger I E', qty: 2 }] },
       { id: 'tiger2-platoon', name: 'Königstiger Platoon',
-        note: 'Tiger II, the most powerful tank of the war. Deployed from late 1944, combining massive armour with the long 8.8cm KwK 43.',
-        teams: [{ name: 'Tiger II', qty: 3 }] },
+        note: '2 Tiger II, the most powerful tank of the war. Deployed from late 1944, combining massive armour with the long 8.8cm KwK 43.',
+        teams: [{ name: 'Tiger II', qty: 2 }] },
     ],
     weaponsPlatoons: [
       { id: 'panzergrenadier-platoon', name: 'Panzergrenadier Platoon',
@@ -8084,7 +8984,7 @@ const HISTORICAL_ORGS = [
     divisionalSupport: [
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Hummel self-propelled 150mm, providing heavy fire support matching the heavy tank battalion\'s punch.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Hummel SPG', qty: 3 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Sd Kfz 251 Halftrack', qty: 1 }, { name: 'Hummel SPG', qty: 3 }] },
     ]
   },
   // ── SOVIET UNION ──────────────────────────────────────────────────────────
@@ -8112,10 +9012,10 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'T-34/85', qty: 3 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Divisional 122mm or 152mm howitzers in direct support.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '152mm Howitzer', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '152mm Howitzer', qty: 3 }] },
       { id: 'katyusha-battery', name: 'Katyusha Battery',
         note: 'BM-13 Katyusha rocket artillery, attached from corps or army-level Guards Mortar units.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'BM-13 Katyusha', qty: 3 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'ZIS-5 Truck', qty: 1 }, { name: 'BM-13 Katyusha', qty: 3 }] },
     ]
   },
   {
@@ -8172,7 +9072,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'IS-2', qty: 3 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: '122mm or 152mm howitzers providing crushing fire support for Guards assaults.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '122mm Howitzer', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '122mm Howitzer', qty: 3 }] },
     ]
   },
   {
@@ -8198,7 +9098,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'T-34/85', qty: 3 }] },
       { id: 'katyusha-battery', name: 'Katyusha Battery',
         note: 'BM-13 rocket artillery providing area suppression ahead of the assault.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'BM-13 Katyusha', qty: 3 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'ZIS-5 Truck', qty: 1 }, { name: 'BM-13 Katyusha', qty: 3 }] },
     ]
   },
   {
@@ -8221,7 +9121,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'SU-85', qty: 3 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Divisional 152mm howitzers suppressing enemy AT positions before the heavy tank advance.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '152mm Howitzer', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '152mm Howitzer', qty: 3 }] },
     ]
   },
   // ── BRITAIN ───────────────────────────────────────────────────────────────
@@ -8249,7 +9149,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'Churchill IV', qty: 3 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: '25-pdr field guns or BL 5.5" medium artillery from the divisional artillery regiment.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '25-pdr Field Gun', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '25-pdr Field Gun', qty: 3 }] },
     ]
   },
   {
@@ -8276,7 +9176,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'M10C 17-pdr SP', qty: 2 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Sexton self-propelled 25-pdr guns from the divisional artillery regiment.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Sexton SP', qty: 3 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M5 Halftrack', qty: 1 }, { name: 'Sexton SP', qty: 3 }] },
     ]
   },
   {
@@ -8303,7 +9203,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'M10C 17-pdr SP', qty: 2 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: '25-pdr field guns in support once ground contact was established.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '25-pdr Field Gun', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '25-pdr Field Gun', qty: 3 }] },
     ]
   },
   {
@@ -8333,7 +9233,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'M10C 17-pdr SP', qty: 2 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: 'Sexton self-propelled 25-pdr guns maintaining fire support at the division\'s pace.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'Sexton SP', qty: 3 }] },
+        teams: [{ name: 'Forward Observer', qty: 1 }, { name: 'M5 Halftrack', qty: 1 }, { name: 'Sexton SP', qty: 3 }] },
     ]
   },
   {
@@ -8360,7 +9260,7 @@ const HISTORICAL_ORGS = [
         teams: [{ name: 'M10C 17-pdr SP', qty: 2 }] },
       { id: 'artillery-battery', name: 'Artillery Battery',
         note: '25-pdr field guns in direct support, often firing smoke and HE ahead of the advance.',
-        teams: [{ name: 'Forward Observer', qty: 1 }, { name: '25-pdr Field Gun', qty: 3 }] },
+        teams: [{ name: 'Platoon Leader', qty: 1 }, { name: 'Forward Observer', qty: 1 }, { name: '25-pdr Field Gun', qty: 3 }] },
     ]
   },
 ];
@@ -8369,6 +9269,657 @@ let orgSelectedNation = 'United States';
 let orgExpandedFormation = null;
 let orgLockedFormation = null; // set once first tiered platoon is added
 let orgExpandedAttachments = new Set();
+
+// ── ORBAT (Order of Battle) — admin-only historical formations ─────────────
+
+const ORBAT_FORMATIONS = [
+
+  // ── UNITED STATES ──────────────────────────────────────────────────────────
+  {
+    id: 'us-rifle-co-normandy-1944',
+    name: 'US Rifle Company',
+    nation: 'United States',
+    theater: 'NW Europe',
+    era: 'Normandy, 1944',
+    note: 'Rifle company of the 1st, 4th, 29th, and 30th Infantry Divisions in the Normandy campaign, June–August 1944. Three 42-man rifle platoons, each with a BAR gunner in every squad and bazookas in the platoon HQ. Support drawn from the battalion weapons company and divisional or corps attachments, with bocage-busting Sherman Rhinos improvised from captured German hedgerow-cutting steel and widely adopted from late July onwards.',
+
+    hqSections: [
+      {
+        id: 'us-n44-company-hq',
+        name: 'Company HQ',
+        note: 'Company Commander and Forward Observer. The CO led from the front in the bocage; the FO relayed calls to the battalion 81mm mortar platoon and regimental cannon company.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Forward Observer', qty: 1 },
+        ],
+      },
+      {
+        id: 'us-n44-hq-sniper',
+        name: 'Sniper',
+        optional: true,
+        note: 'Optional. One sniper assigned from battalion or regimental assets — not organic to the rifle company but commonly attached during extended operations.',
+        teams: [
+          { name: 'Sniper Team', qty: 1 },
+        ],
+      },
+      {
+        id: 'us-n44-hq-mortar-section',
+        name: 'Mortar Section',
+        attachable: true,
+        note: 'Two 60mm M2 mortars from the company weapons section. May be attached out to rifle platoons before the game — one team per platoon, per section. Teams become permanent members of the receiving platoon and the section ceases to exist as a separate element.',
+        teams: [
+          { name: '60mm Mortar Team', qty: 2 },
+        ],
+      },
+      {
+        id: 'us-n44-hq-at-section',
+        name: 'AT Section',
+        attachable: true,
+        note: 'Two M1A1 bazookas from the company weapons section. May be attached out to rifle platoons before the game — one team per platoon, per section. Teams become permanent members of the receiving platoon.',
+        teams: [
+          { name: 'Bazooka Team', qty: 2 },
+        ],
+      },
+    ],
+
+    combatPlatoons: [
+      {
+        id: 'us-n44-rifle-platoon',
+        name: 'Rifle Platoon',
+        note: 'Three 12-man rifle squads, each with one BAR automatic rifle team. Platoon HQ carried two M1A1 bazookas and an SCR-536 radio. Represented as Rifle/MG Teams (BAR squads) plus Platoon Leader and Bazooka Team.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Bazooka Team', qty: 1 },
+          { name: 'Rifle/MG Team', qty: 3 },
+        ],
+      },
+    ],
+
+    weaponsPlatoons: [
+      {
+        id: 'us-n44-hmg-section',
+        name: 'HMG Section',
+        note: 'Two heavy machine-gun teams drawn from the battalion weapons company (D Company). M1917A1 water-cooled or M1919A4 air-cooled on tripod. Allocated to rifle companies for sustained defensive or supporting fire.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'M1917/M1919 HMG Team', qty: 2 },
+        ],
+      },
+      {
+        id: 'us-n44-81mm-mortar-section',
+        name: '81mm Mortar Section',
+        note: 'Two M1 81mm mortars from the battalion mortar platoon, with a Forward Observer attached to the rifle company. Battalion mortars were controlled centrally but FOs ranged freely to support company-level actions.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Forward Observer', qty: 1 },
+          { name: '81mm Mortar Team', qty: 2 },
+        ],
+      },
+    ],
+
+    regimentalSupport: [
+      {
+        id: 'us-n44-reg-at-platoon',
+        name: 'Anti-Tank Platoon',
+        note: 'Regimental anti-tank platoon, two M1 57mm guns. In the dense bocage the 57mm\'s mobility was hampered, but it remained effective against half-tracks, armoured cars, and dug-in positions. Increasingly outmatched by the Panzer IV and heavier German armour.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'M1 57mm Gun', qty: 2 },
+        ],
+      },
+      {
+        id: 'us-n44-cannon-platoon',
+        name: 'Cannon Platoon',
+        note: 'Regimental cannon company detachment with M2A1 105mm howitzers. By Normandy most regiments had converted from the 75mm pack howitzer; the 105mm provided direct and indirect fire support close to the front.',
+        teams: [
+          { name: 'Forward Observer', qty: 1 },
+          { name: 'M2A1 105mm Howitzer', qty: 2 },
+        ],
+      },
+      {
+        id: 'us-n44-pioneer-platoon',
+        name: 'Pioneer Platoon',
+        note: 'Combat engineers from the divisional engineer battalion — 299th, 237th, or similar. Essential in the bocage for demolitions, hedgerow gap cutting, minefield breaching, and road clearance ahead of the assault.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Rifle/MG Team', qty: 3 },
+        ],
+      },
+    ],
+
+    divisionalSupport: [
+      {
+        id: 'us-n44-tank-platoon',
+        name: 'Tank Platoon',
+        note: 'Five-tank platoon of M4 Shermans from an attached tank battalion — 743rd (1st Inf Div), 745th (1st Inf Div), 746th (4th Inf Div), or 747th (29th Inf Div). Infantry-tank co-operation was the tactical lesson of Normandy.',
+        teams: [
+          { name: 'M4 Sherman', qty: 3 },
+        ],
+      },
+      {
+        id: 'us-n44-tank-platoon-rhino',
+        name: 'Tank Platoon (Rhino)',
+        requires: 'us-n44-tank-platoon',
+        requiresNote: 'Requires Tank Platoon',
+        note: 'Sherman Rhinos fitted with Sgt. Curtis G. Culin\'s improvised steel hedge-cutters, welded from German beach obstacles. By late July 1944 roughly 60% of First Army\'s tanks were Rhino-equipped. Special rule: Bocage Breacher.',
+        teams: [
+          { name: 'M4 Sherman (Rhino)', qty: 3 },
+        ],
+      },
+      {
+        id: 'us-n44-td-platoon',
+        name: 'Tank Destroyer Platoon',
+        note: 'M10 Wolverines from an SP tank destroyer battalion. The M10 was the primary US tank destroyer in Normandy; the M18 Hellcat arrived in small numbers only by late summer and the M36 not until September 1944.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Forward Observer', qty: 1 },
+          { name: 'M10 3-in GMC', qty: 3 },
+        ],
+      },
+      {
+        id: 'us-n44-arty-battery',
+        name: 'Field Artillery Battery',
+        note: 'Battery of M2A1 105mm howitzers from divisional artillery. Each infantry division had three 105mm battalions; FOs were routinely attached to rifle companies and could call the full battery for fire missions.',
+        teams: [
+          { name: 'Forward Observer', qty: 1 },
+          { name: 'M2A1 105mm Howitzer', qty: 3 },
+        ],
+      },
+      {
+        id: 'us-n44-heavy-arty',
+        name: 'Heavy Artillery Battery',
+        requires: 'us-n44-arty-battery',
+        requiresNote: 'Requires Field Artillery Battery',
+        note: 'Corps-level 155mm howitzer battery — M1 Long Tom or M114. Rarely allocated below regimental level except for deliberate attacks on hardened positions; taking field artillery first reflects the normal priority of fires.',
+        teams: [
+          { name: 'Forward Observer', qty: 1 },
+          { name: 'M1 155mm Howitzer', qty: 2 },
+        ],
+      },
+      {
+        id: 'us-n44-aa-platoon',
+        name: 'AA Platoon',
+        note: 'M16 MGMC half-track mounting four M2 .50-calibre heavy machine guns in a Maxson turret. With the Luftwaffe rarely a threat by summer 1944, these vehicles were rerolled for ground support — devastating against infantry in the bocage.',
+        teams: [
+          { name: 'M16 MGMC', qty: 1 },
+        ],
+      },
+    ],
+  },
+
+  // ── GERMANY ────────────────────────────────────────────────────────────────
+  {
+    id: 'de-grenadier-co-normandy-1944',
+    name: 'German Grenadier Company',
+    nation: 'Germany',
+    theater: 'NW Europe',
+    era: 'Normandy, 1944',
+    note: 'Grenadier company of a Wehrmacht Infanterie-Division defending Normandy, June–August 1944. Three Züge (platoons) each built around the MG42 — one per Gruppe, the remainder armed with Kar 98k. Panzerfausts were issued in quantity from June, giving every platoon close-range anti-armour capability. Tenacious in the bocage, where the terrain neutralized Allied armour and air power, the Grenadier Company drew on battalion heavy weapons, regimental gun and anti-tank companies, and divisional attachments to hold a sector far out of proportion to its numbers.',
+
+    hqSections: [
+      {
+        id: 'de-n44-company-hq',
+        name: 'Company HQ',
+        note: 'Kompaniechef and Forward Observer. The CO led from close behind the leading Zug and coordinated support from the battalion Schwere Kompanie and regimental Infanterie-Geschütz-Kompanie.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Forward Observer', qty: 1 },
+        ],
+      },
+      {
+        id: 'de-n44-hq-panzerschreck',
+        name: 'Panzerschreck Section',
+        attachable: true,
+        note: 'Two RPzB 54 Panzerschreck teams from the company Trupp or battalion Panzerjäger platoon. May be attached out to Grenadier platoons before the game — one team per platoon. At under 150m the rocket could defeat any Allied tank.',
+        teams: [
+          { name: 'Panzerschreck', qty: 2 },
+        ],
+      },
+    ],
+
+    combatPlatoons: [
+      {
+        id: 'de-n44-grenadier-platoon',
+        name: 'Grenadier Platoon',
+        note: 'Three Gruppen of ~10 men each, every one built around a two-man MG42 team. Platoon HQ carried Panzerfausts from June 1944 — single-shot, disposable, and lethal at close range. In the bocage, Grenadiers held one hedgerow line and waited.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Panzerfaust', qty: 1 },
+          { name: 'Rifle/MG Team', qty: 3 },
+        ],
+      },
+    ],
+
+    weaponsPlatoons: [
+      {
+        id: 'de-n44-hmg-section',
+        name: 'HMG Section',
+        note: 'Two MG42s on Lafette 42 tripods from the battalion Schwere Kompanie. In the sustained-fire role — with optical sight and mechanical traverse — the MG42 was the finest HMG of the war, capable of engaging targets at 2,000m at 1,200 rounds per minute.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'MG42 HMG Team', qty: 2 },
+        ],
+      },
+      {
+        id: 'de-n44-mortar-section',
+        name: '8cm Mortar Section',
+        note: 'Two 8cm GrW 34 mortars from the battalion Granatwerfer-Zug, with a Forward Observer. The 8cm was the standard German indirect-fire weapon at company level — accurate, fast-firing, and capable of dropping rounds into hedgerow positions inaccessible to direct fire.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Forward Observer', qty: 1 },
+          { name: '8cm Mortar Team', qty: 2 },
+        ],
+      },
+    ],
+
+    regimentalSupport: [
+      {
+        id: 'de-n44-infantry-gun-section',
+        name: 'Infantry Gun Section',
+        note: 'Two 7.5cm leIG 18 infantry guns from the regimental Infanterie-Geschütz-Kompanie. The leIG 18 fired a 6 kg HE shell to 3,550m in direct or indirect fire, destroying machine-gun nests and field fortifications at ranges too close for divisional artillery.',
+        teams: [
+          { name: 'Forward Observer', qty: 1 },
+          { name: '7.5cm leIG18 Gun', qty: 2 },
+        ],
+      },
+      {
+        id: 'de-n44-pak-section',
+        name: 'PaK Section',
+        note: 'Two 7.5cm PaK 40 anti-tank guns from the regimental Panzer-Abwehr-Kompanie. Sited in enfilade covering road junctions and field boundaries, the PaK 40 could defeat the M4 Sherman frontally at 1,000m. Fire discipline and camouflage were everything — a PaK 40 crew that fired too early died.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: '7.5cm PaK40 Team', qty: 2 },
+        ],
+      },
+      {
+        id: 'de-n44-pioneer-platoon',
+        name: 'Pioneer Platoon',
+        note: 'Combat engineers from the divisional Pionier-Bataillon. In Normandy, pioneers laid the minefields, erected wire and stake obstacles, and prepared the camouflaged hedgerow positions that turned every bocage approach into a killing ground.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Rifle/MG Team', qty: 3 },
+        ],
+      },
+    ],
+
+    divisionalSupport: [
+      {
+        id: 'de-n44-stug-platoon',
+        name: 'StuG Platoon',
+        note: 'Three StuG III Ausf G or StuG IV from the divisional Sturmgeschütz-Abteilung. The StuG was the most numerous German AFV of the war — low-profile, reliable, and mounting the 7.5cm StuK 40 L/48. Infantry divisions relied on the Sturmgeschütz as their primary armour; dedicated Panzer support was rare.',
+        teams: [
+          { name: 'StuG III/IV', qty: 3 },
+        ],
+      },
+      {
+        id: 'de-n44-pz4-platoon',
+        name: 'Panzer IV Platoon',
+        requires: 'de-n44-stug-platoon',
+        requiresNote: 'Requires StuG Platoon',
+        note: 'Three Panzer IV Ausf H from an attached Panzer-Abteilung. Requires StuG Platoon — armoured support was allocated in priority order; assault guns preceded Panzer attachment. The Panzer IV H with 7.5cm KwK 40 L/48 was outnumbered but superior to the Sherman in gun and armour.',
+        teams: [
+          { name: 'Panzer IV H', qty: 3 },
+        ],
+      },
+      {
+        id: 'de-n44-marder-platoon',
+        name: 'Tank Destroyer Platoon',
+        note: 'Three Marder II or Marder III from the divisional Panzerjäger-Abteilung. A stop-gap conversion — PaK 40 on an obsolete chassis — but its gun could defeat any Allied tank. Open-topped and lightly armoured, Marder crews relied on ambush, cover, and flanking shots.',
+        teams: [
+          { name: 'Marder II or III', qty: 3 },
+        ],
+      },
+      {
+        id: 'de-n44-arty-battery',
+        name: 'Field Artillery Battery',
+        note: 'Three 10.5cm leFH 18 howitzers from the divisional Artillerie-Regiment. German FOs attached to rifle companies called Feuerüberfall (fire ambush) concentrations that could be on target within minutes. The leFH 18 fired a 15 kg shell to 10,675m.',
+        teams: [
+          { name: 'Forward Observer', qty: 1 },
+          { name: '10.5cm leFH18 Gun', qty: 3 },
+        ],
+      },
+      {
+        id: 'de-n44-heavy-arty',
+        name: 'Heavy Artillery Battery',
+        requires: 'de-n44-arty-battery',
+        requiresNote: 'Requires Field Artillery Battery',
+        note: 'Two 15cm sFH 18 heavy howitzers from the divisional IV. Bataillon (schwere Abteilung). Rarely allocated below regimental level. The sFH 18 fired a 43.5 kg shell to 13,325m — devastating against dug-in infantry and field fortifications.',
+        teams: [
+          { name: 'Forward Observer', qty: 1 },
+          { name: '15cm sFH18 Gun', qty: 2 },
+        ],
+      },
+      {
+        id: 'de-n44-nebelwerfer-battery',
+        name: 'Nebelwerfer Battery',
+        note: 'Three 15cm NW 41 six-barrel rocket launchers from a Werfer-Abteilung. Each launcher rippled six 34 kg rockets in under ten seconds — the shrieking trajectory gave Allied soldiers the nickname "Moaning Minnie." Devastating on area targets, slow to reload, and conspicuous when firing.',
+        teams: [
+          { name: '15cm NW41 Rocket Launcher', qty: 3 },
+        ],
+      },
+      {
+        id: 'de-n44-flak-section',
+        name: 'Flak Section',
+        note: 'Two 2cm FlaK 38 guns from the divisional Flak-Abteilung. With Allied air superiority total, flak guns served primarily in the ground role — their 220-rpm rate of fire was lethal against infantry in the open and could penetrate light armour from the flanks.',
+        teams: [
+          { name: '2cm FlaK38 Gun', qty: 2 },
+        ],
+      },
+    ],
+  },
+
+  // ── BRITAIN ────────────────────────────────────────────────────────────────
+  {
+    id: 'br-rifle-co-normandy-1944',
+    name: 'British Rifle Company',
+    nation: 'Britain',
+    theater: 'NW Europe',
+    era: 'Normandy, 1944',
+    note: 'Rifle company of a British infantry battalion in Normandy, June–August 1944 — drawn from divisions such as the 3rd, 50th (Northumbrian), and 51st (Highland). Three rifle platoons, each platoon built around three Bren-equipped sections with organic 2" mortar and PIAT. Support from the battalion S Company (HMG, mortar, carrier), divisional anti-tank regiment, and the Royal Artillery gave every company commander a substantial fire plan.',
+
+    hqSections: [
+      {
+        id: 'br-n44-company-hq',
+        name: 'Company HQ',
+        note: 'Company Commander (Major or Captain) and Forward Observer from the battalion OP party. FOs routinely called the 3" mortar platoon and could reach the regimental 25-pdr battery within minutes.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Forward Observer', qty: 1 },
+        ],
+      },
+      {
+        id: 'br-n44-hq-piat',
+        name: 'PIAT Section',
+        attachable: true,
+        note: 'Two additional PIAT teams from company resources or the battalion anti-tank platoon. May be attached to rifle platoons before the game. In the bocage, the PIAT was fired as often against windows and bunkers as against armour.',
+        teams: [
+          { name: 'PIAT Team', qty: 2 },
+        ],
+      },
+    ],
+
+    combatPlatoons: [
+      {
+        id: 'br-n44-rifle-platoon',
+        name: 'Rifle Platoon',
+        note: 'Three rifle sections of 10 men each, every section built around the Bren LMG. Platoon HQ carried a 2" mortar for smoke and illumination and a PIAT for anti-tank work. In Normandy platoons advanced section by section, each leap-frogging past the last under Bren fire.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: '2" Mortar Team', qty: 1 },
+          { name: 'PIAT Team', qty: 1 },
+          { name: 'Bren/Rifle Team', qty: 3 },
+        ],
+      },
+    ],
+
+    weaponsPlatoons: [
+      {
+        id: 'br-n44-vickers-section',
+        name: 'Vickers HMG Section',
+        note: 'Two Vickers HMG teams from the battalion S Company. Water-cooled and belt-fed, the Vickers could maintain 600 rounds per minute for hours and drop plunging fire on targets in dead ground beyond direct fire range — a technique refined over decades of British infantry doctrine.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Vickers HMG Team', qty: 2 },
+        ],
+      },
+      {
+        id: 'br-n44-mortar-section',
+        name: '3" Mortar Section',
+        note: 'Two 3" ML mortars from the battalion mortar platoon in S Company, with a Forward Observer. The 3" mortar\'s 4.5 lb bomb had excellent fragmentation; British crews practised fire-for-effect techniques that could put rounds onto a hedgerow-edge position within 60 seconds of a call.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Forward Observer', qty: 1 },
+          { name: '3" Mortar Team', qty: 2 },
+        ],
+      },
+    ],
+
+    regimentalSupport: [
+      {
+        id: 'br-n44-at-platoon',
+        name: 'Anti-Tank Platoon',
+        note: 'Two QF 6-pounder AT guns from the divisional anti-tank regiment. The 6-pdr remained effective against all German AFVs except the Tiger and Panther at battle ranges. Crews sited guns to cover approach routes in ambush — fire discipline and concealment were everything.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: '6-pdr AT Gun', qty: 2 },
+        ],
+      },
+      {
+        id: 'br-n44-pioneer-platoon',
+        name: 'Pioneer Platoon',
+        note: 'Combat sappers from the divisional Royal Engineers field squadron. In Normandy, pioneers breached hedgerow obstacles, lifted mines, and prepared crossing sites across bocage ditches. The initial approach work was always human — Armoured Bulldozers and Crocodile flame-throwers followed.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Bren/Rifle Team', qty: 3 },
+        ],
+      },
+    ],
+
+    divisionalSupport: [
+      {
+        id: 'br-n44-churchill-troop',
+        name: 'Churchill Tank Troop',
+        note: 'Three Churchill IV infantry tanks from an attached Army Tank Brigade — typically 6th Guards or 31st Armoured Brigade. The Churchill\'s heavy armour (152mm max) made it nearly immune to PaK 40 fire at most bocage ranges; infantry loved it as a slow but indestructible companion.',
+        teams: [
+          { name: 'Churchill IV', qty: 3 },
+        ],
+      },
+      {
+        id: 'br-n44-cromwell-troop',
+        name: 'Cromwell Tank Troop',
+        note: 'Two Cromwell IVs and a Sherman Firefly VC from an armoured regiment. The Cromwell was fast (40 mph) and mechanically reliable but outgunned by the Panther; the Firefly\'s 17-pdr balanced the troop — German tank commanders were ordered to target it first.',
+        teams: [
+          { name: 'Cromwell IV', qty: 2 },
+          { name: 'Sherman Firefly VC', qty: 1 },
+        ],
+      },
+      {
+        id: 'br-n44-m10c-platoon',
+        name: 'Achilles SP Platoon',
+        note: 'Three M10C Achilles tank destroyers (17-pdr in an M10 hull) from an anti-tank regiment SP battery. The 17-pdr penetrated the Panther\'s frontal armour at 1,000m; Achilles crews used the open-topped vehicle and good gun depression to engage from hull-down positions in hedgerows.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Forward Observer', qty: 1 },
+          { name: 'M10C 17-pdr SP', qty: 3 },
+        ],
+      },
+      {
+        id: 'br-n44-arty-battery',
+        name: 'Field Artillery Battery',
+        note: 'Three QF 25-pounder field guns from the divisional Royal Artillery field regiment. The 25-pdr combined direct-fire capability with an excellent regimental fire control system — an FO attached to a rifle company could call the full regiment in under three minutes. A 25 lb shell to 13,400m.',
+        teams: [
+          { name: 'Forward Observer', qty: 1 },
+          { name: '25-pdr Field Gun', qty: 3 },
+        ],
+      },
+      {
+        id: 'br-n44-heavy-arty',
+        name: 'Heavy Artillery Battery',
+        requires: 'br-n44-arty-battery',
+        requiresNote: 'Requires Field Artillery Battery',
+        note: 'Two BL 5.5" medium guns from a Medium Artillery Regiment, AGRA (Army Group Royal Artillery). Requires Field Artillery Battery. The 5.5" fired an 80–100 lb shell to 16,457m — effective against hardened positions and reinforced command bunkers beyond divisional artillery range.',
+        teams: [
+          { name: 'Forward Observer', qty: 1 },
+          { name: 'BL 5.5" Gun', qty: 2 },
+        ],
+      },
+      {
+        id: 'br-n44-sexton-battery',
+        name: 'Sexton SP Battery',
+        note: 'Three Sexton self-propelled 25-pounders from a field regiment SP battery. The Sexton combined the proven 25-pdr gun with mobility matching armoured formations; it served throughout NW Europe as the standard British SP field gun, particularly with armoured divisions.',
+        teams: [
+          { name: 'Forward Observer', qty: 1 },
+          { name: 'Sexton SP', qty: 3 },
+        ],
+      },
+    ],
+  },
+
+  // ── SOVIET UNION ───────────────────────────────────────────────────────────
+  {
+    id: 'sv-strelkovy-co-bagration-1944',
+    name: 'Soviet Strelkovy Company',
+    nation: 'Soviet Union',
+    theater: 'Eastern Front',
+    era: 'Bagration, 1944',
+    note: 'Strelkovaya Rota (rifle company) of a Soviet Guards Rifle Division in Operation Bagration, June–August 1944. By this stage of the war, Soviet rifle companies benefited from better materiel, more ammunition, and hard-won tactical doctrine. Three strelkovy platoons armed with PPSh-41 SMGs and Mosin-Nagant rifles, each platoon with an organic PTRD anti-tank rifle. Massive fire support from battalion mortars and guns, regimental artillery, and the armoured fist of attached tank brigades and self-propelled artillery regiments.',
+
+    hqSections: [
+      {
+        id: 'sv-b44-company-hq',
+        name: 'Company HQ',
+        note: 'Rotny Komandeer (Company Commander) and Forward Observer attached from battalion or regimental artillery. By 1944 Soviet FOs carried reliable radio sets and could call the battalion 82mm mortar company or regiment\'s 76mm guns within minutes.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Forward Observer', qty: 1 },
+        ],
+      },
+      {
+        id: 'sv-b44-hq-maxim',
+        name: 'Maxim Section',
+        attachable: true,
+        note: 'Two Maxim M1910 heavy machine guns from the company weapons group. May be attached to strelkovy platoons before the game — one per platoon. The Maxim was a pre-war design still in mass service, reliable and well-understood, providing the sustained fire suppression that underpinned every Soviet assault.',
+        teams: [
+          { name: 'Maxim HMG Team', qty: 2 },
+        ],
+      },
+    ],
+
+    combatPlatoons: [
+      {
+        id: 'sv-b44-strelkovy-platoon',
+        name: 'Strelkovy Platoon',
+        note: 'Three sections (otdelenie) of 9–11 men each. By 1944 many platoons were almost entirely armed with PPSh-41 submachine guns, giving devastating close-range firepower. An organic PTRD anti-tank rifle gave platoon-level AT capability denied to Western counterparts.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'PTRD AT Rifle Team', qty: 1 },
+          { name: 'Rifle/MG Team', qty: 3 },
+        ],
+      },
+    ],
+
+    weaponsPlatoons: [
+      {
+        id: 'sv-b44-mortar-section',
+        name: '82mm Mortar Section',
+        note: 'Three 82mm BM-37 mortars from the battalion mortar company, with a Forward Observer. Soviet mortars were used in greater density than Western counterparts; the battalion mortar company fired in concentrations coordinated with the regimental artillery for a rolling fire that preceded every assault.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Forward Observer', qty: 1 },
+          { name: '82mm Mortar Team', qty: 3 },
+        ],
+      },
+      {
+        id: 'sv-b44-at-section',
+        name: '45mm AT Section',
+        note: 'Two 45mm M1942 anti-tank guns from the battalion anti-tank platoon. By 1944 the 45mm was marginal against German medium tank frontal armour, but lethal against half-tracks and armoured cars, and deadly from the flanks. Often deployed in close ambush inside village buildings and woodline edges.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: '45mm AT Gun', qty: 2 },
+        ],
+      },
+    ],
+
+    regimentalSupport: [
+      {
+        id: 'sv-b44-zis3-section',
+        name: 'ZIS-3 Section',
+        note: 'Two 76mm ZiS-3 divisional guns from the regimental artillery battery. Produced in enormous numbers (48,016 total), the ZiS-3 served simultaneously as field gun, howitzer substitute, and tank destroyer — its direct fire from concealed woodline positions was a constant Soviet tactical element.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: '76mm ZIS-3', qty: 2 },
+        ],
+      },
+      {
+        id: 'sv-b44-hmg-section',
+        name: 'Maxim HMG Section',
+        note: 'Three Maxim M1910 heavy machine guns from the regimental machine-gun company. Three Maxims in a coordinated fire plan created interlocking beaten zones that denied entire field boundaries to the enemy — the cornerstone of Soviet deliberate defensive preparation.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Maxim HMG Team', qty: 3 },
+        ],
+      },
+      {
+        id: 'sv-b44-pioneer-platoon',
+        name: 'Pioneer Platoon',
+        note: 'Combat engineers from the divisional Saperny Batayon (Sapper Battalion). Soviet engineers were specialists in bridging, minefield breaching, and assault demolitions — indispensable for the deep-battle operational art that characterized Soviet offensive operations from 1943 onward.',
+        teams: [
+          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Rifle/MG Team', qty: 3 },
+        ],
+      },
+    ],
+
+    divisionalSupport: [
+      {
+        id: 'sv-b44-t34-platoon',
+        name: 'T-34/85 Platoon',
+        note: 'Three T-34 Model 1944 (T-34/85) from an attached tank brigade. The 85mm gun engaged the Panther at medium range and the Tiger at close range; the new three-man turret allowed a proper commander. By Bagration, Soviet tank-infantry cooperation had reached a high standard — infantry rode the tank decks or advanced close behind.',
+        teams: [
+          { name: 'T-34/85', qty: 3 },
+        ],
+      },
+      {
+        id: 'sv-b44-is2-platoon',
+        name: 'IS-2 Platoon',
+        requires: 'sv-b44-t34-platoon',
+        requiresNote: 'Requires T-34/85 Platoon',
+        note: 'Two IS-2 heavy tanks from a separate Guards Heavy Tank Regiment. Requires T-34/85 Platoon. The IS-2\'s 122mm D-25T penetrated 185mm of armour at 500m — devastating against Tiger I and capable of detonating ammunition through a Panzer IV. Slow, but near-invulnerable to German AT guns at battle range.',
+        teams: [
+          { name: 'IS-2', qty: 2 },
+        ],
+      },
+      {
+        id: 'sv-b44-su85-platoon',
+        name: 'SU-85 Platoon',
+        note: 'Three SU-85 tank destroyers from a Self-Propelled Artillery Regiment. Mounting an 85mm gun in a well-sloped hull, the SU-85 could defeat the Panzer IV and engage the Tiger I at medium range. By summer 1944 the SU-100 was entering service, but the SU-85 remained the primary Soviet SP anti-tank weapon for Bagration.',
+        teams: [
+          { name: 'SU-85', qty: 3 },
+        ],
+      },
+      {
+        id: 'sv-b44-isu122-platoon',
+        name: 'ISU-122 Platoon',
+        note: 'Two ISU-122 heavy self-propelled guns from a Guards Heavy Self-Propelled Artillery Regiment. Mounting the 122mm A-19 gun on the IS hull, the ISU-122 was employed as a breakthrough weapon and tank destroyer; its shell could penetrate the Tiger I at 2,000m and the Tiger II from the sides at 1,000m.',
+        teams: [
+          { name: 'ISU-122', qty: 2 },
+        ],
+      },
+      {
+        id: 'sv-b44-arty-battery',
+        name: 'Artillery Battery',
+        note: 'Three 122mm M-30 howitzers from the divisional artillery brigade. The M-30 was the standard Soviet divisional howitzer, firing a 21.7 kg shell to 11,800m. Soviet artillery preparation before an offensive was unprecedented in scale — the divisional gun complement supported the breakthrough with both direct and observed fire.',
+        teams: [
+          { name: 'Forward Observer', qty: 1 },
+          { name: '122mm Howitzer', qty: 3 },
+        ],
+      },
+      {
+        id: 'sv-b44-heavy-arty',
+        name: 'Heavy Artillery Battery',
+        requires: 'sv-b44-arty-battery',
+        requiresNote: 'Requires Artillery Battery',
+        note: 'Two 152mm ML-20 howitzer-guns from the corps or army artillery reserve. Requires Artillery Battery. The ML-20 fired a 43.5 kg shell to 17,265m — effective against hardened positions, Tiger tanks in the open, and German strongpoints that had survived lighter fire.',
+        teams: [
+          { name: 'Forward Observer', qty: 1 },
+          { name: '152mm Howitzer', qty: 2 },
+        ],
+      },
+      {
+        id: 'sv-b44-katyusha-battery',
+        name: 'Katyusha Battery',
+        note: 'Three BM-13 "Katyusha" multiple rocket launchers from a Guards Rocket Mortar Regiment. Each launcher rippled 16 rockets in under ten seconds — the distinctive shriek gave Allied troops the name "Stalinorgel." Devastating against area targets and demoralizing under any circumstances. Slow to reload and highly visible when firing.',
+        teams: [
+          { name: 'BM-13 Katyusha', qty: 3 },
+        ],
+      },
+    ],
+  },
+
+];
+
+let orbatSelectedNation = 'United States';
+let orbatExpandedFormation = null;
 
 function selectOrgNation(nation) {
   orgSelectedNation = nation;
@@ -8485,11 +10036,218 @@ function renderOrgBrowser() {
 
   container.innerHTML = `
     <div class="org-browser-header">
-      <div class="org-browser-label">HISTORICAL ORGANIZATIONS</div>
+      <div class="org-browser-label">ORBAT BUILDER</div>
       <div class="filter-chips">${nationChips}</div>
     </div>
     <div>${formationHTML}</div>
   `;
+}
+
+function selectOrbatNation(nation) {
+  orbatSelectedNation = nation;
+  orbatExpandedFormation = null;
+  renderOrbatBrowser();
+}
+
+function toggleOrbatFormation(id) {
+  orbatExpandedFormation = orbatExpandedFormation === id ? null : id;
+  renderOrbatBrowser();
+}
+
+function renderOrbatBrowser() {
+  const container = document.getElementById('orbat-browser-body');
+  if (!container) return;
+
+  const nations    = [...new Set(ORBAT_FORMATIONS.map(o => o.nation))];
+  const formations = ORBAT_FORMATIONS.filter(o => o.nation === orbatSelectedNation);
+
+  const nationChips = nations.map(n =>
+    `<button class="chip${n === orbatSelectedNation ? ' active' : ''}" onclick="selectOrbatNation('${n.replace(/'/g,"\\'")}')">
+      ${n}
+    </button>`
+  ).join('');
+
+  const slots = getOrgSlots();
+  const used  = getOrgUsed();
+  const forcePlatoonIds = new Set(platoons.map(p => p.orbatPlatoonId).filter(Boolean));
+
+  // Render one platoon row
+  const orbatRow = (p, tierKey, tierFull, fid) => {
+    const prereqMet = !p.requires || forcePlatoonIds.has(p.requires);
+    const locked    = !prereqMet;
+    const dimmed    = !locked && tierFull;
+
+    const attachBadge = p.attachable
+      ? `<span class="orbat-badge orbat-badge-attach">Attachable</span>` : '';
+    const reqBadge = p.requires
+      ? `<span class="orbat-badge orbat-badge-req">${p.requiresNote || 'Prerequisite required'}</span>` : '';
+    const badges = (attachBadge || reqBadge)
+      ? `<div style="margin-top:3px">${attachBadge}${reqBadge}</div>` : '';
+
+    const tipText = locked
+      ? (p.requiresNote ? `${p.requiresNote} first` : 'Prerequisite not met')
+      : dimmed ? 'Add more Combat platoons to unlock this slot' : '';
+
+    const btnCls   = `orbat-add-btn${dimmed ? ' orbat-add-btn-dimmed' : ''}`;
+    const btnClick = (locked || dimmed)
+      ? `onclick="showToast('${tipText.replace(/'/g,"\\'")}','warning')"`
+      : `onclick="addPlatoonFromOrbat('${fid}','${p.id}','${tierKey}')"`;
+
+    return `
+      <div class="orbat-platoon-row${locked ? ' orbat-platoon-locked' : ''}">
+        <div class="orbat-platoon-info">
+          <div class="orbat-platoon-name">${p.name}</div>
+          <div class="orbat-platoon-teams">${p.teams.map(t => `${t.qty}× ${t.name}`).join(' · ')}</div>
+          ${badges}
+          ${p.note ? `<div class="orbat-platoon-note">${p.note}</div>` : ''}
+        </div>
+        <button class="${btnCls}" ${btnClick}>+ Add</button>
+      </div>`;
+  };
+
+  // Render one tier section
+  const tierSection = (tierKey, label, platoonList, fid) => {
+    if (!platoonList || platoonList.length === 0) return '';
+    const isSlotted = tierKey !== 'combat' && tierKey !== 'hq';
+    const slotUsed  = isSlotted ? (used[tierKey] || 0) : 0;
+    const slotMax   = isSlotted ? (slots[tierKey] === Infinity ? '∞' : (slots[tierKey] || 0)) : 0;
+    const full      = isSlotted && slotUsed >= slotMax;
+
+    const slotSpan = isSlotted
+      ? `<span class="orbat-tier-slots">${slotUsed} / ${slotMax} slots</span>` : '';
+
+    return `
+      <div class="orbat-tier orbat-${tierKey}${full ? ' orbat-full' : ''}">
+        <div class="orbat-tier-head">
+          <span class="orbat-tier-pill">${label}</span>
+          ${slotSpan}
+          <div class="orbat-tier-rule"></div>
+        </div>
+        <div class="orbat-platoon-list">
+          ${platoonList.map(p => orbatRow(p, tierKey, full, fid)).join('')}
+        </div>
+      </div>`;
+  };
+
+  // Render formation cards
+  const formationHTML = formations.map(f => {
+    const open   = orbatExpandedFormation === f.id;
+    const locked = orgLockedFormation && orgLockedFormation !== f.id;
+    const meta   = `${f.nation.toUpperCase()} · ${f.era.toUpperCase()}${f.theater ? ' · ' + f.theater.toUpperCase() : ''}`;
+
+    return `
+      <div class="orbat-formation">
+        <div class="orbat-company-header${locked ? ' orbat-locked' : ''}"
+             onclick="${locked ? '' : `toggleOrbatFormation('${f.id}')`}">
+          <div>
+            <div class="orbat-company-name">${f.name}${locked ? ' &nbsp;🔒' : ''}</div>
+            <div class="orbat-company-meta">${meta}</div>
+          </div>
+          <span style="color:var(--text3);font-size:11px;flex-shrink:0">${open ? '▲' : '▼'}</span>
+        </div>
+        ${open && !locked ? `
+          <div class="orbat-formation-note">${f.note}</div>
+          <div class="orbat-tree">
+            ${tierSection('hq',         'Company HQ',         f.hqSections,        f.id)}
+            ${tierSection('combat',     'Combat',             f.combatPlatoons,    f.id)}
+            ${tierSection('weapons',    'Weapons',            f.weaponsPlatoons,   f.id)}
+            ${tierSection('regimental', 'Regimental',         f.regimentalSupport, f.id)}
+            ${tierSection('divisional', 'Divisional',         f.divisionalSupport, f.id)}
+          </div>` : ''}
+      </div>`;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="org-browser-header">
+      <div class="org-browser-label">ORDER OF BATTLE</div>
+      <div class="filter-chips">${nationChips}</div>
+    </div>
+    ${formationHTML || '<div style="padding:24px 16px;color:var(--text3);font-size:12px">No formations available for this nation.</div>'}
+  `;
+}
+
+function addPlatoonFromOrbat(formationId, platoonId, tier) {
+  const f = ORBAT_FORMATIONS.find(o => o.id === formationId);
+  const allSections = [
+    ...(f?.hqSections        || []),
+    ...(f?.combatPlatoons    || []),
+    ...(f?.weaponsPlatoons   || []),
+    ...(f?.regimentalSupport || []),
+    ...(f?.divisionalSupport || []),
+  ];
+  const p = f && allSections.find(pl => pl.id === platoonId);
+  if (!f || !p) return;
+
+  // Formation lock — only one ORBAT/Org formation per force
+  if (orgLockedFormation && orgLockedFormation !== formationId) {
+    showToast('Remove all org platoons first to switch formations.', 'warning');
+    return;
+  }
+
+  // Prerequisite check
+  if (p.requires) {
+    const forcePlatoonIds = new Set(platoons.map(pl => pl.orbatPlatoonId).filter(Boolean));
+    if (!forcePlatoonIds.has(p.requires)) {
+      const msg = p.requiresNote ? `${p.requiresNote} first.` : 'Prerequisite not met.';
+      showToast(msg, 'warning');
+      return;
+    }
+  }
+
+  // Slot enforcement (combat and hq tiers are always free)
+  if (tier && tier !== 'combat' && tier !== 'hq') {
+    const slots = getOrgSlots();
+    const used  = getOrgUsed();
+    if ((used[tier] || 0) >= (slots[tier] || 0)) {
+      const labels = { weapons: 'Weapons Support', regimental: 'Regimental Support', divisional: 'Divisional Support' };
+      showToast(`No ${labels[tier] || tier} slots available. Add more Combat platoons first.`, 'warning');
+      return;
+    }
+  }
+
+  const nationMap = ORG_UNIT_IDS[f.nation] || {};
+  const teams = p.teams
+    .map(t => ({ unitId: nationMap[t.name], qty: t.qty }))
+    .filter(t => t.unitId && allUnits.find(u => u.id === t.unitId));
+
+  // Auto-populate force metadata on very first add
+  if (!orgLockedFormation) {
+    const ORBAT_FORCE_TYPE = {
+      'us-rifle-co-normandy-1944': 'Infantry',
+    };
+    const nameEl = document.getElementById('force-name');
+    if (!nameEl.value.trim()) nameEl.value = f.name;
+    if (!forceYear) {
+      const m = (f.era || '').match(/\d{4}/);
+      if (m) {
+        forceYear = parseInt(m[0]);
+        document.getElementById('force-year').value = forceYear;
+      }
+    }
+    setForceQuality('Regular');
+    const fType = ORBAT_FORCE_TYPE[formationId];
+    if (fType) { forceType = null; setForceType(fType); }
+  }
+
+  platoonCounter++;
+  const id = `pl-${platoonCounter}`;
+  // HQ tier platoons use null tier so slot tracking ignores them
+  platoons.push({
+    id,
+    name: p.name,
+    teams,
+    quality: p.defaultQuality || null,
+    tier: (tier === 'hq') ? null : (tier || null),
+    formationId,
+    orbatPlatoonId: p.id,
+    attachable: !!p.attachable,
+  });
+  if (!orgLockedFormation) orgLockedFormation = formationId;
+  activePlatoonId = id;
+  updateForceUI();
+  renderOrbatBrowser();
+  setForcePanel(true);
+  showToast(`${p.name} added to force.`, 'success');
 }
 
 // Unit ID lookup by nation + display name
@@ -8515,7 +10273,9 @@ const ORG_UNIT_IDS = {
     'GMC 2.5-ton Truck':             'us-transport-gmc',
     'M2/M3 Half-Track':              'us-transport-halftrack',
     'M4 Sherman':                    'us-tank-m4-sherman',
+    'M4 Sherman (Rhino)':            'us-tank-m4-rhino',
     'M4 Sherman 76mm':               'us-tank-m4-sherman-76',
+    'Sniper Team':                   'us-inf-sniper',
     'M5 Stuart':                     'us-tank-m5-stuart',
     'M26 Pershing':                  'us-tank-m26-pershing',
     '105mm Sherman':                 'us-spg-105mm-sherman',
@@ -8558,6 +10318,7 @@ const ORG_UNIT_IDS = {
     'Wespe SPG':                 'de-spa-wespe',
     'Hummel SPG':                'de-spa-hummel',
     'Panzerwerfer 42':           'de-spa-panzerwerfer',
+    '15cm sFH18 Gun':            'de-gun-150mm-sfh18',
   },
   'Soviet Union': {
     'Platoon Leader':      'sv-leader',
@@ -8723,10 +10484,19 @@ function countVehicleTeams(platoonList) {
 }
 
 function countCombatTeams(platoon) {
-  const skip = ['Platoon Leader', 'Forward Observer'];
-  return (platoon.teams || [])
-    .filter(t => !skip.includes(t.name))
-    .reduce((s, t) => s + (t.qty || 1), 0);
+  // Count Vehicles + Guns + Squads per HoF FPP size bonus rule.
+  // One Squad = a pair of Infantry teams (rifle, rifle/MG, or MG).
+  // Vehicles and Guns count individually; Upgrades and leaders are excluded.
+  let infantry = 0, other = 0;
+  for (const t of (platoon.teams || [])) {
+    if (isFixedUnit(t.unitId)) continue;                // skip PL / FO
+    const u = allUnits.find(u => u.id === t.unitId);
+    if (!u || u.type === 'Upgrade') continue;           // skip upgrades / unknowns
+    const qty = t.qty || 1;
+    if (u.type === 'Infantry') infantry += qty;
+    else other += qty;
+  }
+  return Math.floor(infantry / 2) + other;
 }
 
 // Step pip indicator — pass the active step number (1–5)
@@ -8753,11 +10523,12 @@ function renderFPP() {
   const body = document.getElementById('fpp-body');
   if (!body) return;
   switch (fppState.step) {
-    case 'setup':    renderFPPSetup(body);       break;
-    case 'rank-a':   renderFPPRank(body, 'a');    break;
-    case 'rank-b':   renderFPPRank(body, 'b');    break;
-    case 'pairings': renderFPPPairings(body);     break;
-    case 'result':   renderFPPResult(body);       break;
+    case 'setup':        renderFPPSetup(body);          break;
+    case 'rank-a':       renderFPPRank(body, 'a');      break;
+    case 'rank-b':       renderFPPRank(body, 'b');      break;
+    case 'pairings':     renderFPPPairings(body);       break;
+    case 'result':       renderFPPResult(body);         break;
+    case 'quick-result': renderFPPQuickResult(body);    break;
   }
 }
 
@@ -8794,10 +10565,18 @@ function renderFPPSetup(body) {
         </button>
       </div>
     </div>
-    <button class="fpp-next-btn" onclick="startFPP()" ${!bLoaded || !platoons.length ? 'disabled' : ''}>
-      Begin Ranking →
-    </button>
-    ${hasRun ? '<button class="fpp-restart-btn" onclick="resetFPP()">↺ Start Over</button>' : ''}
+    <div class="fpp-setup-actions">
+      <button class="fpp-next-btn" onclick="autoFPP()" ${!bLoaded || !platoons.length ? 'disabled' : ''}>
+        Auto-Resolve →
+      </button>
+      <button class="fpp-auto-btn" onclick="startFPP()" ${!bLoaded || !platoons.length ? 'disabled' : ''}>
+        Rank Manually
+      </button>
+      ${isAdmin ? `<button class="fpp-restart-btn" onclick="quickCompareFPP()" ${!bLoaded || !platoons.length ? 'disabled' : ''}>
+        Quick Compare (Total Score)
+      </button>` : ''}
+      ${hasRun ? '<button class="fpp-restart-btn" onclick="resetFPP()">↺ Start Over</button>' : ''}
+    </div>
   `;
 }
 
@@ -8814,6 +10593,141 @@ function startFPP() {
   fppState.rankByB = [...fppState.a.platoons];
   fppState.step = 'rank-a';
   renderFPP();
+}
+
+function autoFPP() {
+  fppState.a.name = document.getElementById('fpp-name-a')?.value.trim() || 'Player A';
+  fppState.b.name = document.getElementById('fpp-name-b')?.value.trim() || 'Player B';
+  fppState.a.platoons = JSON.parse(JSON.stringify(platoons));
+  fppState.a.bl = calcBreakLimit(fppState.a.platoons.length);
+  fppState.b.bl = calcBreakLimit(fppState.b.platoons.length);
+  fppState.a.vehicleCount = countVehicleTeams(fppState.a.platoons);
+  fppState.b.vehicleCount = countVehicleTeams(fppState.b.platoons);
+  fppState.attacker = fppState.a.vehicleCount >= fppState.b.vehicleCount ? 'a' : 'b';
+
+  // Sort each force by platoon score, highest first
+  const byScore = (x, y) => calcPlatoonScore(y) - calcPlatoonScore(x);
+  fppState.rankByA = [...fppState.b.platoons].sort(byScore); // B's platoons ranked
+  fppState.rankByB = [...fppState.a.platoons].sort(byScore); // A's platoons ranked
+
+  computePairings();
+
+  // Auto-assign winners with defender margin.
+  // The attacker must exceed the defender's score by FPP_DEFENDER_MARGIN (10%) to win a pairing.
+  // Anything within that margin — or where the defender is stronger — goes to the defender.
+  // Reflects: "when it's not obvious which unit is more threatening, the defender has the edge."
+  const defender = fppState.attacker === 'a' ? 'b' : 'a';
+  for (const p of fppState.pairings) {
+    const sA = calcPlatoonScore(p.a);
+    const sB = calcPlatoonScore(p.b);
+    const atkScore  = fppState.attacker === 'a' ? sA : sB;
+    const defScore  = fppState.attacker === 'a' ? sB : sA;
+    const atkClearlySuperior = atkScore > defScore * (1 + FPP_DEFENDER_MARGIN);
+    p.winner = atkClearlySuperior ? fppState.attacker : 'defender';
+  }
+
+  finalizeFPP();
+}
+
+// 1 BL point per this percentage difference in total force score
+const FPP_QUICK_BL_FACTOR = 0.10;
+
+function quickCompareFPP() {
+  fppState.a.name = document.getElementById('fpp-name-a')?.value.trim() || 'Player A';
+  fppState.b.name = document.getElementById('fpp-name-b')?.value.trim() || 'Player B';
+  fppState.a.platoons = JSON.parse(JSON.stringify(platoons));
+  fppState.a.bl = calcBreakLimit(fppState.a.platoons.length);
+  fppState.b.bl = calcBreakLimit(fppState.b.platoons.length);
+  fppState.a.vehicleCount = countVehicleTeams(fppState.a.platoons);
+  fppState.b.vehicleCount = countVehicleTeams(fppState.b.platoons);
+  fppState.attacker = fppState.a.vehicleCount >= fppState.b.vehicleCount ? 'a' : 'b';
+  const defender = fppState.attacker === 'a' ? 'b' : 'a';
+
+  const rawA = fppState.a.platoons.reduce((s, p) => s + calcPlatoonScore(p), 0);
+  const rawB = fppState.b.platoons.reduce((s, p) => s + calcPlatoonScore(p), 0);
+
+  // Apply 10% defender bonus to adjusted scores for comparison
+  const adjA = defender === 'a' ? rawA * 1.10 : rawA;
+  const adjB = defender === 'b' ? rawB * 1.10 : rawB;
+
+  const stronger = adjA > adjB ? 'a' : adjB > adjA ? 'b' : null;
+  let blA = fppState.a.bl, blB = fppState.b.bl;
+  let reduction = 0;
+
+  if (stronger) {
+    const hi = stronger === 'a' ? adjA : adjB;
+    const lo = stronger === 'a' ? adjB : adjA;
+    reduction = Math.max(0, Math.round((hi / lo - 1) / FPP_QUICK_BL_FACTOR));
+    if (stronger === 'a') blA = Math.max(1, blA - reduction);
+    else                  blB = Math.max(1, blB - reduction);
+  }
+
+  fppState.quickResult = {
+    totalA: Math.round(rawA), totalB: Math.round(rawB),
+    adjA: Math.round(adjA),   adjB: Math.round(adjB),
+    defender, reduction, stronger,
+  };
+  fppState.finalBL = { a: blA, b: blB };
+  fppState.step = 'quick-result';
+  renderFPP();
+}
+
+function renderFPPQuickResult(body) {
+  const { a, b, quickResult, finalBL } = fppState;
+  const { totalA, totalB, adjA, adjB, defender, reduction, stronger } = quickResult;
+  const strongerSide = stronger ? fppState[stronger] : null;
+  const pct = stronger
+    ? Math.round((Math.max(adjA, adjB) / Math.min(adjA, adjB) - 1) * 100)
+    : 0;
+
+  let summaryText;
+  if (!stronger) {
+    summaryText = 'Forces are evenly matched — no adjustment needed.';
+  } else {
+    summaryText = `${esc(strongerSide.name)}'s force is <strong>${pct}% stronger</strong> (after defender bonus) — their Break Limit is reduced by ${reduction}.`;
+  }
+
+  const defLabel = side => side === defender
+    ? `<span class="fpp-role-def" style="font-size:10px;letter-spacing:1px">🛡 DEFENDER +10%</span>` : '';
+
+  body.innerHTML = `
+    <div class="fpp-step-header" style="margin-bottom:16px">
+      <div class="fpp-step-title">Quick Compare</div>
+      <div class="fpp-step-sub">Total force scores compared directly. Defender receives a 10% bonus. 1 Break Limit point per 10% adjusted difference.</div>
+    </div>
+    <div class="fpp-result-summary">${summaryText}</div>
+    <div class="fpp-score-tally" style="margin:16px 0">
+      <div class="fpp-tally-block">
+        ${defLabel('a')}
+        <div class="fpp-tally-label">${esc(a.name)}</div>
+        <div class="fpp-tally-num ${adjA > adjB ? 'leading' : ''}">${totalA} pts${defender === 'a' ? ` → ${adjA}` : ''}</div>
+      </div>
+      <div class="fpp-tally-sep">vs</div>
+      <div class="fpp-tally-block">
+        ${defLabel('b')}
+        <div class="fpp-tally-label">${esc(b.name)}</div>
+        <div class="fpp-tally-num ${adjB > adjA ? 'leading' : ''}">${totalB} pts${defender === 'b' ? ` → ${adjB}` : ''}</div>
+      </div>
+    </div>
+    <div class="fpp-result-grid">
+      <div class="fpp-result-player fpp-allied">
+        <div class="fpp-result-name">${esc(a.name)}</div>
+        <div class="fpp-result-bl-label">Break Limit</div>
+        <div class="fpp-result-bl-value">${finalBL.a}</div>
+        ${finalBL.a < a.bl ? `<div class="fpp-result-bl-note">−${a.bl - finalBL.a} from ${a.bl}</div>` : ''}
+      </div>
+      <div class="fpp-result-player fpp-axis">
+        <div class="fpp-result-name">${esc(b.name)}</div>
+        <div class="fpp-result-bl-label">Break Limit</div>
+        <div class="fpp-result-bl-value">${finalBL.b}</div>
+        ${finalBL.b < b.bl ? `<div class="fpp-result-bl-note">−${b.bl - finalBL.b} from ${b.bl}</div>` : ''}
+      </div>
+    </div>
+    <div class="fpp-result-actions">
+      <button class="fpp-next-btn" onclick="startGame()">Start Game →</button>
+      <button class="fpp-restart-btn" onclick="resetFPP()">↺ Start Over</button>
+    </div>
+  `;
 }
 
 function renderFPPRank(body, player) {
@@ -8840,6 +10754,8 @@ function renderFPPRank(body, player) {
             <div class="fpp-rank-name">${esc(pl.name)}</div>
             <div class="fpp-rank-teams">${(pl.teams || []).map(t => { const u = allUnits.find(u => u.id === t.unitId); return `<span class="fpp-team-entry">${t.qty}× ${u?.name ?? t.unitId ?? '?'}</span>`; }).join(' · ')}</div>
           </div>
+          ${isAdmin ? `<span class="fpp-pts-badge">${Math.round(calcPlatoonScore(pl))} pts</span>` : ''}
+          <span class="fpp-rank-handle" title="Drag to reorder">⠿</span>
         </div>
       `).join('')}
     </div>
@@ -8849,6 +10765,7 @@ function renderFPPRank(body, player) {
   if (list) {
     Sortable.create(list, {
       animation: 150,
+      handle: '.fpp-rank-handle',
       onEnd() {
         list.querySelectorAll('.fpp-rank-item').forEach((el, i) => {
           el.querySelector('.fpp-rank-num').textContent = i + 1;
@@ -8966,6 +10883,7 @@ function renderPairingRow(p, i) {
       <button class="fpp-pairing-unit ${effectiveWinner === 'a' ? 'fpp-unit-winner' : ''}" onclick="setPairingWinner(${i},'a')">
         <div class="fpp-unit-player">${esc(fppState.a.name)}</div>
         <div class="fpp-unit-name">${esc(p.a.name)}</div>
+        ${isAdmin ? `<div class="fpp-unit-pts">${Math.round(calcPlatoonScore(p.a))} pts</div>` : ''}
         <div class="fpp-unit-teams">${teamList(p.a)}</div>
       </button>
       <button class="fpp-def-btn ${w === 'defender' ? 'active' : ''}" onclick="setPairingWinner(${i},'defender')">
@@ -8975,6 +10893,7 @@ function renderPairingRow(p, i) {
       <button class="fpp-pairing-unit ${effectiveWinner === 'b' ? 'fpp-unit-winner' : ''}" onclick="setPairingWinner(${i},'b')">
         <div class="fpp-unit-player">${esc(fppState.b.name)}</div>
         <div class="fpp-unit-name">${esc(p.b.name)}</div>
+        ${isAdmin ? `<div class="fpp-unit-pts">${Math.round(calcPlatoonScore(p.b))} pts</div>` : ''}
         <div class="fpp-unit-teams">${teamList(p.b)}</div>
       </button>
       ${sizeBonus ? '<div class="fpp-size-bonus-row">+1 Size Advantage</div>' : ''}
@@ -9052,9 +10971,11 @@ function renderFPPResult(body) {
 // ── GAME MODE ─────────────────────────────────────────────────────────────────
 
 function startGame() {
-  gameMode.a = { name: fppState.a.name, bp: 0, bl: fppState.finalBL.a, scoreVisible: false, rolls: [], dieRolls: [], lastDie: null, lastRoll: null };
-  gameMode.b = { name: fppState.b.name, bp: 0, bl: fppState.finalBL.b, scoreVisible: false, rolls: [], dieRolls: [], lastDie: null, lastRoll: null };
-  gameMode.active = true;
+  gameMode.a        = { name: fppState.a.name, bp: 0, bl: fppState.finalBL.a, scoreVisible: false, rolls: [], dieRolls: [], lastRoll: null };
+  gameMode.b        = { name: fppState.b.name, bp: 0, bl: fppState.finalBL.b, scoreVisible: false, rolls: [], dieRolls: [], lastRoll: null };
+  gameMode.attacker = fppState.attacker || null;
+  gameMode.active   = true;
+  saveGameState();
   document.getElementById('game-overlay').style.display = 'flex';
   renderGame();
 }
@@ -9075,46 +10996,155 @@ function renderGame() {
 }
 
 function renderGamePanel(player, sideClass) {
-  const g = gameMode[player];
+  const g    = gameMode[player];
+  const role = gameMode.attacker === player ? 'attacker' : 'defender';
   const broken   = g.bp >= g.bl;
   const pct      = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
   const barColor = pct < 50 ? '#6b9b6b' : pct < 80 ? '#c9a227' : '#c94444';
-  const lastRollHTML = g.lastDie != null
-    ? `<span class="game-last-roll-value"><span class="die">🎲 ${g.lastDie}</span> &rarr; <span class="bp">${g.lastRoll} BP</span></span>`
-    : `<span class="game-last-roll-value">--</span>`;
   const chipsHTML = g.rolls.map(r => `<span class="game-draw-chip bp-${r}">${r} BP</span>`).join('');
+  const lastRollInner = g.rolls.length
+    ? (() => { const dice = g.dieRolls[g.dieRolls.length-1]; const bp = g.rolls[g.rolls.length-1]; return `${dice.map(d=>`<span class="die">🎲 ${d}</span>`).join(' + ')} &rarr; <span class="bp">${bp} BP</span>`; })()
+    : '--';
+  const trig = (label, rolls) =>
+    `<button class="game-trigger-btn" onclick="triggerBP('${player}',${rolls})">
+       <span class="trigger-name">${label}</span>
+       <span class="trigger-badge">${rolls === 1 ? '×1' : '×2'}</span>
+     </button>`;
+  const endOfTurn = role === 'attacker'
+    ? trig('Not controlling all objectives', 1)
+    : trig('Enemy units in your table half', 1) + trig('Objective not held', 1);
   return `
     <div class="game-panel ${sideClass}" id="game-panel-${player}">
       <div class="game-player-name">${esc(g.name)}</div>
-      <div class="game-bl">Break Limit: ${g.bl}</div>
-      <div class="game-last-roll" id="game-last-roll-${player}">
-        <span class="game-last-roll-label">Last Roll</span>
-        ${lastRollHTML}
+      <div class="game-bl">BL ${g.bl} · <span class="game-role-tag">${role}</span></div>
+
+      <div class="game-trigger-group">
+        <div class="game-trigger-group-label">Unit Losses</div>
+        ${trig('Reduced below half strength  <span class="trigger-sub">(only once per unit)</span>', 1)}
+        ${trig('Destroyed  <span class="trigger-sub">(was already below half)</span>', 1)}
+        ${trig('Destroyed  <span class="trigger-sub">(was still above half)</span>', 2)}
       </div>
-      <div class="game-btn-row">
-        <button class="game-generate-btn" id="game-gen-btn-${player}" onclick="rollBP('${player}')">Generate<br>Break Points</button>
-        <button class="game-toggle-score-btn" onclick="toggleGameScore('${player}')">${g.scoreVisible ? 'Hide Score' : 'Show Score'}</button>
+      <div class="game-trigger-group">
+        <div class="game-trigger-group-label">End of Turn</div>
+        ${endOfTurn}
       </div>
-      ${g.rolls.length ? `<button class="game-undo-btn" id="game-undo-${player}" onclick="undoLastRoll('${player}')">↩ Undo Last Roll</button>` : ''}
-      <div class="game-score-section ${g.scoreVisible ? 'visible' : ''}" id="game-score-${player}">
-        ${broken ? `<div class="game-breaking-label" id="game-breaking-${player}">⚑ Breaking</div>` : `<div class="game-breaking-label" id="game-breaking-${player}" style="display:none">⚑ Breaking</div>`}
-        <p class="game-score-label">Break Points</p>
-        <p class="game-score-value${broken ? ' game-bp-broken' : ''}">${g.bp} / ${g.bl}</p>
-        <div class="game-progress-bar"><div class="game-progress-fill" style="width:${pct}%;background:${barColor}"></div></div>
-        <p class="game-draws-label">History</p>
-        <div class="game-draws-history">${chipsHTML}</div>
+
+      <div class="game-score-footer ${g.scoreVisible ? 'visible' : ''}" id="game-score-footer-${player}">
+        <div class="game-last-roll-inline" id="game-last-roll-${player}">${lastRollInner}</div>
+        <div class="game-score-section ${g.scoreVisible ? 'visible' : ''}" id="game-score-${player}">
+          ${broken ? `<div class="game-breaking-label" id="game-breaking-${player}">⚑ Breaking</div>` : `<div class="game-breaking-label" id="game-breaking-${player}" style="display:none">⚑ Breaking</div>`}
+          <p class="game-score-label">Break Points</p>
+          <p class="game-score-value${broken ? ' game-bp-broken' : ''}">${g.bp} / ${g.bl}</p>
+          <div class="game-progress-bar"><div class="game-progress-fill" style="width:${pct}%;background:${barColor}"></div></div>
+          <p class="game-draws-label">History</p>
+          <div class="game-draws-history">${chipsHTML}</div>
+        </div>
       </div>
       ${!g.scoreVisible ? `<div class="game-score-hidden">Score hidden</div>` : ''}
+
+      <div class="game-btn-row">
+        <button class="game-toggle-score-btn" onclick="toggleGameScore('${player}')">${g.scoreVisible ? 'Hide Score' : 'Show Score'}</button>
+        ${g.rolls.length ? `<button class="game-undo-btn" id="game-undo-${player}" onclick="undoLastRoll('${player}')">↩ Undo</button>` : ''}
+      </div>
     </div>
   `;
 }
 
 function toggleGameScore(player) {
-  gameMode[player].scoreVisible = !gameMode[player].scoreVisible;
+  const g = gameMode[player];
+  g.scoreVisible = !g.scoreVisible;
+  const section  = document.getElementById(`game-score-${player}`);
+  const footer   = document.getElementById(`game-score-footer-${player}`);
+  const hidden   = document.querySelector(`#game-panel-${player} .game-score-hidden`);
+  const btn      = document.querySelector(`#game-panel-${player} .game-toggle-score-btn`);
+  if (section) section.classList.toggle('visible', g.scoreVisible);
+  if (footer)  footer.classList.toggle('visible',  g.scoreVisible);
+  if (hidden)  hidden.style.display = g.scoreVisible ? 'none' : '';
+  if (btn)     btn.textContent = g.scoreVisible ? 'Hide Score' : 'Show Score';
+}
+
+function triggerBP(player, numRolls) {
+  const dice = [];
+  let totalBP = 0;
+  for (let i = 0; i < numRolls; i++) {
+    const die = Math.floor(Math.random() * 6) + 1;
+    dice.push(die);
+    totalBP += die <= 3 ? 1 : die <= 5 ? 2 : 3;
+  }
+
+  const g = gameMode[player];
+  const wasAlreadyBroken = g.bp >= g.bl;
+  g.bp += totalBP;
+  g.rolls.push(totalBP);
+  g.dieRolls.push(dice);
+  g.lastRoll = totalBP;
+
+  // Auto-show score on first trigger
+  if (!g.scoreVisible) {
+    g.scoreVisible = true;
+    const footer  = document.getElementById(`game-score-footer-${player}`);
+    const section = document.getElementById(`game-score-${player}`);
+    const hidden  = document.querySelector(`#game-panel-${player} .game-score-hidden`);
+    const btn     = document.querySelector(`#game-panel-${player} .game-toggle-score-btn`);
+    if (footer)  footer.classList.add('visible');
+    if (section) section.classList.add('visible');
+    if (hidden)  hidden.style.display = 'none';
+    if (btn)     btn.textContent = 'Hide Score';
+  }
+
+  // Update Last Roll display
+  const lastRollEl = document.getElementById(`game-last-roll-${player}`);
+  if (lastRollEl) {
+    const diceHTML = dice.map(d => `<span class="die">🎲 ${d}</span>`).join(' + ');
+    lastRollEl.innerHTML = `${diceHTML} &rarr; <span class="bp">${totalBP} BP</span>`;
+  }
+
+  // Show undo button on first trigger
+  if (!document.getElementById(`game-undo-${player}`)) {
+    const btnRow = document.querySelector(`#game-panel-${player} .game-btn-row`);
+    if (btnRow) {
+      const undoBtn = document.createElement('button');
+      undoBtn.className = 'game-undo-btn';
+      undoBtn.id = `game-undo-${player}`;
+      undoBtn.textContent = '↩ Undo';
+      undoBtn.onclick = () => undoLastRoll(player);
+      btnRow.appendChild(undoBtn);
+    }
+  }
+
+  // Update score section
   const section = document.getElementById(`game-score-${player}`);
-  const btn = document.querySelector(`#game-panel-${player} .game-toggle-score-btn`);
-  if (section) section.classList.toggle('visible', gameMode[player].scoreVisible);
-  if (btn) btn.textContent = gameMode[player].scoreVisible ? 'Hide Score' : 'Show Score';
+  if (section) {
+    const scoreEl = section.querySelector('.game-score-value');
+    const fillEl  = section.querySelector('.game-progress-fill');
+    const histEl  = section.querySelector('.game-draws-history');
+    const nowBroken = g.bp >= g.bl;
+    const pct = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
+    const barColor = pct < 50 ? '#6b9b6b' : pct < 80 ? '#c9a227' : '#c94444';
+    if (scoreEl) { scoreEl.textContent = `${g.bp} / ${g.bl}`; scoreEl.classList.toggle('game-bp-broken', nowBroken); }
+    if (fillEl)  { fillEl.style.width = pct + '%'; fillEl.style.background = barColor; }
+    if (histEl)  histEl.innerHTML = g.rolls.map(r => `<span class="game-draw-chip bp-${r}">${r} BP</span>`).join('');
+  }
+
+  // Breaking label
+  const nowBroken = g.bp >= g.bl;
+  const breakingEl = document.getElementById(`game-breaking-${player}`);
+  if (breakingEl) breakingEl.style.display = nowBroken ? '' : 'none';
+
+  // Overlay flash on first break
+  if (nowBroken && !wasAlreadyBroken) {
+    const overlay = document.getElementById('game-overlay');
+    if (overlay) {
+      overlay.classList.remove('broken-flash');
+      void overlay.offsetWidth;
+      overlay.classList.add('broken-flash');
+      setTimeout(() => overlay.classList.remove('broken-flash'), 1500);
+    }
+  }
+
+  saveGameState();
+  playGunBurst(player);
+  shootGameBullets(player);
 }
 
 function rollBP(player) {
@@ -9251,18 +11281,21 @@ function playGunBurst(player) {
 function undoLastRoll(player) {
   const g = gameMode[player];
   if (!g.rolls.length) return;
-  const lastBP  = g.rolls.pop();
-  const lastDie = g.dieRolls.pop();
+  const lastBP = g.rolls.pop();
+  g.dieRolls.pop();
   g.bp -= lastBP;
-  g.lastDie  = g.dieRolls.length ? g.dieRolls[g.dieRolls.length - 1] : null;
-  g.lastRoll = g.rolls.length    ? g.rolls[g.rolls.length - 1]        : null;
+  g.lastRoll = g.rolls.length ? g.rolls[g.rolls.length - 1] : null;
 
   // Update Last Roll display
   const lastRollEl = document.getElementById(`game-last-roll-${player}`);
   if (lastRollEl) {
-    lastRollEl.innerHTML = g.lastDie != null
-      ? `<span class="game-last-roll-label">Last Roll</span><span class="game-last-roll-value"><span class="die">🎲 ${g.lastDie}</span> &rarr; <span class="bp">${g.lastRoll} BP</span></span>`
-      : `<span class="game-last-roll-label">Last Roll</span><span class="game-last-roll-value">--</span>`;
+    if (g.rolls.length) {
+      const prevDice = g.dieRolls[g.dieRolls.length - 1];
+      const prevBP   = g.rolls[g.rolls.length - 1];
+      lastRollEl.innerHTML = `${prevDice.map(d=>`<span class="die">🎲 ${d}</span>`).join(' + ')} &rarr; <span class="bp">${prevBP} BP</span>`;
+    } else {
+      lastRollEl.innerHTML = '--';
+    }
   }
 
   // Update score section
@@ -9288,6 +11321,7 @@ function undoLastRoll(player) {
     const undoBtn = document.getElementById(`game-undo-${player}`);
     if (undoBtn) undoBtn.remove();
   }
+  saveGameState();
 }
 
 function shootGameBullets(player) {
@@ -9318,8 +11352,30 @@ function shootGameBullets(player) {
   }
 }
 
+function saveGameState() {
+  try { localStorage.setItem('arsenal-game', JSON.stringify(gameMode)); } catch(e) {}
+}
+
+function clearGameState() {
+  try { localStorage.removeItem('arsenal-game'); } catch(e) {}
+}
+
+function restoreGameState() {
+  try {
+    const saved = localStorage.getItem('arsenal-game');
+    if (!saved) return;
+    const state = JSON.parse(saved);
+    if (!state?.active) return;
+    Object.assign(gameMode, state);
+    document.getElementById('game-overlay').style.display = 'flex';
+    renderGame();
+    showToast('Game restored after reload.', 'success');
+  } catch(e) {}
+}
+
 function endGame() {
   gameMode.active = false;
+  clearGameState();
   document.getElementById('game-overlay').style.display = 'none';
 }
 
@@ -9356,21 +11412,46 @@ function launchQuickTracker() {
 async function openForcePicker() {
   const modal = document.getElementById('fpp-picker-modal');
   const list  = document.getElementById('fpp-picker-list');
+  document.getElementById('fpp-picker-title').textContent = 'Select Opponent Force';
   modal.style.display = 'flex';
   list.innerHTML = '<div class="fpp-picker-loading">Loading forces…</div>';
   try {
     const snap = await firebase.database().ref('forces').once('value');
-    const forces = [];
-    snap.forEach(c => { const v = c.val(); if (v && v.published) forces.push({ id: c.key, ...v }); });
-    forces.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
-    if (!forces.length) { list.innerHTML = '<div class="fpp-picker-empty">No published forces found. Your opponent can also send you a direct share link from their force builder — no publishing required.</div>'; return; }
-    list.innerHTML = forces.map(f => {
+    const mine = [], library = [];
+    snap.forEach(c => {
+      const v = c.val();
+      if (!v) return;
+      const isOwn = currentUser && (v.authorUid === currentUser.uid || v.authorEmail === currentUser.email);
+      if (isOwn && !v.fppTemp) mine.push({ id: c.key, ...v });
+      else if (v.published) library.push({ id: c.key, ...v });
+    });
+    mine.sort((a, b) => (b.created || 0) - (a.created || 0));
+    library.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+
+    if (!mine.length && !library.length) {
+      list.innerHTML = '<div class="fpp-picker-empty">No forces found. Your opponent can send you a direct share link from their force builder — no publishing required.</div>';
+      return;
+    }
+
+    const renderItem = f => {
       const count = toArr(f.platoons).length;
+      const age = f.created ? timeAgoShort(f.created) : '';
       return `<div class="fpp-picker-item" onclick="selectOpponentForce('${f.id}')">
         <div class="fpp-picker-name">${esc(f.name || 'Untitled Force')}</div>
-        <div class="fpp-picker-meta">${esc(f.author || '')} · ${count} platoon${count !== 1 ? 's' : ''} · BL ${f.breakLimit || calcBreakLimit(count)}</div>
+        <div class="fpp-picker-meta">${count} platoon${count !== 1 ? 's' : ''} · BL ${f.breakLimit || calcBreakLimit(count)}${age ? ' · ' + age : ''}</div>
       </div>`;
-    }).join('');
+    };
+
+    let html = '';
+    if (mine.length) {
+      html += `<div class="fpp-picker-section">Your Saved Forces</div>`;
+      html += mine.map(renderItem).join('');
+    }
+    if (library.length) {
+      html += `<div class="fpp-picker-section">Force Library</div>`;
+      html += library.map(renderItem).join('');
+    }
+    list.innerHTML = html;
   } catch(e) {
     list.innerHTML = '<div class="fpp-picker-empty">Could not load forces.</div>';
   }
@@ -9395,29 +11476,49 @@ async function selectOpponentForce(forceId) {
 async function openMyForcePicker() {
   const modal = document.getElementById('fpp-picker-modal');
   const list  = document.getElementById('fpp-picker-list');
+  document.getElementById('fpp-picker-title').textContent = 'Load Your Force';
   modal.style.display = 'flex';
-  list.innerHTML = '<div class="fpp-picker-loading">Loading your forces…</div>';
+  list.innerHTML = '<div class="fpp-picker-loading">Loading forces…</div>';
   try {
     const snap = await firebase.database().ref('forces').once('value');
-    const forces = [];
+    const mine = [];
+    const library = [];
+    const seen = new Set();
     snap.forEach(c => {
       const v = c.val();
-      if (v && currentUser && (v.authorUid === currentUser.uid || v.authorEmail === currentUser.email)) {
-        forces.push({ id: c.key, ...v });
-      }
+      if (!v) return;
+      const isOwn = currentUser && (v.authorUid === currentUser.uid || v.authorEmail === currentUser.email);
+      if (isOwn && !v.fppTemp) { mine.push({ id: c.key, ...v }); seen.add(c.key); }
+      else if (v.published) { library.push({ id: c.key, ...v }); }
     });
-    forces.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
-    if (!forces.length) {
-      list.innerHTML = '<div class="fpp-picker-empty">No saved forces found. Build your force in the Force Builder first.</div>';
+    // My forces: newest first; library: alphabetical
+    mine.sort((a, b) => (b.created || 0) - (a.created || 0));
+    library.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+
+    if (!mine.length && !library.length) {
+      list.innerHTML = '<div class="fpp-picker-empty">No forces found.</div>';
       return;
     }
-    list.innerHTML = forces.map(f => {
+
+    const renderItem = (f, onclick) => {
       const count = toArr(f.platoons).length;
-      return `<div class="fpp-picker-item" onclick="selectMyForce('${f.id}')">
+      const age = f.created ? timeAgoShort(f.created) : '';
+      return `<div class="fpp-picker-item" onclick="${onclick}">
         <div class="fpp-picker-name">${esc(f.name || 'Untitled Force')}</div>
-        <div class="fpp-picker-meta">${count} platoon${count !== 1 ? 's' : ''} · BL ${f.breakLimit || calcBreakLimit(count)}</div>
+        <div class="fpp-picker-meta">${count} platoon${count !== 1 ? 's' : ''} · BL ${f.breakLimit || calcBreakLimit(count)}${age ? ' · ' + age : ''}</div>
       </div>`;
-    }).join('');
+    };
+
+    let html = '';
+    if (mine.length) {
+      html += `<div class="fpp-picker-section">Your Saved Forces</div>`;
+      html += mine.map(f => renderItem(f, `selectMyForce('${f.id}')`)).join('');
+    }
+    if (library.length) {
+      html += `<div class="fpp-picker-section">Force Library</div>`;
+      html += library.map(f => renderItem(f, `selectMyForce('${f.id}')`)).join('');
+    }
+    list.innerHTML = html;
   } catch(e) {
     list.innerHTML = '<div class="fpp-picker-empty">Could not load forces.</div>';
   }
@@ -9425,11 +11526,13 @@ async function openMyForcePicker() {
 
 async function selectMyForce(forceId) {
   closeForcePicker();
+  await discardTempForce();
   const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
   const data = snap.val();
   if (!data) return;
   loadForceData(data);
   currentForceId = forceId;
+  currentForceFppTemp = false;
   renderFPP();
 }
 
@@ -9445,15 +11548,33 @@ firebase.auth().onAuthStateChanged(async (user) => {
     if (isAdmin) {
       await loadRatings();
       document.getElementById('rate-btn').style.display = '';
+      document.getElementById('score-toggle-btn').style.display = '';
+      document.getElementById('hof-publish-btn').style.display = '';
+      document.getElementById('tab-historical').style.display = '';
     }
     await loadData();
     await checkUrlForce();
     loadFeaturedStrip();
     loadWhatsNew();
+    restoreGameState();
+    // Auto-collapse sidebar on mobile
+    if (window.innerWidth <= 640) {
+      const app = document.querySelector('.app');
+      const btn = document.getElementById('sidebar-toggle');
+      if (app && !app.classList.contains('sidebar-collapsed')) {
+        app.classList.add('sidebar-collapsed');
+        if (btn) btn.textContent = '›';
+      }
+    }
   } else {
     if (!isPreviewMode) gate.style.display = 'flex';
     isSubscriber = false;
     isAdmin = false;
+    showScores = false;
+    const stBtn = document.getElementById('score-toggle-btn');
+    if (stBtn) stBtn.style.display = 'none';
+    const hofBtn = document.getElementById('hof-publish-btn');
+    if (hofBtn) hofBtn.style.display = 'none';
     updateAuthUI(null, false);
   }
 });

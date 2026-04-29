@@ -286,7 +286,7 @@
     },
     {
       "id": "us-inf-rifle",
-      "lore": "Combat engineers, pioneers, and support troops armed with M1 Garand rifles but without the BAR that gave the standard rifle squad its automatic firepower. In the assault engineer role, the rifle was secondary to demolition charges, mine probes, and wire cutters — but when the shooting started, these men fought with the same weapon as any rifleman.",
+      "lore": "Combat engineers, pioneers, and support troops armed with M1 Garand rifles but without the BAR that gave the standard rifle squad its automatic firepower. In the assault engineer role, the rifle was secondary to demolition charges, mine probes, and wire cutters \u2014 but when the shooting started, these men fought with the same weapon as any rifleman.",
       "name": "Rifle Team",
       "nation": "United States",
       "type": "Infantry",
@@ -297,7 +297,13 @@
         "Mediterranean"
       ],
       "years": [
-        1939, 1940, 1941, 1942, 1943, 1944, 1945
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
       ],
       "gun_range": "16\"",
       "rof": 1,
@@ -425,6 +431,43 @@
       "base": "Small",
       "standard_platoon": null,
       "wiki": "Bazooka"
+    },
+    {
+      "id": "us-inf-sniper",
+      "name": "Sniper Team",
+      "nation": "United States",
+      "type": "Infantry",
+      "infantry_weapon": false,
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "24\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Sniper"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null,
+      "lore": "US Army snipers in World War II were trained marksmen using the M1C or M1D Garand with an M84 scope, or the Springfield M1903A4. Deployed in two-man teams, they operated in advance of the front to disrupt enemy command and observation \u2014 targeting officers, NCOs, machine-gun crews, and radio operators. In the bocage their patience paid dividends; German soldiers exposed for even a moment were at risk. The psychological effect was considerable: a single sniper could pin down an entire platoon for hours.",
+      "wiki": "Sniper"
     },
     {
       "id": "us-gun-hmg",
@@ -1139,6 +1182,42 @@
       "wiki": "M4_Sherman"
     },
     {
+      "id": "us-tank-m4-rhino",
+      "name": "M4 Sherman (Rhino)",
+      "nation": "United States",
+      "type": "Tank",
+      "infantry_weapon": false,
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
+      "gun_range": "24\"",
+      "rof": 2,
+      "at": 4,
+      "fp": 1,
+      "armor_front": 2,
+      "armor_flank": 1,
+      "armament": "M3 75mm gun, Coax MG/Hull MG/.50cal MG",
+      "notes": [
+        "Tracked",
+        "Smoke",
+        "Bocage Breacher"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "lore": "The Sherman Rhino was a standard M4 fitted with improvised steel hedge-cutters \u2014 prongs welded from iron obstacles salvaged off Omaha Beach, invented by Sergeant Curtis G. Culin III of the 102nd Cavalry Reconnaissance Squadron. Demonstrated to General Bradley in late July 1944, the device was immediately ordered into mass production. Within weeks roughly 60% of First Army's tanks were Rhino-equipped, allowing Shermans to burst directly through bocage hedgerows rather than climbing blind over the crest \u2014 where they silhouetted themselves against the sky for German gunners. The Rhino was decisive in breaking the stalemate of the bocage.",
+      "wiki": "Rhinoceros_(tank_modification)"
+    },
+    {
       "id": "us-tank-m4a3e8",
       "lore": "The M4A3E8 \"Easy Eight\" combined the 76mm gun with the HVSS suspension system, giving crews a notably smoother cross-country ride and better flotation in soft ground. Experienced Sherman crews specifically requested the Easy Eight for the closing battles of Germany in 1945, valuing its improved gun and running gear over the standard M4A3. Its balanced combination of firepower, mobility, and reliability made it the finest Sherman variant to see significant combat.",
       "name": "M4A3E8 Easy Eight",
@@ -1801,7 +1880,7 @@
     },
     {
       "id": "de-inf-rifle",
-      "lore": "Pionier troops and assault engineer teams armed with Karabiner 98k rifles, operating without the squad MG that defined German infantry doctrine. Where the standard Schützengruppe was built around the MG42, pioneer units relied on individual marksmanship, demolition expertise, and close-assault training to breach obstacles, clear minefields, and storm fortifications.",
+      "lore": "Pionier troops and assault engineer teams armed with Karabiner 98k rifles, operating without the squad MG that defined German infantry doctrine. Where the standard Sch\u00fctzengruppe was built around the MG42, pioneer units relied on individual marksmanship, demolition expertise, and close-assault training to breach obstacles, clear minefields, and storm fortifications.",
       "name": "Rifle Team",
       "nation": "Germany",
       "type": "Infantry",
@@ -1812,7 +1891,13 @@
         "Mediterranean"
       ],
       "years": [
-        1939, 1940, 1941, 1942, 1943, 1944, 1945
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
       ],
       "gun_range": "16\"",
       "rof": 1,
@@ -2123,7 +2208,7 @@
       "standard_platoon": {
         "qty": 3,
         "leader": true,
-        "fo": false
+        "fo": true
       },
       "wiki": "Granatwerfer_34"
     },
@@ -3954,7 +4039,7 @@
     },
     {
       "id": "br-inf-rifle",
-      "lore": "Pioneer and engineer troops armed with Lee-Enfield rifles, operating without the section Bren gun. British combat engineers clearing the bocage, breaching the Rhine defences, or gapping minefields at Alamein carried their rifles as secondary weapons — the primary tools were Bangalore torpedoes, mine detectors, and demolition charges.",
+      "lore": "Pioneer and engineer troops armed with Lee-Enfield rifles, operating without the section Bren gun. British combat engineers clearing the bocage, breaching the Rhine defences, or gapping minefields at Alamein carried their rifles as secondary weapons \u2014 the primary tools were Bangalore torpedoes, mine detectors, and demolition charges.",
       "name": "Rifle Team",
       "nation": "Britain",
       "type": "Infantry",
@@ -3965,7 +4050,13 @@
         "Pacific"
       ],
       "years": [
-        1939, 1940, 1941, 1942, 1943, 1944, 1945
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
       ],
       "gun_range": "16\"",
       "rof": 1,
@@ -5825,7 +5916,7 @@
     },
     {
       "id": "sv-inf-rifle",
-      "lore": "Sapper and combat engineer teams armed with Mosin-Nagant rifles, without the DP light machine gun of the standard rifle section. Soviet inzhenerno-sapernye troops were specialists in bridging, minefield breaching, and assault demolitions — storming fortifications with satchel charges and flamethrowers while their rifles stayed slung until the close fight.",
+      "lore": "Sapper and combat engineer teams armed with Mosin-Nagant rifles, without the DP light machine gun of the standard rifle section. Soviet inzhenerno-sapernye troops were specialists in bridging, minefield breaching, and assault demolitions \u2014 storming fortifications with satchel charges and flamethrowers while their rifles stayed slung until the close fight.",
       "name": "Rifle Team",
       "nation": "Soviet Union",
       "type": "Infantry",
@@ -5834,7 +5925,13 @@
         "Eastern Front"
       ],
       "years": [
-        1939, 1940, 1941, 1942, 1943, 1944, 1945
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
       ],
       "gun_range": "16\"",
       "rof": 1,
