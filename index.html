@@ -9309,7 +9309,7 @@ const ORBAT_FORMATIONS = [
         name: 'Company HQ',
         note: 'Company Commander. The CO led from the front in the bocage, coordinating support from the battalion 81mm mortar platoon and regimental cannon company.',
         teams: [
-          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Company Commander', qty: 1 },
         ],
       },
       {
@@ -9473,7 +9473,7 @@ const ORBAT_FORMATIONS = [
         name: 'Company HQ',
         note: 'Kompaniechef. The CO led from close behind the leading Zug and coordinated support from the battalion Schwere Kompanie and regimental Infanterie-Geschütz-Kompanie.',
         teams: [
-          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Company Commander', qty: 1 },
         ],
       },
       {
@@ -9634,7 +9634,7 @@ const ORBAT_FORMATIONS = [
         name: 'Company HQ',
         note: 'Company Commander (Major or Captain). The OC coordinated support from the battalion 3" mortar platoon and could reach the regimental 25-pdr battery through the battalion OP party.',
         teams: [
-          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Company Commander', qty: 1 },
         ],
       },
       {
@@ -9781,7 +9781,7 @@ const ORBAT_FORMATIONS = [
         name: 'Company HQ',
         note: 'Rotny Komandeer (Company Commander). By 1944 Soviet commanders coordinated closely with attached FOs from the battalion 82mm mortar company and regiment\'s 76mm gun battery, but the FO travelled with the forward platoons rather than HQ.',
         teams: [
-          { name: 'Platoon Leader', qty: 1 },
+          { name: 'Company Commander', qty: 1 },
         ],
       },
       {
@@ -10288,6 +10288,7 @@ function addPlatoonFromOrbat(formationId, platoonId, tier) {
 const ORG_UNIT_IDS = {
   'United States': {
     'Platoon Leader':                'us-leader',
+    'Company Commander':             'us-leader',
     'Forward Observer':              'us-fo',
     'Rifle Team':                    'us-inf-rifle',
     'Rifle/MG Team':                 'us-inf-rifle-mg',
@@ -10325,6 +10326,7 @@ const ORG_UNIT_IDS = {
   },
   'Germany': {
     'Platoon Leader':            'de-leader',
+    'Company Commander':         'de-leader',
     'Forward Observer':          'de-fo',
     'Rifle/MG Team':             'de-inf-rifle-mg',
     'MG Team':                   'de-inf-mg',
@@ -10356,6 +10358,7 @@ const ORG_UNIT_IDS = {
   },
   'Soviet Union': {
     'Platoon Leader':      'sv-leader',
+    'Company Commander':   'sv-leader',
     'Forward Observer':    'sv-fo',
     'Rifle/MG Team':       'sv-inf-rifle-mg',
     'Maxim HMG Team':      'sv-gun-maksim',
@@ -10376,6 +10379,7 @@ const ORG_UNIT_IDS = {
   },
   'Britain': {
     'Platoon Leader':        'br-leader',
+    'Company Commander':     'br-leader',
     'Forward Observer':      'br-fo',
     'PIAT Team':             'br-inf-piat',
     '2" Mortar Team':        'br-inf-2in-mortar',
