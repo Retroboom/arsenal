@@ -1126,7 +1126,7 @@
     padding: 12px 0;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
   }
   .app.sidebar-collapsed .sidebar-header {
     justify-content: center;
@@ -1281,6 +1281,7 @@
   .main {
     padding: 24px;
     overflow-y: auto;
+    overflow-x: hidden;
     height: calc(100vh - var(--header-h));
     transition: padding-right 0.25s ease;
   }
@@ -2681,6 +2682,40 @@
 
   .sign-out-btn:hover { color: var(--red); }
 
+  /* Auth avatar — tappable to open menu */
+  .auth-user img { cursor: pointer; }
+  .auth-user img:hover { opacity: 0.8; }
+
+  /* Auth dropdown menu — position:fixed escapes header overflow:hidden */
+  .auth-menu {
+    position: fixed;
+    top: var(--header-h);
+    right: 24px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    min-width: 130px;
+    z-index: 200;
+    display: none;
+  }
+  .auth-menu.open { display: block; }
+  .auth-menu-item {
+    display: block;
+    width: 100%;
+    padding: 10px 14px;
+    background: none;
+    border: none;
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: left;
+    transition: color 0.1s, background 0.1s;
+  }
+  .auth-menu-item:hover { color: var(--red); background: var(--bg2); }
+
   /* AUTH GATE */
   .auth-gate {
     position: fixed;
@@ -3935,8 +3970,8 @@
     /* Compact logo: image only, text hidden */
     .logo-img { height: 30px; }
     .logo span { display: none; }
-    /* Auth area: hide display name on mobile, keep only avatar + sign-out */
-    .auth-user > span { display: none; }
+    /* Auth dropdown: align to mobile header padding */
+    .auth-menu { right: 12px; }
   }
 
   /* Suppress tooltip on touch devices (iOS fires mouseover on tap, misplacing it) */
@@ -8945,6 +8980,29 @@ function signOut() {
   firebase.auth().signOut();
 }
 
+function toggleAuthMenu(e) {
+  if (e) e.stopPropagation();
+  const menu = document.getElementById('auth-menu');
+  if (!menu) return;
+  const isOpen = menu.classList.contains('open');
+  // Position below the avatar image
+  const img = e && e.currentTarget;
+  if (img && !isOpen) {
+    const rect = img.getBoundingClientRect();
+    menu.style.top = rect.bottom + 4 + 'px';
+    menu.style.right = window.innerWidth - rect.right + 'px';
+    menu.style.left = 'auto';
+  }
+  menu.classList.toggle('open');
+  if (!isOpen) {
+    setTimeout(() => document.addEventListener('click', _closeAuthMenu, { once: true }), 0);
+  }
+}
+function _closeAuthMenu() {
+  const menu = document.getElementById('auth-menu');
+  if (menu) menu.classList.remove('open');
+}
+
 async function checkSubscriber(email) {
   const key = emailToKey(email);
   const snap = await firebase.database().ref(`subscribers/${key}`).once('value');
@@ -8960,9 +9018,11 @@ function updateAuthUI(user, subscriberStatus) {
     area.innerHTML = `
       <div class="auth-user">
         ${subscriberStatus ? '<span class="subscriber-badge">Subscriber</span>' : ''}
-        <img src="${user.photoURL || ''}" alt="" onerror="this.style.display='none'">
-        <span>${user.displayName || user.email}</span>
-        <button class="sign-out-btn" onclick="signOut()">Sign Out</button>
+        <img src="${user.photoURL || ''}" alt="${user.displayName || 'Account'}"
+             onclick="toggleAuthMenu(event)" onerror="this.style.display='none'">
+        <div class="auth-menu" id="auth-menu">
+          <button class="auth-menu-item" onclick="signOut()">Sign Out</button>
+        </div>
       </div>
     `;
   }
