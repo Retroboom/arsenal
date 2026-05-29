@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arsenal: User Guide // Hail of Fire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Stardos+Stencil:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:     #0e0d0b;
+    --bg2:    #1a1814;
+    --bg3:    #252219;
+    --border: #3a3428;
+    --gold:   #c9a84c;
+    --text1:  #e8dfc8;
+    --text2:  #b5a882;
+    --text3:  #7a6f5a;
+    --mono:   'Courier New', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text1);
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ── NAV ── */
+  .site-header {
+    background: var(--bg2);
+    border-top: 2px solid var(--gold);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 3px 16px rgba(0,0,0,0.7);
+    padding: 0 24px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    overflow: hidden;
+  }
+  .site-header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle 3px at 14px 50%, rgba(200,168,74,0.35) 100%, transparent 100%),
+      radial-gradient(circle 3px at calc(100% - 14px) 50%, rgba(200,168,74,0.35) 100%, transparent 100%);
+  }
+  .site-logo {
+    display: flex; align-items: center; gap: 6px;
+    text-decoration: none; flex-shrink: 0;
+  }
+  .site-logo img {
+    height: 44px; width: auto;
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 8px rgba(201,168,76,0.25));
+  }
+  .site-logo .logo-slashes {
+    font-family: var(--mono); font-size: 14px;
+    color: var(--gold); opacity: 0.7; margin-right: 8px;
+  }
+  .site-logo .logo-word {
+    font-family: 'Stardos Stencil', sans-serif; font-size: 22px;
+    letter-spacing: 5px; color: var(--gold);
+    text-shadow: 0 0 20px rgba(201,168,76,0.3);
+    white-space: nowrap;
+  }
+  .site-nav {
+    flex: 1; display: flex; align-items: center; gap: 2px;
+  }
+  .site-nav a {
+    display: flex; align-items: center;
+    padding: 6px 14px; height: 60px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--text3); text-decoration: none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.12s, border-color 0.12s;
+  }
+  .site-nav a:hover { color: var(--text1); }
+  .site-nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(180deg, #12100c 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 56px 24px 44px;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 3px;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: 'Stardos Stencil', sans-serif;
+    font-size: 42px; font-weight: 700; letter-spacing: 6px;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+    text-shadow: 0 0 32px rgba(201,168,76,0.25);
+  }
+  .hero p {
+    color: var(--text2); max-width: 560px; margin: 0 auto;
+    font-size: 15px; line-height: 1.7; letter-spacing: 0.02em;
+  }
+
+  /* ── LAYOUT ── */
+  .guide-wrap {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 0;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+  .guide-toc {
+    position: sticky; top: 68px; align-self: start;
+    padding-right: 32px;
+    max-height: calc(100vh - 88px); overflow-y: auto;
+  }
+  .guide-toc h3 {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 16px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .guide-toc ol { list-style: none; }
+  .guide-toc li { margin-bottom: 2px; }
+  .guide-toc li a {
+    display: flex; flex-direction: column;
+    text-decoration: none; padding: 9px 12px;
+    border-radius: 4px; border-left: 2px solid transparent;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .guide-toc li a:hover {
+    background: var(--bg2); border-left-color: var(--gold);
+  }
+  .guide-toc li a:hover .toc-num { color: var(--gold); }
+  .guide-toc li a:hover .toc-label { color: var(--text1); }
+  .toc-num {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 2px;
+    color: var(--text3); margin-bottom: 2px;
+    text-transform: uppercase;
+  }
+  .toc-label {
+    font-size: 13px; color: var(--text2); line-height: 1.3;
+    font-weight: 500;
+  }
+
+  /* ── SECTIONS ── */
+  .section { margin-bottom: 72px; scroll-margin-top: 78px; }
+  .section-eyebrow {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 3px;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 6px;
+  }
+  .section > h2 {
+    font-size: 22px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text1);
+    margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border);
+  }
+  .section p { color: var(--text2); margin-bottom: 12px; }
+
+  /* ── STEPS ── */
+  .steps { margin-top: 20px; }
+  .step {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 0 18px;
+    margin-bottom: 36px;
+    position: relative;
+  }
+  .step::before {
+    content: ''; position: absolute;
+    left: 19px; top: 44px; bottom: -36px;
+    width: 1px; background: var(--border);
+  }
+  .step:last-child::before { display: none; }
+  .step-num {
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 2px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 14px; font-weight: 700;
+    color: var(--gold); flex-shrink: 0; background: var(--bg2);
+    position: relative; z-index: 1;
+  }
+  .step-body { padding-top: 7px; }
+  .step-body h3 { font-size: 15px; font-weight: 600; color: var(--text1); margin-bottom: 6px; }
+  .step-body p  { color: var(--text2); font-size: 14px; margin-bottom: 8px; }
+  .step-body ul { padding-left: 20px; color: var(--text2); font-size: 14px; margin-bottom: 8px; }
+  .step-body li { margin-bottom: 4px; }
+
+  /* ── SCREENSHOTS ── */
+  .shot {
+    margin: 14px 0 6px;
+    border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+  }
+  .shot img { display: block; width: 100%; height: auto; }
+  .shot-cap {
+    padding: 7px 12px; font-size: 11px; color: var(--text3);
+    font-style: italic; border-top: 1px solid var(--border); background: var(--bg3);
+  }
+
+  /* ── CALLOUTS ── */
+  .tip  { background: #1a2a1a; border-left: 3px solid #2ecc71; color: #a8d8a8; }
+  .note { background: #1a1f2a; border-left: 3px solid #3498db; color: #a8c4d8; }
+  .warn { background: #2a1a12; border-left: 3px solid #e67e22; color: #d8b48a; }
+  .tip, .note, .warn {
+    display: flex; gap: 12px; padding: 11px 14px;
+    border-radius: 4px; margin: 12px 0; font-size: 13px;
+  }
+  .callout-icon { flex-shrink: 0; font-size: 15px; margin-top: 1px; }
+  .callout-body strong { display: block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; }
+
+  /* ── UI CHROME MIMICS ── */
+  .ui-key {
+    display: inline-block; font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.5px; padding: 2px 9px; border-radius: 3px;
+    background: var(--bg3); border: 1px solid var(--border); color: var(--text2);
+    vertical-align: middle;
+  }
+  .ui-key-gold { background: #2a2000; border-color: var(--gold); color: var(--gold); font-weight: 700; }
+
+  /* ── ORIENTATION ── */
+  .orientation {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 56px;
+  }
+  .orient-block {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--gold);
+    border-radius: 4px;
+    padding: 16px 18px;
+  }
+  .orient-label {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .orient-text {
+    font-size: 13px; color: var(--text2); line-height: 1.6;
+  }
+  @media (max-width: 680px) {
+    .orientation { grid-template-columns: 1fr; }
+  }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow { display: flex; align-items: stretch; gap: 0; margin: 20px 0; flex-wrap: wrap; }
+  .flow-step {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 4px;
+    padding: 12px 16px; text-align: center; min-width: 110px; flex: 1;
+  }
+  .flow-step .fn { font-family: var(--mono); font-size: 9px; color: var(--gold); display: block; margin-bottom: 5px; }
+  .flow-step .fl { font-size: 12px; color: var(--text1); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .flow-arrow { color: var(--border); font-size: 20px; padding: 0 6px; display: flex; align-items: center; flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border); padding: 20px 24px;
+    text-align: center; color: var(--text3);
+    font-size: 11px; font-family: var(--mono); letter-spacing: 1px;
+  }
+
+  @media (max-width: 680px) {
+    .guide-wrap { grid-template-columns: 1fr; }
+    .guide-toc  { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="site-logo" href="https://arsenal.retroboomgames.com" title="Back to Arsenal">
+    <img src="logo.png" alt="Hail of Fire">
+    <span><span class="logo-slashes">//</span><span class="logo-word">ARSENAL</span></span>
+  </a>
+  <nav class="site-nav">
+    <a href="https://arsenal.retroboomgames.com">Units</a>
+    <a href="https://arsenal.retroboomgames.com">Force Library</a>
+    <a href="https://arsenal.retroboomgames.com">Field Manual</a>
+    <a href="guide.html" class="active">User Guide</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>Arsenal: User Guide</h1>
+  <p>Arsenal is your force-builder and game companion for Hail of Fire. Assemble a historical force, balance the match with Force Parity, then track Break Points at the table, all in one place.</p>
+</div>
+
+<div class="guide-wrap">
+
+  <aside class="guide-toc">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#build"><span class="toc-num">Section 01</span><span class="toc-label">Build a Force</span></a></li>
+      <li><a href="#save"><span class="toc-num">Section 02</span><span class="toc-label">Save &amp; Publish</span></a></li>
+      <li><a href="#share"><span class="toc-num">Section 03</span><span class="toc-label">Share with Opponent</span></a></li>
+      <li><a href="#fpp"><span class="toc-num">Section 04</span><span class="toc-label">Force Parity Procedure</span></a></li>
+      <li><a href="#bpt"><span class="toc-num">Section 05</span><span class="toc-label">Break Point Tracker</span></a></li>
+    </ol>
+  </aside>
+
+  <main>
+
+    <!-- ══════════ ORIENTATION ══════════ -->
+    <div class="orientation">
+      <div class="orient-block">
+        <div class="orient-label">What's a Force?</div>
+        <div class="orient-text">A collection of platoons drawn from historical unit rosters (infantry, armour, weapons, and support) that represents your army on the table.</div>
+      </div>
+      <div class="orient-block">
+        <div class="orient-label">What's a Break Point?</div>
+        <div class="orient-text">A tally of pressure and loss. Break Points accumulate as units take losses and objectives change hands. Your force routs when a trigger event occurs and your total already exceeds your Break Limit.</div>
+      </div>
+      <div class="orient-block">
+        <div class="orient-label">What's Force Parity?</div>
+        <div class="orient-text">A pre-game balancing step. Arsenal compares both forces and reduces the stronger side's Break Limit, so the underdog has a fair shot even against a heavier opponent.</div>
+      </div>
+    </div>
+
+    <!-- ══════════ 01. BUILD A FORCE ══════════ -->
+    <section class="section" id="build">
+      <div class="section-eyebrow">Section 01</div>
+      <h2>Build a Force</h2>
+
+      <p>Start on the <strong>Units</strong> tab. The left panel lets you filter by nation, type, theater, or year. Browse the unit cards, add them to platoons, and shape your force from the Force Builder panel on the right.</p>
+
+      <div class="shot">
+        <img src="guide-assets/s01-units-overview.jpg" alt="Units tab overview">
+        <div class="shot-cap">The Units tab: filter on the left, unit cards in the centre, Force Builder button in the top right.</div>
+      </div>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h3>Open the Force Builder</h3>
+            <p>Click <span class="ui-key ui-key-gold">Force Builder</span> in the top-right corner. The panel slides in from the right and stays open while you browse units.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h3>Add your first platoon</h3>
+            <p>Find a unit card (say, <em>Rifle Team</em>) and click <span class="ui-key">+ New Platoon</span> at the bottom of the card. A new platoon containing that unit appears in the Force Builder.</p>
+            <div class="tip">
+              <div class="callout-icon">✓</div>
+              <div class="callout-body">Filter by nation first so all your units come from the same army.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h3>Fill out the platoon</h3>
+            <p>Add more units to the same platoon by clicking <span class="ui-key">Add to Platoon</span> on other unit cards. Teams are appended to whichever platoon is currently <strong>Active</strong> (highlighted in the Force Builder). To switch the active platoon, click <span class="ui-key">Select</span> on any row.</p>
+            <p>Use the up/down arrows on each team row to adjust quantity.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h3>Set platoon quality</h3>
+            <p>Each platoon defaults to Regular. If a platoon is Elite or Poor instead, click the <span class="ui-key">E</span> or <span class="ui-key">P</span> badge on that row to change it. You can also set an overall quality at the top of the Force Builder to update all platoons at once.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h3>Add the rest of your platoons</h3>
+            <p>Repeat (browse units, click <span class="ui-key">+ New Platoon</span>) until your force is complete. Each new platoon appears in the Force Builder. The <strong>Platoons</strong> count and <strong>Break Limit</strong> update automatically as you build.</p>
+
+            <div class="note">
+              <div class="callout-icon">ℹ</div>
+              <div class="callout-body">
+                <strong>Break Limit</strong>
+                BL = 5 + (2 × platoons). A 3-platoon force has BL 11; a 5-platoon force has BL 15. Break Points accumulate as units take losses and objectives change hands. Your force routs when a trigger event occurs and your total already exceeds your Break Limit.
+              </div>
+            </div>
+
+            <div class="shot">
+              <img src="guide-assets/s03-units-with-force.jpg" alt="Force Builder with three platoons">
+              <div class="shot-cap">Three platoons built. The Break Limit updates with each addition.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <h3>Name your force and fill in the details</h3>
+            <p>At the top of the Force Builder, click the name field and type a force name. Below that, set:</p>
+            <ul>
+              <li><strong>Quality:</strong> Elite, Regular, or Poor (default for all platoons)</li>
+              <li><strong>Year:</strong> the campaign period your force represents</li>
+              <li><strong>Type:</strong> Infantry, Mechanized, Armored, or Airborne</li>
+              <li><strong>Force Notes:</strong> background, playstyle tips, or anything you want your opponent to read before the game</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ 02. SAVE & PUBLISH ══════════ -->
+    <section class="section" id="save">
+      <div class="section-eyebrow">Section 02</div>
+      <h2>Save &amp; Publish</h2>
+
+      <div class="warn">
+        <div class="callout-icon">⚠</div>
+        <div class="callout-body">
+          <strong>Saves are tied to your account</strong>
+          Forces are stored under your account and available on any signed-in device.
+        </div>
+      </div>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h3>Save your force</h3>
+            <p>Click <span class="ui-key">Save</span> at the bottom of the Force Builder. Your force is stored to your account and will appear under <strong>Force Library → My Forces</strong> on any signed-in device.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h3>Publish (optional)</h3>
+            <p>Click <span class="ui-key">Publish</span> to make your force visible in the public <strong>Force Library → Browse</strong> tab. Click again to un-publish.</p>
+            <div class="tip">
+              <div class="callout-icon">✓</div>
+              <div class="callout-body">Publishing is not required if you use the <strong>Share</strong> button, which generates a direct link that works for any saved force. Publishing is only needed if your opponent searches for your force by name in the FPP picker.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ 03. SHARE ══════════ -->
+    <section class="section" id="share">
+      <div class="section-eyebrow">Section 03</div>
+      <h2>Share with Your Opponent</h2>
+
+      <p>The <span class="ui-key">Share</span> button in the Force Builder copies an FPP link to your clipboard. When your opponent opens it, your force is pre-loaded as their opponent directly on the FPP screen, no picking or searching required.</p>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h3>Copy your FPP link</h3>
+            <p>With your force in the Force Builder, click <span class="ui-key">Share</span>. The link is copied to your clipboard automatically.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h3>Send it to your opponent</h3>
+            <p>Paste the link into a message (chat, email, wherever). When they open it, your force appears as the opponent in their FPP screen and they can run Auto-Resolve straight away.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ 04. FPP ══════════ -->
+    <section class="section" id="fpp">
+      <div class="section-eyebrow">Section 04</div>
+      <h2>Force Parity Procedure (FPP)</h2>
+
+      <p>The FPP compares both forces and automatically calculates a Break Limit adjustment for the stronger side, giving the underdog a fairer fight without any subjective scoring. The fastest way to reach it is by opening your opponent's share link, which drops you straight into the FPP with their force already loaded. You can also reach it manually from <strong>Force Library → FPP</strong>.</p>
+
+      <div class="flow">
+        <div class="flow-step"><span class="fn">Step 1</span><span class="fl">Load Forces</span></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><span class="fn">Step 2</span><span class="fl">Auto-Resolve</span></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><span class="fn">Step 3</span><span class="fl">Parity Result</span></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><span class="fn">Step 4</span><span class="fl">Start Game</span></div>
+      </div>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h3>Your force loads automatically</h3>
+            <p>Whatever force is in the Force Builder appears as <strong>Player A: You</strong>. If you arrived via a share link, your last force is restored from your previous session automatically. Enter your name in the text field.</p>
+            <div class="shot">
+              <img src="guide-assets/s05-fpp-start.jpg" alt="FPP with Player A force loaded">
+              <div class="shot-cap">Your force appears automatically on the left. Enter your name, then load the opponent's force on the right.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h3>Load your opponent's force</h3>
+            <p>If you opened the FPP via your opponent's share link, their force is already loaded. Otherwise click <span class="ui-key">+ Load Opponent Force</span> to find a published force by name. Enter their name in the text field.</p>
+            <div class="shot">
+              <img src="guide-assets/s06-fpp-load-opponent.jpg" alt="FPP opponent force loader">
+              <div class="shot-cap">Browse the Force Library or search for your opponent's published force by name.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h3>Auto-Resolve</h3>
+            <p>With both forces loaded, click <span class="ui-key ui-key-gold">Auto-Resolve →</span>. Arsenal scores each force against the other, accounting for unit types, quality, and the defender's inherent advantage, and instantly calculates any Break Limit adjustment.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h3>Read the result</h3>
+            <p>Arsenal shows which side has the stronger force and by how much. The weaker side keeps their full Break Limit; the stronger side's BL is reduced. This levels the playing field so neither side has a structural advantage going into the game.</p>
+            <div class="shot">
+              <img src="guide-assets/s08-fpp-result.jpg" alt="FPP parity result">
+              <div class="shot-cap">"Parity Complete": each player's adjusted Break Limit is displayed. Here, Patton's stronger force is penalised −4, bringing his BL from 17 down to 13.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h3>Start Game</h3>
+            <p>Click <span class="ui-key ui-key-gold">Start Game →</span>. The Break Point Tracker opens immediately with both player names and their adjusted Break Limits already filled in, no re-entry needed.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════ 05. BREAK POINT TRACKER ══════════ -->
+    <section class="section" id="bpt">
+      <div class="section-eyebrow">Section 05</div>
+      <h2>Break Point Tracker</h2>
+
+      <p>Break Points measure how much punishment your force has absorbed. Unit losses, every objective contested; each adds to your total. Your force routs when specific trigger events occur and your total already exceeds your Break Limit. Most games run several turns past the point a force first crosses its limit.</p>
+      <p>The tracker launches with both sides' names and Break Limits pre-filled straight from the FPP result. Both players share a single device. Each side has its own panel, and each player's score can be shown or hidden independently.</p>
+
+      <div class="shot">
+        <img src="guide-assets/s09-bpt-prefilled.jpg" alt="Break Point Tracker pre-filled from FPP">
+        <div class="shot-cap">The tracker opens ready to play. Player names and Break Limits come directly from the FPP result.</div>
+      </div>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h3>Record unit losses</h3>
+            <p>Tap the appropriate button each time a loss event occurs:</p>
+            <ul>
+              <li><strong>Reduced below half strength:</strong> <em>×1 BP</em> &nbsp;(once per unit, ever)</li>
+              <li><strong>Destroyed</strong> (was already below half): <em>×1 BP</em></li>
+              <li><strong>Destroyed</strong> (was still above half): <em>×2 BP</em></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h3>Record end-of-turn events</h3>
+            <p>At the end of each game turn, tap any that apply:</p>
+            <ul>
+              <li><strong>Enemy units in your table half:</strong> <em>×1 BP</em></li>
+              <li><strong>Objective not held:</strong> <em>×1 BP</em></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h3>Reveal or hide your score</h3>
+            <p>Click <span class="ui-key">Show Score</span> on your panel to reveal your running BP total. Click <span class="ui-key">Hide Score</span> to conceal it again. If your total has exceeded your Break Limit, the tracker flags your force as <strong>⚑ Breaking</strong> whenever the score is visible, signalling that the next trigger event will end the game.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h3>End Game</h3>
+            <p>Click <span class="ui-key">End Game</span> in the top-right corner to close the tracker and return to Arsenal.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>Hail of Fire // Arsenal User Guide &nbsp;·&nbsp; retroboom.games</footer>
+
+</body>
+</html>

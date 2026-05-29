@@ -21,9 +21,12 @@
     --accent: #b89040;
     --accent2: #8b3a2a;
     --text: #ede8d0;
+    --text1: #ede8d0;
     --text2: #c8c0a0;
-    --text3: #a09878;
+    --text3: #b8ae90;
     --green: #5a9a6e;
+    --bg1: #0e0c08;
+    --warn: #f5a623;
     --red: #a04545;
     --blue: #4a6a8c;
     --mono: 'Special Elite', monospace;
@@ -107,6 +110,15 @@
     header.header-hidden {
       transform: translateY(-100%);
     }
+    /* When header is hidden, expand .main and .sidebar to fill the vacated space */
+    body:has(header.header-hidden) .main {
+      margin-top: calc(-1 * var(--header-h));
+      height: 100vh;
+    }
+    body:has(header.header-hidden) .sidebar {
+      top: 0;
+      height: 100vh;
+    }
   }
 
   .header-actions {
@@ -174,7 +186,7 @@
   }
   .org-browser-label {
     font-family: var(--display);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.12em;
     color: var(--text3);
     margin-bottom: 10px;
@@ -200,7 +212,7 @@
     color: var(--accent);
   }
   .org-formation-meta {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     margin-top: 2px;
   }
@@ -232,12 +244,12 @@
     margin-bottom: 3px;
   }
   .org-platoon-teams {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     line-height: 1.6;
   }
   .org-platoon-hist {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     margin-top: 3px;
     font-style: italic;
@@ -271,7 +283,7 @@
     background: var(--bg2);
     border-top: 1px solid var(--border);
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 0.1em;
     color: var(--text3);
     text-transform: uppercase;
@@ -279,7 +291,7 @@
     user-select: none;
   }
   .org-attachments-divider:hover { color: var(--text2); }
-  .org-attachments-divider .org-attach-arrow { margin-left: auto; font-size: 10px; }
+  .org-attachments-divider .org-attach-arrow { margin-left: auto; font-size: 11px; }
 
   .org-tier-header {
     display: flex;
@@ -292,14 +304,14 @@
   }
   .org-tier-label {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 0.1em;
     color: var(--text3);
     text-transform: uppercase;
   }
   .org-tier-slots {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     color: var(--text3);
     margin-left: auto;
   }
@@ -330,7 +342,7 @@
   .slot-row:last-child { border-right: none; }
   .slot-label {
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
     letter-spacing: 0.08em;
     color: var(--text3);
     text-transform: uppercase;
@@ -380,7 +392,7 @@
   }
   .orbat-company-meta {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     letter-spacing: 0.08em;
   }
@@ -447,7 +459,7 @@
   }
   .orbat-tier-pill {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -464,7 +476,7 @@
 
   .orbat-tier-slots {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     flex-shrink: 0;
   }
@@ -525,12 +537,12 @@
   }
   .orbat-platoon-teams {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     color: var(--text3);
     line-height: 1.55;
   }
   .orbat-platoon-note {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     margin-top: 4px;
     font-style: italic;
@@ -541,7 +553,7 @@
   .orbat-badge {
     display: inline-block;
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     padding: 1px 5px;
@@ -564,7 +576,7 @@
     color: var(--text3);
     border-radius: 2px;
     padding: 5px 11px;
-    font-size: 10px;
+    font-size: 11px;
     font-family: var(--mono);
     letter-spacing: 0.08em;
     cursor: pointer;
@@ -632,29 +644,6 @@
 
   .library-body { flex: 1; padding: 20px 24px; overflow-y: auto; }
 
-  .section-stub {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    gap: 12px;
-    opacity: 0.35;
-    padding: 80px 0;
-  }
-  .section-stub-title {
-    font-family: var(--display);
-    font-size: 32px;
-    letter-spacing: 6px;
-    color: var(--text);
-  }
-  .section-stub-sub {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--text3);
-  }
-
   /* FIELD MANUAL SECTION */
   .fm-section-header {
     display: flex;
@@ -672,7 +661,7 @@
   }
   .fm-section-sub {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     letter-spacing: 1px;
   }
@@ -721,7 +710,7 @@
   .fm-sort option { background: var(--bg3); color: var(--text); }
   .fm-result-count {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     letter-spacing: 1px;
     white-space: nowrap;
@@ -745,7 +734,7 @@
   }
   .fm-card-type {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: 6px;
@@ -769,7 +758,7 @@
   }
   .fm-card-meta {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     display: flex;
     gap: 12px;
@@ -814,7 +803,7 @@
   }
   .rules-toc-title {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--text3);
@@ -825,7 +814,7 @@
   .rules-toc-item {
     display: block;
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.5px;
     color: var(--text3);
     padding: 4px 6px;
@@ -847,7 +836,7 @@
   .rules-toc-group.toc-nomatch { opacity: 0.25; }
   .rules-toc-group {
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--text3);
@@ -887,14 +876,14 @@
   }
   .rules-section-tag {
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
     letter-spacing: 1.5px;
     color: var(--text3);
     text-transform: uppercase;
     margin-left: 8px;
   }
   .rules-section-chevron {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     transition: transform 0.15s;
   }
@@ -935,7 +924,7 @@
   .rules-subsection:first-child { margin-top: 0; padding-top: 0; border-top: none; }
   .rules-subsection-title {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--text3);
@@ -949,7 +938,7 @@
   }
   .rules-table th {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--text3);
@@ -1043,7 +1032,7 @@
     border-radius: 50%;
     width: 18px;
     height: 18px;
-    font-size: 10px;
+    font-size: 11px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1101,8 +1090,37 @@
     cursor: pointer;
     transition: color 0.12s;
     flex-shrink: 0;
+    position: relative;
   }
   .sidebar-toggle-btn:hover { color: var(--text); }
+  /* Active filter dot — visible when sidebar is collapsed with filters applied */
+  .sidebar-toggle-btn.has-filters::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    right: 0;
+    width: 7px;
+    height: 7px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  /* Collapsed sidebar: style the toggle as a more visible control */
+  .app.sidebar-collapsed .sidebar-toggle-btn {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .app.sidebar-collapsed .sidebar-toggle-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
 
   .app.sidebar-collapsed .sidebar {
     padding: 12px 0;
@@ -1131,7 +1149,7 @@
     font-family: var(--display);
     font-size: 11px;
     letter-spacing: 3px;
-    color: var(--text3);
+    color: var(--text2);
     text-transform: uppercase;
     margin-bottom: 8px;
     padding-bottom: 6px;
@@ -1223,7 +1241,7 @@
     border: none;
     color: var(--accent);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 1px;
     cursor: pointer;
     text-transform: uppercase;
@@ -1241,7 +1259,7 @@
     border: 1px solid var(--border);
     color: var(--text3);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     padding: 8px;
@@ -1252,7 +1270,7 @@
   .rate-teams-btn.active { border-color: var(--accent); color: var(--accent); }
   .platoon-score-badge {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.5px;
     color: var(--accent);
     white-space: nowrap;
@@ -1329,7 +1347,7 @@
     border: 1px solid #8a7030;
     border-left: 7px solid #8a7030;
     color: #1a1608;
-    padding: 6px 16px 14px;
+    padding: 6px 16px 7px;
     cursor: pointer;
     transition: border-color 0.15s, box-shadow 0.15s;
     position: relative;
@@ -1340,7 +1358,7 @@
   .unit-card .unit-name { color: #1a1608; font-weight: 700; }
   .unit-card .unit-name::before { color: #1a1608; opacity: 0.8; }
   .unit-card .stat-label { color: #2e2810; font-size: 11px; }
-  .unit-card .stat-value { color: #1a1608; font-size: 15px; }
+  .unit-card .stat-value { color: #0a0800; font-size: 17px; }
   .unit-card .stat-value.null-val { color: #7a6a30; }
   .unit-card .card-armament { color: #2a2010; font-size: 11px; }
   .unit-card .type-badge { filter: brightness(0.5) saturate(1.4); }
@@ -1394,8 +1412,8 @@
     content: '';
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 35%;
+    transform: translate(-50%, -50%) rotate(-15deg);
     pointer-events: none;
     user-select: none;
   }
@@ -1404,17 +1422,18 @@
   .unit-card.britain { border-left-color: #705010; }
   .unit-card.soviet  { border-left-color: #7a2010; }
 
-  .unit-card.us::after      { width: 120px; height: 120px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%234a5040' d='M256 26C129.17 26 26 129.17 26 256s103.192 230 230 230s230-103.192 230-230S382.83 26 256 26m168.813 174.7H298.258L257.442 78.36c78.035.628 144.206 51.81 167.37 122.34zM254.558 78.36L213.786 200.7H87.23c23.123-70.53 89.294-121.71 167.33-122.34zM78.328 256a177 177 0 0 1 7.637-51.49l101.728 75.932l-37.34 118.345A177.52 177.52 0 0 1 78.33 256zm76.66 146.045L256 330.03l101.013 72.015a177.18 177.18 0 0 1-202.026 0zm206.614-3.302l-37.295-118.345l101.728-75.933a177.46 177.46 0 0 1-64.39 194.322z'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.06; }
-  .unit-card.germany::after { width: 120px; height: 120px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cpath d='M 300,0 V 600 M 0,300 H 600' stroke='%234a5040' stroke-width='280'/%3E%3Cpath d='M 300,0 V 600 M 0,300 H 600' stroke='%23d0c888' stroke-width='260'/%3E%3Cpath d='M 300,0 V 600 M 0,300 H 600' stroke='%234a5040' stroke-width='170'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.06; }
-  .unit-card.britain::after { width: 120px; height: 120px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='602' height='602'%3E%3Ccircle cx='301' cy='301' r='300' fill='%234a5040'/%3E%3Ccircle cx='301' cy='301' r='200' fill='%23d0c888'/%3E%3Ccircle cx='301' cy='301' r='100' fill='%234a5040'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.06; }
-  .unit-card.soviet::after  { width: 120px; height: 120px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 135.46707 131.76233'%3E%3Cg transform='translate(-36.59921,-60.708911)'%3E%3Cpath fill='%234a5040' d='m 125.71849,60.708911 c 23.95156,25.785405 39.41279,60.765859 19.29402,84.412259 l -30.97353,-41.54612 17.86074,-13.246441 -27.94631,-10.722553 -36.098635,26.773304 15.1002,20.24986 17.520215,-12.99333 31.63056,42.42207 c -17.39938,9.57446 -41.477875,6.38152 -58.326075,-23.04675 l -11.38845,8.4456 c 0.3549,0.59151 0.69568,1.16818 1.04542,1.74909 -2.05666,-1.9368 -4.46781,-3.5618 -5.4442,-2.90022 -2.34201,1.58782 0.16702,2.66715 -4.7374,6.30448 -4.71773,3.49885 -5.70479,-1.00803 -12.16999,3.78684 -4.92588,3.65325 -5.95395,10.59558 -2.29097,15.50844 l 0.006,0.003 c 3.6631,4.91294 10.62673,5.93291 15.55257,2.27977 6.46519,-4.79484 2.41956,-7.03514 7.1373,-10.53403 4.90444,-3.63736 5.21791,-0.92915 7.41646,-2.70924 0.67487,-0.54339 0.38459,-2.19063 -0.31694,-4.02497 19.0053,26.81568 51.806385,32.21433 73.582565,18.63218 l 14.97066,20.07863 c 0,0 4.74726,5.72184 11.21708,0.92352 6.46997,-4.79835 2.5028,-10.76325 2.5028,-10.76325 l -16.2025,-21.73419 c 23.98879,-23.60134 25.35928,-70.153841 -28.94164,-97.347852 z'/%3E%3C/g%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.06; }
+  .unit-card.us::after      { width: 138px; height: 138px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%234a5040' d='M256 26C129.17 26 26 129.17 26 256s103.192 230 230 230s230-103.192 230-230S382.83 26 256 26m168.813 174.7H298.258L257.442 78.36c78.035.628 144.206 51.81 167.37 122.34zM254.558 78.36L213.786 200.7H87.23c23.123-70.53 89.294-121.71 167.33-122.34zM78.328 256a177 177 0 0 1 7.637-51.49l101.728 75.932l-37.34 118.345A177.52 177.52 0 0 1 78.33 256zm76.66 146.045L256 330.03l101.013 72.015a177.18 177.18 0 0 1-202.026 0zm206.614-3.302l-37.295-118.345l101.728-75.933a177.46 177.46 0 0 1-64.39 194.322z'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.05; }
+  .unit-card.germany::after { width: 138px; height: 138px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cpath d='M 300,0 V 600 M 0,300 H 600' stroke='%234a5040' stroke-width='280'/%3E%3Cpath d='M 300,0 V 600 M 0,300 H 600' stroke='%23d0c888' stroke-width='260'/%3E%3Cpath d='M 300,0 V 600 M 0,300 H 600' stroke='%234a5040' stroke-width='170'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.05; }
+  .unit-card.britain::after { width: 138px; height: 138px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='602' height='602'%3E%3Ccircle cx='301' cy='301' r='300' fill='%234a5040'/%3E%3Ccircle cx='301' cy='301' r='200' fill='%23d0c888'/%3E%3Ccircle cx='301' cy='301' r='100' fill='%234a5040'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.05; }
+  .unit-card.soviet::after  { width: 138px; height: 138px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 135.46707 131.76233'%3E%3Cg transform='translate(-36.59921,-60.708911)'%3E%3Cpath fill='%234a5040' d='m 125.71849,60.708911 c 23.95156,25.785405 39.41279,60.765859 19.29402,84.412259 l -30.97353,-41.54612 17.86074,-13.246441 -27.94631,-10.722553 -36.098635,26.773304 15.1002,20.24986 17.520215,-12.99333 31.63056,42.42207 c -17.39938,9.57446 -41.477875,6.38152 -58.326075,-23.04675 l -11.38845,8.4456 c 0.3549,0.59151 0.69568,1.16818 1.04542,1.74909 -2.05666,-1.9368 -4.46781,-3.5618 -5.4442,-2.90022 -2.34201,1.58782 0.16702,2.66715 -4.7374,6.30448 -4.71773,3.49885 -5.70479,-1.00803 -12.16999,3.78684 -4.92588,3.65325 -5.95395,10.59558 -2.29097,15.50844 l 0.006,0.003 c 3.6631,4.91294 10.62673,5.93291 15.55257,2.27977 6.46519,-4.79484 2.41956,-7.03514 7.1373,-10.53403 4.90444,-3.63736 5.21791,-0.92915 7.41646,-2.70924 0.67487,-0.54339 0.38459,-2.19063 -0.31694,-4.02497 19.0053,26.81568 51.806385,32.21433 73.582565,18.63218 l 14.97066,20.07863 c 0,0 4.74726,5.72184 11.21708,0.92352 6.46997,-4.79835 2.5028,-10.76325 2.5028,-10.76325 l -16.2025,-21.73419 c 23.98879,-23.60134 25.35928,-70.153841 -28.94164,-97.347852 z'/%3E%3C/g%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; opacity: 0.05; }
 
   .card-header {
     display: flex;
-    align-items: flex-start;
+    flex-wrap: wrap;
+    align-items: baseline;
     justify-content: space-between;
-    margin-bottom: 4px;
-    gap: 8px;
+    margin-bottom: 2px;
+    gap: 2px 8px;
   }
 
   .card-type-row {
@@ -1422,10 +1441,10 @@
     align-items: baseline;
     justify-content: space-between;
     gap: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 1px;
     min-height: 18px;
   }
-  .card-type-row.no-armament { min-height: 16px; margin-top: 2px; margin-bottom: 3px; justify-content: flex-end; align-items: center; }
+  .card-type-row.no-armament { min-height: 16px; margin-top: 2px; margin-bottom: 1px; justify-content: flex-end; align-items: center; }
 
   .unit-name {
     font-family: var(--mono);
@@ -1433,14 +1452,15 @@
     letter-spacing: 1px;
     color: var(--text);
     line-height: 1.1;
-    min-width: 0;
+    flex: 0 0 auto;
+    max-width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   .unit-name::before {
     content: '● ';
-    font-size: 9px;
+    font-size: 11px;
     color: #000;
     opacity: 0.7;
     vertical-align: middle;
@@ -1450,7 +1470,7 @@
 
   .nation-badge {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 1px;
     padding: 2px 6px;
     text-transform: uppercase;
@@ -1465,10 +1485,10 @@
   .nation-soviet  { border-color: #6a2c1a; color: #a85040; background: #1a0808; }
 
   /* Nation chip colors — keyed to existing badge palette */
-  [data-nation="United States"] { --nation-color: #8a9a50; }
-  [data-nation="Germany"]       { --nation-color: #848c70; }
-  [data-nation="Britain"]       { --nation-color: #a08840; }
-  [data-nation="Soviet Union"]  { --nation-color: #a85040; }
+  [data-nation="United States"] { --nation-color: #98b848; }
+  [data-nation="Germany"]       { --nation-color: #a0aa80; }
+  [data-nation="Britain"]       { --nation-color: #c09838; }
+  [data-nation="Soviet Union"]  { --nation-color: #c85848; }
 
   .chip[data-nation] { color: var(--nation-color); }
   .chip[data-nation]:hover { border-color: var(--nation-color); color: var(--nation-color); }
@@ -1486,9 +1506,9 @@
   [data-type="Upgrade"]       { --type-color: #e0c060; }
 
   /* ── Quality colors ───────────────────────────────────────────────────────── */
-  [data-quality="Elite"]   { --quality-color: var(--accent); }
-  [data-quality="Regular"] { --quality-color: var(--green); }
-  [data-quality="Poor"]    { --quality-color: #d46a6a; }
+  [data-quality="Elite"]   { --quality-color: #d4a030; }
+  [data-quality="Regular"] { --quality-color: #5aba6a; }
+  [data-quality="Poor"]    { --quality-color: #d45050; }
 
   .chip[data-quality] { color: var(--quality-color); }
   .chip[data-quality]:hover { border-color: var(--quality-color); color: var(--quality-color); }
@@ -1496,7 +1516,7 @@
 
   .type-badge {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 10px;
     color: var(--text3);
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -1510,9 +1530,9 @@
   .card-stats {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-auto-rows: 48px;
+    grid-auto-rows: 40px;
     gap: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
   }
 
   .stat-cell {
@@ -1529,10 +1549,10 @@
 
   .stat-label {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     line-height: 1;
     color: var(--text3);
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     display: block;
   }
@@ -1564,10 +1584,14 @@
     flex-wrap: wrap;
     gap: 3px;
   }
+  .card-notes:has(.note-tag) {
+    margin-top: 4px;
+    margin-bottom: 2px;
+  }
 
   .note-tag {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 10px;
     color: var(--text);
     background: var(--bg3);
     border: 1px solid var(--border);
@@ -1637,14 +1661,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 10px;
-    padding-top: 10px;
+    margin-top: 3px;
+    padding-top: 6px;
     border-top: 1px solid var(--border);
   }
 
   .years-display {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     letter-spacing: 0.5px;
   }
@@ -1654,7 +1678,7 @@
     border: 1px solid var(--border);
     color: var(--text3);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 1px;
     padding: 4px 10px;
     cursor: pointer;
@@ -1677,7 +1701,7 @@
     border: 1px solid var(--accent);
     color: var(--accent);
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 1px;
     padding: 4px 8px;
     cursor: pointer;
@@ -1688,9 +1712,23 @@
 
   .add-platoon-standard-btn:hover { background: var(--accent); color: var(--bg); }
 
+  /* Desktop: reveal card and table action buttons on hover only */
+  @media (hover: hover) and (min-width: 861px) {
+    .unit-card .add-force-btn:not(.added),
+    .unit-card .add-platoon-standard-btn {
+      opacity: 0;
+    }
+    .unit-card:hover .add-force-btn:not(.added),
+    .unit-card:hover .add-platoon-standard-btn {
+      opacity: 1;
+    }
+    .unit-table tr .table-add-btn { opacity: 0; }
+    .unit-table tr:hover .table-add-btn { opacity: 1; }
+  }
+
   .base-badge {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 10px;
     color: var(--text3);
     background: var(--bg3);
     border: 1px solid var(--border);
@@ -1716,7 +1754,7 @@
     top: 10px;
     right: 10px;
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
     letter-spacing: 2px;
     color: var(--accent2);
     border: 1px solid var(--accent2);
@@ -1728,7 +1766,7 @@
 
   .restricted-stamp {
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
     letter-spacing: 1.5px;
     color: var(--accent2);
     border: 1px solid var(--accent2);
@@ -1746,7 +1784,7 @@
 
   .unit-table th {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 1.5px;
     color: var(--text3);
     text-transform: uppercase;
@@ -1784,12 +1822,12 @@
   .stacked-main td { padding-bottom: 2px; border-bottom: none; }
   .stacked-stats td { padding-top: 2px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
   .stacked-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .stacked-type { font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: 0.5px; }
+  .stacked-type { font-family: var(--mono); font-size: 11px; color: var(--text3); letter-spacing: 0.5px; }
   .stacked-actions { text-align: right; vertical-align: middle; white-space: nowrap; }
   .stacked-stat-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
   .stacked-stat { font-family: var(--mono); font-size: 12px; color: var(--text); white-space: nowrap; }
-  .stacked-lbl { font-size: 9px; color: var(--text3); letter-spacing: 1px; margin-right: 3px; }
-  .stacked-years { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-left: 4px; }
+  .stacked-lbl { font-size: 11px; color: var(--text3); letter-spacing: 1px; margin-right: 3px; }
+  .stacked-years { font-family: var(--mono); font-size: 11px; color: var(--text3); margin-left: 4px; }
 
   .table-name {
     font-family: var(--display);
@@ -1801,14 +1839,14 @@
 
   .table-stat { color: var(--accent); text-align: center; }
   .table-stat.null { color: var(--text3); text-align: center; }
-  .table-notes { color: var(--text3); font-size: 10px; max-width: 220px; position: relative; overflow: visible; }
+  .table-notes { color: var(--text3); font-size: 11px; max-width: 220px; position: relative; overflow: visible; }
 
   .table-add-btn {
     background: none;
     border: 1px solid var(--border);
     color: var(--text3);
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     padding: 3px 8px;
     cursor: pointer;
     transition: all 0.12s;
@@ -1899,7 +1937,7 @@
     display: inline-block;
     margin-top: 8px;
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 1px;
     text-transform: uppercase;
     font-style: normal;
@@ -1928,7 +1966,7 @@
   }
   .udp-stat-label {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 1.5px;
     color: var(--text3);
     text-transform: uppercase;
@@ -1959,7 +1997,7 @@
   }
   .udp-meta {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     letter-spacing: 1px;
     margin-bottom: 20px;
@@ -2062,7 +2100,7 @@
     border: 1px dashed var(--border);
     color: var(--text3);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 1px;
     padding: 7px;
     cursor: pointer;
@@ -2142,7 +2180,7 @@
     border: 1px solid var(--border);
     color: var(--text3);
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 1px;
     padding: 2px 6px;
     cursor: pointer;
@@ -2222,7 +2260,7 @@
 
   .team-qty {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--accent);
     min-width: 18px;
     text-align: center;
@@ -2241,7 +2279,7 @@
     border: none;
     color: var(--text3);
     cursor: pointer;
-    font-size: 8px;
+    font-size: 11px;
     line-height: 1;
     padding: 0 2px;
     transition: color 0.1s;
@@ -2252,7 +2290,7 @@
   .team-name {
     flex: 1;
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text2);
     min-width: 0;
     overflow: hidden;
@@ -2278,7 +2316,7 @@
     border: none;
     color: var(--text3);
     cursor: pointer;
-    font-size: 10px;
+    font-size: 11px;
     padding: 0 2px;
     line-height: 1;
     flex-shrink: 0;
@@ -2296,7 +2334,7 @@
     color: var(--accent);
     border-radius: 3px;
     padding: 1px 7px;
-    font-size: 9px;
+    font-size: 11px;
     cursor: pointer;
     font-family: var(--mono);
     letter-spacing: 0.5px;
@@ -2307,7 +2345,7 @@
 
   .attach-hint {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 0.4px;
     color: var(--accent);
     opacity: 0.65;
@@ -2329,7 +2367,7 @@
   }
   .attach-picker-label {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 1px;
     color: var(--text3);
     text-transform: uppercase;
@@ -2361,7 +2399,7 @@
     color: var(--text3);
     cursor: pointer;
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     margin-top: 4px;
     transition: color 0.1s;
   }
@@ -2392,7 +2430,7 @@
   }
   .deploy-modal-body { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
   .deploy-remaining {
-    font-family: var(--mono); font-size: 10px; color: var(--text2);
+    font-family: var(--mono); font-size: 11px; color: var(--text2);
     padding: 6px 8px; background: var(--bg3); border-radius: 4px;
   }
   .deploy-quick-actions { display: flex; flex-direction: column; gap: 5px; }
@@ -2401,14 +2439,14 @@
     background: color-mix(in srgb, var(--accent) 8%, transparent);
     border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
     border-radius: 4px; color: var(--accent);
-    font-family: var(--mono); font-size: 10px; cursor: pointer; transition: background 0.1s;
+    font-family: var(--mono); font-size: 11px; cursor: pointer; transition: background 0.1s;
   }
   .deploy-action-btn:hover { background: color-mix(in srgb, var(--accent) 18%, transparent); }
   .deploy-divider {
     border: none; border-top: 1px solid var(--border); margin: 2px 0;
   }
   .deploy-targets-label {
-    font-family: var(--mono); font-size: 9px; color: var(--text3);
+    font-family: var(--mono); font-size: 11px; color: var(--text3);
     letter-spacing: 1px; text-transform: uppercase;
   }
   .deploy-targets { display: flex; flex-direction: column; gap: 3px; }
@@ -2416,23 +2454,23 @@
     width: 100%; padding: 6px 10px; text-align: left;
     background: transparent; border: 1px solid var(--border);
     border-radius: 4px; color: var(--text1);
-    font-family: var(--mono); font-size: 10px; cursor: pointer; transition: border-color 0.1s;
+    font-family: var(--mono); font-size: 11px; cursor: pointer; transition: border-color 0.1s;
   }
   .deploy-target-btn:hover { border-color: var(--text3); background: var(--bg3); }
-  .deploy-no-targets { font-family: var(--mono); font-size: 10px; color: var(--text3); }
-  .deploy-done-msg { font-family: var(--mono); font-size: 10px; color: var(--text2); line-height: 1.5; }
+  .deploy-no-targets { font-family: var(--mono); font-size: 11px; color: var(--text3); }
+  .deploy-done-msg { font-family: var(--mono); font-size: 11px; color: var(--text2); line-height: 1.5; }
   .deploy-modal-footer {
     padding: 10px 14px; border-top: 1px solid var(--border);
     display: flex; justify-content: space-between; align-items: center; gap: 8px;
   }
   .deploy-btn-primary {
     padding: 6px 14px; background: var(--accent); color: var(--bg1);
-    border: none; border-radius: 4px; font-family: var(--mono); font-size: 10px; cursor: pointer;
+    border: none; border-radius: 4px; font-family: var(--mono); font-size: 11px; cursor: pointer;
   }
   .deploy-btn-keep {
     padding: 6px 14px; background: transparent; color: var(--text3);
     border: 1px solid var(--border); border-radius: 4px;
-    font-family: var(--mono); font-size: 10px; cursor: pointer;
+    font-family: var(--mono); font-size: 11px; cursor: pointer;
   }
   .deploy-btn-keep:hover { color: var(--text1); border-color: var(--text3); }
 
@@ -2447,7 +2485,7 @@
   .upgrade-tag {
     flex: 1;
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 0.5px;
     color: var(--accent);
     border: 1px solid rgba(224,192,96,0.3);
@@ -2464,7 +2502,7 @@
     border: 1px solid rgba(224,192,96,0.4);
     color: var(--accent);
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 0.5px;
     padding: 3px 8px;
     cursor: pointer;
@@ -2476,7 +2514,7 @@
 
   .platoon-empty {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     text-align: center;
     padding: 8px 0;
@@ -2505,7 +2543,7 @@
 
   .summary-stat-label {
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
     color: var(--text3);
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -2532,7 +2570,7 @@
     border: 1px solid var(--border);
     color: var(--text2);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 1px;
     padding: 8px;
     cursor: pointer;
@@ -2543,6 +2581,8 @@
 
   .action-btn:hover { border-color: var(--accent); color: var(--accent); }
   .action-btn.danger:hover { border-color: var(--red); color: #ff9a9a; }
+  .action-btn.primary { border-color: var(--accent); color: var(--accent); }
+  .action-btn.primary:hover { background: var(--accent); color: var(--bg); }
 
   /* EMPTY STATE */
   .empty-state {
@@ -2572,7 +2612,7 @@
 
   .sub-notice-text {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: #9a8a5a;
     letter-spacing: 0.5px;
     line-height: 1.6;
@@ -2620,7 +2660,7 @@
   .subscriber-badge {
     background: var(--accent);
     color: var(--bg);
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 1px;
     padding: 2px 6px;
@@ -2632,7 +2672,7 @@
     border: none;
     color: var(--text3);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -2836,7 +2876,7 @@
   /* TABLE TYPE HEADER ROW */
   .table-type-row td {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 2px;
     color: var(--text3);
     text-transform: uppercase;
@@ -2895,7 +2935,7 @@
 
   .force-card-meta {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     letter-spacing: 0.5px;
     margin-bottom: 6px;
@@ -2910,7 +2950,7 @@
 
   .force-card-platoons {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     letter-spacing: 0.5px;
   }
@@ -2928,7 +2968,7 @@
     border: 1px solid var(--border);
     color: var(--text2);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 1px;
     padding: 5px 10px;
     cursor: pointer;
@@ -2986,7 +3026,7 @@
 
   .force-notes-label {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 1px;
     color: var(--text3);
     text-transform: uppercase;
@@ -2994,30 +3034,12 @@
     display: block;
   }
 
-  /* SHARE URL */
-  .share-url-bar {
-    display: flex;
-    gap: 6px;
-    margin-top: 8px;
-  }
-
-  .share-url-input {
-    flex: 1;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    color: var(--text2);
-    font-family: var(--mono);
-    font-size: 10px;
-    padding: 6px 8px;
-    outline: none;
-  }
-
   .copy-btn {
     background: none;
     border: 1px solid var(--border);
     color: var(--text3);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 1px;
     padding: 6px 10px;
     cursor: pointer;
@@ -3096,7 +3118,7 @@
   .wn-card:hover { border-color: var(--accent); }
   .wn-card-badge {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 1px;
     color: var(--accent);
     text-transform: uppercase;
@@ -3111,7 +3133,7 @@
   }
   .wn-card-meta {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
   }
 
@@ -3132,7 +3154,7 @@
 
   .lib-featured-label {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 2px;
     color: var(--text3);
     text-transform: uppercase;
@@ -3140,7 +3162,7 @@
 
   .lib-featured-link {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--accent);
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -3149,6 +3171,7 @@
     cursor: pointer;
     padding: 0;
     transition: color 0.12s;
+    white-space: nowrap;
   }
   .lib-featured-link:hover { color: var(--text); }
 
@@ -3189,7 +3212,7 @@
 
   .lib-fc-meta {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     color: var(--text3);
     letter-spacing: 0.5px;
     margin-bottom: 6px;
@@ -3226,7 +3249,7 @@
   }
 
   .force-card-platoon-row .pl-num {
-    font-size: 9px;
+    font-size: 11px;
     color: var(--accent);
     opacity: 0.5;
     flex-shrink: 0;
@@ -3248,7 +3271,7 @@
 
   .quality-label {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 1.5px;
     color: var(--text3);
     text-transform: uppercase;
@@ -3262,7 +3285,7 @@
 
   .quality-chip {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 1px;
     padding: 3px 10px;
     border: 1px solid var(--border);
@@ -3292,7 +3315,7 @@
     border: 1px solid var(--border);
     color: var(--text2);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.5px;
     padding: 3px 6px;
     cursor: pointer;
@@ -3304,7 +3327,7 @@
     border: 1px solid var(--border);
     color: var(--text3);
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 0.5px;
     padding: 3px 8px;
     cursor: pointer;
@@ -3317,7 +3340,7 @@
   /* RATING BADGE (admin only) */
   .rating-badge {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     color: var(--accent);
     background: rgba(224,192,96,0.08);
     border: 1px solid rgba(224,192,96,0.25);
@@ -3359,7 +3382,7 @@
 
   .compare-sub {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     letter-spacing: 1px;
   }
@@ -3403,7 +3426,7 @@
 
   .compare-card-type {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     color: var(--text3);
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -3451,7 +3474,7 @@
 
   .compare-count {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     letter-spacing: 1px;
     text-align: center;
@@ -3462,7 +3485,7 @@
     border: 1px solid var(--border);
     color: var(--text3);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 1px;
     padding: 7px 20px;
     cursor: pointer;
@@ -3477,7 +3500,7 @@
     border: 1px solid var(--border);
     color: var(--text3);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 1px;
     padding: 7px 20px;
     cursor: pointer;
@@ -3548,7 +3571,7 @@
     border: 1px solid var(--border);
     color: var(--text3);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 1px;
     padding: 6px 12px;
     cursor: pointer;
@@ -3563,7 +3586,7 @@
     border: 1px solid var(--border);
     color: var(--text3);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 1px;
     padding: 5px 10px;
     cursor: pointer;
@@ -3640,7 +3663,7 @@
 
   .fs-platoon-num {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text3);
     letter-spacing: 1px;
   }
@@ -3652,7 +3675,7 @@
 
   .fs-stats-table th {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 1.5px;
     color: var(--text3);
     text-transform: uppercase;
@@ -3705,7 +3728,7 @@
 
   .fs-mg-reference-title {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--text3);
@@ -3753,13 +3776,58 @@
     /* Bigger sidebar toggle */
     .sidebar-toggle-btn { padding: 10px 8px; font-size: 16px; }
 
-    /* Main: less padding */
-    .main { padding: 14px; }
-    body.panel-open .main { padding-right: 14px; } /* force panel overlays, no push */
+    /* Fix table sticky header — compensate for reduced main padding */
+    .unit-table th { top: -14px; }
 
-    /* Force panel: full width, use dynamic viewport height so iOS browser chrome doesn't cut it off */
-    .force-panel { width: 100vw; height: calc(100dvh - var(--header-h)); }
+    /* Main: less padding, extra bottom clearance for fp-bar */
+    .main { padding: 14px; padding-bottom: calc(52px + 14px); }
+    body.panel-open .main { padding-right: 14px; padding-bottom: 14px; } /* force panel overlays, no push */
+
+    /* Force panel: full width, slides up from bottom */
+    .force-panel {
+      width: 100vw;
+      height: calc(100dvh - var(--header-h));
+      top: var(--header-h);
+      right: 0;
+      transform: translateY(100%);
+    }
+    .force-panel.open { transform: translateY(0); }
     .force-panel .force-panel-body { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+
+    /* Center empty state vertically when no platoons */
+    .platoon-list:has(> .onboard-empty) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Force Builder bar — always visible at bottom */
+    .fp-bar {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 89;
+      cursor: pointer;
+      user-select: none;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .fp-bar:active { background: var(--bg3); }
+    .fp-bar-left { display: flex; align-items: center; gap: 8px; }
+    .fp-bar-icon { color: var(--accent); font-size: 14px; }
+    .fp-bar-label { font-family: var(--display); font-size: 13px; letter-spacing: 2px; color: var(--accent); }
+    .fp-bar-stats { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--text3); }
+    .fp-bar-stat-val { color: var(--text); font-weight: 600; }
+    .fp-bar-sep { color: var(--border); }
+    .fp-bar-chevron { color: var(--text3); font-size: 11px; }
+    body.panel-open .fp-bar { display: none; }
 
     /* Filter chips: bigger for touch */
     .chip { font-size: 12px; padding: 7px 10px; }
@@ -3920,11 +3988,6 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-6px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
   @keyframes rowFadeIn {
     from { opacity: 0; }
     to   { opacity: 1; }
@@ -3981,7 +4044,7 @@
   .onboard-icon { font-size: 26px; color: var(--accent); opacity: 0.35; }
   .onboard-title {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--text2);
@@ -4019,7 +4082,7 @@
     border: 1px solid var(--border);
     color: var(--text3);
     font-family: var(--mono);
-    font-size: 8px;
+    font-size: 11px;
     letter-spacing: 0.5px;
     width: 18px;
     height: 18px;
@@ -4152,7 +4215,7 @@
   .fpp-def-btn { background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 6px 10px; font-family: var(--mono); font-size: 11px; color: var(--text2); cursor: pointer; transition: all 0.1s; display: flex; flex-direction: column; align-items: center; text-align: center; }
   .fpp-def-btn:hover { border-color: var(--text2); }
   .fpp-def-btn.active { background: var(--text3); color: var(--bg); border-color: var(--text3); }
-  .fpp-def-btn-sub { font-size: 10px; color: var(--text3); margin-top: 3px; }
+  .fpp-def-btn-sub { font-size: 11px; color: var(--text3); margin-top: 3px; }
   .fpp-def-btn.active .fpp-def-btn-sub { color: var(--bg2); }
   /* Size bonus — full-width row, no absolute positioning */
   .fpp-size-bonus-row { grid-column: 1 / -1; font-family: var(--mono); font-size: 12px; color: var(--accent); text-align: center; padding-top: 8px; border-top: 1px solid color-mix(in srgb, var(--accent) 20%, transparent); }
@@ -4185,7 +4248,7 @@
   .fpp-picker-name { font-size: 14px; font-weight: 600; color: var(--text1); }
   .fpp-picker-meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
   .fpp-picker-loading, .fpp-picker-empty { padding: 24px; text-align: center; color: var(--text3); font-size: 13px; }
-  .fpp-picker-section { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); padding: 10px 14px 4px; }
+  .fpp-picker-section { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); padding: 10px 14px 4px; }
 
   /* ── FPP MOBILE ──────────────────────────────────────────────────── */
   @media (max-width: 600px) {
@@ -4239,7 +4302,7 @@
     .game-panels { grid-template-columns: 1fr; }
     .game-panel { padding: 16px 14px; }
     .game-player-name { font-size: 20px; }
-    .game-trigger-btn { padding: 11px 10px; font-size: 13px; }
+    .game-trigger-btn { padding: 16px 12px; font-size: 16px; margin-bottom: 8px; }
     .game-close-btn { padding: 10px 16px; }
   }
   /* Individual panel */
@@ -4256,15 +4319,15 @@
   /* Last Roll box */
   /* Trigger groups */
   .game-trigger-group { margin-bottom: 10px; }
-  .game-trigger-group-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--text3); text-transform: uppercase; margin-bottom: 5px; padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-  .game-trigger-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 10px; margin-bottom: 3px; background: rgba(255,255,255,0.04); border: 1px solid transparent; border-radius: 4px; cursor: pointer; font-family: var(--mono); color: var(--text2); font-size: 12px; text-align: left; transition: background 0.12s, border-color 0.12s, color 0.12s; }
-  .game-trigger-btn:hover { background: rgba(255,255,255,0.08); color: var(--text1); }
-  .game-trigger-btn:active { background: rgba(255,255,255,0.13); }
+  .game-trigger-group-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--text3); text-transform: uppercase; margin-bottom: 5px; padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .game-trigger-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 13px 12px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; cursor: pointer; font-family: var(--mono); color: var(--text2); font-size: 15px; text-align: left; transition: background 0.12s, border-color 0.12s, color 0.12s; }
+  .game-trigger-btn:hover { background: rgba(255,255,255,0.10); color: var(--text1); }
+  .game-trigger-btn:active { background: rgba(255,255,255,0.16); }
   .gp-allied .game-trigger-btn:hover { border-color: rgba(201,68,68,0.4); }
   .gp-axis   .game-trigger-btn:hover { border-color: rgba(90,106,114,0.5); }
-  .trigger-name { flex: 1; line-height: 1.35; }
-  .trigger-sub { font-size: 10px; color: var(--text3); }
-  .trigger-badge { font-size: 12px; font-weight: 700; color: var(--accent); background: rgba(201,162,39,0.12); border-radius: 3px; padding: 1px 5px; white-space: nowrap; flex-shrink: 0; }
+  .trigger-name { flex: 1; line-height: 1.4; }
+  .trigger-sub { font-size: 11px; color: var(--text3); }
+  .trigger-badge { font-size: 13px; font-weight: 700; color: var(--accent); background: rgba(201,162,39,0.14); border-radius: 4px; padding: 3px 8px; white-space: nowrap; flex-shrink: 0; }
   .game-role-tag { font-family: var(--mono); font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; }
   /* Score footer (last roll + score section, hidden until first trigger) */
   .game-score-footer { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
@@ -4323,8 +4386,15 @@
   .game-muzzle-flash { position: fixed; pointer-events: none; z-index: 9999; width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle, rgba(255,220,100,0.9) 20%, rgba(255,100,0,0.5) 60%, transparent 80%); animation: game-flash-pulse 0.08s ease-out forwards; }
 
   /* ── FM TRACKER BUTTON ────────────────────────────────────────────────────── */
-  .fm-tracker-btn {
+  .fm-guide-link {
     margin-left: auto;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+    color: var(--text3); text-decoration: none;
+    padding: 6px 4px; white-space: nowrap;
+    transition: color 0.15s;
+  }
+  .fm-guide-link:hover { color: var(--text2); }
+  .fm-tracker-btn {
     background: transparent;
     border: 1px solid var(--accent);
     color: var(--accent);
@@ -4449,6 +4519,16 @@
         </div>
       </div>
 
+      <div class="filter-section">
+        <div class="filter-label">Sort</div>
+        <select class="year-select" id="unit-sort" onchange="setUnitSort(this.value)" style="width:100%">
+          <option value="default">Nation / Type</option>
+          <option value="name-az">Name A–Z</option>
+          <option value="name-za">Name Z–A</option>
+          <option value="years">Year (earliest)</option>
+        </select>
+      </div>
+
       <div class="results-count" id="results-count">Loading...</div>
       <button class="clear-btn" onclick="clearFilters()">Clear all filters</button>
 
@@ -4465,6 +4545,7 @@
         <button class="view-btn" id="btn-table" onclick="setView('table')">Table</button>
       </div>
     </div>
+    <div id="unit-display"></div>
     <div id="whats-new" class="whats-new" style="display:none">
       <div class="whats-new-header">
         <span class="whats-new-label">★ Recent Briefings</span>
@@ -4479,7 +4560,6 @@
       </div>
       <div class="lib-featured-cards" id="lib-featured-cards"></div>
     </div>
-    <div id="unit-display"></div>
   </main>
 </div>
 </div><!-- end #section-units -->
@@ -4591,10 +4671,11 @@
       <div class="chip" data-fmtype="All" onclick="toggleFmType('All')">Briefings</div>
       <div class="chip active" data-fmtype="Rules" onclick="toggleFmType('Rules')">Rules</div>
     </div>
+    <a class="fm-guide-link" href="guide.html" target="_blank">User Guide ↗</a>
     <button class="fm-tracker-btn" onclick="openQuickTracker()">⚑ Break Point Tracker</button>
   </div>
   <div class="fm-controls">
-    <input type="text" class="fm-search" id="fm-search" placeholder="Search…" oninput="applyFmFilters()">
+    <input type="text" class="fm-search" id="fm-search" placeholder="Search rules…" oninput="applyFmFilters()">
     <select class="fm-sort" id="fm-sort" onchange="applyFmFilters()" style="display:none">
       <option value="newest">Newest First</option>
       <option value="oldest">Oldest First</option>
@@ -4756,14 +4837,28 @@
       </div>
     </div>
     <div class="force-actions">
-      <button class="action-btn" onclick="saveForce()">Save</button>
-      <button class="action-btn" onclick="publishForce()">Publish</button>
+      <button class="action-btn primary" onclick="saveForce()">Save</button>
+      <button class="action-btn" onclick="openCurrentForceSheet()">Print</button>
       <button class="action-btn" onclick="copyFppShareLink()">Share</button>
-      <button class="action-btn" onclick="openCurrentForceSheet()">View</button>
+      <button class="action-btn" onclick="publishForce()">Publish</button>
       <button class="action-btn danger" onclick="clearForce()">Clear</button>
       <button class="action-btn" id="hof-publish-btn" onclick="publishAsHoF()" style="display:none" title="Publish as an official Hail of Fire example force">HoF</button>
     </div>
   </div>
+</div>
+
+<!-- MOBILE FORCE BUILDER BAR -->
+<div class="fp-bar" id="fp-bar" onclick="toggleForcePanel()">
+  <div class="fp-bar-left">
+    <span class="fp-bar-icon">◈</span>
+    <span class="fp-bar-label">Force Builder</span>
+  </div>
+  <div class="fp-bar-stats">
+    <span class="fp-bar-stat"><span class="fp-bar-stat-val" id="fp-bar-platoons">0</span> <span class="fp-bar-stat-lbl">platoons</span></span>
+    <span class="fp-bar-sep">·</span>
+    <span class="fp-bar-stat">BL <span class="fp-bar-stat-val" id="fp-bar-bl">5</span></span>
+  </div>
+  <div class="fp-bar-chevron">▲</div>
 </div>
 
 <!-- COMPARISON MODAL -->
@@ -4799,6 +4894,7 @@ let allUnits = [];
 let filteredUnits = [];
 let tableSortCol = null;   // null = default grouped view
 let tableSortDir = 1;      // 1 = asc, -1 = desc
+let unitSortOrder = 'default'; // grid/table sort applied from sidebar control
 let tableStacked = false;  // true = two-row compact format
 let _stackObserver = null;
 let _stackDebounce = null;
@@ -4808,6 +4904,7 @@ let activePlatoonId = null;
 let _animUnitId = null;
 let _animPlatoonId = null;
 let platoonCounter = 0;
+let platoonSortable = null;
 const collapsedPlatoons = new Set();
 const unlockedTeams = new Set(); // keys: `${platoonId}|${unitId}` for PL/FO rows
 
@@ -4821,15 +4918,38 @@ function toggleTeamLock(platoonId, unitId) {
   updateForceUI();
 }
 let currentView = 'grid';
-const TYPE_ORDER = ['Infantry', 'Gun', 'Tank', 'SP Artillery', 'SP Anti-Air', 'Armoured Cars', 'Recon', 'Transport', 'Upgrade'];
+const TYPE_ORDER   = ['Infantry', 'Gun', 'Tank', 'SP Artillery', 'SP Anti-Air', 'Armoured Cars', 'Recon', 'Transport', 'Upgrade'];
+const NATION_ORDER = ['United States', 'Germany', 'Britain', 'Soviet Union'];
+const FORCE_TYPE_MAP = {
+  'us-rifle-co-normandy-1944':    'Infantry',
+  'us-rifle-company':             'Infantry',
+  'us-airborne-company':          'Parachute',
+  'us-armored-infantry-company':  'Mechanized',
+  'us-tank-company':              'Armored',
+  'de-grenadier-company':         'Infantry',
+  'de-fallschirmjager-company':   'Airborne',
+  'de-panzergrenadier-company':   'Mechanized',
+  'de-panzer-company':            'Armored',
+  'de-heavy-panzer-company':      'Armored',
+  'sv-strelkovy-company':         'Infantry',
+  'sv-guards-rifle-company':      'Infantry',
+  'sv-tankovy-company':           'Armored',
+  'sv-isu-company':               'Armored',
+  'sv-heavy-tank-company':        'Armored',
+  'br-rifle-company':             'Infantry',
+  'br-airborne-company':          'Airborne',
+  'br-motor-company':             'Mechanized',
+  'br-armoured-squadron':         'Armored',
+  'br-churchill-squadron':        'Armored',
+};
 
 // Vehicle MG reference stats (from rulebook Vehicle MGs tables)
 const VEHICLE_MG_STATS = {
-  'Hull MG':    { range: '16"', rof: 2, at: null, notes: 'May Fire Main Gun OR MGs' },
-  'Coax MG':    { range: '16"', rof: 2, at: null, notes: 'May Fire Main Gun OR MGs' },
-  'Co-ax MG':   { range: '16"', rof: 2, at: null, notes: 'May Fire Main Gun OR MGs' },
-  'AA MG':      { range: '16"', rof: 2, at: null, notes: 'Anti-Air (AT 1 vs aircraft) · May only inflict RFPs · May Fire Main Gun OR MGs' },
-  '.50 cal MG': { range: '16"', rof: 2, at: 1,   notes: 'Anti-Air · May only inflict RFPs · May Fire Main Gun OR MGs' },
+  'Hull MG':    { range: '16"', rof: 3, at: null, notes: 'May Fire Main Gun OR MGs' },
+  'Coax MG':    { range: '16"', rof: 3, at: null, notes: 'May Fire Main Gun OR MGs' },
+  'Co-ax MG':   { range: '16"', rof: 3, at: null, notes: 'May Fire Main Gun OR MGs' },
+  'AA MG':      { range: '16"', rof: 3, at: null, notes: 'Anti-Air (AT 1 vs aircraft) · May only inflict RFPs · May Fire Main Gun OR MGs' },
+  '.50 cal MG': { range: '16"', rof: 3, at: 1,   notes: 'Anti-Air · May only inflict RFPs · May Fire Main Gun OR MGs' },
 };
 
 // Wrap recognized MG names in armament strings with tooltip spans.
@@ -4923,9 +5043,8 @@ const TYPE_ICONS = {
 // ── FILTER CHIPS ──────────────────────────────────────────────────────────────
 function buildFilterChips() {
   const nations = [...new Set(allUnits.map(u => u.nation))].sort();
-  const typeOrder = TYPE_ORDER;
   const presentTypes = new Set(allUnits.map(u => u.type));
-  const types = typeOrder.filter(t => presentTypes.has(t));
+  const types = TYPE_ORDER.filter(t => presentTypes.has(t));
   const theaters = [...new Set(allUnits.flatMap(u => u.theater))].sort();
 
   renderChips('nation-chips', nations, 'nations');
@@ -4962,8 +5081,9 @@ function toggleSidebar() {
   const collapsed = app.classList.toggle('sidebar-collapsed');
   btn.textContent = collapsed ? '›' : '‹';
   btn.dataset.tip = collapsed ? 'Expand filters' : 'Collapse filters';
-  // Mobile: show/hide backdrop
-  if (window.innerWidth <= 640) {
+  // Backdrop only on very small screens where the sidebar covers most of the viewport.
+  // On tablets (481–860px) the sidebar is a partial overlay so units remain visible.
+  if (window.innerWidth <= 480) {
     let bd = document.getElementById('sidebar-backdrop');
     if (!bd) {
       bd = document.createElement('div');
@@ -4973,7 +5093,16 @@ function toggleSidebar() {
       document.body.appendChild(bd);
     }
     bd.classList.toggle('visible', !collapsed);
+  } else {
+    // Hide any existing backdrop
+    const bd = document.getElementById('sidebar-backdrop');
+    if (bd) bd.classList.remove('visible');
   }
+}
+
+function setUnitSort(val) {
+  unitSortOrder = val;
+  applyFilters();
 }
 
 function clearFilters() {
@@ -4982,6 +5111,9 @@ function clearFilters() {
   document.getElementById('year-from').value = '';
   document.getElementById('year-to').value = '';
   document.querySelectorAll('.chip.active').forEach(c => c.classList.remove('active'));
+  unitSortOrder = 'default';
+  const sortEl = document.getElementById('unit-sort');
+  if (sortEl) sortEl.value = 'default';
   applyFilters();
 }
 
@@ -5025,7 +5157,11 @@ function applyFilters() {
     if (u.id.endsWith('-leader') || u.id.endsWith('-fo')) return false;
     if (activeFilters.search && !u.name.toLowerCase().includes(activeFilters.search)) return false;
     if (activeFilters.nations.length && !activeFilters.nations.includes(u.nation)) return false;
-    if (activeFilters.types.length && !activeFilters.types.includes(u.type)) return false;
+    if (activeFilters.types.length) {
+      const matchesType  = activeFilters.types.includes(u.type);
+      const matchesRecon = activeFilters.types.includes('Recon') && u.recon;
+      if (!matchesType && !matchesRecon) return false;
+    }
     if (activeFilters.theaters.length && !u.theater.some(t => activeFilters.theaters.includes(t))) return false;
     if (activeFilters.yearFrom && !u.years.some(y => y >= activeFilters.yearFrom)) return false;
     if (activeFilters.yearTo && !u.years.some(y => y <= activeFilters.yearTo)) return false;
@@ -5035,6 +5171,19 @@ function applyFilters() {
   const browsableTotal = allUnits.filter(u => !u.id.endsWith('-leader') && !u.id.endsWith('-fo')).length;
   document.getElementById('results-count').textContent =
     `${filteredUnits.length} of ${browsableTotal} units`;
+
+  // Apply sidebar sort order (sorts within each nation/type group when rendered)
+  if (unitSortOrder === 'name-az') {
+    filteredUnits.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (unitSortOrder === 'name-za') {
+    filteredUnits.sort((a, b) => b.name.localeCompare(a.name));
+  } else if (unitSortOrder === 'years') {
+    filteredUnits.sort((a, b) => (a.years[0] || 0) - (b.years[0] || 0));
+  }
+
+  // Active filter indicator on the collapsed sidebar toggle
+  const toggleBtn = document.getElementById('sidebar-toggle');
+  if (toggleBtn) toggleBtn.classList.toggle('has-filters', hasActiveFilters());
 
   updateStripsVisibility();
   renderUnits();
@@ -5169,7 +5318,6 @@ const RULE_TIPS = {
   'Carries 3 Teams': 'Transport capacity: 3 Infantry or Man-Portable Gun Teams.',
   'Carries 4 Teams': 'Transport capacity: 4 Infantry or Man-Portable Gun Teams.',
   'Amphibious': 'May cross water obstacles.',
-  'Overloaded': 'Must re-roll successful Terrain Checks.',
   'Passenger-fired MG': 'Requires the transport to be carrying a Team in order to fire this weapon.',
   'Passenger-fired .50 cal MG': 'Requires the transport to be carrying a Team in order to fire this weapon.',
 };
@@ -5194,10 +5342,7 @@ function renderGrid(container, forceIds, animate = true) {
   let html = '<div class="unit-grid">';
   let cardIndex = 0;
 
-  const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
-  const typeOrder = TYPE_ORDER;
-
-  nationOrder.forEach(nation => {
+  NATION_ORDER.forEach(nation => {
     if (!byNation[nation]) return;
 
     html += `
@@ -5214,7 +5359,7 @@ function renderGrid(container, forceIds, animate = true) {
       byType[u.type].push(u);
     });
 
-    const activeTypes = typeOrder.filter(t => byType[t]);
+    const activeTypes = TYPE_ORDER.filter(t => byType[t]);
     const typeTop = '12px';
 
     activeTypes.forEach(type => {
@@ -5277,7 +5422,7 @@ function renderGrid(container, forceIds, animate = true) {
       `;
     }); // end byType[type].forEach
     }); // end activeTypes.forEach
-  }); // end nationOrder.forEach
+  }); // end NATION_ORDER.forEach
 
   html += '</div>';
   container.innerHTML = html;
@@ -5451,8 +5596,6 @@ function renderTable(container, forceIds) {
     sorted.forEach(unit => { html += unitRow(unit); });
   } else {
     // Default grouped view by nation → type
-    const typeOrder = TYPE_ORDER;
-    const nationOrder = ['United States', 'Germany', 'Britain', 'Soviet Union'];
     const byNation = {};
     filteredUnits.forEach(u => {
       if (!byNation[u.nation]) byNation[u.nation] = [];
@@ -5460,7 +5603,7 @@ function renderTable(container, forceIds) {
     });
     const hasMultipleNations = Object.keys(byNation).length > 1;
 
-    nationOrder.forEach(nation => {
+    NATION_ORDER.forEach(nation => {
       if (!byNation[nation]) return;
       if (hasMultipleNations) {
         html += `<tr class="table-type-row"><td colspan="${colSpan}" style="font-family:var(--display);font-size:16px;letter-spacing:3px;color:var(--accent);padding:16px 10px 6px;border-bottom:1px solid var(--border);opacity:0.9">${nation}</td></tr>`;
@@ -5470,7 +5613,7 @@ function renderTable(container, forceIds) {
         if (!byType[u.type]) byType[u.type] = [];
         byType[u.type].push(u);
       });
-      const activeTypes = typeOrder.filter(t => byType[t]);
+      const activeTypes = TYPE_ORDER.filter(t => byType[t]);
       const showTypeHeaders = activeTypes.length > 1;
 
       activeTypes.forEach(type => {
@@ -5708,7 +5851,6 @@ function _deployInitFormation() {
   if (!deployModalState || orgLockedFormation) return;
   const { formationId, f } = deployModalState;
   orgLockedFormation = formationId;
-  const ORBAT_FORCE_TYPE = { 'us-rifle-co-normandy-1944': 'Infantry' };
   const nameEl = document.getElementById('force-name');
   if (!nameEl.value.trim()) nameEl.value = f.name;
   if (!forceYear) {
@@ -5716,7 +5858,7 @@ function _deployInitFormation() {
     if (m) { forceYear = parseInt(m[0]); document.getElementById('force-year').value = forceYear; }
   }
   setForceQuality('Regular');
-  const fType = ORBAT_FORCE_TYPE[formationId];
+  const fType = FORCE_TYPE_MAP[formationId];
   if (fType) { forceType = null; setForceType(fType); }
 }
 
@@ -6138,10 +6280,18 @@ function calcTeamScore(unit) {
 }
 
 function calcPlatoonScore(platoon) {
-  return (platoon.teams || []).reduce((sum, t) => {
+  const teams = platoon.teams || [];
+  let score = teams.reduce((sum, t) => {
     const unit = allUnits.find(u => u.id === t.unitId);
     return sum + calcTeamScore(unit) * (t.qty || 1);
   }, 0);
+  // Recon bonus: extended spotting range + potential double activation on reveal
+  const isRecon = teams.some(t => {
+    const unit = allUnits.find(u => u.id === t.unitId);
+    return unit && unit.recon === true;
+  });
+  if (isRecon) score *= 1.4;
+  return score;
 }
 
 function updateForceUI() {
@@ -6152,6 +6302,10 @@ function updateForceUI() {
   document.getElementById('force-count').textContent = count;
   document.getElementById('summary-units').textContent = count;
   document.getElementById('summary-bl').textContent = breakLimit;
+  const barPlatoons = document.getElementById('fp-bar-platoons');
+  const barBL = document.getElementById('fp-bar-bl');
+  if (barPlatoons) barPlatoons.textContent = count;
+  if (barBL) barBL.textContent = breakLimit;
 
   const hasTiers = platoons.some(p => p.tier);
   const tracker = document.getElementById('org-slot-tracker');
@@ -6277,7 +6431,8 @@ function updateForceUI() {
 
   // ── Sortable (drag to reorder) ─────────────────────────────────────────────
   if (window.Sortable) {
-    Sortable.create(listEl, {
+    if (platoonSortable) { platoonSortable.destroy(); platoonSortable = null; }
+    platoonSortable = Sortable.create(listEl, {
       handle: '.platoon-drag-handle',
       animation: 150,
       ghostClass: 'platoon-ghost',
@@ -6310,51 +6465,6 @@ function clearForce() {
     renderUnits(true);
     renderOrgBrowser();
   }
-}
-
-function exportForce() {
-  if (platoons.length === 0) return;
-  const name = document.getElementById('force-name').value || 'Hail of Fire Force';
-  const breakLimit = calcBreakLimit(platoons.length);
-  const lines = [
-    name.toUpperCase(),
-    '─'.repeat(40),
-    `Platoons: ${platoons.length}  |  Break Limit: ${breakLimit}`,
-    ''
-  ];
-
-  platoons.forEach((platoon, i) => {
-    lines.push(`── ${platoon.name.toUpperCase()} ──`);
-    if (platoon.teams.length === 0) {
-      lines.push('  (empty)');
-    } else {
-      platoon.teams.forEach(t => {
-        const u = allUnits.find(u => u.id === t.unitId);
-        if (!u) return;
-        let line = `  ${t.qty}× ${u.name}`;
-        const stats = [];
-        if (u.gun_range) stats.push(`Range ${u.gun_range}`);
-        if (u.rof !== null) stats.push(`RoF ${u.rof}`);
-        if (u.at !== null) stats.push(`AT ${u.at}`);
-        if (u.armor_front !== null) stats.push(`Armor ${u.armor_front}/${u.armor_flank}`);
-        if (stats.length) line += `  [${stats.join(' | ')}]`;
-        if (u.notes.length) line += `  (${u.notes.join(', ')})`;
-        lines.push(line);
-      });
-    }
-    lines.push('');
-  });
-
-  const text = lines.join('\n');
-  const blob = new Blob([text], { type: 'text/plain' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `${name.replace(/\s+/g, '-').toLowerCase()}.txt`;
-  a.click();
-}
-
-function printForce() {
-  window.print();
 }
 
 function printLandscape() {
@@ -6511,17 +6621,6 @@ async function publishAsHoF() {
   showToast(`"${forceName}" published as a Hail of Fire force.`, 'success');
 }
 
-function shareForce() {
-  if (!currentForceId) {
-    showToast('Save your force first before sharing.', 'error');
-    return;
-  }
-  const url = `${window.location.origin}${window.location.pathname}?force=${currentForceId}`;
-  document.getElementById('share-url-input').value = url;
-  document.getElementById('share-url-bar').style.display = 'flex';
-}
-
-
 async function copyFppShareLink() {
   if (!currentUser) { showToast('Sign in to share your force.', 'warning'); return; }
   if (platoons.length === 0) { showToast('Add at least one platoon before sharing.', 'warning'); return; }
@@ -6538,14 +6637,7 @@ async function copyFppShareLink() {
   try {
     await navigator.clipboard.writeText(url);
   } catch {
-    const el = document.createElement('textarea');
-    el.value = url;
-    el.setAttribute('readonly', '');
-    Object.assign(el.style, { position: 'absolute', left: '-9999px' });
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
+    prompt('Copy this link:', url);
   }
   showToast('FPP link copied — send it to your opponent.', 'success');
 
@@ -6794,7 +6886,7 @@ function showHomeView() {
   whatsNewDismissed = false;
   loadWhatsNew();
   // Scroll to top
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.querySelector('.main')?.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Format a stored author name for public display.
@@ -7782,15 +7874,6 @@ const RULES_DATA = [
         </div>
       </div>`
   },
-  {
-    id: 'scenario-test',
-    title: 'Test Scenario',
-    group: 'Scenarios',
-    body: `
-      <div class="rules-body-text">
-        <p>test</p>
-      </div>`
-  },
 ];
 
 // ── RULES PANEL ────────────────────────────────────────────────────────────────
@@ -8121,15 +8204,6 @@ function calcBreakLimit(platoonCount) {
   return 5 + platoonCount * 2;
 }
 
-// Escape user-generated strings before injecting into innerHTML
-function htmlEscape(str) {
-  return String(str || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
 function nationCardClass(nations) {
   const n = toArr(nations)[0] || '';
   if (n === 'United States') return 'nc-us';
@@ -8294,6 +8368,8 @@ async function checkUrlForce() {
   // ?fpp=forceId — load opponent's force directly into FPP (no publishing required)
   const fppId = params.get('fpp');
   if (fppId) {
+    // Strip the param immediately so refresh or logo-click loads a clean page.
+    history.replaceState(null, '', window.location.pathname);
     await selectOpponentForce(fppId);
     // Restore the builder from localStorage so the user's own force auto-populates.
     if (platoons.length === 0) {
@@ -8509,13 +8585,13 @@ function closeCompare() {
 
 // ── FORCE SHEET ───────────────────────────────────────────────────────────────
 function openForceSheet(forceData) {
-  const name = htmlEscape(forceData.name || 'Untitled Force');
-  const author = htmlEscape(formatAuthorName(forceData.author));
+  const name = esc(forceData.name || 'Untitled Force');
+  const author = esc(formatAuthorName(forceData.author));
   const nations = toArr(forceData.nations);
   const platoonArr = toArr(forceData.platoons);
   const platoonCount = platoonArr.length;
   const breakLimit = forceData.breakLimit || (5 + platoonCount * 2);
-  const notes = htmlEscape(forceData.notes || '');
+  const notes = esc(forceData.notes || '');
 
   const nationBadgesHtml = nations.map(n =>
     `<span class="${nationBadgeClass(n)}">${n}</span>`
@@ -8528,7 +8604,7 @@ function openForceSheet(forceData) {
 
   const platoonSections = platoonArr.map((platoon, pi) => {
     const teams = toArr(platoon.teams);
-    const label = htmlEscape(platoon.name || `Platoon ${pi + 1}`);
+    const label = esc(platoon.name || `Platoon ${pi + 1}`);
     const numStr = String(pi + 1).padStart(2, '0');
     const platoonQ = platoon.quality || null;
     const qDiffers = platoonQ && platoonQ !== forceQ;
@@ -8820,6 +8896,23 @@ if (isPreviewMode) enterGuestMode();
   }
 
   window.addEventListener('scroll', handle, { passive: true });
+
+  // Also watch .main (units page scrolls internally, not via window)
+  const mainEl = document.querySelector('main.main');
+  if (mainEl) {
+    mainEl.addEventListener('scroll', function () {
+      if (window.innerWidth > 860) return;
+      const y = mainEl.scrollTop;
+      const prev = lastY.has(mainEl) ? lastY.get(mainEl) : y;
+      const delta = y - prev;
+      lastY.set(mainEl, y);
+      if (delta > 6 && y > 80) {
+        if (!hidden) { header.classList.add('header-hidden'); hidden = true; }
+      } else if (delta < -2 || y < 10) {
+        if (hidden) { header.classList.remove('header-hidden'); hidden = false; }
+      }
+    }, { passive: true });
+  }
 
   // Always restore on resize back to desktop
   window.addEventListener('resize', () => {
@@ -10543,9 +10636,6 @@ function addPlatoonFromOrbat(formationId, platoonId, tier) {
 
   // Auto-populate force metadata on very first add
   if (!orgLockedFormation) {
-    const ORBAT_FORCE_TYPE = {
-      'us-rifle-co-normandy-1944': 'Infantry',
-    };
     const nameEl = document.getElementById('force-name');
     if (!nameEl.value.trim()) nameEl.value = f.name;
     if (!forceYear) {
@@ -10556,7 +10646,7 @@ function addPlatoonFromOrbat(formationId, platoonId, tier) {
       }
     }
     setForceQuality('Regular');
-    const fType = ORBAT_FORCE_TYPE[formationId];
+    const fType = FORCE_TYPE_MAP[formationId];
     if (fType) { forceType = null; setForceType(fType); }
   }
 
@@ -10749,27 +10839,6 @@ function addPlatoonToOrgBuilder(formationId, platoonId, tier) {
 
   // Auto-populate force metadata on the very first org platoon added
   if (!orgLockedFormation) {
-    const ORG_FORCE_TYPE = {
-      'us-rifle-company':            'Infantry',
-      'us-airborne-company':         'Parachute',
-      'us-armored-infantry-company': 'Mechanized',
-      'us-tank-company':             'Armored',
-      'de-grenadier-company':        'Infantry',
-      'de-fallschirmjager-company':  'Airborne',
-      'de-panzergrenadier-company':  'Mechanized',
-      'de-panzer-company':           'Armored',
-      'de-heavy-panzer-company':     'Armored',
-      'sv-strelkovy-company':        'Infantry',
-      'sv-guards-rifle-company':     'Infantry',
-      'sv-tankovy-company':          'Armored',
-      'sv-isu-company':              'Armored',
-      'sv-heavy-tank-company':       'Armored',
-      'br-rifle-company':            'Infantry',
-      'br-airborne-company':         'Airborne',
-      'br-motor-company':            'Mechanized',
-      'br-armoured-squadron':        'Armored',
-      'br-churchill-squadron':       'Armored',
-    };
     // Name
     const nameEl = document.getElementById('force-name');
     if (!nameEl.value.trim()) nameEl.value = f.name;
@@ -10784,7 +10853,7 @@ function addPlatoonToOrgBuilder(formationId, platoonId, tier) {
     // Quality — default Regular
     setForceQuality('Regular');
     // Force type
-    const fType = ORG_FORCE_TYPE[formationId];
+    const fType = FORCE_TYPE_MAP[formationId];
     if (fType) { forceType = null; setForceType(fType); } // reset first so toggle lands correctly
   }
 
@@ -10804,6 +10873,8 @@ function addPlatoonToOrgBuilder(formationId, platoonId, tier) {
 function esc(str) {
   return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
+
+let rankSortable = null;
 
 let fppState = {
   step: 'setup',
@@ -11115,7 +11186,8 @@ function renderFPPRank(body, player) {
   `;
   const list = document.getElementById('fpp-rank-list');
   if (list) {
-    Sortable.create(list, {
+    if (rankSortable) { rankSortable.destroy(); rankSortable = null; }
+    rankSortable = Sortable.create(list, {
       animation: 150,
       handle: '.fpp-rank-handle',
       onEnd() {
@@ -11347,12 +11419,16 @@ function renderGame() {
   `;
 }
 
+function bpBarColor(pct) {
+  return pct < 50 ? '#6b9b6b' : pct < 80 ? '#c9a227' : '#c94444';
+}
+
 function renderGamePanel(player, sideClass) {
   const g    = gameMode[player];
   const role = gameMode.attacker === player ? 'attacker' : 'defender';
   const broken   = g.bp >= g.bl;
   const pct      = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
-  const barColor = pct < 50 ? '#6b9b6b' : pct < 80 ? '#c9a227' : '#c94444';
+  const barColor = bpBarColor(pct);
   const chipsHTML = g.rolls.map(r => `<span class="game-draw-chip bp-${r}">${r} BP</span>`).join('');
   const lastRollInner = g.rolls.length
     ? (() => { const dice = g.dieRolls[g.dieRolls.length-1]; const bp = g.rolls[g.rolls.length-1]; return `${dice.map(d=>`<span class="die">🎲 ${d}</span>`).join(' + ')} &rarr; <span class="bp">${bp} BP</span>`; })()
@@ -11377,7 +11453,7 @@ function renderGamePanel(player, sideClass) {
         ${trig('Destroyed  <span class="trigger-sub">(was still above half)</span>', 2)}
       </div>
       <div class="game-trigger-group">
-        <div class="game-trigger-group-label">End of Turn</div>
+        <div class="game-trigger-group-label">End of Round</div>
         ${endOfTurn}
       </div>
 
@@ -11472,7 +11548,7 @@ function triggerBP(player, numRolls) {
     const histEl  = section.querySelector('.game-draws-history');
     const nowBroken = g.bp >= g.bl;
     const pct = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
-    const barColor = pct < 50 ? '#6b9b6b' : pct < 80 ? '#c9a227' : '#c94444';
+    const barColor = bpBarColor(pct);
     if (scoreEl) { scoreEl.textContent = `${g.bp} / ${g.bl}`; scoreEl.classList.toggle('game-bp-broken', nowBroken); }
     if (fillEl)  { fillEl.style.width = pct + '%'; fillEl.style.background = barColor; }
     if (histEl)  histEl.innerHTML = g.rolls.map(r => `<span class="game-draw-chip bp-${r}">${r} BP</span>`).join('');
@@ -11549,7 +11625,7 @@ function rollBP(player) {
     const histEl  = section.querySelector('.game-draws-history');
     const nowBroken = g.bp >= g.bl;
     const pct = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
-    const barColor = pct < 50 ? '#6b9b6b' : pct < 80 ? '#c9a227' : '#c94444';
+    const barColor = bpBarColor(pct);
     if (scoreEl) { scoreEl.textContent = `${g.bp} / ${g.bl}`; scoreEl.classList.toggle('game-bp-broken', nowBroken); }
     if (fillEl)  { fillEl.style.width = pct + '%'; fillEl.style.background = barColor; }
     if (histEl)  histEl.innerHTML = g.rolls.map(r => `<span class="game-draw-chip bp-${r}">${r} BP</span>`).join('');
@@ -11632,7 +11708,7 @@ function undoLastRoll(player) {
     const histEl  = section.querySelector('.game-draws-history');
     const stillBroken = g.bp >= g.bl;
     const pct = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
-    const barColor = pct < 50 ? '#6b9b6b' : pct < 80 ? '#c9a227' : '#c94444';
+    const barColor = bpBarColor(pct);
     if (scoreEl) { scoreEl.textContent = `${g.bp} / ${g.bl}`; scoreEl.classList.toggle('game-bp-broken', stillBroken); }
     if (fillEl)  { fillEl.style.width = pct + '%'; fillEl.style.background = barColor; }
     if (histEl)  histEl.innerHTML = g.rolls.map(r => `<span class="game-draw-chip bp-${r}">${r} BP</span>`).join('');

@@ -984,7 +984,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Willys_MB"
+      "wiki": "Willys_MB",
+      "recon": true
     },
     {
       "id": "us-transport-dodge",
@@ -1723,7 +1724,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "M8_Greyhound"
+      "wiki": "M8_Greyhound",
+      "recon": true
     },
     {
       "id": "us-ac-m20",
@@ -1760,7 +1762,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "M20_armored_utility_car"
+      "wiki": "M20_armored_utility_car",
+      "recon": true
     },
     {
       "id": "us-spa-m7-priest",
@@ -3767,7 +3770,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Sd.Kfz._222"
+      "wiki": "Sd.Kfz._222",
+      "recon": true
     },
     {
       "id": "de-ac-sdkfz231",
@@ -3805,7 +3809,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Sd.Kfz._231_(6-rad)"
+      "wiki": "Sd.Kfz._231_(6-rad)",
+      "recon": true
     },
     {
       "id": "de-ac-sdkfz250",
@@ -3841,7 +3846,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Sd.Kfz._250"
+      "wiki": "Sd.Kfz._250",
+      "recon": true
     },
     {
       "id": "de-ac-puma",
@@ -3875,7 +3881,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Sd.Kfz._234"
+      "wiki": "Sd.Kfz._234",
+      "recon": true
     },
     {
       "id": "de-transport-sdkfz251",
@@ -5184,7 +5191,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Daimler_armoured_car"
+      "wiki": "Daimler_armoured_car",
+      "recon": true
     },
     {
       "id": "br-ac-m20",
@@ -5219,7 +5227,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "M20_armored_utility_car"
+      "wiki": "M20_armored_utility_car",
+      "recon": true
     },
     {
       "id": "br-ac-humber23",
@@ -5257,7 +5266,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Humber_armoured_car"
+      "wiki": "Humber_armoured_car",
+      "recon": true
     },
     {
       "id": "br-ac-humber4",
@@ -5293,7 +5303,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Humber_armoured_car"
+      "wiki": "Humber_armoured_car",
+      "recon": true
     },
     {
       "id": "br-ac-aec1",
@@ -5333,7 +5344,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "AEC_Armoured_Car"
+      "wiki": "AEC_Armoured_Car",
+      "recon": true
     },
     {
       "id": "br-ac-aec3",
@@ -5413,7 +5425,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Universal_Carrier"
+      "wiki": "Universal_Carrier",
+      "recon": true
     },
     {
       "id": "br-recon-universal-carrier-boys",
@@ -5453,7 +5466,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Universal_Carrier"
+      "wiki": "Universal_Carrier",
+      "recon": true
     },
     {
       "id": "br-recon-universal-carrier-piat",
@@ -5490,7 +5504,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Universal_Carrier"
+      "wiki": "Universal_Carrier",
+      "recon": true
     },
     {
       "id": "br-recon-universal-carrier-mg",
@@ -5527,7 +5542,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Universal_Carrier"
+      "wiki": "Universal_Carrier",
+      "recon": true
     },
     {
       "id": "br-recon-indian-carrier",
@@ -5565,7 +5581,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Universal_Carrier"
+      "wiki": "Universal_Carrier",
+      "recon": true
     },
     {
       "id": "br-recon-daimler-dingo",
@@ -5604,7 +5621,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Daimler_Dingo"
+      "wiki": "Daimler_Dingo",
+      "recon": true
     },
     {
       "id": "br-recon-humber-lrc",
@@ -5643,7 +5661,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Humber_Light_Reconnaissance_Car"
+      "wiki": "Humber_Light_Reconnaissance_Car",
+      "recon": true
     },
     {
       "id": "br-recon-otter-lrc",
@@ -5681,7 +5700,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Otter_Light_Reconnaissance_Car"
+      "wiki": "Otter_Light_Reconnaissance_Car",
+      "recon": true
     },
     {
       "id": "br-spaa-bofors-sp",
@@ -7064,7 +7084,8 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "BA-64"
+      "wiki": "BA-64",
+      "recon": true
     },
     {
       "id": "sv-transport-ford-gpa",
