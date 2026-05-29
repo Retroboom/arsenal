@@ -36,6 +36,8 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html { overflow-x: hidden; }
+
   body {
     margin: 0;
     padding: 0;
@@ -3836,6 +3838,13 @@
     /* Main: less padding, extra bottom clearance for fp-bar */
     .main { padding: 14px; padding-bottom: calc(52px + 14px); }
     body.panel-open .main { padding-right: 14px; padding-bottom: 14px; } /* force panel overlays, no push */
+
+    /* Let .main flow at natural height so the document scrolls and iOS Safari
+       can auto-hide the address bar. overflow:visible removes the element-level
+       scroll container — html/body overflow-x:hidden still clips horizontal overflow. */
+    .main { height: auto; overflow: visible; }
+    /* header-hidden state sets height:100vh on .main — reset it on mobile */
+    body:has(header.header-hidden) .main { margin-top: 0; height: auto; }
 
     /* Force panel: full width, slides up from bottom */
     .force-panel {
