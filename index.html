@@ -3034,6 +3034,26 @@
     display: block;
   }
 
+  /* fp-config: wraps quality / type-year / notes as a collapsible block */
+  .fp-config {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* TYPE label inside the type-year row */
+  .force-type-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--text3);
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  /* Overflow toggle button (hidden on desktop) */
+  #fp-more-btn { display: none; }
+
   .copy-btn {
     background: none;
     border: 1px solid var(--border);
@@ -3831,6 +3851,88 @@
 
     /* Filter chips: bigger for touch */
     .chip { font-size: 12px; padding: 7px 10px; }
+
+    /* Hide header Force Builder button — fp-bar handles it on mobile */
+    .force-toggle-btn { display: none; }
+
+    /* Force Library: stack vertically instead of a two-column grid */
+    #section-library.active,
+    #section-library.active.lib-filters-collapsed {
+      display: flex;
+      flex-direction: column;
+    }
+    #section-library .lib-sidebar {
+      position: static;
+      height: auto;
+      overflow: visible;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+      flex-shrink: 0;
+    }
+    #section-library .lib-main { flex: 1; min-height: 0; }
+    #section-library .lib-sidebar-header {
+      padding: 10px 16px;
+      margin-bottom: 0;
+      padding-bottom: 10px;
+      border-bottom: none;
+    }
+    #section-library .lib-filters-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.28s ease;
+      padding: 0 16px;
+    }
+    #section-library:not(.lib-filters-collapsed) .lib-filters-body {
+      max-height: 800px;
+      padding: 4px 16px 12px;
+    }
+    #section-library.lib-filters-collapsed .lib-sidebar { overflow: visible; }
+    #section-library.lib-filters-collapsed .lib-sidebar-title { display: block; }
+    #section-library.lib-filters-collapsed .lib-sidebar-header {
+      justify-content: space-between;
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    /* Force Builder: platoon list visible above config details */
+    .fp-config { order: 10; flex-shrink: 0; }
+    .force-summary { order: 11; }
+
+    /* Action bar on mobile: show only Save + Print + overflow toggle */
+    #fp-more-btn { display: block; }
+    .force-actions .action-secondary { display: none; }
+    .force-actions.more-open .action-secondary { display: block; }
+    .force-actions.more-open { flex-wrap: wrap; }
+    .force-actions.more-open .action-secondary { flex: 1 1 calc(50% - 6px); }
+    .force-actions.more-open #fp-more-btn { color: var(--accent); border-color: var(--accent); }
+
+    /* Remove view-label text on mobile (sidebar count covers it) */
+    .view-label { display: none; }
+
+    /* Compact single-row header on mobile */
+    :root { --header-h: 52px; }
+    header {
+      flex-wrap: nowrap;
+      padding: 0 12px;
+      min-height: 52px;
+      gap: 8px;
+    }
+    .header-nav {
+      order: 0;
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0;
+      border-top: none;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .header-nav::-webkit-scrollbar { display: none; }
+    .header-nav-tab { font-size: 10px; padding: 5px 10px; flex-shrink: 0; }
+    .header-actions { margin-left: 0; flex-shrink: 0; }
+    /* Compact logo: image only, text hidden */
+    .logo-img { height: 30px; }
+    .logo span { display: none; }
   }
 
   @media print {
@@ -4083,15 +4185,16 @@
     color: var(--text3);
     font-family: var(--mono);
     font-size: 11px;
-    letter-spacing: 0.5px;
-    width: 18px;
-    height: 18px;
+    letter-spacing: 0;
+    width: 22px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.1s;
     padding: 0;
+    font-weight: 600;
   }
   .pq-chip:hover { border-color: var(--text2); color: var(--text2); }
   .pq-chip.pq-elite   { border-color: var(--accent); color: var(--accent); background: rgba(224,192,96,0.1); }
@@ -4775,30 +4878,33 @@
     <button class="close-panel-btn" onclick="toggleForcePanel()">✕</button>
   </div>
   <input type="text" class="force-name-input" id="force-name" placeholder="Name your force...">
-  <div class="quality-bar">
-    <span class="quality-label">Quality</span>
-    <div class="quality-chips">
-      <button class="quality-chip q-elite"   data-quality="Elite"   onclick="setForceQuality('Elite')"  >★ Elite</button>
-      <button class="quality-chip q-regular active" data-quality="Regular" onclick="setForceQuality('Regular')">● Regular</button>
-      <button class="quality-chip q-poor"    data-quality="Poor"    onclick="setForceQuality('Poor')"  >▼ Poor</button>
+  <div class="fp-config">
+    <div class="quality-bar">
+      <span class="quality-label">Quality</span>
+      <div class="quality-chips">
+        <button class="quality-chip q-elite"   data-quality="Elite"   onclick="setForceQuality('Elite')"  >★ Elite</button>
+        <button class="quality-chip q-regular active" data-quality="Regular" onclick="setForceQuality('Regular')">● Regular</button>
+        <button class="quality-chip q-poor"    data-quality="Poor"    onclick="setForceQuality('Poor')"  >▼ Poor</button>
+      </div>
     </div>
-  </div>
-  <div class="type-year-row">
-    <select class="force-year-select" id="force-year" onchange="forceYear = this.value ? parseInt(this.value) : null">
-      <option value="">-- Year --</option>
-      <option>1939</option><option>1940</option><option>1941</option>
-      <option>1942</option><option>1943</option><option>1944</option><option>1945</option>
-    </select>
-    <div class="force-type-chips">
-      <button class="force-type-chip" data-type="Infantry"   onclick="setForceType('Infantry')"  >Infantry</button>
-      <button class="force-type-chip" data-type="Mechanized" onclick="setForceType('Mechanized')">Mechanized</button>
-      <button class="force-type-chip" data-type="Armored"    onclick="setForceType('Armored')"   >Armored</button>
-      <button class="force-type-chip" data-type="Airborne"   onclick="setForceType('Airborne')"  >Airborne</button>
+    <div class="type-year-row">
+      <select class="force-year-select" id="force-year" onchange="forceYear = this.value ? parseInt(this.value) : null">
+        <option value="">-- Year --</option>
+        <option>1939</option><option>1940</option><option>1941</option>
+        <option>1942</option><option>1943</option><option>1944</option><option>1945</option>
+      </select>
+      <div class="force-type-chips">
+        <span class="force-type-label">Type</span>
+        <button class="force-type-chip" data-type="Infantry"   onclick="setForceType('Infantry')"  >Infantry</button>
+        <button class="force-type-chip" data-type="Mechanized" onclick="setForceType('Mechanized')">Mechanized</button>
+        <button class="force-type-chip" data-type="Armored"    onclick="setForceType('Armored')"   >Armored</button>
+        <button class="force-type-chip" data-type="Airborne"   onclick="setForceType('Airborne')"  >Airborne</button>
+      </div>
     </div>
-  </div>
-  <div class="force-notes-area">
-    <span class="force-notes-label">Force Notes</span>
-    <textarea class="force-notes-input" id="force-notes" placeholder="History, composition, playstyle, context. Anything you want to share..."></textarea>
+    <div class="force-notes-area">
+      <span class="force-notes-label">Force Notes</span>
+      <textarea class="force-notes-input" id="force-notes" placeholder="History, composition, playstyle, context…"></textarea>
+    </div>
   </div>
   <div class="platoon-list" id="platoon-list">
     <div class="onboard-empty" id="platoon-empty">
@@ -4839,9 +4945,10 @@
     <div class="force-actions">
       <button class="action-btn primary" onclick="saveForce()">Save</button>
       <button class="action-btn" onclick="openCurrentForceSheet()">Print</button>
-      <button class="action-btn" onclick="copyFppShareLink()">Share</button>
-      <button class="action-btn" onclick="publishForce()">Publish</button>
-      <button class="action-btn danger" onclick="clearForce()">Clear</button>
+      <button class="action-btn action-secondary" onclick="copyFppShareLink()">Share</button>
+      <button class="action-btn action-secondary" onclick="publishForce()">Publish</button>
+      <button class="action-btn danger action-secondary" onclick="clearForce()">Clear</button>
+      <button class="action-btn" id="fp-more-btn" onclick="toggleFpMore()" title="More actions">···</button>
       <button class="action-btn" id="hof-publish-btn" onclick="publishAsHoF()" style="display:none" title="Publish as an official Hail of Fire example force">HoF</button>
     </div>
   </div>
@@ -5009,7 +5116,18 @@ function setSection(name) {
   document.querySelectorAll('.units-only').forEach(el => {
     el.style.display = name === 'units' ? '' : 'none';
   });
-  if (name === 'library') switchLibTab(currentLibTab || 'browse');
+  if (name === 'library') {
+    // On mobile, default to filters collapsed so content is immediately visible
+    if (window.innerWidth <= 860) {
+      const sec = document.getElementById('section-library');
+      if (!sec.classList.contains('lib-filters-collapsed')) {
+        sec.classList.add('lib-filters-collapsed');
+        const btn = document.getElementById('lib-filter-toggle');
+        if (btn) { btn.textContent = '›'; btn.title = 'Expand filters'; }
+      }
+    }
+    switchLibTab(currentLibTab || 'browse');
+  }
   if (name === 'fieldmanual') loadFieldManual();
 }
 
@@ -5387,16 +5505,18 @@ function renderGrid(container, forceIds, animate = true) {
             ${unit.armament ? `<div class="card-armament">${wrapArmamentMGs(unit.armament)}</div>` : ''}
             <div class="type-badge" data-type="${unit.type}">${unit.type}</div>
           </div>
-          <div class="card-stats">
-            ${statCell('Range', statDisplay(unit.gun_range))}
-            ${statCell('RoF',   statDisplay(unit.rof))}
-            ${statCell('AT',    statDisplay(unit.at))}
-            ${statCell('FP',    statDisplay(unit.fp))}
-            ${statCell('Armor', unit.armor_front !== null
-              ? `<span class="stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`
-              : `<span class="stat-value null-val">-</span>`
-            )}
-          </div>
+          ${(() => {
+            const defs = [
+              ['Range', unit.gun_range !== null && unit.gun_range !== undefined, statDisplay(unit.gun_range)],
+              ['RoF',   unit.rof   !== null && unit.rof   !== undefined, statDisplay(unit.rof)],
+              ['AT',    unit.at    !== null && unit.at    !== undefined, statDisplay(unit.at)],
+              ['FP',    unit.fp    !== null && unit.fp    !== undefined, statDisplay(unit.fp)],
+              ['Armor', unit.armor_front !== null && unit.armor_front !== undefined,
+                `<span class="stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`],
+            ].filter(d => d[1]);
+            if (!defs.length) return '';
+            return `<div class="card-stats" style="grid-template-columns:repeat(${defs.length},1fr)">${defs.map(d => statCell(d[0], d[2])).join('')}</div>`;
+          })()}
           <div class="card-notes">
             ${unit.notes.map(n => noteTag(n)).join('')}
           </div>
@@ -5536,7 +5656,7 @@ function renderTable(container, forceIds) {
           <td>
             <div class="stacked-header">
               <span class="table-name">${unit.name}</span>
-              <span class="${nationBadgeClass(unit.nation)}" style="font-size:9px;padding:2px 5px;">${unit.nation}</span>
+              <span class="${nationBadgeClass(unit.nation)}" style="font-size:11px;padding:2px 5px;">${unit.nation}</span>
               <span class="stacked-type">${unit.type}</span>
             </div>
           </td>
@@ -5556,7 +5676,7 @@ function renderTable(container, forceIds) {
     return `
       <tr class="${ic}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
         <td><span class="table-name">${unit.name}</span></td>
-        <td><span class="${nationBadgeClass(unit.nation)}" style="font-size:9px;padding:2px 5px;">${unit.nation}</span></td>
+        <td><span class="${nationBadgeClass(unit.nation)}" style="font-size:11px;padding:2px 5px;">${unit.nation}</span></td>
         <td style="color:var(--text3);font-size:10px;letter-spacing:0.5px">${unit.type}</td>
         <td class="table-stat ${unit.gun_range ? '' : 'null'}">${unit.gun_range || '-'}</td>
         <td class="table-stat ${unit.rof !== null ? '' : 'null'}">${unit.rof !== null ? unit.rof : '-'}</td>
@@ -6700,6 +6820,10 @@ function toggleLibFilters() {
   const collapsed = sec.classList.toggle('lib-filters-collapsed');
   btn.textContent = collapsed ? '›' : '‹';
   btn.title = collapsed ? 'Expand filters' : 'Collapse filters';
+}
+
+function toggleFpMore() {
+  document.querySelector('.force-actions').classList.toggle('more-open');
 }
 
 function clearLibFilters() {
