@@ -3869,6 +3869,8 @@
       border-bottom: 1px solid var(--border);
       padding: 0;
       flex-shrink: 0;
+      width: 100%;
+      box-sizing: border-box;
     }
     #section-library .lib-main { flex: 1; min-height: 0; }
     #section-library .lib-sidebar-header {
@@ -3933,6 +3935,13 @@
     /* Compact logo: image only, text hidden */
     .logo-img { height: 30px; }
     .logo span { display: none; }
+    /* Auth area: hide display name on mobile, keep only avatar + sign-out */
+    .auth-user > span { display: none; }
+  }
+
+  /* Suppress tooltip on touch devices (iOS fires mouseover on tap, misplacing it) */
+  @media (hover: none) and (pointer: coarse) {
+    .global-tooltip { display: none !important; }
   }
 
   @media print {
