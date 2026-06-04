@@ -3837,6 +3837,16 @@
 
     /* Sidebar: always show as 36px strip; expanded state overlays content */
     .app, .app.sidebar-collapsed { grid-template-columns: 36px 1fr; }
+    /* Collapsed strip: pin to viewport so the toggle is always reachable while
+       scrolling (sticky doesn't reliably hold with document-level scroll on iOS). */
+    .app.sidebar-collapsed .sidebar {
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      width: 36px;
+      height: calc(100vh - var(--header-h));
+      z-index: 50;
+    }
     .app:not(.sidebar-collapsed) .sidebar {
       position: fixed;
       top: var(--header-h);
