@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Tell iOS Safari (incl. iOS 18 Liquid Glass) and Chrome to paint the address
+     bar / status bar area in the app background color instead of showing the
+     page rubber-band through it. -->
+<meta name="theme-color" content="#090909">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Hail of Fire // Arsenal</title>
 <link rel="icon" type="image/png" href="rb.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,8 +44,10 @@
   /* overflow-x:clip prevents horizontal page overflow without creating a scroll
      container — using `hidden` here makes the body a scroll context which breaks
      position:sticky on descendants (sticky elements would scroll with body's
-     content rather than stick to the viewport). */
-  html { overflow-x: clip; }
+     content rather than stick to the viewport). overscroll-behavior:none stops
+     iOS Safari from showing the page rubber-band past the top/bottom of scroll
+     (visible under the Liquid Glass address bar in iOS 18). */
+  html { overflow-x: clip; overscroll-behavior: none; background: var(--bg); }
 
   body {
     margin: 0;
@@ -50,6 +57,7 @@
     font-family: var(--body);
     min-height: 100vh;
     overflow-x: clip;
+    overscroll-behavior: none;
   }
 
   /* Fine-grain film noise — high baseFrequency avoids low-freq banding */
