@@ -4549,7 +4549,17 @@
   }
   body.game-open .main { overflow: hidden; }
   .game-body { display: flex; flex-direction: column; padding: 16px; max-width: 860px; margin: 0 auto; width: 100%; }
-  .game-header { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 0; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .game-header { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 0 6px; }
+  .game-refresh-note {
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--text3);
+    padding: 0 12px 14px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
   .game-title { font-family: var(--display); font-size: 16px; letter-spacing: 0.1em; color: var(--accent); }
   .game-close-btn, .game-minimize-btn {
     background: none;
@@ -11824,6 +11834,7 @@ function renderGame() {
       <button class="game-minimize-btn" onclick="minimizeGame()">↓ Minimize</button>
       <button class="game-close-btn" onclick="endGame()">End Game</button>
     </div>
+    <div class="game-refresh-note">Progress is saved automatically — safe to refresh.</div>
     <div class="game-panels">
       ${renderGamePanel(first,  first  === 'a' ? 'gp-allied' : 'gp-axis')}
       ${renderGamePanel(second, second === 'a' ? 'gp-allied' : 'gp-axis')}
