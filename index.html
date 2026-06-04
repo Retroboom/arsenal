@@ -4537,10 +4537,21 @@
   .game-body { display: flex; flex-direction: column; padding: 16px; max-width: 860px; margin: 0 auto; width: 100%; }
   .game-header { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 0; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
   .game-title { font-family: var(--display); font-size: 16px; letter-spacing: 0.1em; color: var(--accent); }
-  .game-close-btn { background: none; border: 1px solid var(--border); border-radius: 4px; padding: 6px 14px; color: var(--text2); font-size: 12px; cursor: pointer; font-family: var(--mono); }
-  .game-close-btn:hover { border-color: var(--text2); color: var(--text1); }
-  .game-minimize-btn { display: none; background: none; border: 1px solid var(--border); border-radius: 4px; padding: 6px 14px; color: var(--text2); font-size: 12px; cursor: pointer; font-family: var(--mono); letter-spacing: 0.05em; }
-  .game-minimize-btn:hover { border-color: var(--text2); color: var(--text1); }
+  .game-close-btn, .game-minimize-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 9px 18px;
+    color: var(--text2);
+    font-size: 13px;
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    min-width: 140px;
+    text-align: center;
+  }
+  .game-close-btn:hover, .game-minimize-btn:hover { border-color: var(--text2); color: var(--text1); }
+  .game-minimize-btn { display: none; }
   /* Floating resume button — appears when tracker is minimized */
   #game-resume-float {
     display: none;
@@ -4570,7 +4581,6 @@
     .game-panel { padding: 14px 12px; }
     .game-player-name { font-size: 20px; }
     .game-trigger-btn { padding: 11px 10px; font-size: 13px; margin-bottom: 5px; }
-    .game-close-btn { padding: 10px 16px; }
     .game-minimize-btn { display: block; }
   }
   /* Individual panel */
