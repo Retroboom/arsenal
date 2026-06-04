@@ -3898,6 +3898,8 @@
     .fp-bar-sep { color: var(--border); }
     .fp-bar-chevron { color: var(--text3); font-size: 11px; }
     body.panel-open .fp-bar { display: none; }
+    /* Hide the bar entirely when the builder is empty — JS toggles .fp-bar-empty */
+    .fp-bar.fp-bar-empty { display: none; }
 
     /* Filter chips: bigger for touch */
     .chip { font-size: 12px; padding: 7px 10px; }
@@ -6635,6 +6637,9 @@ function updateForceUI() {
   const barBL = document.getElementById('fp-bar-bl');
   if (barPlatoons) barPlatoons.textContent = count;
   if (barBL) barBL.textContent = breakLimit;
+  // Hide the mobile fp-bar entirely when the builder is empty — nothing to view.
+  const fpBar = document.getElementById('fp-bar');
+  if (fpBar) fpBar.classList.toggle('fp-bar-empty', count === 0);
 
   const hasTiers = platoons.some(p => p.tier);
   const tracker = document.getElementById('org-slot-tracker');
