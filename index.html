@@ -7278,7 +7278,7 @@ function openUnitDetail(unitId) {
   document.getElementById('udp-badges').innerHTML = `
     <span class="${nationBadgeClass(unit.nation)}">${unit.nation}</span>
     <span class="type-badge" data-type="${unit.type}" style="font-size:10px;letter-spacing:1px">${unit.type}</span>
-    <span class="type-badge" style="font-size:10px">${unit.base || 'Medium'} Base</span>
+    <span class="type-badge" style="font-size:10px">${unit.base === 'Vehicle' ? 'Vehicle' : `${unit.base || 'Medium'} Base`}</span>
   `;
 
   // Lore
