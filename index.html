@@ -4534,6 +4534,9 @@
 
   /* ── GAME OVERLAY ──────────────────────────────────────────────────────────── */
   .game-overlay { position: fixed; inset: var(--header-h) 0 0 0; background: var(--bg); z-index: 99; flex-direction: column; overflow-y: auto; }
+  /* Lock background scroll while the tracker overlay is visible. Minimizing
+     removes the class so the underlying page can scroll normally again. */
+  body.game-open { overflow: hidden; touch-action: none; }
   .game-body { display: flex; flex-direction: column; padding: 16px; max-width: 860px; margin: 0 auto; width: 100%; }
   .game-header { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 0; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
   .game-title { font-family: var(--display); font-size: 16px; letter-spacing: 0.1em; color: var(--accent); }
@@ -11771,13 +11774,20 @@ function renderFPPResult(body) {
 
 // ── GAME MODE ─────────────────────────────────────────────────────────────────
 
+// Show/hide the tracker overlay. When shown, lock the body so background
+// content doesn't scroll behind it. When minimized or ended, restore scroll.
+function setGameOverlayVisible(visible) {
+  document.getElementById('game-overlay').style.display = visible ? 'flex' : 'none';
+  document.body.classList.toggle('game-open', visible);
+}
+
 function startGame() {
   gameMode.a        = { name: fppState.a.name, bp: 0, bl: fppState.finalBL.a, scoreVisible: false, rolls: [], dieRolls: [], lastRoll: null };
   gameMode.b        = { name: fppState.b.name, bp: 0, bl: fppState.finalBL.b, scoreVisible: false, rolls: [], dieRolls: [], lastRoll: null };
   gameMode.attacker = fppState.attacker || null;
   gameMode.active   = true;
   saveGameState();
-  document.getElementById('game-overlay').style.display = 'flex';
+  setGameOverlayVisible(true);
   renderGame();
 }
 
@@ -11800,12 +11810,12 @@ function renderGame() {
 }
 
 function minimizeGame() {
-  document.getElementById('game-overlay').style.display = 'none';
+  setGameOverlayVisible(false);
   document.getElementById('game-resume-float').style.display = 'block';
 }
 
 function resumeGame() {
-  document.getElementById('game-overlay').style.display = 'flex';
+  setGameOverlayVisible(true);
   document.getElementById('game-resume-float').style.display = 'none';
 }
 
@@ -12159,7 +12169,7 @@ function restoreGameState() {
     const state = JSON.parse(saved);
     if (!state?.active) return;
     Object.assign(gameMode, state);
-    document.getElementById('game-overlay').style.display = 'flex';
+    setGameOverlayVisible(true);
     renderGame();
     showToast('Game restored after reload.', 'success');
   } catch(e) {}
@@ -12168,7 +12178,8 @@ function restoreGameState() {
 function endGame() {
   gameMode.active = false;
   clearGameState();
-  document.getElementById('game-overlay').style.display = 'none';
+  setGameOverlayVisible(false);
+  document.getElementById('game-resume-float').style.display = 'none';
 }
 
 // ── QUICK TRACKER (Field Manual shortcut) ─────────────────────────────────────
@@ -12195,7 +12206,7 @@ function launchQuickTracker() {
   gameMode.a = { name: nameA, bp: 0, bl: blA, scoreVisible: false, rolls: [], dieRolls: [], lastDie: null, lastRoll: null };
   gameMode.b = { name: nameB, bp: 0, bl: blB, scoreVisible: false, rolls: [], dieRolls: [], lastDie: null, lastRoll: null };
   gameMode.active = true;
-  document.getElementById('game-overlay').style.display = 'flex';
+  setGameOverlayVisible(true);
   renderGame();
 }
 
