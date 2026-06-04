@@ -1044,6 +1044,7 @@
     white-space: nowrap;
   }
   .start-game-btn:hover { background: var(--accent); color: var(--bg); }
+  .start-game-btn .sg-short { display: none; }
 
   .force-count-badge {
     background: var(--accent);
@@ -3955,8 +3956,10 @@
 
     /* Hide header Force Builder button — fp-bar handles it on mobile */
     .force-toggle-btn { display: none; }
-    /* Compact Start Game button on mobile header */
+    /* Compact Start Game button on mobile header — shorten label too */
     .start-game-btn { padding: 5px 9px; font-size: 10px; letter-spacing: 0.5px; }
+    .start-game-btn .sg-long  { display: none; }
+    .start-game-btn .sg-short { display: inline; }
 
     /* Force Library: stack vertically instead of a two-column grid */
     #section-library.active,
@@ -4781,7 +4784,8 @@
   </nav>
   <div class="header-actions">
     <button class="start-game-btn" onclick="setSection('fpp')" title="Compare forces and launch the Break Point tracker">
-      ▶ Start Game
+      <span class="sg-long">▶ Start Game</span>
+      <span class="sg-short">▶ Play</span>
     </button>
     <!-- Force Builder count badge kept (hidden) for backward compatibility with existing UI code -->
     <span id="force-count" style="display:none">0</span>
