@@ -3078,6 +3078,12 @@
     display: flex;
     flex-direction: column;
   }
+  /* fp-config toggle row: hidden on desktop, shown on mobile */
+  .fp-config-toggle { display: none; }
+  .fp-config-body { display: flex; flex-direction: column; }
+
+  /* Compact inline summary row: hidden on desktop, shown on mobile */
+  .force-summary-inline { display: none; }
 
   /* TYPE label inside the type-year row */
   .force-type-label {
@@ -3945,6 +3951,58 @@
     /* Force Builder: platoon list visible above config details */
     .fp-config { order: 10; flex-shrink: 0; }
     .force-summary { order: 11; }
+
+    /* Tighter Force Builder header on mobile */
+    .force-panel-header { padding: 8px 14px; }
+    .force-panel-title { font-size: 16px; letter-spacing: 1.5px; }
+    .force-name-input { padding: 7px 14px; font-size: 11px; }
+
+    /* Show fp-config toggle row; hide body unless expanded */
+    .fp-config-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: var(--bg2);
+      border: none;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      color: var(--text2);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      padding: 9px 14px;
+      cursor: pointer;
+      text-align: left;
+    }
+    .fp-config-summary { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .fp-config-chev { color: var(--text3); font-size: 11px; transition: transform 0.2s; margin-left: 8px; }
+    .fp-config.expanded .fp-config-chev { transform: rotate(180deg); }
+    .fp-config-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.28s ease;
+    }
+    .fp-config.expanded .fp-config-body {
+      max-height: 600px;
+    }
+
+    /* Hide the big stacked summary; show compact inline row instead */
+    .force-summary-grid { display: none; }
+    .force-summary-inline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 6px 0 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      color: var(--text3);
+    }
+    .force-summary-inline .fsi-num { color: var(--accent); font-weight: 600; }
+    .force-summary-inline .fsi-sep { color: var(--border); }
+    .force-summary { padding: 4px 14px 8px; }
 
     /* Action bar on mobile: show only Save + Print + overflow toggle */
     #fp-more-btn { display: block; }
@@ -4959,31 +5017,37 @@
   </div>
   <input type="text" class="force-name-input" id="force-name" placeholder="Name your force...">
   <div class="fp-config">
-    <div class="quality-bar">
-      <span class="quality-label">Quality</span>
-      <div class="quality-chips">
-        <button class="quality-chip q-elite"   data-quality="Elite"   onclick="setForceQuality('Elite')"  >★ Elite</button>
-        <button class="quality-chip q-regular active" data-quality="Regular" onclick="setForceQuality('Regular')">● Regular</button>
-        <button class="quality-chip q-poor"    data-quality="Poor"    onclick="setForceQuality('Poor')"  >▼ Poor</button>
+    <button class="fp-config-toggle" onclick="toggleFpConfig()" type="button">
+      <span class="fp-config-summary" id="fp-config-summary">Regular · Any Type · Any Year</span>
+      <span class="fp-config-chev">▾</span>
+    </button>
+    <div class="fp-config-body">
+      <div class="quality-bar">
+        <span class="quality-label">Quality</span>
+        <div class="quality-chips">
+          <button class="quality-chip q-elite"   data-quality="Elite"   onclick="setForceQuality('Elite')"  >★ Elite</button>
+          <button class="quality-chip q-regular active" data-quality="Regular" onclick="setForceQuality('Regular')">● Regular</button>
+          <button class="quality-chip q-poor"    data-quality="Poor"    onclick="setForceQuality('Poor')"  >▼ Poor</button>
+        </div>
       </div>
-    </div>
-    <div class="type-year-row">
-      <select class="force-year-select" id="force-year" onchange="forceYear = this.value ? parseInt(this.value) : null">
-        <option value="">-- Year --</option>
-        <option>1939</option><option>1940</option><option>1941</option>
-        <option>1942</option><option>1943</option><option>1944</option><option>1945</option>
-      </select>
-      <div class="force-type-chips">
-        <span class="force-type-label">Type</span>
-        <button class="force-type-chip" data-type="Infantry"   onclick="setForceType('Infantry')"  >Infantry</button>
-        <button class="force-type-chip" data-type="Mechanized" onclick="setForceType('Mechanized')">Mechanized</button>
-        <button class="force-type-chip" data-type="Armored"    onclick="setForceType('Armored')"   >Armored</button>
-        <button class="force-type-chip" data-type="Airborne"   onclick="setForceType('Airborne')"  >Airborne</button>
+      <div class="type-year-row">
+        <select class="force-year-select" id="force-year" onchange="forceYear = this.value ? parseInt(this.value) : null; updateFpConfigSummary();">
+          <option value="">-- Year --</option>
+          <option>1939</option><option>1940</option><option>1941</option>
+          <option>1942</option><option>1943</option><option>1944</option><option>1945</option>
+        </select>
+        <div class="force-type-chips">
+          <span class="force-type-label">Type</span>
+          <button class="force-type-chip" data-type="Infantry"   onclick="setForceType('Infantry')"  >Infantry</button>
+          <button class="force-type-chip" data-type="Mechanized" onclick="setForceType('Mechanized')">Mechanized</button>
+          <button class="force-type-chip" data-type="Armored"    onclick="setForceType('Armored')"   >Armored</button>
+          <button class="force-type-chip" data-type="Airborne"   onclick="setForceType('Airborne')"  >Airborne</button>
+        </div>
       </div>
-    </div>
-    <div class="force-notes-area">
-      <span class="force-notes-label">Force Notes</span>
-      <textarea class="force-notes-input" id="force-notes" placeholder="History, composition, playstyle, context…"></textarea>
+      <div class="force-notes-area">
+        <span class="force-notes-label">Force Notes</span>
+        <textarea class="force-notes-input" id="force-notes" placeholder="History, composition, playstyle, context…"></textarea>
+      </div>
     </div>
   </div>
   <div class="platoon-list" id="platoon-list">
@@ -5021,6 +5085,11 @@
         <span class="summary-stat-label">Break Limit</span>
         <span class="summary-stat-value" id="summary-bl">5</span>
       </div>
+    </div>
+    <div class="force-summary-inline">
+      <span><span class="fsi-num" id="summary-units-inline">0</span> Platoons</span>
+      <span class="fsi-sep">·</span>
+      <span>BL <span class="fsi-num" id="summary-bl-inline">5</span></span>
     </div>
     <div class="force-actions">
       <button class="action-btn primary" onclick="saveForce()">Save</button>
@@ -6506,6 +6575,10 @@ function updateForceUI() {
   document.getElementById('force-count').textContent = count;
   document.getElementById('summary-units').textContent = count;
   document.getElementById('summary-bl').textContent = breakLimit;
+  const inlineCount = document.getElementById('summary-units-inline');
+  const inlineBL    = document.getElementById('summary-bl-inline');
+  if (inlineCount) inlineCount.textContent = count;
+  if (inlineBL)    inlineBL.textContent    = breakLimit;
   const barPlatoons = document.getElementById('fp-bar-platoons');
   const barBL = document.getElementById('fp-bar-bl');
   if (barPlatoons) barPlatoons.textContent = count;
@@ -8617,12 +8690,27 @@ function setForceQuality(q) {
   document.querySelectorAll('.quality-bar .quality-chip').forEach(c => {
     c.classList.toggle('active', c.dataset.quality === q);
   });
+  updateFpConfigSummary();
 }
 
 function setForceType(t) {
   forceType = (t === forceType) ? null : t;
   document.querySelectorAll('.force-type-chip').forEach(c =>
     c.classList.toggle('active', c.dataset.type === forceType));
+  updateFpConfigSummary();
+}
+
+function toggleFpConfig() {
+  document.querySelector('.fp-config').classList.toggle('expanded');
+}
+
+function updateFpConfigSummary() {
+  const el = document.getElementById('fp-config-summary');
+  if (!el) return;
+  const q = forceQuality || 'Regular';
+  const t = forceType || 'Any Type';
+  const y = forceYear || 'Any Year';
+  el.textContent = `${q} · ${t} · ${y}`;
 }
 
 
