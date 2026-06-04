@@ -641,7 +641,8 @@
     min-height: calc(100vh - var(--header-h));
   }
 
-  .lib-section-tabs { display: flex; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  .lib-section-tabs { display: flex; border-bottom: 1px solid var(--border); flex-shrink: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .lib-section-tabs::-webkit-scrollbar { display: none; }
 
   .library-body { flex: 1; padding: 20px 24px; overflow-y: auto; }
 
@@ -2922,6 +2923,7 @@
   }
 
   .library-tab {
+    flex-shrink: 0;
     padding: 10px 20px;
     font-family: var(--mono);
     font-size: 11px;
@@ -4451,14 +4453,39 @@
   .game-title { font-family: var(--display); font-size: 16px; letter-spacing: 0.1em; color: var(--accent); }
   .game-close-btn { background: none; border: 1px solid var(--border); border-radius: 4px; padding: 6px 14px; color: var(--text2); font-size: 12px; cursor: pointer; font-family: var(--mono); }
   .game-close-btn:hover { border-color: var(--text2); color: var(--text1); }
+  .game-minimize-btn { display: none; background: none; border: 1px solid var(--border); border-radius: 4px; padding: 6px 14px; color: var(--text2); font-size: 12px; cursor: pointer; font-family: var(--mono); letter-spacing: 0.05em; }
+  .game-minimize-btn:hover { border-color: var(--text2); color: var(--text1); }
+  /* Floating resume button — appears when tracker is minimized */
+  #game-resume-float {
+    display: none;
+    position: fixed;
+    bottom: calc(52px + 12px); /* above fp-bar */
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 4px;
+    padding: 14px 28px;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    z-index: 98;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  }
+  #game-resume-float:hover { opacity: 0.85; }
   /* Two-panel grid */
   .game-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 600px) {
     .game-panels { grid-template-columns: 1fr; }
-    .game-panel { padding: 16px 14px; }
+    .game-panel { padding: 14px 12px; }
     .game-player-name { font-size: 20px; }
-    .game-trigger-btn { padding: 16px 12px; font-size: 16px; margin-bottom: 8px; }
+    .game-trigger-btn { padding: 11px 10px; font-size: 13px; margin-bottom: 5px; }
     .game-close-btn { padding: 10px 16px; }
+    .game-minimize-btn { display: block; }
   }
   /* Individual panel */
   .game-panel { background: var(--bg2); border-radius: 8px; padding: 24px 20px; text-align: center; border-top: 4px solid transparent; }
@@ -4894,6 +4921,7 @@
 <div id="game-overlay" class="game-overlay" style="display:none">
   <div id="game-body" class="game-body"></div>
 </div>
+<button id="game-resume-float" onclick="resumeGame()">⚑ Resume Tracker</button>
 
 <!-- OPPONENT FORCE PICKER MODAL -->
 <div id="fpp-picker-modal" class="fpp-modal-overlay" style="display:none">
@@ -11608,16 +11636,30 @@ function startGame() {
 function renderGame() {
   const body = document.getElementById('game-body');
   if (!body) return;
+  // Attacker always renders first (top on mobile, left on desktop)
+  const first  = gameMode.attacker === 'b' ? 'b' : 'a';
+  const second = first === 'a' ? 'b' : 'a';
   body.innerHTML = `
     <div class="game-header">
       <span class="game-title">HAIL OF FIRE // BREAK POINT TRACKER</span>
+      <button class="game-minimize-btn" onclick="minimizeGame()">↓ Minimize</button>
       <button class="game-close-btn" onclick="endGame()">End Game</button>
     </div>
     <div class="game-panels">
-      ${renderGamePanel('a', 'gp-allied')}
-      ${renderGamePanel('b', 'gp-axis')}
+      ${renderGamePanel(first,  first  === 'a' ? 'gp-allied' : 'gp-axis')}
+      ${renderGamePanel(second, second === 'a' ? 'gp-allied' : 'gp-axis')}
     </div>
   `;
+}
+
+function minimizeGame() {
+  document.getElementById('game-overlay').style.display = 'none';
+  document.getElementById('game-resume-float').style.display = 'block';
+}
+
+function resumeGame() {
+  document.getElementById('game-overlay').style.display = 'flex';
+  document.getElementById('game-resume-float').style.display = 'none';
 }
 
 function bpBarColor(pct) {
