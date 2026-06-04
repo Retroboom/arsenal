@@ -3842,13 +3842,14 @@
        auto-flow into column 1 and collapse the layout. */
     .app > .main { grid-column: 2; }
     /* Collapsed strip: pin to viewport so the toggle is always reachable while
-       scrolling (sticky doesn't reliably hold with document-level scroll on iOS). */
+       scrolling (sticky doesn't reliably hold with document-level scroll on iOS).
+       Extend full viewport height; header overlays the top portion when visible. */
     .app.sidebar-collapsed .sidebar {
       position: fixed;
-      top: var(--header-h);
+      top: 0;
       left: 0;
       width: 36px;
-      height: calc(100vh - var(--header-h));
+      height: 100vh;
       z-index: 50;
     }
     .app:not(.sidebar-collapsed) .sidebar {
