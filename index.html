@@ -102,24 +102,6 @@
       border-top: 1px solid var(--border);
     }
     .header-actions { margin-left: auto; }
-
-    /* Hide-on-scroll: slide header up when user scrolls down, back on scroll up */
-    header {
-      transition: transform 0.22s ease;
-      will-change: transform;
-    }
-    header.header-hidden {
-      transform: translateY(-100%);
-    }
-    /* When header is hidden, expand .main and .sidebar to fill the vacated space */
-    body:has(header.header-hidden) .main {
-      margin-top: calc(-1 * var(--header-h));
-      height: 100vh;
-    }
-    body:has(header.header-hidden) .sidebar {
-      top: 0;
-      height: 100vh;
-    }
   }
 
   .header-actions {
@@ -673,6 +655,11 @@
     gap: 12px;
     margin-bottom: 20px;
     flex-wrap: wrap;
+    position: sticky;
+    top: var(--header-h);
+    z-index: 10;
+    background: var(--bg);
+    padding: 12px 0;
   }
   .fm-search {
     flex: 1;
@@ -3861,8 +3848,6 @@
        can auto-hide the address bar. overflow:visible removes the element-level
        scroll container — html/body overflow-x:hidden still clips horizontal overflow. */
     .main { height: auto; overflow: visible; }
-    /* header-hidden state sets height:100vh on .main — reset it on mobile */
-    body:has(header.header-hidden) .main { margin-top: 0; height: auto; }
 
     /* Force panel: full width, slides up from bottom */
     .force-panel {
@@ -3925,7 +3910,10 @@
       flex-direction: column;
     }
     #section-library .lib-sidebar {
-      position: static;
+      position: sticky;
+      top: var(--header-h);
+      z-index: 10;
+      background: var(--bg2);
       height: auto;
       overflow: visible;
       border-right: none;
@@ -9245,66 +9233,6 @@ if (isPreviewMode) enterGuestMode();
   new ResizeObserver(update).observe(headerEl);
   update();
 })();
-
-// ── MOBILE SCROLL-HIDE HEADER ─────────────────────────────────────────────────
-// On narrow screens: slide header away on scroll-down, immediately restore on scroll-up.
-// Uses capture-phase scroll listener to catch both window scroll and inner
-// overflow containers (e.g. .main in force builder, .library-body, etc.).
-(function () {
-  const header = document.querySelector('header');
-  if (!header) return;
-  const lastY = new Map();
-  let hidden = false;
-
-  function handle() {
-    if (window.innerWidth > 860) {
-      if (hidden) { header.classList.remove('header-hidden'); hidden = false; }
-      return;
-    }
-    // Only watch window scroll — inner containers (force builder .main, etc.) have their
-    // own fixed-height scroll and hiding the header there would leave a black gap.
-    const y = window.scrollY;
-    const prev = lastY.has(window) ? lastY.get(window) : y;
-    const delta = y - prev;
-    lastY.set(window, y);
-
-    if (delta > 6 && y > 80) {
-      // Scrolling down past threshold — hide header
-      if (!hidden) { header.classList.add('header-hidden'); hidden = true; }
-    } else if (delta < -2 || y < 10) {
-      // Any upward movement, or near top — show header immediately
-      if (hidden) { header.classList.remove('header-hidden'); hidden = false; }
-    }
-  }
-
-  window.addEventListener('scroll', handle, { passive: true });
-
-  // Also watch .main (units page scrolls internally, not via window)
-  const mainEl = document.querySelector('main.main');
-  if (mainEl) {
-    mainEl.addEventListener('scroll', function () {
-      if (window.innerWidth > 860) return;
-      const y = mainEl.scrollTop;
-      const prev = lastY.has(mainEl) ? lastY.get(mainEl) : y;
-      const delta = y - prev;
-      lastY.set(mainEl, y);
-      if (delta > 6 && y > 80) {
-        if (!hidden) { header.classList.add('header-hidden'); hidden = true; }
-      } else if (delta < -2 || y < 10) {
-        if (hidden) { header.classList.remove('header-hidden'); hidden = false; }
-      }
-    }, { passive: true });
-  }
-
-  // Always restore on resize back to desktop
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 860 && hidden) {
-      header.classList.remove('header-hidden');
-      hidden = false;
-    }
-  });
-})();
-
 
 // ── GLOBAL TOOLTIP ────────────────────────────────────────────────────────────
 // Uses position:fixed so it escapes overflow:auto scroll containers (e.g. force panel)
