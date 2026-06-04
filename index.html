@@ -11140,6 +11140,20 @@ function countVehicleTeams(platoonList) {
   return count;
 }
 
+// FPP attacker assignment:
+// Primary rule (HoF): the side with more vehicle teams attacks.
+// Tiebreaker: if vehicles are tied, the side with the higher total force score
+// attacks. This softens the BL penalty for the stronger side (because attackers
+// must clear the 15% margin to win pairings, while defenders win automatically
+// on ties), producing closer matches when forces are nominally equal.
+function assignFPPAttacker(state) {
+  if (state.a.vehicleCount > state.b.vehicleCount) return 'a';
+  if (state.b.vehicleCount > state.a.vehicleCount) return 'b';
+  const scoreA = (state.a.platoons || []).reduce((s, p) => s + calcPlatoonScore(p), 0);
+  const scoreB = (state.b.platoons || []).reduce((s, p) => s + calcPlatoonScore(p), 0);
+  return scoreA >= scoreB ? 'a' : 'b';
+}
+
 function countCombatTeams(platoon) {
   // Count Vehicles + Guns + Squads per HoF FPP size bonus rule.
   // One Squad = a pair of Infantry teams (rifle, rifle/MG, or MG).
@@ -11245,7 +11259,7 @@ function startFPP() {
   fppState.b.bl = calcBreakLimit(fppState.b.platoons.length);
   fppState.a.vehicleCount = countVehicleTeams(fppState.a.platoons);
   fppState.b.vehicleCount = countVehicleTeams(fppState.b.platoons);
-  fppState.attacker = fppState.a.vehicleCount >= fppState.b.vehicleCount ? 'a' : 'b';
+  fppState.attacker = assignFPPAttacker(fppState);
   fppState.rankByA = [...fppState.b.platoons];
   fppState.rankByB = [...fppState.a.platoons];
   fppState.step = 'rank-a';
@@ -11260,7 +11274,7 @@ function autoFPP() {
   fppState.b.bl = calcBreakLimit(fppState.b.platoons.length);
   fppState.a.vehicleCount = countVehicleTeams(fppState.a.platoons);
   fppState.b.vehicleCount = countVehicleTeams(fppState.b.platoons);
-  fppState.attacker = fppState.a.vehicleCount >= fppState.b.vehicleCount ? 'a' : 'b';
+  fppState.attacker = assignFPPAttacker(fppState);
 
   // Sort each force by platoon score, highest first
   const byScore = (x, y) => calcPlatoonScore(y) - calcPlatoonScore(x);
@@ -11297,7 +11311,7 @@ function quickCompareFPP() {
   fppState.b.bl = calcBreakLimit(fppState.b.platoons.length);
   fppState.a.vehicleCount = countVehicleTeams(fppState.a.platoons);
   fppState.b.vehicleCount = countVehicleTeams(fppState.b.platoons);
-  fppState.attacker = fppState.a.vehicleCount >= fppState.b.vehicleCount ? 'a' : 'b';
+  fppState.attacker = assignFPPAttacker(fppState);
   const defender = fppState.attacker === 'a' ? 'b' : 'a';
 
   const rawA = fppState.a.platoons.reduce((s, p) => s + calcPlatoonScore(p), 0);
