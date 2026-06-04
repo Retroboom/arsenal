@@ -1525,6 +1525,12 @@
     text-transform: uppercase;
   }
   .type-badge[data-type] { color: var(--type-color); }
+  /* Conditional placement: when the card-header wraps (unit name pushes the
+     nation badge to a new line), the type badge moves up next to the nation
+     badge instead of sitting on its own row below. JS toggles 'header-wrapped'. */
+  .type-badge-header { display: none; }
+  .unit-card.header-wrapped .type-badge-header { display: inline-block; }
+  .unit-card.header-wrapped .type-badge-row    { display: none; }
 
   .chip[data-type] { color: var(--type-color); }
   .chip[data-type]:hover { border-color: var(--type-color); color: var(--type-color); }
@@ -5649,10 +5655,11 @@ function renderGrid(container, forceIds, animate = true) {
           <div class="card-header">
             <div class="unit-name" title="${unit.name}">${unit.name}</div>
             <div class="${nationBadgeClass(unit.nation)}">${unit.nation}</div>
+            <div class="type-badge type-badge-header" data-type="${unit.type}">${unit.type}</div>
           </div>
           <div class="card-type-row${unit.armament ? '' : ' no-armament'}">
             ${unit.armament ? `<div class="card-armament">${wrapArmamentMGs(unit.armament)}</div>` : ''}
-            <div class="type-badge" data-type="${unit.type}">${unit.type}</div>
+            <div class="type-badge type-badge-row" data-type="${unit.type}">${unit.type}</div>
           </div>
           ${(() => {
             const defs = [
@@ -5712,7 +5719,31 @@ function renderGrid(container, forceIds, animate = true) {
       card.style.opacity = '1';
     });
   }
+  // After layout settles, check which cards have a wrapped header so we can
+  // move the type badge up next to the (wrapped) nation badge.
+  requestAnimationFrame(() => adjustCardHeaderWraps(container));
 }
+
+// Toggle 'header-wrapped' on each unit card when the nation badge has wrapped
+// to a line below the unit name. The type-badge CSS reacts to this class to
+// move from the type-row up to the header.
+function adjustCardHeaderWraps(root) {
+  const scope = root || document;
+  scope.querySelectorAll('.unit-card').forEach(card => {
+    const name   = card.querySelector('.unit-name');
+    const nation = card.querySelector('.nation-badge');
+    if (!name || !nation) return;
+    const wrapped = nation.getBoundingClientRect().top > name.getBoundingClientRect().top + 2;
+    card.classList.toggle('header-wrapped', wrapped);
+  });
+}
+
+// Recheck on resize since wrap state depends on card width.
+let _cardWrapResizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(_cardWrapResizeTimer);
+  _cardWrapResizeTimer = setTimeout(() => adjustCardHeaderWraps(), 120);
+});
 
 function startTableStackObserver() {
   const el = document.getElementById('unit-display');
