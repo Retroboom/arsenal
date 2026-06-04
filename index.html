@@ -4535,8 +4535,12 @@
   /* ── GAME OVERLAY ──────────────────────────────────────────────────────────── */
   .game-overlay { position: fixed; inset: var(--header-h) 0 0 0; background: var(--bg); z-index: 99; flex-direction: column; overflow-y: auto; }
   /* Lock background scroll while the tracker overlay is visible. Minimizing
-     removes the class so the underlying page can scroll normally again. */
+     removes the class so the underlying page can scroll normally again. On
+     desktop the .main element has its own internal scroll (fixed height with
+     overflow-y:auto), so we also need to lock that — body overflow alone only
+     covers mobile where document-level scroll is active. */
   body.game-open { overflow: hidden; touch-action: none; }
+  body.game-open .main { overflow: hidden; }
   .game-body { display: flex; flex-direction: column; padding: 16px; max-width: 860px; margin: 0 auto; width: 100%; }
   .game-header { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 0; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
   .game-title { font-family: var(--display); font-size: 16px; letter-spacing: 0.1em; color: var(--accent); }
