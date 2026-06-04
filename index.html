@@ -6389,7 +6389,11 @@ const FPP_DEFENDER_MARGIN = 0.15;
 function calcTeamScore(unit) {
   if (!unit) return 0;
   if (unit.name === 'Platoon Leader') return 0;
-  if (unit.type === 'Upgrade') return 0;
+  // Upgrades (Panzerfaust, etc.) confer a real combat capability to the platoon.
+  // Score at +2 per upgrade: less than a dedicated AT team (since the upgrade is
+  // embedded in a regular team's activation), but not zero. The AT premium is
+  // tempered by diminishing returns in assault (AT 2 already kills most vehicles).
+  if (unit.type === 'Upgrade') return 2;
 
   const notes  = unit.notes  || [];
   const utype  = unit.type   || '';
