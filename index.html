@@ -36,7 +36,11 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { overflow-x: hidden; }
+  /* overflow-x:clip prevents horizontal page overflow without creating a scroll
+     container — using `hidden` here makes the body a scroll context which breaks
+     position:sticky on descendants (sticky elements would scroll with body's
+     content rather than stick to the viewport). */
+  html { overflow-x: clip; }
 
   body {
     margin: 0;
@@ -45,7 +49,7 @@
     color: var(--text);
     font-family: var(--body);
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   /* Fine-grain film noise — high baseFrequency avoids low-freq banding */
