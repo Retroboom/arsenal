@@ -4535,7 +4535,7 @@
   /* ── GAME OVERLAY ──────────────────────────────────────────────────────────── */
   .game-overlay { position: fixed; inset: var(--header-h) 0 0 0; background: var(--bg); z-index: 99; flex-direction: column; overflow-y: auto; }
   .game-body { display: flex; flex-direction: column; padding: 16px; max-width: 860px; margin: 0 auto; width: 100%; }
-  .game-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .game-header { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 0; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
   .game-title { font-family: var(--display); font-size: 16px; letter-spacing: 0.1em; color: var(--accent); }
   .game-close-btn { background: none; border: 1px solid var(--border); border-radius: 4px; padding: 6px 14px; color: var(--text2); font-size: 12px; cursor: pointer; font-family: var(--mono); }
   .game-close-btn:hover { border-color: var(--text2); color: var(--text1); }
@@ -11779,7 +11779,6 @@ function renderGame() {
   const second = first === 'a' ? 'b' : 'a';
   body.innerHTML = `
     <div class="game-header">
-      <span class="game-title">HAIL OF FIRE // BREAK POINT TRACKER</span>
       <button class="game-minimize-btn" onclick="minimizeGame()">↓ Minimize</button>
       <button class="game-close-btn" onclick="endGame()">End Game</button>
     </div>
