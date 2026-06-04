@@ -3837,6 +3837,10 @@
 
     /* Sidebar: always show as 36px strip; expanded state overlays content */
     .app, .app.sidebar-collapsed { grid-template-columns: 36px 1fr; }
+    /* Explicitly anchor main to column 2 — when the sidebar goes position:fixed
+       below, it leaves the grid flow, so the next child (main) would otherwise
+       auto-flow into column 1 and collapse the layout. */
+    .app > .main { grid-column: 2; }
     /* Collapsed strip: pin to viewport so the toggle is always reachable while
        scrolling (sticky doesn't reliably hold with document-level scroll on iOS). */
     .app.sidebar-collapsed .sidebar {
