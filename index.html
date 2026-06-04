@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <!-- Tell iOS Safari (incl. iOS 18 Liquid Glass) and Chrome to paint the address
      bar / status bar area in the app background color instead of showing the
      page rubber-band through it. -->
@@ -74,6 +74,9 @@
     border-top: 2px solid var(--accent);
     border-bottom: 1px solid var(--border);
     padding: 0 24px;
+    /* With viewport-fit=cover the header extends behind the iOS notch/status
+       bar; add safe-area inset so the content (logo, nav, buttons) sits below it. */
+    padding-top: env(safe-area-inset-top);
     min-height: 60px;
     display: flex;
     align-items: center;
