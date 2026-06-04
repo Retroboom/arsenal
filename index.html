@@ -4534,12 +4534,19 @@
 
   /* ── GAME OVERLAY ──────────────────────────────────────────────────────────── */
   .game-overlay { position: fixed; inset: var(--header-h) 0 0 0; background: var(--bg); z-index: 99; flex-direction: column; overflow-y: auto; }
-  /* Lock background scroll while the tracker overlay is visible. Minimizing
-     removes the class so the underlying page can scroll normally again. On
-     desktop the .main element has its own internal scroll (fixed height with
-     overflow-y:auto), so we also need to lock that — body overflow alone only
-     covers mobile where document-level scroll is active. */
-  body.game-open { overflow: hidden; touch-action: none; }
+  /* Lock background scroll while the tracker overlay is visible. position:fixed
+     on body is the bulletproof iOS Safari lock (overflow:hidden alone leaks
+     touch scroll). JS handles save/restore of scroll position so the page
+     doesn't jump to the top on close. On desktop the .main element has its
+     own internal scroll, so we lock that too. */
+  body.game-open {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100%;
+    overflow: hidden;
+    touch-action: none;
+  }
   body.game-open .main { overflow: hidden; }
   .game-body { display: flex; flex-direction: column; padding: 16px; max-width: 860px; margin: 0 auto; width: 100%; }
   .game-header { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 0; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
@@ -11779,10 +11786,21 @@ function renderFPPResult(body) {
 // ── GAME MODE ─────────────────────────────────────────────────────────────────
 
 // Show/hide the tracker overlay. When shown, lock the body so background
-// content doesn't scroll behind it. When minimized or ended, restore scroll.
+// content doesn't scroll behind it. iOS Safari needs position:fixed (overflow
+// alone leaks touch scroll), so we save and restore the scroll position.
+let _savedScrollY = 0;
 function setGameOverlayVisible(visible) {
-  document.getElementById('game-overlay').style.display = visible ? 'flex' : 'none';
-  document.body.classList.toggle('game-open', visible);
+  if (visible) {
+    _savedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+    document.body.style.top = `-${_savedScrollY}px`;
+    document.body.classList.add('game-open');
+    document.getElementById('game-overlay').style.display = 'flex';
+  } else {
+    document.getElementById('game-overlay').style.display = 'none';
+    document.body.classList.remove('game-open');
+    document.body.style.top = '';
+    window.scrollTo(0, _savedScrollY);
+  }
 }
 
 function startGame() {
