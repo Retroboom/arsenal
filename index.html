@@ -1362,6 +1362,7 @@
   .unit-card .unit-name::before { color: #1a1608; opacity: 0.8; }
   .unit-card .stat-label { color: #2e2810; font-size: 11px; }
   .unit-card .stat-value { color: #0a0800; font-size: 17px; }
+  .unit-card .stat-value.armor { font-size: 17px; }
   .unit-card .stat-value.null-val { color: #7a6a30; }
   .unit-card .card-armament { color: #2a2010; font-size: 11px; }
   .unit-card .type-badge { filter: brightness(0.5) saturate(1.4); }
@@ -4847,7 +4848,6 @@
         <button class="view-btn" id="btn-table" onclick="setView('table')">Table</button>
       </div>
     </div>
-    <div id="unit-display"></div>
     <div id="whats-new" class="whats-new" style="display:none">
       <div class="whats-new-header">
         <span class="whats-new-label">★ Recent Briefings</span>
@@ -4862,6 +4862,7 @@
       </div>
       <div class="lib-featured-cards" id="lib-featured-cards"></div>
     </div>
+    <div id="unit-display"></div>
   </main>
 </div>
 </div><!-- end #section-units -->
@@ -5722,7 +5723,9 @@ function renderGrid(container, forceIds, animate = true) {
               ['Range', unit.gun_range !== null && unit.gun_range !== undefined, statDisplay(unit.gun_range)],
               ['RoF',   unit.rof   !== null && unit.rof   !== undefined, statDisplay(unit.rof)],
               ['AT',    unit.at    !== null && unit.at    !== undefined, statDisplay(unit.at)],
-              ['FP',    unit.fp    !== null && unit.fp    !== undefined, statDisplay(unit.fp)],
+              // FP only shown if the unit has direct-fire capability (i.e., a Range).
+              // Transports etc. have no weapons and shouldn't display FP at all.
+              ['FP',    unit.fp    !== null && unit.fp    !== undefined && unit.gun_range, statDisplay(unit.fp)],
               ['Armor', unit.armor_front !== null && unit.armor_front !== undefined,
                 `<span class="stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`],
             ].filter(d => d[1]);
