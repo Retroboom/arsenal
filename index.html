@@ -1531,6 +1531,9 @@
   .type-badge-header { display: none; }
   .unit-card.header-wrapped .type-badge-header { display: inline-block; }
   .unit-card.header-wrapped .type-badge-row    { display: none; }
+  /* When wrapped AND the card has no armament, the bottom type-row is empty —
+     collapse it so the stats sit flush against the nation/type line. */
+  .unit-card.header-wrapped .card-type-row.no-armament { display: none; }
 
   .chip[data-type] { color: var(--type-color); }
   .chip[data-type]:hover { border-color: var(--type-color); color: var(--type-color); }
