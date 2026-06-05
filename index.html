@@ -4693,6 +4693,10 @@
   /* Show/Hide Score toggle */
   .game-toggle-score-btn { background: transparent; border: 1px solid var(--text3); color: var(--text3); padding: 8px 10px; font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em; cursor: pointer; border-radius: 4px; transition: all 0.2s; white-space: nowrap; }
   .game-toggle-score-btn:hover { border-color: var(--text1); color: var(--text1); }
+  /* View Force button: same look as the Show/Hide Score toggle for visual
+     consistency in the panel button row. */
+  .game-view-force-btn { background: transparent; border: 1px solid var(--text3); color: var(--text3); padding: 8px 10px; font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em; cursor: pointer; border-radius: 4px; transition: all 0.2s; white-space: nowrap; }
+  .game-view-force-btn:hover { border-color: var(--text1); color: var(--text1); }
   /* Undo button */
   .game-undo-btn { background: none; border: none; font-family: var(--mono); font-size: 12px; color: var(--text3); cursor: pointer; padding: 2px 4px; margin-bottom: 10px; transition: color 0.15s; }
   .game-undo-btn:hover { color: var(--text2); }
@@ -11829,13 +11833,43 @@ function setGameOverlayVisible(visible) {
 }
 
 function startGame() {
-  gameMode.a        = { name: fppState.a.name, bp: 0, bl: fppState.finalBL.a, scoreVisible: false, rolls: [], dieRolls: [], lastRoll: null };
-  gameMode.b        = { name: fppState.b.name, bp: 0, bl: fppState.finalBL.b, scoreVisible: false, rolls: [], dieRolls: [], lastRoll: null };
+  // Snapshot each side's force into gameMode so the "View Force" button in the
+  // tracker still works after a refresh (fppState isn't restored, gameMode is).
+  const snap = (side, includeForceName) => ({
+    name: fppState[side].name,
+    bp: 0,
+    bl: fppState.finalBL[side],
+    scoreVisible: false,
+    rolls: [],
+    dieRolls: [],
+    lastRoll: null,
+    forceName: includeForceName ? (fppState[side].forceName || fppState[side].name) : (fppState[side].name),
+    platoons: JSON.parse(JSON.stringify(fppState[side].platoons || [])),
+  });
+  gameMode.a        = snap('a', false);
+  gameMode.b        = snap('b', true);
   gameMode.attacker = fppState.attacker || null;
   gameMode.active   = true;
   saveGameState();
   setGameOverlayVisible(true);
   renderGame();
+}
+
+// Open a force sheet for one side of the tracker. Builds a minimal forceData
+// payload from the platoons we stashed in gameMode at startGame.
+function openTrackerForceSheet(side) {
+  const g = gameMode[side];
+  if (!g || !g.platoons || !g.platoons.length) {
+    showToast('No force data to view for this side.', 'error');
+    return;
+  }
+  openForceSheet({
+    name: g.forceName || g.name || 'Force',
+    platoons: g.platoons,
+    breakLimit: g.bl,
+    nations: [],
+    notes: '',
+  });
 }
 
 function renderGame() {
@@ -11920,6 +11954,7 @@ function renderGamePanel(player, sideClass) {
 
       <div class="game-btn-row">
         <button class="game-toggle-score-btn" onclick="toggleGameScore('${player}')">${g.scoreVisible ? 'Hide Score' : 'Show Score'}</button>
+        ${g.platoons && g.platoons.length ? `<button class="game-view-force-btn" onclick="openTrackerForceSheet('${player}')" title="View this force's units and stats">⎘ View Force</button>` : ''}
         ${g.rolls.length ? `<button class="game-undo-btn" id="game-undo-${player}" onclick="undoLastRoll('${player}')">↩ Undo</button>` : ''}
       </div>
     </div>
