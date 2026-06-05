@@ -3745,6 +3745,11 @@
 
   .fs-platoon { margin-bottom: 32px; }
   .fs-platoon:last-child { margin-bottom: 0; }
+  /* On narrow viewports the fixed-layout stats table can't squeeze into
+     ~400px, so wrap each platoon's table in a horizontally-scrollable
+     region. The box bg still extends correctly because the scroll is
+     contained inside .fs-platoon, not on the whole modal. */
+  .fs-platoon { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
   .fs-platoon-heading {
     font-family: var(--display);
@@ -3772,6 +3777,11 @@
     /* Fixed layout so the notes column can't push the table wider than its
        container — instead, note tags wrap to the next line when full. */
     table-layout: fixed;
+    /* Keep the table readable on narrow viewports: the column widths in
+       the colgroup add up to ~520px of fixed slots; the table shouldn't
+       compress below the point where Notes still has ~220px to wrap into.
+       On wider viewports the width:100% wins and the layout expands. */
+    min-width: 740px;
   }
 
   .fs-stats-table th {
