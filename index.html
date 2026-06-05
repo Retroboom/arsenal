@@ -45,7 +45,10 @@
      container — using `hidden` here makes the body a scroll context which breaks
      position:sticky on descendants. The html/body background match var(--bg) so
      the iOS rubber-band overscroll reveals the same page color, not white. */
-  html { overflow-x: clip; background: var(--bg); }
+  /* html bg matches the header (not the page) so any iOS rendering gap
+     between the system status bar and the fixed header shows the header
+     color rather than the darker page background. */
+  html { overflow-x: clip; background: var(--bg2); }
 
   body {
     margin: 0;
