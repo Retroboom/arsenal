@@ -11366,7 +11366,10 @@ function renderFPP() {
 }
 
 function renderFPPSetup(body) {
-  const aName   = fppState.a.name || (currentUser?.displayName || '');
+  // Default Player A's name to the current builder's force name. Falls back
+  // to the signed-in account display name if no force is loaded.
+  const builderForceName = document.getElementById('force-name')?.value?.trim() || '';
+  const aName   = fppState.a.name || builderForceName || (currentUser?.displayName || '');
   const bLoaded = fppState.b.platoons.length > 0;
   const hasRun  = fppState.scores != null;
   body.innerHTML = `
@@ -12317,11 +12320,10 @@ async function selectOpponentForce(forceId) {
   fppState.b.platoons   = toArr(data.platoons);
   fppState.b.forceId    = forceId;
   fppState.b.forceName  = data.name || '';
-  // Only fill in the opponent's name from the force author if the user hasn't
-  // typed their own value — preserve whatever they entered above.
-  if (!fppState.b.name) {
-    fppState.b.name = data.author || data.authorEmail || '';
-  }
+  // Set the player name to the loaded force's name (overwrites any prior
+  // typed value — loading a force is treated as the user's intent for the
+  // player label). They can still edit the name field afterwards.
+  fppState.b.name = data.name || '';
   renderFPP();
 }
 
@@ -12385,6 +12387,9 @@ async function selectMyForce(forceId) {
   loadForceData(data);
   currentForceId = forceId;
   currentForceFppTemp = false;
+  // Set Player A's name to the loaded force's name. The user can still edit
+  // afterwards via the input field.
+  fppState.a.name = data.name || '';
   renderFPP();
 }
 
