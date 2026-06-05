@@ -68,6 +68,20 @@
     z-index: 9998;
   }
 
+  /* Safe-area fill covering the iOS notch / status bar zone with bg2.
+     z-index sits below the header (100) but above page content so even when
+     content scrolls past the top it's covered. */
+  #safe-top-fill {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top);
+    background: var(--bg2);
+    z-index: 99;
+    pointer-events: none;
+  }
+
   /* HEADER */
   header {
     background: var(--bg2);
@@ -4730,6 +4744,12 @@
 </style>
 </head>
 <body>
+
+<!-- Safe-area fill: paints the iOS notch / status-bar area with the header bg
+     color so it doesn't reveal the page content scrolling underneath. Pseudo
+     elements on header don't reliably extend past its border on iOS — a
+     dedicated fixed element is more robust. -->
+<div id="safe-top-fill" aria-hidden="true"></div>
 
 <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <defs>
