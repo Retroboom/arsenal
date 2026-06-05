@@ -3824,6 +3824,10 @@
     font-style: italic;
     display: block;
     margin-top: 1px;
+    /* Force the MG/weapon list to wrap within the column instead of
+       overflowing past the right side of the table. */
+    overflow-wrap: break-word;
+    word-break: normal;
   }
 
   .mg-tip {
@@ -3867,12 +3871,17 @@
     word-spacing: 4px;
     line-height: 1.7;
   }
-  /* Tighten the print stylesheet too so tags wrap there as well, but only
-     after we hit the column edge — individual tags still nowrap. */
   .fs-notes-cell .note-tag {
     display: inline-block;
     margin: 2px 2px 2px 0;
-    white-space: nowrap;
+    /* Long rules (sentence-style, e.g. "May only be used in assault…") need
+       to wrap inside the tag itself, otherwise a single tag balloons across
+       the whole notes cell and ends up visually larger than short tags. */
+    white-space: normal;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: normal;
+    line-height: 1.4;
   }
 
   /* PRINT */
