@@ -4069,29 +4069,23 @@
     /* Remove view-label text on mobile (sidebar count covers it) */
     .view-label { display: none; }
 
-    /* Compact single-row header on mobile */
-    :root { --header-h: 52px; }
+    /* Two-row mobile header: logo + actions on row 1, nav tabs on row 2.
+       The wrapping order=10 + flex:0 0 100% pattern is inherited from the
+       (max-width: 860px) block above; just need to keep the header tall
+       enough for both rows and ensure the logo text and actions fit. */
+    :root { --header-h: 88px; }
     header {
-      flex-wrap: nowrap;
       padding: 0 12px;
-      min-height: 52px;
-      gap: 8px;
+      min-height: 88px;
+      gap: 6px;
+      row-gap: 0;
+      align-items: center;
     }
-    .header-nav {
-      order: 0;
-      flex: 1 1 0;
-      min-width: 0;
-      padding: 0;
-      border-top: none;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    .header-nav::-webkit-scrollbar { display: none; }
-    .header-nav-tab { font-size: 10px; padding: 5px 10px; flex-shrink: 0; }
-    .header-actions { margin-left: 0; flex-shrink: 0; }
-    /* Compact logo: image only, text hidden */
-    .logo-img { height: 30px; }
-    .logo span { display: none; }
+    .logo-img { height: 28px; }
+    .logo span { font-size: 17px; }
+    .logo .logo-slashes { font-size: 11px; margin-right: 5px; }
+    .logo .logo-word { letter-spacing: 3px; }
+    .header-nav-tab { font-size: 10px; padding: 5px 10px; }
     /* Auth dropdown: align to mobile header padding */
     .auth-menu { right: 12px; }
   }
@@ -5001,7 +4995,8 @@
       <button class="library-tab" id="tab-mine" onclick="switchLibTab('mine')">My Forces</button>
       <button class="library-tab admin-only" id="tab-historical" onclick="switchLibTab('historical')" style="display:none">Historical</button>
       <button class="library-tab admin-only" id="tab-orbat" onclick="switchLibTab('orbat')" style="display:none">ORBAT</button>
-      <button class="library-tab" id="tab-fpp" onclick="switchLibTab('fpp')">Start Game</button>
+      <!-- Start Game lives in the main header now; keep the tab as a fallback target for setSection('fpp') redirects but hide it. -->
+      <button class="library-tab" id="tab-fpp" onclick="switchLibTab('fpp')" style="display:none">Start Game</button>
     </div>
     <div id="library-body" class="library-body"></div>
     <div id="org-browser-body" style="display:none"></div>
