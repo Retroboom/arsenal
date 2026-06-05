@@ -3957,49 +3957,67 @@
     .start-game-btn .sg-long  { display: none; }
     .start-game-btn .sg-short { display: inline; }
 
-    /* Force Library: stack vertically instead of a two-column grid */
+    /* Force Library: same side-strip pattern as the Units filter sidebar.
+       Collapsed = 36px strip on left with just the toggle; expanded = 280px
+       overlay panel. lib-main is offset by 36px to leave room for the strip. */
     #section-library.active,
     #section-library.active.lib-filters-collapsed {
-      display: flex;
-      flex-direction: column;
+      display: block;
+      position: relative;
     }
     #section-library .lib-sidebar {
-      position: sticky;
+      position: fixed;
       top: var(--header-h);
-      z-index: 10;
+      left: 0;
+      width: 36px;
+      height: calc(100vh - var(--header-h));
+      z-index: 50;
       background: var(--bg2);
-      height: auto;
-      overflow: visible;
-      border-right: none;
-      border-bottom: 1px solid var(--border);
-      padding: 0;
-      flex-shrink: 0;
-      width: 100%;
+      border-right: 1px solid var(--border);
+      border-bottom: none;
+      padding: 12px 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       box-sizing: border-box;
     }
-    #section-library .lib-main { flex: 1; min-height: 0; }
+    #section-library:not(.lib-filters-collapsed) .lib-sidebar {
+      width: 280px;
+      padding: 16px 14px;
+      overflow-y: auto;
+      display: block;
+      z-index: 100;
+      box-shadow: 4px 0 32px rgba(0,0,0,0.6);
+    }
+    #section-library .lib-main { margin-left: 36px; }
     #section-library .lib-sidebar-header {
-      padding: 10px 16px;
+      padding: 0;
       margin-bottom: 0;
-      padding-bottom: 10px;
       border-bottom: none;
+      justify-content: center;
     }
-    #section-library .lib-filters-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.28s ease;
-      padding: 0 16px;
-    }
-    #section-library:not(.lib-filters-collapsed) .lib-filters-body {
-      max-height: 800px;
-      padding: 4px 16px 12px;
-    }
-    #section-library.lib-filters-collapsed .lib-sidebar { overflow: visible; }
-    #section-library.lib-filters-collapsed .lib-sidebar-title { display: block; }
-    #section-library.lib-filters-collapsed .lib-sidebar-header {
+    #section-library:not(.lib-filters-collapsed) .lib-sidebar-header {
       justify-content: space-between;
-      border-bottom: none;
-      margin-bottom: 0;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    #section-library.lib-filters-collapsed .lib-sidebar-title { display: none; }
+    #section-library:not(.lib-filters-collapsed) .lib-sidebar-title { display: block; }
+    #section-library .lib-filters-body { display: none; }
+    #section-library:not(.lib-filters-collapsed) .lib-filters-body { display: block; }
+    /* Make the collapsed toggle button match the Units sidebar style */
+    #section-library.lib-filters-collapsed .lib-sidebar-toggle {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      width: 26px;
+      height: 26px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
     }
 
     /* Force Builder: platoon list visible above config details */
