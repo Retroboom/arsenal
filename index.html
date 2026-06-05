@@ -4508,6 +4508,8 @@
 
   /* Result */
   .fpp-result-summary { text-align: center; font-size: 15px; color: var(--text1); line-height: 1.7; padding: 16px 24px; background: color-mix(in srgb, var(--accent) 7%, var(--bg2)); border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--border)); border-radius: 8px; }
+  /* Attacker-side callout under the BL summary on the Parity Complete screen. */
+  .fpp-result-attacker { text-align: center; font-family: var(--mono); font-size: 13px; color: var(--text2); letter-spacing: 0.04em; padding: 8px 16px; }
   .fpp-result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .fpp-result-player { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 24px 20px; text-align: center; border-top: 3px solid transparent; }
   .fpp-result-player.fpp-allied { border-top-color: #8b1e1e; }
@@ -11771,7 +11773,7 @@ function finalizeFPP() {
 }
 
 function renderFPPResult(body) {
-  const { a, b, scores, finalBL } = fppState;
+  const { a, b, scores, finalBL, attacker } = fppState;
   const diff   = Math.abs(scores.a - scores.b);
   const higher = scores.a > scores.b ? a : scores.b > scores.a ? b : null;
   const lower  = higher === a ? b : a;
@@ -11782,12 +11784,17 @@ function renderFPPResult(body) {
   } else {
     summaryText = `${esc(higher.name)}'s Break Limit is reduced by ${reduction} — their force collapses sooner.`;
   }
+  const atkSide = attacker === 'a' ? a : b;
+  const attackerLine = atkSide?.name
+    ? `In this matchup, ${esc(atkSide.name)} becomes the Attacker.`
+    : '';
   body.innerHTML = `
     ${fppStepIndicator(5)}
     <div class="fpp-step-header">
       <div class="fpp-step-title">Parity Complete</div>
     </div>
     <div class="fpp-result-summary">${summaryText}</div>
+    ${attackerLine ? `<div class="fpp-result-attacker">${attackerLine}</div>` : ''}
     <div class="fpp-result-grid">
       <div class="fpp-result-player fpp-allied">
         <div class="fpp-result-name">${esc(a.name)}</div>
