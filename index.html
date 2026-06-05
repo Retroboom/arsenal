@@ -34,6 +34,9 @@
     --warn: #f5a623;
     --red: #a04545;
     --blue: #4a6a8c;
+    /* Visible-only-to-admin elements use this purple so the admin can tell at
+       a glance what regular users don't see. */
+    --admin: #b070b0;
     --mono: 'Special Elite', monospace;
     --display: 'Stardos Stencil', sans-serif;
     --body: 'Barlow', sans-serif;
@@ -2959,6 +2962,17 @@
   .library-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
   .library-tab:hover { color: var(--text); }
 
+  /* Admin-only visibility: purple tint so the admin sees which items are
+     hidden from regular users. */
+  .library-tab.admin-only { color: var(--admin); }
+  .library-tab.admin-only:hover { color: var(--admin); opacity: 0.85; }
+  .library-tab.admin-only.active { color: var(--admin); border-bottom-color: var(--admin); }
+  .rate-teams-btn.admin-only { border-color: var(--admin); color: var(--admin); }
+  .rate-teams-btn.admin-only:hover,
+  .rate-teams-btn.admin-only.active { border-color: var(--admin); color: var(--admin); }
+  .action-btn.admin-only { border-color: var(--admin); color: var(--admin); }
+  .action-btn.admin-only:hover { background: var(--admin); color: var(--bg); }
+
   .force-card {
     border: 1px solid var(--border);
     padding: 14px 16px;
@@ -3420,12 +3434,14 @@
   .force-type-chip.active { border-color: var(--accent); color: var(--accent); background: rgba(224,192,96,0.08); }
 
   /* RATING BADGE (admin only) */
+  /* Rating badges are admin-only (only shown when isAdmin). Use the admin
+     purple so they're visually distinct from the gold accent regulars see. */
   .rating-badge {
     font-family: var(--mono);
     font-size: 11px;
-    color: var(--accent);
-    background: rgba(224,192,96,0.08);
-    border: 1px solid rgba(224,192,96,0.25);
+    color: var(--admin);
+    background: rgba(176,112,176,0.08);
+    border: 1px solid rgba(176,112,176,0.28);
     padding: 1px 5px;
     letter-spacing: 0.5px;
     white-space: nowrap;
@@ -4423,8 +4439,10 @@
   .fpp-rank-list { display: flex; flex-direction: column; gap: 8px; }
   .fpp-rank-item { display: flex; align-items: center; gap: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; cursor: default; user-select: none; }
   .fpp-rank-item:hover { border-color: var(--text3); }
-  .fpp-pts-badge { font-family: var(--mono); font-size: 11px; color: var(--accent); white-space: nowrap; margin-left: auto; }
-  .fpp-unit-pts { font-family: var(--mono); font-size: 11px; color: var(--accent); margin-top: 2px; }
+  /* FPP points badges are admin-only — tint purple so the admin can tell at
+     a glance that these aren't visible to the other player. */
+  .fpp-pts-badge { font-family: var(--mono); font-size: 11px; color: var(--admin); white-space: nowrap; margin-left: auto; }
+  .fpp-unit-pts { font-family: var(--mono); font-size: 11px; color: var(--admin); margin-top: 2px; }
   .fpp-rank-handle { cursor: grab; color: var(--text3); font-size: 18px; padding: 4px 8px; flex-shrink: 0; touch-action: none; line-height: 1; }
   .fpp-rank-handle:active { cursor: grabbing; }
   .fpp-rank-num { font-family: var(--mono); font-size: 14px; color: var(--text3); width: 22px; flex-shrink: 0; }
@@ -4861,8 +4879,8 @@
       <div class="results-count" id="results-count">Loading...</div>
       <button class="clear-btn" onclick="clearFilters()">Clear all filters</button>
 
-      <button id="rate-btn" class="rate-teams-btn" onclick="openCompare()" style="display:none">▲ Rate Teams</button>
-      <button id="score-toggle-btn" class="rate-teams-btn" onclick="toggleScoreDisplay()" style="display:none">pts</button>
+      <button id="rate-btn" class="rate-teams-btn admin-only" onclick="openCompare()" style="display:none">▲ Rate Teams</button>
+      <button id="score-toggle-btn" class="rate-teams-btn admin-only" onclick="toggleScoreDisplay()" style="display:none">pts</button>
     </div>
   </aside>
 
@@ -4981,8 +4999,8 @@
     <div class="lib-section-tabs">
       <button class="library-tab active" id="tab-browse" onclick="switchLibTab('browse')">Browse</button>
       <button class="library-tab" id="tab-mine" onclick="switchLibTab('mine')">My Forces</button>
-      <button class="library-tab" id="tab-historical" onclick="switchLibTab('historical')">Historical</button>
-      <button class="library-tab" id="tab-orbat" onclick="switchLibTab('orbat')" style="display:none">ORBAT</button>
+      <button class="library-tab admin-only" id="tab-historical" onclick="switchLibTab('historical')" style="display:none">Historical</button>
+      <button class="library-tab admin-only" id="tab-orbat" onclick="switchLibTab('orbat')" style="display:none">ORBAT</button>
       <button class="library-tab" id="tab-fpp" onclick="switchLibTab('fpp')">Start Game</button>
     </div>
     <div id="library-body" class="library-body"></div>
@@ -5187,7 +5205,7 @@
       <button class="action-btn action-secondary" onclick="publishForce()">Publish</button>
       <button class="action-btn danger action-secondary" onclick="clearForce()">Clear</button>
       <button class="action-btn" id="fp-more-btn" onclick="toggleFpMore()" title="More actions">···</button>
-      <button class="action-btn" id="hof-publish-btn" onclick="publishAsHoF()" style="display:none" title="Publish as an official Hail of Fire example force">HoF</button>
+      <button class="action-btn admin-only" id="hof-publish-btn" onclick="publishAsHoF()" style="display:none" title="Publish as an official Hail of Fire example force">HoF</button>
     </div>
   </div>
 </div>
@@ -12360,6 +12378,7 @@ firebase.auth().onAuthStateChanged(async (user) => {
       document.getElementById('score-toggle-btn').style.display = '';
       document.getElementById('hof-publish-btn').style.display = '';
       document.getElementById('tab-orbat').style.display = '';
+      document.getElementById('tab-historical').style.display = '';
     }
     await loadData();
     await checkUrlForce();
@@ -12384,6 +12403,10 @@ firebase.auth().onAuthStateChanged(async (user) => {
     if (stBtn) stBtn.style.display = 'none';
     const hofBtn = document.getElementById('hof-publish-btn');
     if (hofBtn) hofBtn.style.display = 'none';
+    const histTab = document.getElementById('tab-historical');
+    if (histTab) histTab.style.display = 'none';
+    const orbatTab = document.getElementById('tab-orbat');
+    if (orbatTab) orbatTab.style.display = 'none';
     updateAuthUI(null, false);
   }
 });
