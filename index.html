@@ -3626,7 +3626,10 @@
     background: rgba(8, 7, 6, 0.97);
     z-index: 400;
     display: none;
-    overflow-y: auto;
+    /* Allow horizontal scroll too — if the sheet content (stat tables, notes)
+       is wider than the viewport the modal scrolls; the box bg extends with
+       the content so nothing breaks out of the dark panel on scroll-right. */
+    overflow: auto;
     padding: 32px 16px 48px;
   }
 
@@ -3636,6 +3639,9 @@
     background: var(--bg2);
     border: 1px solid var(--border);
     max-width: 940px;
+    /* Grow with content when stats/keywords push past max-width, so the box
+       background continues to sit behind everything that scrolls off-screen. */
+    min-width: max-content;
     margin: 0 auto;
   }
 
