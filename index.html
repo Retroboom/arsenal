@@ -11335,6 +11335,14 @@ function fppStepIndicator(active) {
   `</div>`;
 }
 
+// Persist the player name as the user types so a downstream renderFPP()
+// (triggered by loading a force, switching tabs, etc.) doesn't blow away
+// the typed-but-uncommitted name.
+function captureFPPName(which, value) {
+  if (which !== 'a' && which !== 'b') return;
+  fppState[which].name = value;
+}
+
 function resetFPP() {
   fppState.step = 'setup';
   fppState.a = { name: fppState.a.name, platoons: [], bl: 0, vehicleCount: 0 };
@@ -11370,7 +11378,7 @@ function renderFPPSetup(body) {
     <div class="fpp-setup-grid">
       <div class="fpp-player-setup fpp-allied">
         <div class="fpp-player-label">PLAYER A: YOU</div>
-        <input class="fpp-name-input" id="fpp-name-a" placeholder="Your name…" value="${esc(aName)}">
+        <input class="fpp-name-input" id="fpp-name-a" placeholder="Your name…" value="${esc(aName)}" oninput="captureFPPName('a', this.value)">
         ${platoons.length ? `
           <div class="fpp-force-summary">
             <div class="fpp-force-name">${esc(document.getElementById('force-name')?.value || 'Current Force')}</div>
@@ -11381,7 +11389,7 @@ function renderFPPSetup(body) {
       <div class="fpp-vs">VS</div>
       <div class="fpp-player-setup fpp-axis">
         <div class="fpp-player-label">PLAYER B: OPPONENT</div>
-        <input class="fpp-name-input" id="fpp-name-b" placeholder="Opponent name…" value="${esc(fppState.b.name)}">
+        <input class="fpp-name-input" id="fpp-name-b" placeholder="Opponent name…" value="${esc(fppState.b.name)}" oninput="captureFPPName('b', this.value)">
         <button class="fpp-load-btn ${bLoaded ? 'loaded' : ''}" onclick="openForcePicker()">
           ${bLoaded ? `
             <div class="fpp-force-name">${esc(fppState.b.forceName || 'Opponent Force')}</div>
@@ -12309,7 +12317,11 @@ async function selectOpponentForce(forceId) {
   fppState.b.platoons   = toArr(data.platoons);
   fppState.b.forceId    = forceId;
   fppState.b.forceName  = data.name || '';
-  fppState.b.name = data.author || data.authorEmail || fppState.b.name || '';
+  // Only fill in the opponent's name from the force author if the user hasn't
+  // typed their own value — preserve whatever they entered above.
+  if (!fppState.b.name) {
+    fppState.b.name = data.author || data.authorEmail || '';
+  }
   renderFPP();
 }
 
