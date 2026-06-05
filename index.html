@@ -3805,6 +3805,12 @@
     vertical-align: middle;
     font-family: var(--mono);
     font-size: 11px;
+    /* Belt-and-suspenders: every cell allows its content to break at any
+       point if the column would otherwise be too narrow to contain it.
+       Combined with table-layout:fixed, this guarantees the table never
+       grows past min-width:740px regardless of unit name length. */
+    overflow-wrap: anywhere;
+    word-break: normal;
   }
 
   .fs-stats-table tr:last-child td { border-bottom: none; }
@@ -3824,10 +3830,18 @@
     font-style: italic;
     display: block;
     margin-top: 1px;
-    /* Force the MG/weapon list to wrap within the column instead of
-       overflowing past the right side of the table. */
-    overflow-wrap: break-word;
-    word-break: normal;
+    /* overflow-wrap:anywhere is stronger than break-word — it lets the MG
+       list break even mid-token when needed (e.g. "M1919A4" if the Unit
+       column gets squeezed), so the armament line never extends past the
+       right edge of the column on narrow viewports. */
+    overflow-wrap: anywhere;
+    min-width: 0;
+  }
+  /* Same break behaviour for the MG-tooltip wrappers inside .fs-armament,
+     plus a small line-height so wrapped multi-line lists stay tidy. */
+  .fs-armament .mg-tip {
+    overflow-wrap: anywhere;
+    line-height: 1.4;
   }
 
   .mg-tip {
@@ -9139,13 +9153,13 @@ function openForceSheet(forceData) {
         <table class="fs-stats-table">
           <colgroup>
             <col style="width:44px">
-            <col style="width:22%">
-            <col style="width:58px">
+            <col style="width:28%">
             <col style="width:54px">
-            <col style="width:48px">
-            <col style="width:48px">
-            <col style="width:48px">
-            <col style="width:58px">
+            <col style="width:54px">
+            <col style="width:46px">
+            <col style="width:46px">
+            <col style="width:46px">
+            <col style="width:54px">
             <col><!-- Special Rules: remaining space, tags wrap inside -->
           </colgroup>
           <thead>
