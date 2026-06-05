@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <!-- Tell iOS Safari (incl. iOS 18 Liquid Glass) and Chrome to paint the address
      bar / status bar area in the app background color instead of showing the
      page rubber-band through it. -->
@@ -50,8 +50,9 @@
   body {
     margin: 0;
     padding: 0;
-    /* Reserve space for the fixed header so page content starts below it. */
-    padding-top: var(--header-h);
+    /* Reserve space for the fixed header (incl. safe-area zone above its
+       content) so page content starts below it. */
+    padding-top: calc(var(--header-h) + env(safe-area-inset-top));
     background: var(--bg);
     color: var(--text);
     font-family: var(--body);
@@ -90,15 +91,15 @@
     border-top: 2px solid var(--accent);
     border-bottom: 1px solid var(--border);
     padding: 0 24px;
+    /* With viewport-fit=cover the header's box extends behind the iOS status
+       bar (top:0 is true viewport top). Padding-top pushes content below the
+       safe-area zone so it isn't clipped. The header bg fills the entire box
+       including the padding area, so the status bar zone is painted bg2. */
+    padding-top: env(safe-area-inset-top);
     min-height: 60px;
     display: flex;
     align-items: center;
     gap: 24px;
-    /* position:fixed (not sticky) — iOS Safari's rubber-band overscroll breaks
-       sticky positioning, causing the page content above the viewport to peek
-       out from behind the header during the bounce. Fixed is anchored to the
-       viewport and unaffected by overscroll. Body padding-top below compensates
-       for the header no longer being in the document flow. */
     position: fixed;
     top: 0;
     left: 0;
