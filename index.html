@@ -50,6 +50,8 @@
   body {
     margin: 0;
     padding: 0;
+    /* Reserve space for the fixed header so page content starts below it. */
+    padding-top: var(--header-h);
     background: var(--bg);
     color: var(--text);
     font-family: var(--body);
@@ -88,15 +90,19 @@
     border-top: 2px solid var(--accent);
     border-bottom: 1px solid var(--border);
     padding: 0 24px;
-    /* With viewport-fit=cover the header extends behind the iOS notch/status
-       bar; add safe-area inset so the content (logo, nav, buttons) sits below it. */
-    padding-top: env(safe-area-inset-top);
     min-height: 60px;
     display: flex;
     align-items: center;
     gap: 24px;
-    position: sticky;
+    /* position:fixed (not sticky) — iOS Safari's rubber-band overscroll breaks
+       sticky positioning, causing the page content above the viewport to peek
+       out from behind the header during the bounce. Fixed is anchored to the
+       viewport and unaffected by overscroll. Body padding-top below compensates
+       for the header no longer being in the document flow. */
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
     overflow: hidden;
   }
