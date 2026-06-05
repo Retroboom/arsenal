@@ -7049,9 +7049,12 @@ async function copyFppShareLink() {
   showToast('FPP link copied — send it to your opponent.', 'success');
 
   // Save in the background — doesn't block the copy.
-  // Mark as fppTemp so it doesn't appear in the user's saved forces list.
+  // Only mark as fppTemp when the share creates a NEW record (user hadn't
+  // saved this force previously). Already-saved forces stay visible in My
+  // Forces — they're not throwaway just because the user shared them.
   try {
-    const data = { ...getForceData(), fppTemp: true };
+    const wasSaved = !!currentForceId && !currentForceFppTemp;
+    const data = { ...getForceData(), fppTemp: wasSaved ? null : true };
     try {
       await db.ref(`forces/${currentForceId}`).update(data);
     } catch {
@@ -7059,7 +7062,7 @@ async function copyFppShareLink() {
       currentForceId = ref.key;
       await ref.set({ ...data, id: currentForceId });
     }
-    currentForceFppTemp = true;
+    if (!wasSaved) currentForceFppTemp = true;
   } catch (e) {
     console.error('copyFppShareLink save error:', e);
   }
@@ -8588,8 +8591,8 @@ async function loadLibraryTab(tab) {
   snap.forEach(child => { all.push(child.val()); });
 
   const filtered = tab === 'browse'
-    ? all.filter(f => f.published)
-    : all.filter(f => currentUser && f.authorUid === currentUser.uid && !f.fppTemp);
+    ? all.filter(f => f.published && !f.fppTemp)
+    : all.filter(f => currentUser && f.authorUid === currentUser.uid);
 
   filtered.sort((a, b) => (b.created || 0) - (a.created || 0));
   libAllForces = filtered;
@@ -12308,8 +12311,8 @@ async function openForcePicker() {
       const v = c.val();
       if (!v) return;
       const isOwn = currentUser && (v.authorUid === currentUser.uid || v.authorEmail === currentUser.email);
-      if (isOwn && !v.fppTemp) mine.push({ id: c.key, ...v });
-      else if (v.published) library.push({ id: c.key, ...v });
+      if (isOwn) mine.push({ id: c.key, ...v });
+      else if (v.published && !v.fppTemp) library.push({ id: c.key, ...v });
     });
     mine.sort((a, b) => (b.created || 0) - (a.created || 0));
     library.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
@@ -12377,8 +12380,8 @@ async function openMyForcePicker() {
       const v = c.val();
       if (!v) return;
       const isOwn = currentUser && (v.authorUid === currentUser.uid || v.authorEmail === currentUser.email);
-      if (isOwn && !v.fppTemp) { mine.push({ id: c.key, ...v }); seen.add(c.key); }
-      else if (v.published) { library.push({ id: c.key, ...v }); }
+      if (isOwn) { mine.push({ id: c.key, ...v }); seen.add(c.key); }
+      else if (v.published && !v.fppTemp) { library.push({ id: c.key, ...v }); }
     });
     // My forces: newest first; library: alphabetical
     mine.sort((a, b) => (b.created || 0) - (a.created || 0));
