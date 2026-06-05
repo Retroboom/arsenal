@@ -3626,10 +3626,7 @@
     background: rgba(8, 7, 6, 0.97);
     z-index: 400;
     display: none;
-    /* Allow horizontal scroll too — if the sheet content (stat tables, notes)
-       is wider than the viewport the modal scrolls; the box bg extends with
-       the content so nothing breaks out of the dark panel on scroll-right. */
-    overflow: auto;
+    overflow-y: auto;
     padding: 32px 16px 48px;
   }
 
@@ -3639,9 +3636,6 @@
     background: var(--bg2);
     border: 1px solid var(--border);
     max-width: 940px;
-    /* Grow with content when stats/keywords push past max-width, so the box
-       background continues to sit behind everything that scrolls off-screen. */
-    min-width: max-content;
     margin: 0 auto;
   }
 
@@ -3775,6 +3769,9 @@
   .fs-stats-table {
     width: 100%;
     border-collapse: collapse;
+    /* Fixed layout so the notes column can't push the table wider than its
+       container — instead, note tags wrap to the next line when full. */
+    table-layout: fixed;
   }
 
   .fs-stats-table th {
@@ -3851,7 +3848,22 @@
   .fs-stat { color: var(--accent); text-align: center; }
   .fs-stat.dash { color: var(--text3); text-align: center; }
 
-  .fs-notes-cell { position: relative; overflow: visible; }
+  .fs-notes-cell {
+    position: relative;
+    overflow: visible;
+    /* Allow note tags to wrap onto multiple lines when the column is too
+       narrow to fit them all on one row. */
+    white-space: normal;
+    word-spacing: 4px;
+    line-height: 1.7;
+  }
+  /* Tighten the print stylesheet too so tags wrap there as well, but only
+     after we hit the column edge — individual tags still nowrap. */
+  .fs-notes-cell .note-tag {
+    display: inline-block;
+    margin: 2px 2px 2px 0;
+    white-space: nowrap;
+  }
 
   /* PRINT */
   /* ── FORCE BUILDER MOBILE ───────────────────────────────────────── */
@@ -9106,9 +9118,20 @@ function openForceSheet(forceData) {
           <span class="fs-platoon-num">${numStr}</span>${label}${qBadge}
         </div>
         <table class="fs-stats-table">
+          <colgroup>
+            <col style="width:44px">
+            <col style="width:22%">
+            <col style="width:58px">
+            <col style="width:54px">
+            <col style="width:48px">
+            <col style="width:48px">
+            <col style="width:48px">
+            <col style="width:58px">
+            <col><!-- Special Rules: remaining space, tags wrap inside -->
+          </colgroup>
           <thead>
             <tr>
-              <th class="c" style="width:44px">Qty</th>
+              <th class="c">Qty</th>
               <th>Unit</th>
               <th class="c" data-tip="Base size: Small (1×1&quot;), Medium (2×1&quot;), or Large (2×2&quot;). Base size affects movement through terrain and the area a team occupies.">Base</th>
               <th class="c" data-tip="${STAT_TIPS.Range.replace(/"/g, '&quot;')}">Range</th>
