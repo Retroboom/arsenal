@@ -3853,6 +3853,11 @@
     margin-top: 32px;
     padding-top: 16px;
     border-top: 1px solid var(--border);
+    /* Same horizontal-scroll wrapper as .fs-platoon — the fs-stats-table
+       inside has min-width:740px and would otherwise overflow the box on
+       narrow viewports. */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .fs-mg-reference-title {
