@@ -2987,6 +2987,10 @@
      Published) and force-card move arrows. Hover swaps to filled purple. */
   .force-card-btn.admin-only { border-color: var(--admin); color: var(--admin); }
   .force-card-btn.admin-only:hover { border-color: var(--admin); background: var(--admin); color: var(--bg); }
+  /* Admin-only destructive (briefing Delete): purple at rest signals
+     admin-scope, red on hover signals destructive. Higher specificity than
+     either single-class hover rule, so this resolution is unambiguous. */
+  .force-card-btn.admin-only.danger:hover { border-color: var(--red); background: transparent; color: #ff9a9a; }
   /* Admin-tinted FM header buttons: + New Briefing. */
   .fm-tracker-btn.admin-only { border-color: var(--admin); color: var(--admin); }
   .fm-tracker-btn.admin-only:hover { background: var(--admin); color: var(--bg); }
@@ -9081,7 +9085,7 @@ function applyFmFilters() {
         <button class="force-card-btn admin-only" onclick="event.stopPropagation();openBriefingEditor('${item.id}')" title="Edit">✎ Edit</button>
         <button class="force-card-btn admin-only${item.pinned ? ' active' : ''}" onclick="event.stopPropagation();togglePinContent('${item.id}', ${!!item.pinned})" title="Toggle pin">${item.pinned ? '📌 Pinned' : '📌 Pin'}</button>
         <button class="force-card-btn admin-only${item.published ? ' active' : ''}" onclick="event.stopPropagation();togglePublishContent('${item.id}', ${!!item.published})" title="Toggle published">${item.published ? '● Published' : '○ Draft'}</button>
-        <button class="force-card-btn danger" onclick="event.stopPropagation();deleteContentItem('${item.id}')" title="Delete">Delete</button>
+        <button class="force-card-btn admin-only danger" onclick="event.stopPropagation();deleteContentItem('${item.id}')" title="Delete">Delete</button>
       </div>` : '';
     return `
       <div class="fm-card" onclick="${dest}">
