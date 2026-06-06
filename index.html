@@ -7548,24 +7548,18 @@ async function loadWhatsNew() {
   const cards = document.getElementById('whats-new-cards');
   if (!container || !cards) return;
 
-  // Pull latest forces and Field Manual content in parallel;
-  // content collection may not exist yet so we let it fail silently
-  const [forcesSnap, contentSnap] = await Promise.all([
-    firebase.database().ref('forces').once('value'),
-    firebase.database().ref('content').once('value').catch(() => null)
-  ]);
+  // Recent Briefings is /content only. Forces flagged briefing:true used to
+  // appear here as a stand-in before /content was a real feature; now that
+  // briefings are first-class content, the strip is purely /content items.
+  // The admin "★ Briefing" toggle on force cards is currently inert; the flag
+  // still saves but isn't rendered anywhere.
+  const contentSnap = await firebase.database().ref('content').once('value').catch(() => null);
 
   const combined = [];
-
-  forcesSnap.forEach(child => {
-    const f = child.val();
-    if (f.published && f.briefing) combined.push({ _wnType: 'force', ...f });
-  });
-
   if (contentSnap) {
     contentSnap.forEach(child => {
       const c = child.val();
-      if (c.published) combined.push({ _wnType: 'content', ...c });
+      if (c.published) combined.push({ _wnType: 'content', id: child.key, ...c });
     });
   }
 
@@ -7579,28 +7573,15 @@ async function loadWhatsNew() {
 
   cards.innerHTML = newest.map(item => {
     const pinChip = item.pinned ? '<span class="wn-pinned-chip">📌 Pinned</span>' : '';
-    if (item._wnType === 'force') {
-      const age = timeAgoShort(item.created);
-      const nationBadges = toArr(item.nations).map(n =>
-        `<span class="${nationBadgeClass(n)}" style="font-size:8px;padding:1px 5px">${n}</span>`
-      ).join(' ');
-      return `
-        <div class="wn-card" onclick="openLibForceSheet('${item.id}')">
-          <div class="wn-card-badge">${pinChip}⊞ Force · ${age}</div>
-          <div class="wn-card-name">${item.name}</div>
-          <div class="wn-card-meta">${nationBadges}</div>
-        </div>`;
-    } else {
-      const age = timeAgoShort(item.created);
-      const typeClass = { Guide: 't-guide', Scenario: 't-scenario', Campaign: 't-campaign' }[item.type] || 't-guide';
-      const dest = briefingClickHandler(item);
-      return `
-        <div class="wn-card" onclick="${dest}">
-          <div class="wn-card-badge">${pinChip}<span class="fm-card-type ${typeClass}" style="font-size:9px">${item.type || 'Guide'}</span> · ${age}</div>
-          <div class="wn-card-name">${item.title || 'Untitled'}</div>
-          <div class="wn-card-meta" style="color:var(--text3);font-size:10px">${item.author || 'Hail of Fire'}</div>
-        </div>`;
-    }
+    const age = timeAgoShort(item.created);
+    const typeClass = { Guide: 't-guide', Scenario: 't-scenario', Campaign: 't-campaign' }[item.type] || 't-guide';
+    const dest = briefingClickHandler(item);
+    return `
+      <div class="wn-card" onclick="${dest}">
+        <div class="wn-card-badge">${pinChip}<span class="fm-card-type ${typeClass}" style="font-size:9px">${item.type || 'Guide'}</span> · ${age}</div>
+        <div class="wn-card-name">${item.title || 'Untitled'}</div>
+        <div class="wn-card-meta" style="color:var(--text3);font-size:10px">${item.author || 'Hail of Fire'}</div>
+      </div>`;
   }).join('');
 
   container.style.display = '';
@@ -8826,9 +8807,20 @@ function briefingClickHandler(item) {
   return `setSection('fieldmanual')`;
 }
 let currentBriefingItem = null;
-function openBriefingReader(itemId, opts) {
+async function openBriefingReader(itemId, opts) {
   opts = opts || {};
-  const item = fmAllItems.find(i => i.id === itemId);
+  let item = fmAllItems.find(i => i.id === itemId);
+  if (!item) {
+    // Cache miss: usually means the user clicked a briefing card before
+    // visiting the Field Manual tab (e.g. from the Units page Recent
+    // Briefings strip, or a shared ?briefing= link landing them on /).
+    // Fetch the single record directly so the reader still opens.
+    try {
+      const snap = await firebase.database().ref(`content/${itemId}`).once('value');
+      const v = snap.val();
+      if (v) item = { id: itemId, ...v };
+    } catch(e) { console.error('openBriefingReader fetch failed:', e); }
+  }
   if (!item) return;
   currentBriefingItem = item;
   document.getElementById('br-type').textContent   = item.type   || 'Guide';
