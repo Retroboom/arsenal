@@ -3245,8 +3245,16 @@
     font-size: 32px;
     letter-spacing: 0.04em;
     color: var(--accent);
-    margin-bottom: 26px;
+    margin-bottom: 8px;
     line-height: 1.15;
+  }
+  .briefing-reader-subtitle {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    color: var(--text2);
+    text-transform: uppercase;
+    margin-bottom: 26px;
   }
   .briefing-reader-body {
     font-family: var(--body);
@@ -5358,6 +5366,7 @@
       <span class="briefing-reader-age" id="br-age"></span>
     </div>
     <h1 class="briefing-reader-title" id="br-title">Title</h1>
+    <div class="briefing-reader-subtitle" id="br-subtitle" style="display:none"></div>
     <!-- Body slot: innerHTML populated from marked() -->
     <div class="briefing-reader-body" id="br-body"></div>
     <div class="briefing-reader-share">
@@ -5376,7 +5385,11 @@
     <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px">
       <label class="briefing-field">
         <span class="briefing-field-label">Title</span>
-        <input type="text" id="be-title" placeholder="Getting Started with Arsenal" class="qt-input">
+        <input type="text" id="be-title" placeholder="Welcome to the Arsenal" class="qt-input">
+      </label>
+      <label class="briefing-field">
+        <span class="briefing-field-label">Subtitle (optional, shown under the title)</span>
+        <input type="text" id="be-subtitle" placeholder="e.g. - START HERE" class="qt-input">
       </label>
       <label class="briefing-field">
         <span class="briefing-field-label">Type</span>
@@ -8829,6 +8842,13 @@ async function openBriefingReader(itemId, opts) {
   document.getElementById('br-age').textContent = age;
   document.getElementById('br-age-dot').style.display = age ? '' : 'none';
   document.getElementById('br-title').textContent  = item.title  || 'Untitled';
+  const subEl = document.getElementById('br-subtitle');
+  if (item.subtitle) {
+    subEl.textContent = item.subtitle;
+    subEl.style.display = '';
+  } else {
+    subEl.style.display = 'none';
+  }
   // marked is loaded from CDN; render the body to sanitized-ish HTML. The
   // author is always us, so we trust the input.
   const html = item.body && typeof marked !== 'undefined'
@@ -8889,6 +8909,7 @@ function openBriefingEditor(itemId) {
   const existing = itemId ? fmAllItems.find(i => i.id === itemId) : null;
   document.getElementById('briefing-editor-title').textContent = existing ? 'Edit Briefing' : 'New Briefing';
   document.getElementById('be-title').value     = existing?.title || '';
+  document.getElementById('be-subtitle').value  = existing?.subtitle || '';
   document.getElementById('be-type').value      = existing?.type  || 'Guide';
   document.getElementById('be-author').value    = existing?.author || 'Hail of Fire';
   document.getElementById('be-summary').value   = existing?.summary || '';
@@ -8906,6 +8927,7 @@ async function saveBriefing() {
   if (!isAdmin) return;
   const data = {
     title:     document.getElementById('be-title').value.trim(),
+    subtitle:  document.getElementById('be-subtitle').value.trim() || null,
     type:      document.getElementById('be-type').value,
     author:    document.getElementById('be-author').value.trim() || 'Hail of Fire',
     summary:   document.getElementById('be-summary').value.trim(),
