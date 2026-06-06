@@ -9189,16 +9189,6 @@ function renderLibForces(body, forces) {
           ${!f.published ? `<button class="force-card-btn" onclick="publishForceById('${f.id}')">Publish</button>` : ''}
           <button class="force-card-btn danger" onclick="deleteForce('${f.id}')">Delete</button>
         ` : ''}
-        ${isAdmin ? `
-          <button class="force-card-btn${f.briefing ? ' active' : ''}" onclick="toggleBriefingFlag('${f.id}', ${!!f.briefing})" title="Toggle whether this force appears in Recent Briefings">
-            ${f.briefing ? '★ Briefing' : '☆ Briefing'}
-          </button>
-          ${f.briefing ? `
-            <button class="force-card-btn${f.pinned ? ' active' : ''}" onclick="togglePinFlag('${f.id}', ${!!f.pinned})" title="Pin this briefing to the top of every list">
-              ${f.pinned ? '📌 Pinned' : '📌 Pin'}
-            </button>
-          ` : ''}
-        ` : ''}
         ${isAdmin && currentLibTab === 'browse' && (document.getElementById('lib-sort')?.value || 'order') === 'order' ? `
           <button class="force-card-btn" onclick="moveForceOrder('${f.id}', -1)" title="Move up">▲</button>
           <button class="force-card-btn" onclick="moveForceOrder('${f.id}', 1)" title="Move down">▼</button>
@@ -9265,30 +9255,6 @@ function copyForceShareUrl(forceId) {
 async function publishForceById(forceId) {
   await firebase.database().ref(`forces/${forceId}`).update({ published: true });
   loadLibraryTab(currentLibTab);
-}
-
-async function toggleBriefingFlag(forceId, currentlyBriefing) {
-  try {
-    await firebase.database().ref(`forces/${forceId}`).update({ briefing: !currentlyBriefing });
-    showToast(currentlyBriefing ? 'Removed from Recent Briefings.' : 'Added to Recent Briefings.', 'success');
-    loadLibraryTab(currentLibTab);
-  } catch(e) {
-    console.error('toggleBriefingFlag failed:', e);
-    showToast('Could not update briefing flag. Check Firebase rules.', 'error');
-  }
-}
-
-async function togglePinFlag(forceId, currentlyPinned) {
-  try {
-    // Use null instead of false so the field is removed when unpinning —
-    // keeps the schema clean for items that have never been pinned.
-    await firebase.database().ref(`forces/${forceId}`).update({ pinned: currentlyPinned ? null : true });
-    showToast(currentlyPinned ? 'Unpinned.' : 'Pinned to the top.', 'success');
-    loadLibraryTab(currentLibTab);
-  } catch(e) {
-    console.error('togglePinFlag failed:', e);
-    showToast('Could not update pin flag. Check Firebase rules.', 'error');
-  }
 }
 
 async function deleteForce(forceId) {
