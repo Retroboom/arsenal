@@ -722,6 +722,10 @@
     display: flex;
     gap: 4px;
     flex-wrap: wrap;
+    /* Pushes any siblings after the chips (e.g., + New Briefing, Break Point
+       Tracker) to the right edge of the section header, even when some of
+       those siblings are display:none (admin-only). */
+    margin-right: auto;
   }
   .fm-sort {
     background: var(--bg3);
@@ -4977,14 +4981,6 @@
   .game-muzzle-flash { position: fixed; pointer-events: none; z-index: 9999; width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle, rgba(255,220,100,0.9) 20%, rgba(255,100,0,0.5) 60%, transparent 80%); animation: game-flash-pulse 0.08s ease-out forwards; }
 
   /* ── FM TRACKER BUTTON ────────────────────────────────────────────────────── */
-  .fm-guide-link {
-    margin-left: auto;
-    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
-    color: var(--text3); text-decoration: none;
-    padding: 6px 4px; white-space: nowrap;
-    transition: color 0.15s;
-  }
-  .fm-guide-link:hover { color: var(--text2); }
   .fm-tracker-btn {
     background: transparent;
     border: 1px solid var(--accent);
@@ -5270,7 +5266,6 @@
       <div class="chip" data-fmtype="All" onclick="toggleFmType('All')">Briefings</div>
       <div class="chip active" data-fmtype="Rules" onclick="toggleFmType('Rules')">Rules</div>
     </div>
-    <a class="fm-guide-link" href="guide.html" target="_blank">User Guide ↗</a>
     <button class="fm-tracker-btn admin-only" onclick="openBriefingEditor()" style="display:none" title="Create a new briefing">+ New Briefing</button>
     <button class="fm-tracker-btn" onclick="openQuickTracker()">⚑ Break Point Tracker</button>
   </div>
