@@ -3199,6 +3199,27 @@
   }
   .whats-new-dismiss:hover { opacity: 1; }
 
+  /* Briefing editor field rows — label on top, input below. */
+  .briefing-field { display: flex; flex-direction: column; gap: 5px; }
+  .briefing-field-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--text3);
+    text-transform: uppercase;
+  }
+
+  /* Admin actions row at the bottom of an .fm-card. Sits below the meta row
+     and uses the same .force-card-btn styling as the Library admin controls. */
+  .fm-card-admin {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+  }
+
   /* Pinned briefing indicator — small chip rendered inline with the badge
      line on .wn-card / .fm-card so admin-pinned content reads as featured. */
   .wn-pinned-chip {
@@ -5115,6 +5136,7 @@
       <div class="chip active" data-fmtype="Rules" onclick="toggleFmType('Rules')">Rules</div>
     </div>
     <a class="fm-guide-link" href="guide.html" target="_blank">User Guide ↗</a>
+    <button class="fm-tracker-btn admin-only" onclick="openBriefingEditor()" style="display:none" title="Create a new briefing">+ New Briefing</button>
     <button class="fm-tracker-btn" onclick="openQuickTracker()">⚑ Break Point Tracker</button>
   </div>
   <div class="fm-controls">
@@ -5192,6 +5214,54 @@
       <button class="fpp-modal-close" onclick="closeForcePicker()">✕</button>
     </div>
     <div id="fpp-picker-list" class="fpp-picker-list"></div>
+  </div>
+</div>
+
+<!-- BRIEFING EDITOR MODAL (admin) -->
+<div id="briefing-editor-modal" class="fpp-modal-overlay" style="display:none" onclick="if(event.target===this)closeBriefingEditor()">
+  <div class="fpp-modal" style="width:min(560px,94vw)">
+    <div class="fpp-modal-header">
+      <span id="briefing-editor-title">New Briefing</span>
+      <button class="fpp-modal-close" onclick="closeBriefingEditor()">✕</button>
+    </div>
+    <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+      <label class="briefing-field">
+        <span class="briefing-field-label">Title</span>
+        <input type="text" id="be-title" placeholder="Getting Started with Arsenal" class="qt-input">
+      </label>
+      <label class="briefing-field">
+        <span class="briefing-field-label">Type</span>
+        <select id="be-type" class="qt-input">
+          <option value="Guide">Guide</option>
+          <option value="Scenario">Scenario</option>
+          <option value="Campaign">Campaign</option>
+        </select>
+      </label>
+      <label class="briefing-field">
+        <span class="briefing-field-label">Author</span>
+        <input type="text" id="be-author" value="Hail of Fire" class="qt-input">
+      </label>
+      <label class="briefing-field">
+        <span class="briefing-field-label">Summary</span>
+        <textarea id="be-summary" rows="3" class="qt-input" placeholder="One- or two-sentence summary that appears on the card."></textarea>
+      </label>
+      <label class="briefing-field">
+        <span class="briefing-field-label">URL</span>
+        <input type="url" id="be-url" placeholder="https://arsenal.retroboomgames.com/guide.html" class="qt-input">
+      </label>
+      <div style="display:flex;gap:18px;align-items:center">
+        <label style="display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;color:var(--text2)">
+          <input type="checkbox" id="be-published"> Published
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;color:var(--text2)">
+          <input type="checkbox" id="be-pinned"> Pinned
+        </label>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:8px;padding-top:8px">
+        <button class="action-btn" onclick="closeBriefingEditor()">Cancel</button>
+        <button class="action-btn primary" onclick="saveBriefing()">Save</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -8574,13 +8644,114 @@ async function loadFieldManual() {
     fmAllItems = [];
     snap.forEach(child => {
       const v = child.val();
-      if (v.published) fmAllItems.push(v);
+      // Carry the Firebase key as item.id so admin actions can target the
+      // record. Admins see drafts too; everyone else only sees published items.
+      if (v.published || isAdmin) fmAllItems.push({ id: child.key, ...v });
     });
     fmLoaded = true;
     renderFmBriefingsStrip();
     if (fmTypeFilter !== 'Rules') applyFmFilters();
   } catch(e) {
     // rules still visible; briefings strip stays empty — no error state needed
+  }
+}
+
+// ── BRIEFING EDITOR (admin) ──────────────────────────────────────────────────
+let editingBriefingId = null;
+function openBriefingEditor(itemId) {
+  if (!isAdmin) return;
+  editingBriefingId = itemId || null;
+  const existing = itemId ? fmAllItems.find(i => i.id === itemId) : null;
+  document.getElementById('briefing-editor-title').textContent = existing ? 'Edit Briefing' : 'New Briefing';
+  document.getElementById('be-title').value     = existing?.title || '';
+  document.getElementById('be-type').value      = existing?.type  || 'Guide';
+  document.getElementById('be-author').value    = existing?.author || 'Hail of Fire';
+  document.getElementById('be-summary').value   = existing?.summary || '';
+  document.getElementById('be-url').value       = existing?.url || '';
+  document.getElementById('be-published').checked = existing ? !!existing.published : true;
+  document.getElementById('be-pinned').checked    = existing ? !!existing.pinned    : false;
+  document.getElementById('briefing-editor-modal').style.display = 'flex';
+}
+function closeBriefingEditor() {
+  document.getElementById('briefing-editor-modal').style.display = 'none';
+  editingBriefingId = null;
+}
+async function saveBriefing() {
+  if (!isAdmin) return;
+  const data = {
+    title:     document.getElementById('be-title').value.trim(),
+    type:      document.getElementById('be-type').value,
+    author:    document.getElementById('be-author').value.trim() || 'Hail of Fire',
+    summary:   document.getElementById('be-summary').value.trim(),
+    url:       document.getElementById('be-url').value.trim() || null,
+    published: document.getElementById('be-published').checked,
+    pinned:    document.getElementById('be-pinned').checked || null,
+  };
+  if (!data.title) { showToast('Title is required.', 'error'); return; }
+  try {
+    const db = firebase.database();
+    if (editingBriefingId) {
+      await db.ref(`content/${editingBriefingId}`).update(data);
+      showToast('Briefing updated.', 'success');
+    } else {
+      data.created = Date.now();
+      const ref = db.ref('content').push();
+      await ref.set(data);
+      showToast('Briefing created.', 'success');
+    }
+    closeBriefingEditor();
+    // Force re-fetch so the new/edited record shows up immediately.
+    fmLoaded = false;
+    await loadFieldManual();
+    renderFmBriefingsStrip();
+    applyFmFilters();
+  } catch(e) {
+    console.error('saveBriefing failed:', e);
+    showToast('Could not save — check Firebase rules.', 'error');
+  }
+}
+async function deleteContentItem(itemId) {
+  if (!isAdmin) return;
+  const item = fmAllItems.find(i => i.id === itemId);
+  if (!confirm(`Delete "${item?.title || 'this briefing'}"? This cannot be undone.`)) return;
+  try {
+    await firebase.database().ref(`content/${itemId}`).remove();
+    showToast('Briefing deleted.', 'success');
+    fmLoaded = false;
+    await loadFieldManual();
+    renderFmBriefingsStrip();
+    applyFmFilters();
+  } catch(e) {
+    console.error('deleteContentItem failed:', e);
+    showToast('Could not delete — check Firebase rules.', 'error');
+  }
+}
+async function togglePinContent(itemId, currentlyPinned) {
+  if (!isAdmin) return;
+  try {
+    await firebase.database().ref(`content/${itemId}`).update({ pinned: currentlyPinned ? null : true });
+    showToast(currentlyPinned ? 'Unpinned.' : 'Pinned to the top.', 'success');
+    fmLoaded = false;
+    await loadFieldManual();
+    renderFmBriefingsStrip();
+    applyFmFilters();
+  } catch(e) {
+    console.error('togglePinContent failed:', e);
+    showToast('Could not update pin — check Firebase rules.', 'error');
+  }
+}
+async function togglePublishContent(itemId, currentlyPublished) {
+  if (!isAdmin) return;
+  try {
+    await firebase.database().ref(`content/${itemId}`).update({ published: !currentlyPublished });
+    showToast(currentlyPublished ? 'Moved to drafts.' : 'Published.', 'success');
+    fmLoaded = false;
+    await loadFieldManual();
+    renderFmBriefingsStrip();
+    applyFmFilters();
+  } catch(e) {
+    console.error('togglePublishContent failed:', e);
+    showToast('Could not update publish state — check Firebase rules.', 'error');
   }
 }
 
@@ -8666,15 +8837,24 @@ function applyFmFilters() {
     const age = timeAgoShort(item.created);
     const dest = item.url ? `window.open('${item.url}','_blank')` : '';
     const pinChip = item.pinned ? '<span class="wn-pinned-chip">📌 Pinned</span>' : '';
+    const draftChip = (isAdmin && !item.published) ? '<span class="wn-pinned-chip" style="color:var(--admin);border-color:color-mix(in srgb,var(--admin) 55%,var(--border));background:color-mix(in srgb,var(--admin) 14%,transparent)">Draft</span>' : '';
+    const adminActions = isAdmin ? `
+      <div class="fm-card-admin" onclick="event.stopPropagation()">
+        <button class="force-card-btn" onclick="event.stopPropagation();openBriefingEditor('${item.id}')" title="Edit">✎ Edit</button>
+        <button class="force-card-btn${item.pinned ? ' active' : ''}" onclick="event.stopPropagation();togglePinContent('${item.id}', ${!!item.pinned})" title="Toggle pin">${item.pinned ? '📌 Pinned' : '📌 Pin'}</button>
+        <button class="force-card-btn${item.published ? ' active' : ''}" onclick="event.stopPropagation();togglePublishContent('${item.id}', ${!!item.published})" title="Toggle published">${item.published ? '● Published' : '○ Draft'}</button>
+        <button class="force-card-btn danger" onclick="event.stopPropagation();deleteContentItem('${item.id}')" title="Delete">Delete</button>
+      </div>` : '';
     return `
       <div class="fm-card" onclick="${dest}">
-        <div class="fm-card-type ${typeClass}">${pinChip}${item.type || 'Guide'}</div>
+        <div class="fm-card-type ${typeClass}">${pinChip}${draftChip}${item.type || 'Guide'}</div>
         <div class="fm-card-title">${item.title || 'Untitled'}</div>
         ${item.summary ? `<div class="fm-card-summary">${item.summary}</div>` : ''}
         <div class="fm-card-meta">
           <span>${item.author || 'Hail of Fire'}</span>
           ${age ? `<span>${age}</span>` : ''}
         </div>
+        ${adminActions}
       </div>`;
   }).join('');
 }
@@ -12585,6 +12765,8 @@ firebase.auth().onAuthStateChanged(async (user) => {
       document.getElementById('hof-publish-btn').style.display = '';
       document.getElementById('tab-orbat').style.display = '';
       document.getElementById('tab-historical').style.display = '';
+      // Show admin-only briefing creator.
+      document.querySelectorAll('.fm-section-header .admin-only').forEach(el => { el.style.display = ''; });
     }
     await loadData();
     await checkUrlForce();
@@ -12613,6 +12795,7 @@ firebase.auth().onAuthStateChanged(async (user) => {
     if (histTab) histTab.style.display = 'none';
     const orbatTab = document.getElementById('tab-orbat');
     if (orbatTab) orbatTab.style.display = 'none';
+    document.querySelectorAll('.fm-section-header .admin-only').forEach(el => { el.style.display = 'none'; });
     updateAuthUI(null, false);
   }
 });
