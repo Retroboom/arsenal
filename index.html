@@ -5403,7 +5403,7 @@
       </label>
       <label class="briefing-field">
         <span class="briefing-field-label">Author</span>
-        <input type="text" id="be-author" value="Hail of Fire" class="qt-input">
+        <input type="text" id="be-author" value="Brandon" class="qt-input">
       </label>
       <label class="briefing-field">
         <span class="briefing-field-label">Summary</span>
@@ -7595,7 +7595,7 @@ async function loadWhatsNew() {
       <div class="wn-card" onclick="${dest}">
         <div class="wn-card-badge">${pinChip}<span class="fm-card-type ${typeClass}" style="font-size:9px">${item.type || 'Guide'}</span> · ${age}</div>
         <div class="wn-card-name">${item.title || 'Untitled'}</div>
-        <div class="wn-card-meta" style="color:var(--text3);font-size:10px">${item.author || 'Hail of Fire'}</div>
+        <div class="wn-card-meta" style="color:var(--text3);font-size:10px">${item.author || 'Brandon'}</div>
       </div>`;
   }).join('');
 
@@ -8773,7 +8773,7 @@ function renderFmBriefingsStrip() {
       <div class="wn-card" onclick="${dest}">
         <div class="wn-card-badge">${pinChip}<span class="fm-card-type ${typeClass}" style="font-size:9px">${item.type || 'Guide'}</span> · ${age}</div>
         <div class="wn-card-name">${item.title || 'Untitled'}</div>
-        <div class="wn-card-meta" style="color:var(--text3);font-size:10px">${item.author || 'Hail of Fire'}</div>
+        <div class="wn-card-meta" style="color:var(--text3);font-size:10px">${item.author || 'Brandon'}</div>
       </div>`;
   }).join('');
 
@@ -8839,7 +8839,7 @@ async function openBriefingReader(itemId, opts) {
   if (!item) return;
   currentBriefingItem = item;
   document.getElementById('br-type').textContent   = item.type   || 'Guide';
-  document.getElementById('br-author').textContent = item.author || 'Hail of Fire';
+  document.getElementById('br-author').textContent = item.author || 'Brandon';
   const age = item.created ? timeAgoShort(item.created) : '';
   document.getElementById('br-age').textContent = age;
   document.getElementById('br-age-dot').style.display = age ? '' : 'none';
@@ -8905,7 +8905,7 @@ function openBriefingEditor(itemId) {
   document.getElementById('briefing-editor-title').textContent = existing ? 'Edit Briefing' : 'New Briefing';
   document.getElementById('be-title').value     = existing?.title || '';
   document.getElementById('be-type').value      = existing?.type  || 'Guide';
-  document.getElementById('be-author').value    = existing?.author || 'Hail of Fire';
+  document.getElementById('be-author').value    = existing?.author || 'Brandon';
   document.getElementById('be-summary').value   = existing?.summary || '';
   document.getElementById('be-body').value      = existing?.body || '';
   document.getElementById('be-url').value       = existing?.url || '';
@@ -8922,7 +8922,7 @@ async function saveBriefing() {
   const data = {
     title:     document.getElementById('be-title').value.trim(),
     type:      document.getElementById('be-type').value,
-    author:    document.getElementById('be-author').value.trim() || 'Hail of Fire',
+    author:    document.getElementById('be-author').value.trim() || 'Brandon',
     summary:   document.getElementById('be-summary').value.trim(),
     body:      document.getElementById('be-body').value || null,
     url:       document.getElementById('be-url').value.trim() || null,
@@ -9093,7 +9093,7 @@ function applyFmFilters() {
         <div class="fm-card-title">${item.title || 'Untitled'}</div>
         ${item.summary ? `<div class="fm-card-summary">${item.summary}</div>` : ''}
         <div class="fm-card-meta">
-          <span>${item.author || 'Hail of Fire'}</span>
+          <span>${item.author || 'Brandon'}</span>
           ${age ? `<span>${age}</span>` : ''}
         </div>
         ${adminActions}
