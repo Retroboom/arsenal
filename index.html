@@ -3198,6 +3198,22 @@
     transition: opacity 0.1s;
   }
   .whats-new-dismiss:hover { opacity: 1; }
+
+  /* Pinned briefing indicator — small chip rendered inline with the badge
+     line on .wn-card / .fm-card so admin-pinned content reads as featured. */
+  .wn-pinned-chip {
+    display: inline-block;
+    background: color-mix(in srgb, var(--accent) 18%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    padding: 0 5px;
+    margin-right: 5px;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
   .whats-new-cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -7290,6 +7306,15 @@ async function loadFeaturedStrip() {
 
 let whatsNewDismissed = false;
 
+// Pinned-aware briefing sort. Pinned items (item.pinned === true) appear
+// before all unpinned items; within each group, newest-first by created.
+function sortBriefings(a, b) {
+  const pa = a && a.pinned ? 1 : 0;
+  const pb = b && b.pinned ? 1 : 0;
+  if (pa !== pb) return pb - pa;
+  return (b.created || 0) - (a.created || 0);
+}
+
 async function loadWhatsNew() {
   if (whatsNewDismissed) return;
   const container = document.getElementById('whats-new');
@@ -7317,13 +7342,16 @@ async function loadWhatsNew() {
     });
   }
 
+  // Pinned briefings come first (admin-flagged via item.pinned), then the
+  // rest in newest-first order. Same shape elsewhere — see sortBriefings.
   const newest = combined
-    .sort((a, b) => (b.created || 0) - (a.created || 0))
+    .sort(sortBriefings)
     .slice(0, 4);
 
   if (newest.length === 0) return;
 
   cards.innerHTML = newest.map(item => {
+    const pinChip = item.pinned ? '<span class="wn-pinned-chip">📌 Pinned</span>' : '';
     if (item._wnType === 'force') {
       const age = timeAgoShort(item.created);
       const nationBadges = toArr(item.nations).map(n =>
@@ -7331,7 +7359,7 @@ async function loadWhatsNew() {
       ).join(' ');
       return `
         <div class="wn-card" onclick="openLibForceSheet('${item.id}')">
-          <div class="wn-card-badge">⊞ Force · ${age}</div>
+          <div class="wn-card-badge">${pinChip}⊞ Force · ${age}</div>
           <div class="wn-card-name">${item.name}</div>
           <div class="wn-card-meta">${nationBadges}</div>
         </div>`;
@@ -7341,7 +7369,7 @@ async function loadWhatsNew() {
       const dest = item.url ? `window.open('${item.url}','_blank')` : `setSection('fieldmanual')`;
       return `
         <div class="wn-card" onclick="${dest}">
-          <div class="wn-card-badge"><span class="fm-card-type ${typeClass}" style="font-size:9px">${item.type || 'Guide'}</span> · ${age}</div>
+          <div class="wn-card-badge">${pinChip}<span class="fm-card-type ${typeClass}" style="font-size:9px">${item.type || 'Guide'}</span> · ${age}</div>
           <div class="wn-card-name">${item.title || 'Untitled'}</div>
           <div class="wn-card-meta" style="color:var(--text3);font-size:10px">${item.author || 'Hail of Fire'}</div>
         </div>`;
@@ -8508,7 +8536,7 @@ function renderFmBriefingsStrip() {
 
   const newest = fmAllItems
     .slice()
-    .sort((a, b) => (b.created || 0) - (a.created || 0))
+    .sort(sortBriefings)
     .slice(0, 4);
 
   if (newest.length === 0) return;
@@ -8517,9 +8545,10 @@ function renderFmBriefingsStrip() {
     const age = timeAgoShort(item.created);
     const typeClass = { Guide: 't-guide', Scenario: 't-scenario', Campaign: 't-campaign' }[item.type] || 't-guide';
     const dest = item.url ? `window.open('${item.url}','_blank')` : `toggleFmType('All')`;
+    const pinChip = item.pinned ? '<span class="wn-pinned-chip">📌 Pinned</span>' : '';
     return `
       <div class="wn-card" onclick="${dest}">
-        <div class="wn-card-badge"><span class="fm-card-type ${typeClass}" style="font-size:9px">${item.type || 'Guide'}</span> · ${age}</div>
+        <div class="wn-card-badge">${pinChip}<span class="fm-card-type ${typeClass}" style="font-size:9px">${item.type || 'Guide'}</span> · ${age}</div>
         <div class="wn-card-name">${item.title || 'Untitled'}</div>
         <div class="wn-card-meta" style="color:var(--text3);font-size:10px">${item.author || 'Hail of Fire'}</div>
       </div>`;
@@ -8608,9 +8637,16 @@ function applyFmFilters() {
     (i.summary || '').toLowerCase().includes(query)
   );
 
-  if (sort === 'newest') items.sort((a, b) => (b.created || 0) - (a.created || 0));
-  else if (sort === 'oldest') items.sort((a, b) => (a.created || 0) - (b.created || 0));
-  else if (sort === 'az') items.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+  // Pinned items always lead, regardless of sort choice. Within the pinned
+  // group and within the unpinned group, apply the user's chosen sort.
+  const pinnedFirst = (cmp) => (a, b) => {
+    const pa = a.pinned ? 1 : 0, pb = b.pinned ? 1 : 0;
+    if (pa !== pb) return pb - pa;
+    return cmp(a, b);
+  };
+  if (sort === 'newest') items.sort(pinnedFirst((a, b) => (b.created || 0) - (a.created || 0)));
+  else if (sort === 'oldest') items.sort(pinnedFirst((a, b) => (a.created || 0) - (b.created || 0)));
+  else if (sort === 'az') items.sort(pinnedFirst((a, b) => (a.title || '').localeCompare(b.title || '')));
 
   if (countEl) countEl.textContent = items.length ? `${items.length} item${items.length !== 1 ? 's' : ''}` : '';
 
@@ -8629,9 +8665,10 @@ function applyFmFilters() {
     const typeClass = { Guide: 't-guide', Scenario: 't-scenario', Campaign: 't-campaign' }[item.type] || 't-guide';
     const age = timeAgoShort(item.created);
     const dest = item.url ? `window.open('${item.url}','_blank')` : '';
+    const pinChip = item.pinned ? '<span class="wn-pinned-chip">📌 Pinned</span>' : '';
     return `
       <div class="fm-card" onclick="${dest}">
-        <div class="fm-card-type ${typeClass}">${item.type || 'Guide'}</div>
+        <div class="fm-card-type ${typeClass}">${pinChip}${item.type || 'Guide'}</div>
         <div class="fm-card-title">${item.title || 'Untitled'}</div>
         ${item.summary ? `<div class="fm-card-summary">${item.summary}</div>` : ''}
         <div class="fm-card-meta">
@@ -8749,6 +8786,11 @@ function renderLibForces(body, forces) {
           <button class="force-card-btn${f.briefing ? ' active' : ''}" onclick="toggleBriefingFlag('${f.id}', ${!!f.briefing})" title="Toggle whether this force appears in Recent Briefings">
             ${f.briefing ? '★ Briefing' : '☆ Briefing'}
           </button>
+          ${f.briefing ? `
+            <button class="force-card-btn${f.pinned ? ' active' : ''}" onclick="togglePinFlag('${f.id}', ${!!f.pinned})" title="Pin this briefing to the top of every list">
+              ${f.pinned ? '📌 Pinned' : '📌 Pin'}
+            </button>
+          ` : ''}
         ` : ''}
         ${isAdmin && currentLibTab === 'browse' && (document.getElementById('lib-sort')?.value || 'order') === 'order' ? `
           <button class="force-card-btn" onclick="moveForceOrder('${f.id}', -1)" title="Move up">▲</button>
@@ -8826,6 +8868,19 @@ async function toggleBriefingFlag(forceId, currentlyBriefing) {
   } catch(e) {
     console.error('toggleBriefingFlag failed:', e);
     showToast('Could not update briefing flag — check Firebase rules.', 'error');
+  }
+}
+
+async function togglePinFlag(forceId, currentlyPinned) {
+  try {
+    // Use null instead of false so the field is removed when unpinning —
+    // keeps the schema clean for items that have never been pinned.
+    await firebase.database().ref(`forces/${forceId}`).update({ pinned: currentlyPinned ? null : true });
+    showToast(currentlyPinned ? 'Unpinned.' : 'Pinned to the top.', 'success');
+    loadLibraryTab(currentLibTab);
+  } catch(e) {
+    console.error('togglePinFlag failed:', e);
+    showToast('Could not update pin flag — check Firebase rules.', 'error');
   }
 }
 
