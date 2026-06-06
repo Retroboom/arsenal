@@ -2983,6 +2983,16 @@
   .rate-teams-btn.admin-only.active { border-color: var(--admin); color: var(--admin); }
   .action-btn.admin-only { border-color: var(--admin); color: var(--admin); }
   .action-btn.admin-only:hover { background: var(--admin); color: var(--bg); }
+  /* Admin-tinted force-card-btn: briefing-card admin actions (Edit, Pin,
+     Published) and force-card move arrows. Hover swaps to filled purple. */
+  .force-card-btn.admin-only { border-color: var(--admin); color: var(--admin); }
+  .force-card-btn.admin-only:hover { border-color: var(--admin); background: var(--admin); color: var(--bg); }
+  /* Admin-tinted FM header buttons: + New Briefing. */
+  .fm-tracker-btn.admin-only { border-color: var(--admin); color: var(--admin); }
+  .fm-tracker-btn.admin-only:hover { background: var(--admin); color: var(--bg); }
+  /* Admin-tinted FPP shortcut: Quick Compare (Total Score). */
+  .fpp-restart-btn.admin-only { color: var(--admin); }
+  .fpp-restart-btn.admin-only:hover { color: var(--admin); opacity: 0.85; }
 
   .force-card {
     border: 1px solid var(--border);
@@ -9068,9 +9078,9 @@ function applyFmFilters() {
     const draftChip = (isAdmin && !item.published) ? '<span class="wn-pinned-chip" style="color:var(--admin);border-color:color-mix(in srgb,var(--admin) 55%,var(--border));background:color-mix(in srgb,var(--admin) 14%,transparent)">Draft</span>' : '';
     const adminActions = isAdmin ? `
       <div class="fm-card-admin" onclick="event.stopPropagation()">
-        <button class="force-card-btn" onclick="event.stopPropagation();openBriefingEditor('${item.id}')" title="Edit">✎ Edit</button>
-        <button class="force-card-btn${item.pinned ? ' active' : ''}" onclick="event.stopPropagation();togglePinContent('${item.id}', ${!!item.pinned})" title="Toggle pin">${item.pinned ? '📌 Pinned' : '📌 Pin'}</button>
-        <button class="force-card-btn${item.published ? ' active' : ''}" onclick="event.stopPropagation();togglePublishContent('${item.id}', ${!!item.published})" title="Toggle published">${item.published ? '● Published' : '○ Draft'}</button>
+        <button class="force-card-btn admin-only" onclick="event.stopPropagation();openBriefingEditor('${item.id}')" title="Edit">✎ Edit</button>
+        <button class="force-card-btn admin-only${item.pinned ? ' active' : ''}" onclick="event.stopPropagation();togglePinContent('${item.id}', ${!!item.pinned})" title="Toggle pin">${item.pinned ? '📌 Pinned' : '📌 Pin'}</button>
+        <button class="force-card-btn admin-only${item.published ? ' active' : ''}" onclick="event.stopPropagation();togglePublishContent('${item.id}', ${!!item.published})" title="Toggle published">${item.published ? '● Published' : '○ Draft'}</button>
         <button class="force-card-btn danger" onclick="event.stopPropagation();deleteContentItem('${item.id}')" title="Delete">Delete</button>
       </div>` : '';
     return `
@@ -9191,8 +9201,8 @@ function renderLibForces(body, forces) {
           <button class="force-card-btn danger" onclick="deleteForce('${f.id}')">Delete</button>
         ` : ''}
         ${isAdmin && currentLibTab === 'browse' && (document.getElementById('lib-sort')?.value || 'order') === 'order' ? `
-          <button class="force-card-btn" onclick="moveForceOrder('${f.id}', -1)" title="Move up">▲</button>
-          <button class="force-card-btn" onclick="moveForceOrder('${f.id}', 1)" title="Move down">▼</button>
+          <button class="force-card-btn admin-only" onclick="moveForceOrder('${f.id}', -1)" title="Move up">▲</button>
+          <button class="force-card-btn admin-only" onclick="moveForceOrder('${f.id}', 1)" title="Move down">▼</button>
         ` : ''}
       </div>
     </div>`;
@@ -11925,7 +11935,7 @@ function renderFPPSetup(body) {
       <button class="fpp-auto-btn" onclick="startFPP()" ${!bLoaded || !platoons.length ? 'disabled' : ''}>
         Rank Manually
       </button>
-      ${isAdmin ? `<button class="fpp-restart-btn" onclick="quickCompareFPP()" ${!bLoaded || !platoons.length ? 'disabled' : ''}>
+      ${isAdmin ? `<button class="fpp-restart-btn admin-only" onclick="quickCompareFPP()" ${!bLoaded || !platoons.length ? 'disabled' : ''}>
         Quick Compare (Total Score)
       </button>` : ''}
       ${hasRun ? '<button class="fpp-restart-btn" onclick="resetFPP()">↺ Start Over</button>' : ''}
