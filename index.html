@@ -1779,6 +1779,10 @@
     letter-spacing: 0.5px;
     text-transform: uppercase;
     margin-left: 4px;
+    /* The badge contents are short tokens (Small, Medium, Large, Vehicle).
+       Suppress mid-word breaking so "VEHICLE" doesn't split across two
+       lines inside narrow table cells where overflow-wrap:anywhere is set. */
+    white-space: nowrap;
   }
 
   /* LOCKED CARD */
@@ -9611,7 +9615,7 @@ function openForceSheet(forceData) {
           <colgroup>
             <col style="width:44px">
             <col style="width:28%">
-            <col style="width:54px">
+            <col style="width:80px"><!-- Base: widened so "VEHICLE" badge fits with td padding -->
             <col style="width:54px">
             <col style="width:46px">
             <col style="width:46px">
