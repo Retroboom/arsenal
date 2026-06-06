@@ -9898,11 +9898,17 @@ if (isPreviewMode) enterGuestMode();
     document.addEventListener('click', e => {
       const tipTarget = e.target.closest('[data-tip]');
       const isInfo = tipTarget && !tipTarget.closest('button, a');
-      if (isInfo && tipTarget !== active) {
-        active = tipTarget;
-        show(tipTarget);
+      if (isInfo) {
+        // Show (or toggle off) the tooltip on the tapped info element.
+        // Suppress the click so a parent card's onclick (e.g. opening the
+        // unit info panel) doesn't fire alongside the tooltip.
+        if (tipTarget === active) { active = null; hide(); }
+        else                      { active = tipTarget; show(tipTarget); }
+        e.stopPropagation();
+        e.preventDefault();
       } else if (active) {
-        // Tapped anywhere else (or the same element again) dismisses.
+        // Tap outside an info element while a tooltip is open: dismiss it,
+        // but let the click continue so the user can still navigate.
         active = null;
         hide();
       }
