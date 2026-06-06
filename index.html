@@ -4363,10 +4363,7 @@
     .auth-menu { right: 12px; }
   }
 
-  /* Suppress tooltip on touch devices (iOS fires mouseover on tap, misplacing it) */
-  @media (hover: none) and (pointer: coarse) {
-    .global-tooltip { display: none !important; }
-  }
+  /* Touch devices use a tap-to-show handler (see tooltip JS); no CSS suppression. */
 
   @media print {
     body { background: white !important; color: black !important; }
@@ -9887,16 +9884,41 @@ if (isPreviewMode) enterGuestMode();
     tip.style.setProperty('--arrow-left', arrowLeft + 'px');
   }
 
-  // Event delegation — works for dynamically rendered note-tags
-  document.addEventListener('mouseover', e => {
-    const el = e.target.closest('[data-tip]');
-    if (el) show(el);
-  });
-  document.addEventListener('mouseout', e => {
-    if (e.target.closest('[data-tip]')) hide();
-  });
-  // Also hide on scroll (avoids tooltip floating in wrong place)
-  document.addEventListener('scroll', hide, true);
+  // Touch devices (phones, most tablets) use tap-to-show / tap-elsewhere-to-
+  // dismiss. Desktop (or laptops with a mouse) uses hover. Touchscreen laptops
+  // with both pointer types fall under (hover: hover) and get the hover path,
+  // which is the right call for them.
+  const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+
+  if (isTouch) {
+    // On touch, only informational targets show a tooltip on tap. Buttons and
+    // links keep their primary action and don't pop a tooltip, since the tap
+    // is meant to fire the action, not explain it.
+    let active = null;
+    document.addEventListener('click', e => {
+      const tipTarget = e.target.closest('[data-tip]');
+      const isInfo = tipTarget && !tipTarget.closest('button, a');
+      if (isInfo && tipTarget !== active) {
+        active = tipTarget;
+        show(tipTarget);
+      } else if (active) {
+        // Tapped anywhere else (or the same element again) dismisses.
+        active = null;
+        hide();
+      }
+    }, true);
+    document.addEventListener('scroll', () => { active = null; hide(); }, true);
+  } else {
+    // Desktop hover: event delegation handles dynamically rendered note-tags.
+    document.addEventListener('mouseover', e => {
+      const el = e.target.closest('[data-tip]');
+      if (el) show(el);
+    });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest('[data-tip]')) hide();
+    });
+    document.addEventListener('scroll', hide, true);
+  }
 })();
 
 // ── ORGANIZATIONS (admin-only preview) ────────────────────────────────────────
