@@ -6416,7 +6416,7 @@ function attachTeamOut(sourcePlatoonId, unitId, btnEl) {
     const allOthers = platoons.filter(p => p.id !== sourcePlatoonId);
     const msg = allOthers.length
       ? 'All platoons already have this team attached.'
-      : 'No other platoons to attach to — add a combat platoon first.';
+      : 'No other platoons to attach to. Add a combat platoon first.';
     showToast(msg, 'warning');
     return;
   }
@@ -6512,7 +6512,7 @@ function renderDeployModal() {
       <div class="deploy-modal-body">
         ${done ? `
           <p class="deploy-done-msg">
-            All teams deployed.${leaderTeams.length ? '<br>Section commander added as a residual element.' : '<br>Section dissolved — no centralized element remains.'}
+            All teams deployed.${leaderTeams.length ? '<br>Section commander added as a residual element.' : '<br>Section dissolved. No centralized element remains.'}
           </p>
         ` : `
           <div class="deploy-remaining">${teamSummary} remaining</div>
@@ -6581,7 +6581,7 @@ function _addDeployResidual() {
   if (tier && tier !== 'combat' && tier !== 'hq') {
     const slots = getOrgSlots(), used = getOrgUsed();
     if ((used[tier] || 0) >= (slots[tier] || 0)) {
-      showToast('No slot available for residual section — section commander not added.', 'warning');
+      showToast('No slot available for residual section. Section commander not added.', 'warning');
       return;
     }
   }
@@ -6697,7 +6697,7 @@ function confirmAttach(sourcePlatoonId, unitId, targetPlatoonId) {
     if (activePlatoonId === sourcePlatoonId) {
       activePlatoonId = platoons.length ? platoons[platoons.length - 1].id : null;
     }
-    showToast('Section dissolved — all teams attached.', 'success');
+    showToast('Section dissolved. All teams attached.', 'success');
   } else {
     const unit = allUnits.find(u => u.id === unitId);
     showToast(`1\xd7 ${unit?.name || 'team'} attached to ${target.name}.`, 'success');
@@ -7290,7 +7290,7 @@ async function saveForce() {
     showToast('Force saved.', 'success');
   } catch (e) {
     console.error('saveForce error:', e);
-    showToast('Could not save — check your connection and try again.', 'error');
+    showToast('Could not save. Check your connection and try again.', 'error');
   }
 }
 
@@ -7352,7 +7352,7 @@ async function copyFppShareLink() {
   } catch {
     prompt('Copy this link:', url);
   }
-  showToast('FPP link copied — send it to your opponent.', 'success');
+  showToast('FPP link copied. Send it to your opponent.', 'success');
 
   // Save in the background — doesn't block the copy.
   // Only mark as fppTemp when the share creates a NEW record (user hadn't
@@ -8942,7 +8942,7 @@ async function saveBriefing() {
     applyFmFilters();
   } catch(e) {
     console.error('saveBriefing failed:', e);
-    showToast('Could not save — check Firebase rules.', 'error');
+    showToast('Could not save. Check Firebase rules.', 'error');
   }
 }
 async function deleteContentItem(itemId) {
@@ -8958,7 +8958,7 @@ async function deleteContentItem(itemId) {
     applyFmFilters();
   } catch(e) {
     console.error('deleteContentItem failed:', e);
-    showToast('Could not delete — check Firebase rules.', 'error');
+    showToast('Could not delete. Check Firebase rules.', 'error');
   }
 }
 async function togglePinContent(itemId, currentlyPinned) {
@@ -8972,7 +8972,7 @@ async function togglePinContent(itemId, currentlyPinned) {
     applyFmFilters();
   } catch(e) {
     console.error('togglePinContent failed:', e);
-    showToast('Could not update pin — check Firebase rules.', 'error');
+    showToast('Could not update pin. Check Firebase rules.', 'error');
   }
 }
 async function togglePublishContent(itemId, currentlyPublished) {
@@ -8986,7 +8986,7 @@ async function togglePublishContent(itemId, currentlyPublished) {
     applyFmFilters();
   } catch(e) {
     console.error('togglePublishContent failed:', e);
-    showToast('Could not update publish state — check Firebase rules.', 'error');
+    showToast('Could not update publish state. Check Firebase rules.', 'error');
   }
 }
 
@@ -9282,7 +9282,7 @@ async function toggleBriefingFlag(forceId, currentlyBriefing) {
     loadLibraryTab(currentLibTab);
   } catch(e) {
     console.error('toggleBriefingFlag failed:', e);
-    showToast('Could not update briefing flag — check Firebase rules.', 'error');
+    showToast('Could not update briefing flag. Check Firebase rules.', 'error');
   }
 }
 
@@ -9295,7 +9295,7 @@ async function togglePinFlag(forceId, currentlyPinned) {
     loadLibraryTab(currentLibTab);
   } catch(e) {
     console.error('togglePinFlag failed:', e);
-    showToast('Could not update pin flag — check Firebase rules.', 'error');
+    showToast('Could not update pin flag. Check Firebase rules.', 'error');
   }
 }
 
@@ -9331,7 +9331,7 @@ async function checkUrlForce() {
       } catch(e) {}
     }
     setSection('fpp');
-    showToast('Opponent force loaded — enter your name and start FPP.', 'success');
+    showToast('Opponent force loaded. Enter your name and start FPP.', 'success');
     return;
   }
 
@@ -12076,9 +12076,9 @@ function renderFPPQuickResult(body) {
 
   let summaryText;
   if (!stronger) {
-    summaryText = 'Forces are evenly matched — no adjustment needed.';
+    summaryText = 'Forces are evenly matched. No adjustment needed.';
   } else {
-    summaryText = `${esc(strongerSide.name)}'s force is <strong>${pct}% stronger</strong> (after defender bonus) — their Break Limit is reduced by ${reduction}.`;
+    summaryText = `${esc(strongerSide.name)}'s force is <strong>${pct}% stronger</strong> (after defender bonus); their Break Limit is reduced by ${reduction}.`;
   }
 
   const defLabel = side => side === defender
@@ -12134,10 +12134,10 @@ function renderFPPRank(body, player) {
     ${fppStepIndicator(player === 'a' ? 2 : 3)}
     <div class="fpp-step-header">
       <div class="fpp-step-title">${esc(ranker.name)}: Rank ${esc(opponent.name)}'s Force</div>
-      <div class="fpp-step-sub">Which of these platoons poses the greatest threat to <strong>your</strong> force? Drag the most threatening to the top. Your #1 will be compared to their #1 — your #2 their #2, and so on.</div>
+      <div class="fpp-step-sub">Which of these platoons poses the greatest threat to <strong>your</strong> force? Drag the most threatening to the top. Your #1 will be compared to their #1, your #2 to their #2, and so on.</div>
       <div class="fpp-role-banner">
-        <span class="fpp-role-atk">⚔ ${esc(fppState[attacker].name)} — Attacker</span>
-        <span class="fpp-role-def"> · 🛡 ${esc(fppState[defender].name)} — Defender</span>
+        <span class="fpp-role-atk">⚔ ${esc(fppState[attacker].name)} (Attacker)</span>
+        <span class="fpp-role-def"> · 🛡 ${esc(fppState[defender].name)} (Defender)</span>
       </div>
     </div>
     <div class="fpp-rank-list" id="fpp-rank-list">
@@ -12223,10 +12223,10 @@ function renderFPPPairings(body) {
     ${fppStepIndicator(4)}
     <div class="fpp-step-header">
       <div class="fpp-step-title">Compare Pairings</div>
-      <div class="fpp-step-sub">Pick the more threatening platoon. If the winner is unclear, choose <strong>Unclear Winner</strong> — the defender scores that pairing.</div>
+      <div class="fpp-step-sub">Pick the more threatening platoon. If the winner is unclear, choose <strong>Unclear Winner</strong>; the defender scores that pairing.</div>
       <div class="fpp-role-banner">
-        <span class="fpp-role-atk">⚔ ${esc(attackerName)} — Attacker</span>
-        <span class="fpp-role-def"> · 🛡 ${esc(defenderName)} — Defender</span>
+        <span class="fpp-role-atk">⚔ ${esc(attackerName)} (Attacker)</span>
+        <span class="fpp-role-def"> · 🛡 ${esc(defenderName)} (Defender)</span>
       </div>
     </div>
     <div class="fpp-score-tally">
@@ -12329,9 +12329,9 @@ function renderFPPResult(body) {
   const reduction = diff * 2;
   let summaryText;
   if (!higher) {
-    summaryText = 'Forces are evenly matched — no adjustment needed.';
+    summaryText = 'Forces are evenly matched. No adjustment needed.';
   } else {
-    summaryText = `${esc(higher.name)}'s Break Limit is reduced by ${reduction} — their force collapses sooner.`;
+    summaryText = `${esc(higher.name)}'s Break Limit is reduced by ${reduction}; their force collapses sooner.`;
   }
   const atkSide = attacker === 'a' ? a : b;
   const attackerLine = atkSide?.name
@@ -12874,7 +12874,7 @@ async function openForcePicker() {
     library.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
 
     if (!mine.length && !library.length) {
-      list.innerHTML = '<div class="fpp-picker-empty">No forces found. Your opponent can send you a direct share link from their force builder — no publishing required.</div>';
+      list.innerHTML = '<div class="fpp-picker-empty">No forces found. Your opponent can send you a direct share link from their force builder (no publishing required).</div>';
       return;
     }
 
