@@ -3233,7 +3233,7 @@
     overflow-y: auto;
     padding: 32px 16px 48px;
   }
-  .briefing-reader-modal[style*="flex"] { display: block; }
+  .briefing-reader-modal[style*="block"] { display: block; }
   .briefing-reader-box {
     position: relative;
     background: var(--bg2);
@@ -8857,7 +8857,7 @@ async function openBriefingReader(itemId, opts) {
     ? marked.parse(item.body, { breaks: true, mangle: false, headerIds: false })
     : '<p><em>No content.</em></p>';
   document.getElementById('br-body').innerHTML = html;
-  document.getElementById('briefing-reader-modal').style.display = 'flex';
+  document.getElementById('briefing-reader-modal').style.display = 'block';
   document.body.style.overflow = 'hidden';
   // Push state so the reader is bookmarkable / shareable.
   if (!opts.skipHistory && itemId) {
@@ -8898,7 +8898,7 @@ async function checkUrlBriefing() {
 // Back-button support: close the reader if the user navigates back.
 window.addEventListener('popstate', () => {
   const params = new URLSearchParams(location.search);
-  if (!params.get('briefing') && document.getElementById('briefing-reader-modal').style.display === 'flex') {
+  if (!params.get('briefing') && document.getElementById('briefing-reader-modal').style.display === 'block') {
     closeBriefingReader();
   }
 });
