@@ -4363,7 +4363,13 @@
     .auth-menu { right: 12px; }
   }
 
-  /* Touch devices use a tap-to-show handler (see tooltip JS); no CSS suppression. */
+  /* Touch devices use a tap-to-show handler (see tooltip JS); no CSS suppression.
+     Make the tooltip itself tappable on touch so a tap on it dismisses without
+     leaking to whatever's underneath. Desktop keeps pointer-events:none so the
+     tooltip doesn't interfere with the data-tip element's hover state. */
+  @media (hover: none) and (pointer: coarse) {
+    .global-tooltip { pointer-events: auto; }
+  }
 
   @media print {
     body { background: white !important; color: black !important; }
@@ -9896,6 +9902,15 @@ if (isPreviewMode) enterGuestMode();
     // is meant to fire the action, not explain it.
     let active = null;
     document.addEventListener('click', e => {
+      // Tap on the tooltip itself dismisses it without leaking to whatever's
+      // underneath. Requires the touch-only pointer-events:auto rule above.
+      if (e.target.closest('.global-tooltip')) {
+        active = null;
+        hide();
+        e.stopPropagation();
+        e.preventDefault();
+        return;
+      }
       const tipTarget = e.target.closest('[data-tip]');
       const isInfo = tipTarget && !tipTarget.closest('button, a');
       if (isInfo) {
