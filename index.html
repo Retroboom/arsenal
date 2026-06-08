@@ -6907,7 +6907,11 @@ function getAllForceUnitIds() {
 const FS_AT_TIERS  = {0:0,1:1,2:2,3:3,4:5,5:8,6:12,7:17,8:23};
 const FS_DEF_TIERS = {0:0,1:1,2:4,3:7,4:11,5:16,6:23,7:31};
 const FS_FP_BONUS  = {1:0,2:2,3:5};
-const FS_BARRAGE   = {'Light Artillery':6,'Medium Artillery':10,'Heavy Artillery':16};
+// Barrage base scores reduced by 4 vs. original; Smoke adds +2 at score time.
+// Rationale: artillery weight (Light/Medium/Heavy) encodes RFP output implicitly —
+// the category IS the FP tier — so base scores need only reflect scale difference.
+// Smoke is a meaningful tactical bonus (visibility denial) worth +2 separately.
+const FS_BARRAGE   = {'Light Artillery':2,'Medium Artillery':6,'Heavy Artillery':12};
 const FS_VEHICLES  = new Set(['Tank','SP Artillery','Half-Track','Armored Car','Tank Destroyer','Artillery','AA Vehicle','Recon Vehicle']);
 // FPP auto-resolve: attacker must exceed defender score by this margin to win a pairing.
 // Reflects the rule: "when it's not obvious which unit is more threatening, the defender has the edge."
@@ -6973,8 +6977,19 @@ function calcTeamScore(unit) {
     fpBonus = FS_FP_BONUS[fp] || 0;
   }
 
-  // Defense
-  let defScore = armor !== null ? (FS_DEF_TIERS[armor] || 0) : 0;
+  // Defense — average front and flank armor so heavily-armored-front/weak-flank units
+  // (Jagdtiger, Elefant, Churchill, etc.) don't score as if the front tells the whole story.
+  // Falls back to front armor alone when no flank value is present.
+  const armorFlank = unit.armor_flank != null ? +unit.armor_flank : armor;
+  const avgArmor   = armor !== null ? (armor + armorFlank) / 2 : null;
+  let defScore = 0;
+  if (avgArmor !== null) {
+    const dLo   = Math.floor(avgArmor);
+    const dFrac = avgArmor - dLo;
+    const dtLo  = FS_DEF_TIERS[dLo]     ?? 0;
+    const dtHi  = FS_DEF_TIERS[dLo + 1] ?? dtLo;
+    defScore    = dtLo + dFrac * (dtHi - dtLo);
+  }
   if (notes.includes('Open Topped')) defScore = Math.max(0, defScore - 1);
 
   // Mobility
@@ -7005,12 +7020,14 @@ function calcTeamScore(unit) {
     else if (total  >  1) mgScore = total * 2;
   }
 
-  // Barrage bonus (not for Light Mortar)
+  // Barrage bonus (not for Light Mortar). Smoke adds +2: denial of LoS is a distinct
+  // tactical capability worth scoring separately from raw firepower.
   let barrageScore = 0;
   if (!notes.includes('Light Mortar')) {
     for (const [key, val] of Object.entries(FS_BARRAGE)) {
       if (notes.includes(key)) { barrageScore = val; break; }
     }
+    if (barrageScore > 0 && notes.includes('Smoke')) barrageScore += 2;
   }
 
   return 1 + ai + atScore + defScore + mob + fpBonus + mgScore + barrageScore;
