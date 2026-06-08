@@ -8133,11 +8133,15 @@ const RULES_DATA = [
             <tr><td>Heavy</td><td>3 RFPs</td></tr>
           </table>
           <p>Firing with <strong>more than 2 guns</strong> increases the radius by +1" per additional gun (max +2").</p>
-          <p>Vehicles subtract their Flank AR from RFPs received (maximum -2). <strong>Open-Topped</strong> vehicles resolve the barrage as a hit against their Flank Armor with AT equal to the RFPs. Any Team that activates and <strong>ends inside the barrage radius</strong> receives RFPs.</p>
+          <p>Vehicles subtract their Flank AR from RFPs received (maximum -2). <strong>Open-Topped</strong> vehicles do not reduce RFPs this way. Any Team that <strong>ends its activation inside the barrage radius</strong> receives RFPs.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Sustained Barrage</div>
           <p>At the start of the barraging player's next turn, roll <strong>4+</strong> to continue the barrage. On a failure, the barrage ends and an Order Point may be spent to activate a Team to observe for a new barrage. Teams already inside the barrage radius do not receive additional RFPs from a sustained barrage.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Fire Missions</div>
+          <p>Each Artillery Unit may Call for Fire <strong>5 times per game</strong>. Sustained barrages do not count against this limit.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Smoke</div>
@@ -8214,7 +8218,7 @@ const RULES_DATA = [
             <tr><td>In Concealing Terrain and outside 8" of Vehicle Teams</td></tr>
           </table>
           <p>If revealed immediately after enemy movement, subtract the distance moved from these ranges. A position outside LoS of all moving Teams before they moved may be revealed freely, regardless of distance or concealment.</p>
-          <p>Teams from the same Unit do not need to be revealed simultaneously, but each must be revealed within 12" of another Team already revealed from their Unit.</p>
+          <p>Teams from the same Unit do not need to be revealed simultaneously.</p>
         </div>
       </div>`
   },
@@ -8334,6 +8338,10 @@ const RULES_DATA = [
           <p>If within <strong>4" of Teams in an activated Platoon</strong>, that Platoon may re-roll failed Morale Checks. If the unit flees, the CC flees with them, counting as an additional destroyed unit.</p>
         </div>
         <div class="rules-subsection">
+          <div class="rules-subsection-title">Field Promotion</div>
+          <p>During his activation, the CC may place a new <strong>PL Team</strong> in base contact with any Team within <strong>4"</strong> whose Unit has lost its Platoon Leader. No Training Check is required.</p>
+        </div>
+        <div class="rules-subsection">
           <div class="rules-subsection-title">Hero Point Generation</div>
           <p>While on the table, the CC generates <strong>1 Hero Point</strong> at the beginning of the player's turn. If this Hero Point is not spent before the start of the player's following turn, it is lost before a new one is generated.</p>
         </div>
@@ -8368,7 +8376,7 @@ const RULES_DATA = [
         <p>Flame-thrower teams have a range of <strong>4"</strong> (may not fire at Long Range), Rate of Fire of <strong>3</strong>, and FP: 3.</p>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Firing</div>
-          <p>Roll 3 dice at 4+ to hit, applying no modifiers for concealment or cover. Allocate hits normally, with a maximum of 1 hit per non-vehicle Team. Each hit applies 3 RFPs to the target. Against vehicles, apply 3 RFPs to the vehicle.</p>
+          <p>Roll 3 dice at 4+ to hit, ignoring any concealment. Allocate hits normally, with a maximum of 1 hit per Team. Each hit applies 3 RFPs to the target. Against vehicles, apply 3 RFPs to the vehicle.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">One-Shot Weapon</div>
@@ -8489,7 +8497,7 @@ const RULES_DATA = [
     group: 'Optional Rules',
     body: `
       <div class="rules-body-text">
-        <p>Snipers are Small Teams that are always deployed <strong>Hidden</strong>. Snipers cost <strong>1 Order Point</strong> to reveal, anywhere outside 12" of any enemy Teams. Snipers are destroyed if any enemy Team moves within 4" of them.</p>
+        <p>Snipers are a <strong>Unit of one Small Team</strong>. They do not add 2 to a force's Break Limit and do not generate Order Dice. Snipers are always deployed <strong>Hidden</strong>. Snipers may be revealed anywhere outside an opponent's deployment zone and outside <strong>12"</strong> of all enemy Teams. Sniper Units are destroyed if any enemy Team moves within <strong>4"</strong> of them.</p>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Sniper Fire</div>
           <p>Once per turn, an activated Sniper may place a Sniper Fire marker on one enemy Team within <strong>20" and LoS</strong>. Snipers may target Small Teams, bypassing normal target priority.</p>
