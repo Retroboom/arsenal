@@ -1945,7 +1945,8 @@
       "armor_flank": null,
       "armament": null,
       "notes": [
-        "Engineer"
+        "Engineer",
+        "Assault AT Only"
       ],
       "special_rules": [],
       "free": true,
@@ -4253,7 +4254,8 @@
       "armor_flank": null,
       "armament": null,
       "notes": [
-        "Engineer"
+        "Engineer",
+        "Assault AT Only"
       ],
       "special_rules": [],
       "free": true,
@@ -4579,7 +4581,7 @@
         1944,
         1945
       ],
-      "gun_range": "24\"",
+      "gun_range": null,
       "rof": null,
       "at": 1,
       "fp": 1,
@@ -6370,7 +6372,8 @@
       "armor_flank": null,
       "armament": null,
       "notes": [
-        "Engineer"
+        "Engineer",
+        "Assault AT Only"
       ],
       "special_rules": [],
       "free": true,
@@ -7814,7 +7817,8 @@
       "armor_flank": null,
       "armament": null,
       "notes": [
-        "Engineer"
+        "Engineer",
+        "Assault AT Only"
       ],
       "special_rules": [],
       "free": true,
