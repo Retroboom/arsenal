@@ -970,7 +970,7 @@
       "fp": 1,
       "armor_front": null,
       "armor_flank": null,
-      "armament": "Passenger-fired .50cal MG",
+      "armament": "Passenger-fired MG or .50cal MG",
       "notes": [
         "Wheeled",
         "Open Topped",
@@ -5572,6 +5572,86 @@
       "notes": [
         "Wheeled",
         "Open Topped"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Universal_Carrier",
+      "recon": true
+    },
+    {
+      "id": "br-recon-indian-carrier-boys",
+      "lore": "The Boys anti-tank rifle-armed Indian Pattern Carrier extended the standard reconnaissance pattern to Commonwealth divisions in the Pacific and Mediterranean theaters. The 0.55-inch round could engage light Japanese tanks at close range and most Italian armoured cars at any practical distance, giving carrier patrols enough capability to operate independently in the close terrain of Burma and the Italian Apennines. The Indian Pattern's simplified wheeled chassis was better suited to long approach marches and improvised supply lines than to the heavier off-road work of NW Europe, and the Boys provided modest deterrence against opportunistic attacks during forward observation.",
+      "name": "Indian Pattern Carrier (Boys)",
+      "nation": "Britain",
+      "type": "Recon",
+      "theater": [
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "16\"",
+      "rof": 2,
+      "at": 1,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "Boys anti-tank rifle",
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Hull-Mounted"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Universal_Carrier",
+      "recon": true
+    },
+    {
+      "id": "br-recon-indian-carrier-mg",
+      "lore": "Mounting the .50-calibre Browning on the Indian Pattern Carrier gave Indian and Commonwealth reconnaissance sections vehicle-borne heavy firepower for anti-vehicle, anti-personnel, and anti-aircraft work. The Browning's range and stopping power were valuable in the long-distance patrolling typical of Burma and the Italian Apennines, where forward elements often operated beyond easy support range. The simplified wheeled chassis of the Indian Pattern variant traded off-road performance for maintainability with the limited workshops available to Indian Army divisions, while still providing enough mobility for the reconnaissance role.",
+      "name": "Indian Pattern Carrier (.5\" MG)",
+      "nation": "Britain",
+      "type": "Recon",
+      "theater": [
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "16\"",
+      "rof": 3,
+      "at": 1,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": ".5\" MG",
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Hull-Mounted"
       ],
       "special_rules": [],
       "free": true,
