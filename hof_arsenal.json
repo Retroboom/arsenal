@@ -1938,7 +1938,7 @@
         1945
       ],
       "gun_range": "16\"",
-      "rof": 2,
+      "rof": 1,
       "at": null,
       "fp": 1,
       "armor_front": null,
@@ -4246,7 +4246,7 @@
         1945
       ],
       "gun_range": "16\"",
-      "rof": 2,
+      "rof": 1,
       "at": null,
       "fp": 1,
       "armor_front": null,
@@ -6363,7 +6363,7 @@
         1945
       ],
       "gun_range": "16\"",
-      "rof": 2,
+      "rof": 1,
       "at": null,
       "fp": 1,
       "armor_front": null,
@@ -7791,7 +7791,7 @@
     {
       "id": "sv-inf-engineer",
       "lore": "Soviet inzhenerno-sapernye battalions were among the most heavily tasked units of the Red Army, responsible for assault bridging, minefield breaching, and the close reduction of German strongpoints from Stalingrad to Berlin. Sapper-assault brigades formed in 1943 wore steel breastplates and specialized in storming fortifications with explosives and flamethrowers, accepting catastrophic casualties to open the way for the rifle divisions behind them. Armed with Mosin-Nagants and PPSh submachine guns, they fought their last and bloodiest battles in the Seelow Heights and the streets of Berlin, where every block was a bunker complex to be reduced charge by charge.",
-      "name": "Saperny Team",
+      "name": "Sapper Team",
       "nation": "Soviet Union",
       "type": "Infantry",
       "theater": [
@@ -7807,7 +7807,7 @@
         1945
       ],
       "gun_range": "16\"",
-      "rof": 2,
+      "rof": 1,
       "at": null,
       "fp": 1,
       "armor_front": null,
