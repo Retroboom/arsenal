@@ -1882,6 +1882,115 @@
       "wiki": "M4_mortar_carrier"
     },
     {
+      "id": "us-cc",
+      "lore": "US Company Commanders were typically captains commanding a rifle company of roughly 190 men organized into three rifle platoons and a weapons platoon. Trained at the Infantry School at Fort Benning under the Army's fire-and-maneuver doctrine, they coordinated their platoons with attached tank, mortar, and artillery support to push the line forward across France and into Germany. The casualty rate among American rifle company commanders in Northwest Europe was among the highest of any single position in the army, as doctrine demanded they lead from positions where they could see and influence the close fight.",
+      "name": "Company Commander",
+      "nation": "United States",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": null,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Company Commander"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Company_(military_unit)"
+    },
+    {
+      "id": "us-inf-engineer",
+      "lore": "US Combat Engineer battalions were the army's specialists in breaching, demolition, and assault crossing, attached at corps and division level to lead the way through obstacles that stopped ordinary infantry. From the seawall at Omaha Beach to the Siegfried Line dragon's teeth, engineer squads carried Bangalore torpedoes, satchel charges, and mine probes alongside their Garands, fighting as riflemen the moment the breach was complete. Their work at the Rhine and Roer crossings under direct fire earned them a casualty rate that rivaled the rifle companies they cleared the way for.",
+      "name": "Combat Engineer Team",
+      "nation": "United States",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "16\"",
+      "rof": 2,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Engineer"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      },
+      "wiki": "Combat_engineer"
+    },
+    {
+      "id": "us-inf-flamethrower",
+      "lore": "The M2 flamethrower entered widespread US service in 1943 and saw its heaviest use against Japanese bunkers and cave complexes in the Pacific, where rifle and grenade fire could not reach defenders in deep coral fortifications. A single burst of jellied fuel would either incinerate the occupants or consume their oxygen, and the weapon's psychological effect frequently broke positions that had resisted days of conventional bombardment. The operator carried 70 pounds of fuel and pressure on his back, making him a priority target for every enemy rifleman in line of sight.",
+      "name": "Flame-Thrower Team",
+      "nation": "United States",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "4\"",
+      "rof": 3,
+      "at": null,
+      "fp": 3,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": "M2 Flamethrower",
+      "notes": [
+        "Flame-Thrower",
+        "Cannot fire from buildings"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "M2_flamethrower"
+    },
+    {
       "id": "de-inf-rifle",
       "lore": "Pionier troops and assault engineer teams armed with Karabiner 98k rifles, operating without the squad MG that defined German infantry doctrine. Where the standard Sch\u00fctzengruppe was built around the MG42, pioneer units relied on individual marksmanship, demolition expertise, and close-assault training to breach obstacles, clear minefields, and storm fortifications.",
       "name": "Rifle Team",
@@ -4045,6 +4154,153 @@
       "wiki": "Opel_Blitz"
     },
     {
+      "id": "de-inf-sniper",
+      "lore": "German Scharfsch\u00fctzen were among the most professionally trained marksmen of the war, equipped with the scoped Karabiner 98k or the semi-automatic Gewehr 43 and graduated from specialist schools at Seetaler Alpe and Toepl. Doctrine emphasized patient observation, careful range estimation, and target prioritization; officers, signalmen, machine-gun crews, and forward observers were the priority kills, in that order. On the Eastern Front a single Scharfsch\u00fctze could halt a Soviet rifle company's advance for hours, and individual snipers like Matth\u00e4us Hetzenauer accumulated kill counts in the hundreds across 1944-45.",
+      "name": "Sniper Team",
+      "nation": "Germany",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "24\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Sniper"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Sniper"
+    },
+    {
+      "id": "de-cc",
+      "lore": "The Kompaniechef was usually a Hauptmann or Oberleutnant commanding a rifle company of roughly 180 men, operating under Auftragstaktik with broad latitude to interpret his battalion commander's intent. German company commanders were expected to lead from the schwerpunkt, the decisive point of the action, accepting personal exposure as the price of maintaining tactical initiative. By 1944 attrition had driven many companies into the hands of veteran NCOs and junior leutnants promoted from the ranks, but the doctrine of aggressive forward command persisted to the surrender.",
+      "name": "Company Commander",
+      "nation": "Germany",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": null,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Company Commander"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Company_(military_unit)"
+    },
+    {
+      "id": "de-inf-engineer",
+      "lore": "Pionier battalions were the Wehrmacht's assault specialists, trained in bridging, demolitions, minefield breaching, and the close-quarters reduction of fortified positions with satchel charges and pole charges. Sturmpionier detachments led the storming of the Belgian fortress of Eben-Emael in 1940 and reduced Soviet bunker lines along the Stalin Line a year later, fighting with the same MG34 and Karabiner 98k as line infantry but trained to close the last fifty meters under fire and finish the position by hand. Their casualty rates in the assault role were the highest in the German army apart from the SS panzergrenadier divisions.",
+      "name": "Pionier Team",
+      "nation": "Germany",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "16\"",
+      "rof": 2,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Engineer"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      },
+      "wiki": "Pionier"
+    },
+    {
+      "id": "de-inf-flamethrower",
+      "lore": "The Flammenwerfer 41 corrected the cold-weather failures of earlier German flame weapons on the Eastern Front, replacing the hydrogen ignition system with a cartridge igniter that worked reliably in Russian winters. Issued to Pionier assault detachments, it was the weapon of choice for clearing Soviet bunkers along the Stalin Line and the fortified villages of the Donbas, projecting burning oil to roughly 25 meters in a single ten-second burst. Crews were trained to work in pairs with riflemen for close protection, the operator's 36-kilogram tank making him both conspicuous and slow.",
+      "name": "Flame-Thrower Team",
+      "nation": "Germany",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "4\"",
+      "rof": 3,
+      "at": null,
+      "fp": 3,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": "Flammenwerfer 41",
+      "notes": [
+        "Flame-Thrower",
+        "Cannot fire from buildings"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Flammenwerfer_41"
+    },
+    {
       "id": "br-inf-rifle",
       "lore": "Pioneer and engineer troops armed with Lee-Enfield rifles, operating without the section Bren gun. British combat engineers clearing the bocage, breaching the Rhine defences, or gapping minefields at Alamein carried their rifles as secondary weapons \u2014 the primary tools were Bangalore torpedoes, mine detectors, and demolition charges.",
       "name": "Rifle Team",
@@ -6015,6 +6271,150 @@
       "wiki": "M5_Half-Track"
     },
     {
+      "id": "br-inf-sniper",
+      "lore": "British snipers were drawn from skilled marksmen across the infantry battalions and trained at battalion or brigade level on the scoped Lee-Enfield No.4 Mk I (T), a precision-built variant selected for accuracy and fitted with the No.32 telescopic sight. Operating in two-man teams of shooter and observer, they specialized in counter-sniper work and the systematic elimination of German officers and machine-gun crews in the bocage of Normandy and the polders of the Scheldt. Sniper sections in elite formations like the Guards Armoured and 6th Airborne built reputations for patience and bushcraft that German prisoners credited with disproportionate damage to their command structure.",
+      "name": "Sniper Team",
+      "nation": "Britain",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "24\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Sniper"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Lee%E2%80%93Enfield"
+    },
+    {
+      "id": "br-cc",
+      "lore": "The British rifle company was commanded by a major designated the Officer Commanding, leading roughly 120 men in three rifle platoons with attached support from the battalion's carrier and mortar platoons. British company OCs were drilled in the deliberate set-piece attack and the close coordination of supporting arms, particularly the 25-pounder fire plans that defined British infantry tactics from El Alamein to the Rhine. Their methodical approach drew criticism for caution but consistently delivered objectives at sustainable casualty rates, a trade-off the Army made deliberately after the blood-letting of the First World War.",
+      "name": "Company Commander",
+      "nation": "Britain",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": null,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Company Commander"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Company_(military_unit)"
+    },
+    {
+      "id": "br-inf-engineer",
+      "lore": "Royal Engineers sapper troops were the British Army's universal problem-solvers, handling everything from Bailey bridging and minefield clearance to assault demolitions and flail-tank operation under the 79th Armoured Division. Sappers cleared the beaches at Sword and Gold on D-Day under direct fire, breached the bocage hedgerows with explosives, and lifted hundreds of thousands of mines across the Western Desert and Italy. Armed with the Lee-Enfield and the Bren, they fought as infantry when the breach was contested, but their primary weapons were the mine detector, the bangalore, and the demolition charge.",
+      "name": "Sapper Team",
+      "nation": "Britain",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "16\"",
+      "rof": 2,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Engineer"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      },
+      "wiki": "Corps_of_Royal_Engineers"
+    },
+    {
+      "id": "br-inf-flamethrower",
+      "lore": "The No.2 \"Lifebuoy\" flamethrower took its name from the distinctive doughnut-shaped fuel tank worn on the operator's back, and entered British service in 1944 with assault companies of the 79th Armoured Division and Commonwealth infantry battalions. Its 40-yard range was modest, but in the close fighting of Normandy farmhouses, the Reichswald, and the Scheldt polders it gave attacking sections a way to clear a building or strongpoint without the casualties of a grenade-and-rifle assault. Operators reported that defenders frequently surrendered the moment a Lifebuoy was sighted, sparing the gunner the need to discharge his fuel at all.",
+      "name": "Flame-Thrower Team",
+      "nation": "Britain",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1944,
+        1945
+      ],
+      "gun_range": "4\"",
+      "rof": 3,
+      "at": null,
+      "fp": 3,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": "No.2 Flamethrower",
+      "notes": [
+        "Flame-Thrower",
+        "Cannot fire from buildings"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Flamethrower,_Portable,_No_2"
+    },
+    {
       "id": "sv-inf-rifle",
       "lore": "Sapper and combat engineer teams armed with Mosin-Nagant rifles, without the DP light machine gun of the standard rifle section. Soviet inzhenerno-sapernye troops were specialists in bridging, minefield breaching, and assault demolitions \u2014 storming fortifications with satchel charges and flamethrowers while their rifles stayed slung until the close fight.",
       "name": "Rifle Team",
@@ -7319,6 +7719,144 @@
         "fo": false
       },
       "wiki": "Stalinets_(tractor)"
+    },
+    {
+      "id": "sv-inf-sniper",
+      "lore": "The Red Army developed the most extensive sniper program of any combatant nation, training tens of thousands of men and women marksmen on the scoped Mosin-Nagant 91/30 PU and the semi-automatic SVT-40. Soviet doctrine treated sniping as an industrial discipline, with kill counts publicized for propaganda and elite shooters like Vasily Zaitsev and Lyudmila Pavlichenko credited with hundreds of confirmed kills each. From the rubble of Stalingrad to the apartment blocks of Berlin, Soviet snipers worked in pairs to dominate German command posts, machine-gun positions, and supply parties, the psychological toll on the Wehrmacht recorded throughout the Eastern Front diaries.",
+      "name": "Sniper Team",
+      "nation": "Soviet Union",
+      "type": "Infantry",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "24\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Sniper"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Mosin%E2%80%93Nagant"
+    },
+    {
+      "id": "sv-cc",
+      "lore": "The Rotny was usually a Starshiy Leytenant or Kapitan commanding a Soviet rifle company of roughly 130 men, operating under a centralized command culture that gave him less latitude than his German counterpart but compensated with massive supporting fires. Soviet company commanders were expected to deliver their objective on schedule regardless of casualties, and the political officer attached at battalion level reinforced compliance with the operational plan. Survivors who learned to read the ground, mass their PPSh submachine gunners at the schwerpunkt, and time their attacks with the artillery preparation became among the most effective tactical leaders of the war by 1944.",
+      "name": "Company Commander",
+      "nation": "Soviet Union",
+      "type": "Infantry",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": null,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Company Commander"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Company_(military_unit)"
+    },
+    {
+      "id": "sv-inf-engineer",
+      "lore": "Soviet inzhenerno-sapernye battalions were among the most heavily tasked units of the Red Army, responsible for assault bridging, minefield breaching, and the close reduction of German strongpoints from Stalingrad to Berlin. Sapper-assault brigades formed in 1943 wore steel breastplates and specialized in storming fortifications with explosives and flamethrowers, accepting catastrophic casualties to open the way for the rifle divisions behind them. Armed with Mosin-Nagants and PPSh submachine guns, they fought their last and bloodiest battles in the Seelow Heights and the streets of Berlin, where every block was a bunker complex to be reduced charge by charge.",
+      "name": "Saperny Team",
+      "nation": "Soviet Union",
+      "type": "Infantry",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "16\"",
+      "rof": 2,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Engineer"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      },
+      "wiki": "Combat_engineer"
+    },
+    {
+      "id": "sv-inf-flamethrower",
+      "lore": "The ROKS-3 flamethrower was disguised to resemble a standard Mosin-Nagant rifle and infantry pack, concealing the operator's role from German marksmen who routinely targeted obvious flame teams. Issued to assault engineer battalions and independent flamethrower companies, it was used to clear German trench lines and bunkers during the breakthrough operations of 1943-45, projecting burning oil to about 35 meters. At Stalingrad and later in the assault on Berlin, ROKS teams worked alongside sapper squads to reduce fortified buildings room by room, the flame projector's effect on morale frequently decisive.",
+      "name": "Flame-Thrower Team",
+      "nation": "Soviet Union",
+      "type": "Infantry",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": "4\"",
+      "rof": 3,
+      "at": null,
+      "fp": 3,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": "ROKS-3 Flamethrower",
+      "notes": [
+        "Flame-Thrower",
+        "Cannot fire from buildings"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "ROKS-3"
     }
   ]
 }
