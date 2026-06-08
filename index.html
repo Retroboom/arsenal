@@ -8274,6 +8274,92 @@ const RULES_DATA = [
       </div>`
   },
   {
+    id: 'building-forces',
+    title: 'Building Forces',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>The following guidelines help organize models into playable forces.</p>
+        <p>Each Unit represents a platoon. The rules assume an average platoon size of <strong>3 infantry squads</strong> (each Team representing a "half-squad" of 4-6 men), <strong>3 guns</strong>, or <strong>3 vehicles</strong>. Smaller or larger platoons are valid and historical, but 3 is the "default" size assumed in these rules.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Infantry Platoons</div>
+          <p>Typically consist of:</p>
+          <ul>
+            <li>1 Platoon Leader Team</li>
+            <li>3 Infantry Squads of the same type (two Teams each):
+              <ul>
+                <li><strong>Rifle Teams</strong>: bolt-action rifles only</li>
+                <li><strong>Rifle/MG Teams</strong>: 1 MG per 2 Teams (most common throughout WWII)</li>
+                <li><strong>MG Teams</strong>: 1 MG in every Team</li>
+              </ul>
+            </li>
+            <li>0-3 optional support weapons</li>
+          </ul>
+          <p><em>Note: MG Teams define a platoon's firepower and are not a support weapon. For dedicated machine gun support, attach an HMG team as a Support Weapon.</em></p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Gun Platoons</div>
+          <p>Typically consist of:</p>
+          <ul>
+            <li>1 Platoon Leader Team</li>
+            <li>3 matched Gun Teams</li>
+          </ul>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Vehicle Platoons</div>
+          <p>Typically consist of:</p>
+          <ul>
+            <li>3 matched Vehicle Teams</li>
+          </ul>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Support Weapons</div>
+          <p>Support Weapons are additional Teams representing assets allocated from company or battalion level. What is available varies by nation and theater. US platoons commonly received Bazookas, British platoons PIATs and 2" Mortars, and German platoons Panzerschrecks and Panzerfausts.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Historical Forces</div>
+          <p>Historical research will reveal many specialized platoon types, like engineers, paratroopers, and commandos. Forces from many other popular WWII games are also easily adapted with minimal translation required.</p>
+        </div>
+      </div>`
+  },
+  {
+    id: 'force-parity-procedure',
+    title: 'Force Parity Procedure',
+    group: 'Core Rules',
+    body: `
+      <div class="rules-body-text">
+        <p>The Force Parity Procedure provides a method for balancing forces for "pick up" matches without the use of a points system.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Force Reveal</div>
+          <p>Both players reveal their complete forces, which should contain <strong>4-10 units each</strong>.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Unit Rankings</div>
+          <p>Each player examines their opponent's force and ranks all enemy units from strongest (rank 1) to weakest (highest number).</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Pairings</div>
+          <p>Pair up units based on rankings by matching strongest vs strongest, second strongest vs second strongest, and so on.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Compare Pairings</div>
+          <p>For each pairing, determine which unit appears more threatening to their opponent, and "score" its player <strong>1 point</strong>. When it's not obvious which unit is more threatening, the defending side typically has the edge. A unit already in position is harder to dislodge than one that must advance against it.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Size Advantage Bonus</div>
+          <p>If the scoring unit has <strong>1+ more total Vehicles, Guns, or Squads</strong> than the opposing unit, score an additional <strong>+1 point</strong> (2 points total for that pairing).</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Extra Units</div>
+          <p>If one player has more units than their opponent, that player scores <strong>1 point per extra unit</strong>.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Calculate Handicap</div>
+          <p>Total each player's points. The player with the higher score reduces their starting <strong>Break Limit by the difference between the scores multiplied by 2</strong>. The player with the higher score may choose to remove units from their force OR reduce the number of teams in their units to reduce or eliminate the penalty (recalculate scores after removal).</p>
+        </div>
+      </div>`
+  },
+  {
     id: 'special-rules',
     title: 'Special Rules',
     group: 'Reference',
