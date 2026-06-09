@@ -6912,7 +6912,7 @@ const FS_FP_BONUS  = {1:0,2:2,3:5};
 // the category IS the FP tier — so base scores need only reflect scale difference.
 // Smoke is a meaningful tactical bonus (visibility denial) worth +2 separately.
 const FS_BARRAGE   = {'Light Artillery':2,'Medium Artillery':6,'Heavy Artillery':12};
-const FS_VEHICLES  = new Set(['Tank','SP Artillery','Half-Track','Armored Car','Tank Destroyer','Artillery','AA Vehicle','Recon Vehicle']);
+const FS_VEHICLES  = new Set(['Tank','SP Artillery','Half-Track','Armored Car','Tank Destroyer','Artillery','AA Vehicle','Recon Vehicle','SP Anti-Air']);
 // FPP auto-resolve: attacker must exceed defender score by this margin to win a pairing.
 // Reflects the rule: "when it's not obvious which unit is more threatening, the defender has the edge."
 const FPP_DEFENDER_MARGIN = 0.15;
@@ -6967,15 +6967,20 @@ function calcTeamScore(unit) {
       const turretMult   = isTurreted ? 1.5 : 1.0;
       const rangeMult    = 1.0 + steps * 0.1;
       const rfpMult      = notes.includes('May only inflict RFPs') ? 0.5 : 1.0;
+      // √RoF: doubling shots doubles expected hits, but with diminishing returns (first miss is
+      // most costly; extra shots matter less once target is destroyed). √RoF splits the difference
+      // between full-linear (×2 for RoF:2) and flat (×1): RoF:2 → ×1.41, RoF:3 → ×1.73.
+      // RoF:1 units (IS-2, SU-152) are not penalized — they are baseline 1.0.
+      const rofAtMult    = Math.sqrt(rof);
       // Assault AT Only: AT value only applies in melee, not at range — discount vs. a true AT weapon.
       // 2/3 multiplier targets Engineer AT:3 → +2 pts, keeping total score at 4 (same as a rifle team + quality bonus).
       const assaultAtOnly = notes.includes('Assault AT Only');
 
       atScore = (!isVehicle && range <= 8)
-        ? tier * 0.5 * rfpMult
+        ? tier * 0.5 * rfpMult * rofAtMult
         : assaultAtOnly
           ? tier * (2 / 3) * rfpMult
-          : tier * turretMult * rangeMult * rfpMult;
+          : tier * turretMult * rangeMult * rfpMult * rofAtMult;
     }
 
     fpBonus = FS_FP_BONUS[fp] || 0;
