@@ -1920,8 +1920,18 @@
       "name": "Recon",
       "nation": "United States",
       "type": "Upgrade",
-      "theater": "Europe",
-      "years": "1942-1945",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -4250,8 +4260,20 @@
       "name": "Recon",
       "nation": "Germany",
       "type": "Upgrade",
-      "theater": "Europe",
-      "years": "1940-1945",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -6378,8 +6400,19 @@
       "name": "Recon",
       "nation": "Britain",
       "type": "Upgrade",
-      "theater": "Europe",
-      "years": "1940-1945",
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
@@ -7849,8 +7882,18 @@
       "name": "Recon",
       "nation": "Soviet Union",
       "type": "Upgrade",
-      "theater": "Europe",
-      "years": "1941-1945",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
       "gun_range": null,
       "rof": null,
       "at": null,
