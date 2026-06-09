@@ -1917,7 +1917,7 @@
     {
       "id": "us-upgrade-recon",
       "lore": "A Jeep crew tasked with ranging ahead of the platoon, keeping contact with the enemy and reporting positions back. Armed with a .30cal for self-defense, small enough to disappear into the hedgerows.",
-      "name": "Scout Jeep",
+      "name": "Recon",
       "nation": "United States",
       "type": "Upgrade",
       "theater": "Europe",
@@ -4249,7 +4249,7 @@
     {
       "id": "de-upgrade-recon",
       "lore": "A Volkswagen K\u00fcbelwagen crew assigned to probe ahead of the platoon, exploiting the vehicle's light weight and cross-country ability to find gaps, identify enemy positions, and maintain contact.",
-      "name": "K\u00fcbelwagen",
+      "name": "Recon",
       "nation": "Germany",
       "type": "Upgrade",
       "theater": "Europe",
@@ -6378,7 +6378,7 @@
     {
       "id": "br-upgrade-recon",
       "lore": "A Daimler Scout Car crew tasked with screening the platoon's flanks and maintaining contact. Fast enough to range well ahead, low enough to stay out of sight in hull-down positions.",
-      "name": "Dingo Scout",
+      "name": "Recon",
       "nation": "Britain",
       "type": "Upgrade",
       "theater": "Europe",
@@ -7850,7 +7850,7 @@
     {
       "id": "sv-upgrade-recon",
       "lore": "A light reconnaissance section assigned to provide local awareness, maintain contact on the flanks, and report enemy dispositions. Prioritises stealth and speed over firepower.",
-      "name": "Razvedka",
+      "name": "Recon",
       "nation": "Soviet Union",
       "type": "Upgrade",
       "theater": "Europe",
