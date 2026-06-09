@@ -1916,7 +1916,7 @@
     },
     {
       "id": "us-upgrade-recon",
-      "lore": "Attaching a small reconnaissance element to a rifle or tank platoon extends its situational awareness well beyond the front edge of the main body. A recon-equipped platoon can push its defensive perimeter forward, track enemy positions before committing to contact, and screen flanks the platoon itself cannot cover. The art is in restraint: the recon element reports, it does not fight.",
+      "lore": "Designates the platoon as a reconnaissance unit. American cavalry and scout platoons were not observers tacked onto a rifle company \u2014 they were the forward element, ranging ahead of the main body, maintaining contact with the enemy, and reporting positions back before the fighting units moved up. Build the platoon from fast-moving teams, then apply this upgrade to give it the reconnaissance role it needs to operate like the real thing.",
       "name": "Recon",
       "nation": "United States",
       "type": "Upgrade",
@@ -4256,7 +4256,7 @@
     },
     {
       "id": "de-upgrade-recon",
-      "lore": "German Aufkl\u00e4rung doctrine placed a premium on maintaining contact with the enemy between engagements. A platoon with an attached reconnaissance element could hold the initiative longer, deny the enemy freedom to maneuver unobserved, and convert flanking opportunities faster than blind units. The tradition stretched back to the shock-cavalry ethos of imperial-era reconnaissance and was codified into mechanized doctrine by the early campaigns.",
+      "lore": "Designates the platoon as a reconnaissance unit. German Aufkl\u00e4rung platoons were purpose-built for forward contact, not improvised from line infantry. They screened advances, found gaps, and handed intelligence up the chain while staying mobile enough to disengage before becoming fixed. Assemble the platoon from appropriate units and apply this upgrade to designate it as a dedicated reconnaissance force.",
       "name": "Recon",
       "nation": "Germany",
       "type": "Upgrade",
@@ -6396,7 +6396,7 @@
     },
     {
       "id": "br-upgrade-recon",
-      "lore": "British doctrine recognized early that infantry platoons without organic reconnaissance were consistently surprised. Attaching a scout element gave the platoon its own eyes forward, independent of higher formation intelligence. The Commonwealth tradition of assigning small, fast reconnaissance assets to maneuver elements produced some of the most effective light reconnaissance practice of the war.",
+      "lore": "Designates the platoon as a reconnaissance unit. British and Commonwealth recce platoons were organic recon elements, not attached detachments. They screened the battalion forward, maintained contact on the flanks, and gave commanders the ground truth needed to commit the main body. Build the platoon from suitable teams and apply this upgrade to give it its reconnaissance designation.",
       "name": "Recon",
       "nation": "Britain",
       "type": "Upgrade",
@@ -7878,7 +7878,7 @@
     },
     {
       "id": "sv-upgrade-recon",
-      "lore": "Soviet razvedka (\u0440\u0430\u0437\u0432\u0435\u0434\u043a\u0430, reconnaissance) was a disciplined specialty, not improvised scouting. A platoon with a dedicated reconnaissance attachment could read the battlefield further forward, deploy defensively beyond the expected line, and deny the enemy the element of surprise. The razvedchiki reported rather than engaged, surviving by movement and concealment.",
+      "lore": "Designates the platoon as a reconnaissance unit. Soviet razvedka platoons were trained specialists, not infantry pressed into a scouting role. They operated forward of the main body, identified enemy positions and strength, and withdrew before contact could fix them. Assemble the platoon from appropriate units and apply this upgrade to mark it as a dedicated reconnaissance force.",
       "name": "Recon",
       "nation": "Soviet Union",
       "type": "Upgrade",
