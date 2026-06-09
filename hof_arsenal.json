@@ -1723,8 +1723,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "M8_Greyhound",
-      "recon": true
+      "wiki": "M8_Greyhound"
     },
     {
       "id": "us-ac-m20",
@@ -1761,8 +1760,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "M20_armored_utility_car",
-      "recon": true
+      "wiki": "M20_armored_utility_car"
     },
     {
       "id": "us-spa-m7-priest",
@@ -3906,8 +3904,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Sd.Kfz._222",
-      "recon": true
+      "wiki": "Sd.Kfz._222"
     },
     {
       "id": "de-ac-sdkfz231",
@@ -3945,8 +3942,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Sd.Kfz._231_(6-rad)",
-      "recon": true
+      "wiki": "Sd.Kfz._231_(6-rad)"
     },
     {
       "id": "de-ac-sdkfz250",
@@ -3982,8 +3978,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Sd.Kfz._250",
-      "recon": true
+      "wiki": "Sd.Kfz._250"
     },
     {
       "id": "de-ac-puma",
@@ -4017,8 +4012,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Sd.Kfz._234",
-      "recon": true
+      "wiki": "Sd.Kfz._234"
     },
     {
       "id": "de-transport-sdkfz251",
@@ -5501,8 +5495,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Daimler_armoured_car",
-      "recon": true
+      "wiki": "Daimler_armoured_car"
     },
     {
       "id": "br-ac-m20",
@@ -5537,8 +5530,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "M20_armored_utility_car",
-      "recon": true
+      "wiki": "M20_armored_utility_car"
     },
     {
       "id": "br-ac-humber23",
@@ -5576,8 +5568,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Humber_armoured_car",
-      "recon": true
+      "wiki": "Humber_armoured_car"
     },
     {
       "id": "br-ac-humber4",
@@ -5613,8 +5604,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Humber_armoured_car",
-      "recon": true
+      "wiki": "Humber_armoured_car"
     },
     {
       "id": "br-ac-aec1",
@@ -5654,8 +5644,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "AEC_Armoured_Car",
-      "recon": true
+      "wiki": "AEC_Armoured_Car"
     },
     {
       "id": "br-ac-aec3",
@@ -5701,7 +5690,7 @@
       "lore": "The Universal Carrier \u2014 universally called the Bren Gun Carrier despite carrying far more than just Brens \u2014 was the most produced British armoured fighting vehicle of the war with over 113,000 built across the Commonwealth. Open-topped and lightly armoured, it gave infantry platoons and support weapons a cross-country mobility asset that could move a crew-served weapon, carry ammunition, or serve as a command vehicle in the battalion commander's tactical group. Despite its limitations \u2014 it was not a fighting vehicle in any serious sense \u2014 the Universal Carrier was the logistical backbone of the British infantry at platoon and company level in every theater.",
       "name": "Universal Carrier",
       "nation": "Britain",
-      "type": "Recon",
+      "type": "Transport",
       "theater": [
         "Western Front",
         "Mediterranean",
@@ -5735,15 +5724,14 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Universal_Carrier",
-      "recon": true
+      "wiki": "Universal_Carrier"
     },
     {
       "id": "br-recon-universal-carrier-boys",
       "lore": "The Boys anti-tank rifle-armed Universal Carrier was the standard British reconnaissance troop vehicle in 1939-42, before the Boys' marginal penetration against German armour made it obsolete in the anti-tank role. The Boys rifle's 0.55-inch round could penetrate 20mm of armour at 100 meters, which was adequate against the Panzer I, II, and most armoured cars encountered in the early war campaigns. Carrier patrols typically operated in pairs, using speed and cover to observe German positions and withdraw before heavier German vehicles could engage them, the Boys rifle providing enough deterrence against opposing light forces to give the crews confidence to operate independently.",
       "name": "Universal Carrier (Boys)",
       "nation": "Britain",
-      "type": "Recon",
+      "type": "Transport",
       "theater": [
         "Western Front",
         "Mediterranean",
@@ -5776,15 +5764,14 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Universal_Carrier",
-      "recon": true
+      "wiki": "Universal_Carrier"
     },
     {
       "id": "br-recon-universal-carrier-piat",
       "lore": "The PIAT-armed Universal Carrier gave British and Commonwealth carrier platoons a vehicle-mounted anti-tank capability from 1943 onward, replacing the obsolete Boys rifle with a weapon that could genuinely threaten German medium tanks at close range. The PIAT's spring-operated mechanism was difficult to cock inside the cramped carrier, so crews typically dismounted to engage armour \u2014 the carrier providing rapid mobility to a firing position and quick extraction afterward. These vehicles screened infantry advances, patrolled between defended localities, and provided the close anti-armour protection that battalion commanders needed to deter opportunistic German tank raids against their perimeters.",
       "name": "Universal Carrier (PIAT)",
       "nation": "Britain",
-      "type": "Recon",
+      "type": "Transport",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -5814,15 +5801,14 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Universal_Carrier",
-      "recon": true
+      "wiki": "Universal_Carrier"
     },
     {
       "id": "br-recon-universal-carrier-mg",
       "lore": "Mounting the .50-calibre Browning on the Universal Carrier gave reconnaissance units a vehicle-mounted heavy machine gun for both anti-aircraft and anti-personnel roles. The Browning's flat trajectory and heavy round could engage soft-skin vehicles, gun crews, and low-flying aircraft with equal effectiveness, making these carriers valuable in the advance to contact when air threat and road ambush were constant concerns. Canadian and British reconnaissance regiments employed these as troop fire-support vehicles, providing the suppressive fire while lighter Dingo scout cars pushed forward to observe.",
       "name": "Universal Carrier (.5\" MG)",
       "nation": "Britain",
-      "type": "Recon",
+      "type": "Transport",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -5852,15 +5838,14 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Universal_Carrier",
-      "recon": true
+      "wiki": "Universal_Carrier"
     },
     {
       "id": "br-recon-indian-carrier",
       "lore": "The Indian Pattern Carrier was a simplified Universal Carrier variant produced in Australia and India for the Pacific and Mediterranean theaters, with modifications suited to tropical operations and Commonwealth manufacturing capabilities. Used extensively by Indian Army divisions in Burma, it carried patrol teams through jungle terrain that wheeled vehicles could not negotiate, often serving as the only mechanical transport available to forward battalions operating on jungle tracks. In the Mediterranean, it equipped the carrier platoons of Indian divisions throughout the Italian campaign, providing the same cross-country reconnaissance and weapons-movement capability as the standard Universal Carrier.",
       "name": "Indian Pattern Carrier",
       "nation": "Britain",
-      "type": "Recon",
+      "type": "Transport",
       "theater": [
         "Mediterranean",
         "Pacific"
@@ -5891,15 +5876,14 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Universal_Carrier",
-      "recon": true
+      "wiki": "Universal_Carrier"
     },
     {
       "id": "br-recon-indian-carrier-boys",
       "lore": "The Boys anti-tank rifle-armed Indian Pattern Carrier extended the standard reconnaissance pattern to Commonwealth divisions in the Pacific and Mediterranean theaters. The 0.55-inch round could engage light Japanese tanks at close range and most Italian armoured cars at any practical distance, giving carrier patrols enough capability to operate independently in the close terrain of Burma and the Italian Apennines. The Indian Pattern's simplified wheeled chassis was better suited to long approach marches and improvised supply lines than to the heavier off-road work of NW Europe, and the Boys provided modest deterrence against opportunistic attacks during forward observation.",
       "name": "Indian Pattern Carrier (Boys)",
       "nation": "Britain",
-      "type": "Recon",
+      "type": "Transport",
       "theater": [
         "Mediterranean",
         "Pacific"
@@ -5931,15 +5915,14 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Universal_Carrier",
-      "recon": true
+      "wiki": "Universal_Carrier"
     },
     {
       "id": "br-recon-indian-carrier-mg",
       "lore": "Mounting the .50-calibre Browning on the Indian Pattern Carrier gave Indian and Commonwealth reconnaissance sections vehicle-borne heavy firepower for anti-vehicle, anti-personnel, and anti-aircraft work. The Browning's range and stopping power were valuable in the long-distance patrolling typical of Burma and the Italian Apennines, where forward elements often operated beyond easy support range. The simplified wheeled chassis of the Indian Pattern variant traded off-road performance for maintainability with the limited workshops available to Indian Army divisions, while still providing enough mobility for the reconnaissance role.",
       "name": "Indian Pattern Carrier (.5\" MG)",
       "nation": "Britain",
-      "type": "Recon",
+      "type": "Transport",
       "theater": [
         "Mediterranean",
         "Pacific"
@@ -5971,15 +5954,14 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Universal_Carrier",
-      "recon": true
+      "wiki": "Universal_Carrier"
     },
     {
       "id": "br-recon-daimler-dingo",
       "lore": "The Daimler Dingo scout car was arguably the finest small reconnaissance vehicle of the war \u2014 fast, reliable, and so nimble that experienced crews could navigate terrain that frustrated larger vehicles. Its fluid flywheel transmission allowed smooth speed changes in tight terrain, and the small, flat profile made it genuinely difficult to spot in hedgerows and olive groves. The Dingo's role was pure intelligence-gathering: get forward, observe, and report without being seen. It was normally paired with a Daimler armoured car in reconnaissance troops, the Dingo pushing furthest forward while the armoured car provided covering fire from a position to the rear.",
       "name": "Daimler Dingo",
       "nation": "Britain",
-      "type": "Recon",
+      "type": "Armoured Cars",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -6011,15 +5993,14 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Daimler_Dingo",
-      "recon": true
+      "wiki": "Daimler_Dingo"
     },
     {
       "id": "br-recon-humber-lrc",
       "lore": "The Humber Light Reconnaissance Car was a wheeled, lightly armoured vehicle designed for the divisional reconnaissance regiment's close-patrol work \u2014 finding the enemy's outpost line and reporting without being drawn into combat. Its Boys anti-tank rifle provided minimal anti-armour capability mainly as a deterrent against other light vehicles, while the rear-mounted AA machine gun gave some air-defence protection during road movement. Humber LRCs typically operated in troops of three, with two cars observing while one maintained communication with higher headquarters, leapfrogging forward in bounds as the advance progressed.",
       "name": "Humber LRC III",
       "nation": "Britain",
-      "type": "Recon",
+      "type": "Armoured Cars",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -6051,15 +6032,14 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Humber_Light_Reconnaissance_Car",
-      "recon": true
+      "wiki": "Humber_Light_Reconnaissance_Car"
     },
     {
       "id": "br-recon-otter-lrc",
       "lore": "The Otter was a Canadian-built version of the Humber LRC, produced at the General Motors of Canada plant to meet Commonwealth reconnaissance demands that British factories couldn't fill. Essentially identical in capability and role to the Humber, it served primarily with Canadian reconnaissance regiments in Italy and NW Europe. The Boys anti-tank rifle was its nominal main armament, though by 1943 most crew commanders knew it was nearly useless against German armour and used the vehicle as an observation platform that could survive near misses and reach forward ground quickly rather than as a fighting vehicle.",
       "name": "Otter LRC I",
       "nation": "Britain",
-      "type": "Recon",
+      "type": "Armoured Cars",
       "theater": [
         "Western Front",
         "Mediterranean"
@@ -6090,8 +6070,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Otter_Light_Reconnaissance_Car",
-      "recon": true
+      "wiki": "Otter_Light_Reconnaissance_Car"
     },
     {
       "id": "br-spaa-bofors-sp",
@@ -7645,8 +7624,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "BA-64",
-      "recon": true
+      "wiki": "BA-64"
     },
     {
       "id": "sv-transport-ford-gpa",
