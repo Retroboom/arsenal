@@ -6985,12 +6985,15 @@ function calcTeamScore(unit) {
       // Assault AT Only: AT value only applies in melee, not at range — discount vs. a true AT weapon.
       // 2/3 multiplier targets Engineer AT:3 → +2 pts, keeping total score at 4 (same as a rifle team + quality bonus).
       const assaultAtOnly = notes.includes('Assault AT Only');
+      // Towed penalty: Gun-type units cannot reposition to exploit flanks or react to threats,
+      // reducing the practical value of their AT capability vs. a mobile platform.
+      const towedMult = (utype === 'Gun') ? 0.75 : 1.0;
 
       atScore = (!isVehicle && range <= 8)
         ? tier * 0.5 * rfpMult * rofAtMult
         : assaultAtOnly
           ? tier * (2 / 3) * rfpMult
-          : tier * turretMult * rangeMult * rfpMult * rofAtMult;
+          : tier * turretMult * rangeMult * rfpMult * rofAtMult * towedMult;
     }
 
     fpBonus = FS_FP_BONUS[fp] || 0;
