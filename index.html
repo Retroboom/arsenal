@@ -6125,7 +6125,7 @@ function renderGrid(container, forceIds, animate = true) {
           <div class="card-footer">
             <span class="years-display">
               ${yearRange(unit.years)}
-              <span class="base-badge">${unit.base || 'Medium'}</span>
+              ${unit.base ? `<span class="base-badge">${unit.base}</span>` : ''}
               ${isAdmin ? ratingBadgeHtml(unit.id) : ''}
             </span>
             ${locked
@@ -7705,7 +7705,7 @@ function openUnitDetail(unitId) {
   document.getElementById('udp-badges').innerHTML = `
     <span class="${nationBadgeClass(unit.nation)}">${unit.nation}</span>
     <span class="type-badge" data-type="${unit.type}" style="font-size:10px;letter-spacing:1px">${unit.type}</span>
-    <span class="type-badge" style="font-size:10px">${unit.base === 'Vehicle' ? 'Vehicle' : `${unit.base || 'Medium'} Base`}</span>
+    ${unit.base ? `<span class="type-badge" style="font-size:10px">${unit.base === 'Vehicle' ? 'Vehicle' : `${unit.base} Base`}</span>` : ''}
   `;
 
   // Lore
