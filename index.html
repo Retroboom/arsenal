@@ -6024,6 +6024,7 @@ const RULE_TIPS = {
   'Wagon': 'Moves 2d6".',
   // ── Terrain / Special Equipment ────────────────────────────────────────────
   'Bocage Breacher': 'When this team passes a Terrain Check to cross bocage, mark the crossing point. Other teams may cross at that point this turn without requiring a Terrain Check. This team benefits from its own breach.',
+  'Recon': 'A Recon unit attached to this platoon. Grants the platoon Recon status: defending forces with at least one Recon platoon may deploy all Teams up to 6" beyond the center line. Recon Units may reveal themselves up to 12" beyond the center line.',
   // ── Infantry ───────────────────────────────────────────────────────────────
   'Company Commander': 'Contributes 1 Order Die. May chain-activate any Platoon Leader within LoS, use Leader Abilities on any non-vehicle Team in the company, Field Promote a new PL to a leaderless Unit within 4", and re-roll failed Morale Checks for platoons within 4". Generates 1 Hero Point per turn.',
   'Engineer': 'AT 3 when assaulting Vehicles. Bonuses to clearing Obstacles and Minefields. May place demolition charges.',
@@ -6591,8 +6592,13 @@ function _assignTeamToForce(team, targetPlatoonId) {
   const target = platoons.find(p => p.id === targetPlatoonId);
   if (!target) return;
   const existing = target.teams.find(t => t.unitId === team.unitId);
-  if (existing) existing.qty += 1;
-  else target.teams.push({ unitId: team.unitId, qty: 1, ...(team.displayName ? { displayName: team.displayName } : {}) });
+  if (existing) {
+    const unit = allUnits.find(u => u.id === team.unitId);
+    if (unit?.type === 'Upgrade') return; // Upgrades limited to 1 per platoon
+    existing.qty += 1;
+  } else {
+    target.teams.push({ unitId: team.unitId, qty: 1, ...(team.displayName ? { displayName: team.displayName } : {}) });
+  }
 }
 
 function _addDeployResidual() {
@@ -6821,6 +6827,14 @@ function changeTeamQty(platoonId, unitId, delta) {
   if (!platoon) return;
   const team = platoon.teams.find(t => t.unitId === unitId);
   if (!team) return;
+  // Upgrades are limited to 1 per platoon — block qty increase via +/- controls
+  if (delta > 0) {
+    const unit = allUnits.find(u => u.id === unitId);
+    if (unit?.type === 'Upgrade') {
+      showToast(`${unit.name} can only be added once per platoon.`);
+      return;
+    }
+  }
   team.qty = Math.max(0, team.qty + delta);
   if (team.qty === 0) platoon.teams = platoon.teams.filter(t => t.unitId !== unitId);
   updateForceUI();

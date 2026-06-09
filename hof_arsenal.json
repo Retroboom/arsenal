@@ -984,8 +984,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Willys_MB",
-      "recon": true
+      "wiki": "Willys_MB"
     },
     {
       "id": "us-transport-dodge",
@@ -1916,6 +1915,33 @@
       "base": "Small",
       "standard_platoon": null,
       "wiki": "Company_(military_unit)"
+    },
+    {
+      "id": "us-upgrade-recon",
+      "lore": "A Jeep crew tasked with ranging ahead of the platoon, keeping contact with the enemy and reporting positions back. Armed with a .30cal for self-defense, small enough to disappear into the hedgerows.",
+      "name": "Scout Jeep",
+      "nation": "United States",
+      "type": "Upgrade",
+      "theater": "Europe",
+      "years": "1942-1945",
+      "gun_range": "16\"",
+      "rof": 2,
+      "at": null,
+      "fp": null,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": ".30cal MG",
+      "notes": [
+        "Recon",
+        "Wheeled",
+        "Open Topped"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Willys_MB",
+      "recon": true
     },
     {
       "id": "us-inf-engineer",
@@ -4227,6 +4253,32 @@
       "wiki": "Company_(military_unit)"
     },
     {
+      "id": "de-upgrade-recon",
+      "lore": "A Volkswagen K\u00fcbelwagen crew assigned to probe ahead of the platoon, exploiting the vehicle's light weight and cross-country ability to find gaps, identify enemy positions, and maintain contact.",
+      "name": "K\u00fcbelwagen",
+      "nation": "Germany",
+      "type": "Upgrade",
+      "theater": "Europe",
+      "years": "1940-1945",
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": null,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": null,
+      "notes": [
+        "Recon",
+        "Wheeled"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Volkswagen_K\u00fcbelwagen",
+      "recon": true
+    },
+    {
       "id": "de-inf-engineer",
       "lore": "Pionier battalions were the Wehrmacht's assault specialists, trained in bridging, demolitions, minefield breaching, and the close-quarters reduction of fortified positions with satchel charges and pole charges. Sturmpionier detachments led the storming of the Belgian fortress of Eben-Emael in 1940 and reduced Soviet bunker lines along the Stalin Line a year later, fighting with the same MG34 and Karabiner 98k as line infantry but trained to close the last fifty meters under fire and finish the position by hand. Their casualty rates in the assault role were the highest in the German army apart from the SS panzergrenadier divisions.",
       "name": "Pionier Team",
@@ -6345,6 +6397,32 @@
       "wiki": "Company_(military_unit)"
     },
     {
+      "id": "br-upgrade-recon",
+      "lore": "A Daimler Scout Car crew tasked with screening the platoon's flanks and maintaining contact. Fast enough to range well ahead, low enough to stay out of sight in hull-down positions.",
+      "name": "Dingo Scout",
+      "nation": "Britain",
+      "type": "Upgrade",
+      "theater": "Europe",
+      "years": "1940-1945",
+      "gun_range": "8\"",
+      "rof": 2,
+      "at": null,
+      "fp": null,
+      "armor_front": 1,
+      "armor_flank": 0,
+      "armament": "Bren LMG",
+      "notes": [
+        "Recon",
+        "Wheeled"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Daimler_Scout_Car",
+      "recon": true
+    },
+    {
       "id": "br-inf-engineer",
       "lore": "Royal Engineers sapper troops were the British Army's universal problem-solvers, handling everything from Bailey bridging and minefield clearance to assault demolitions and flail-tank operation under the 79th Armoured Division. Sappers cleared the beaches at Sword and Gold on D-Day under direct fire, breached the bocage hedgerows with explosives, and lifted hundreds of thousands of mines across the Western Desert and Italy. Armed with the Lee-Enfield and the Bren, they fought as infantry when the breach was contested, but their primary weapons were the mine detector, the bangalore, and the demolition charge.",
       "name": "Sapper Team",
@@ -7790,6 +7868,32 @@
       "base": "Small",
       "standard_platoon": null,
       "wiki": "Company_(military_unit)"
+    },
+    {
+      "id": "sv-upgrade-recon",
+      "lore": "A light reconnaissance section assigned to provide local awareness, maintain contact on the flanks, and report enemy dispositions. Prioritises stealth and speed over firepower.",
+      "name": "Razvedka",
+      "nation": "Soviet Union",
+      "type": "Upgrade",
+      "theater": "Europe",
+      "years": "1941-1945",
+      "gun_range": "8\"",
+      "rof": 2,
+      "at": null,
+      "fp": null,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": null,
+      "notes": [
+        "Recon",
+        "Wheeled"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Reconnaissance",
+      "recon": true
     },
     {
       "id": "sv-inf-engineer",
