@@ -1922,21 +1922,19 @@
       "type": "Upgrade",
       "theater": "Europe",
       "years": "1942-1945",
-      "gun_range": "16\"",
-      "rof": 2,
+      "gun_range": null,
+      "rof": null,
       "at": null,
       "fp": null,
-      "armor_front": 0,
-      "armor_flank": 0,
-      "armament": ".30cal MG",
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
       "notes": [
-        "Recon",
-        "Wheeled",
-        "Open Topped"
+        "Recon"
       ],
       "special_rules": [],
       "free": true,
-      "base": "Small",
+      "base": null,
       "standard_platoon": null,
       "wiki": "Willys_MB",
       "recon": true
@@ -2228,7 +2226,7 @@
       ],
       "special_rules": [],
       "free": true,
-      "base": "Medium",
+      "base": null,
       "standard_platoon": null,
       "wiki": "Panzerfaust"
     },
@@ -4258,16 +4256,15 @@
       "rof": null,
       "at": null,
       "fp": null,
-      "armor_front": 0,
-      "armor_flank": 0,
+      "armor_front": null,
+      "armor_flank": null,
       "armament": null,
       "notes": [
-        "Recon",
-        "Wheeled"
+        "Recon"
       ],
       "special_rules": [],
       "free": true,
-      "base": "Small",
+      "base": null,
       "standard_platoon": null,
       "wiki": "Volkswagen_K\u00fcbelwagen",
       "recon": true
@@ -6383,20 +6380,19 @@
       "type": "Upgrade",
       "theater": "Europe",
       "years": "1940-1945",
-      "gun_range": "8\"",
-      "rof": 2,
+      "gun_range": null,
+      "rof": null,
       "at": null,
       "fp": null,
-      "armor_front": 1,
-      "armor_flank": 0,
-      "armament": "Bren LMG",
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
       "notes": [
-        "Recon",
-        "Wheeled"
+        "Recon"
       ],
       "special_rules": [],
       "free": true,
-      "base": "Small",
+      "base": null,
       "standard_platoon": null,
       "wiki": "Daimler_Scout_Car",
       "recon": true
@@ -7855,20 +7851,19 @@
       "type": "Upgrade",
       "theater": "Europe",
       "years": "1941-1945",
-      "gun_range": "8\"",
-      "rof": 2,
+      "gun_range": null,
+      "rof": null,
       "at": null,
       "fp": null,
-      "armor_front": 0,
-      "armor_flank": 0,
+      "armor_front": null,
+      "armor_flank": null,
       "armament": null,
       "notes": [
-        "Recon",
-        "Wheeled"
+        "Recon"
       ],
       "special_rules": [],
       "free": true,
-      "base": "Small",
+      "base": null,
       "standard_platoon": null,
       "wiki": "Reconnaissance",
       "recon": true
