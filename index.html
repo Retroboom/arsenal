@@ -12976,20 +12976,30 @@ function undoLastRoll(player) {
 }
 
 function shootGameBullets(player) {
-  const panel = document.getElementById(`game-panel-${player}`);
-  if (!panel) return;
-  const rect = panel.getBoundingClientRect();
-  const count = 8;
-  for (let i = 0; i < count; i++) {
+  // Strafe left-to-right across the Roll Break Points button, like the standalone tracker.
+  const btn = document.getElementById(`game-gen-btn-${player}`);
+  if (!btn) return;
+  const rect = btn.getBoundingClientRect();
+  const centerX = rect.left + rect.width  / 2;
+  const centerY = rect.top  + rect.height / 2;
+
+  const numBullets  = 12;
+  const totalWidth  = 220 + Math.random() * 100;
+  const startX      = centerX - totalWidth / 2;
+  const spacingX    = totalWidth / numBullets;
+  const vertOffset  = Math.random() * 60 - 30;
+  const vertSlope   = Math.random() * 0.6 - 0.3;
+
+  for (let i = 0; i < numBullets; i++) {
     setTimeout(() => {
-      const x = rect.left + Math.random() * rect.width;
-      const y = rect.top  + Math.random() * rect.height;
+      const x = startX + i * spacingX + (Math.random() * 20 - 10);
+      const y = centerY + vertOffset + (i * spacingX * vertSlope) + (Math.random() * 30 - 15);
 
       const flash = document.createElement('div');
       flash.className = 'game-muzzle-flash';
       flash.style.cssText = `left:${x - 15}px;top:${y - 15}px`;
       document.body.appendChild(flash);
-      setTimeout(() => flash.remove(), 120);
+      setTimeout(() => flash.remove(), 100);
 
       const hole = document.createElement('div');
       hole.className = 'game-bullet-hole';
@@ -12997,9 +13007,9 @@ function shootGameBullets(player) {
       document.body.appendChild(hole);
       setTimeout(() => {
         hole.classList.add('fade-out');
-        setTimeout(() => hole.remove(), 600);
-      }, 900);
-    }, i * 55);
+        setTimeout(() => hole.remove(), 500);
+      }, 800);
+    }, i * 60);
   }
 }
 
