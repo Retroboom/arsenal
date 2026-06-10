@@ -12826,14 +12826,14 @@ function rollBP(player) {
   }
 
   // Auto-show score and footer on every roll.
-  const footer  = document.getElementById(`game-score-footer-${player}`);
-  const section = document.getElementById(`game-score-${player}`);
-  const hidden  = document.querySelector(`#game-panel-${player} .game-score-hidden`);
-  const toggleBtn = document.querySelector(`#game-panel-${player} .game-toggle-score-btn`);
-  if (footer)    footer.classList.add('visible');
-  if (section)   section.classList.add('visible');
-  if (hidden)    hidden.style.display = 'none';
-  if (toggleBtn) toggleBtn.textContent = 'Hide Score';
+  const _footer  = document.getElementById(`game-score-footer-${player}`);
+  const _section = document.getElementById(`game-score-${player}`);
+  const _hidden  = document.querySelector(`#game-panel-${player} .game-score-hidden`);
+  const _toggleBtn = document.querySelector(`#game-panel-${player} .game-toggle-score-btn`);
+  if (_footer)    _footer.classList.add('visible');
+  if (_section)   _section.classList.add('visible');
+  if (_hidden)    _hidden.style.display = 'none';
+  if (_toggleBtn) _toggleBtn.textContent = 'Hide Score';
   gameMode[player].scoreVisible = true;
 
   // Show/update undo button
