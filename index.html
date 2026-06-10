@@ -4791,6 +4791,18 @@
   .fpp-scenario-btn.active { opacity: 1; background: var(--accent); color: var(--bg); }
   .fpp-scenario-btn:hover { opacity: 0.9; }
 
+  /* Start Game choice screen */
+  .fpp-intro-choices { display: flex; flex-direction: column; gap: 14px; max-width: 460px; margin: 8px auto 0; width: 100%; }
+  .fpp-intro-btn { display: flex; flex-direction: column; gap: 5px; text-align: left; background: var(--bg2); border: 1px solid var(--accent); border-radius: 8px; padding: 18px 20px; cursor: pointer; transition: background 0.15s, border-color 0.15s, transform 0.1s; color: inherit; font: inherit; }
+  .fpp-intro-btn:hover { background: linear-gradient(175deg, #2e2c28 0%, var(--bg3) 60%); transform: translateY(-1px); }
+  .fpp-intro-btn:active { transform: translateY(1px); }
+  .fpp-intro-btn.secondary { border-color: var(--border); }
+  .fpp-intro-btn.secondary:hover { border-color: var(--text3); }
+  .fpp-intro-btn-title { font-family: var(--display); font-size: 18px; letter-spacing: 1px; color: var(--accent); }
+  .fpp-intro-btn.secondary .fpp-intro-btn-title { color: var(--text); }
+  .fpp-intro-btn-sub { font-size: 12px; color: var(--text3); line-height: 1.5; }
+  .fpp-load-change { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+
   /* Ranking */
   .fpp-rank-list { display: flex; flex-direction: column; gap: 8px; }
   .fpp-rank-item { display: flex; align-items: center; gap: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; cursor: default; user-select: none; }
@@ -5157,7 +5169,7 @@
     <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="setSection('fieldmanual')">Field Manual</button>
   </nav>
   <div class="header-actions">
-    <button class="start-game-btn" onclick="setSection('fpp')" title="Compare forces and launch the Break Point tracker">
+    <button class="start-game-btn" onclick="openPlay()" title="Compare forces and launch the Break Point tracker">
       <span class="sg-long">▶ Start Game</span>
       <span class="sg-short">▶ Play</span>
     </button>
@@ -12166,7 +12178,7 @@ function esc(str) {
 let rankSortable = null;
 
 let fppState = {
-  step: 'setup',
+  step: 'intro',
   scenario: 'default',
   a: { name: '', platoons: [], bl: 0, vehicleCount: 0 },
   b: { name: '', forceName: '', platoons: [], bl: 0, vehicleCount: 0, forceId: null },
@@ -12270,13 +12282,42 @@ function renderFPP() {
   const body = document.getElementById('fpp-body');
   if (!body) return;
   switch (fppState.step) {
+    case 'intro':        renderFPPIntro(body);          break;
     case 'setup':        renderFPPSetup(body);          break;
     case 'rank-a':       renderFPPRank(body, 'a');      break;
     case 'rank-b':       renderFPPRank(body, 'b');      break;
     case 'pairings':     renderFPPPairings(body);       break;
     case 'result':       renderFPPResult(body);         break;
     case 'quick-result': renderFPPQuickResult(body);    break;
+    default:             renderFPPIntro(body);          break;
   }
+}
+
+// Entry point for the Start Game / Play button: always begin at the choice
+// screen so the player can pick the full Parity flow or jump to the tracker.
+function openPlay() {
+  fppState.step = 'intro';
+  setSection('fpp');
+}
+
+// Choice screen: full Force Parity Procedure, or skip straight to the tracker.
+function renderFPPIntro(body) {
+  body.innerHTML = `
+    <div class="fpp-step-header">
+      <div class="fpp-step-title">START GAME</div>
+      <div class="fpp-step-sub">Balance both forces with the Force Parity Procedure, or skip ahead and track Break Points by hand.</div>
+    </div>
+    <div class="fpp-intro-choices">
+      <button class="fpp-intro-btn" onclick="fppState.step='setup'; renderFPP()">
+        <span class="fpp-intro-btn-title">Force Parity Procedure</span>
+        <span class="fpp-intro-btn-sub">Compare forces and set adjusted Break Limits before play.</span>
+      </button>
+      <button class="fpp-intro-btn secondary" onclick="openQuickTracker()">
+        <span class="fpp-intro-btn-title">Break Point Tracker</span>
+        <span class="fpp-intro-btn-sub">Skip the comparison and roll Break Points right away.</span>
+      </button>
+    </div>
+  `;
 }
 
 function renderFPPSetup(body) {
@@ -12297,10 +12338,10 @@ function renderFPPSetup(body) {
         <div class="fpp-player-label">PLAYER A: YOU</div>
         <input class="fpp-name-input" id="fpp-name-a" placeholder="Your name…" value="${esc(aName)}" oninput="captureFPPName('a', this.value)">
         ${platoons.length ? `
-          <div class="fpp-force-summary">
+          <button class="fpp-load-btn loaded" onclick="openMyForcePicker()" title="Tap to load a different force">
             <div class="fpp-force-name">${esc(document.getElementById('force-name')?.value || 'Current Force')}</div>
-            <div class="fpp-force-meta">${platoons.length} platoons · BL ${calcBreakLimit(platoons.length)}</div>
-          </div>
+            <div class="fpp-force-meta">✓ ${platoons.length} platoons · BL ${calcBreakLimit(platoons.length)} · <span class="fpp-load-change">change</span></div>
+          </button>
         ` : `<button class="fpp-load-btn" onclick="openMyForcePicker()">+ Load Your Force</button>`}
       </div>
       <div class="fpp-vs">VS</div>
@@ -12335,6 +12376,7 @@ function renderFPPSetup(body) {
         Quick Compare (Total Score)
       </button>` : ''}
       ${hasRun ? '<button class="fpp-restart-btn" onclick="resetFPP()">↺ Start Over</button>' : ''}
+      <button class="fpp-restart-btn" onclick="fppState.step='intro'; renderFPP()">← Back to Start</button>
     </div>
   `;
 }
