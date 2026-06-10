@@ -12983,17 +12983,17 @@ function shootGameBullets(player) {
   const centerX = rect.left + rect.width  / 2;
   const centerY = rect.top  + rect.height / 2;
 
-  const numBullets  = 12;
-  const totalWidth  = 220 + Math.random() * 100;
+  const numBullets  = 14;
+  const totalWidth  = 700 + Math.random() * 300;
   const startX      = centerX - totalWidth / 2;
   const spacingX    = totalWidth / numBullets;
-  const vertOffset  = Math.random() * 60 - 30;
-  const vertSlope   = Math.random() * 0.6 - 0.3;
+  const vertOffset  = Math.random() * 140 - 70;
+  const vertSlope   = Math.random() * 1.0 - 0.5;
 
   for (let i = 0; i < numBullets; i++) {
     setTimeout(() => {
-      const x = startX + i * spacingX + (Math.random() * 20 - 10);
-      const y = centerY + vertOffset + (i * spacingX * vertSlope) + (Math.random() * 30 - 15);
+      const x = startX + i * spacingX + (Math.random() * 30 - 15);
+      const y = centerY + vertOffset + (i * spacingX * vertSlope) + (Math.random() * 80 - 40);
 
       const flash = document.createElement('div');
       flash.className = 'game-muzzle-flash';
