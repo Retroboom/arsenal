@@ -465,9 +465,14 @@
       "special_rules": [],
       "free": true,
       "base": "Small",
-      "standard_platoon": null,
+      "standard_platoon": {
+        "qty": 1,
+        "leader": false,
+        "fo": false
+      },
       "lore": "US Army snipers in World War II were trained marksmen using the M1C or M1D Garand with an M84 scope, or the Springfield M1903A4. Deployed in two-man teams, they operated in advance of the front to disrupt enemy command and observation \u2014 targeting officers, NCOs, machine-gun crews, and radio operators. In the bocage their patience paid dividends; German soldiers exposed for even a moment were at risk. The psychological effect was considerable: a single sniper could pin down an entire platoon for hours.",
-      "wiki": "Sniper"
+      "wiki": "Sniper",
+      "platoon_only": true
     },
     {
       "id": "us-gun-hmg",
@@ -1911,8 +1916,13 @@
       "special_rules": [],
       "free": true,
       "base": "Small",
-      "standard_platoon": null,
-      "wiki": "Company_(military_unit)"
+      "standard_platoon": {
+        "qty": 1,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Company_(military_unit)",
+      "platoon_only": true
     },
     {
       "id": "us-upgrade-recon",
@@ -4215,8 +4225,13 @@
       "special_rules": [],
       "free": true,
       "base": "Small",
-      "standard_platoon": null,
-      "wiki": "Sniper"
+      "standard_platoon": {
+        "qty": 1,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Sniper",
+      "platoon_only": true
     },
     {
       "id": "de-cc",
@@ -4251,8 +4266,13 @@
       "special_rules": [],
       "free": true,
       "base": "Small",
-      "standard_platoon": null,
-      "wiki": "Company_(military_unit)"
+      "standard_platoon": {
+        "qty": 1,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Company_(military_unit)",
+      "platoon_only": true
     },
     {
       "id": "de-upgrade-recon",
@@ -6355,8 +6375,13 @@
       "special_rules": [],
       "free": true,
       "base": "Small",
-      "standard_platoon": null,
-      "wiki": "Lee%E2%80%93Enfield"
+      "standard_platoon": {
+        "qty": 1,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Lee%E2%80%93Enfield",
+      "platoon_only": true
     },
     {
       "id": "br-cc",
@@ -6391,8 +6416,13 @@
       "special_rules": [],
       "free": true,
       "base": "Small",
-      "standard_platoon": null,
-      "wiki": "Company_(military_unit)"
+      "standard_platoon": {
+        "qty": 1,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Company_(military_unit)",
+      "platoon_only": true
     },
     {
       "id": "br-upgrade-recon",
@@ -7839,8 +7869,13 @@
       "special_rules": [],
       "free": true,
       "base": "Small",
-      "standard_platoon": null,
-      "wiki": "Mosin%E2%80%93Nagant"
+      "standard_platoon": {
+        "qty": 1,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Mosin%E2%80%93Nagant",
+      "platoon_only": true
     },
     {
       "id": "sv-cc",
@@ -7873,8 +7908,13 @@
       "special_rules": [],
       "free": true,
       "base": "Small",
-      "standard_platoon": null,
-      "wiki": "Company_(military_unit)"
+      "standard_platoon": {
+        "qty": 1,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Company_(military_unit)",
+      "platoon_only": true
     },
     {
       "id": "sv-upgrade-recon",
