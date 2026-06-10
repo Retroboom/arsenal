@@ -12679,7 +12679,7 @@ function renderGamePanel(player, sideClass) {
   const barColor = bpBarColor(pct);
   const chipsHTML = g.rolls.map(r => `<span class="game-draw-chip bp-${r}">${r} BP</span>`).join('');
   const lastRollInner = g.rolls.length
-    ? (() => { const dice = g.dieRolls[g.dieRolls.length-1]; const bp = g.rolls[g.rolls.length-1]; return `${dice.map(d=>`<span class="die">🎲 ${d}</span>`).join(' + ')} &rarr; <span class="bp">${bp} BP</span>`; })()
+    ? (() => { const die = g.dieRolls[g.dieRolls.length-1]; const bp = g.rolls[g.rolls.length-1]; return `<span class="die">🎲 ${die}</span> &rarr; <span class="bp">${bp} BP</span>`; })()
     : '--';
   return `
     <div class="game-panel ${sideClass}" id="game-panel-${player}">
@@ -13029,10 +13029,10 @@ function restoreGameState() {
     const state = JSON.parse(saved);
     if (!state?.active) return;
     Object.assign(gameMode, state);
-    setGameOverlayVisible(true);
-    renderGame();
+    renderGame();                  // render first — if this throws, overlay stays hidden
+    setGameOverlayVisible(true);   // only show overlay once content is ready
     showToast('Game restored after reload.', 'success');
-  } catch(e) {}
+  } catch(e) { clearGameState(); } // on any error, wipe bad state so it doesn't loop
 }
 
 function endGame() {
