@@ -12942,9 +12942,9 @@ function undoLastRoll(player) {
   const lastRollEl = document.getElementById(`game-last-roll-${player}`);
   if (lastRollEl) {
     if (g.rolls.length) {
-      const prevDice = g.dieRolls[g.dieRolls.length - 1];
-      const prevBP   = g.rolls[g.rolls.length - 1];
-      lastRollEl.innerHTML = `${prevDice.map(d=>`<span class="die">🎲 ${d}</span>`).join(' + ')} &rarr; <span class="bp">${prevBP} BP</span>`;
+      const prevDie = g.dieRolls[g.dieRolls.length - 1];
+      const prevBP  = g.rolls[g.rolls.length - 1];
+      lastRollEl.innerHTML = `<span class="die">🎲 ${prevDie}</span> &rarr; <span class="bp">${prevBP} BP</span>`;
     } else {
       lastRollEl.innerHTML = '--';
     }
