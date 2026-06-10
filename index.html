@@ -1821,6 +1821,88 @@
     white-space: nowrap;
   }
 
+  /* ── UNIFIED SUBSCRIBER LOCK VOCABULARY ──────────────────────────
+     One look across units, briefings, and scenarios: bronze "CLASSIFIED"
+     chip + Ko-fi unlock. Subscribers never see these. */
+  .classified-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #c2a86a;
+    border: 1px solid #5a4a2a;
+    background: color-mix(in srgb, #5a4a2a 22%, transparent);
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+  /* Admin sees a muted variant so they can tell a post is gated even though
+     admins read everything. */
+  .classified-chip.admin { color: #9a8a5a; opacity: 0.85; }
+
+  /* Locked briefing card: dim the body but keep the title legible. */
+  .fm-card.locked, .wn-card.locked { opacity: 0.82; }
+
+  /* Reader teaser → gate */
+  .briefing-gate {
+    position: relative;
+    margin-top: 24px;
+    padding: 28px 20px 24px;
+    border: 1px solid #5a4a2a;
+    background: linear-gradient(180deg, rgba(26,18,8,0.0) 0%, #15110a 22%);
+    text-align: center;
+    border-radius: 6px;
+  }
+  /* Fade the last lines of the teaser into the gate. */
+  .briefing-gate::before {
+    content: '';
+    position: absolute;
+    top: -64px;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: linear-gradient(180deg, transparent 0%, var(--bg) 100%);
+    pointer-events: none;
+  }
+  .briefing-gate-stamp {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: #c2a86a;
+    margin-bottom: 10px;
+  }
+  .briefing-gate-text {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+    max-width: 420px;
+    margin: 0 auto 16px;
+  }
+  .briefing-gate-btn {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #15110a;
+    background: #c2a86a;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 22px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .briefing-gate-btn:hover { opacity: 0.85; }
+
+  /* Scenario lock glyph on the FPP picker */
+  .fpp-scenario-btn.locked { color: #9a8a5a; border-color: #5a4a2a; opacity: 0.7; }
+  .fpp-scenario-btn .scenario-lock { font-size: 10px; opacity: 0.85; }
+
   /* TABLE VIEW */
   .unit-table {
     width: 100%;
@@ -4703,11 +4785,11 @@
   .fpp-auto-btn:disabled { opacity: 0.35; cursor: default; }
   .fpp-setup-actions { display: flex; flex-direction: column; gap: 10px; align-items: center; }
   .fpp-result-actions { display: flex; flex-direction: column; gap: 10px; align-items: center; }
-  .fpp-scenario-row { display: flex; align-items: center; gap: 8px; justify-content: center; margin-bottom: 8px; }
-  .fpp-scenario-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--admin); text-transform: uppercase; }
-  .fpp-scenario-btn { background: none; border: 1px solid var(--admin); color: var(--admin); border-radius: 4px; padding: 5px 12px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; cursor: pointer; opacity: 0.5; transition: opacity 0.15s; }
-  .fpp-scenario-btn.active { opacity: 1; background: var(--admin); color: var(--bg); }
-  .fpp-scenario-btn:hover { opacity: 0.85; }
+  .fpp-scenario-row { display: flex; align-items: center; gap: 8px; justify-content: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .fpp-scenario-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--text3); text-transform: uppercase; }
+  .fpp-scenario-btn { background: none; border: 1px solid var(--accent); color: var(--accent); border-radius: 4px; padding: 5px 12px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; cursor: pointer; opacity: 0.55; transition: opacity 0.15s; }
+  .fpp-scenario-btn.active { opacity: 1; background: var(--accent); color: var(--bg); }
+  .fpp-scenario-btn:hover { opacity: 0.9; }
 
   /* Ranking */
   .fpp-rank-list { display: flex; flex-direction: column; gap: 8px; }
@@ -5435,12 +5517,15 @@ If this field has content, clicking the card opens an in-app reader. Otherwise t
         <span class="briefing-field-label">URL (fallback; only used if Body is blank)</span>
         <input type="url" id="be-url" placeholder="https://arsenal.retroboomgames.com/guide.html" class="qt-input">
       </label>
-      <div style="display:flex;gap:18px;align-items:center">
+      <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
         <label style="display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;color:var(--text2)">
           <input type="checkbox" id="be-published"> Published
         </label>
         <label style="display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;color:var(--text2)">
           <input type="checkbox" id="be-pinned"> Pinned
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;color:#c2a86a" title="Non-subscribers see a teaser and a Ko-fi unlock prompt instead of the full body.">
+          <input type="checkbox" id="be-subscriber"> Subscriber only
         </label>
       </div>
       <div style="display:flex;justify-content:flex-end;gap:8px;padding-top:8px">
@@ -6104,7 +6189,7 @@ function renderGrid(container, forceIds, animate = true) {
 
       html += `
         <div class="unit-card ${inForce ? 'in-force' : ''} ${locked ? 'locked' : ''} ${nc}" id="card-${unit.id}" data-card-index="${cardIndex}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
-          ${locked ? '<div class="lock-overlay">RESTRICTED</div>' : ''}
+          ${locked ? '<div class="lock-overlay">CLASSIFIED</div>' : ''}
           <div class="card-header">
             <div class="unit-name" title="${unit.name}">${unit.name}</div>
             <div class="${nationBadgeClass(unit.nation)}">${unit.nation}</div>
@@ -6239,7 +6324,7 @@ function renderTable(container, forceIds) {
 
   function unitActions(unit) {
     const locked = !unit.free && !isSubscriber;
-    if (locked) return `<span class="restricted-stamp">RESTRICTED</span>`;
+    if (locked) return `<span class="restricted-stamp">CLASSIFIED</span>`;
     const platoonBtn = unit.standard_platoon
       ? `<button class="table-add-btn" onclick="addAsStandardPlatoon('${unit.id}')">+ Platoon</button>`
       : '';
@@ -7695,12 +7780,13 @@ async function loadWhatsNew() {
 
   cards.innerHTML = newest.map(item => {
     const pinChip = item.pinned ? '<span class="wn-pinned-chip">📌 Pinned</span>' : '';
+    const lockChip = briefingLockChip(item);
     const age = timeAgoShort(item.created);
     const typeClass = { Guide: 't-guide', Scenario: 't-scenario', Campaign: 't-campaign' }[item.type] || 't-guide';
     const dest = briefingClickHandler(item);
     return `
-      <div class="wn-card" onclick="${dest}">
-        <div class="wn-card-badge">${pinChip}<span class="fm-card-type ${typeClass}" style="font-size:9px">${item.type || 'Guide'}</span> · ${age}</div>
+      <div class="wn-card ${briefingGated(item) ? 'locked' : ''}" onclick="${dest}">
+        <div class="wn-card-badge">${pinChip}${lockChip}<span class="fm-card-type ${typeClass}" style="font-size:9px">${item.type || 'Guide'}</span> · ${age}</div>
         <div class="wn-card-name">${item.title || 'Untitled'}</div>
         <div class="wn-card-meta" style="color:var(--text3);font-size:10px">${item.author || 'Brandon'}</div>
       </div>`;
@@ -8970,9 +9056,10 @@ function renderFmBriefingsStrip() {
     const typeClass = { Guide: 't-guide', Scenario: 't-scenario', Campaign: 't-campaign' }[item.type] || 't-guide';
     const dest = briefingClickHandler(item);
     const pinChip = item.pinned ? '<span class="wn-pinned-chip">📌 Pinned</span>' : '';
+    const lockChip = briefingLockChip(item);
     return `
-      <div class="wn-card" onclick="${dest}">
-        <div class="wn-card-badge">${pinChip}<span class="fm-card-type ${typeClass}" style="font-size:9px">${item.type || 'Guide'}</span> · ${age}</div>
+      <div class="wn-card ${briefingGated(item) ? 'locked' : ''}" onclick="${dest}">
+        <div class="wn-card-badge">${pinChip}${lockChip}<span class="fm-card-type ${typeClass}" style="font-size:9px">${item.type || 'Guide'}</span> · ${age}</div>
         <div class="wn-card-name">${item.title || 'Untitled'}</div>
         <div class="wn-card-meta" style="color:var(--text3);font-size:10px">${item.author || 'Brandon'}</div>
       </div>`;
@@ -9022,6 +9109,39 @@ function briefingClickHandler(item) {
   if (item.url)  return `window.open('${item.url}','_blank')`;
   return `setSection('fieldmanual')`;
 }
+
+// True when this viewer should see a gated/teaser version of the briefing.
+function briefingGated(item) {
+  return !!(item && item.subscriberOnly) && !isSubscriber && !isAdmin;
+}
+
+// Small lock chip shown on briefing cards. Admins see a muted marker so they
+// can tell a post is gated; unlocked subscribers see nothing.
+function briefingLockChip(item) {
+  if (!item || !item.subscriberOnly) return '';
+  if (isAdmin)       return '<span class="classified-chip admin">⬡ Subscriber</span>';
+  if (!isSubscriber) return '<span class="classified-chip">⬡ Classified</span>';
+  return '';
+}
+
+// Render the first couple of markdown blocks as a teaser.
+function briefingTeaserHtml(body) {
+  const blocks = (body || '').split(/\n\s*\n/).map(b => b.trim()).filter(Boolean);
+  const teaser = blocks.slice(0, 2).join('\n\n');
+  return (teaser && typeof marked !== 'undefined')
+    ? marked.parse(teaser, { breaks: true, mangle: false, headerIds: false })
+    : '';
+}
+
+// The Ko-fi unlock gate appended below a teaser.
+function classifiedGateHtml() {
+  return `
+    <div class="briefing-gate">
+      <div class="briefing-gate-stamp">⬡ CLASSIFIED</div>
+      <div class="briefing-gate-text">The rest of this briefing is available to Ko-fi subscribers. Join for $1/month to unlock every briefing, plus subscriber units and scenarios.</div>
+      <a class="briefing-gate-btn" href="https://ko-fi.com/retroboom" target="_blank" rel="noopener">Unlock on Ko-fi</a>
+    </div>`;
+}
 let currentBriefingItem = null;
 async function openBriefingReader(itemId, opts) {
   opts = opts || {};
@@ -9046,10 +9166,16 @@ async function openBriefingReader(itemId, opts) {
   document.getElementById('br-age-dot').style.display = age ? '' : 'none';
   document.getElementById('br-title').textContent  = item.title  || 'Untitled';
   // marked is loaded from CDN; render the body to sanitized-ish HTML. The
-  // author is always us, so we trust the input.
-  const html = item.body && typeof marked !== 'undefined'
-    ? marked.parse(item.body, { breaks: true, mangle: false, headerIds: false })
-    : '<p><em>No content.</em></p>';
+  // author is always us, so we trust the input. Subscriber-only briefings show
+  // a teaser plus a Ko-fi unlock gate to non-subscribers.
+  let html;
+  if (briefingGated(item)) {
+    html = briefingTeaserHtml(item.body) + classifiedGateHtml();
+  } else {
+    html = item.body && typeof marked !== 'undefined'
+      ? marked.parse(item.body, { breaks: true, mangle: false, headerIds: false })
+      : '<p><em>No content.</em></p>';
+  }
   document.getElementById('br-body').innerHTML = html;
   document.getElementById('briefing-reader-modal').style.display = 'block';
   document.body.style.overflow = 'hidden';
@@ -9112,6 +9238,7 @@ function openBriefingEditor(itemId) {
   document.getElementById('be-url').value       = existing?.url || '';
   document.getElementById('be-published').checked = existing ? !!existing.published : true;
   document.getElementById('be-pinned').checked    = existing ? !!existing.pinned    : false;
+  document.getElementById('be-subscriber').checked = existing ? !!existing.subscriberOnly : false;
   document.getElementById('briefing-editor-modal').style.display = 'flex';
 }
 function closeBriefingEditor() {
@@ -9129,6 +9256,7 @@ async function saveBriefing() {
     url:       document.getElementById('be-url').value.trim() || null,
     published: document.getElementById('be-published').checked,
     pinned:    document.getElementById('be-pinned').checked || null,
+    subscriberOnly: document.getElementById('be-subscriber').checked || null,
   };
   if (!data.title) { showToast('Title is required.', 'error'); return; }
   try {
@@ -9288,9 +9416,10 @@ function applyFmFilters() {
         <button class="force-card-btn admin-only${item.published ? ' active' : ''}" onclick="event.stopPropagation();togglePublishContent('${item.id}', ${!!item.published})" title="Toggle published">${item.published ? '● Published' : '○ Draft'}</button>
         <button class="force-card-btn admin-only danger" onclick="event.stopPropagation();deleteContentItem('${item.id}')" title="Delete">Delete</button>
       </div>` : '';
+    const lockChip = briefingLockChip(item);
     return `
-      <div class="fm-card" onclick="${dest}">
-        <div class="fm-card-type ${typeClass}">${pinChip}${draftChip}${item.type || 'Guide'}</div>
+      <div class="fm-card ${briefingGated(item) ? 'locked' : ''}" onclick="${dest}">
+        <div class="fm-card-type ${typeClass}">${pinChip}${draftChip}${lockChip}${item.type || 'Guide'}</div>
         <div class="fm-card-title">${item.title || 'Untitled'}</div>
         ${item.summary ? `<div class="fm-card-summary">${item.summary}</div>` : ''}
         <div class="fm-card-meta">
@@ -12118,6 +12247,11 @@ function captureFPPName(which, value) {
 }
 
 function setFPPScenario(scenario) {
+  // Meeting Engagement is a Ko-fi subscriber scenario. Admins always have it.
+  if (scenario === 'meeting' && !isSubscriber && !isAdmin) {
+    showSubscribePrompt();
+    return;
+  }
   fppState.scenario = scenario;
   renderFPP();
 }
@@ -12181,12 +12315,15 @@ function renderFPPSetup(body) {
         </button>
       </div>
     </div>
-    ${isAdmin ? `
-    <div class="fpp-scenario-row admin-only">
+    ${(() => {
+      const canMeeting = isSubscriber || isAdmin;
+      return `
+    <div class="fpp-scenario-row">
       <span class="fpp-scenario-label">Scenario:</span>
       <button class="fpp-scenario-btn${fppState.scenario === 'default' ? ' active' : ''}" onclick="setFPPScenario('default')">Default</button>
-      <button class="fpp-scenario-btn${fppState.scenario === 'meeting' ? ' active' : ''}" onclick="setFPPScenario('meeting')">Meeting Engagement</button>
-    </div>` : ''}
+      <button class="fpp-scenario-btn${fppState.scenario === 'meeting' ? ' active' : ''}${canMeeting ? '' : ' locked'}" onclick="setFPPScenario('meeting')">Meeting Engagement${canMeeting ? '' : ' <span class="scenario-lock">⬡</span>'}</button>
+    </div>`;
+    })()}
     <div class="fpp-setup-actions">
       <button class="fpp-next-btn" onclick="autoFPP()" ${!bLoaded || !platoons.length ? 'disabled' : ''}>
         Auto-Resolve →
