@@ -12825,10 +12825,16 @@ function rollBP(player) {
     setTimeout(() => btn.classList.remove('rolling'), 350);
   }
 
-  // Auto-show the score footer on first roll so the last roll display appears.
-  // The score section inside it stays hidden until the player presses Show Score.
-  const footer = document.getElementById(`game-score-footer-${player}`);
-  if (footer && !footer.classList.contains('visible')) footer.classList.add('visible');
+  // Auto-show score and footer on every roll.
+  const footer  = document.getElementById(`game-score-footer-${player}`);
+  const section = document.getElementById(`game-score-${player}`);
+  const hidden  = document.querySelector(`#game-panel-${player} .game-score-hidden`);
+  const toggleBtn = document.querySelector(`#game-panel-${player} .game-toggle-score-btn`);
+  if (footer)    footer.classList.add('visible');
+  if (section)   section.classList.add('visible');
+  if (hidden)    hidden.style.display = 'none';
+  if (toggleBtn) toggleBtn.textContent = 'Hide Score';
+  gameMode[player].scoreVisible = true;
 
   // Show/update undo button
   let undoBtn = document.getElementById(`game-undo-${player}`);
