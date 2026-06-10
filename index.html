@@ -12274,16 +12274,6 @@ function setFPPScenario(scenario) {
   renderFPP();
 }
 
-function resetFPP() {
-  fppState.step = 'setup';
-  // scenario is intentionally preserved across resets — it's a session-level setting
-  fppState.a = { name: fppState.a.name, platoons: [], bl: 0, vehicleCount: 0 };
-  fppState.b = { name: fppState.b.name, forceName: '', platoons: [], bl: 0, vehicleCount: 0 };
-  fppState.rankByA = []; fppState.rankByB = []; fppState.pairings = [];
-  fppState.scores = null; fppState.finalBL = null;
-  renderFPP();
-}
-
 function renderFPP() {
   const body = document.getElementById('fpp-body');
   if (!body) return;
@@ -12332,7 +12322,6 @@ function renderFPPSetup(body) {
   const builderForceName = document.getElementById('force-name')?.value?.trim() || '';
   const aName   = fppState.a.name || builderForceName || (currentUser?.displayName || '');
   const bLoaded = fppState.b.platoons.length > 0;
-  const hasRun  = fppState.scores != null;
   body.innerHTML = `
     ${fppStepIndicator(1)}
     <div class="fpp-step-header">
@@ -12381,7 +12370,6 @@ function renderFPPSetup(body) {
       ${isAdmin ? `<button class="fpp-restart-btn admin-only" onclick="quickCompareFPP()" ${!bLoaded || !platoons.length ? 'disabled' : ''}>
         Quick Compare (Total Score)
       </button>` : ''}
-      ${hasRun ? '<button class="fpp-restart-btn" onclick="resetFPP()">↺ Start Over</button>' : ''}
       <button class="fpp-restart-btn" onclick="fppState.step='intro'; renderFPP()">← Back to Start</button>
     </div>
   `;
@@ -12535,7 +12523,6 @@ function renderFPPQuickResult(body) {
     </div>
     <div class="fpp-result-actions">
       <button class="fpp-next-btn" onclick="startGame()">Start Game →</button>
-      <button class="fpp-restart-btn" onclick="resetFPP()">↺ Start Over</button>
     </div>
   `;
 }
@@ -12779,7 +12766,6 @@ function renderFPPResult(body) {
     <div class="fpp-result-actions">
       <button class="fpp-next-btn" onclick="startGame()">Start Game →</button>
       <button class="fpp-back-btn" onclick="fppState.step='pairings'; renderFPP()">← Redo Pairings</button>
-      <button class="fpp-restart-btn" onclick="resetFPP()">↺ Start Over</button>
     </div>
   `;
 }
