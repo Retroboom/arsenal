@@ -12050,6 +12050,7 @@ let fppState = {
 
 let gameMode = {
   active: false,
+  scenario: 'default',
   a: { name: '', bp: 0, bl: 0, hidden: true, rolls: [] },
   b: { name: '', bp: 0, bl: 0, hidden: true, rolls: [] },
 };
@@ -12306,29 +12307,31 @@ function renderFPPQuickResult(body) {
   if (!stronger) {
     summaryText = 'Forces are evenly matched. No adjustment needed.';
   } else {
-    summaryText = `${esc(strongerSide.name)}'s force is <strong>${pct}% stronger</strong> (after defender bonus); their Break Limit is reduced by ${reduction}.`;
+    const bonusNote = fppState.scenario === 'meeting' ? '' : ' (after defender bonus)';
+    summaryText = `${esc(strongerSide.name)}'s force is <strong>${pct}% stronger</strong>${bonusNote}; their Break Limit is reduced by ${reduction}.`;
   }
 
-  const defLabel = side => side === defender
+  const isMeeting = fppState.scenario === 'meeting';
+  const defLabel = side => (!isMeeting && side === defender)
     ? `<span class="fpp-role-def" style="font-size:10px;letter-spacing:1px">🛡 DEFENDER +10%</span>` : '';
 
   body.innerHTML = `
     <div class="fpp-step-header" style="margin-bottom:16px">
       <div class="fpp-step-title">Quick Compare</div>
-      <div class="fpp-step-sub">Total force scores compared directly. Defender receives a 10% bonus. 1 Break Limit point per 10% adjusted difference.</div>
+      <div class="fpp-step-sub">${isMeeting ? 'Total force scores compared directly. 1 Break Limit point per 10% difference.' : 'Total force scores compared directly. Defender receives a 10% bonus. 1 Break Limit point per 10% adjusted difference.'}</div>
     </div>
     <div class="fpp-result-summary">${summaryText}</div>
     <div class="fpp-score-tally" style="margin:16px 0">
       <div class="fpp-tally-block">
         ${defLabel('a')}
         <div class="fpp-tally-label">${esc(a.name)}</div>
-        <div class="fpp-tally-num ${adjA > adjB ? 'leading' : ''}">${totalA} pts${defender === 'a' ? ` → ${adjA}` : ''}</div>
+        <div class="fpp-tally-num ${adjA > adjB ? 'leading' : ''}">${totalA} pts${!isMeeting && defender === 'a' ? ` → ${adjA}` : ''}</div>
       </div>
       <div class="fpp-tally-sep">vs</div>
       <div class="fpp-tally-block">
         ${defLabel('b')}
         <div class="fpp-tally-label">${esc(b.name)}</div>
-        <div class="fpp-tally-num ${adjB > adjA ? 'leading' : ''}">${totalB} pts${defender === 'b' ? ` → ${adjB}` : ''}</div>
+        <div class="fpp-tally-num ${adjB > adjA ? 'leading' : ''}">${totalB} pts${!isMeeting && defender === 'b' ? ` → ${adjB}` : ''}</div>
       </div>
     </div>
     <div class="fpp-result-grid">
@@ -12363,10 +12366,10 @@ function renderFPPRank(body, player) {
     <div class="fpp-step-header">
       <div class="fpp-step-title">${esc(ranker.name)}: Rank ${esc(opponent.name)}'s Force</div>
       <div class="fpp-step-sub">Which of these platoons poses the greatest threat to <strong>your</strong> force? Drag the most threatening to the top. Your #1 will be compared to their #1, your #2 to their #2, and so on.</div>
-      <div class="fpp-role-banner">
+      ${fppState.scenario !== 'meeting' ? `<div class="fpp-role-banner">
         <span class="fpp-role-atk">⚔ ${esc(fppState[attacker].name)} (Attacker)</span>
         <span class="fpp-role-def"> · 🛡 ${esc(fppState[defender].name)} (Defender)</span>
-      </div>
+      </div>` : ''}
     </div>
     <div class="fpp-rank-list" id="fpp-rank-list">
       ${ranked.map((pl, i) => `
@@ -12451,11 +12454,11 @@ function renderFPPPairings(body) {
     ${fppStepIndicator(4)}
     <div class="fpp-step-header">
       <div class="fpp-step-title">Compare Pairings</div>
-      <div class="fpp-step-sub">Pick the more threatening platoon. If the winner is unclear, choose <strong>Unclear Winner</strong>; the defender scores that pairing.</div>
-      <div class="fpp-role-banner">
+      <div class="fpp-step-sub">Pick the more threatening platoon. If the winner is unclear, choose <strong>Unclear Winner</strong>${fppState.scenario !== 'meeting' ? '; the defender scores that pairing' : ''}.</div>
+      ${fppState.scenario !== 'meeting' ? `<div class="fpp-role-banner">
         <span class="fpp-role-atk">⚔ ${esc(attackerName)} (Attacker)</span>
         <span class="fpp-role-def"> · 🛡 ${esc(defenderName)} (Defender)</span>
-      </div>
+      </div>` : ''}
     </div>
     <div class="fpp-score-tally">
       <div class="fpp-tally-block">
@@ -12470,11 +12473,11 @@ function renderFPPPairings(body) {
     </div>
     <div class="fpp-col-headers">
       <div class="fpp-col-a">
-        <div class="fpp-col-role fpp-role-${attacker === 'a' ? 'atk' : 'def'}">${attacker === 'a' ? '⚔ ATTACKER' : '🛡 DEFENDER'}</div>
+        ${fppState.scenario !== 'meeting' ? `<div class="fpp-col-role fpp-role-${attacker === 'a' ? 'atk' : 'def'}">${attacker === 'a' ? '⚔ ATTACKER' : '🛡 DEFENDER'}</div>` : ''}
         <div>${esc(fppState.a.name)}</div>
       </div>
       <div class="fpp-col-b">
-        <div class="fpp-col-role fpp-role-${attacker === 'b' ? 'atk' : 'def'}">${attacker === 'b' ? '⚔ ATTACKER' : '🛡 DEFENDER'}</div>
+        ${fppState.scenario !== 'meeting' ? `<div class="fpp-col-role fpp-role-${attacker === 'b' ? 'atk' : 'def'}">${attacker === 'b' ? '⚔ ATTACKER' : '🛡 DEFENDER'}</div>` : ''}
         <div>${esc(fppState.b.name)}</div>
       </div>
     </div>
@@ -12511,7 +12514,7 @@ function renderPairingRow(p, i) {
       </button>
       <button class="fpp-def-btn ${w === 'defender' ? 'active' : ''}" onclick="setPairingWinner(${i},'defender')">
         Unclear Winner
-        <span class="fpp-def-btn-sub">${defender === 'a' ? '← ' : ''}Defender Advantage${defender === 'b' ? ' →' : ''}</span>
+        ${fppState.scenario !== 'meeting' ? `<span class="fpp-def-btn-sub">${defender === 'a' ? '← ' : ''}Defender Advantage${defender === 'b' ? ' →' : ''}</span>` : ''}
       </button>
       <button class="fpp-pairing-unit ${effectiveWinner === 'b' ? 'fpp-unit-winner' : ''}" onclick="setPairingWinner(${i},'b')">
         <div class="fpp-unit-player">${esc(fppState.b.name)}</div>
@@ -12562,7 +12565,7 @@ function renderFPPResult(body) {
     summaryText = `${esc(higher.name)}'s Break Limit is reduced by ${reduction}; their force collapses sooner.`;
   }
   const atkSide = attacker === 'a' ? a : b;
-  const attackerLine = atkSide?.name
+  const attackerLine = (fppState.scenario !== 'meeting' && atkSide?.name)
     ? `In this matchup, ${esc(atkSide.name)} becomes the Attacker.`
     : '';
   body.innerHTML = `
@@ -12636,6 +12639,7 @@ function startGame() {
   gameMode.a        = snap('a', false);
   gameMode.b        = snap('b', true);
   gameMode.attacker = fppState.attacker || null;
+  gameMode.scenario = fppState.scenario || 'default';
   gameMode.active   = true;
   saveGameState();
   setGameOverlayVisible(true);
@@ -12692,7 +12696,7 @@ function bpBarColor(pct) {
 
 function renderGamePanel(player, sideClass) {
   const g    = gameMode[player];
-  const role = gameMode.attacker === player ? 'attacker' : 'defender';
+  const role = gameMode.scenario === 'meeting' ? null : (gameMode.attacker === player ? 'attacker' : 'defender');
   const broken   = g.bp >= g.bl;
   const pct      = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
   const barColor = bpBarColor(pct);
@@ -12703,7 +12707,7 @@ function renderGamePanel(player, sideClass) {
   return `
     <div class="game-panel ${sideClass}" id="game-panel-${player}">
       <div class="game-player-name">${esc(g.name)}</div>
-      <div class="game-bl">BL ${g.bl} · <span class="game-role-tag">${role}</span></div>
+      <div class="game-bl">BL ${g.bl}${role ? ` · <span class="game-role-tag">${role}</span>` : ''}</div>
 
       <div class="game-roll-row">
         <button class="game-roll-btn" id="game-gen-btn-${player}" onclick="rollBP('${player}')">Roll Break Points</button>
@@ -13082,9 +13086,10 @@ function launchQuickTracker() {
   const blB   = Math.max(1, parseInt(document.getElementById('qt-bl-b').value) || 9);
   closeQuickTracker();
   // Populate gameMode directly, bypassing FPP
-  gameMode.a = { name: nameA, bp: 0, bl: blA, scoreVisible: false, rolls: [], dieRolls: [], lastDie: null, lastRoll: null };
-  gameMode.b = { name: nameB, bp: 0, bl: blB, scoreVisible: false, rolls: [], dieRolls: [], lastDie: null, lastRoll: null };
-  gameMode.active = true;
+  gameMode.a        = { name: nameA, bp: 0, bl: blA, scoreVisible: false, rolls: [], dieRolls: [], lastDie: null, lastRoll: null };
+  gameMode.b        = { name: nameB, bp: 0, bl: blB, scoreVisible: false, rolls: [], dieRolls: [], lastDie: null, lastRoll: null };
+  gameMode.scenario = 'default';
+  gameMode.active   = true;
   setGameOverlayVisible(true);
   renderGame();
 }
