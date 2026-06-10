@@ -4929,16 +4929,13 @@
   .game-bl { font-family: var(--mono); font-size: 13px; color: var(--text3); letter-spacing: 0.08em; margin-bottom: 16px; }
   /* Last Roll box */
   /* Trigger groups */
-  .game-trigger-group { margin-bottom: 10px; }
-  .game-trigger-group-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--text3); text-transform: uppercase; margin-bottom: 5px; padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-  .game-trigger-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 13px 12px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; cursor: pointer; font-family: var(--mono); color: var(--text2); font-size: 15px; text-align: left; transition: background 0.12s, border-color 0.12s, color 0.12s; }
-  .game-trigger-btn:hover { background: rgba(255,255,255,0.10); color: var(--text1); }
-  .game-trigger-btn:active { background: rgba(255,255,255,0.16); }
-  .gp-allied .game-trigger-btn:hover { border-color: rgba(201,68,68,0.4); }
-  .gp-axis   .game-trigger-btn:hover { border-color: rgba(90,106,114,0.5); }
-  .trigger-name { flex: 1; line-height: 1.4; }
-  .trigger-sub { font-size: 11px; color: var(--text3); }
-  .trigger-badge { font-size: 13px; font-weight: 700; color: var(--accent); background: rgba(201,162,39,0.14); border-radius: 4px; padding: 3px 8px; white-space: nowrap; flex-shrink: 0; }
+  /* Single Roll BP button */
+  .game-roll-btn { width: 100%; padding: 20px 0; font-family: var(--display); font-size: 22px; letter-spacing: 0.1em; text-transform: uppercase; border: none; border-radius: 6px; cursor: pointer; margin-bottom: 12px; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15); transition: opacity 0.15s, transform 0.1s; }
+  .gp-allied .game-roll-btn { background: linear-gradient(180deg, #c94444, #8b1e1e); }
+  .gp-axis   .game-roll-btn { background: linear-gradient(180deg, #5a6a72, #36454f); }
+  .game-roll-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+  .game-roll-btn:active { transform: translateY(1px); opacity: 1; }
+  .game-roll-btn.rolling { animation: game-shake 0.3s ease-in-out; }
   .game-role-tag { font-family: var(--mono); font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; }
   /* Score footer (last roll + score section, hidden until first trigger) */
   .game-score-footer { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
@@ -12680,29 +12677,14 @@ function renderGamePanel(player, sideClass) {
   const lastRollInner = g.rolls.length
     ? (() => { const dice = g.dieRolls[g.dieRolls.length-1]; const bp = g.rolls[g.rolls.length-1]; return `${dice.map(d=>`<span class="die">🎲 ${d}</span>`).join(' + ')} &rarr; <span class="bp">${bp} BP</span>`; })()
     : '--';
-  const trig = (label, rolls) =>
-    `<button class="game-trigger-btn" onclick="triggerBP('${player}',${rolls})">
-       <span class="trigger-name">${label}</span>
-       <span class="trigger-badge">${rolls === 1 ? '×1' : '×2'}</span>
-     </button>`;
-  const endOfTurn = role === 'attacker'
-    ? trig('Not controlling all objectives', 1)
-    : trig('Enemy units in your table half', 1) + trig('Objective not held', 1);
   return `
     <div class="game-panel ${sideClass}" id="game-panel-${player}">
       <div class="game-player-name">${esc(g.name)}</div>
       <div class="game-bl">BL ${g.bl} · <span class="game-role-tag">${role}</span></div>
 
-      <div class="game-trigger-group">
-        <div class="game-trigger-group-label">Unit Losses</div>
-        ${trig('Reduced below half strength  <span class="trigger-sub">(only once per unit)</span>', 1)}
-        ${trig('Destroyed  <span class="trigger-sub">(was already below half)</span>', 1)}
-        ${trig('Destroyed  <span class="trigger-sub">(was still above half)</span>', 2)}
-      </div>
-      <div class="game-trigger-group">
-        <div class="game-trigger-group-label">End of Round</div>
-        ${endOfTurn}
-      </div>
+      <button class="game-roll-btn" id="game-gen-btn-${player}" onclick="rollBP('${player}')">
+        Roll BP
+      </button>
 
       <div class="game-score-footer ${g.scoreVisible ? 'visible' : ''}" id="game-score-footer-${player}">
         <div class="game-last-roll-inline" id="game-last-roll-${player}">${lastRollInner}</div>
@@ -12834,7 +12816,7 @@ function rollBP(player) {
   g.lastDie  = die;
   g.lastRoll = bp;
 
-  // Shake the Generate button
+  // Shake the Roll button
   const btn = document.getElementById(`game-gen-btn-${player}`);
   if (btn) {
     btn.classList.remove('rolling');
@@ -12842,6 +12824,11 @@ function rollBP(player) {
     btn.classList.add('rolling');
     setTimeout(() => btn.classList.remove('rolling'), 350);
   }
+
+  // Auto-show the score footer on first roll so the last roll display appears.
+  // The score section inside it stays hidden until the player presses Show Score.
+  const footer = document.getElementById(`game-score-footer-${player}`);
+  if (footer && !footer.classList.contains('visible')) footer.classList.add('visible');
 
   // Show/update undo button
   let undoBtn = document.getElementById(`game-undo-${player}`);
