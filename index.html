@@ -12643,9 +12643,7 @@ function openTrackerForceSheet(side) {
 function renderGame() {
   const body = document.getElementById('game-body');
   if (!body) return;
-  // Attacker always renders first (top on mobile, left on desktop)
-  const first  = gameMode.attacker === 'b' ? 'b' : 'a';
-  const second = first === 'a' ? 'b' : 'a';
+  // Allied (red) always renders first (top on mobile, left on desktop)
   body.innerHTML = `
     <div class="game-header">
       <button class="game-minimize-btn" onclick="minimizeGame()">↓ Minimize</button>
@@ -12653,8 +12651,8 @@ function renderGame() {
     </div>
     <div class="game-refresh-note">Progress is saved automatically</div>
     <div class="game-panels">
-      ${renderGamePanel(first,  first  === 'a' ? 'gp-allied' : 'gp-axis')}
-      ${renderGamePanel(second, second === 'a' ? 'gp-allied' : 'gp-axis')}
+      ${renderGamePanel('a', 'gp-allied')}
+      ${renderGamePanel('b', 'gp-axis')}
     </div>
   `;
 }
