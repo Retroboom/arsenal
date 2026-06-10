@@ -4929,13 +4929,18 @@
   .game-bl { font-family: var(--mono); font-size: 13px; color: var(--text3); letter-spacing: 0.08em; margin-bottom: 16px; }
   /* Last Roll box */
   /* Trigger groups */
-  /* Single Roll BP button */
-  .game-roll-btn { width: 100%; padding: 20px 0; font-family: var(--display); font-size: 22px; letter-spacing: 0.1em; text-transform: uppercase; border: none; border-radius: 6px; cursor: pointer; margin-bottom: 12px; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15); transition: opacity 0.15s, transform 0.1s; }
+  /* Roll BP button + Hide Score row */
+  .game-roll-row { display: flex; gap: 8px; align-items: stretch; margin-bottom: 12px; }
+  .game-roll-btn { flex: 1; padding: 20px 0; font-family: var(--display); font-size: 22px; letter-spacing: 0.1em; text-transform: uppercase; border: none; border-radius: 6px; cursor: pointer; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15); transition: opacity 0.15s, transform 0.1s; }
   .gp-allied .game-roll-btn { background: linear-gradient(180deg, #c94444, #8b1e1e); }
   .gp-axis   .game-roll-btn { background: linear-gradient(180deg, #5a6a72, #36454f); }
   .game-roll-btn:hover { opacity: 0.88; transform: translateY(-1px); }
   .game-roll-btn:active { transform: translateY(1px); opacity: 1; }
   .game-roll-btn.rolling { animation: game-shake 0.3s ease-in-out; }
+  /* Progress bar with BL label */
+  .game-progress-wrap { display: flex; align-items: center; gap: 8px; margin: 8px 0 12px; }
+  .game-progress-wrap .game-progress-bar { flex: 1; margin: 0; }
+  .game-progress-bl { font-family: var(--mono); font-size: 11px; color: var(--text3); white-space: nowrap; letter-spacing: 0.06em; }
   .game-role-tag { font-family: var(--mono); font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; }
   /* Score footer (last roll + score section, hidden until first trigger) */
   .game-score-footer { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
@@ -12682,17 +12687,21 @@ function renderGamePanel(player, sideClass) {
       <div class="game-player-name">${esc(g.name)}</div>
       <div class="game-bl">BL ${g.bl} · <span class="game-role-tag">${role}</span></div>
 
-      <button class="game-roll-btn" id="game-gen-btn-${player}" onclick="rollBP('${player}')">
-        Roll BP
-      </button>
+      <div class="game-roll-row">
+        <button class="game-roll-btn" id="game-gen-btn-${player}" onclick="rollBP('${player}')">Roll BP</button>
+        <button class="game-toggle-score-btn" onclick="toggleGameScore('${player}')">${g.scoreVisible ? 'Hide Score' : 'Show Score'}</button>
+      </div>
 
       <div class="game-score-footer ${g.scoreVisible ? 'visible' : ''}" id="game-score-footer-${player}">
         <div class="game-last-roll-inline" id="game-last-roll-${player}">${lastRollInner}</div>
         <div class="game-score-section ${g.scoreVisible ? 'visible' : ''}" id="game-score-${player}">
           ${broken ? `<div class="game-breaking-label" id="game-breaking-${player}">⚑ Breaking</div>` : `<div class="game-breaking-label" id="game-breaking-${player}" style="display:none">⚑ Breaking</div>`}
           <p class="game-score-label">Break Points</p>
-          <p class="game-score-value${broken ? ' game-bp-broken' : ''}">${g.bp} / ${g.bl}</p>
-          <div class="game-progress-bar"><div class="game-progress-fill" style="width:${pct}%;background:${barColor}"></div></div>
+          <p class="game-score-value${broken ? ' game-bp-broken' : ''}">${g.bp}</p>
+          <div class="game-progress-wrap">
+            <div class="game-progress-bar"><div class="game-progress-fill" style="width:${pct}%;background:${barColor}"></div></div>
+            <span class="game-progress-bl">BL ${g.bl}</span>
+          </div>
           <p class="game-draws-label">History</p>
           <div class="game-draws-history">${chipsHTML}</div>
         </div>
@@ -12700,7 +12709,6 @@ function renderGamePanel(player, sideClass) {
       ${!g.scoreVisible ? `<div class="game-score-hidden">Score hidden</div>` : ''}
 
       <div class="game-btn-row">
-        <button class="game-toggle-score-btn" onclick="toggleGameScore('${player}')">${g.scoreVisible ? 'Hide Score' : 'Show Score'}</button>
         ${g.platoons && g.platoons.length ? `<button class="game-view-force-btn" onclick="openTrackerForceSheet('${player}')" title="View this force's units and stats">⎘ View Force</button>` : ''}
         ${g.rolls.length ? `<button class="game-undo-btn" id="game-undo-${player}" onclick="undoLastRoll('${player}')">↩ Undo</button>` : ''}
       </div>
@@ -12779,7 +12787,7 @@ function triggerBP(player, numRolls) {
     const nowBroken = g.bp >= g.bl;
     const pct = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
     const barColor = bpBarColor(pct);
-    if (scoreEl) { scoreEl.textContent = `${g.bp} / ${g.bl}`; scoreEl.classList.toggle('game-bp-broken', nowBroken); }
+    if (scoreEl) { scoreEl.textContent = `${g.bp}`; scoreEl.classList.toggle('game-bp-broken', nowBroken); }
     if (fillEl)  { fillEl.style.width = pct + '%'; fillEl.style.background = barColor; }
     if (histEl)  histEl.innerHTML = g.rolls.map(r => `<span class="game-draw-chip bp-${r}">${r} BP</span>`).join('');
   }
@@ -12867,7 +12875,7 @@ function rollBP(player) {
     const nowBroken = g.bp >= g.bl;
     const pct = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
     const barColor = bpBarColor(pct);
-    if (scoreEl) { scoreEl.textContent = `${g.bp} / ${g.bl}`; scoreEl.classList.toggle('game-bp-broken', nowBroken); }
+    if (scoreEl) { scoreEl.textContent = `${g.bp}`; scoreEl.classList.toggle('game-bp-broken', nowBroken); }
     if (fillEl)  { fillEl.style.width = pct + '%'; fillEl.style.background = barColor; }
     if (histEl)  histEl.innerHTML = g.rolls.map(r => `<span class="game-draw-chip bp-${r}">${r} BP</span>`).join('');
   }
@@ -12950,7 +12958,7 @@ function undoLastRoll(player) {
     const stillBroken = g.bp >= g.bl;
     const pct = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
     const barColor = bpBarColor(pct);
-    if (scoreEl) { scoreEl.textContent = `${g.bp} / ${g.bl}`; scoreEl.classList.toggle('game-bp-broken', stillBroken); }
+    if (scoreEl) { scoreEl.textContent = `${g.bp}`; scoreEl.classList.toggle('game-bp-broken', stillBroken); }
     if (fillEl)  { fillEl.style.width = pct + '%'; fillEl.style.background = barColor; }
     if (histEl)  histEl.innerHTML = g.rolls.map(r => `<span class="game-draw-chip bp-${r}">${r} BP</span>`).join('');
   }
