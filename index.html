@@ -4703,6 +4703,11 @@
   .fpp-auto-btn:disabled { opacity: 0.35; cursor: default; }
   .fpp-setup-actions { display: flex; flex-direction: column; gap: 10px; align-items: center; }
   .fpp-result-actions { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+  .fpp-scenario-row { display: flex; align-items: center; gap: 8px; justify-content: center; margin-bottom: 8px; }
+  .fpp-scenario-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--admin); text-transform: uppercase; }
+  .fpp-scenario-btn { background: none; border: 1px solid var(--admin); color: var(--admin); border-radius: 4px; padding: 5px 12px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; cursor: pointer; opacity: 0.5; transition: opacity 0.15s; }
+  .fpp-scenario-btn.active { opacity: 1; background: var(--admin); color: var(--bg); }
+  .fpp-scenario-btn:hover { opacity: 0.85; }
 
   /* Ranking */
   .fpp-rank-list { display: flex; flex-direction: column; gap: 8px; }
@@ -12033,6 +12038,7 @@ let rankSortable = null;
 
 let fppState = {
   step: 'setup',
+  scenario: 'default',
   a: { name: '', platoons: [], bl: 0, vehicleCount: 0 },
   b: { name: '', forceName: '', platoons: [], bl: 0, vehicleCount: 0, forceId: null },
   rankByA: [], rankByB: [],
@@ -12110,8 +12116,14 @@ function captureFPPName(which, value) {
   fppState[which].name = value;
 }
 
+function setFPPScenario(scenario) {
+  fppState.scenario = scenario;
+  renderFPP();
+}
+
 function resetFPP() {
   fppState.step = 'setup';
+  // scenario is intentionally preserved across resets — it's a session-level setting
   fppState.a = { name: fppState.a.name, platoons: [], bl: 0, vehicleCount: 0 };
   fppState.b = { name: fppState.b.name, forceName: '', platoons: [], bl: 0, vehicleCount: 0 };
   fppState.rankByA = []; fppState.rankByB = []; fppState.pairings = [];
@@ -12168,6 +12180,12 @@ function renderFPPSetup(body) {
         </button>
       </div>
     </div>
+    ${isAdmin ? `
+    <div class="fpp-scenario-row admin-only">
+      <span class="fpp-scenario-label">Scenario:</span>
+      <button class="fpp-scenario-btn${fppState.scenario === 'default' ? ' active' : ''}" onclick="setFPPScenario('default')">Default</button>
+      <button class="fpp-scenario-btn${fppState.scenario === 'meeting' ? ' active' : ''}" onclick="setFPPScenario('meeting')">Meeting Engagement</button>
+    </div>` : ''}
     <div class="fpp-setup-actions">
       <button class="fpp-next-btn" onclick="autoFPP()" ${!bLoaded || !platoons.length ? 'disabled' : ''}>
         Auto-Resolve →
@@ -12215,17 +12233,17 @@ function autoFPP() {
 
   computePairings();
 
-  // Auto-assign winners with defender margin.
-  // The attacker must exceed the defender's score by FPP_DEFENDER_MARGIN (10%) to win a pairing.
-  // Anything within that margin — or where the defender is stronger — goes to the defender.
-  // Reflects: "when it's not obvious which unit is more threatening, the defender has the edge."
-  const defender = fppState.attacker === 'a' ? 'b' : 'a';
+  // Auto-assign winners. In a default scenario the attacker must exceed the
+  // defender's score by FPP_DEFENDER_MARGIN to win; in a meeting engagement
+  // neither side has prepared positions so no defender margin applies.
+  const defender  = fppState.attacker === 'a' ? 'b' : 'a';
+  const atkMargin = fppState.scenario === 'meeting' ? 0 : FPP_DEFENDER_MARGIN;
   for (const p of fppState.pairings) {
     const sA = calcPlatoonScore(p.a);
     const sB = calcPlatoonScore(p.b);
     const atkScore  = fppState.attacker === 'a' ? sA : sB;
     const defScore  = fppState.attacker === 'a' ? sB : sA;
-    const atkClearlySuperior = atkScore > defScore * (1 + FPP_DEFENDER_MARGIN);
+    const atkClearlySuperior = atkScore > defScore * (1 + atkMargin);
     p.winner = atkClearlySuperior ? fppState.attacker : 'defender';
   }
 
@@ -12249,9 +12267,10 @@ function quickCompareFPP() {
   const rawA = fppState.a.platoons.reduce((s, p) => s + calcPlatoonScore(p), 0);
   const rawB = fppState.b.platoons.reduce((s, p) => s + calcPlatoonScore(p), 0);
 
-  // Apply 10% defender bonus to adjusted scores for comparison
-  const adjA = defender === 'a' ? rawA * 1.10 : rawA;
-  const adjB = defender === 'b' ? rawB * 1.10 : rawB;
+  // Apply 10% defender bonus unless meeting engagement (no prepared positions)
+  const defBonus = fppState.scenario === 'meeting' ? 1.0 : 1.10;
+  const adjA = defender === 'a' ? rawA * defBonus : rawA;
+  const adjB = defender === 'b' ? rawB * defBonus : rawB;
 
   const stronger = adjA > adjB ? 'a' : adjB > adjA ? 'b' : null;
   let blA = fppState.a.bl, blB = fppState.b.bl;
