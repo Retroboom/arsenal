@@ -1,7 +1,14 @@
 # FPP Scoring Formula Redesign (prototype spec)
 
-**Status:** Prototype, not implemented. Hold for the next book-revision pass so the
-roster is only reshuffled once. Validate on real force-vs-force FPP runs before shipping.
+**Status:** Prototype, not implemented. The MG sync to the 2026.06 beta is DONE (live
+data), so the baselines below are now accurate. Validate on real force-vs-force FPP runs
+before shipping the formula change.
+
+**Note:** the original motivating case (StuG should beat the M4 Sherman) is already
+resolved in the live additive formula by the MG correction alone: the Sherman lost its
+.50 AA (now 28) while the StuG kept its coaxial MG (29.1). This formula redesign is no
+longer required for that matchup; it remains the right fix for the broader
+armor-undervaluation if desired.
 
 This documents a proposed replacement for the team-scoring math used by the Force
 Parity Procedure. The live formula is `calcTeamScore()` in
@@ -93,7 +100,7 @@ spreads the freed-up points across every non-turreted unit.)
 
 ## Calibration targets it hits
 
-At the parameters above (turret 1.3), with the planned MG removal still pending:
+At the parameters above (turret 1.3), with the MG sync now applied (live data):
 
 | Unit | Value | Target met |
 |---|---|---|
@@ -116,7 +123,6 @@ Design goals confirmed: StuG >= M4, PzIV and StuG close, Panther beats 2 M4s but
   runs.
 - **M4-76 may be a notch high** (~44). It gains on both rewarded axes (AT 5 and
   front-3 armor). Reconsider when the roster is in front of us.
-- **Bundle with the book revision and the MG removal.** The MG pass (drop AA/.50 from
-  enclosed armor: Sherman to 2 MGs, StuG to 0) shifts the baselines; do not ship this
-  formula piecemeal ahead of it.
+- **MG sync: DONE** (committed). Sherman to 2 MGs (Coax/Hull), StuG keeps 1 (coax),
+  Brummbar gained a hull MG. Baselines above reflect this.
 - **Tune T and k** if the longevity feels too strong or weak after force-level tests.
