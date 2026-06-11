@@ -3823,192 +3823,6 @@
   .force-type-chip:hover { border-color: var(--text2); color: var(--text2); }
   .force-type-chip.active { border-color: var(--accent); color: var(--accent); background: rgba(224,192,96,0.08); }
 
-  /* RATING BADGE (admin only) */
-  /* Rating badges are admin-only (only shown when isAdmin). Use the admin
-     purple so they're visually distinct from the gold accent regulars see. */
-  .rating-badge {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--admin);
-    background: rgba(176,112,176,0.08);
-    border: 1px solid rgba(176,112,176,0.28);
-    padding: 1px 5px;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-  }
-
-  .rating-badge.unrated { color: var(--text3); background: none; border-color: var(--border); }
-
-  /* COMPARISON MODAL */
-  .compare-modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(8,7,6,0.97);
-    z-index: 500;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 24px 16px;
-    gap: 20px;
-  }
-
-  .compare-modal.open { display: flex; }
-
-  .compare-header {
-    text-align: center;
-    flex-shrink: 0;
-  }
-
-  .compare-title {
-    font-family: var(--display);
-    font-size: 22px;
-    letter-spacing: 4px;
-    color: var(--accent);
-    margin-bottom: 4px;
-  }
-
-  .compare-sub {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text3);
-    letter-spacing: 1px;
-  }
-
-  .compare-arena {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    width: 100%;
-    max-width: 860px;
-    flex-shrink: 0;
-  }
-
-  .compare-card {
-    flex: 1;
-    background: var(--bg2);
-    border: 2px solid var(--border);
-    padding: 20px;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s, transform 0.1s;
-    position: relative;
-    min-width: 0;
-  }
-
-  .compare-card:hover {
-    border-color: var(--accent);
-    background: var(--bg3);
-    transform: translateY(-2px);
-  }
-
-  .compare-card:active { transform: translateY(0); }
-
-  .compare-card-name {
-    font-family: var(--display);
-    font-size: 22px;
-    letter-spacing: 1px;
-    color: var(--text);
-    margin-bottom: 6px;
-    line-height: 1.1;
-  }
-
-  .compare-card-type {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text3);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-
-  .compare-stats {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 4px;
-    margin-bottom: 10px;
-  }
-
-  .compare-armament {
-    font-size: 11px;
-    color: var(--text3);
-    font-style: italic;
-    margin-bottom: 8px;
-    line-height: 1.4;
-  }
-
-  .compare-notes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3px;
-  }
-
-  .compare-vs {
-    font-family: var(--display);
-    font-size: 56px;
-    color: var(--accent);
-    letter-spacing: 6px;
-    flex-shrink: 0;
-    user-select: none;
-    text-shadow: 0 0 24px rgba(224,192,96,0.35), 0 0 48px rgba(224,192,96,0.12);
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  .compare-footer {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-shrink: 0;
-  }
-
-  .compare-count {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text3);
-    letter-spacing: 1px;
-    text-align: center;
-  }
-
-  .compare-stop-btn {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--text3);
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 1px;
-    padding: 7px 20px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.12s;
-  }
-
-  .compare-stop-btn:hover { border-color: var(--red); color: #ff9a9a; }
-
-  .compare-skip-btn {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--text3);
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 1px;
-    padding: 7px 20px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.12s;
-  }
-
-  .compare-skip-btn:hover { border-color: var(--text2); color: var(--text2); }
-
-  .compare-flash {
-    position: absolute;
-    inset: 0;
-    background: rgba(224,192,96,0.12);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .compare-flash.show { opacity: 1; }
-
   /* FORCE SHEET MODAL */
   .force-sheet-modal {
     position: fixed;
@@ -5383,7 +5197,6 @@
       <div class="results-count" id="results-count">Loading...</div>
       <button class="clear-btn" onclick="clearFilters()">Clear all filters</button>
 
-      <button id="rate-btn" class="rate-teams-btn admin-only" onclick="openCompare()" style="display:none">▲ Rate Teams</button>
       <button id="score-toggle-btn" class="rate-teams-btn admin-only" onclick="toggleScoreDisplay()" style="display:none">pts</button>
     </div>
   </aside>
@@ -5808,29 +5621,6 @@ If this field has content, clicking the card opens an in-app reader. Otherwise t
   <div class="fp-bar-chevron">▲</div>
 </div>
 
-<!-- COMPARISON MODAL -->
-<div class="compare-modal" id="compare-modal">
-  <div class="compare-header">
-    <div class="compare-title">Rate Teams</div>
-    <div class="compare-sub">Click the team you consider more valuable to a force</div>
-  </div>
-  <div class="compare-arena">
-    <div class="compare-card" id="compare-a" onclick="submitComparison('a')">
-      <div class="compare-flash" id="flash-a"></div>
-      <div id="compare-a-content"></div>
-    </div>
-    <div class="compare-vs">VS</div>
-    <div class="compare-card" id="compare-b" onclick="submitComparison('b')">
-      <div class="compare-flash" id="flash-b"></div>
-      <div id="compare-b-content"></div>
-    </div>
-  </div>
-  <div class="compare-footer">
-    <button class="compare-skip-btn" onclick="loadNextPair()">Skip</button>
-    <div class="compare-count" id="compare-count">0 comparisons submitted</div>
-    <button class="compare-stop-btn" onclick="closeCompare()">Stop</button>
-  </div>
-</div>
 
 <!-- FORCE SHEET MODAL -->
 <div class="force-sheet-modal" id="force-sheet-modal"></div>
@@ -6392,7 +6182,6 @@ function renderGrid(container, forceIds, animate = true) {
             <span class="years-display">
               ${yearRange(unit.years)}
               ${unit.base ? `<span class="base-badge">${unit.base}</span>` : ''}
-              ${isAdmin ? ratingBadgeHtml(unit.id) : ''}
             </span>
             ${locked
               ? `<button class="add-force-btn" onclick="event.stopPropagation();showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Ko-fi subscriber only</button>`
@@ -6552,7 +6341,7 @@ function renderTable(container, forceIds) {
         <td class="table-stat ${unit.fp !== null && unit.fp !== undefined ? '' : 'null'}">${unit.fp !== null && unit.fp !== undefined ? unit.fp : '-'}</td>
         <td class="table-stat ${unit.armor_front !== null ? '' : 'null'}">${unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '-'}</td>
         <td class="table-notes">${unit.notes.map(n => noteTag(n)).join(' ')}</td>
-        <td style="color:var(--text3);font-size:10px;white-space:nowrap">${yearRange(unit.years)}${isAdmin ? ' ' + ratingBadgeHtml(unit.id) : ''}</td>
+        <td style="color:var(--text3);font-size:10px;white-space:nowrap">${yearRange(unit.years)}</td>
         <td onclick="event.stopPropagation()">${unitActions(unit)}</td>
       </tr>`;
   }
@@ -9903,8 +9692,6 @@ let forceQuality = 'Regular';
 let forceYear = null;   // integer 1939-1945 or null
 let forceType = null;   // 'Infantry' | 'Mechanized' | 'Armored' | 'Airborne' | null
 let isAdmin = false;
-let unitRatings = {};   // { unitId: { rating, wins, losses, comparisons } }
-let eloVisible = false; // session-only: shown only after rating at least one pair
 let showScores = false; // admin-only: show force scores on platoon cards
 
 function setForceQuality(q) {
@@ -9943,10 +9730,6 @@ function updateFpConfigSummary() {
 }
 
 
-function ratingKey(unitId, quality) {
-  return `${unitId}_${quality}`;
-}
-
 async function checkAdmin(email) {
   if (!email) return false;
   const key = emailToKey(email);
@@ -9959,154 +9742,6 @@ function toggleScoreDisplay() {
   const btn = document.getElementById('score-toggle-btn');
   if (btn) btn.classList.toggle('active', showScores);
   updateForceUI();
-}
-
-async function loadRatings() {
-  const snap = await firebase.database().ref('ratings').once('value');
-  unitRatings = snap.val() || {};
-}
-
-function ratingBadgeHtml(unitId) {
-  if (!eloVisible) return '';
-  const key = ratingKey(unitId, forceQuality);
-  const r = unitRatings[key];
-  if (!r || r.comparisons === 0) return '';
-  return `<span class="rating-badge" title="${r.comparisons} comparisons · ${r.wins}W ${r.losses}L">${Math.round(r.rating)} ELO</span>`;
-}
-
-// ── ELO COMPARISON ────────────────────────────────────────────────────────────
-let compareUnitA = null;
-let compareUnitB = null;
-let compareSessionCount = 0;
-
-function eloExpected(ra, rb) {
-  return 1 / (1 + Math.pow(10, (rb - ra) / 400));
-}
-
-function eloNewRatings(ra, rb, aWon) {
-  const K = 32;
-  const ea = eloExpected(ra, rb);
-  const eb = 1 - ea;
-  return {
-    newA: Math.round(ra + K * ((aWon ? 1 : 0) - ea)),
-    newB: Math.round(rb + K * ((aWon ? 0 : 1) - eb))
-  };
-}
-
-function pickPair() {
-  // Weight toward units with fewer comparisons so coverage spreads evenly
-  const pool = allUnits.filter(u => u.free || isSubscriber);
-  if (pool.length < 2) return null;
-
-  const weighted = pool.map(u => {
-    const r = unitRatings[u.id];
-    const comps = r ? r.comparisons : 0;
-    const weight = 1 / (comps + 1);
-    return { unit: u, weight };
-  });
-
-  function pickOne(exclude) {
-    const candidates = weighted.filter(w => !exclude || w.unit.id !== exclude.id);
-    const total = candidates.reduce((s, w) => s + w.weight, 0);
-    let rand = Math.random() * total;
-    for (const c of candidates) {
-      rand -= c.weight;
-      if (rand <= 0) return c.unit;
-    }
-    return candidates[candidates.length - 1].unit;
-  }
-
-  const a = pickOne(null);
-  const b = pickOne(a);
-  return { a, b };
-}
-
-function compareCardHtml(unit) {
-  const armor = unit.armor_front !== null && unit.armor_front !== undefined
-    ? `${unit.armor_front}/${unit.armor_flank}` : '-';
-  return `
-    <div class="${nationBadgeClass(unit.nation)}" style="display:inline-block;margin-bottom:8px;font-size:9px;padding:2px 6px">${unit.nation}</div>
-    <div class="compare-card-name">${unit.name}</div>
-    <div class="compare-card-type">${unit.type}</div>
-    <div class="compare-stats">
-      <div class="stat-cell"><span class="stat-label">Range</span>${statDisplay(unit.gun_range)}</div>
-      <div class="stat-cell"><span class="stat-label">RoF</span>${statDisplay(unit.rof)}</div>
-      <div class="stat-cell"><span class="stat-label">AT</span>${statDisplay(unit.at)}</div>
-      <div class="stat-cell"><span class="stat-label">FP</span>${statDisplay(unit.fp)}</div>
-      <div class="stat-cell"><span class="stat-label">Armor</span>${unit.armor_front !== null ? `<span class="stat-value armor">${armor}</span>` : statDisplay(null)}</div>
-    </div>
-    ${unit.armament ? `<div class="compare-armament">${unit.armament}</div>` : ''}
-    <div class="compare-notes">${(unit.notes || []).map(n => noteTag(n)).join('')}</div>
-  `;
-}
-
-function loadNextPair() {
-  const pair = pickPair();
-  if (!pair) return;
-  compareUnitA = pair.a;
-  compareUnitB = pair.b;
-  document.getElementById('compare-a-content').innerHTML = compareCardHtml(pair.a);
-  document.getElementById('compare-b-content').innerHTML = compareCardHtml(pair.b);
-}
-
-async function submitComparison(winner) {
-  if (!compareUnitA || !compareUnitB) return;
-
-  const aWon = winner === 'a';
-  const flashEl = document.getElementById(aWon ? 'flash-a' : 'flash-b');
-  flashEl.classList.add('show');
-  setTimeout(() => flashEl.classList.remove('show'), 300);
-
-  const idA = compareUnitA.id;
-  const idB = compareUnitB.id;
-  const kA = ratingKey(idA, forceQuality);
-  const kB = ratingKey(idB, forceQuality);
-  const rA = (unitRatings[kA] && unitRatings[kA].rating) || 1200;
-  const rB = (unitRatings[kB] && unitRatings[kB].rating) || 1200;
-
-  const { newA, newB } = eloNewRatings(rA, rB, aWon);
-
-  // Update local cache
-  if (!unitRatings[kA]) unitRatings[kA] = { rating: 1200, wins: 0, losses: 0, comparisons: 0 };
-  if (!unitRatings[kB]) unitRatings[kB] = { rating: 1200, wins: 0, losses: 0, comparisons: 0 };
-  unitRatings[kA].rating = newA;
-  unitRatings[kA].comparisons++;
-  unitRatings[kA][aWon ? 'wins' : 'losses']++;
-  unitRatings[kB].rating = newB;
-  unitRatings[kB].comparisons++;
-  unitRatings[kB][aWon ? 'losses' : 'wins']++;
-
-  // Write to Firebase (non-blocking — don't await, keeps UI snappy)
-  const db = firebase.database();
-  db.ref(`ratings/${kA}`).set(unitRatings[kA]);
-  db.ref(`ratings/${kB}`).set(unitRatings[kB]);
-
-  compareSessionCount++;
-  document.getElementById('compare-count').textContent =
-    `${compareSessionCount} comparison${compareSessionCount !== 1 ? 's' : ''} submitted this session`;
-
-  if (!eloVisible) {
-    eloVisible = true;
-    renderUnits(true);
-  }
-
-  loadNextPair();
-}
-
-function openCompare() {
-  if (allUnits.length < 2) { showToast('Unit data not loaded yet.', 'error'); return; }
-  compareSessionCount = 0;
-  document.getElementById('compare-count').textContent = '0 comparisons submitted';
-  loadNextPair();
-  document.getElementById('compare-modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeCompare() {
-  document.getElementById('compare-modal').classList.remove('open');
-  document.body.style.overflow = '';
-  // Refresh display so new ratings show
-  if (isAdmin) renderUnits(true);
 }
 
 // ── FORCE SHEET ───────────────────────────────────────────────────────────────
@@ -13683,8 +13318,6 @@ firebase.auth().onAuthStateChanged(async (user) => {
     updateAuthUI(user, isSubscriber);
     isAdmin = await checkAdmin(user.email);
     if (isAdmin) {
-      await loadRatings();
-      document.getElementById('rate-btn').style.display = '';
       document.getElementById('score-toggle-btn').style.display = '';
       document.getElementById('hof-publish-btn').style.display = '';
       document.getElementById('tab-orbat').style.display = '';
