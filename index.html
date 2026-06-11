@@ -248,7 +248,7 @@
     padding: 6px 16px 12px;
     line-height: 1.55;
     border-top: 1px solid var(--border);
-    background: var(--bg);
+    background: var(--bg2);
     font-style: italic;
   }
   .org-platoon-list { display: none; flex-direction: column; }
@@ -259,7 +259,7 @@
     gap: 10px;
     padding: 10px 16px;
     border-top: 1px solid var(--border);
-    background: var(--bg);
+    background: var(--bg2);
   }
   .org-platoon-row:hover { background: var(--bg2); }
   .org-platoon-info { flex: 1; min-width: 0; }
@@ -427,7 +427,7 @@
     color: var(--text3);
     padding: 8px 18px 14px;
     line-height: 1.55;
-    background: var(--bg);
+    background: var(--bg2);
     border-bottom: 1px solid var(--border);
     font-style: italic;
   }
@@ -928,7 +928,7 @@
     display: none;
     padding: 14px 16px 16px;
     border-top: 1px solid var(--border);
-    background: var(--bg);
+    background: var(--bg2);
   }
   .rules-section.open .rules-section-body { display: block; }
   .rules-body-text {
@@ -6275,7 +6275,7 @@ const RULE_TIPS = {
   // ── Vehicle Rules ──────────────────────────────────────────────────────────
   'Hull Mounted': 'Gun has a limited forward arc of fire.',
   'Hull-Mounted': 'Gun has a limited forward arc of fire.',
-  'Open Topped': 'Destroyed if it resolves RFPs while in base contact with an enemy Team during an assault. Also counts as Open Topped when assaulted or attacked by air/artillery before next activation if AA MGs or .50 cals were fired.',
+  'Open Topped': 'Destroyed if it resolves RFPs while in base contact with an enemy Team during an assault.',
   'Anti-Air': 'May attempt to intercept aircraft. When rolling Order Dice, a Hero Die roll of 1 triggers an immediate air attack. AA Teams that did not activate last turn roll RoF dice vs. the aircraft\'s 1d6. Each die rolling higher scores a hit.',
   'May only inflict RFPs': 'Cannot cause Kill results. All hits generate Received Fire Points only.',
   'Immobile': 'Cannot move once deployed.',
@@ -8802,7 +8802,6 @@ const RULES_DATA = [
         <p>These keywords appear in unit profiles and modify how those Teams behave.</p>
         <table class="rules-table">
           <tr><th>Rule</th><th>Effect</th></tr>
-          <tr><td><strong>AA MGs &amp; .50 cals</strong></td><td>Vehicles firing these weapons count as Open-Topped when assaulted or attacked by Air/Artillery before they next activate.</td></tr>
           <tr><td><strong>Anti-Air</strong></td><td>See Air Support in Optional Rules.</td></tr>
           <tr><td><strong>Bunker Buster</strong></td><td>When using direct fire, unarmored Teams within 2" of a hit Target Team each receive 1 RFP.</td></tr>
           <tr><td><strong>Fast</strong></td><td>Add +2 inches to movement.</td></tr>
