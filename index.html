@@ -2156,9 +2156,38 @@
   .udp-add-btn.primary { border-color: var(--green); color: var(--green); }
   .udp-add-btn.primary:hover { background: var(--green); color: var(--bg); }
 
-  /* Mobile-only Force Builder bar — hidden on desktop. Mobile media query
-     overrides to display:flex. */
-  .fp-bar { display: none; }
+  /* Force Builder bar — a fixed bar along the bottom (all widths) that shows when a
+     force is in progress and the panel is closed; tap to (re)open the builder. Hidden
+     when the panel is open or the force is empty. */
+  .fp-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    z-index: 89;
+    cursor: pointer;
+    user-select: none;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .fp-bar:active { background: var(--bg3); }
+  .fp-bar-left { display: flex; align-items: center; gap: 8px; }
+  .fp-bar-icon { color: var(--accent); font-size: 14px; }
+  .fp-bar-label { font-family: var(--display); font-size: 13px; letter-spacing: 2px; color: var(--accent); }
+  .fp-bar-stats { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--text3); }
+  .fp-bar-stat-val { color: var(--text); font-weight: 600; }
+  .fp-bar-sep { color: var(--border); }
+  .fp-bar-chevron { color: var(--text3); font-size: 11px; }
+  body.panel-open .fp-bar { display: none; }
+  .fp-bar.fp-bar-empty { display: none; }
+  /* Reserve room at the bottom of the scroll area so the bar never covers content. */
+  body:not(.panel-open):has(#fp-bar:not(.fp-bar-empty)) .main { padding-bottom: 76px; }
 
   .force-panel {
     position: fixed;
@@ -5067,35 +5096,6 @@
     box-shadow: 0 4px 16px rgba(0,0,0,0.5);
   }
   #game-resume-float:hover { opacity: 0.85; }
-
-  /* Desktop-only floating button to (re)open the Force Builder. Hidden when the panel
-     is open, and on mobile (which has the .fp-bar). Sits below the game overlay z-index
-     so it never covers the tracker. */
-  #force-resume-float {
-    display: none;
-    position: fixed;
-    bottom: 18px;
-    right: 18px;
-    align-items: center;
-    gap: 8px;
-    background: var(--bg3);
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    border-radius: 6px;
-    padding: 10px 16px;
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    cursor: pointer;
-    z-index: 95;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.45);
-    transition: background 0.15s, color 0.15s;
-  }
-  #force-resume-float:hover { background: var(--accent); color: var(--bg); }
-  body:not(.panel-open) #force-resume-float { display: flex; }
-  @media (max-width: 640px) { #force-resume-float { display: none !important; } }
-
   /* Two-panel grid */
   .game-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 600px) {
@@ -5547,8 +5547,6 @@
   <div id="game-body" class="game-body"></div>
 </div>
 <button id="game-resume-float" onclick="resumeGame()">⚑ Resume Tracker</button>
-<!-- Desktop reopen affordance for the Force Builder (mobile uses the fp-bar instead) -->
-<button id="force-resume-float" onclick="setForcePanel(true)" title="Open the Force Builder">◈ Force Builder</button>
 
 <!-- OPPONENT FORCE PICKER MODAL -->
 <div id="fpp-picker-modal" class="fpp-modal-overlay" style="display:none">
