@@ -2276,8 +2276,8 @@
   .platoon-header {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 4px 8px;
+    gap: 5px;
+    padding: 3px 8px;
     background: var(--bg3);
     border-bottom: 1px solid var(--border);
   }
@@ -2333,9 +2333,9 @@
     color: var(--text3);
     cursor: pointer;
     font-size: 15px;
-    padding: 5px 6px;
-    min-width: 30px;
-    min-height: 30px;
+    padding: 4px 6px;
+    min-width: 28px;
+    min-height: 28px;
     line-height: 1;
     flex-shrink: 0;
   }
@@ -2362,9 +2362,9 @@
     color: var(--text3);
     cursor: pointer;
     font-size: 15px;
-    padding: 5px 6px;
-    min-width: 30px;
-    min-height: 30px;
+    padding: 4px 6px;
+    min-width: 28px;
+    min-height: 28px;
     line-height: 1;
     flex-shrink: 0;
     transition: color 0.12s;
@@ -4760,20 +4760,24 @@
     border: 1px solid var(--border);
     color: var(--text3);
     font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.5px;
-    padding: 4px 10px;
-    min-height: 28px;
+    font-size: 12px;
+    font-weight: 600;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
     border-radius: 4px;
     cursor: pointer;
-    white-space: nowrap;
     flex-shrink: 0;
     transition: all 0.1s;
   }
-  .platoon-quality-cycle.pq-elite   { border-color: var(--accent); color: var(--accent); background: rgba(224,192,96,0.1); }
-  .platoon-quality-cycle.pq-regular { border-color: var(--green);  color: var(--green);  background: rgba(90,154,110,0.1); }
-  .platoon-quality-cycle.pq-poor    { border-color: var(--red);    color: #ff9a9a;       background: rgba(160,69,69,0.1); }
-  .platoon-quality-cycle.pq-inherit { border-style: dashed; opacity: 0.7; }
+  /* Quiet single-letter chip: colored outline + letter only, no bright fill. */
+  .platoon-quality-cycle.pq-elite   { border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); color: var(--accent); }
+  .platoon-quality-cycle.pq-regular { border-color: color-mix(in srgb, var(--green) 55%, var(--border));  color: var(--green); }
+  .platoon-quality-cycle.pq-poor    { border-color: color-mix(in srgb, var(--red) 55%, var(--border));    color: #d49a9a; }
+  .platoon-quality-cycle.pq-inherit { border-style: dashed; opacity: 0.55; }
 
   /* ── DRAG HANDLE ──────────────────────────────────────────────────────────── */
   .platoon-drag-handle {
@@ -7424,7 +7428,7 @@ function updateForceUI() {
             oninput="updatePlatoonName('${platoon.id}', this.value)"
             placeholder="Platoon name...">
           ${showScores ? `<span class="platoon-score-badge">${calcPlatoonScore(platoon)} pts</span>` : ''}
-          <button class="platoon-quality-cycle ${pqColorCls}${pqInheritCls}" data-tip="Quality: ${effectiveQ}${platoon.quality ? '' : ' (inherited) '} · tap to change" onclick="cyclePlatoonQuality('${platoon.id}')">${effectiveQ}</button>
+          <button class="platoon-quality-cycle ${pqColorCls}${pqInheritCls}" data-tip="Quality: ${effectiveQ}${platoon.quality ? '' : ' (inherited)'} · tap to change" onclick="cyclePlatoonQuality('${platoon.id}')">${effectiveQ.charAt(0)}</button>
           <button class="platoon-select-btn" onclick="setActivePlatoon('${platoon.id}')">
             ${isActive ? 'Active' : 'Select'}
           </button>
