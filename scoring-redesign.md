@@ -1,14 +1,40 @@
-# FPP Scoring Formula Redesign (prototype spec)
+# FPP Scoring Formula Redesign
 
-**Status:** Prototype, not implemented. The MG sync to the 2026.06 beta is DONE (live
-data), so the baselines below are now accurate. Validate on real force-vs-force FPP runs
-before shipping the formula change.
+**Status: IMPLEMENTED and live** in `calcTeamScore()` (index.html ~line 7041). In testing.
 
-**Note:** the original motivating case (StuG should beat the M4 Sherman) is already
-resolved in the live additive formula by the MG correction alone: the Sherman lost its
-.50 AA (now 28) while the StuG kept its coaxial MG (29.1). This formula redesign is no
-longer required for that matchup; it remains the right fix for the broader
-armor-undervaluation if desired.
+## Live model (as shipped)
+
+A team's value = its per-turn firepower × how many turns it survives to deliver it, plus
+a residual armor term, plus a board-presence value for non-vehicle combat teams:
+
+```
+firepower = ai + atScore + mgScore + fpBonus + barrageScore
+vehicles:           1 + mobility + firepower × longevity(front armor) + 0.4 × defScore
+infantry / on-table guns:  1 + firepower + 0.4 × defScore + 3 (presence)   (longevity = 1)
+command teams (PL/CC):     0     forward observer: 1     sniper: 12     upgrade: 2
+```
+
+Tuning knobs are named constants just above the function:
+- `FS_LONGEVITY` — damped longevity multiplier by front armor (anchor armor 2 = 1.0)
+- `FS_TURRET_MULT = 1.3` — AT multiplier for turreted vehicles (was 1.5)
+- `FS_RESIDUAL_DEF = 0.4` — standalone armor value on top of longevity
+- `FS_PRESENCE = 3` — per non-vehicle combat team (infantry + on-table guns with a range)
+
+Presence applies to infantry and on-table gun teams (those with a listed range). It does
+NOT apply to PL/FO/CC (no range), snipers (fixed value), or off-board indirect weapons
+with no range (Katyusha, NW41, 120mm mortar). Panzerfaust and other upgrades are flat +2
+and are meant to be applied per combat team in the platoon (force-builder change pending).
+
+The score is NOT budget-rescaled: the FPP compares ratios and pairing wins, so absolute
+scale does not change any FPP outcome. (Numbers run ~3% above the rescaled prototype
+figures discussed during design; relationships are identical.)
+
+Live reference values: Rifle/MG 6, MG team 7, HMG 9, Bazooka ~6.3, M4 Sherman 24.3,
+StuG 28.9, Panzer IV H 30.9, Panther 59.7, Tiger II 99, PaK40 23.7, Hummel 40.
+
+---
+
+## Design rationale (kept for reference)
 
 This documents a proposed replacement for the team-scoring math used by the Force
 Parity Procedure. The live formula is `calcTeamScore()` in
