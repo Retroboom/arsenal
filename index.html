@@ -1078,6 +1078,13 @@
   .app.sidebar-collapsed {
     grid-template-columns: 36px 1fr;
   }
+  /* Desktop: collapse the filter sidebar out of the way while the Force Builder is open,
+     and restore it when the builder minimizes. Pure CSS off body.panel-open, so the
+     sidebar's prior expanded/collapsed state is preserved. */
+  @media (min-width: 641px) {
+    body.panel-open .app { grid-template-columns: 0 1fr; }
+    body.panel-open .sidebar { overflow: hidden; border-right-color: transparent; padding-left: 0; padding-right: 0; }
+  }
 
   /* SIDEBAR */
   .sidebar {
@@ -2199,12 +2206,13 @@
     border-left: 1px solid var(--border);
     display: flex;
     flex-direction: column;
-    transform: translateX(100%);
+    /* Minimize downward (toward the bottom bar) rather than off to the right. */
+    transform: translateY(100%);
     transition: transform 0.25s ease;
     z-index: 90;
   }
 
-  .force-panel.open { transform: translateX(0); }
+  .force-panel.open { transform: translateY(0); }
 
   .force-panel-header {
     padding: 16px 20px;
