@@ -2195,6 +2195,12 @@
   .fp-bar.fp-bar-empty { display: none; }
   /* Reserve room at the bottom of the scroll area so the bar never covers content. */
   body:not(.panel-open):has(#fp-bar:not(.fp-bar-empty)) .main { padding-bottom: 76px; }
+  /* Desktop: center the label + stats as a group (so the label isn't pinned to the far
+     left under the filter sidebar) and pin the chevron to the right edge as the cue. */
+  @media (min-width: 641px) {
+    .fp-bar { justify-content: center; gap: 18px; }
+    .fp-bar-chevron { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); }
+  }
 
   .force-panel {
     position: fixed;
