@@ -1137,7 +1137,7 @@
       "fp": 1,
       "armor_front": 2,
       "armor_flank": 1,
-      "armament": "M3 75mm gun, Coax MG/Hull MG/.50cal MG",
+      "armament": "M3 75mm gun, Coax MG/Hull MG",
       "notes": [
         "Tracked",
         "Smoke"
@@ -1171,7 +1171,7 @@
       "fp": 1,
       "armor_front": 3,
       "armor_flank": 1,
-      "armament": "M1 76mm gun, Coax MG/Hull MG/.50cal MG",
+      "armament": "M1 76mm gun, Coax MG/Hull MG",
       "notes": [
         "Tracked",
         "Limited HE"
@@ -1205,7 +1205,7 @@
       "fp": 1,
       "armor_front": 2,
       "armor_flank": 1,
-      "armament": "M3 75mm gun, Coax MG/Hull MG/.50cal MG",
+      "armament": "M3 75mm gun, Coax MG/Hull MG",
       "notes": [
         "Tracked",
         "Smoke",
@@ -1241,7 +1241,7 @@
       "fp": 1,
       "armor_front": 3,
       "armor_flank": 1,
-      "armament": "M1 76mm gun, Coax MG/Hull MG/.50cal MG",
+      "armament": "M1 76mm gun, Coax MG/Hull MG",
       "notes": [
         "Tracked",
         "Fast"
@@ -1275,7 +1275,7 @@
       "fp": 1,
       "armor_front": 5,
       "armor_flank": 3,
-      "armament": "M3 75mm gun, Coax MG/Hull MG/.50cal MG",
+      "armament": "M3 75mm gun, Coax MG/Hull MG",
       "notes": [
         "Tracked",
         "Smoke"
@@ -1308,7 +1308,7 @@
       "fp": 1,
       "armor_front": 4,
       "armor_flank": 2,
-      "armament": "M3 90mm gun, Coax/Hull MG/.50cal MG",
+      "armament": "M3 90mm gun, Coax/Hull MG",
       "notes": [
         "Tracked"
       ],
@@ -1346,7 +1346,7 @@
       "fp": 1,
       "armor_front": 1,
       "armor_flank": 0,
-      "armament": "M6 37mm gun, Coax MG/Hull MG/.50cal MG",
+      "armament": "M6 37mm gun, Coax MG/Hull MG",
       "notes": [
         "Tracked",
         "Fast"
@@ -1380,7 +1380,7 @@
       "fp": 1,
       "armor_front": 1,
       "armor_flank": 0,
-      "armament": "M6 75mm gun, Coax/Hull MG/.50cal MG",
+      "armament": "M6 75mm gun, Coax/Hull MG",
       "notes": [
         "Tracked",
         "Fast",
@@ -1530,6 +1530,7 @@
       "notes": [
         "Tracked",
         "Fast",
+        "Open Topped",
         "Light Artillery",
         "Smoke"
       ],
@@ -1563,7 +1564,7 @@
       "fp": 2,
       "armor_front": 2,
       "armor_flank": 1,
-      "armament": "M4 105mm howitzer, Coax MG/Hull MG/.50cal MG",
+      "armament": "M4 105mm howitzer, Coax MG/Hull MG",
       "notes": [
         "Tracked",
         "Smoke",
@@ -1848,7 +1849,7 @@
     {
       "id": "us-spa-m4-81mm",
       "lore": "The M4 Mortar Motor Carriage mounted an 81mm mortar in the hull of an M3 half-track, giving armored infantry battalions organic indirect fire support that could keep pace with tank columns. Standard in US armored infantry battalions throughout NW Europe, it could provide smoke screens, suppress enemy positions, and deliver harassing fire during night halts. Crews learned to pre-register likely targets before any advance, so the first rounds landed on time when the attack began.",
-      "name": "M21 81mm MMC",
+      "name": "M4 81mm MMC",
       "nation": "United States",
       "type": "SP Artillery",
       "theater": [
@@ -3077,7 +3078,7 @@
       "fp": 1,
       "armor_front": 3,
       "armor_flank": 1,
-      "armament": "7.5cm StuK40 gun, Hull MG",
+      "armament": "7.5cm StuK40 gun, Coax MG",
       "notes": [
         "Tracked",
         "Hull Mounted"
@@ -3114,7 +3115,7 @@
       "fp": 2,
       "armor_front": 3,
       "armor_flank": 1,
-      "armament": "10.5cm StuH42 gun, Hull MG",
+      "armament": "10.5cm StuH42 gun, Coax MG",
       "notes": [
         "Tracked",
         "Hull Mounted",
@@ -3152,7 +3153,7 @@
       "fp": 3,
       "armor_front": 4,
       "armor_flank": 2,
-      "armament": "15cm StuH43 gun",
+      "armament": "15cm StuH43 gun, Hull MG",
       "notes": [
         "Tracked",
         "Slow",
@@ -5374,7 +5375,8 @@
       "armor_flank": 0,
       "armament": "M7 3\" gun",
       "notes": [
-        "Tracked"
+        "Tracked",
+        "Open Topped"
       ],
       "special_rules": [],
       "free": true,
@@ -5408,6 +5410,7 @@
       "armament": "OQF 17 pdr gun, .50cal AA MG",
       "notes": [
         "Tracked",
+        "Open Topped",
         "Limited HE"
       ],
       "special_rules": [],
