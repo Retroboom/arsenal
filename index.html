@@ -2398,32 +2398,45 @@
 
   .team-qty {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 13px;
     color: var(--accent);
-    min-width: 18px;
+    min-width: 24px;
     text-align: center;
     flex-shrink: 0;
   }
+  .team-qty-fixed { min-width: 18px; font-size: 11px; }
 
-  .team-qty-btns {
+  /* Horizontal stepper: [-] N [+]. The number sits between the buttons so the two
+     targets are well separated, preventing mis-taps on small screens. */
+  .team-stepper {
     display: flex;
-    flex-direction: column;
-    gap: 1px;
+    align-items: center;
+    gap: 2px;
     flex-shrink: 0;
   }
-
   .qty-btn {
-    background: none;
-    border: none;
-    color: var(--text3);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--text2);
     cursor: pointer;
-    font-size: 11px;
+    font-size: 18px;
     line-height: 1;
-    padding: 0 2px;
-    transition: color 0.1s;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: border-color 0.1s, color 0.1s, background 0.1s;
   }
-
-  .qty-btn:hover { color: var(--text); }
+  .qty-btn:active { background: var(--bg2); }
+  .qty-minus { color: #d49a9a; }
+  .qty-plus  { color: #9ad49a; }
+  .qty-btn:hover { border-color: var(--accent); }
+  @media (max-width: 640px) {
+    .qty-btn { width: 34px; height: 34px; }
+  }
 
   .team-name {
     flex: 1;
@@ -7353,11 +7366,13 @@ function updateForceUI() {
           const showControls = !fixed || unlocked;
           return `
             <div class="platoon-team-row"${rowAnim}>
-              ${showControls ? `<div class="team-qty-btns">
-                <button class="qty-btn" onclick="changeTeamQty('${platoon.id}','${t.unitId}',1)">▲</button>
-                <button class="qty-btn" onclick="changeTeamQty('${platoon.id}','${t.unitId}',-1)">▼</button>
-              </div>` : ''}
-              <span class="team-qty">${t.qty}×</span>
+              ${showControls
+                ? `<div class="team-stepper">
+                    <button class="qty-btn qty-minus" onclick="changeTeamQty('${platoon.id}','${t.unitId}',-1)" aria-label="Remove one">−</button>
+                    <span class="team-qty">${t.qty}</span>
+                    <button class="qty-btn qty-plus" onclick="changeTeamQty('${platoon.id}','${t.unitId}',1)" aria-label="Add one">+</button>
+                  </div>`
+                : `<span class="team-qty team-qty-fixed">${t.qty}×</span>`}
               <span class="team-name">${teamLabel}</span>
               ${fixed
                 ? `<button class="team-lock-btn ${unlocked ? 'unlocked' : ''}" onclick="toggleTeamLock('${platoon.id}','${t.unitId}')" data-tip="${unlocked ? 'Lock' : 'Unlock to edit'}">
