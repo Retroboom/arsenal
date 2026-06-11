@@ -7468,6 +7468,7 @@ function clearForce() {
     platoonCounter = 0;
     collapsedPlatoons.clear();
     currentForceId = null;
+    loadedForceName = null;
     orgLockedFormation = null;
     document.getElementById('force-name').value = '';
     document.getElementById('force-notes').value = '';
@@ -7505,6 +7506,7 @@ function showSubscribePrompt() {
 let currentLibTab = 'browse';
 let currentForceId = null;
 let currentForceFppTemp = false; // true when the current force was auto-saved via FPP share, not by the user
+let loadedForceName = null; // name a saved force had when loaded — to detect overwrite vs. save-as-copy
 
 // DIAGNOSTIC helper — run arsenalSaveLog() in browser DevTools to inspect save history.
 // Remove this block once the disappearing-force bug is identified.
@@ -7560,6 +7562,7 @@ function getForceData() {
 
 function loadForceData(data) {
   collapsedPlatoons.clear();
+  loadedForceName = data.name || '';
   document.getElementById('force-name').value = data.name || '';
   document.getElementById('force-notes').value = data.notes || '';
   setForceQuality(data.quality || 'Regular');
@@ -7582,7 +7585,23 @@ async function saveForce() {
   if (!currentUser) { showToast('Sign in to save forces.', 'error'); return; }
   if (platoons.length === 0) { showToast('Add at least one platoon before saving.', 'error'); return; }
 
-  const data = { ...getForceData(), fppTemp: null }; // null removes the field in Firebase
+  const nameEl  = document.getElementById('force-name');
+  const nameVal = (nameEl.value || '').trim();
+  if (!nameVal) { showToast('Name your force before saving.', 'error'); nameEl.focus(); return; }
+
+  // Saving a previously-loaded saved force (not an FPP temp): the same name overwrites the
+  // original (confirm first); a different name saves a separate copy and keeps the original.
+  const isLoadedExisting = !!currentForceId && !currentForceFppTemp;
+  let saveAsNew = false;
+  if (isLoadedExisting) {
+    if (loadedForceName != null && nameVal !== (loadedForceName || '').trim()) {
+      saveAsNew = true;
+    } else if (!confirm(`This will overwrite your saved force "${nameVal}". To keep it and save a separate copy instead, cancel and give this force a different name.`)) {
+      return;
+    }
+  }
+
+  const data = { ...getForceData(), name: nameVal, fppTemp: null }; // null removes the field in Firebase
   const db = firebase.database();
 
   // --- DIAGNOSTIC: log save context so we can trace the disappearing-force bug
@@ -7593,7 +7612,7 @@ async function saveForce() {
   // ---
 
   try {
-    if (currentForceId) {
+    if (currentForceId && !saveAsNew) {
       try {
         await db.ref(`forces/${currentForceId}`).update(data);
       } catch (updateErr) {
@@ -7609,6 +7628,7 @@ async function saveForce() {
       await ref.set({ ...data, id: currentForceId });
     }
     currentForceFppTemp = false;
+    loadedForceName = nameVal; // subsequent saves compare against the just-saved name
 
     // --- DIAGNOSTIC: record the committed ID ---
     console.log('forceId after save:', currentForceId, '| SUCCESS');
@@ -7620,7 +7640,7 @@ async function saveForce() {
     } catch(_e) {}
     // ---
 
-    showToast('Force saved.', 'success');
+    showToast(saveAsNew ? `Saved as a new force "${nameVal}". Original kept.` : 'Force saved.', 'success');
   } catch (e) {
     // --- DIAGNOSTIC ---
     console.error('[Arsenal] saveForce FAILED:', e);
