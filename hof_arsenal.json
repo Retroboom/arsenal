@@ -2249,7 +2249,8 @@
       "free": true,
       "base": null,
       "standard_platoon": null,
-      "wiki": "Panzerfaust"
+      "wiki": "Panzerfaust",
+      "per_combat_team": true
     },
     {
       "id": "de-gun-hmg",

@@ -2614,6 +2614,13 @@
     border-bottom: 1px solid var(--border);
   }
   .team-upgrade-row:last-child { border-bottom: none; }
+  .upgrade-perteam {
+    margin-left: 6px;
+    color: var(--text3);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 10px;
+  }
   .upgrade-tag {
     flex: 1;
     font-family: var(--mono);
@@ -7191,11 +7198,25 @@ function calcTeamScore(unit) {
   return 1 + mob + offense * longevity + defScore * FS_RESIDUAL_DEF + presence;
 }
 
+// Count infantry combat squads in a platoon (Rifle/MG, MG, Bazooka, etc.). Used to cost
+// per-combat-team upgrades like the Panzerfaust, which are assigned to every squad.
+function countCombatSquads(platoon) {
+  return (platoon.teams || []).reduce((n, t) => {
+    const u = allUnits.find(x => x.id === t.unitId);
+    const isSquad = u && u.type === 'Infantry' && u.gun_range && u.gun_range !== '-' && !(u.notes || []).includes('Sniper');
+    return n + (isSquad ? (t.qty || 1) : 0);
+  }, 0);
+}
+
 function calcPlatoonScore(platoon) {
   const teams = platoon.teams || [];
+  const squads = countCombatSquads(platoon);
   let score = teams.reduce((sum, t) => {
     const unit = allUnits.find(u => u.id === t.unitId);
-    return sum + calcTeamScore(unit) * (t.qty || 1);
+    if (!unit) return sum;
+    // Panzerfaust-style upgrades apply to every combat squad, so cost per squad.
+    const qty = (unit.type === 'Upgrade' && unit.per_combat_team) ? squads : (t.qty || 1);
+    return sum + calcTeamScore(unit) * qty;
   }, 0);
   // Recon bonus: extended spotting range + potential double activation on reveal
   const isRecon = teams.some(t => {
@@ -7265,9 +7286,13 @@ function updateForceUI() {
 
           const teamLabel = t.displayName || unit.name;
           if (unit.type === 'Upgrade') {
+            // Per-combat-team upgrades (Panzerfaust) apply to every squad; show the count.
+            const perTeam = unit.per_combat_team ? countCombatSquads(platoon) : 0;
+            const perTeamTag = unit.per_combat_team
+              ? `<span class="upgrade-perteam">× ${perTeam} squad${perTeam === 1 ? '' : 's'}</span>` : '';
             return `
               <div class="team-upgrade-row"${rowAnim}>
-                <span class="upgrade-tag">${teamLabel}</span>
+                <span class="upgrade-tag">${teamLabel}${perTeamTag}</span>
                 <button class="team-remove-btn" onclick="removeTeamFromPlatoon('${platoon.id}','${t.unitId}')">✕</button>
               </div>
             `;
