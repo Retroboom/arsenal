@@ -7865,7 +7865,9 @@ async function loadFeaturedStrip() {
 
   const snap = await firebase.database().ref('forces').once('value');
   const all = [];
-  snap.forEach(child => { all.push(child.val()); });
+  // Use the Firebase key as the authoritative id (a stored `id` field can be missing or
+  // stale, which would make Load/View fetch the wrong path and report "not found").
+  snap.forEach(child => { all.push({ ...child.val(), id: child.key }); });
 
   const published = all.filter(f => f.published)
     .sort((a, b) => (b.created || 0) - (a.created || 0))
@@ -9596,7 +9598,9 @@ async function loadLibraryTab(tab) {
   const snap = await db.ref('forces').once('value');
 
   const all = [];
-  snap.forEach(child => { all.push(child.val()); });
+  // Use the Firebase key as the authoritative id (a stored `id` field can be missing or
+  // stale, which would make Load/View fetch the wrong path and report "not found").
+  snap.forEach(child => { all.push({ ...child.val(), id: child.key }); });
 
   const filtered = tab === 'browse'
     ? all.filter(f => f.published && !f.fppTemp)
