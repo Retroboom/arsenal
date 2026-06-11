@@ -5225,9 +5225,9 @@
     <span><span class="logo-slashes">//</span><span class="logo-word">ARSENAL</span></span>
   </div>
   <nav class="header-nav">
-    <button class="header-nav-tab active" data-section="units" data-label="Units" onclick="setSection('units')">Units</button>
-    <button class="header-nav-tab" data-section="library" data-label="Force Library" onclick="setSection('library')">Force Library</button>
-    <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="setSection('fieldmanual')">Field Manual</button>
+    <button class="header-nav-tab active" data-section="units" data-label="Units" onclick="navToSection('units')">Units</button>
+    <button class="header-nav-tab" data-section="library" data-label="Force Library" onclick="navToSection('library')">Force Library</button>
+    <button class="header-nav-tab" data-section="fieldmanual" data-label="Field Manual" onclick="navToSection('fieldmanual')">Field Manual</button>
   </nav>
   <div class="header-actions">
     <button class="start-game-btn" onclick="openPlay()" title="Compare forces and launch the Break Point tracker">
@@ -5878,6 +5878,19 @@ let activeFilters = {
 let isSubscriber = false;
 let currentUser = null;
 let currentSection = 'units';
+
+// Main nav tabs use this so the Force Builder and Break Point tracker auto-minimize
+// out of the way before switching sections (the destination would otherwise sit
+// behind them).
+function navToSection(name) {
+  const fp = document.getElementById('force-panel');
+  if (fp && fp.classList.contains('open')) setForcePanel(false);
+  if (typeof gameMode !== 'undefined' && gameMode.active) {
+    const overlay = document.getElementById('game-overlay');
+    if (overlay && overlay.style.display !== 'none') minimizeGame();
+  }
+  setSection(name);
+}
 
 function setSection(name) {
   // FPP lives inside Force Library now — redirect transparently
