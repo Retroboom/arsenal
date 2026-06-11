@@ -2438,6 +2438,15 @@
     .qty-btn { width: 34px; height: 34px; }
   }
 
+  /* Tap-to-reveal: the stepper is hidden until the row is tapped, keeping the list
+     compact and easy to scan. A "N×" count shows while collapsed. */
+  .team-row-tappable { cursor: pointer; }
+  .team-row-tappable .team-stepper { display: none; }
+  .team-row-tappable.team-row-open .team-stepper { display: flex; }
+  .team-qty-collapsed { display: inline-block; }
+  .team-row-open .team-qty-collapsed { display: none; }
+  .team-row-open { background: var(--bg3); border-radius: 4px; padding-left: 4px; padding-right: 4px; }
+
   .team-name {
     flex: 1;
     font-family: var(--mono);
@@ -5766,6 +5775,19 @@ let platoonCounter = 0;
 let platoonSortable = null;
 const collapsedPlatoons = new Set();
 const unlockedTeams = new Set(); // keys: `${platoonId}|${unitId}` for PL/FO rows
+let openTeamRow = null; // `${platoonId}:${unitId}` of the team row whose +/- stepper is revealed
+
+// Tap a team row to reveal its quantity stepper (kept hidden otherwise for a clean,
+// tap-friendly list). One row open at a time; persists across re-renders.
+function toggleTeamRow(platoonId, unitId) {
+  const key = `${platoonId}:${unitId}`;
+  openTeamRow = (openTeamRow === key) ? null : key;
+  document.querySelectorAll('.platoon-team-row.team-row-open').forEach(r => r.classList.remove('team-row-open'));
+  if (openTeamRow) {
+    const row = document.querySelector(`.platoon-team-row[data-team-key="${key}"]`);
+    if (row) row.classList.add('team-row-open');
+  }
+}
 
 function isFixedUnit(unitId) {
   return unitId.endsWith('-leader') || unitId.endsWith('-fo') || unitId.endsWith('-cc');
@@ -7364,22 +7386,24 @@ function updateForceUI() {
           const lockKey = `${platoon.id}|${t.unitId}`;
           const unlocked = unlockedTeams.has(lockKey);
           const showControls = !fixed || unlocked;
+          const rowOpen = showControls && openTeamRow === `${platoon.id}:${t.unitId}`;
           return `
-            <div class="platoon-team-row"${rowAnim}>
+            <div class="platoon-team-row${showControls ? ' team-row-tappable' : ''}${rowOpen ? ' team-row-open' : ''}" data-team-key="${platoon.id}:${t.unitId}"${showControls ? ` onclick="toggleTeamRow('${platoon.id}','${t.unitId}')"` : ''}${rowAnim}>
               ${showControls
-                ? `<div class="team-stepper">
+                ? `<div class="team-stepper" onclick="event.stopPropagation()">
                     <button class="qty-btn qty-minus" onclick="changeTeamQty('${platoon.id}','${t.unitId}',-1)" aria-label="Remove one">−</button>
                     <span class="team-qty">${t.qty}</span>
                     <button class="qty-btn qty-plus" onclick="changeTeamQty('${platoon.id}','${t.unitId}',1)" aria-label="Add one">+</button>
-                  </div>`
+                  </div>
+                  <span class="team-qty team-qty-collapsed">${t.qty}×</span>`
                 : `<span class="team-qty team-qty-fixed">${t.qty}×</span>`}
               <span class="team-name">${teamLabel}</span>
               ${fixed
-                ? `<button class="team-lock-btn ${unlocked ? 'unlocked' : ''}" onclick="toggleTeamLock('${platoon.id}','${t.unitId}')" data-tip="${unlocked ? 'Lock' : 'Unlock to edit'}">
+                ? `<button class="team-lock-btn ${unlocked ? 'unlocked' : ''}" onclick="event.stopPropagation();toggleTeamLock('${platoon.id}','${t.unitId}')" data-tip="${unlocked ? 'Lock' : 'Unlock to edit'}">
                     ${unlocked ? '🔓' : '🔒'}
                   </button>
-                  ${unlocked ? `<button class="team-remove-btn" onclick="removeTeamFromPlatoon('${platoon.id}','${t.unitId}')">✕</button>` : ''}`
-                : `<button class="team-remove-btn" onclick="removeTeamFromPlatoon('${platoon.id}','${t.unitId}')">✕</button>`
+                  ${unlocked ? `<button class="team-remove-btn" onclick="event.stopPropagation();removeTeamFromPlatoon('${platoon.id}','${t.unitId}')">✕</button>` : ''}`
+                : `<button class="team-remove-btn" onclick="event.stopPropagation();removeTeamFromPlatoon('${platoon.id}','${t.unitId}')">✕</button>`
               }
             </div>
           `;
