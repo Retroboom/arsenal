@@ -22,8 +22,8 @@
   :root {
     --header-h: 60px;
     --bg: #090909;
-    --bg2: #121212;
-    --bg3: #1c1c1c;
+    --bg2: #161616;
+    --bg3: #222222;
     --border: #2e2e2e;
     --accent: #b89040;
     --accent2: #8b3a2a;
@@ -6293,7 +6293,7 @@ const RULE_TIPS = {
   'Sniper': 'When this team hits a non-Vehicle target, the owning player may assign the hit to any Team in the target platoon that is in Line of Sight, including the Platoon Leader. May not fire and move in the same activation.',
   'Re-roll failed Assault Checks': 'When assaulting, may re-roll any failed Assault Checks.',
   'Cannot fire from buildings': 'This weapon cannot be used from within a building.',
-  'May only be used in assault and only in the first round': 'Single-use weapon. May only be used during the first round of an assault.',
+  'May only be used in assault and only in the first round': 'May only be used during the first round of an assault.',
   'Additional weapon assigned to other Teams': 'Not a separate team. Distributed as an additional weapon to other Teams in the platoon.',
   'RoF 3 if less than 8" from target': 'Rate of Fire increases to 3 when firing at targets within 8".',
   // ── Transport ──────────────────────────────────────────────────────────────
@@ -12503,11 +12503,7 @@ function captureFPPName(which, value) {
 }
 
 function setFPPScenario(scenario) {
-  // Meeting Engagement is a Ko-fi subscriber scenario. Admins always have it.
-  if (scenario === 'meeting' && !isSubscriber && !isAdmin) {
-    showSubscribePrompt();
-    return;
-  }
+  if (scenario === 'meeting' && !isAdmin) return;
   fppState.scenario = scenario;
   renderFPP();
 }
@@ -12589,15 +12585,12 @@ function renderFPPSetup(body) {
         </button>
       </div>
     </div>
-    ${(() => {
-      const canMeeting = isSubscriber || isAdmin;
-      return `
+    ${isAdmin ? `
     <div class="fpp-scenario-row">
       <span class="fpp-scenario-label">Scenario:</span>
       <button class="fpp-scenario-btn${fppState.scenario === 'default' ? ' active' : ''}" onclick="setFPPScenario('default')">Attack/Defense</button>
-      <button class="fpp-scenario-btn${fppState.scenario === 'meeting' ? ' active' : ''}${canMeeting ? '' : ' locked'}" onclick="setFPPScenario('meeting')">Meeting Engagement${canMeeting ? '' : ' <span class="scenario-lock">⬡</span>'}</button>
-    </div>`;
-    })()}
+      <button class="fpp-scenario-btn${fppState.scenario === 'meeting' ? ' active' : ''}" onclick="setFPPScenario('meeting')">Meeting Engagement</button>
+    </div>` : ''}
     <div class="fpp-setup-actions">
       <button class="fpp-next-btn" onclick="autoFPP()" ${!bLoaded || !platoons.length ? 'disabled' : ''}>
         Auto-Resolve →
