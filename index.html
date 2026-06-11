@@ -5802,7 +5802,7 @@ If this field has content, clicking the card opens an in-app reader. Otherwise t
     <span class="fp-bar-label">Force Builder</span>
   </div>
   <div class="fp-bar-stats">
-    <span class="fp-bar-stat"><span class="fp-bar-stat-val" id="fp-bar-platoons">0</span> <span class="fp-bar-stat-lbl">platoons</span></span>
+    <span class="fp-bar-stat"><span class="fp-bar-stat-val" id="fp-bar-platoons">0</span> <span class="fp-bar-stat-lbl" id="fp-bar-platoons-lbl">platoons</span></span>
     <span class="fp-bar-sep">·</span>
     <span class="fp-bar-stat">BL <span class="fp-bar-stat-val" id="fp-bar-bl">5</span></span>
   </div>
@@ -7404,8 +7404,10 @@ function updateForceUI() {
   if (inlineCount) inlineCount.textContent = count;
   if (inlineBL)    inlineBL.textContent    = breakLimit;
   const barPlatoons = document.getElementById('fp-bar-platoons');
+  const barPlatoonsLbl = document.getElementById('fp-bar-platoons-lbl');
   const barBL = document.getElementById('fp-bar-bl');
   if (barPlatoons) barPlatoons.textContent = count;
+  if (barPlatoonsLbl) barPlatoonsLbl.textContent = count === 1 ? 'platoon' : 'platoons';
   if (barBL) barBL.textContent = breakLimit;
   // Hide the mobile fp-bar entirely when the builder is empty — nothing to view.
   const fpBar = document.getElementById('fp-bar');
