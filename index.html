@@ -4867,6 +4867,7 @@
   .fpp-result-bl-label { font-family: var(--mono); font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
   .fpp-result-bl-value { font-family: var(--mono); font-size: 56px; color: var(--accent); line-height: 1; text-shadow: 2px 2px 0 rgba(0,0,0,0.5); }
   .fpp-result-bl-note { font-family: var(--mono); font-size: 12px; color: #c94444; margin-top: 4px; }
+  .fpp-edit-inline { margin-top: 12px; padding: 6px 16px; font-size: 11px; }
 
   /* Force picker modal */
   .fpp-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; display: flex; align-items: center; justify-content: center; }
@@ -12426,7 +12427,7 @@ function fppEditForce(side) {
   platoonCounter = platoons.length;
   activePlatoonId = platoons.length ? platoons[0].id : null;
   updateForceUI();
-  setSection('units');
+  setForcePanel(true);
 }
 
 function fppRerun() {
@@ -12444,6 +12445,7 @@ function fppRerun() {
   }
   fppState.savedBuilderPlatoons = null;
   fppState.editingSide = null;
+  setForcePanel(false);
   if (fppState.lastMode === 'quick') quickCompareFPP();
   else autoFPP();
 }
@@ -12573,18 +12575,18 @@ function renderFPPQuickResult(body) {
         <div class="fpp-result-bl-label">Break Limit</div>
         <div class="fpp-result-bl-value">${finalBL.a}</div>
         ${finalBL.a < a.bl ? `<div class="fpp-result-bl-note">−${a.bl - finalBL.a} from ${a.bl}</div>` : ''}
+        <button class="fpp-back-btn fpp-edit-inline" onclick="fppEditForce('a')">Edit</button>
       </div>
       <div class="fpp-result-player fpp-axis">
         <div class="fpp-result-name">${esc(b.name)}</div>
         <div class="fpp-result-bl-label">Break Limit</div>
         <div class="fpp-result-bl-value">${finalBL.b}</div>
         ${finalBL.b < b.bl ? `<div class="fpp-result-bl-note">−${b.bl - finalBL.b} from ${b.bl}</div>` : ''}
+        <button class="fpp-back-btn fpp-edit-inline" onclick="fppEditForce('b')">Edit</button>
       </div>
     </div>
     <div class="fpp-result-actions">
       <button class="fpp-next-btn" onclick="startGame()">Start Game →</button>
-      <button class="fpp-back-btn" onclick="fppEditForce('a')">Edit ${esc(a.name)}</button>
-      <button class="fpp-back-btn" onclick="fppEditForce('b')">Edit ${esc(b.name)}</button>
       <button class="fpp-back-btn" onclick="fppRerun()">Re-run</button>
     </div>
   `;
@@ -12817,6 +12819,7 @@ function renderFPPResult(body) {
         <div class="fpp-result-bl-label">Break Limit</div>
         <div class="fpp-result-bl-value">${finalBL.a}</div>
         ${finalBL.a < a.bl ? `<div class="fpp-result-bl-note">−${a.bl - finalBL.a} from ${a.bl}</div>` : ''}
+        <button class="fpp-back-btn fpp-edit-inline" onclick="fppEditForce('a')">Edit</button>
       </div>
       <div class="fpp-result-player fpp-axis">
         <div class="fpp-result-name">${esc(b.name)}</div>
@@ -12824,12 +12827,11 @@ function renderFPPResult(body) {
         <div class="fpp-result-bl-label">Break Limit</div>
         <div class="fpp-result-bl-value">${finalBL.b}</div>
         ${finalBL.b < b.bl ? `<div class="fpp-result-bl-note">−${b.bl - finalBL.b} from ${b.bl}</div>` : ''}
+        <button class="fpp-back-btn fpp-edit-inline" onclick="fppEditForce('b')">Edit</button>
       </div>
     </div>
     <div class="fpp-result-actions">
       <button class="fpp-next-btn" onclick="startGame()">Start Game →</button>
-      <button class="fpp-back-btn" onclick="fppEditForce('a')">Edit ${esc(a.name)}</button>
-      <button class="fpp-back-btn" onclick="fppEditForce('b')">Edit ${esc(b.name)}</button>
       <button class="fpp-back-btn" onclick="fppRerun()">Re-run</button>
       <button class="fpp-back-btn" onclick="fppState.step='pairings'; renderFPP()">← Redo Pairings</button>
     </div>
