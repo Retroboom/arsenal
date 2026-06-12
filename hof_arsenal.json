@@ -1888,8 +1888,7 @@
       "armor_flank": null,
       "armament": null,
       "notes": [
-        "Engineer",
-        "Assault AT Only"
+        "Engineer"
       ],
       "special_rules": [],
       "free": true,
@@ -4238,8 +4237,7 @@
       "armor_flank": null,
       "armament": null,
       "notes": [
-        "Engineer",
-        "Assault AT Only"
+        "Engineer"
       ],
       "special_rules": [],
       "free": true,
@@ -6389,8 +6387,7 @@
       "armor_flank": null,
       "armament": null,
       "notes": [
-        "Engineer",
-        "Assault AT Only"
+        "Engineer"
       ],
       "special_rules": [],
       "free": true,
@@ -7880,8 +7877,7 @@
       "armor_flank": null,
       "armament": null,
       "notes": [
-        "Engineer",
-        "Assault AT Only"
+        "Engineer"
       ],
       "special_rules": [],
       "free": true,
@@ -8165,8 +8161,7 @@
       "armor_flank": null,
       "armament": null,
       "notes": [
-        "Engineer",
-        "Assault AT Only"
+        "Engineer"
       ],
       "special_rules": [],
       "base": "Medium",
