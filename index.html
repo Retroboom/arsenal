@@ -4868,6 +4868,12 @@
   .fpp-result-bl-value { font-family: var(--mono); font-size: 56px; color: var(--accent); line-height: 1; text-shadow: 2px 2px 0 rgba(0,0,0,0.5); }
   .fpp-result-bl-note { font-family: var(--mono); font-size: 12px; color: #c94444; margin-top: 4px; }
   .fpp-edit-inline { margin-top: 12px; padding: 6px 16px; font-size: 11px; }
+  .fpp-edit-actions { display: none; }
+  .force-panel.fpp-editing .force-actions { display: none; }
+  .force-panel.fpp-editing .fpp-edit-actions { display: flex; }
+  .force-panel.fpp-editing .force-name-input,
+  .force-panel.fpp-editing .fp-config { display: none; }
+  .fpp-rerun-btn { flex: 1; padding: 10px; font-size: 13px; }
 
   /* Force picker modal */
   .fpp-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; display: flex; align-items: center; justify-content: center; }
@@ -5644,6 +5650,9 @@ If this field has content, clicking the card opens an in-app reader. Otherwise t
       <button class="action-btn danger action-secondary" onclick="clearForce()">Clear</button>
       <button class="action-btn" id="fp-more-btn" onclick="toggleFpMore()" title="More actions">···</button>
       <button class="action-btn admin-only" id="hof-publish-btn" onclick="publishAsHoF()" style="display:none" title="Publish as an official Hail of Fire example force">HoF</button>
+    </div>
+    <div class="fpp-edit-actions">
+      <button class="action-btn primary fpp-rerun-btn" onclick="fppRerun()">Re-run Comparison</button>
     </div>
   </div>
 </div>
@@ -7054,7 +7063,10 @@ function setForcePanel(open) {
 }
 
 function toggleForcePanel() {
-  setForcePanel(!document.getElementById('force-panel').classList.contains('open'));
+  const panel = document.getElementById('force-panel');
+  const closing = panel.classList.contains('open');
+  if (closing && fppState.editingSide) { fppExitEdit(); return; }
+  setForcePanel(!closing);
 }
 
 function getAllForceUnitIds() {
@@ -12427,7 +12439,25 @@ function fppEditForce(side) {
   platoonCounter = platoons.length;
   activePlatoonId = platoons.length ? platoons[0].id : null;
   updateForceUI();
+  const panel = document.getElementById('force-panel');
+  panel.classList.add('fpp-editing');
+  document.querySelector('.force-panel-title').textContent = `Editing ${fppState[side].name || (side === 'a' ? 'Force A' : 'Force B')}`;
   setForcePanel(true);
+}
+
+function fppExitEdit() {
+  const panel = document.getElementById('force-panel');
+  panel.classList.remove('fpp-editing');
+  document.querySelector('.force-panel-title').textContent = 'Force Builder';
+  if (fppState.savedBuilderPlatoons) {
+    platoons = fppState.savedBuilderPlatoons;
+    platoonCounter = platoons.length;
+    activePlatoonId = platoons.length ? platoons[0].id : null;
+    fppState.savedBuilderPlatoons = null;
+    updateForceUI();
+  }
+  fppState.editingSide = null;
+  setForcePanel(false);
 }
 
 function fppRerun() {
@@ -12445,6 +12475,9 @@ function fppRerun() {
   }
   fppState.savedBuilderPlatoons = null;
   fppState.editingSide = null;
+  const panel = document.getElementById('force-panel');
+  panel.classList.remove('fpp-editing');
+  document.querySelector('.force-panel-title').textContent = 'Force Builder';
   setForcePanel(false);
   if (fppState.lastMode === 'quick') quickCompareFPP();
   else autoFPP();
