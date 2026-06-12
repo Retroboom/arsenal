@@ -10027,7 +10027,9 @@ async function checkSubscriber(email) {
   const key = emailToKey(email);
   const snap = await firebase.database().ref(`subscribers/${key}`).once('value');
   const data = snap.val();
-  return data && data.status === 'active';
+  if (data && data.status === 'active') return true;
+  const supporterSnap = await firebase.database().ref(`supporters/${key}`).once('value');
+  return supporterSnap.val() === true;
 }
 
 function updateAuthUI(user, subscriberStatus) {
@@ -13328,8 +13330,9 @@ firebase.auth().onAuthStateChanged(async (user) => {
   if (user) {
     gate.style.display = 'none';
     isSubscriber = await checkSubscriber(user.email);
-    updateAuthUI(user, isSubscriber);
     isAdmin = await checkAdmin(user.email);
+    if (isAdmin) isSubscriber = true;
+    updateAuthUI(user, isSubscriber);
     if (isAdmin) {
       document.getElementById('score-toggle-btn').style.display = '';
       document.getElementById('hof-publish-btn').style.display = '';
