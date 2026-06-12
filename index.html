@@ -13476,7 +13476,12 @@ async function selectOpponentForce(forceId) {
   const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
   const data = snap.val();
   if (!data) return;
-  fppState.b.platoons   = toArr(data.platoons);
+  fppState.b.platoons   = toArr(data.platoons).map((p, i) => ({
+    id: `pl-${Date.now()}-${i}`,
+    name: p.name,
+    quality: p.quality || null,
+    teams: toArr(p.teams)
+  }));
   fppState.b.forceId    = forceId;
   fppState.b.forceName  = data.name || '';
   // Set the player name to the loaded force's name (overwrites any prior
