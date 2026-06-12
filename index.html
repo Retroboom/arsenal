@@ -6169,7 +6169,7 @@ function renderGrid(container, forceIds, animate = true) {
             ${unit.armament && !locked ? `<div class="card-armament">${wrapArmamentMGs(unit.armament)}</div>` : ''}
           </div>
           ${(() => {
-            if (locked) return '<div class="lock-overlay">CLASSIFIED</div>';
+            if (locked) return '<div style="text-align:center"><div class="lock-overlay">CLASSIFIED</div></div>';
             const defs = [
               ['Range', unit.gun_range !== null && unit.gun_range !== undefined, statDisplay(unit.gun_range)],
               ['RoF',   unit.rof   !== null && unit.rof   !== undefined, statDisplay(unit.rof)],
