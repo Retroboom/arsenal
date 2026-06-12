@@ -4195,6 +4195,13 @@
     /* Main: less padding, extra bottom clearance for fp-bar */
     .main { padding: 14px; padding-bottom: calc(52px + 14px); }
     body.panel-open .main { padding-right: 14px; padding-bottom: 14px; } /* force panel overlays, no push */
+    body.panel-open {
+      position: fixed;
+      left: 0;
+      right: 0;
+      width: 100%;
+      overflow: hidden;
+    }
 
     /* Let .main flow at natural height so the document scrolls and iOS Safari
        can auto-hide the address bar. overflow:visible removes the element-level
@@ -7057,11 +7064,18 @@ function duplicatePlatoon(id) {
   renderUnits(true);
 }
 
+let _panelSavedScrollY = 0;
 function setForcePanel(open) {
   const panel = document.getElementById('force-panel');
+  const isMobile = window.innerWidth <= 640;
   if (open) {
+    if (isMobile) {
+      _panelSavedScrollY = window.scrollY || 0;
+      document.body.style.top = `-${_panelSavedScrollY}px`;
+    }
     panel.style.transform = '';
     panel.classList.add('open');
+    document.body.classList.add('panel-open');
     panel.addEventListener('transitionend', function onEnd(e) {
       if (e.propertyName === 'transform' && panel.classList.contains('open')) {
         panel.style.transform = 'none';
@@ -7071,8 +7085,12 @@ function setForcePanel(open) {
   } else {
     panel.style.transform = '';
     panel.classList.remove('open');
+    document.body.classList.remove('panel-open');
+    if (isMobile) {
+      document.body.style.top = '';
+      window.scrollTo(0, _panelSavedScrollY);
+    }
   }
-  document.body.classList.toggle('panel-open', open);
 }
 
 function toggleForcePanel() {
