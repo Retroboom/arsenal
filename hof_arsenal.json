@@ -8491,7 +8491,7 @@
         1940
       ],
       "gun_range": "20\"",
-      "rof": 2,
+      "rof": 1,
       "at": 2,
       "fp": 1,
       "armor_front": 2,
@@ -8500,7 +8500,6 @@
       "notes": [
         "Tracked",
         "Slow",
-        "One-Man Turret",
         "Unreliable"
       ],
       "special_rules": [],
@@ -8511,7 +8510,17 @@
         "fo": false
       },
       "free": false,
-      "wiki": "Char_B1"
+      "wiki": "Char_B1",
+      "secondary_weapon": {
+        "name": "75mm SA 32 hull gun",
+        "gun_range": "16\"",
+        "rof": 1,
+        "at": 3,
+        "fp": 2,
+        "notes": [
+          "Hull Mounted"
+        ]
+      }
     },
     {
       "id": "fr-tank-s35",
@@ -8530,15 +8539,14 @@
         1940
       ],
       "gun_range": "20\"",
-      "rof": 2,
+      "rof": 1,
       "at": 2,
       "fp": 1,
       "armor_front": 1,
       "armor_flank": 1,
       "armament": "47mm SA 35 gun, Coax MG",
       "notes": [
-        "Tracked",
-        "One-Man Turret"
+        "Tracked"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -8567,15 +8575,14 @@
         1940
       ],
       "gun_range": "16\"",
-      "rof": 2,
+      "rof": 1,
       "at": 1,
       "fp": 1,
       "armor_front": 1,
       "armor_flank": 1,
       "armament": "37mm SA 18 gun, Coax MG",
       "notes": [
-        "Tracked",
-        "One-Man Turret"
+        "Tracked"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -8601,15 +8608,14 @@
         1940
       ],
       "gun_range": "20\"",
-      "rof": 2,
+      "rof": 1,
       "at": 2,
       "fp": 1,
       "armor_front": 1,
       "armor_flank": 1,
       "armament": "37mm SA 38 gun, Coax MG",
       "notes": [
-        "Tracked",
-        "One-Man Turret"
+        "Tracked"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -8638,7 +8644,7 @@
         1940
       ],
       "gun_range": "16\"",
-      "rof": 2,
+      "rof": 1,
       "at": 1,
       "fp": 1,
       "armor_front": 1,
@@ -8646,8 +8652,7 @@
       "armament": "37mm SA 18 gun, Coax MG",
       "notes": [
         "Tracked",
-        "Slow",
-        "One-Man Turret"
+        "Slow"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -9417,7 +9422,7 @@
         1940
       ],
       "gun_range": "16\"",
-      "rof": 2,
+      "rof": 1,
       "at": 1,
       "fp": 1,
       "armor_front": 0,
@@ -9426,8 +9431,7 @@
       "notes": [
         "Tracked",
         "Slow",
-        "Unreliable",
-        "One-Man Turret"
+        "Unreliable"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -9537,15 +9541,14 @@
         1940
       ],
       "gun_range": "16\"",
-      "rof": 2,
+      "rof": 1,
       "at": 1,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "37mm SA-18 gun, Co-ax MG",
       "notes": [
-        "Wheeled",
-        "One-Man Turret"
+        "Wheeled"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -9573,7 +9576,7 @@
         1940
       ],
       "gun_range": "16\"",
-      "rof": 2,
+      "rof": 1,
       "at": 2,
       "fp": 1,
       "armor_front": 0,
@@ -9581,8 +9584,7 @@
       "armament": "25mm SA-34 gun",
       "notes": [
         "Tracked",
-        "Unreliable",
-        "One-Man Turret"
+        "Unreliable"
       ],
       "special_rules": [],
       "base": "Vehicle",

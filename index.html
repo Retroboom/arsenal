@@ -1589,6 +1589,20 @@
     margin-bottom: 2px;
   }
 
+  .card-secondary-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+    padding: 2px 6px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 2px;
+  }
+  .card-stats-secondary {
+    grid-auto-rows: 34px;
+  }
+  .card-stats-secondary .stat-value { font-size: 13px; }
+
   .stat-cell {
     padding: 4px 6px;
     text-align: center;
@@ -1968,6 +1982,8 @@
   .stacked-stat { font-family: var(--mono); font-size: 12px; color: var(--text); white-space: nowrap; }
   .stacked-lbl { font-size: 11px; color: var(--text3); letter-spacing: 1px; margin-right: 3px; }
   .stacked-years { font-family: var(--mono); font-size: 11px; color: var(--text3); margin-left: 4px; }
+  .stacked-secondary { padding-top: 4px; border-top: 1px solid var(--border); margin-top: 4px; }
+  .stacked-sw-label { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-right: 6px; }
 
   .table-name {
     font-family: var(--display);
@@ -1980,6 +1996,8 @@
   .table-stat { color: var(--accent); text-align: center; }
   .table-stat.null { color: var(--text3); text-align: center; }
   .table-notes { color: var(--text3); font-size: 11px; max-width: 220px; position: relative; overflow: visible; }
+  .table-secondary-row td { border-top: none !important; padding-top: 0; }
+  .fs-secondary-row td { border-top: none !important; padding-top: 0; font-size: 12px; }
 
   .table-add-btn {
     background: none;
@@ -2121,6 +2139,16 @@
   }
   .udp-stat-value.null-val { color: var(--text3); font-size: 13px; }
   .udp-stat-value.armor { font-size: 14px; }
+  .udp-secondary-label {
+    grid-column: 1 / -1;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+    padding-top: 4px;
+  }
+  .udp-stat.sw-stat { padding: 8px 6px 6px; }
+  .udp-stat.sw-stat .udp-stat-value { font-size: 14px; }
   .udp-armament {
     font-family: var(--mono);
     font-size: 11px;
@@ -6065,7 +6093,6 @@ const RULE_TIPS = {
   'Light Mortar': 'When activated by a Leader, may fire at targets within that Leader\'s LoS with a +1 modifier to hit.',
   'Limited HE': 'Does not ignore the Concealment modifier when firing at non-Vehicle Teams.',
   'Man-Portable': 'Moves 2d6". May move through Very Difficult Terrain. Weapon rides in Transports rather than being towed.',
-  'One-Man Turret': 'The commander must load, aim, and fire the main gun without assistance, limiting the turret\'s effectiveness.',
   'Overloaded': 'Must re-roll successful Terrain Checks when crossing terrain, and re-roll successful Training Checks when attempting to free a Bogged status.',
   'Slow': 'Drop the lowest die when making movement rolls.',
   'Smoke': 'May fire smoke instead of a normal barrage. Place one 3" smoke marker per gun, each touching another. Teams touching smoke have no LoS to or from Teams outside it. Removed at start of firing player\'s next turn. Direct-fire smoke: roll one Fire die at 4+ against a target in range; if successful, place a 3" marker on the target.',
@@ -6176,15 +6203,29 @@ function renderGrid(container, forceIds, animate = true) {
           ${(() => {
             if (locked) return '<div style="text-align:center"><div class="lock-overlay">CLASSIFIED</div></div>';
             const defs = [
+              ['Armor', unit.armor_front !== null && unit.armor_front !== undefined,
+                `<span class="stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`],
               ['Range', unit.gun_range !== null && unit.gun_range !== undefined, statDisplay(unit.gun_range)],
               ['RoF',   unit.rof   !== null && unit.rof   !== undefined, statDisplay(unit.rof)],
               ['AT',    unit.at    !== null && unit.at    !== undefined, statDisplay(unit.at)],
               ['FP',    unit.fp    !== null && unit.fp    !== undefined && unit.gun_range, statDisplay(unit.fp)],
-              ['Armor', unit.armor_front !== null && unit.armor_front !== undefined,
-                `<span class="stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`],
             ].filter(d => d[1]);
             if (!defs.length) return '';
-            return `<div class="card-stats" style="grid-template-columns:repeat(${defs.length},1fr)">${defs.map(d => statCell(d[0], d[2])).join('')}</div>`;
+            let out = `<div class="card-stats" style="grid-template-columns:repeat(${defs.length},1fr)">${defs.map(d => statCell(d[0], d[2])).join('')}</div>`;
+            const sw = unit.secondary_weapon;
+            if (sw) {
+              const swDefs = [
+                ['Range', sw.gun_range != null, statDisplay(sw.gun_range)],
+                ['RoF',   sw.rof != null, statDisplay(sw.rof)],
+                ['AT',    sw.at != null, statDisplay(sw.at)],
+                ['FP',    sw.fp != null && sw.gun_range, statDisplay(sw.fp)],
+              ].filter(d => d[1]);
+              if (swDefs.length) {
+                out += `<div class="card-secondary-label">${sw.name}${sw.notes && sw.notes.length ? ' · ' + sw.notes.join(', ') : ''}</div>`;
+                out += `<div class="card-stats card-stats-secondary" style="grid-template-columns:repeat(${swDefs.length},1fr)">${swDefs.map(d => statCell(d[0], d[2])).join('')}</div>`;
+              }
+            }
+            return out;
           })()}
           <div class="card-notes">
             ${locked ? '' : unit.notes.map(n => noteTag(n)).join('')}
@@ -6271,11 +6312,11 @@ function renderTable(container, forceIds) {
     { key: 'name',        label: 'Unit',   sortable: true  },
     { key: 'nation',      label: 'Nation', sortable: true  },
     { key: 'type',        label: 'Type',   sortable: true  },
+    { key: 'armor_front', label: 'Armor',  sortable: true, center: true, tip: STAT_TIPS.Armor },
     { key: 'gun_range',   label: 'Range',  sortable: true, center: true, tip: STAT_TIPS.Range },
     { key: 'rof',         label: 'RoF',    sortable: true, center: true, tip: STAT_TIPS.RoF   },
     { key: 'at',          label: 'AT',     sortable: true, center: true, tip: STAT_TIPS.AT    },
     { key: 'fp',          label: 'FP',     sortable: true, center: true, tip: STAT_TIPS.FP    },
-    { key: 'armor_front', label: 'Armor',  sortable: true, center: true, tip: STAT_TIPS.Armor },
     { key: 'notes',       label: 'Notes',  sortable: false },
     { key: 'years',       label: 'Years',  sortable: true  },
     { key: '_actions',    label: '',       sortable: false },
@@ -6314,12 +6355,19 @@ function renderTable(container, forceIds) {
 
     if (tableStacked) {
       const stats = rowLocked ? '' : [
+        unit.armor_front !== null ? `<span class="stacked-stat"><span class="stacked-lbl">ARM</span>${unit.armor_front}/${unit.armor_flank}</span>` : null,
         unit.gun_range ? `<span class="stacked-stat"><span class="stacked-lbl">RNG</span>${unit.gun_range}</span>` : null,
         unit.rof !== null ? `<span class="stacked-stat"><span class="stacked-lbl">ROF</span>${unit.rof}</span>` : null,
         unit.at !== null ? `<span class="stacked-stat"><span class="stacked-lbl">AT</span>${unit.at}</span>` : null,
         (unit.fp !== null && unit.fp !== undefined) ? `<span class="stacked-stat"><span class="stacked-lbl">FP</span>${unit.fp}</span>` : null,
-        unit.armor_front !== null ? `<span class="stacked-stat"><span class="stacked-lbl">ARM</span>${unit.armor_front}/${unit.armor_flank}</span>` : null,
       ].filter(Boolean).join('');
+      const sw = !rowLocked && unit.secondary_weapon;
+      const swStats = sw ? [
+        sw.gun_range ? `<span class="stacked-stat"><span class="stacked-lbl">RNG</span>${sw.gun_range}</span>` : null,
+        sw.rof !== null ? `<span class="stacked-stat"><span class="stacked-lbl">ROF</span>${sw.rof}</span>` : null,
+        sw.at !== null ? `<span class="stacked-stat"><span class="stacked-lbl">AT</span>${sw.at}</span>` : null,
+        sw.fp !== null ? `<span class="stacked-stat"><span class="stacked-lbl">FP</span>${sw.fp}</span>` : null,
+      ].filter(Boolean).join('') : '';
       return `
         <tr class="stacked-main ${ic}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
           <td>
@@ -6338,25 +6386,42 @@ function renderTable(container, forceIds) {
               ${rowLocked ? '' : unit.notes.map(n => noteTag(n)).join(' ')}
               <span class="stacked-years">${yearRange(unit.years)}</span>
             </div>
+            ${sw ? `<div class="stacked-stat-row stacked-secondary"><span class="stacked-sw-label">${sw.name}</span>${swStats}${(sw.notes||[]).map(n => noteTag(n)).join(' ')}</div>` : ''}
           </td>
         </tr>`;
     }
 
     const dash = '<span style="color:var(--text4)">-</span>';
-    return `
+    const sw = !rowLocked && unit.secondary_weapon;
+    let rows = `
       <tr class="${ic}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
         <td><span class="table-name">${unit.name}</span></td>
         <td><span class="${nationBadgeClass(unit.nation)}" style="font-size:11px;padding:2px 5px;">${unit.nation}</span></td>
         <td style="color:var(--text3);font-size:10px;letter-spacing:0.5px">${unit.type}</td>
+        <td class="table-stat null">${rowLocked ? dash : (unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '-')}</td>
         <td class="table-stat null">${rowLocked ? dash : (unit.gun_range || '-')}</td>
         <td class="table-stat null">${rowLocked ? dash : (unit.rof !== null ? unit.rof : '-')}</td>
         <td class="table-stat null">${rowLocked ? dash : (unit.at !== null ? unit.at : '-')}</td>
         <td class="table-stat null">${rowLocked ? dash : (unit.fp !== null && unit.fp !== undefined ? unit.fp : '-')}</td>
-        <td class="table-stat null">${rowLocked ? dash : (unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '-')}</td>
         <td class="table-notes">${rowLocked ? '' : unit.notes.map(n => noteTag(n)).join(' ')}</td>
         <td style="color:var(--text3);font-size:10px;white-space:nowrap">${yearRange(unit.years)}</td>
         <td onclick="event.stopPropagation()">${unitActions(unit)}</td>
       </tr>`;
+    if (sw) {
+      rows += `
+      <tr class="table-secondary-row ${ic}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
+        <td style="padding-left:20px;font-size:11px;color:var(--text3);font-family:var(--mono)">↳ ${sw.name}</td>
+        <td></td><td></td>
+        <td class="table-stat null">-</td>
+        <td class="table-stat null">${sw.gun_range || '-'}</td>
+        <td class="table-stat null">${sw.rof !== null ? sw.rof : '-'}</td>
+        <td class="table-stat null">${sw.at !== null ? sw.at : '-'}</td>
+        <td class="table-stat null">${sw.fp !== null ? sw.fp : '-'}</td>
+        <td class="table-notes">${(sw.notes||[]).map(n => noteTag(n)).join(' ')}</td>
+        <td></td><td></td>
+      </tr>`;
+    }
+    return rows;
   }
 
   function sortVal(u, col) {
@@ -7093,6 +7158,48 @@ function calcTeamScore(unit) {
     }
 
     fpBonus = FS_FP_BONUS[fp] || 0;
+  }
+
+  // Secondary weapon contribution
+  const sw = unit.secondary_weapon;
+  if (sw) {
+    const swRngStr = sw.gun_range || '';
+    const swRof    = +(sw.rof) || 0;
+    const swAt     = sw.at != null ? +sw.at : null;
+    const swFp     = +(sw.fp) || 1;
+    const swNotes  = sw.notes || [];
+    const swNoDirect = !swRngStr || swRngStr === '-';
+
+    if (!swNoDirect) {
+      const swRange = parseInt(swRngStr);
+      const swSteps = Math.max(0, Math.floor((swRange - 16) / 4));
+
+      let swAdjRof = swRof;
+      if (swRange <= 6) swAdjRof -= 1;
+      if (swNotes.includes('Limited HE')) swAdjRof -= 1;
+      ai += swNotes.includes('Flame-Thrower') ? swAdjRof + 3 : swAdjRof + swSteps;
+
+      if (swAt !== null && swAt > 0) {
+        const swEffAt = swAt + (swFp - 1) * 0.5;
+        const swLo    = Math.floor(swEffAt);
+        const swFrac  = swEffAt - swLo;
+        const swTLo   = FS_AT_TIERS[swLo]     ?? 0;
+        const swTHi   = FS_AT_TIERS[swLo + 1] ?? swTLo;
+        const swTier  = swTLo + swFrac * (swTHi - swTLo);
+
+        const isVehicle    = FS_VEHICLES.has(utype);
+        const swIsTurreted = isVehicle && !swNotes.includes('Hull Mounted');
+        const swTurretMult = swIsTurreted ? FS_TURRET_MULT : 1.0;
+        const swRangeMult  = 1.0 + swSteps * 0.1;
+        const swRfpMult    = swNotes.includes('May only inflict RFPs') ? 0.5 : 1.0;
+        const swRofAtMult  = Math.sqrt(swRof);
+        const swTowedMult  = swNotes.includes('Immobile') ? 0.75 : 1.0;
+
+        atScore += swTier * swTurretMult * swRangeMult * swRfpMult * swRofAtMult * swTowedMult;
+      }
+
+      fpBonus += FS_FP_BONUS[swFp] || 0;
+    }
   }
 
   // Defense — weight front armor 3:1 over flank. Most engagements are frontal, so front
@@ -7925,12 +8032,29 @@ function openUnitDetail(unitId) {
     const armorDisplay = unit.armor_front !== null
       ? `<span class="udp-stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`
       : `<span class="udp-stat-value null-val">-</span>`;
-    document.getElementById('udp-stats').innerHTML =
+    let statsHtml =
+      `<div class="udp-stat"><span class="udp-stat-label" data-tip="${STAT_TIPS.Armor}">Armor</span>${armorDisplay}</div>` +
       udpStat('Range', unit.gun_range) +
       udpStat('RoF', unit.rof) +
       udpStat('AT', unit.at) +
-      udpStat('FP', unit.fp) +
-      `<div class="udp-stat"><span class="udp-stat-label" data-tip="${STAT_TIPS.Armor}">Armor</span>${armorDisplay}</div>`;
+      udpStat('FP', unit.fp);
+    const sw = unit.secondary_weapon;
+    if (sw) {
+      statsHtml += `<div class="udp-secondary-label">${sw.name}${sw.notes && sw.notes.length ? ' · ' + sw.notes.map(n => noteTag(n)).join(' ') : ''}</div>`;
+      function swStat(label, val) {
+        const display = val !== null && val !== undefined
+          ? `<span class="udp-stat-value">${val}</span>`
+          : `<span class="udp-stat-value null-val">-</span>`;
+        const tip = STAT_TIPS[label] ? ` data-tip="${STAT_TIPS[label]}"` : '';
+        return `<div class="udp-stat sw-stat"><span class="udp-stat-label"${tip}>${label}</span>${display}</div>`;
+      }
+      statsHtml += `<div class="udp-stat sw-stat" style="visibility:hidden"></div>` +
+        swStat('Range', sw.gun_range) +
+        swStat('RoF', sw.rof) +
+        swStat('AT', sw.at) +
+        swStat('FP', sw.fp);
+    }
+    document.getElementById('udp-stats').innerHTML = statsHtml;
   }
 
   // Armament
@@ -9827,7 +9951,8 @@ function openForceSheet(forceData) {
 
       detectMGs(unit.armament).forEach(([name, s]) => forceMGs.set(name, s));
 
-      return `
+      const sw = unit.secondary_weapon;
+      let fsRows = `
         <tr>
           <td class="fs-qty">${t.qty}×</td>
           <td>
@@ -9835,10 +9960,23 @@ function openForceSheet(forceData) {
             ${unit.armament ? `<span class="fs-armament">${wrapArmamentMGs(unit.armament)}</span>` : ''}
           </td>
           <td style="text-align:center"><span class="base-badge">${unit.base || 'Med'}</span></td>
-          ${sc(range)}${sc(rof)}${sc(at)}${sc(fp)}
           <td class="${hasArmor ? 'fs-stat' : 'fs-stat dash'}">${hasArmor ? `${unit.armor_front}/${unit.armor_flank}` : '-'}</td>
+          ${sc(range)}${sc(rof)}${sc(at)}${sc(fp)}
           <td class="fs-notes-cell">${notes}</td>
         </tr>`;
+      if (sw) {
+        const swNotes = (sw.notes || []).map(n => noteTag(n)).join(' ');
+        fsRows += `
+        <tr class="fs-secondary-row">
+          <td></td>
+          <td><span class="fs-armament" style="font-size:11px">↳ ${sw.name}</span></td>
+          <td></td>
+          <td class="fs-stat dash">-</td>
+          ${sc(sw.gun_range || null)}${sc(sw.rof)}${sc(sw.at)}${sc(sw.fp)}
+          <td class="fs-notes-cell">${swNotes}</td>
+        </tr>`;
+      }
+      return fsRows;
     }).join('');
 
     return `
@@ -9852,10 +9990,10 @@ function openForceSheet(forceData) {
             <col style="width:28%">
             <col style="width:80px"><!-- Base: widened so "VEHICLE" badge fits with td padding -->
             <col style="width:54px">
-            <col style="width:46px">
-            <col style="width:46px">
-            <col style="width:46px">
             <col style="width:54px">
+            <col style="width:46px">
+            <col style="width:46px">
+            <col style="width:46px">
             <col><!-- Special Rules: remaining space, tags wrap inside -->
           </colgroup>
           <thead>
@@ -9863,11 +10001,11 @@ function openForceSheet(forceData) {
               <th class="c">Qty</th>
               <th>Unit</th>
               <th class="c" data-tip="Base size: Small (1×1&quot;), Medium (2×1&quot;), or Large (2×2&quot;). Base size affects movement through terrain and the area a team occupies.">Base</th>
+              <th class="c" data-tip="${STAT_TIPS.Armor.replace(/"/g, '&quot;')}">Armor</th>
               <th class="c" data-tip="${STAT_TIPS.Range.replace(/"/g, '&quot;')}">Range</th>
               <th class="c" data-tip="${STAT_TIPS.RoF.replace(/"/g, '&quot;')}">RoF</th>
               <th class="c" data-tip="${STAT_TIPS.AT.replace(/"/g, '&quot;')}">AT</th>
               <th class="c" data-tip="${STAT_TIPS.FP.replace(/"/g, '&quot;')}">FP</th>
-              <th class="c" data-tip="${STAT_TIPS.Armor.replace(/"/g, '&quot;')}">Armor</th>
               <th>Special Rules</th>
             </tr>
           </thead>
