@@ -6165,15 +6165,14 @@ function renderGrid(container, forceIds, animate = true) {
             <div class="type-badge" data-type="${unit.type}">${unit.type}</div>
           </div>
           <div class="card-type-row${unit.armament ? '' : ' no-armament'}">
-            ${unit.armament ? `<div class="card-armament">${wrapArmamentMGs(unit.armament)}</div>` : ''}
+            ${unit.armament && !locked ? `<div class="card-armament">${wrapArmamentMGs(unit.armament)}</div>` : ''}
           </div>
           ${(() => {
+            if (locked) return '';
             const defs = [
               ['Range', unit.gun_range !== null && unit.gun_range !== undefined, statDisplay(unit.gun_range)],
               ['RoF',   unit.rof   !== null && unit.rof   !== undefined, statDisplay(unit.rof)],
               ['AT',    unit.at    !== null && unit.at    !== undefined, statDisplay(unit.at)],
-              // FP only shown if the unit has direct-fire capability (i.e., a Range).
-              // Transports etc. have no weapons and shouldn't display FP at all.
               ['FP',    unit.fp    !== null && unit.fp    !== undefined && unit.gun_range, statDisplay(unit.fp)],
               ['Armor', unit.armor_front !== null && unit.armor_front !== undefined,
                 `<span class="stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`],
@@ -6182,7 +6181,7 @@ function renderGrid(container, forceIds, animate = true) {
             return `<div class="card-stats" style="grid-template-columns:repeat(${defs.length},1fr)">${defs.map(d => statCell(d[0], d[2])).join('')}</div>`;
           })()}
           <div class="card-notes">
-            ${unit.notes.map(n => noteTag(n)).join('')}
+            ${locked ? '' : unit.notes.map(n => noteTag(n)).join('')}
           </div>
           <div class="card-footer">
             <span class="years-display">
@@ -6305,9 +6304,10 @@ function renderTable(container, forceIds) {
   function unitRow(unit) {
     const inForce = forceIds.has(unit.id);
     const ic = inForce ? 'in-force' : '';
+    const rowLocked = !unit.free && !isSubscriber;
 
     if (tableStacked) {
-      const stats = [
+      const stats = rowLocked ? '' : [
         unit.gun_range ? `<span class="stacked-stat"><span class="stacked-lbl">RNG</span>${unit.gun_range}</span>` : null,
         unit.rof !== null ? `<span class="stacked-stat"><span class="stacked-lbl">ROF</span>${unit.rof}</span>` : null,
         unit.at !== null ? `<span class="stacked-stat"><span class="stacked-lbl">AT</span>${unit.at}</span>` : null,
@@ -6329,24 +6329,25 @@ function renderTable(container, forceIds) {
           <td colspan="2">
             <div class="stacked-stat-row">
               ${stats}
-              ${unit.notes.map(n => noteTag(n)).join(' ')}
+              ${rowLocked ? '' : unit.notes.map(n => noteTag(n)).join(' ')}
               <span class="stacked-years">${yearRange(unit.years)}</span>
             </div>
           </td>
         </tr>`;
     }
 
+    const dash = '<span style="color:var(--text4)">-</span>';
     return `
       <tr class="${ic}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
         <td><span class="table-name">${unit.name}</span></td>
         <td><span class="${nationBadgeClass(unit.nation)}" style="font-size:11px;padding:2px 5px;">${unit.nation}</span></td>
         <td style="color:var(--text3);font-size:10px;letter-spacing:0.5px">${unit.type}</td>
-        <td class="table-stat ${unit.gun_range ? '' : 'null'}">${unit.gun_range || '-'}</td>
-        <td class="table-stat ${unit.rof !== null ? '' : 'null'}">${unit.rof !== null ? unit.rof : '-'}</td>
-        <td class="table-stat ${unit.at !== null ? '' : 'null'}">${unit.at !== null ? unit.at : '-'}</td>
-        <td class="table-stat ${unit.fp !== null && unit.fp !== undefined ? '' : 'null'}">${unit.fp !== null && unit.fp !== undefined ? unit.fp : '-'}</td>
-        <td class="table-stat ${unit.armor_front !== null ? '' : 'null'}">${unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '-'}</td>
-        <td class="table-notes">${unit.notes.map(n => noteTag(n)).join(' ')}</td>
+        <td class="table-stat null">${rowLocked ? dash : (unit.gun_range || '-')}</td>
+        <td class="table-stat null">${rowLocked ? dash : (unit.rof !== null ? unit.rof : '-')}</td>
+        <td class="table-stat null">${rowLocked ? dash : (unit.at !== null ? unit.at : '-')}</td>
+        <td class="table-stat null">${rowLocked ? dash : (unit.fp !== null && unit.fp !== undefined ? unit.fp : '-')}</td>
+        <td class="table-stat null">${rowLocked ? dash : (unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '-')}</td>
+        <td class="table-notes">${rowLocked ? '' : unit.notes.map(n => noteTag(n)).join(' ')}</td>
         <td style="color:var(--text3);font-size:10px;white-space:nowrap">${yearRange(unit.years)}</td>
         <td onclick="event.stopPropagation()">${unitActions(unit)}</td>
       </tr>`;
@@ -7912,23 +7913,27 @@ function openUnitDetail(unitId) {
     const tip = STAT_TIPS[label] ? ` data-tip="${STAT_TIPS[label]}"` : '';
     return `<div class="udp-stat"><span class="udp-stat-label"${tip}>${label}</span>${display}</div>`;
   }
-  const armorDisplay = unit.armor_front !== null
-    ? `<span class="udp-stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`
-    : `<span class="udp-stat-value null-val">-</span>`;
-  document.getElementById('udp-stats').innerHTML =
-    udpStat('Range', unit.gun_range) +
-    udpStat('RoF', unit.rof) +
-    udpStat('AT', unit.at) +
-    udpStat('FP', unit.fp) +
-    `<div class="udp-stat"><span class="udp-stat-label" data-tip="${STAT_TIPS.Armor}">Armor</span>${armorDisplay}</div>`;
+  if (locked) {
+    document.getElementById('udp-stats').innerHTML = '';
+  } else {
+    const armorDisplay = unit.armor_front !== null
+      ? `<span class="udp-stat-value armor">${unit.armor_front}/${unit.armor_flank}</span>`
+      : `<span class="udp-stat-value null-val">-</span>`;
+    document.getElementById('udp-stats').innerHTML =
+      udpStat('Range', unit.gun_range) +
+      udpStat('RoF', unit.rof) +
+      udpStat('AT', unit.at) +
+      udpStat('FP', unit.fp) +
+      `<div class="udp-stat"><span class="udp-stat-label" data-tip="${STAT_TIPS.Armor}">Armor</span>${armorDisplay}</div>`;
+  }
 
   // Armament
   const armEl = document.getElementById('udp-armament');
-  armEl.textContent = unit.armament || '';
-  armEl.style.display = unit.armament ? '' : 'none';
+  armEl.textContent = locked ? '' : (unit.armament || '');
+  armEl.style.display = (!locked && unit.armament) ? '' : 'none';
 
   // Notes
-  document.getElementById('udp-notes').innerHTML = (unit.notes || []).map(n => noteTag(n)).join('');
+  document.getElementById('udp-notes').innerHTML = locked ? '' : (unit.notes || []).map(n => noteTag(n)).join('');
 
   // Meta
   document.getElementById('udp-meta').innerHTML = `
