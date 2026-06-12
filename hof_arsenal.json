@@ -1832,44 +1832,6 @@
       "wiki": "M4_mortar_carrier"
     },
     {
-      "id": "us-cc",
-      "lore": "US Company Commanders were typically captains commanding a rifle company of roughly 190 men organized into three rifle platoons and a weapons platoon. Trained at the Infantry School at Fort Benning under the Army's fire-and-maneuver doctrine, they coordinated their platoons with attached tank, mortar, and artillery support to push the line forward across France and into Germany. The casualty rate among American rifle company commanders in Northwest Europe was among the highest of any single position in the army, as doctrine demanded they lead from positions where they could see and influence the close fight.",
-      "name": "Company Commander",
-      "nation": "United States",
-      "type": "Infantry",
-      "theater": [
-        "Western Front",
-        "Pacific",
-        "Mediterranean"
-      ],
-      "years": [
-        1942,
-        1943,
-        1944,
-        1945
-      ],
-      "gun_range": null,
-      "rof": null,
-      "at": null,
-      "fp": null,
-      "armor_front": null,
-      "armor_flank": null,
-      "armament": null,
-      "notes": [
-        "Company Commander"
-      ],
-      "special_rules": [],
-      "free": true,
-      "base": "Small",
-      "standard_platoon": {
-        "qty": 1,
-        "leader": false,
-        "fo": false
-      },
-      "wiki": "Company_(military_unit)",
-      "platoon_only": true
-    },
-    {
       "id": "us-upgrade-recon",
       "lore": "American cavalry and scout platoons were not observers tacked onto a rifle company — they were the forward element, ranging ahead of the main body, maintaining contact with the enemy, and reporting positions back before the fighting units moved up. Build the platoon from fast-moving teams, then apply this upgrade to give it the reconnaissance role it needs to operate like the real thing.",
       "name": "Recon",
@@ -1971,6 +1933,44 @@
       "base": "Small",
       "standard_platoon": null,
       "wiki": "M2_flamethrower"
+    },
+    {
+      "id": "us-cc",
+      "lore": "US Company Commanders were typically captains commanding a rifle company of roughly 190 men organized into three rifle platoons and a weapons platoon. Trained at the Infantry School at Fort Benning under the Army's fire-and-maneuver doctrine, they coordinated their platoons with attached tank, mortar, and artillery support to push the line forward across France and into Germany. The casualty rate among American rifle company commanders in Northwest Europe was among the highest of any single position in the army, as doctrine demanded they lead from positions where they could see and influence the close fight.",
+      "name": "Company Commander",
+      "nation": "United States",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Pacific",
+        "Mediterranean"
+      ],
+      "years": [
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": null,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Company Commander"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": {
+        "qty": 1,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Company_(military_unit)",
+      "platoon_only": true
     },
     {
       "id": "de-inf-rifle",
@@ -4174,47 +4174,6 @@
       "platoon_only": true
     },
     {
-      "id": "de-cc",
-      "lore": "The Kompaniechef was usually a Hauptmann or Oberleutnant commanding a rifle company of roughly 180 men, operating under Auftragstaktik with broad latitude to interpret his battalion commander's intent. German company commanders were expected to lead from the schwerpunkt, the decisive point of the action, accepting personal exposure as the price of maintaining tactical initiative. By 1944 attrition had driven many companies into the hands of veteran NCOs and junior leutnants promoted from the ranks, but the doctrine of aggressive forward command persisted to the surrender.",
-      "name": "Company Commander",
-      "nation": "Germany",
-      "type": "Infantry",
-      "theater": [
-        "Western Front",
-        "Eastern Front",
-        "Mediterranean"
-      ],
-      "years": [
-        1939,
-        1940,
-        1941,
-        1942,
-        1943,
-        1944,
-        1945
-      ],
-      "gun_range": null,
-      "rof": null,
-      "at": null,
-      "fp": null,
-      "armor_front": null,
-      "armor_flank": null,
-      "armament": null,
-      "notes": [
-        "Company Commander"
-      ],
-      "special_rules": [],
-      "free": true,
-      "base": "Small",
-      "standard_platoon": {
-        "qty": 1,
-        "leader": false,
-        "fo": false
-      },
-      "wiki": "Company_(military_unit)",
-      "platoon_only": true
-    },
-    {
       "id": "de-upgrade-recon",
       "lore": "German Aufklärung platoons were purpose-built for forward contact, not improvised from line infantry. They screened advances, found gaps, and handed intelligence up the chain while staying mobile enough to disengage before becoming fixed. Assemble the platoon from appropriate units and apply this upgrade to designate it as a dedicated reconnaissance force.",
       "name": "Recon",
@@ -4326,6 +4285,47 @@
       "base": "Small",
       "standard_platoon": null,
       "wiki": "Flammenwerfer_41"
+    },
+    {
+      "id": "de-cc",
+      "lore": "The Kompaniechef was usually a Hauptmann or Oberleutnant commanding a rifle company of roughly 180 men, operating under Auftragstaktik with broad latitude to interpret his battalion commander's intent. German company commanders were expected to lead from the schwerpunkt, the decisive point of the action, accepting personal exposure as the price of maintaining tactical initiative. By 1944 attrition had driven many companies into the hands of veteran NCOs and junior leutnants promoted from the ranks, but the doctrine of aggressive forward command persisted to the surrender.",
+      "name": "Company Commander",
+      "nation": "Germany",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": null,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Company Commander"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": {
+        "qty": 1,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Company_(military_unit)",
+      "platoon_only": true
     },
     {
       "id": "br-inf-rifle",
@@ -6326,47 +6326,6 @@
       "platoon_only": true
     },
     {
-      "id": "br-cc",
-      "lore": "The British rifle company was commanded by a major designated the Officer Commanding, leading roughly 120 men in three rifle platoons with attached support from the battalion's carrier and mortar platoons. British company OCs were drilled in the deliberate set-piece attack and the close coordination of supporting arms, particularly the 25-pounder fire plans that defined British infantry tactics from El Alamein to the Rhine. Their methodical approach drew criticism for caution but consistently delivered objectives at sustainable casualty rates, a trade-off the Army made deliberately after the blood-letting of the First World War.",
-      "name": "Company Commander",
-      "nation": "Britain",
-      "type": "Infantry",
-      "theater": [
-        "Western Front",
-        "Mediterranean",
-        "Pacific"
-      ],
-      "years": [
-        1939,
-        1940,
-        1941,
-        1942,
-        1943,
-        1944,
-        1945
-      ],
-      "gun_range": null,
-      "rof": null,
-      "at": null,
-      "fp": null,
-      "armor_front": null,
-      "armor_flank": null,
-      "armament": null,
-      "notes": [
-        "Company Commander"
-      ],
-      "special_rules": [],
-      "free": true,
-      "base": "Small",
-      "standard_platoon": {
-        "qty": 1,
-        "leader": false,
-        "fo": false
-      },
-      "wiki": "Company_(military_unit)",
-      "platoon_only": true
-    },
-    {
       "id": "br-upgrade-recon",
       "lore": "British and Commonwealth recce platoons were organic recon elements, not attached detachments. They screened the battalion forward, maintained contact on the flanks, and gave commanders the ground truth needed to commit the main body. Build the platoon from suitable teams and apply this upgrade to give it its reconnaissance designation.",
       "name": "Recon",
@@ -6474,6 +6433,47 @@
       "base": "Small",
       "standard_platoon": null,
       "wiki": "Flamethrower,_Portable,_No_2"
+    },
+    {
+      "id": "br-cc",
+      "lore": "The British rifle company was commanded by a major designated the Officer Commanding, leading roughly 120 men in three rifle platoons with attached support from the battalion's carrier and mortar platoons. British company OCs were drilled in the deliberate set-piece attack and the close coordination of supporting arms, particularly the 25-pounder fire plans that defined British infantry tactics from El Alamein to the Rhine. Their methodical approach drew criticism for caution but consistently delivered objectives at sustainable casualty rates, a trade-off the Army made deliberately after the blood-letting of the First World War.",
+      "name": "Company Commander",
+      "nation": "Britain",
+      "type": "Infantry",
+      "theater": [
+        "Western Front",
+        "Mediterranean",
+        "Pacific"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": null,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Company Commander"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": {
+        "qty": 1,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Company_(military_unit)",
+      "platoon_only": true
     },
     {
       "id": "sv-inf-rifle",
@@ -7820,45 +7820,6 @@
       "platoon_only": true
     },
     {
-      "id": "sv-cc",
-      "lore": "The Rotny was usually a Starshiy Leytenant or Kapitan commanding a Soviet rifle company of roughly 130 men, operating under a centralized command culture that gave him less latitude than his German counterpart but compensated with massive supporting fires. Soviet company commanders were expected to deliver their objective on schedule regardless of casualties, and the political officer attached at battalion level reinforced compliance with the operational plan. Survivors who learned to read the ground, mass their PPSh submachine gunners at the schwerpunkt, and time their attacks with the artillery preparation became among the most effective tactical leaders of the war by 1944.",
-      "name": "Company Commander",
-      "nation": "Soviet Union",
-      "type": "Infantry",
-      "theater": [
-        "Eastern Front"
-      ],
-      "years": [
-        1939,
-        1940,
-        1941,
-        1942,
-        1943,
-        1944,
-        1945
-      ],
-      "gun_range": null,
-      "rof": null,
-      "at": null,
-      "fp": null,
-      "armor_front": null,
-      "armor_flank": null,
-      "armament": null,
-      "notes": [
-        "Company Commander"
-      ],
-      "special_rules": [],
-      "free": true,
-      "base": "Small",
-      "standard_platoon": {
-        "qty": 1,
-        "leader": false,
-        "fo": false
-      },
-      "wiki": "Company_(military_unit)",
-      "platoon_only": true
-    },
-    {
       "id": "sv-upgrade-recon",
       "lore": "Soviet razvedka platoons were trained specialists, not infantry pressed into a scouting role. They operated forward of the main body, identified enemy positions and strength, and withdrew before contact could fix them. Assemble the platoon from appropriate units and apply this upgrade to mark it as a dedicated reconnaissance force.",
       "name": "Recon",
@@ -7965,6 +7926,45 @@
       "wiki": "ROKS-3"
     },
     {
+      "id": "sv-cc",
+      "lore": "The Rotny was usually a Starshiy Leytenant or Kapitan commanding a Soviet rifle company of roughly 130 men, operating under a centralized command culture that gave him less latitude than his German counterpart but compensated with massive supporting fires. Soviet company commanders were expected to deliver their objective on schedule regardless of casualties, and the political officer attached at battalion level reinforced compliance with the operational plan. Survivors who learned to read the ground, mass their PPSh submachine gunners at the schwerpunkt, and time their attacks with the artillery preparation became among the most effective tactical leaders of the war by 1944.",
+      "name": "Company Commander",
+      "nation": "Soviet Union",
+      "type": "Infantry",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": null,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Company Commander"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Small",
+      "standard_platoon": {
+        "qty": 1,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Company_(military_unit)",
+      "platoon_only": true
+    },
+    {
       "id": "fr-leader",
       "lore": "French platoon leaders were typically lieutenants or sous-lieutenants drawn from Saint-Cyr or reserve officer schools. Trained in the doctrine of methodical battle, they coordinated their sections with deliberate fire plans and careful positioning. In the chaos of May 1940, many showed remarkable personal courage even as the high command's rigid system crumbled around them.",
       "name": "Platoon Leader",
@@ -8021,35 +8021,6 @@
       "standard_platoon": null,
       "free": false,
       "wiki": "Forward_observer"
-    },
-    {
-      "id": "fr-cc",
-      "lore": "French company commanders (capitaines) led their compagnies d'infanterie with an emphasis on defensive positioning and coordinated fire. The doctrine of the methodical battle demanded tight control, and company commanders were expected to maintain communication with battalion headquarters at all times. When the Germans broke through at Sedan, many captains fought their companies to destruction holding assigned positions long after the overall situation had become hopeless.",
-      "name": "Company Commander",
-      "nation": "France",
-      "type": "Infantry",
-      "theater": [
-        "Western Front"
-      ],
-      "years": [
-        1939,
-        1940
-      ],
-      "gun_range": null,
-      "rof": null,
-      "at": null,
-      "fp": null,
-      "armor_front": null,
-      "armor_flank": null,
-      "armament": null,
-      "notes": [
-        "Company Commander"
-      ],
-      "special_rules": [],
-      "base": "Small",
-      "standard_platoon": null,
-      "free": false,
-      "wiki": "French_Army_in_World_War_II"
     },
     {
       "id": "fr-recon",
@@ -8235,6 +8206,35 @@
       },
       "free": false,
       "wiki": "Génie_(French_Army)"
+    },
+    {
+      "id": "fr-cc",
+      "lore": "French company commanders (capitaines) led their compagnies d'infanterie with an emphasis on defensive positioning and coordinated fire. The doctrine of the methodical battle demanded tight control, and company commanders were expected to maintain communication with battalion headquarters at all times. When the Germans broke through at Sedan, many captains fought their companies to destruction holding assigned positions long after the overall situation had become hopeless.",
+      "name": "Company Commander",
+      "nation": "France",
+      "type": "Infantry",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1939,
+        1940
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": null,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Company Commander"
+      ],
+      "special_rules": [],
+      "base": "Small",
+      "standard_platoon": null,
+      "free": false,
+      "wiki": "French_Army_in_World_War_II"
     },
     {
       "id": "fr-gun-hmg",
