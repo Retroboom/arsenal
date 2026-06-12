@@ -2882,6 +2882,11 @@
     text-transform: uppercase;
   }
 
+  @media (max-width: 640px) {
+    .subscriber-badge { display: none; }
+    .auth-user.is-subscriber img { box-shadow: 0 0 0 2px var(--accent); border-radius: 50%; }
+  }
+
   /* Auth avatar — tappable to open menu */
   .auth-user img { cursor: pointer; }
   .auth-user img:hover { opacity: 0.8; }
@@ -10038,7 +10043,7 @@ function updateAuthUI(user, subscriberStatus) {
     area.innerHTML = `<button class="auth-btn" onclick="signIn()">Sign In</button>`;
   } else {
     area.innerHTML = `
-      <div class="auth-user">
+      <div class="auth-user ${subscriberStatus ? 'is-subscriber' : ''}">
         ${subscriberStatus ? '<span class="subscriber-badge">Subscriber</span>' : ''}
         <img src="${user.photoURL || ''}" alt="${user.displayName || 'Account'}"
              onclick="toggleAuthMenu(event)" onerror="this.style.display='none'">

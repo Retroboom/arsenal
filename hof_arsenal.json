@@ -8023,35 +8023,6 @@
       "wiki": "Forward_observer"
     },
     {
-      "id": "fr-recon",
-      "lore": "French reconnaissance elements included motorcycle troops, cavalry scouts on horseback, and motorized dragoon sections. The Groupes de Reconnaissance de Division d'Infanterie (GRDI) were mixed units of armored cars and mounted cavalry tasked with screening and intelligence-gathering ahead of the main body. Their reports were often accurate but arrived too late to influence decisions made by the slow-moving French command structure.",
-      "name": "Recon",
-      "nation": "France",
-      "type": "Infantry",
-      "theater": [
-        "Western Front"
-      ],
-      "years": [
-        1939,
-        1940
-      ],
-      "gun_range": null,
-      "rof": null,
-      "at": null,
-      "fp": null,
-      "armor_front": null,
-      "armor_flank": null,
-      "armament": null,
-      "notes": [
-        "Recon"
-      ],
-      "special_rules": [],
-      "base": "Small",
-      "standard_platoon": null,
-      "free": false,
-      "wiki": "Groupe_de_reconnaissance"
-    },
-    {
       "id": "fr-inf-rifle",
       "lore": "The French fusilier was armed with the MAS-36 bolt-action rifle or the older Lebel and Berthier models. French infantry doctrine emphasized defensive firepower from prepared positions, and the individual rifleman was expected to hold his ground and deliver accurate fire. Many reservists called up in 1939 had not fired a rifle since their conscription service years earlier, but the regulars and colonial troops were steady and well-trained.",
       "name": "Rifle Team",
