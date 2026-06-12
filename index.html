@@ -12226,6 +12226,8 @@ let fppState = {
   finalBL: { a: 0, b: 0 },
   attacker: null,
   lastMode: 'auto',
+  editingSide: null,
+  savedBuilderPlatoons: null,
 };
 
 let gameMode = {
@@ -12416,14 +12418,32 @@ function startFPP() {
   renderFPP();
 }
 
-function fppEditForce() {
+function fppEditForce(side) {
+  fppState.savedBuilderPlatoons = JSON.parse(JSON.stringify(platoons));
+  fppState.editingSide = side;
+  const source = fppState[side].platoons;
+  platoons = JSON.parse(JSON.stringify(source));
+  platoonCounter = platoons.length;
+  activePlatoonId = platoons.length ? platoons[0].id : null;
+  updateForceUI();
   setSection('units');
 }
 
 function fppRerun() {
-  fppState.a.platoons = JSON.parse(JSON.stringify(platoons));
-  fppState.a.bl = calcBreakLimit(fppState.a.platoons.length);
-  fppState.a.vehicleCount = countVehicleTeams(fppState.a.platoons);
+  const side = fppState.editingSide || 'a';
+  if (side === 'b') {
+    fppState.b.platoons = JSON.parse(JSON.stringify(platoons));
+    fppState.b.bl = calcBreakLimit(fppState.b.platoons.length);
+    fppState.b.vehicleCount = countVehicleTeams(fppState.b.platoons);
+    if (fppState.savedBuilderPlatoons) {
+      platoons = fppState.savedBuilderPlatoons;
+      platoonCounter = platoons.length;
+      activePlatoonId = platoons.length ? platoons[0].id : null;
+      updateForceUI();
+    }
+  }
+  fppState.savedBuilderPlatoons = null;
+  fppState.editingSide = null;
   if (fppState.lastMode === 'quick') quickCompareFPP();
   else autoFPP();
 }
@@ -12563,7 +12583,8 @@ function renderFPPQuickResult(body) {
     </div>
     <div class="fpp-result-actions">
       <button class="fpp-next-btn" onclick="startGame()">Start Game →</button>
-      <button class="fpp-back-btn" onclick="fppEditForce()">Edit Your Force</button>
+      <button class="fpp-back-btn" onclick="fppEditForce('a')">Edit ${esc(a.name)}</button>
+      <button class="fpp-back-btn" onclick="fppEditForce('b')">Edit ${esc(b.name)}</button>
       <button class="fpp-back-btn" onclick="fppRerun()">Re-run</button>
     </div>
   `;
@@ -12807,7 +12828,8 @@ function renderFPPResult(body) {
     </div>
     <div class="fpp-result-actions">
       <button class="fpp-next-btn" onclick="startGame()">Start Game →</button>
-      <button class="fpp-back-btn" onclick="fppEditForce()">Edit Your Force</button>
+      <button class="fpp-back-btn" onclick="fppEditForce('a')">Edit ${esc(a.name)}</button>
+      <button class="fpp-back-btn" onclick="fppEditForce('b')">Edit ${esc(b.name)}</button>
       <button class="fpp-back-btn" onclick="fppRerun()">Re-run</button>
       <button class="fpp-back-btn" onclick="fppState.step='pairings'; renderFPP()">← Redo Pairings</button>
     </div>
