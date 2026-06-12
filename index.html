@@ -7058,7 +7058,20 @@ function duplicatePlatoon(id) {
 }
 
 function setForcePanel(open) {
-  document.getElementById('force-panel').classList.toggle('open', open);
+  const panel = document.getElementById('force-panel');
+  if (open) {
+    panel.style.transform = '';
+    panel.classList.add('open');
+    panel.addEventListener('transitionend', function onEnd(e) {
+      if (e.propertyName === 'transform' && panel.classList.contains('open')) {
+        panel.style.transform = 'none';
+      }
+      panel.removeEventListener('transitionend', onEnd);
+    });
+  } else {
+    panel.style.transform = '';
+    panel.classList.remove('open');
+  }
   document.body.classList.toggle('panel-open', open);
 }
 
