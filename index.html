@@ -1807,18 +1807,15 @@
   }
 
   .lock-overlay {
-    position: absolute;
-    top: 10px;
-    right: 10px;
     font-family: var(--mono);
     font-size: 11px;
     letter-spacing: 2px;
     color: var(--accent2);
     border: 1px solid var(--accent2);
-    padding: 2px 5px;
-    transform: rotate(4deg);
+    padding: 4px 10px;
     opacity: 0.55;
-    pointer-events: none;
+    text-align: center;
+    margin: 4px 0;
   }
 
   .restricted-stamp {
@@ -6158,7 +6155,6 @@ function renderGrid(container, forceIds, animate = true) {
 
       html += `
         <div class="unit-card ${inForce ? 'in-force' : ''} ${locked ? 'locked' : ''} ${nc}" id="card-${unit.id}" data-card-index="${cardIndex}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
-          ${locked ? '<div class="lock-overlay">CLASSIFIED</div>' : ''}
           <div class="card-header">
             <div class="unit-name" title="${unit.name}">${unit.name}</div>
             <div class="${nationBadgeClass(unit.nation)}">${unit.nation}</div>
@@ -6168,7 +6164,7 @@ function renderGrid(container, forceIds, animate = true) {
             ${unit.armament && !locked ? `<div class="card-armament">${wrapArmamentMGs(unit.armament)}</div>` : ''}
           </div>
           ${(() => {
-            if (locked) return '';
+            if (locked) return '<div class="lock-overlay">CLASSIFIED</div>';
             const defs = [
               ['Range', unit.gun_range !== null && unit.gun_range !== undefined, statDisplay(unit.gun_range)],
               ['RoF',   unit.rof   !== null && unit.rof   !== undefined, statDisplay(unit.rof)],
@@ -6189,7 +6185,7 @@ function renderGrid(container, forceIds, animate = true) {
               ${unit.base ? `<span class="base-badge">${unit.base}</span>` : ''}
             </span>
             ${locked
-              ? `<button class="add-force-btn" onclick="event.stopPropagation();showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Ko-fi subscriber only</button>`
+              ? `<button class="add-force-btn" onclick="event.stopPropagation();showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Supporter Content</button>`
               : `<div class="card-footer-btns">
                   ${unit.standard_platoon ? `<button class="add-platoon-standard-btn" onclick="event.stopPropagation();addAsStandardPlatoon('${unit.id}')">+ New Platoon</button>` : ''}
                   ${activePlatoonId && !unit.platoon_only
@@ -7389,7 +7385,7 @@ function printLandscape() {
 }
 
 function showSubscribePrompt() {
-  showToast('Subscriber only. Visit ko-fi.com/retroboom to subscribe.', 'info', 4000);
+  showToast('This content is available to supporters. Join on Ko-fi ($1/mo) to unlock the full arsenal.', 'info', 5000);
 }
 
 // ── FORCE LIBRARY ─────────────────────────────────────────────────────────────
@@ -7944,7 +7940,7 @@ function openUnitDetail(unitId) {
   // Footer buttons
   if (locked) {
     document.getElementById('udp-footer').innerHTML =
-      `<button class="udp-add-btn" onclick="showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Ko-fi subscriber only</button>`;
+      `<button class="udp-add-btn" onclick="showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Supporter Content</button>`;
   } else {
     document.getElementById('udp-footer').innerHTML = `
       ${unit.standard_platoon ? `<button class="udp-add-btn" onclick="addAsStandardPlatoon('${unit.id}');closeUnitDetail()">＋ New Platoon</button>` : ''}
