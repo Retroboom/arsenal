@@ -7154,6 +7154,8 @@ function calcTeamScore(unit) {
       // between full-linear (×2 for RoF:2) and flat (×1): RoF:2 → ×1.41, RoF:3 → ×1.73.
       // RoF:1 units (IS-2, SU-152) are not penalized — they are baseline 1.0.
       const rofAtMult    = Math.sqrt(rof);
+      // Engineer AT discount: AT value only applies in assault, not at range — worth less than a true AT weapon.
+      const engineerAtOnly = notes.includes('Engineer') && !isVehicle && at > 0 && (range <= 16);
       // Immobile penalty: units that cannot reposition without a tow vehicle cannot exploit
       // flanks or react to threats, reducing the practical AT value vs. a mobile platform.
       // Applies to heavy guns (PaK43, FlaK36, 17 pdr, heavy howitzers, etc.) tagged Immobile.
@@ -7162,7 +7164,9 @@ function calcTeamScore(unit) {
 
       atScore = (!isVehicle && range <= 8)
         ? tier * 0.5 * rfpMult * rofAtMult
-        : tier * turretMult * rangeMult * rfpMult * rofAtMult * towedMult;
+        : engineerAtOnly
+          ? tier * (2 / 3) * rfpMult
+          : tier * turretMult * rangeMult * rfpMult * rofAtMult * towedMult;
     }
 
     fpBonus = FS_FP_BONUS[fp] || 0;
