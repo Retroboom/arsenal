@@ -1614,6 +1614,11 @@
     border-top: 1px solid rgba(0,0,0,0.08);
     margin-top: 2px;
   }
+  .card-multi-gun .card-stats + .card-weapon-label { margin-top: 0; }
+  .card-multi-gun .stat-label { font-size: 7px; }
+  .card-multi-gun .stat-value, .card-multi-gun .stat-value.armor { font-size: 12px; }
+  .card-multi-gun .card-stats { grid-auto-rows: 30px; }
+  .card-multi-gun .card-stats-secondary { grid-auto-rows: 30px; }
 
   .stat-cell {
     padding: 4px 6px;
@@ -6267,6 +6272,7 @@ function renderGrid(container, forceIds, animate = true) {
               ].filter(d => d[1]);
               const statCols = defs.length;
               let out = `<div class="card-type-row${armLine ? '' : ' no-armament'}">${armLine ? `<div class="card-armament">${armLine}</div>` : ''}</div>`;
+              out += `<div class="card-multi-gun">`;
               if (primaryGun) out += `<div class="card-weapon-label">${primaryGun}</div>`;
               out += `<div class="card-stats" style="grid-template-columns:repeat(${statCols},1fr)">${defs.map(d => statCell(d[0], d[2])).join('')}</div>`;
               out += `<div class="card-weapon-label">${sw.name}${sw.notes && sw.notes.length ? ' · ' + sw.notes.join(', ') : ''}</div>`;
@@ -6276,6 +6282,7 @@ function renderGrid(container, forceIds, animate = true) {
                 for (let i = 0; i < pad; i++) out += `<div class="stat-cell"></div>`;
                 out += `${swDefs.map(d => statCell(d[0], d[2])).join('')}</div>`;
               }
+              out += `</div>`;
               return out;
             }
             let armHTML = `<div class="card-type-row${unit.armament ? '' : ' no-armament'}">${unit.armament ? `<div class="card-armament">${wrapArmamentMGs(unit.armament)}</div>` : ''}</div>`;
