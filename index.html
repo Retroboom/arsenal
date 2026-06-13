@@ -1601,8 +1601,12 @@
   }
   .card-stats-secondary {
     grid-auto-rows: 34px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    margin-top: 2px;
   }
   .card-stats-secondary .stat-value { font-size: 13px; }
+  .card-sw-name { display: flex; align-items: center; justify-content: center; }
+  .card-sw-name .stat-label { font-size: 8px; line-height: 1.2; white-space: normal; text-align: center; }
 
   .stat-cell {
     padding: 4px 6px;
@@ -6244,19 +6248,24 @@ function renderGrid(container, forceIds, animate = true) {
               ['FP',    unit.fp    !== null && unit.fp    !== undefined && unit.gun_range, statDisplay(unit.fp)],
             ].filter(d => d[1]);
             if (!defs.length) return '';
-            let out = `<div class="card-stats" style="grid-template-columns:repeat(${defs.length},1fr)">${defs.map(d => statCell(d[0], d[2])).join('')}</div>`;
             const sw = unit.secondary_weapon;
-            if (sw) {
-              const swDefs = [
-                ['Range', sw.gun_range != null, statDisplay(sw.gun_range)],
-                ['RoF',   sw.rof != null, statDisplay(sw.rof)],
-                ['AT',    sw.at != null, statDisplay(sw.at)],
-                ['FP',    sw.fp != null && sw.gun_range, statDisplay(sw.fp)],
-              ].filter(d => d[1]);
-              if (swDefs.length) {
-                out += `<div class="card-secondary-label">${sw.name}${sw.notes && sw.notes.length ? ' · ' + sw.notes.join(', ') : ''}</div>`;
-                out += `<div class="card-stats card-stats-secondary" style="grid-template-columns:repeat(${swDefs.length},1fr)">${swDefs.map(d => statCell(d[0], d[2])).join('')}</div>`;
-              }
+            const hasArmor = defs[0] && defs[0][0] === 'Armor';
+            const swDefs = sw ? [
+              ['Range', sw.gun_range != null, statDisplay(sw.gun_range)],
+              ['RoF',   sw.rof != null, statDisplay(sw.rof)],
+              ['AT',    sw.at != null, statDisplay(sw.at)],
+              ['FP',    sw.fp != null && sw.gun_range, statDisplay(sw.fp)],
+            ].filter(d => d[1]) : [];
+            let out = `<div class="card-stats" style="grid-template-columns:repeat(${defs.length},1fr)">${defs.map(d => statCell(d[0], d[2])).join('')}</div>`;
+            if (swDefs.length && hasArmor) {
+              const swLabel = sw.name.replace(/\s+(turret|hull)\s+gun$/i, '');
+              out += `<div class="card-stats card-stats-secondary" style="grid-template-columns:repeat(${defs.length},1fr)">
+                <div class="stat-cell card-sw-name"><span class="stat-label">${swLabel}</span></div>
+                ${swDefs.map(d => statCell(d[0], d[2])).join('')}
+              </div>`;
+            } else if (swDefs.length) {
+              out += `<div class="card-secondary-label">${sw.name}${sw.notes && sw.notes.length ? ' · ' + sw.notes.join(', ') : ''}</div>`;
+              out += `<div class="card-stats card-stats-secondary" style="grid-template-columns:repeat(${swDefs.length},1fr)">${swDefs.map(d => statCell(d[0], d[2])).join('')}</div>`;
             }
             return out;
           })()}
