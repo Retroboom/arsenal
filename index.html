@@ -7172,6 +7172,7 @@ const FS_LONGEVITY    = {0:0.824, 1:0.891, 2:1.0, 3:1.159, 4:1.382, 5:1.555, 6:1
 const FS_TURRET_MULT  = 1.3;   // AT multiplier for turreted vehicles
 const FS_RESIDUAL_DEF = 0.4;   // standalone armor value, on top of the longevity multiplier
 const FS_PRESENCE     = 3;     // board-presence value per non-vehicle combat team (infantry/guns)
+const FS_ROF_ACCEL    = 1;     // bonus per RoF above 2 (accelerates MG/HMG without moving Rifle/MG)
 const FS_DISPLAY_DIV  = 1.2;  // raw-to-display divisor: Rifle/MG Team (raw 6) = 5 display pts
 // FPP auto-resolve: attacker must exceed defender score by this margin to win a pairing.
 // Reflects the rule: "when it's not obvious which unit is more threatening, the defender has the edge."
@@ -7211,7 +7212,7 @@ function calcTeamScore(unit) {
     let adjRof = rof;
     if (range <= 6) adjRof -= 1;
     if (notes.includes('Limited HE')) adjRof -= 1;
-    ai = notes.includes('Flame-Thrower') ? adjRof + 3 : adjRof + steps;
+    ai = notes.includes('Flame-Thrower') ? adjRof + 3 : adjRof + Math.max(0, adjRof - 2) * FS_ROF_ACCEL + steps;
 
     // AT
     if (at !== null && at > 0) {
@@ -7267,7 +7268,7 @@ function calcTeamScore(unit) {
       let swAdjRof = swRof;
       if (swRange <= 6) swAdjRof -= 1;
       if (swNotes.includes('Limited HE')) swAdjRof -= 1;
-      ai += swNotes.includes('Flame-Thrower') ? swAdjRof + 3 : swAdjRof + swSteps;
+      ai += swNotes.includes('Flame-Thrower') ? swAdjRof + 3 : swAdjRof + Math.max(0, swAdjRof - 2) * FS_ROF_ACCEL + swSteps;
 
       if (swAt !== null && swAt > 0) {
         const swEffAt = swAt + (swFp - 1) * 0.5;
