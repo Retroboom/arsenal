@@ -12625,6 +12625,276 @@ function autoFPP() {
 // 1 BL point per this percentage difference in total force score
 const FPP_QUICK_BL_FACTOR = 0.10;
 
+// ════════════════════════════════════════════════════════════════════════════════
+// Monte Carlo Force Balancer (PROTOTYPE — not wired to any UI)
+// ════════════════════════════════════════════════════════════════════════════════
+// Instead of scoring each force in isolation and mapping a ratio to a Break Limit
+// reduction, this simulates the game's ACTUAL kill mechanic between the two specific
+// forces, then searches for the BL adjustment that lands closest to a 50/50 outcome.
+//
+// It is deliberately crude — no terrain geometry, no positioning, no activation
+// order — because the errors are symmetric: both sides suffer the same abstraction,
+// so relative balance survives. What it captures that calcTeamScore cannot:
+//   • The armor/AT immunity threshold, PER MATCHUP (a Sherman is worthless against a
+//     force it can't penetrate, priceless against one it can).
+//   • Attrition RATE, not just attrition tolerance — who gets tabled first.
+//   • Coverage gaps — units one side simply cannot kill.
+//   • Artillery as the immunity-breaker: barrages apply RFPs directly (reduced only by
+//     flank armor, max -2), so a gun line that can't be penetrated can still be ground
+//     down by Heavy artillery — on a limited per-game fire-mission budget.
+//
+// Known v1 limitations: suppression-without-kill is ignored; sniper leader-targeting is
+// abstracted to a short rifle; fire is simultaneous (no IGOUGO first-strike); on-table
+// dual-purpose howitzers can both barrage and direct-fire in a turn (minor overcount).
+//
+// Soft knobs (the only tunable assumptions; calibrate against recorded game results):
+const MCB = {
+  FLANK_FRAC:   0.33,  // fraction of vehicle shots that catch flank armor (maneuver happens)
+  HIT_PROB:     0.5,   // base 4+ to-hit before terrain modifiers
+  COVER_FRAC:   0.40,  // fraction of infantry/gun targets treated as in hard cover
+  GAME_TURNS:   6,     // turn cap (survival past game end is wasted)
+  RUNS:         600,   // Monte Carlo iterations per BL setting
+  DRAW_EPS:     0.05,  // |deaths/BL| gap below this at timeout = draw
+  // Artillery: RFPs and per-game fire-mission budget by barrage weight.
+  BARRAGE_RFP:      { Light: 1, Medium: 2, Heavy: 3 },
+  BARRAGE_MISSIONS: { Light: 4, Medium: 3, Heavy: 2 },
+  BARRAGE_BASE_CATCH: 1.4,  // expected enemy teams under a 2-gun template (bakes in deviation/scatter)
+  BARRAGE_GUN_CATCH:  0.4,  // extra expected teams per gun above 2 (template grows, capped at +2 guns)
+};
+
+// Penetration probability for one hit: AT>AR rolls the difference, any 6 destroys.
+function mcbPen(at, ar) {
+  if (at == null || ar == null) return 0;
+  return at > ar ? 1 - Math.pow(5/6, at - ar) : 0;
+}
+// Blend front/flank by how often maneuver exposes the flank.
+function mcbPenBlend(at, front, flank) {
+  return (1 - MCB.FLANK_FRAC) * mcbPen(at, front) + MCB.FLANK_FRAC * mcbPen(at, flank);
+}
+// P(destroy a vehicle in one fire order): RoF hits at HIT_PROB, each penetrates independently.
+function mcbKillVeh(at, rof, front, flank) {
+  const p = mcbPenBlend(at, front, flank);
+  if (p <= 0) return 0;
+  return 1 - Math.pow(1 - MCB.HIT_PROB * p, rof);
+}
+// P(kill a non-vehicle team in one fire order). Non-vehicles take at most 1 hit per
+// order; that hit deals FP RFPs, resolved worst-of-FP-dice (kill on 1-2 open / 1 in cover).
+function mcbKillInf(rof, fp, hardCover) {
+  const pHit = 1 - Math.pow(1 - MCB.HIT_PROB, rof);      // capped at one hit
+  const pKill = hardCover ? 1 - Math.pow(5/6, fp) : 1 - Math.pow(4/6, fp);
+  return pHit * pKill;
+}
+// P(kill from one barrage hit): RFP reduced by flank armor for vehicles (max -2, not for
+// open-topped), then resolved worst-of-RFP-dice. Crews resolve as hard cover always.
+function mcbBarrageKill(rfp, target) {
+  let eff = rfp;
+  if (target.isVeh && !target.openTopped) eff -= Math.min(2, target.flank || 0);
+  if (eff <= 0) return 0;
+  if (target.isVeh) return 1 - Math.pow(5/6, eff);
+  const open = 1 - Math.pow(4/6, eff), cov = 1 - Math.pow(5/6, eff);
+  return (1 - MCB.COVER_FRAC) * open + MCB.COVER_FRAC * cov;
+}
+
+// Build a force: a flat list of on-table combat teams plus its artillery batteries.
+// Off-board barrage units (no direct fire) deliver fire missions but are not on the
+// table — not targetable and not counted toward Break Limit.
+function mcbBuild(platoons) {
+  const teams = [], batteries = [];
+  for (const pl of (platoons || [])) {
+    const artyGuns = {};   // barrage type -> gun count in this platoon
+    for (const t of (pl.teams || [])) {
+      const u = allUnits.find(x => x.id === t.unitId);
+      if (!u) continue;
+      if (u.type === 'Upgrade') continue;                 // embedded capability, not a team
+      if (u.name === 'Platoon Leader' || u.name === 'Company Commander') continue;
+      const notes  = u.notes || [];
+      const qty    = t.qty || 1;
+      const bType  = notes.includes('Heavy Artillery')  ? 'Heavy'
+                   : notes.includes('Medium Artillery') ? 'Medium'
+                   : notes.includes('Light Artillery')  ? 'Light' : null;
+      if (bType) artyGuns[bType] = (artyGuns[bType] || 0) + qty;
+      const range   = parseInt(u.gun_range) || 0;
+      const rfpOnly = notes.includes('May only inflict RFPs');
+      const at      = (u.at != null && !rfpOnly) ? +u.at : null;
+      if (bType && range <= 0 && at == null) continue;     // pure off-board barrage: not on table
+      const front = u.armor_front != null ? +u.armor_front : null;
+      const flank = u.armor_flank != null ? +u.armor_flank : front;
+      const stat = {
+        name: u.name,
+        isVeh: FS_VEHICLES.has(u.type),
+        front, flank,
+        rof: +u.rof || 0,
+        fp:  +u.fp  || 1,
+        at,
+        hasDirect: range > 0 && !rfpOnly,                 // can it hurt infantry/guns?
+        openTopped: notes.includes('Open Topped'),
+        value: calcTeamScore(u),
+      };
+      for (let i = 0; i < qty; i++) teams.push(stat);     // shared stat ref; per-run state is separate
+    }
+    for (const type in artyGuns) {
+      const guns = artyGuns[type];
+      if (guns < 2) continue;                              // need 2+ guns to barrage
+      batteries.push({
+        rfp:      MCB.BARRAGE_RFP[type],
+        missions: MCB.BARRAGE_MISSIONS[type],
+        catch:    MCB.BARRAGE_BASE_CATCH + MCB.BARRAGE_GUN_CATCH * Math.min(2, guns - 2),
+      });
+    }
+  }
+  return { teams, batteries };
+}
+
+// Per-order kill probability of shooter vs target (the heart of the matchup model).
+function mcbKillProb(shooter, target) {
+  if (target.isVeh) {
+    if (shooter.at == null) return 0;
+    return mcbKillVeh(shooter.at, Math.max(1, shooter.rof), target.front, target.flank);
+  }
+  // target is infantry/gun
+  if (!shooter.hasDirect) return 0;
+  const open = mcbKillInf(Math.max(1, shooter.rof), shooter.fp, false);
+  const cov  = mcbKillInf(Math.max(1, shooter.rof), shooter.fp, true);
+  return (1 - MCB.COVER_FRAC) * open + MCB.COVER_FRAC * cov;
+}
+
+// Precompute the full direct-fire kill-probability matrices once (static across runs).
+function mcbMatrices(A, B) {
+  const ab = A.map(s => B.map(t => mcbKillProb(s, t)));
+  const ba = B.map(s => A.map(t => mcbKillProb(s, t)));
+  return { ab, ba };
+}
+
+// One side's direct fire: each living shooter picks the living enemy it kills most
+// reliably (ties broken toward higher value), rolls, and flags kills (applied after).
+function mcbVolley(shooters, targets, killMatrix, aliveS, aliveT, pendingKills) {
+  for (let i = 0; i < shooters.length; i++) {
+    if (!aliveS[i]) continue;
+    let bestJ = -1, bestP = 0, bestVal = -1;
+    const row = killMatrix[i];
+    for (let j = 0; j < targets.length; j++) {
+      if (!aliveT[j] || pendingKills[j]) continue;
+      const p = row[j];
+      if (p > bestP || (p === bestP && p > 0 && targets[j].value > bestVal)) {
+        bestP = p; bestJ = j; bestVal = targets[j].value;
+      }
+    }
+    if (bestJ >= 0 && Math.random() < bestP) pendingKills[bestJ] = true;
+  }
+}
+
+// One side's barrages: each battery with missions left drops on the highest-value
+// damageable cluster it can reach, catching ~catch teams, then spends a fire mission.
+function mcbBarrageVolley(batteries, targets, aliveT, pendingKills) {
+  for (const bat of batteries) {
+    if (bat.missions <= 0) continue;
+    const cand = [];
+    for (let j = 0; j < targets.length; j++) {
+      if (!aliveT[j] || pendingKills[j]) continue;
+      const p = mcbBarrageKill(bat.rfp, targets[j]);
+      if (p > 0) cand.push([j, p, targets[j].value]);
+    }
+    if (!cand.length) continue;
+    cand.sort((x, y) => y[2] - x[2]);                      // juiciest cluster first
+    let n = Math.floor(bat.catch) + (Math.random() < (bat.catch % 1) ? 1 : 0);
+    n = Math.min(n, cand.length);
+    for (let k = 0; k < n; k++) if (Math.random() < cand[k][1]) pendingKills[cand[k][0]] = true;
+    bat.missions--;
+  }
+}
+
+// Simulate one game to its conclusion. Returns { w: 'a'|'b'|'draw', turns }.
+function mcbOneGame(FA, FB, mat, blA, blB) {
+  const A = FA.teams, B = FB.teams;
+  const batA = FA.batteries.map(b => ({ ...b })), batB = FB.batteries.map(b => ({ ...b }));
+  const aliveA = A.map(() => true), aliveB = B.map(() => true);
+  let deadA = 0, deadB = 0;
+  for (let turn = 0; turn < MCB.GAME_TURNS; turn++) {
+    const killB = B.map(() => false), killA = A.map(() => false);
+    mcbBarrageVolley(batA, B, aliveB, killB);          // A's artillery
+    mcbVolley(A, B, mat.ab, aliveA, aliveB, killB);    // A's direct fire
+    mcbBarrageVolley(batB, A, aliveA, killA);          // B's artillery (simultaneous)
+    mcbVolley(B, A, mat.ba, aliveB, aliveA, killA);    // B's direct fire
+    for (let j = 0; j < B.length; j++) if (killB[j] && aliveB[j]) { aliveB[j] = false; deadB++; }
+    for (let i = 0; i < A.length; i++) if (killA[i] && aliveA[i]) { aliveA[i] = false; deadA++; }
+    const aBroke = deadA >= blA, bBroke = deadB >= blB;
+    if (aBroke || bBroke) {
+      const ra = deadA / blA, rb = deadB / blB;
+      const w = (aBroke && bBroke)
+        ? (Math.abs(ra - rb) < MCB.DRAW_EPS ? 'draw' : (ra > rb ? 'b' : 'a'))
+        : (aBroke ? 'b' : 'a');
+      return { w, turns: turn + 1 };
+    }
+  }
+  const ra = deadA / blA, rb = deadB / blB;
+  return { w: Math.abs(ra - rb) < MCB.DRAW_EPS ? 'draw' : (ra > rb ? 'b' : 'a'), turns: MCB.GAME_TURNS };
+}
+
+// Run a batch at a given BL pair; return win rate (draws as half), avg length, early-kill rate.
+function mcbBatch(FA, FB, mat, blA, blB) {
+  let wa = 0, dr = 0, turnSum = 0, early = 0;
+  for (let r = 0; r < MCB.RUNS; r++) {
+    const g = mcbOneGame(FA, FB, mat, blA, blB);
+    if (g.w === 'a') wa++; else if (g.w === 'draw') dr++;
+    turnSum += g.turns;
+    if (g.turns <= 2) early++;
+  }
+  return { pWinA: (wa + dr / 2) / MCB.RUNS, avgTurns: turnSum / MCB.RUNS, earlyRate: early / MCB.RUNS };
+}
+
+// Coverage: fraction of one side's teams the shooter cannot kill by ANY means (direct
+// fire or barrage) — the immunity gap that no Break Limit adjustment can fix.
+function mcbCoverage(shootForce, targets, killMatrix) {
+  let killable = 0;
+  for (let j = 0; j < targets.length; j++) {
+    let canDie = false;
+    for (let i = 0; i < killMatrix.length; i++) { if (killMatrix[i][j] > 0.01) { canDie = true; break; } }
+    if (!canDie) for (const bat of shootForce.batteries) {
+      if (mcbBarrageKill(bat.rfp, targets[j]) > 0.01) { canDie = true; break; }
+    }
+    if (canDie) killable++;
+  }
+  return targets.length ? killable / targets.length : 1;
+}
+
+// Top-level: balance two platoon lists. Searches BL transfer on the stronger side
+// until win probability is nearest 50%. Returns a rich, inspectable result object.
+function mcbBalance(platoonsA, platoonsB, baseBlA, baseBlB) {
+  const FA = mcbBuild(platoonsA), FB = mcbBuild(platoonsB);
+  if (!FA.teams.length || !FB.teams.length) return { error: 'empty force' };
+  const mat = mcbMatrices(FA.teams, FB.teams);
+  const blA0 = baseBlA != null ? baseBlA : calcBreakLimit((platoonsA || []).length);
+  const blB0 = baseBlB != null ? baseBlB : calcBreakLimit((platoonsB || []).length);
+
+  const base = mcbBatch(FA, FB, mat, blA0, blB0);
+  const stronger = base.pWinA > 0.5 ? 'a' : 'b';   // whoever is winning at natural BL
+
+  // Sweep an integer adjustment to the stronger side's BL: positive = reduce it,
+  // handing the weaker side a longer leash. Keep the setting closest to 50/50.
+  let best = { transfer: 0, blA: blA0, blB: blB0, p: base.pWinA, stats: base, gap: Math.abs(base.pWinA - 0.5) };
+  for (let t = -2; t <= 10; t++) {
+    let blA = blA0, blB = blB0;
+    if (stronger === 'a') blA = Math.max(1, blA0 - t); else blB = Math.max(1, blB0 - t);
+    const st = mcbBatch(FA, FB, mat, blA, blB);
+    const gap = Math.abs(st.pWinA - 0.5);
+    if (gap < best.gap) best = { transfer: t, blA, blB, p: st.pWinA, stats: st, gap };
+  }
+
+  return {
+    base:        { blA: blA0, blB: blB0, pWinA: +base.pWinA.toFixed(3), avgTurns: +base.avgTurns.toFixed(1) },
+    stronger,
+    recommend:   { blA: best.blA, blB: best.blB, transfer: best.transfer,
+                   pWinA: +best.p.toFixed(3), avgTurns: +best.stats.avgTurns.toFixed(1),
+                   earlyDecisiveRate: +best.stats.earlyRate.toFixed(2) },
+    coverage:    { aCanHurtFracOfB: +mcbCoverage(FA, FB.teams, mat.ab).toFixed(2),
+                   bCanHurtFracOfA: +mcbCoverage(FB, FA.teams, mat.ba).toFixed(2) },
+    batteries:   { a: FA.batteries.length, b: FB.batteries.length },
+    sizes:       { a: FA.teams.length, b: FB.teams.length },
+  };
+}
+window.mcbBalance = mcbBalance;
+// ════════════════════════════════════════════════════════════════════════════════
+
 function quickCompareFPP() {
   fppState.lastMode = 'quick';
   fppState.a.name = document.getElementById('fpp-name-a')?.value.trim() || fppState.a.name || 'Player A';
