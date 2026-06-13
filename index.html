@@ -2533,6 +2533,13 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+  .team-pts {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
 
   .team-remove-btn {
     background: none;
@@ -5643,11 +5650,17 @@ If this field has content, clicking the card opens an in-app reader. Otherwise t
         <span class="summary-stat-label">Break Limit</span>
         <span class="summary-stat-value" id="summary-bl">5</span>
       </div>
+      <div class="summary-stat admin-only" id="summary-pts-stat" style="grid-column: 1 / -1; display: none">
+        <span class="summary-stat-label">Points</span>
+        <span class="summary-stat-value" id="summary-pts">0</span>
+      </div>
     </div>
     <div class="force-summary-inline">
       <span><span class="fsi-num" id="summary-units-inline">0</span> Platoons</span>
       <span class="fsi-sep">·</span>
       <span>BL <span class="fsi-num" id="summary-bl-inline">5</span></span>
+      <span class="fsi-sep" id="summary-pts-inline-sep" style="display:none">·</span>
+      <span id="summary-pts-inline-wrap" style="display:none"><span class="fsi-num" id="summary-pts-inline">0</span> pts</span>
     </div>
     <div class="force-actions">
       <button class="action-btn primary" onclick="saveForce()">Save</button>
@@ -5674,6 +5687,8 @@ If this field has content, clicking the card opens an in-app reader. Otherwise t
     <span class="fp-bar-stat"><span class="fp-bar-stat-val" id="fp-bar-platoons">0</span> <span class="fp-bar-stat-lbl" id="fp-bar-platoons-lbl">platoons</span></span>
     <span class="fp-bar-sep">·</span>
     <span class="fp-bar-stat">BL <span class="fp-bar-stat-val" id="fp-bar-bl">5</span></span>
+    <span class="fp-bar-sep" id="fp-bar-pts-sep" style="display:none">·</span>
+    <span class="fp-bar-stat" id="fp-bar-pts-wrap" style="display:none"><span class="fp-bar-stat-val" id="fp-bar-pts">0</span> pts</span>
   </div>
   <div class="fp-bar-chevron">▲</div>
 </div>
@@ -7126,6 +7141,7 @@ const FS_LONGEVITY    = {0:0.824, 1:0.891, 2:1.0, 3:1.159, 4:1.382, 5:1.555, 6:1
 const FS_TURRET_MULT  = 1.3;   // AT multiplier for turreted vehicles
 const FS_RESIDUAL_DEF = 0.4;   // standalone armor value, on top of the longevity multiplier
 const FS_PRESENCE     = 3;     // board-presence value per non-vehicle combat team (infantry/guns)
+const FS_DISPLAY_DIV  = 1.2;  // raw-to-display divisor: Rifle/MG Team (raw 6) = 5 display pts
 // FPP auto-resolve: attacker must exceed defender score by this margin to win a pairing.
 // Reflects the rule: "when it's not obvious which unit is more threatening, the defender has the edge."
 const FPP_DEFENDER_MARGIN = 0.15;
@@ -7344,6 +7360,14 @@ function calcPlatoonScore(platoon) {
   return score;
 }
 
+function displayPoints(rawScore) {
+  return Math.round(rawScore / FS_DISPLAY_DIV);
+}
+
+function calcForcePoints() {
+  return platoons.reduce((sum, p) => sum + displayPoints(calcPlatoonScore(p)), 0);
+}
+
 function updateForceUI() {
   const count = platoons.length;
   const breakLimit = calcBreakLimit(count);
@@ -7361,6 +7385,22 @@ function updateForceUI() {
   if (barPlatoons) barPlatoons.textContent = count;
   if (barPlatoonsLbl) barPlatoonsLbl.textContent = count === 1 ? 'platoon' : 'platoons';
   if (barBL) barBL.textContent = breakLimit;
+  const ptsVis = showScores ? '' : 'none';
+  const forcePoints = calcForcePoints();
+  document.getElementById('summary-pts').textContent = forcePoints;
+  document.getElementById('summary-pts-stat').style.display = showScores ? '' : 'none';
+  const inlinePtsSep  = document.getElementById('summary-pts-inline-sep');
+  const inlinePtsWrap = document.getElementById('summary-pts-inline-wrap');
+  const inlinePts     = document.getElementById('summary-pts-inline');
+  if (inlinePts)     inlinePts.textContent = forcePoints;
+  if (inlinePtsSep)  inlinePtsSep.style.display  = ptsVis;
+  if (inlinePtsWrap) inlinePtsWrap.style.display  = ptsVis;
+  const barPtsSep  = document.getElementById('fp-bar-pts-sep');
+  const barPtsWrap = document.getElementById('fp-bar-pts-wrap');
+  const barPts     = document.getElementById('fp-bar-pts');
+  if (barPts)     barPts.textContent     = forcePoints;
+  if (barPtsSep)  barPtsSep.style.display  = ptsVis;
+  if (barPtsWrap) barPtsWrap.style.display  = ptsVis;
   // Hide the mobile fp-bar entirely when the builder is empty — nothing to view.
   const fpBar = document.getElementById('fp-bar');
   if (fpBar) fpBar.classList.toggle('fp-bar-empty', count === 0);
@@ -7445,6 +7485,7 @@ function updateForceUI() {
                   <span class="team-qty team-qty-collapsed">${t.qty}×</span>`
                 : `<span class="team-qty team-qty-fixed">${t.qty}×</span>`}
               <span class="team-name">${teamLabel}</span>
+              ${showScores ? `<span class="team-pts">${displayPoints(calcTeamScore(unit)) || ''}</span>` : ''}
               ${fixed
                 ? `<button class="team-lock-btn ${unlocked ? 'unlocked' : ''}" onclick="event.stopPropagation();toggleTeamLock('${platoon.id}','${t.unitId}')" data-tip="${unlocked ? 'Lock' : 'Unlock to edit'}">
                     ${unlocked ? '🔓' : '🔒'}
@@ -7470,7 +7511,7 @@ function updateForceUI() {
             value="${platoon.name}"
             oninput="updatePlatoonName('${platoon.id}', this.value)"
             placeholder="Platoon name...">
-          ${showScores ? `<span class="platoon-score-badge">${calcPlatoonScore(platoon)} pts</span>` : ''}
+          ${showScores ? `<span class="platoon-score-badge">${displayPoints(calcPlatoonScore(platoon))} pts</span>` : ''}
           <button class="platoon-quality-cycle ${pqColorCls}${pqInheritCls}" data-tip="Quality: ${effectiveQ}${platoon.quality ? '' : ' (inherited)'} · tap to change" onclick="cyclePlatoonQuality('${platoon.id}')">${effectiveQ.charAt(0)}</button>
           <button class="platoon-select-btn" onclick="setActivePlatoon('${platoon.id}')">
             ${isActive ? 'Active' : 'Select'}
