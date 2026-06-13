@@ -66,3 +66,22 @@ When a force's Break Points exceed its Break Limit, it routs and loses.
 - **Objective surplus** (the "plus two"): how much help the Attacker gets by default. Higher favors the Attacker.
 - **Rolls per capture** (currently two): how hard losing ground hits. The objective channel is strong as written; losing your whole line will nearly break you, which is intended. Lower to one roll if objectives feel too dominant.
 - **Reserve timing** (currently turn 3): earlier reserves pressure the Attacker harder and strengthen the Defender's counterpunch.
+
+## Optional lever: the Weight count (composition handicap)
+
+A points-free way to make raw power cost something, so the strongest units are not a free pick. It stays fast because only genuine standouts count; everything ordinary scores zero, so you are spotting the scary stuff, not tallying an army. It is comparative: matched power cancels.
+
+Each platoon scores 1 Weight for **each** of the following it has, so a Tiger (heavy armor and a heavy gun) scores 2:
+
+- A vehicle whose **front and flank armor total 6 or more** (Tiger, Panther, IS-2, King Tiger).
+- A team with **Anti-Tank 6 or more** (the biggest guns and tank-hunters).
+- **Elite** quality.
+- An **infantry platoon of 10 or more teams** (this also stops players cramming bodies into one giant cheap platoon, since platoon size is flexible).
+
+Optional extra flags if you want more reach: a weapon at **Firepower 3** (flame-throwers, heavy howitzers); an **autocannon / quad AA** mount; a **Medium or Heavy artillery or off-board barrage** unit; a **Sniper**.
+
+Total each force's Weight. The heavier force **lowers its Break Limit by 1 per point of difference**. Two Tiger forces both run heavy and cancel; a Tiger force against a Sherman force pays the full gap.
+
+Why it works: the thresholds sit just above the "very good but not a monster" tier, so StuG, Sherman 76, PaK40, and Panzer IV all weigh zero and form a cost-free backbone, while monsters cost you unless the enemy matched them. It is the unit-to-unit comparison the old FPP had, generalized across every axis of power and settled by counting instead of judging.
+
+Dials: the Break Limit hit per point (1 to start); the thresholds (raise to tax only super-heavies); and per-platoon (a Tiger platoon weighs 2 regardless of size, simplest) versus per-team (three Tigers weigh 6, which folds quantity in too).
