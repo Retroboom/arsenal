@@ -1403,6 +1403,7 @@
   .unit-card .note-tag,
   .unit-card .note-tag.special { background: rgba(0,0,0,0.07); border-color: rgba(0,0,0,0.16); color: #1e1a08; }
   .unit-card .base-badge { background: rgba(0,0,0,0.07); border-color: rgba(0,0,0,0.16); color: #3a3018; }
+  .unit-card .card-pts-badge { color: var(--accent); border-color: var(--accent); opacity: 0.7; }
   .unit-card .years-display { color: #6a5a28; }
   .unit-card .card-footer { border-top-color: rgba(0,0,0,0.12); }
   .unit-card .add-force-btn { border-color: rgba(0,0,0,0.2); color: #3a3018; }
@@ -6266,6 +6267,7 @@ function renderGrid(container, forceIds, animate = true) {
             <span class="years-display">
               ${yearRange(unit.years)}
               ${unit.base ? `<span class="base-badge">${unit.base}</span>` : ''}
+              ${showScores && !locked ? `<span class="base-badge card-pts-badge">${displayPoints(calcTeamScore(unit))} pts</span>` : ''}
             </span>
             ${locked
               ? `<button class="add-force-btn" onclick="event.stopPropagation();showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Supporter Content</button>`
@@ -9969,6 +9971,7 @@ function toggleScoreDisplay() {
   const btn = document.getElementById('score-toggle-btn');
   if (btn) btn.classList.toggle('active', showScores);
   updateForceUI();
+  renderUnits(true);
 }
 
 // ── FORCE SHEET ───────────────────────────────────────────────────────────────
