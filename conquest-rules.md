@@ -29,9 +29,9 @@
 
 ## Capturing objectives
 
-- An **Attacker Infantry or Gun Team** that ends its activation within 4" of an objective, with no Defender Team within 4", **captures** it. Vehicles may sit on an objective to contest it (denying control) but can never capture or hold one.
-- The **first time** the Attacker captures a given objective, the Defender immediately makes **two Break Point rolls**.
-- Each objective pays out **once per game**. Retaking it, by either side, generates no further Break Points.
+- An **Infantry or Gun Team** that ends its activation within 4" of an objective, with no enemy Team within 4", **takes control** of it. Vehicles may sit on an objective to contest it (denying the enemy control) but can never take or hold one.
+- The **Defender begins in control of every objective.** Whenever a player **takes an objective from the enemy**, the enemy immediately makes **two Break Point rolls**. This cuts both ways: the Attacker capturing, and the Defender recapturing.
+- Taking a **neutral** objective (one neither side currently holds) scores nothing; only wresting one from the enemy does. An objective can change hands, and score, any number of times.
 
 ## Break Points
 
@@ -47,7 +47,7 @@ When a force's Break Points exceed its Break Limit, it routs and loses.
 
 ## Why it is built this way
 
-- **The attack is the only way to take ground,** so the Attacker has to come forward and expose itself to do anything, where the Defender's guns punish it. A fast force with infantry to hold what it takes exploits this best, which is why it usually wins the bid.
+- **The Attacker is the aggressor,** starting with nothing and having to come forward and expose itself to take ground, where the Defender's guns punish it. A fast force with infantry to hold what it takes exploits this best, which is why it usually wins the bid. The Defender can claw back by recapturing, which gives them an objective counterpunch and punishes an Attacker who grabs ground but cannot hold it.
 - **The objective count keeps the Defender honest.** More Units means a higher Break Limit but also more objectives to lose, so you cannot buy toughness by spamming cheap platoons. Quality that holds its ground keeps its Break Limit; a swarm that cannot hold hands it back through captures.
 - **The bid carries the handicap,** priced by the players rather than a formula. The weaker side's credible threat to take the attack forces the stronger side to pay Break Limit for it.
 - **Placement is fair by sequence.** The Attacker places objectives before learning which edge is theirs, so they cannot stack their own ground. The 12" margins keep everything in the contestable middle, so nothing can be parked deep and held for free. The Defender then picks the edge, which punishes any lopsided placement.
@@ -59,6 +59,7 @@ When a force's Break Points exceed its Break Limit, it routs and loses.
 - **Does it resolve?** If an Attacker grabs the open objectives, banks the early damage, then sits while the game stalls, the reserve pressure was not enough. The fix is held in reserve: 1 Break Point roll at the end of each turn the Attacker does not control every objective.
 - **The counterpunch.** If reserves arrive too late or too seldom to take anything back, let the check start on turn 2 or ease it before changing anything else.
 - **Pure mismatches.** If a side simply cannot damage the other by any means, that is a list problem (bring anti-tank), not something the scenario can fix.
+- **Flip-prone objectives.** Because objectives now score every time they change hands, a single hotly contested objective can throw a lot of break points both ways. Watch that one chokepoint does not dominate a game; if it does, spread placement wider or lower the rolls per capture.
 
 ## Tuning dials
 

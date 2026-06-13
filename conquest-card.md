@@ -16,16 +16,16 @@
 ---
 
 ### Capturing
-- **Attacker Infantry or Gun Team** within 4", with **no Defender Team within 4"** → captures it.
-- **Vehicles contest only**, never capture or hold.
-- **First capture of an objective → Defender rolls 2 Break Points.** Once per objective only.
+- **Infantry or Gun Team** within 4", with **no enemy Team within 4"** → takes control. Defender starts holding all.
+- **Vehicles contest only**, never take or hold.
+- **Take an objective from the enemy → they roll 2 Break Points.** Both ways (Attacker capturing, Defender recapturing). Taking a neutral objective scores nothing. No limit on flips.
 
 ---
 
 ### Break Points (roll ONLY when):
 - Your Unit drops **below half strength** → you roll **1**.
 - Your Unit is **destroyed** → you roll **1** (**2** if killed outright while above half).
-- Attacker makes a **first capture** of an objective → Defender rolls **2**.
+- You **take an objective from the enemy** → they roll **2** (either side).
 
 *No end-of-turn rolls.*
 
