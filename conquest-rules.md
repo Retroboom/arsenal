@@ -1,0 +1,67 @@
+# HAIL OF FIRE: Conquest
+### A self-balancing pick-up scenario. Playtest draft, 13 June 2026.
+
+**What it is for.** Bring any two forces, get a close game in a couple of minutes, with no points, no argument over who is stronger, and no swapping models. The balance lives in the setup, not in a pre-game sum. Play uses the normal Hail of Fire turn sequence; only the setup and the Break Point triggers below differ from a standard game.
+
+**Three things first.**
+- A *Unit* is a platoon.
+- *Break Limit* = 5 + 2 per Unit. When a force's Break Points exceed its Break Limit, it routs and loses.
+- A *Break Point roll* is 1d6: 1 to 3 scores 1, 4 to 5 scores 2, a 6 scores 3.
+
+## Setup, in order
+
+**1. Forces and terrain.** Build your forces. Set up a table with cover across both halves.
+
+**2. Bid for the attack.** Only the Attacker can capture objectives, and capturing is how you push the enemy toward routing, so the attack is the prize. Auction it:
+- Starting at zero, players take turns either raising the bid by one or passing. Your bid is the number of Break Limit points you will give up to be the Attacker.
+- The highest bidder is the **Attacker** and lowers their Break Limit by that bid. The other player is the **Defender**.
+- If both pass at zero, neither wants it enough to pay: the side with more vehicle Teams attacks, at no penalty.
+
+*Example. A Soviet rifle company faces a German Panther force. The Soviet bids 1, wanting the capture channel because it is their only way to hurt Panthers without penetrating them. The German bids 2, then 3, then 4, valuing the attack more. The Soviet passes. The German attacks at minus 4 Break Limit; the Soviet defends at full.*
+
+**3. Attacker places objectives.** Place objectives equal to **half the Defender's Units, rounded down, plus two**. Place them at least 12" apart and at least 12" from any table edge. Placing now, before edges are chosen, the Attacker cannot aim objectives at their own ground, because they do not yet know which ground will be theirs.
+
+**4. Defender picks an edge.** The Defender chooses a long table edge; the Attacker takes the opposite. The **Defender begins in control of every objective**, whether or not a Team is near it.
+
+**5. Reserves.** The Defender holds **half their Units (rounded down) in reserve**, choosing vehicle Units first. From the start of turn 3, the Defender may roll one Reserves Check per turn to bring a reserve Unit on (standard Reserves rules).
+
+**6. Deploy and play** until a force routs.
+
+## Capturing objectives
+
+- An **Attacker Infantry or Gun Team** that ends its activation within 4" of an objective, with no Defender Team within 4", **captures** it. Vehicles may sit on an objective to contest it (denying control) but can never capture or hold one.
+- The **first time** the Attacker captures a given objective, the Defender immediately makes **two Break Point rolls**.
+- Each objective pays out **once per game**. Retaking it, by either side, generates no further Break Points.
+
+## Break Points
+
+Rolled only when something happens. There are no end-of-turn rolls.
+
+- A Unit reduced **below half strength**: its owner makes 1 roll.
+- A Unit **destroyed**: its owner makes 1 roll (2 total if destroyed outright while still above half).
+- The Attacker **captures an objective** (first time): the Defender makes 2 rolls.
+
+When a force's Break Points exceed its Break Limit, it routs and loses.
+
+*Optional, if you dislike open-ended games: cap at 6 turns; if neither has routed, the side with the lower ratio of Break Points to Break Limit wins, ties going to whoever holds more objectives.*
+
+## Why it is built this way
+
+- **The attack is the only way to take ground,** so the Attacker has to come forward and expose itself to do anything, where the Defender's guns punish it. A fast force with infantry to hold what it takes exploits this best, which is why it usually wins the bid.
+- **The objective count keeps the Defender honest.** More Units means a higher Break Limit but also more objectives to lose, so you cannot buy toughness by spamming cheap platoons. Quality that holds its ground keeps its Break Limit; a swarm that cannot hold hands it back through captures.
+- **The bid carries the handicap,** priced by the players rather than a formula. The weaker side's credible threat to take the attack forces the stronger side to pay Break Limit for it.
+- **Placement is fair by sequence.** The Attacker places objectives before learning which edge is theirs, so they cannot stack their own ground. The 12" margins keep everything in the contestable middle, so nothing can be parked deep and held for free. The Defender then picks the edge, which punishes any lopsided placement.
+- **Pacing is the reserves, not a clock.** The Attacker is on no Break Point timer. Instead the Defender's reserves arrive from turn 3, so every turn the Attacker stalls, the defense thickens, its losses climb, and the Defender gets its counterpunch to retake ground.
+
+## What to watch in your games
+
+- **Win rate by role.** Aim for roughly even across varied matchups. If Defenders win a lot, raise the objective surplus (the "plus two") or the capture rolls; if Attackers run away with it, lower them.
+- **Does it resolve?** If an Attacker grabs the open objectives, banks the early damage, then sits while the game stalls, the reserve pressure was not enough. The fix is held in reserve: 1 Break Point roll at the end of each turn the Attacker does not control every objective.
+- **The counterpunch.** If reserves arrive too late or too seldom to take anything back, let the check start on turn 2 or ease it before changing anything else.
+- **Pure mismatches.** If a side simply cannot damage the other by any means, that is a list problem (bring anti-tank), not something the scenario can fix.
+
+## Tuning dials
+
+- **Objective surplus** (the "plus two"): how much help the Attacker gets by default. Higher favors the Attacker.
+- **Rolls per capture** (currently two): how hard losing ground hits. The objective channel is strong as written; losing your whole line will nearly break you, which is intended. Lower to one roll if objectives feel too dominant.
+- **Reserve timing** (currently turn 3): earlier reserves pressure the Attacker harder and strengthen the Defender's counterpunch.
