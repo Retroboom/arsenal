@@ -3198,6 +3198,12 @@
   .library-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
   .library-tab:hover { color: var(--text); }
 
+  /* Hard gate: admin-only elements are hidden for everyone unless the body
+     is flagged is-admin. This is the source of truth for admin visibility,
+     so a stale render or missed JS toggle can never leak admin controls to
+     a regular user. The is-admin class is set from the resolved auth state. */
+  body:not(.is-admin) .admin-only { display: none !important; }
+
   /* Admin-only visibility: purple tint so the admin sees which items are
      hidden from regular users. */
   .library-tab.admin-only { color: var(--admin); }
@@ -13928,8 +13934,13 @@ firebase.auth().onAuthStateChanged(async (user) => {
 
   if (user) {
     gate.style.display = 'none';
+    // Fail closed: drop admin until checkAdmin resolves, so a prior admin
+    // session or a mid-await render can never leave admin controls exposed.
+    isAdmin = false;
+    document.body.classList.remove('is-admin');
     isSubscriber = await checkSubscriber(user.email);
-    isAdmin = await checkAdmin(user.email);
+    try { isAdmin = await checkAdmin(user.email); } catch (e) { isAdmin = false; }
+    document.body.classList.toggle('is-admin', isAdmin);
     if (isAdmin) isSubscriber = true;
     updateAuthUI(user, isSubscriber);
     if (isAdmin) {
@@ -13960,6 +13971,7 @@ firebase.auth().onAuthStateChanged(async (user) => {
     isSubscriber = false;
     isAdmin = false;
     showScores = false;
+    document.body.classList.remove('is-admin');
     const stBtn = document.getElementById('score-toggle-btn');
     if (stBtn) stBtn.style.display = 'none';
     const hofBtn = document.getElementById('hof-publish-btn');
