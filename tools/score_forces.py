@@ -152,7 +152,7 @@ FORCES = {
    ("Anti-Tank", [("Platoon Leader","Soviet Union",1),("45mm obr 1942 Gun","Soviet Union",3)], 1),
    ("Tank", [("T-34 obr 1941/42","Soviet Union",3)], 1),
    ("Artillery", [("Platoon Leader","Soviet Union",1),("Forward Observer","Soviet Union",1),("122mm obr 1938 Howitzer","Soviet Union",3)], 1)],
- "SU Tankovy": [("Tank (T-34)", [("T-34 obr 1941/42","Soviet Union",3)], 2),
+ "SU Tankovy": [("Tank (T-34)", [("T-34 obr 1941/42","Soviet Union",3)], 3),  # tweak: 3 T-34 platoons (book lists 2)
    ("Rifle Plt", [("Platoon Leader","Soviet Union",1),("Maksim HMG","Soviet Union",1),("PTRD Anti-Tank Rifle","Soviet Union",1),("Rifle/MG Team","Soviet Union",6),("ZIS-5/6/Dodge Truck","Soviet Union",4)], 1),
    ("Tank (SU-85)", [("SU-85","Soviet Union",3)], 1),
    ("Recon", [("BA-64","Soviet Union",2)], 1),
