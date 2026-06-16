@@ -129,7 +129,7 @@ def C(units, name, nation):
     return score(u)
 
 FORCES = {
- "US Rifle": [("Rifle Plt", [("Platoon Leader","United States",1),("Bazooka","United States",1),("Rifle/MG Team","United States",6)], 3),
+ "US Rifle": [("Rifle Plt", [("Platoon Leader","United States",1),("Bazooka","United States",1),("M1917/M1919 HMG Team","United States",1),("Rifle/MG Team","United States",6)], 3),  # tweak: +1 HMG support / plt
    ("Mortar", [("Platoon Leader","United States",1),("Forward Observer","United States",1),("M1 81mm Mortar","United States",3)], 1),
    ("Anti-Tank", [("Platoon Leader","United States",1),("M1 57mm Gun","United States",3)], 1),
    ("Tank", [("M4 Sherman","United States",3)], 1),
