@@ -147,6 +147,7 @@ FORCES = {
  "DE Panzer": [("Panzer", [("Panzer IV H","Germany",3)], 2),
    ("Pz Grenadier", [("Platoon Leader","Germany",1),("Panzerschreck","Germany",1),("MG Team","Germany",6),("Panzerfaust","Germany",6),("Sd Kfz 251","Germany",4)], 1),
    ("Recon", [("Sd Kfz 234/2 Puma","Germany",2)], 1),
+   ("Flak", [("Sd Kfz 7/1 (Quad 2cm)","Germany",2)], 1),
    ("Artillery", [("Wespe","Germany",3),("Forward Observer","Germany",1),("Sd Kfz 251","Germany",1)], 1)],
  "SU Strelkovy": [("Rifle Plt", [("Platoon Leader","Soviet Union",1),("Maksim HMG","Soviet Union",1),("Rifle/MG Team","Soviet Union",8)], 3),  # tweak: 4-squad (8-team) Rifle/MG platoons, PTRD dropped (obsolete by '44)
    ("Mortar", [("Platoon Leader","Soviet Union",1),("Forward Observer","Soviet Union",1),("82-BM-41 Mortar","Soviet Union",4)], 1),

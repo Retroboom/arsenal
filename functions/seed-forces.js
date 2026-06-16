@@ -69,6 +69,7 @@ const forces = [
       { name: '2nd Panzer Platoon', teams: [{ unitId: 'de-tank-pz4h', qty: 3 }] },
       { name: 'Panzergrenadier Platoon', teams: [{ unitId: 'de-leader', qty: 1 }, { unitId: 'de-inf-panzerschreck', qty: 1 }, { unitId: 'de-inf-mg', qty: 6 }, { unitId: 'de-inf-panzerfaust', qty: 6 }, { unitId: 'de-transport-sdkfz251', qty: 4 }] },
       { name: 'Recon Platoon', teams: [{ unitId: 'de-ac-puma', qty: 2 }] },
+      { name: 'Flak Platoon', teams: [{ unitId: 'de-spaa-sdkfz7', qty: 2 }] },
       { name: 'Artillery Battery', teams: [{ unitId: 'de-fo', qty: 1 }, { unitId: 'de-spa-wespe', qty: 3 }, { unitId: 'de-transport-sdkfz251', qty: 1 }] },
     ],
   },
