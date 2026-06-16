@@ -12,7 +12,7 @@ Pick-up scenario for HoF. Bring whatever you've got, get a fair fight in a coupl
 1. **Terrain.** Cover on both halves.
 2. **Bid for the attack.** Start at 0, take turns bumping +1 or passing. Your bid = the BL you'll give up to be the Attacker. High bid wins it: you're the Attacker, drop your BL by your bid. Other guy's the Defender. Both pass at 0 = whoever's got more vehicles attacks, no cost.
    - Why fight for it? Only the Attacker scores off objectives, and scoring is how you break the other guy. A fast force with infantry to hold ground wants the attack; a slow gunline is happy to sit.
-3. **Attacker drops the objectives.** Count = half the Defender's platoons (round down) + 2. Spread them: 12"+ apart, 12"+ off any edge. You're placing before you know which edge is yours, so you can't stack your own corner.
+3. **Attacker drops the objectives.** Count = half the Defender's platoons (round up) + 2. Spread them: 12"+ apart, 12"+ off any edge. You're placing before you know which edge is yours, so you can't stack your own corner.
 4. **Defender picks an edge.** Attacker takes the opposite. Defender controls every objective to start.
 5. **Reserves.** Defender holds half their platoons (round down) off-table, vehicles first. From turn 3 they roll to bring one on per turn (normal reserves rules).
 6. **Deploy, play till someone routs.**

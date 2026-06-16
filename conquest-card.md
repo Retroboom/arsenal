@@ -8,7 +8,7 @@
 ### Setup
 1. **Terrain** with cover in both halves.
 2. **Bid for the attack.** From 0, take turns raising by 1 or passing. Bid = Break Limit you give up to attack. Highest bidder is the **Attacker** (lower your BL by your bid); the other is the **Defender**. Both pass at 0 means the side with more vehicle Teams attacks, no penalty.
-3. **Attacker places objectives** = (Defender's Units / 2, rounded down) + 2. At least 12" apart and 12" from any table edge.
+3. **Attacker places objectives** = (Defender's Units / 2, rounded up) + 2. At least 12" apart and 12" from any table edge.
 4. **Defender picks an edge**, Attacker takes the opposite. **Defender controls every objective to start.**
 5. **Defender reserves** half their Units (rounded down), vehicles first. Reserves Checks from turn 3.
 6. **Deploy. Play until a force routs.**
