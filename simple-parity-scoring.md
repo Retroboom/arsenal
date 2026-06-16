@@ -92,6 +92,55 @@ All 8 rulebook example forces, every matchup, handicap = BL reduction on the str
 - **BR Rifle is the quiet heavyweight** (Churchills + 25-pdrs): imposes 3–6 on most.
 - Spread across 28 matchups: min 1, max 9, mean ~4.5 (on Break Limits of 15–19).
 
+## Simpler: just compare totals
+
+You can skip the pairing almost entirely, because of a math identity. The handicap has two
+parts — **+1 per pairing won** (breadth) and **+1 per 10-pt margin** (depth). Net out the
+depth part and every pairing contributes `(a_i − b_i)/10` to the difference *whether A or B
+won it*, so it sums to `(totalA − totalB)/10`. **The margin/depth term equals the difference
+of point totals ÷ 10, and the pairing is irrelevant to it.**
+
+So the dead-simple version is:
+
+> **Handicap = round( |totalA − totalB| ÷ 10 )**, applied to the stronger force.
+
+One subtraction, one division. (Nothing is divided except the final gap → BL exchange rate:
+*10 points of gap = 1 handicap point*.)
+
+What you lose is only the **breadth** term (winning many pairings). Across the 8 example
+forces, `FPP ≈ total/10 + breadth`, where breadth adds **0–4** (mean ~1.9). They agree
+exactly when one force dominates uniformly, and diverge when forces *trade* roles — e.g. US
+Tank vs BR Rifle are near-equal totals (→ 0) but the FPP charges 4 because US Tank's
+concentrated platoons win more pairings.
+
+Bonus: totals are arguably more *intuitive* — equal points → 0 handicap, full stop. The FPP
+breadth term quietly handicaps some equal-cost forces, which players don't expect.
+
+### Accuracy vs robustness (why you might still pair)
+
+The two methods don't just differ in effort — they make different demands on the points:
+
+- **Totals are purely *cardinal*.** Every unit's exact value feeds straight into the gap, so
+  a systematic mispricing of a category (say all AT guns are +2 too high) biases the
+  handicap in proportion to how many of that category the two forces *differ* by. Totals are
+  only as trustworthy as the absolute numbers.
+- **The pairing's win-count is *ordinal*.** It only needs the *ranking* right — "is my tank
+  platoon scarier than yours?" — and because it pairs like-with-like, a category-wide
+  mispricing shifts both sides' paired platoons together and **cancels**. It tolerates a
+  rough points system.
+- **But the margin term is exactly as fragile as totals** (it *is* the total difference). So
+  robustness comes specifically from leaning on **wins, not margins** — not from pairing per
+  se.
+
+Trade-off in one line: **margin/cardinal = high resolution, needs an accurate points system;
+win-count/ordinal = low resolution, forgives a rough one.** Pick the blend that matches how
+much you trust the costs. With the coarse hand-formula here, a **win-count-heavy** FPP
+(small or no margin) is the safest; if you drive it off the calibrated calculator model
+([scoring-redesign.md](scoring-redesign.md)), totals become reliable and simpler.
+
+Handy diagnostic: where the totals and FPP answers *disagree* is exactly where your pricing
+is doing the most work — a good place to sanity-check the costs.
+
 ## Spending the gap (instead of just cutting BL)
 
 A raw BL cut makes the weaker force *start near-broken*, which isn't fun. Better: the gap is
