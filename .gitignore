@@ -3,3 +3,7 @@ node_modules/
 
 # Cloudflare local secrets (never commit)
 .dev.vars
+
+# Python bytecode cache (from tools/)
+__pycache__/
+*.pyc
