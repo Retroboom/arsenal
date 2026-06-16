@@ -7354,7 +7354,9 @@ function calcTeamScore(unit) {
       if (notes.includes(key)) { barrageScore = val; break; }
     }
     if (barrageScore > 0 && notes.includes('Smoke')) barrageScore += 2;
-    if (barrageScore > 0) barrageScore *= fp;
+    // NOTE: do NOT multiply by fp here. The Light/Medium/Heavy category already encodes
+    // the FP scale (see FS_BARRAGE comment); an extra ×fp double-counted firepower and
+    // massively inflated medium/heavy batteries (25 pdr, Hummel, sFH18).
   }
 
   // ── Combat value = firepower × longevity + residual armor + presence ───────────
