@@ -19,9 +19,9 @@ const forces = [
     notes: 'Standard US infantry company as organized in NW Europe and Italy. Three rifle platoons supported by organic anti-tank, tank, mortar, and artillery assets. Versatile and well-supported.',
     nations: ['United States'],
     platoons: [
-      { name: '1st Rifle Platoon', teams: [{ unitId: 'us-leader', qty: 1 }, { unitId: 'us-inf-bazooka', qty: 1 }, { unitId: 'us-inf-rifle-mg', qty: 6 }] },
-      { name: '2nd Rifle Platoon', teams: [{ unitId: 'us-leader', qty: 1 }, { unitId: 'us-inf-bazooka', qty: 1 }, { unitId: 'us-inf-rifle-mg', qty: 6 }] },
-      { name: '3rd Rifle Platoon', teams: [{ unitId: 'us-leader', qty: 1 }, { unitId: 'us-inf-bazooka', qty: 1 }, { unitId: 'us-inf-rifle-mg', qty: 6 }] },
+      { name: '1st Rifle Platoon', teams: [{ unitId: 'us-leader', qty: 1 }, { unitId: 'us-inf-bazooka', qty: 1 }, { unitId: 'us-inf-rifle-mg', qty: 6 }, { unitId: 'us-gun-hmg', qty: 1 }] },
+      { name: '2nd Rifle Platoon', teams: [{ unitId: 'us-leader', qty: 1 }, { unitId: 'us-inf-bazooka', qty: 1 }, { unitId: 'us-inf-rifle-mg', qty: 6 }, { unitId: 'us-gun-hmg', qty: 1 }] },
+      { name: '3rd Rifle Platoon', teams: [{ unitId: 'us-leader', qty: 1 }, { unitId: 'us-inf-bazooka', qty: 1 }, { unitId: 'us-inf-rifle-mg', qty: 6 }, { unitId: 'us-gun-hmg', qty: 1 }] },
       { name: 'Anti-Tank Platoon', teams: [{ unitId: 'us-leader', qty: 1 }, { unitId: 'us-gun-57mm', qty: 3 }] },
       { name: 'Tank Platoon', teams: [{ unitId: 'us-tank-m4-sherman', qty: 3 }] },
       { name: 'Mortar Platoon', teams: [{ unitId: 'us-leader', qty: 1 }, { unitId: 'us-fo', qty: 1 }, { unitId: 'us-gun-81mm-mortar', qty: 3 }] },
@@ -55,7 +55,7 @@ const forces = [
       { name: 'Anti-Tank Platoon', teams: [{ unitId: 'de-leader', qty: 1 }, { unitId: 'de-gun-pak40', qty: 2 }] },
       { name: 'Panzer Platoon', teams: [{ unitId: 'de-tank-stug', qty: 3 }] },
       { name: 'Mortar Platoon', teams: [{ unitId: 'de-leader', qty: 1 }, { unitId: 'de-fo', qty: 1 }, { unitId: 'de-gun-8cm-mortar', qty: 3 }] },
-      { name: 'Heavy AA Platoon', teams: [{ unitId: 'de-leader', qty: 1 }, { unitId: 'de-gun-88mm-flak', qty: 1 }] },
+      { name: 'Heavy AA Platoon', teams: [{ unitId: 'de-leader', qty: 1 }, { unitId: 'de-gun-88mm-flak', qty: 2 }] },
     ],
   },
 
@@ -76,12 +76,12 @@ const forces = [
 
   {
     name: 'Soviet Strelkovy Company (1944)',
-    notes: 'Soviet rifle company at full strength. Large platoons include organic HMG and AT rifle teams. Backed by 82mm mortars, 45mm anti-tank guns, T-34/85s, and the massive 152mm howitzer.',
+    notes: 'Soviet rifle company at full strength. Large four-squad platoons each include an organic HMG team. Backed by 82mm mortars, 45mm anti-tank guns, T-34/85s, and the massive 152mm howitzer.',
     nations: ['Soviet Union'],
     platoons: [
-      { name: '1st Rifle Platoon', teams: [{ unitId: 'sv-leader', qty: 1 }, { unitId: 'sv-gun-maksim', qty: 1 }, { unitId: 'sv-gun-ptrd', qty: 1 }, { unitId: 'sv-inf-rifle-mg', qty: 6 }] },
-      { name: '2nd Rifle Platoon', teams: [{ unitId: 'sv-leader', qty: 1 }, { unitId: 'sv-gun-maksim', qty: 1 }, { unitId: 'sv-gun-ptrd', qty: 1 }, { unitId: 'sv-inf-rifle-mg', qty: 6 }] },
-      { name: '3rd Rifle Platoon', teams: [{ unitId: 'sv-leader', qty: 1 }, { unitId: 'sv-gun-maksim', qty: 1 }, { unitId: 'sv-gun-ptrd', qty: 1 }, { unitId: 'sv-inf-rifle-mg', qty: 6 }] },
+      { name: '1st Rifle Platoon', teams: [{ unitId: 'sv-leader', qty: 1 }, { unitId: 'sv-gun-maksim', qty: 1 }, { unitId: 'sv-inf-rifle-mg', qty: 8 }] },
+      { name: '2nd Rifle Platoon', teams: [{ unitId: 'sv-leader', qty: 1 }, { unitId: 'sv-gun-maksim', qty: 1 }, { unitId: 'sv-inf-rifle-mg', qty: 8 }] },
+      { name: '3rd Rifle Platoon', teams: [{ unitId: 'sv-leader', qty: 1 }, { unitId: 'sv-gun-maksim', qty: 1 }, { unitId: 'sv-inf-rifle-mg', qty: 8 }] },
       { name: 'Mortar Platoon', teams: [{ unitId: 'sv-leader', qty: 1 }, { unitId: 'sv-fo', qty: 1 }, { unitId: 'sv-gun-82mm-mortar', qty: 4 }] },
       { name: 'Anti-Tank Platoon', teams: [{ unitId: 'sv-leader', qty: 1 }, { unitId: 'sv-gun-45mm', qty: 3 }] },
       { name: 'Tank Platoon', teams: [{ unitId: 'sv-tank-t34-85', qty: 3 }] },
@@ -91,11 +91,12 @@ const forces = [
 
   {
     name: 'Soviet Tankovy Company (1944)',
-    notes: 'Soviet armored company at the height of tank warfare on the Eastern Front. Two T-34 platoons, SU-85 tank destroyers, motorized infantry in ZIS trucks, BA-64 recon, and Katyusha rocket artillery.',
+    notes: 'Soviet armored company at the height of tank warfare on the Eastern Front. Three T-34 platoons, SU-85 tank destroyers, motorized infantry in ZIS trucks, BA-64 recon, and Katyusha rocket artillery.',
     nations: ['Soviet Union'],
     platoons: [
       { name: '1st Tank Platoon', teams: [{ unitId: 'sv-tank-t34-85', qty: 3 }] },
       { name: '2nd Tank Platoon', teams: [{ unitId: 'sv-tank-t34-85', qty: 3 }] },
+      { name: '3rd Tank Platoon', teams: [{ unitId: 'sv-tank-t34-85', qty: 3 }] },
       { name: 'Rifle Platoon', teams: [{ unitId: 'sv-leader', qty: 1 }, { unitId: 'sv-gun-maksim', qty: 1 }, { unitId: 'sv-gun-ptrd', qty: 1 }, { unitId: 'sv-inf-rifle-mg', qty: 6 }, { unitId: 'sv-transport-zis-truck', qty: 4 }] },
       { name: 'SU-85 Platoon', teams: [{ unitId: 'sv-spg-su85', qty: 3 }] },
       { name: 'Recon Platoon', teams: [{ unitId: 'sv-ac-ba64', qty: 2 }] },
