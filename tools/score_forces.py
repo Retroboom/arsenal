@@ -142,7 +142,7 @@ FORCES = {
    ("Mortar", [("Platoon Leader","Germany",1),("Forward Observer","Germany",1),("8cm GW34 Mortar","Germany",3)], 1),
    ("Anti-Tank", [("Platoon Leader","Germany",1),("7.5cm PaK40 Gun","Germany",3)], 1),
    ("Panzer", [("StuG G or IV","Germany",3)], 1),
-   ("Heavy AA", [("Platoon Leader","Germany",1),("8.8cm FlaK36 Gun","Germany",1)], 1)],
+   ("Heavy AA", [("Platoon Leader","Germany",1),("8.8cm FlaK36 Gun","Germany",2)], 1)],  # tweak: 2x 88 (book lists 1)
  "DE Panzer": [("Panzer", [("Panzer IV H","Germany",3)], 2),
    ("Pz Grenadier", [("Platoon Leader","Germany",1),("Panzerschreck","Germany",1),("MG Team","Germany",6),("Panzerfaust","Germany",6),("Sd Kfz 251","Germany",4)], 1),
    ("Recon", [("Sd Kfz 234/2 Puma","Germany",2)], 1),
