@@ -92,7 +92,54 @@ All 8 rulebook example forces, every matchup, handicap = BL reduction on the str
 - **BR Rifle is the quiet heavyweight** (Churchills + 25-pdrs): imposes 3–6 on most.
 - Spread across 28 matchups: min 1, max 9, mean ~4.5 (on Break Limits of 15–19).
 
-## Open questions / dials
+## Spending the gap (instead of just cutting BL)
+
+A raw BL cut makes the weaker force *start near-broken*, which isn't fun. Better: the gap is
+a currency the **underdog spends** on advantages. **1 point ≈ 1 BL of value** (~1.67 BP of
+cushion), and every dial is pegged against that.
+
+**Default sink: Hero Points.** Each player already rolls 1d6 secretly at the start for Hero
+Points (a pool to double-activate, re-activate, or interrupt on the enemy's turn). The
+simplest handicap is just: **the underdog adds the gap to their secret Hero-Point roll**
+(capped, see below), overflow → +1 BL each. One number, no new bookkeeping, and it stays
+hidden so it adds bluff instead of "I start with less."
+
+For groups that want texture, swap points for menu items:
+
+**Universal**
+
+| Cost | Dial | Cap |
+|--:|---|---|
+| 1 | +1 Hero Point (secret) | max +3 |
+| 1 | +1 BL | the overflow sink |
+| 2 | Pre-Registered Target — one free barrage, no FO / Range-In | once |
+| 2 | Spotter — one Unit gains Recon (Hidden detection 20", re-activate on Training Check) | once |
+| 2 | Harassing fire — one RFP-only barrage before turn 1 | once |
+| 1 | Seize initiative — take the first activation of turn 1 | once |
+| 3 | Elite — one Unit re-rolls 1s on all Checks and vehicle fire | 1 Unit only |
+
+**Conquest-specific** (see [conquest-rules.md](conquest-rules.md))
+
+| Cost | Dial | Side |
+|--:|---|---|
+| 2 | Win the attack without bidding BL | underdog who'd defend |
+| 2 | Deploy one reserve Unit on-table at start | Defender |
+| 1 | +1 to Reserves Checks (as if a free 2nd Order Point) | Defender |
+| 2 | Shift one objective after edges are known | Attacker |
+
+**Two rules that keep it honest**
+
+1. **Anti-stacking caps.** Without them a big gap dumped into one lever breaks (+9 Hero
+   Points is a second army; whole-force Elite). Caps above; excess overflows to +1 BL. Also
+   reads true — a points gap can't make your whole force veteran.
+2. **Stronger player's per-point choice.** For each gap point, the strong side decides:
+   grant the dial, or take −1 BL themselves. They pick what hurts least, so it can't be
+   gamed, and the no-cap escalation stays intact.
+
+Note: ambush/hidden deployment is **not** a dial — Defender non-vehicle Units already deploy
+Hidden and Dug-In by default.
+
+## Open questions / calibration
 
 - **Margin step** (per 10): per-15 softens, per-5 sharpens.
 - **Doubles instead of margin:** simpler table-side variant — +1 if the winner's score is
@@ -101,4 +148,4 @@ All 8 rulebook example forces, every matchup, handicap = BL reduction on the str
   2 MGs stack fast; Soviet gear runs cheap (short range, no 24"+ bonus on the T-34).
 - This shares the exact application as Conquest's optional **Weight count** (heavier force
   drops BL by the difference). They're the same socket at different resolutions — use one or
-  the other, not both. See [conquest-rules.md](conquest-rules.md).
+  the other, not both.
