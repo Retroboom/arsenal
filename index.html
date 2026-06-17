@@ -10348,6 +10348,12 @@ const isPreviewMode = ['localhost', '127.0.0.1'].includes(location.hostname) ||
     new URLSearchParams(location.search).get('preview') === 'true';
 if (isPreviewMode) enterGuestMode();
 
+// Safety net: the unit catalog is public and loads via onAuthStateChanged. If a
+// stale Firebase session stalls that callback, the list would hang on "Loading…"
+// forever. Force-load it after a few seconds so the catalog never depends on the
+// auth check completing.
+setTimeout(() => { if (!Array.isArray(allUnits) || allUnits.length === 0) loadData(); }, 4000);
+
 // ── HEADER RESIZE OBSERVER ────────────────────────────────────────────────────
 // Updates --header-h and toggles is-wrapped on header-end as the header reflowss
 (function () {
