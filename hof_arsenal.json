@@ -2762,6 +2762,7 @@
       "armor_flank": null,
       "armament": null,
       "notes": [
+        "Rocket Barrage",
         "Medium Artillery",
         "Smoke"
       ],
@@ -3546,6 +3547,7 @@
       "armor_flank": 0,
       "armament": "15cm RW42 rocket launcher, AA MG",
       "notes": [
+        "Rocket Barrage",
         "Half-Tracked",
         "Medium Artillery",
         "Smoke"
@@ -7498,6 +7500,7 @@
       "armor_flank": null,
       "armament": "BM-13-16 rocket launcher",
       "notes": [
+        "Rocket Barrage",
         "Wheeled",
         "Medium Artillery"
       ],

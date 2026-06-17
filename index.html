@@ -6175,6 +6175,7 @@ const RULE_TIPS = {
   'Light Artillery': 'Barrage FP: 1. 4 Fire Missions per game. On-table mortars that observe for themselves may FFE immediately and without deviation.',
   'Medium Artillery': 'Barrage FP: 2. 3 Fire Missions per game.',
   'Heavy Artillery': 'Barrage FP: 3. 2 Fire Missions per game.',
+  'Rocket Barrage': 'Fires a single massed salvo: 1 Fire Mission per game. Does not range in. In the activation it fires, place the marker on a target observed by a friendly Team, roll deviation once (d10"), then Fire for Effect immediately at that position with no adjustment. Barrage radius is +2". RFPs and the Smoke option follow the Unit\'s artillery type.',
   // ── Vehicle Rules ──────────────────────────────────────────────────────────
   'Hull Mounted': 'Gun has a limited forward arc of fire.',
   'Hull-Mounted': 'Gun has a limited forward arc of fire.',
@@ -6210,7 +6211,7 @@ const RULE_TIPS = {
 };
 
 function isSpecialNote(note) {
-  const special = ['Flame-Thrower', 'Bunker Buster', 'Wide Tracks', 'Unreliable', 'Fast', 'Slow', 'Hull Mounted', 'Open Topped', 'Bocage Breacher', 'Sniper'];
+  const special = ['Flame-Thrower', 'Bunker Buster', 'Wide Tracks', 'Unreliable', 'Fast', 'Slow', 'Hull Mounted', 'Open Topped', 'Bocage Breacher', 'Sniper', 'Rocket Barrage'];
   return special.includes(note);
 }
 
