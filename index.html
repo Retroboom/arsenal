@@ -13488,7 +13488,6 @@ function bpBarColor(pct) {
 
 function renderGamePanel(player, sideClass) {
   const g    = gameMode[player];
-  const role = gameMode.scenario === 'meeting' ? null : (gameMode.attacker === player ? 'attacker' : 'defender');
   const broken   = g.bp >= g.bl;
   const pct      = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
   const barColor = bpBarColor(pct);
@@ -13499,7 +13498,7 @@ function renderGamePanel(player, sideClass) {
   return `
     <div class="game-panel ${sideClass}" id="game-panel-${player}">
       <div class="game-player-name">${esc(g.name)}</div>
-      <div class="game-bl">BL ${g.bl}${role ? ` · <span class="game-role-tag">${role}</span>` : ''}${g.heroBonus ? ` · <span class="game-hero-tag">+${g.heroBonus} Hero Point${g.heroBonus === 1 ? '' : 's'}</span>` : ''}</div>
+      <div class="game-bl">BL ${g.bl}${g.heroBonus ? ` · <span class="game-hero-tag">+${g.heroBonus} Hero Point${g.heroBonus === 1 ? '' : 's'}</span>` : ''}</div>
 
       <div class="game-roll-row">
         <button class="game-roll-btn" id="game-gen-btn-${player}" onclick="rollBP('${player}')">Roll Break Points</button>
