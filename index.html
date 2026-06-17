@@ -7887,6 +7887,8 @@ function switchLibTab(tab) {
   document.getElementById('fpp-body').style.display            = isFpp         ? 'flex'  : 'none';
   document.querySelector('#section-library .lib-sidebar').style.display = hideMain ? 'none' : '';
   document.getElementById('section-library').style.gridTemplateColumns  = hideMain ? '1fr' : '';
+  // With the sidebar hidden there's no strip to clear, so drop the mobile lib-main offset.
+  document.querySelector('#section-library .lib-main').style.marginLeft = hideMain ? '0' : '';
 
   if (isHistorical) {
     renderOrbatBrowser();
