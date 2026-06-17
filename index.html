@@ -1477,6 +1477,8 @@
     margin-bottom: 2px;
     gap: 2px 8px;
   }
+  /* Header badge cluster: points sit directly left of the team-type label */
+  .card-header-type { display: inline-flex; align-items: baseline; gap: 6px; }
 
   .card-type-row {
     display: flex;
@@ -6264,7 +6266,10 @@ function renderGrid(container, forceIds, animate = true) {
           <div class="card-header">
             <div class="unit-name" title="${unit.name}">${unit.name}</div>
             <div class="${nationBadgeClass(unit.nation)}">${unit.nation}</div>
-            <div class="type-badge" data-type="${unit.type}">${unit.type}</div>
+            <div class="card-header-type">
+              ${showScores && !locked ? `<span class="base-badge card-pts-badge">${displayPoints(calcTeamScore(unit))} pts</span>` : ''}
+              <div class="type-badge" data-type="${unit.type}">${unit.type}</div>
+            </div>
           </div>
           ${(() => {
             if (locked) return `<div class="card-type-row"><div class="card-armament">${unit.armament || ''}</div></div><div style="text-align:center"><div class="lock-overlay">CLASSIFIED</div></div>`;
@@ -6316,7 +6321,6 @@ function renderGrid(container, forceIds, animate = true) {
             <span class="years-display">
               ${yearRange(unit.years)}
               ${unit.base ? `<span class="base-badge">${unit.base}</span>` : ''}
-              ${showScores && !locked ? `<span class="base-badge card-pts-badge">${displayPoints(calcTeamScore(unit))} pts</span>` : ''}
             </span>
             ${locked
               ? `<button class="add-force-btn" onclick="event.stopPropagation();showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Supporter Content</button>`
