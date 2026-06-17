@@ -7251,6 +7251,7 @@ function calcTeamScore(unit) {
   if (unit.name === 'Rifle/MG Team') return 8;
   if (unit.name === 'MG Team')       return 10;
   if (unit.name === 'Assault Rifle') return 10;                  // assaults like an SMG: display 5
+  if (unit.name === 'Jeep')          return 4;                   // light passenger-fired transport: display 2
   if ((unit.notes || []).includes('Engineer')) return 10;        // engineer utility (display 5)
 
   const notes  = unit.notes  || [];

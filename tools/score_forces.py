@@ -65,6 +65,7 @@ def score(u, parts=False):
         if u["name"] == "Rifle/MG Team": return 8
         if u["name"] == "MG Team":       return 10
         if u["name"] == "Assault Rifle": return 10   # assaults like an SMG: display 5
+        if u["name"] == "Jeep":          return 4    # light passenger-fired transport: display 2
         if _has(u, "Engineer"):          return 10   # engineer utility: display 5
 
     utype = u["type"]; r = _range(u)
