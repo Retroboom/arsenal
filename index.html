@@ -12646,7 +12646,7 @@ const FPP_QUICK_BL_FACTOR = 0.10;
 // Quick Compare (points-gap handicap budget). Set FPP_LEGACY = true to restore the
 // manual ranking / auto-resolve Force Parity Procedure on the setup screen.
 const FPP_LEGACY     = false;
-const POINTS_PER_BL  = 10;  // budget cost to lower the stronger force's Break Limit by 1
+const POINTS_PER_BP  = 10;  // budget cost to start the stronger force with 1 penalty Break Point
 const POINTS_PER_HERO = 10; // budget cost to grant the underdog +1 starting Hero Point
 const POINTS_PER_EXTRA_PLATOON = 20; // budget swing per platoon one side fields over the other
 
@@ -12950,8 +12950,9 @@ function compareForces() {
   const underdog = stronger ? (stronger === 'a' ? 'b' : 'a') : null;
 
   fppState.compare   = { totalA, totalB, platA, platB, stronger, underdog, gap: Math.abs(netA) };
-  fppState.spend     = { bl: 0, hero: 0 };
+  fppState.spend     = { bp: 0, hero: 0 };
   fppState.finalBL   = { a: fppState.a.bl, b: fppState.b.bl };
+  fppState.penaltyBP = { a: 0, b: 0 };
   fppState.heroBonus = { a: 0, b: 0 };
   fppState.step = 'allocate';
   renderFPP();
@@ -12961,14 +12962,14 @@ function compareForces() {
 function fppSpend(lever, delta) {
   const c = fppState.compare;
   if (!c || !c.stronger) return;
-  const cost = s => s.bl * POINTS_PER_BL + s.hero * POINTS_PER_HERO;
+  const cost = s => s.bp * POINTS_PER_BP + s.hero * POINTS_PER_HERO;
   const next = { ...fppState.spend, [lever]: fppState.spend[lever] + delta };
-  if (next.bl < 0 || next.hero < 0) return;
-  if (next.bl > fppState[c.stronger].bl - 1) return; // never drop a Break Limit below 1
+  if (next.bp < 0 || next.hero < 0) return;
+  if (next.bp > fppState[c.stronger].bl - 1) return; // can't start at or above the Break Limit
   if (cost(next) > c.gap) return;                    // can't overspend the budget
   fppState.spend = next;
-  fppState.finalBL = { a: fppState.a.bl, b: fppState.b.bl };
-  fppState.finalBL[c.stronger] = Math.max(1, fppState[c.stronger].bl - next.bl);
+  fppState.penaltyBP = { a: 0, b: 0 };
+  fppState.penaltyBP[c.stronger] = next.bp;
   fppState.heroBonus = { a: 0, b: 0 };
   fppState.heroBonus[c.underdog] = next.hero;
   renderFPP();
@@ -12993,9 +12994,9 @@ function renderFPPAllocate(body) {
 
   const strong = fppState[stronger], under = fppState[underdog];
   const spend = fppState.spend;
-  const spent = spend.bl * POINTS_PER_BL + spend.hero * POINTS_PER_HERO;
+  const spent = spend.bp * POINTS_PER_BP + spend.hero * POINTS_PER_HERO;
   const remaining = gap - spent;
-  const blAtMin = spend.bl >= strong.bl - 1;
+  const bpAtMax = spend.bp >= strong.bl - 1;
   const tot  = s => (s === 'a' ? totalA : totalB);
   const plt  = s => (s === 'a' ? platA : platB);
   const ptsComp  = tot(stronger) - tot(underdog);
@@ -13039,11 +13040,11 @@ function renderFPPAllocate(body) {
       <span class="fpp-budget-remaining ${remaining === 0 ? 'spent' : ''}">${remaining} / ${gap} pts left</span>
     </div>
     <div class="fpp-levers">
-      ${stepper('bl',
-        `Lower ${esc(strong.name)}'s Break Limit`,
-        `${POINTS_PER_BL} pts each · BL ${strong.bl}${spend.bl ? ` → ${fppState.finalBL[stronger]}` : ''}`,
-        spend.bl,
-        remaining < POINTS_PER_BL || blAtMin)}
+      ${stepper('bp',
+        `Penalty Break Points for ${esc(strong.name)}`,
+        `${POINTS_PER_BP} pts each · ${spend.bp ? `starts ${spend.bp}/${strong.bl} BP` : `BL ${strong.bl}`}`,
+        spend.bp,
+        remaining < POINTS_PER_BP || bpAtMax)}
       ${stepper('hero',
         `Hero Points for ${esc(under.name)}`,
         `${POINTS_PER_HERO} pts each${spend.hero ? ` · +${spend.hero} at game start` : ''}`,
@@ -13434,7 +13435,7 @@ function startGame() {
   // tracker still works after a refresh (fppState isn't restored, gameMode is).
   const snap = (side, includeForceName) => ({
     name: fppState[side].name,
-    bp: 0,
+    bp: (fppState.penaltyBP && fppState.penaltyBP[side]) || 0,
     bl: fppState.finalBL[side],
     heroBonus: (fppState.heroBonus && fppState.heroBonus[side]) || 0,
     scoreVisible: false,
