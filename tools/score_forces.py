@@ -57,12 +57,15 @@ def score(u, parts=False):
     secondary_weapon path; add if a multi-weapon unit needs it.)"""
     if u["name"] in ("Platoon Leader", "Company Commander"): return 0
     if _has(u, "Sniper"): return 12
+    if u.get("recon"): return 20          # Recon: flat +10 display (legality enforced in builder)
     if u["type"] == "Upgrade": return 2
     # Manual price pins for the cheapest mainline infantry teams (raw is halved for
     # display, so raw 8/10 = display 4/5).
     if not parts:
         if u["name"] == "Rifle/MG Team": return 8
         if u["name"] == "MG Team":       return 10
+        if u["name"] == "Assault Rifle": return 10   # assaults like an SMG: display 5
+        if _has(u, "Engineer"):          return 10   # engineer utility: display 5
 
     utype = u["type"]; r = _range(u)
     rof = u.get("rof") or 0; at = u.get("at"); fp = u.get("fp") or 1
@@ -98,7 +101,7 @@ def score(u, parts=False):
     mob = 0
     if isv:
         mob = 3 if _has(u, "Tracked") else (2 if (_has(u, "Half-Tracked") or _has(u, "Wheeled")) else 0)
-        for note, d in [("Slow", -1), ("Fast", 1), ("Wide Tracks", 2), ("Unreliable", -2), ("Overloaded", -2)]:
+        for note, d in [("Slow", -1), ("Fast", 1), ("Wide Tracks", 2), ("Overloaded", -2)]:
             if _has(u, note): mob += d
         mob = max(0, mob)
 
@@ -119,6 +122,9 @@ def score(u, parts=False):
     # +1 display (raw +2) for infantry AT and light-mortar teams.
     if u["name"] in ("Bazooka", "PIAT", "Panzerschreck") or _has(u, "Light Mortar"):
         total += 2
+    # +2 display (raw +4) for a vehicle carrying its own (non-passenger-fired) weapon.
+    if isv and any("passenger" not in p.lower() for p in (u.get("armament") or "").split(",") if p.strip()):
+        total += 4
     if parts:
         return dict(ai=round(ai, 1), at=round(ats, 1), mg=mg, fpb=fpb, bar=bar,
                     defr=round(defs * RESIDUAL_DEF, 1), mob=mob, lon=round(lon, 3), total=round(total, 1))

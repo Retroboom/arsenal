@@ -7025,6 +7025,20 @@ function addTeamToPlatoon(unitId) {
     showToast(`${unit.name} must be added as its own platoon.`, 'info');
     return;
   }
+  // Recon is only legal on light platoons: no gun teams and no armoured vehicles whose
+  // front + flank armour exceeds 2. Enforce both directions (adding Recon to a heavy
+  // platoon, or adding a heavy element to a Recon platoon).
+  const isReconDisqualifier = u => !!u && (u.type === 'Gun' ||
+    (FS_VEHICLES.has(u.type) && u.armor_front != null && u.armor_flank != null && (u.armor_front + u.armor_flank) > 2));
+  const teamUnit = t => allUnits.find(u => u.id === t.unitId);
+  if (unit?.recon && platoon.teams.some(t => isReconDisqualifier(teamUnit(t)))) {
+    showToast('Recon needs a light platoon: no gun teams and no armoured vehicles (front + flank armour over 2).', 'error');
+    return;
+  }
+  if (isReconDisqualifier(unit) && platoon.teams.some(t => teamUnit(t)?.recon)) {
+    showToast(`${unit.name} can't join a Recon platoon (gun teams and armoured vehicles break the Recon requirement).`, 'error');
+    return;
+  }
   const isUpgrade = unit?.type === 'Upgrade';
   const existing = platoon.teams.find(t => t.unitId === unitId);
   if (existing) {
@@ -7223,6 +7237,10 @@ function calcTeamScore(unit) {
   // Score at +2 per upgrade: less than a dedicated AT team (since the upgrade is
   // embedded in a regular team's activation), but not zero. The AT premium is
   // tempered by diminishing returns in assault (AT 2 already kills most vehicles).
+  // Recon: a flat +10 display premium (raw 20), replacing the old ×1.4 platoon
+  // multiplier. Legality (no gun teams, no armoured vehicles) is enforced when the
+  // upgrade is added in the builder.
+  if (unit.recon) return 20;
   if (unit.type === 'Upgrade') return 2;
 
   // Manual price pins for the cheapest mainline infantry teams. The firepower formula
@@ -7231,6 +7249,8 @@ function calcTeamScore(unit) {
   // both the unit card and force totals.
   if (unit.name === 'Rifle/MG Team') return 8;
   if (unit.name === 'MG Team')       return 10;
+  if (unit.name === 'Assault Rifle') return 10;                  // assaults like an SMG: display 5
+  if ((unit.notes || []).includes('Engineer')) return 10;        // engineer utility (display 5)
 
   const notes  = unit.notes  || [];
   const utype  = unit.type   || '';
@@ -7362,8 +7382,9 @@ function calcTeamScore(unit) {
     if (notes.includes('Slow'))        mob -= 1;
     if (notes.includes('Fast'))        mob += 1;
     if (notes.includes('Wide Tracks')) mob += 2;
-    if (notes.includes('Unreliable'))  mob -= 2;
     if (notes.includes('Overloaded'))  mob -= 2;
+    // Unreliable is intentionally NOT priced: it is a gameplay risk the player chooses to
+    // accept, not a discount. (It also used to be cancellable by Wide Tracks in this sum.)
     mob = Math.max(0, mob);
   }
 
@@ -7410,7 +7431,12 @@ function calcTeamScore(unit) {
   // +1 display (raw +2) for infantry AT and light-mortar teams: their disruptive value
   // at low cost is understated by the firepower formula.
   const lowEndBump   = (['Bazooka', 'PIAT', 'Panzerschreck'].includes(unit.name) || notes.includes('Light Mortar')) ? 2 : 0;
-  return baseScore + lowEndBump;
+  // +2 display (raw +4) for a vehicle carrying its own crew-fired weapon (anything other
+  // than a passenger-fired MG): an armoured, AT-only target with a usable gun is worth more
+  // than the bare firepower formula gives a cheap vehicle.
+  const vehWeaponBonus = (isVeh && (unit.armament || '').split(',').map(s => s.trim()).filter(Boolean)
+                            .some(p => !/passenger[- ]?fired/i.test(p))) ? 4 : 0;
+  return baseScore + lowEndBump + vehWeaponBonus;
 }
 
 // Count infantry combat squads in a platoon (Rifle/MG, MG, Bazooka, etc.). Used to cost
@@ -7433,12 +7459,8 @@ function calcPlatoonScore(platoon) {
     const qty = (unit.type === 'Upgrade' && unit.per_combat_team) ? squads : (t.qty || 1);
     return sum + calcTeamScore(unit) * qty;
   }, 0);
-  // Recon bonus: extended spotting range + potential double activation on reveal
-  const isRecon = teams.some(t => {
-    const unit = allUnits.find(u => u.id === t.unitId);
-    return unit && unit.recon === true;
-  });
-  if (isRecon) score *= 1.4;
+  // Recon is now priced as a flat premium on the Recon upgrade itself (see calcTeamScore),
+  // not a platoon-wide multiplier, so nothing extra to apply here.
   return score;
 }
 
