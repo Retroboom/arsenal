@@ -7609,9 +7609,6 @@ function updateForceUI() {
 function clearForce() {
   if (platoons.length === 0) return;
   if (confirm('Clear all platoons from your force?')) {
-    // --- DIAGNOSTIC ---
-    console.log('[Arsenal] clearForce — forceId being cleared:', currentForceId, '| fppTemp:', currentForceFppTemp);
-    // ---
     discardTempForce(); // delete from Firebase if it was only an FPP temp save
     platoons = [];
     activePlatoonId = null;
@@ -7657,21 +7654,6 @@ let currentLibTab = 'browse';
 let currentForceId = null;
 let currentForceFppTemp = false; // true when the current force was auto-saved via FPP share, not by the user
 let loadedForceName = null; // name a saved force had when loaded — to detect overwrite vs. save-as-copy
-
-// DIAGNOSTIC helper — run arsenalSaveLog() in browser DevTools to inspect save history.
-// Remove this block once the disappearing-force bug is identified.
-window.arsenalSaveLog = function() {
-  try {
-    const log = JSON.parse(localStorage.getItem('arsenal-save-log') || '[]');
-    if (!log.length) { console.log('[Arsenal] No save log entries.'); return; }
-    console.table(log.map(e => ({
-      time: new Date(e.t).toLocaleTimeString(),
-      name: e.name,
-      forceId: e.id,
-      uid: e.uid
-    })));
-  } catch(e) { console.error(e); }
-};
 
 // Delete the current force from Firebase if it was only saved as an FPP temp record.
 // Called when the builder is cleared or a new force is loaded over it.
@@ -7754,13 +7736,6 @@ async function saveForce() {
   const data = { ...getForceData(), name: nameVal, fppTemp: null }; // null removes the field in Firebase
   const db = firebase.database();
 
-  // --- DIAGNOSTIC: log save context so we can trace the disappearing-force bug
-  const _dbg_uid   = currentUser?.uid  || '(none)';
-  const _dbg_idBefore = currentForceId || '(null — new push)';
-  console.group('[Arsenal] saveForce — "' + (data.name || 'Untitled') + '"');
-  console.log('uid:', _dbg_uid, '| forceId before save:', _dbg_idBefore, '| fppTemp:', currentForceFppTemp);
-  // ---
-
   try {
     if (currentForceId && !saveAsNew) {
       try {
@@ -7779,23 +7754,8 @@ async function saveForce() {
     }
     currentForceFppTemp = false;
     loadedForceName = nameVal; // subsequent saves compare against the just-saved name
-
-    // --- DIAGNOSTIC: record the committed ID ---
-    console.log('forceId after save:', currentForceId, '| SUCCESS');
-    console.groupEnd();
-    try {
-      const _log = JSON.parse(localStorage.getItem('arsenal-save-log') || '[]');
-      _log.unshift({ t: Date.now(), name: data.name, id: currentForceId, uid: _dbg_uid });
-      localStorage.setItem('arsenal-save-log', JSON.stringify(_log.slice(0, 20)));
-    } catch(_e) {}
-    // ---
-
     showToast(saveAsNew ? `Saved as a new force "${nameVal}". Original kept.` : 'Force saved.', 'success');
   } catch (e) {
-    // --- DIAGNOSTIC ---
-    console.error('[Arsenal] saveForce FAILED:', e);
-    console.groupEnd();
-    // ---
     showToast('Could not save. Check your connection and try again.', 'error');
   }
 }
@@ -7804,9 +7764,13 @@ async function publishForce() {
   if (!currentUser) { showToast('Sign in to publish forces.', 'error'); return; }
   if (platoons.length === 0) { showToast('Add at least one platoon before publishing.', 'error'); return; }
 
+  const nameEl  = document.getElementById('force-name');
+  const nameVal = (nameEl.value || '').trim();
+  if (!nameVal) { showToast('Name your force before publishing.', 'error'); nameEl.focus(); return; }
+
   if (!confirm('Publish this force to the public library? Anyone can browse and load it.')) return;
 
-  const data = { ...getForceData(), published: true };
+  const data = { ...getForceData(), name: nameVal, published: true };
   const db = firebase.database();
 
   if (currentForceId) {
@@ -13788,32 +13752,13 @@ async function openForcePicker() {
     const snap = await firebase.database().ref('forces').once('value');
     const mine = [], library = [];
 
-    // --- DIAGNOSTIC ---
-    const _dbg_uid = currentUser?.uid || '(none)';
-    const _dbg_all = [];
-    // ---
-
     snap.forEach(c => {
       const v = c.val();
       if (!v) return;
-
-      // --- DIAGNOSTIC ---
-      _dbg_all.push({ key: c.key, name: v.name, authorUid: v.authorUid, fppTemp: v.fppTemp });
-      // ---
-
       const isOwn = currentUser && (v.authorUid === currentUser.uid || v.authorEmail === currentUser.email);
       if (isOwn) mine.push({ id: c.key, ...v });
       else if (v.published && !v.fppTemp) library.push({ id: c.key, ...v });
     });
-
-    // --- DIAGNOSTIC ---
-    console.group('[Arsenal] openForcePicker');
-    console.log('currentUser.uid:', _dbg_uid);
-    console.log('Total forces in Firebase:', _dbg_all.length);
-    console.table(_dbg_all);
-    console.log('Matched as mine:', mine.length, mine.map(f => f.name));
-    console.groupEnd();
-    // ---
 
     mine.sort((a, b) => (b.created || 0) - (a.created || 0));
     library.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
@@ -13883,32 +13828,13 @@ async function openMyForcePicker() {
     const library = [];
     const seen = new Set();
 
-    // --- DIAGNOSTIC ---
-    const _dbg_uid2 = currentUser?.uid || '(none)';
-    const _dbg_all2 = [];
-    // ---
-
     snap.forEach(c => {
       const v = c.val();
       if (!v) return;
-
-      // --- DIAGNOSTIC ---
-      _dbg_all2.push({ key: c.key, name: v.name, authorUid: v.authorUid, fppTemp: v.fppTemp });
-      // ---
-
       const isOwn = currentUser && (v.authorUid === currentUser.uid || v.authorEmail === currentUser.email);
       if (isOwn) { mine.push({ id: c.key, ...v }); seen.add(c.key); }
       else if (v.published && !v.fppTemp) { library.push({ id: c.key, ...v }); }
     });
-
-    // --- DIAGNOSTIC ---
-    console.group('[Arsenal] openMyForcePicker');
-    console.log('currentUser.uid:', _dbg_uid2);
-    console.log('Total forces in Firebase:', _dbg_all2.length);
-    console.table(_dbg_all2);
-    console.log('Matched as mine:', mine.length, mine.map(f => f.name));
-    console.groupEnd();
-    // ---
 
     // My forces: newest first; library: alphabetical
     mine.sort((a, b) => (b.created || 0) - (a.created || 0));
