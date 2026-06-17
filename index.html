@@ -7205,6 +7205,13 @@ function calcTeamScore(unit) {
   // tempered by diminishing returns in assault (AT 2 already kills most vehicles).
   if (unit.type === 'Upgrade') return 2;
 
+  // Manual price pins for the cheapest mainline infantry teams. The firepower formula
+  // underprices their utility at the low end, so these are fixed by hand: Rifle/MG = 4,
+  // MG = 5 display (raw is halved for display, so raw 8/10). Real values: they feed
+  // both the unit card and force totals.
+  if (unit.name === 'Rifle/MG Team') return 8;
+  if (unit.name === 'MG Team')       return 10;
+
   const notes  = unit.notes  || [];
   const utype  = unit.type   || '';
   const rngStr = unit.gun_range || '';
@@ -7379,7 +7386,11 @@ function calcTeamScore(unit) {
   const longevity    = !isVeh ? 1 : (armor !== null ? (FS_LONGEVITY[Math.min(7, armor)] ?? 1) : FS_UNARMORED_LON);
   const isCombatTeam = (utype === 'Infantry' || utype === 'Gun') && !noDirect;
   const presence     = isCombatTeam ? FS_PRESENCE : 0;
-  return 1 + mob + offense * longevity + defScore * FS_RESIDUAL_DEF + presence;
+  const baseScore    = 1 + mob + offense * longevity + defScore * FS_RESIDUAL_DEF + presence;
+  // +1 display (raw +2) for infantry AT and light-mortar teams: their disruptive value
+  // at low cost is understated by the firepower formula.
+  const lowEndBump   = (['Bazooka', 'PIAT', 'Panzerschreck'].includes(unit.name) || notes.includes('Light Mortar')) ? 2 : 0;
+  return baseScore + lowEndBump;
 }
 
 // Count infantry combat squads in a platoon (Rifle/MG, MG, Bazooka, etc.). Used to cost

@@ -58,6 +58,11 @@ def score(u, parts=False):
     if u["name"] in ("Platoon Leader", "Company Commander"): return 0
     if _has(u, "Sniper"): return 12
     if u["type"] == "Upgrade": return 2
+    # Manual price pins for the cheapest mainline infantry teams (raw is halved for
+    # display, so raw 8/10 = display 4/5).
+    if not parts:
+        if u["name"] == "Rifle/MG Team": return 8
+        if u["name"] == "MG Team":       return 10
 
     utype = u["type"]; r = _range(u)
     rof = u.get("rof") or 0; at = u.get("at"); fp = u.get("fp") or 1
@@ -111,6 +116,9 @@ def score(u, parts=False):
     lon = 1 if not isv else (LONGEVITY.get(min(7, armor), 1) if armor is not None else UNARMORED_LON)
     pres = PRESENCE if (utype in ("Infantry", "Gun") and not no_direct) else 0
     total = 1 + mob + off * lon + defs * RESIDUAL_DEF + pres
+    # +1 display (raw +2) for infantry AT and light-mortar teams.
+    if u["name"] in ("Bazooka", "PIAT", "Panzerschreck") or _has(u, "Light Mortar"):
+        total += 2
     if parts:
         return dict(ai=round(ai, 1), at=round(ats, 1), mg=mg, fpb=fpb, bar=bar,
                     defr=round(defs * RESIDUAL_DEF, 1), mob=mob, lon=round(lon, 3), total=round(total, 1))
