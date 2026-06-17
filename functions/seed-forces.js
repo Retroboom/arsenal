@@ -152,9 +152,9 @@ export async function onRequestGet(context) {
 
   if (check) {
     const all = await fbGet(fbToken, 'forces');
-    const found = all
-      ? Object.entries(all).map(([k, v]) => `[${k}] ${v.name} | author:${v.author} | published:${v.published}`)
-      : [];
+    if (all && all.error) return new Response(`Read error: ${JSON.stringify(all)}`, { status: 200 });
+    const entries = all && typeof all === 'object' ? Object.entries(all) : [];
+    const found = entries.map(([k, v]) => `[${k}] ${v.name} | author:${v.author} | published:${v.published}`);
     return new Response(`${found.length} force(s) in Firebase:\n${found.join('\n') || '(none)'}`, { status: 200 });
   }
 
@@ -176,7 +176,7 @@ export async function onRequestGet(context) {
     await Promise.all(deleteOps);
 
     // Write all forces, then patch in the auto-generated push ID
-    const writeOps = forces.map(async force => {
+    const writeOps = forces.map(async (force, idx) => {
       const platoonCount = force.platoons.length;
       const entry = {
         name: force.name,
@@ -190,6 +190,7 @@ export async function onRequestGet(context) {
         platoons: force.platoons,
         created: now,
         published: true,
+        sortOrder: idx * 10,
       };
       const result = await fbPush(fbToken, 'forces', entry);
       const pushId = result.name;

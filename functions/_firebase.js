@@ -25,7 +25,7 @@ export async function getFirebaseToken(serviceAccountJson) {
     aud: 'https://oauth2.googleapis.com/token',
     iat: now,
     exp: now + 3600,
-    scope: 'https://www.googleapis.com/auth/firebase https://www.googleapis.com/auth/cloud-platform',
+    scope: 'https://www.googleapis.com/auth/firebase.database https://www.googleapis.com/auth/userinfo.email',
   });
 
   const signingInput = `${header}.${claim}`;
