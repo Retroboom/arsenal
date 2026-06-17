@@ -4819,6 +4819,8 @@
   .fpp-budget-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--text3); text-transform: uppercase; }
   .fpp-budget-remaining { font-family: var(--mono); font-size: 14px; color: var(--accent); }
   .fpp-budget-remaining.spent { color: var(--text3); }
+  .fpp-budget-breakdown { font-family: var(--mono); font-size: 11px; color: var(--text3); text-align: center; margin: 0 0 10px; letter-spacing: 0.03em; }
+  .fpp-tally-sub { font-family: var(--mono); font-size: 11px; color: var(--text3); margin-top: 2px; }
   .fpp-levers { display: flex; flex-direction: column; gap: 8px; }
   .fpp-lever { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg2); }
   .fpp-lever-label { font-size: 15px; color: var(--text1); }
@@ -12502,7 +12504,7 @@ function renderFPPSetup(body) {
         ${platoons.length ? `
           <button class="fpp-load-btn loaded" onclick="openMyForcePicker()" title="Tap to load a different force">
             <div class="fpp-force-name">${esc(document.getElementById('force-name')?.value || 'Current Force')}</div>
-            <div class="fpp-force-meta">✓ ${platoons.length} platoons · BL ${calcBreakLimit(platoons.length)} · <span class="fpp-load-change">change</span></div>
+            <div class="fpp-force-meta">✓ ${platoons.length} platoons · BL ${calcBreakLimit(platoons.length)}</div>
           </button>
         ` : `<button class="fpp-load-btn" onclick="openMyForcePicker()">+ Load Your Force</button>`}
       </div>
@@ -12650,6 +12652,7 @@ const FPP_QUICK_BL_FACTOR = 0.10;
 const FPP_LEGACY     = false;
 const POINTS_PER_BL  = 10;  // budget cost to lower the stronger force's Break Limit by 1
 const POINTS_PER_HERO = 10; // budget cost to grant the underdog +1 starting Hero Point
+const POINTS_PER_EXTRA_PLATOON = 20; // budget swing per platoon one side fields over the other
 
 // ════════════════════════════════════════════════════════════════════════════════
 // Monte Carlo Force Balancer (PROTOTYPE — not wired to any UI)
@@ -12941,10 +12944,16 @@ function compareForces() {
 
   const totalA = forceDisplayTotal(fppState.a.platoons);
   const totalB = forceDisplayTotal(fppState.b.platoons);
-  const stronger = totalA > totalB ? 'a' : totalB > totalA ? 'b' : null;
+  const platA  = fppState.a.platoons.length;
+  const platB  = fppState.b.platoons.length;
+  // Net edge to A = points lead + a fixed swing per extra platoon. The platoon term
+  // can deepen the gap or, if the points-underdog fields more platoons, shrink (even
+  // flip) it. Whoever ends up ahead is the "stronger" side; the other gets the budget.
+  const netA = (totalA - totalB) + POINTS_PER_EXTRA_PLATOON * (platA - platB);
+  const stronger = netA > 0 ? 'a' : netA < 0 ? 'b' : null;
   const underdog = stronger ? (stronger === 'a' ? 'b' : 'a') : null;
 
-  fppState.compare   = { totalA, totalB, stronger, underdog, gap: Math.abs(totalA - totalB) };
+  fppState.compare   = { totalA, totalB, platA, platB, stronger, underdog, gap: Math.abs(netA) };
   fppState.spend     = { bl: 0, hero: 0 };
   fppState.finalBL   = { a: fppState.a.bl, b: fppState.b.bl };
   fppState.heroBonus = { a: 0, b: 0 };
@@ -12971,13 +12980,13 @@ function fppSpend(lever, delta) {
 
 function renderFPPAllocate(body) {
   const c = fppState.compare;
-  const { totalA, totalB, stronger, underdog, gap } = c;
+  const { totalA, totalB, platA, platB, stronger, underdog, gap } = c;
 
   if (!stronger) {
     body.innerHTML = `
       <div class="fpp-step-header" style="margin-bottom:16px">
         <div class="fpp-step-title">Quick Compare</div>
-        <div class="fpp-step-sub">Both forces total ${totalA} pts. Evenly matched, no handicap needed.</div>
+        <div class="fpp-step-sub">Evenly matched once platoon count is factored in (${totalA} vs ${totalB} pts, ${platA} vs ${platB} platoons). No handicap needed.</div>
       </div>
       <div class="fpp-result-actions" style="margin-top:8px">
         <button class="fpp-next-btn" onclick="startGame()">Start Game →</button>
@@ -12991,6 +13000,11 @@ function renderFPPAllocate(body) {
   const spent = spend.bl * POINTS_PER_BL + spend.hero * POINTS_PER_HERO;
   const remaining = gap - spent;
   const blAtMin = spend.bl >= strong.bl - 1;
+  const tot  = s => (s === 'a' ? totalA : totalB);
+  const plt  = s => (s === 'a' ? platA : platB);
+  const ptsComp  = tot(stronger) - tot(underdog);
+  const platComp = POINTS_PER_EXTRA_PLATOON * (plt(stronger) - plt(underdog));
+  const fmt = n => (n >= 0 ? '+' : '−') + Math.abs(n);
 
   const stepper = (lever, label, detail, count, addDisabled) => `
     <div class="fpp-lever">
@@ -13008,19 +13022,22 @@ function renderFPPAllocate(body) {
   body.innerHTML = `
     <div class="fpp-step-header" style="margin-bottom:14px">
       <div class="fpp-step-title">Quick Compare</div>
-      <div class="fpp-step-sub"><strong>${esc(strong.name)}</strong> leads by <strong>${gap} pts</strong>. <strong>${esc(under.name)}</strong> spends that budget to even the odds.</div>
+      <div class="fpp-step-sub"><strong>${esc(strong.name)}</strong> has the edge. <strong>${esc(under.name)}</strong> spends the <strong>${gap}-pt</strong> budget to even the odds.</div>
     </div>
-    <div class="fpp-score-tally" style="margin:6px 0 18px">
+    <div class="fpp-score-tally" style="margin:6px 0 10px">
       <div class="fpp-tally-block">
         <div class="fpp-tally-label">${esc(fppState.a.name)}</div>
-        <div class="fpp-tally-num ${stronger === 'a' ? 'leading' : ''}">${totalA} pts</div>
+        <div class="fpp-tally-num ${totalA >= totalB ? 'leading' : ''}">${totalA} pts</div>
+        <div class="fpp-tally-sub">${platA} platoon${platA === 1 ? '' : 's'}</div>
       </div>
       <div class="fpp-tally-sep">vs</div>
       <div class="fpp-tally-block">
         <div class="fpp-tally-label">${esc(fppState.b.name)}</div>
-        <div class="fpp-tally-num ${stronger === 'b' ? 'leading' : ''}">${totalB} pts</div>
+        <div class="fpp-tally-num ${totalB > totalA ? 'leading' : ''}">${totalB} pts</div>
+        <div class="fpp-tally-sub">${platB} platoon${platB === 1 ? '' : 's'}</div>
       </div>
     </div>
+    <div class="fpp-budget-breakdown">Points ${fmt(ptsComp)} · Platoons ${fmt(platComp)} (${POINTS_PER_EXTRA_PLATOON}/extra) → ${gap} pt budget</div>
     <div class="fpp-budget-bar">
       <span class="fpp-budget-label">${esc(under.name)}'s handicap budget</span>
       <span class="fpp-budget-remaining ${remaining === 0 ? 'spent' : ''}">${remaining} / ${gap} pts left</span>
