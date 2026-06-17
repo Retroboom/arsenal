@@ -1,11 +1,12 @@
 /**
  * Seed Elo ratings — Cloudflare Pages Function
- * URL: https://arsenal.retroboomgames.com/seed-ratings?token=<KOFI_VERIFICATION_TOKEN>
+ * URL: https://arsenal.retroboomgames.com/seed-ratings?token=<ADMIN_SEED_TOKEN>
  *      Add &check=true to read without writing.
  *
  * Env secrets required:
  *   FIREBASE_SERVICE_ACCOUNT  — service account JSON (stringified)
- *   KOFI_VERIFICATION_TOKEN   — used as the admin token for this endpoint
+ *   ADMIN_SEED_TOKEN          — admin token for this endpoint (separate from the Ko-fi
+ *                               webhook secret so the two never share a value)
  */
 
 import { getFirebaseToken, fbGet, fbSet } from './_firebase.js';
@@ -190,7 +191,7 @@ export async function onRequestGet(context) {
   const token = url.searchParams.get('token');
   const check = url.searchParams.get('check') === 'true';
 
-  if (token !== env.KOFI_VERIFICATION_TOKEN) {
+  if (!env.ADMIN_SEED_TOKEN || token !== env.ADMIN_SEED_TOKEN) {
     return new Response('Unauthorized', { status: 401 });
   }
 
