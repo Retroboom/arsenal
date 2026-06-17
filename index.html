@@ -12520,12 +12520,6 @@ function renderFPPSetup(body) {
         </button>
       </div>
     </div>
-    ${isAdmin ? `
-    <div class="fpp-scenario-row">
-      <span class="fpp-scenario-label">Scenario:</span>
-      <button class="fpp-scenario-btn${fppState.scenario === 'default' ? ' active' : ''}" onclick="setFPPScenario('default')">Attack/Defense</button>
-      <button class="fpp-scenario-btn${fppState.scenario === 'meeting' ? ' active' : ''}" onclick="setFPPScenario('meeting')">Meeting Engagement</button>
-    </div>` : ''}
     <div class="fpp-setup-actions">
       <button class="fpp-next-btn" onclick="compareForces()" ${!bLoaded || !platoons.length ? 'disabled' : ''}>
         Compare Forces →
