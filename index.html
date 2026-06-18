@@ -6168,7 +6168,7 @@ const RULE_TIPS = {
   'Man-Portable': 'Moves 2d6". May move through Very Difficult Terrain. Weapon rides in Transports rather than being towed.',
   'Overloaded': 'Must re-roll successful Terrain Checks when crossing terrain, and re-roll successful Training Checks when attempting to free a Bogged status.',
   'Slow': 'Drop the lowest die when making movement rolls.',
-  'Smoke': 'May fire smoke instead of a normal barrage. Place one 3" smoke marker per gun, each touching another. Teams touching smoke have no LoS to or from Teams outside it. Removed at start of firing player\'s next turn. Direct-fire smoke: roll one Fire die at 4+ against a target in range; if successful, place a 3" marker on the target.',
+  'Smoke': 'May fire smoke instead of a barrage, following the same procedure. Place one smoke marker per gun (3" Light, 4" Medium, 5" Heavy), each touching another and one touching the Range In point. Teams touching smoke have no LoS to or from Teams outside it. Removed when the barrage ends (so it lasts as long as the barrage is sustained). Direct-fire smoke: roll one Fire die at 4+ against a target in range; if successful, place a 3" marker on the target, removed at the start of your next turn.',
   'Unreliable': 'If any movement die shows a 1, roll 1d6 per Unreliable Team in the Unit; a roll of 1 suppresses that Team.',
   'Wide Tracks': 'Re-roll failed Terrain Checks.',
   // ── Artillery Types ────────────────────────────────────────────────────────
@@ -8666,7 +8666,7 @@ const RULES_DATA = [
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Smoke</div>
-          <p>Artillery Units may fire smoke instead of a barrage, following the same procedure. At Fire for Effect, instead of a barrage, place one <strong>3" diameter Smoke marker</strong> per gun firing, arranged so each touches another and one touches the Range In point. Teams touching smoke have no LoS to or from Teams outside the smoke. Smoke is removed at the beginning of the <em>firing player's</em> next turn.</p>
+          <p>Artillery Units may fire smoke instead of high explosive, following the same procedure. At Fire for Effect, place one <strong>Smoke marker</strong> per gun firing (<strong>3" diameter for Light, 4" for Medium, 5" for Heavy</strong>), arranged so each touches another and one touches the Range In point. Teams touching smoke have no LoS to or from Teams outside the smoke. <strong>Smoke is removed when the barrage ends</strong>, so it lasts as long as the barrage is sustained.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Forward Observers (FOs)</div>
@@ -8692,7 +8692,7 @@ const RULES_DATA = [
           <p><strong>Loading/unloading</strong> troops and <strong>limbering/unlimbering</strong> guns happen before any participating Teams Move or Fire.</p>
           <ul>
             <li>To load, all loading Teams must be within <strong>4" and LoS</strong> of the Transport. Infantry Teams are removed from the table and set aside. Gun Teams may be placed behind the Transport as though being towed.</li>
-            <li>To unload, place the Transported Teams within <strong>4" and LoS</strong> of the Transport.</li>
+            <li>To unload, give the Transported Teams a <strong>Move order</strong>, measuring from the Transport.</li>
           </ul>
         </div>
         <div class="rules-subsection">
@@ -8719,14 +8719,13 @@ const RULES_DATA = [
       <div class="rules-body-text">
         <div class="rules-subsection">
           <div class="rules-subsection-title">Setting Up</div>
-          <p>Both players decide on forces and terrain placement. One player is the <strong>Defender</strong>, the other the <strong>Attacker</strong>. The player with more Vehicle Teams is often the Attacker.</p>
+          <p>Both players decide on forces and terrain placement. Use the <strong>Force Parity Procedure</strong> or <strong>Quick Compare</strong> on the online Arsenal to determine the weaker force and apply any handicaps. The weaker force chooses to <strong>Attack</strong> or <strong>Defend</strong>; the other takes the opposite role.</p>
           <ul>
-            <li>The Defender picks a long table edge to deploy from; the Attacker deploys from the opposite edge.</li>
-            <li>The Defender declares one point on their half of the table as an <strong>objective</strong>, outside 6" of the center line and any table edge. The Attacker then declares two more objectives on the Defender's half, within the same restrictions.</li>
+            <li>The <strong>Attacker places all objectives</strong>: one, plus one more for every two of the Defender's Units (round up). Place them on terrain, at least 6" from any table edge and at least 12" from another objective. Objectives all start under Defender control.</li>
+            <li>The Defender then picks a long table edge to deploy from; the Attacker takes the opposite.</li>
             <li>The Defender selects <strong>half their Units (rounded down)</strong> to be held in reserve. Vehicle Units must be selected before Non-Vehicle Units. <em>Units in reserve do not contribute Order Dice until they arrive.</em></li>
-            <li>The Defender's remaining Units are considered <strong>"Hidden"</strong> on their half of the table and Dug In (in Hard Cover) until they Move.</li>
-            <li><strong>Dug-In</strong> Teams that only Move during an assault may return to their foxholes.</li>
-            <li>The Attacker deploys their Units on their side of the table, outside 16" of the center line, either Hidden or revealed. <strong>Attacking Vehicles must always be deployed revealed.</strong> Any Units may instead arrive on any turn from the Attacker's table edge. Attacking Units held off-table are still considered deployed and <strong>contribute Order Dice each turn</strong>.</li>
+            <li>The Defender's remaining Units are considered <strong>"Hidden"</strong> on their half of the table and Dug In (in Hard Cover) until they Move. Dug-In Teams that only Move during an assault may return to their foxholes.</li>
+            <li>The Attacker deploys their Units outside 16" of the center line, either Hidden or revealed. <strong>Attacking Vehicles must be deployed revealed.</strong> Any Units may instead arrive on any turn from the Attacker's table edge (off-table Attacking Units still contribute Order Dice).</li>
           </ul>
         </div>
         <div class="rules-subsection">
@@ -8787,11 +8786,10 @@ const RULES_DATA = [
           <ul>
             <li>A Unit is <strong>reduced below half strength</strong>: 1 roll</li>
             <li>A Unit is <strong>destroyed</strong>: 1 roll (2 rolls total if destroyed before falling below half)</li>
-            <li>At the <strong>end of each turn (Attacker)</strong>: 1 roll if they do not control all objectives</li>
-            <li>At the <strong>end of each turn (Defender)</strong>: 1 roll if enemy Units occupy their table half; 1 roll for each objective they do not control</li>
+            <li>An <strong>objective is captured</strong>: 2 rolls</li>
           </ul>
         </div>
-        <p><em>Controlling an objective requires a Player be the only one with at least one Infantry Team within 4" of the objective. Vehicles may contest but cannot control.</em></p>
+        <p><em>Capturing an objective requires a Player be the only one with at least one Infantry Team within 4" of the objective. Vehicles may contest but cannot capture.</em></p>
       </div>`
   },
   {
@@ -8864,7 +8862,11 @@ const RULES_DATA = [
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Compare Pairings</div>
-          <p>For each pairing, determine which unit appears more threatening to their opponent, and "score" its player <strong>1 point</strong>. When it's not obvious which unit is more threatening, the defending side typically has the edge. A unit already in position is harder to dislodge than one that must advance against it.</p>
+          <p>For each pairing, determine which unit appears more threatening to their opponent, and "score" its player <strong>1 point</strong>. When it's not clear which unit is more threatening, simply ignore the pairing and move to the next.</p>
+        </div>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">Heavy Hitters</div>
+          <p>If the scoring unit has more Teams with <strong>AT 6+</strong> or a front + flank AR sum of <strong>6+</strong> than its paired Unit, or if the scoring Unit has <strong>10+ Infantry/Gun Teams</strong> (including Small Teams), score an additional <strong>+1 point</strong> (2 points total for that pairing).</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Size Advantage Bonus</div>
@@ -8876,7 +8878,7 @@ const RULES_DATA = [
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Calculate Handicap</div>
-          <p>Total each player's points. The player with the higher score reduces their starting <strong>Break Limit by the difference between the scores multiplied by 2</strong>. The player with the higher score may choose to remove units from their force OR reduce the number of teams in their units to reduce or eliminate the penalty (recalculate scores after removal).</p>
+          <p>Total each player's points. The player with the higher score <strong>starts the game with a Break Point penalty</strong> worth the difference between the scores multiplied by 2. That player may instead choose to remove units from their force OR reduce the number of teams in their units to reduce or eliminate the penalty (recalculate scores after removal).</p>
         </div>
       </div>`
   },
