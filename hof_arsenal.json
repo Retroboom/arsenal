@@ -4948,7 +4948,7 @@
       "fp": 1,
       "armor_front": 2,
       "armor_flank": 1,
-      "armament": "OQF 75mm gun, Co-ax MG/Hull MG",
+      "armament": "OQF 75mm gun, Coax MG/Hull MG",
       "notes": [
         "Tracked",
         "Fast",
@@ -4983,7 +4983,7 @@
       "fp": 1,
       "armor_front": 2,
       "armor_flank": 1,
-      "armament": "OQF 95mm CS howitzer, Co-ax MG/Hull MG",
+      "armament": "OQF 95mm CS howitzer, Coax MG/Hull MG",
       "notes": [
         "Tracked",
         "Fast",
@@ -5018,7 +5018,7 @@
       "fp": 1,
       "armor_front": 2,
       "armor_flank": 1,
-      "armament": "OQF 17 pdr gun, Co-ax MG",
+      "armament": "OQF 17 pdr gun, Coax MG",
       "notes": [
         "Tracked",
         "Fast",
@@ -5057,7 +5057,7 @@
       "fp": 1,
       "armor_front": 2,
       "armor_flank": 1,
-      "armament": "M3 75mm gun, Co-ax MG/Hull MG",
+      "armament": "M3 75mm gun, Coax MG/Hull MG",
       "notes": [
         "Tracked",
         "Smoke"
@@ -5128,7 +5128,7 @@
       "fp": 1,
       "armor_front": 2,
       "armor_flank": 1,
-      "armament": "OQF 17 pdr gun, Co-ax MG",
+      "armament": "OQF 17 pdr gun, Coax MG",
       "notes": [
         "Tracked",
         "Limited HE"
@@ -5165,7 +5165,7 @@
       "fp": 1,
       "armor_front": 3,
       "armor_flank": 3,
-      "armament": "OQF 6 pdr, Co-ax MG/Hull MG",
+      "armament": "OQF 6 pdr, Coax MG/Hull MG",
       "notes": [
         "Tracked",
         "Slow",
@@ -5200,7 +5200,7 @@
       "fp": 1,
       "armor_front": 3,
       "armor_flank": 3,
-      "armament": "OQF 75mm gun, Co-ax MG/Hull MG",
+      "armament": "OQF 75mm gun, Coax MG/Hull MG",
       "notes": [
         "Tracked",
         "Slow",
@@ -5236,7 +5236,7 @@
       "fp": 1,
       "armor_front": 6,
       "armor_flank": 3,
-      "armament": "OQF 75mm gun, Co-ax MG/Hull MG",
+      "armament": "OQF 75mm gun, Coax MG/Hull MG",
       "notes": [
         "Tracked",
         "Slow",
@@ -5272,7 +5272,7 @@
       "fp": 1,
       "armor_front": 6,
       "armor_flank": 3,
-      "armament": "OQF 75mm gun, Crocodile flame-gun, Co-ax MG",
+      "armament": "OQF 75mm gun, Crocodile flame-gun, Coax MG",
       "notes": [
         "Tracked",
         "Slow",
@@ -5346,7 +5346,7 @@
       "fp": 1,
       "armor_front": 1,
       "armor_flank": 0,
-      "armament": "OQF 17 pdr gun, .50cal AA MG",
+      "armament": "OQF 17 pdr gun, .50 cal MG",
       "notes": [
         "Tracked",
         "Open Topped",
@@ -5463,7 +5463,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "OQF 2 pdr gun, Co-ax MG",
+      "armament": "OQF 2 pdr gun, Coax MG",
       "notes": [
         "Wheeled",
         "Open Topped"
@@ -5536,7 +5536,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "Besa 15mm gun, Co-ax MG",
+      "armament": "Besa 15mm gun, Coax MG",
       "notes": [
         "Wheeled",
         "Open Topped"
@@ -5572,7 +5572,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "M6 37mm gun, Co-ax MG",
+      "armament": "M6 37mm gun, Coax MG",
       "notes": [
         "Wheeled",
         "Open Topped"
@@ -5609,7 +5609,7 @@
       "fp": 1,
       "armor_front": 1,
       "armor_flank": 0,
-      "armament": "OQF 2 pdr gun, Co-ax MG",
+      "armament": "OQF 2 pdr gun, Coax MG",
       "notes": [
         "Wheeled",
         "Open Topped",
@@ -5648,7 +5648,7 @@
       "fp": 1,
       "armor_front": 1,
       "armor_flank": 0,
-      "armament": "M3 75mm gun, Co-ax MG",
+      "armament": "M3 75mm gun, Coax MG",
       "notes": [
         "Wheeled",
         "Open Topped",
@@ -5787,7 +5787,7 @@
     {
       "id": "br-recon-universal-carrier-mg",
       "lore": "Mounting the .50-calibre Browning on the Universal Carrier gave reconnaissance units a vehicle-mounted heavy machine gun for both anti-aircraft and anti-personnel roles. The Browning's flat trajectory and heavy round could engage soft-skin vehicles, gun crews, and low-flying aircraft with equal effectiveness, making these carriers valuable in the advance to contact when air threat and road ambush were constant concerns. Canadian and British reconnaissance regiments employed these as troop fire-support vehicles, providing the suppressive fire while lighter Dingo scout cars pushed forward to observe.",
-      "name": "Universal Carrier (.5\" MG)",
+      "name": "Universal Carrier (.50 MG)",
       "nation": "Britain",
       "type": "Transport",
       "theater": [
@@ -5805,7 +5805,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": ".5\" MG",
+      "armament": ".50 cal MG",
       "notes": [
         "Half-Tracked",
         "Open Topped",
@@ -5901,7 +5901,7 @@
     {
       "id": "br-recon-indian-carrier-mg",
       "lore": "Mounting the .50-calibre Browning on the Indian Pattern Carrier gave Indian and Commonwealth reconnaissance sections vehicle-borne heavy firepower for anti-vehicle, anti-personnel, and anti-aircraft work. The Browning's range and stopping power were valuable in the long-distance patrolling typical of Burma and the Italian Apennines, where forward elements often operated beyond easy support range. The simplified wheeled chassis of the Indian Pattern variant traded off-road performance for maintainability with the limited workshops available to Indian Army divisions, while still providing enough mobility for the reconnaissance role.",
-      "name": "Indian Pattern Carrier (.5\" MG)",
+      "name": "Indian Pattern Carrier (.50 MG)",
       "nation": "Britain",
       "type": "Transport",
       "theater": [
@@ -5921,7 +5921,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": ".5\" MG",
+      "armament": ".50 cal MG",
       "notes": [
         "Wheeled",
         "Open Topped",
@@ -6268,7 +6268,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": null,
+      "armament": "Passenger-fired .50cal MG",
       "notes": [
         "Half-Tracked",
         "Open Topped",
@@ -7003,7 +7003,7 @@
       "fp": 1,
       "armor_front": 1,
       "armor_flank": 0,
-      "armament": "45mm obr 1938 gun, Co-ax MG",
+      "armament": "45mm obr 1938 gun, Coax MG",
       "notes": [
         "Tracked"
       ],
@@ -7036,7 +7036,7 @@
       "fp": 1,
       "armor_front": 2,
       "armor_flank": 1,
-      "armament": "76mm F-34 gun, Co-ax MG, Hull MG",
+      "armament": "76mm F-34 gun, Coax MG, Hull MG",
       "notes": [
         "Tracked",
         "Fast",
@@ -7072,7 +7072,7 @@
       "fp": 1,
       "armor_front": 3,
       "armor_flank": 2,
-      "armament": "85mm D-5T gun, Co-ax MG, Hull MG",
+      "armament": "85mm D-5T gun, Coax MG, Hull MG",
       "notes": [
         "Tracked"
       ],
@@ -7105,7 +7105,7 @@
       "fp": 1,
       "armor_front": 3,
       "armor_flank": 2,
-      "armament": "76mm F-34 gun, Co-ax MG, Hull MG",
+      "armament": "76mm F-34 gun, Coax MG, Hull MG",
       "notes": [
         "Tracked",
         "Wide Tracks"
@@ -7138,7 +7138,7 @@
       "fp": 1,
       "armor_front": 4,
       "armor_flank": 3,
-      "armament": "85mm D-5T gun, Co-ax MG",
+      "armament": "85mm D-5T gun, Coax MG",
       "notes": [
         "Tracked",
         "Slow"
@@ -7172,7 +7172,7 @@
       "fp": 2,
       "armor_front": 4,
       "armor_flank": 3,
-      "armament": "122mm D-25T gun, Co-ax MG",
+      "armament": "122mm D-25T gun, Coax MG",
       "notes": [
         "Tracked",
         "Slow",
@@ -9097,7 +9097,7 @@
       "fp": 1,
       "armor_front": 3,
       "armor_flank": 2,
-      "armament": "OQF 2 pdr gun, Co-ax MG",
+      "armament": "OQF 2 pdr gun, Coax MG",
       "notes": [
         "Tracked",
         "Slow",
@@ -9132,7 +9132,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "OQF 2 pdr gun, Co-ax MG",
+      "armament": "OQF 2 pdr gun, Coax MG",
       "notes": [
         "Tracked",
         "Fast",
@@ -9169,7 +9169,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "OQF 2 pdr gun, Co-ax MG",
+      "armament": "OQF 2 pdr gun, Coax MG",
       "notes": [
         "Tracked",
         "Fast",
@@ -9544,7 +9544,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "37mm SA-18 gun, Co-ax MG",
+      "armament": "37mm SA-18 gun, Coax MG",
       "notes": [
         "Wheeled"
       ],
@@ -9796,7 +9796,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "3.7cm KwK34(t) gun, Co-ax MG, Hull MG",
+      "armament": "3.7cm KwK34(t) gun, Coax MG, Hull MG",
       "notes": [
         "Tracked",
         "Unreliable"
@@ -9987,7 +9987,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "2cm KwK38 gun, Co-ax MG",
+      "armament": "2cm KwK38 gun, Coax MG",
       "notes": [
         "Wheeled"
       ],
@@ -10178,7 +10178,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "Besa 15mm gun, Co-ax MG",
+      "armament": "Besa 15mm gun, Coax MG",
       "notes": [
         "Tracked"
       ],
@@ -10213,7 +10213,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "OQF 2 pdr gun, Co-ax MG",
+      "armament": "OQF 2 pdr gun, Coax MG",
       "notes": [
         "Tracked",
         "Unreliable"
@@ -10249,7 +10249,7 @@
       "fp": null,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "OQF 3.7\" mortar (smoke only), Co-ax MG",
+      "armament": "OQF 3.7\" mortar (smoke only), Coax MG",
       "notes": [
         "Tracked",
         "Unreliable",
@@ -10285,7 +10285,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "OQF 2 pdr gun, Co-ax MG",
+      "armament": "OQF 2 pdr gun, Coax MG",
       "notes": [
         "Tracked",
         "Slow",
