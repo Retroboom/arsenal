@@ -6179,7 +6179,7 @@ const RULE_TIPS = {
   // ── Vehicle Rules ──────────────────────────────────────────────────────────
   'Hull Mounted': 'Gun has a limited forward arc of fire.',
   'Hull-Mounted': 'Gun has a limited forward arc of fire.',
-  'Open Topped': 'Destroyed if it resolves RFPs while in base contact with an enemy Team during an assault.',
+  'Open Topped': 'Destroyed if it resolves RFPs while in base contact with an enemy Team during an assault. Reveals Hidden Teams at the Infantry range (16"), not the closed-vehicle 8".',
   'Anti-Air': 'May attempt to intercept aircraft. When rolling Order Dice, a Hero Die roll of 1 triggers an immediate air attack. AA Teams that did not activate last turn roll RoF dice vs. the aircraft\'s 1d6. Each die rolling higher scores a hit.',
   'May only inflict RFPs': 'Cannot cause Kill results. All hits generate Received Fire Points only.',
   'Immobile': 'Cannot move once deployed.',
@@ -8730,12 +8730,12 @@ const RULES_DATA = [
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Hidden Teams</div>
-          <p>Hidden Teams do not need to be pre-plotted and may be revealed at any time without spending an Order Point. They must be revealed inside their deployment zone and either outside LoS of any enemy, or in concealing terrain at least <strong>16"</strong> from enemy Infantry/Gun Teams or <strong>8"</strong> from enemy Vehicle Teams.</p>
+          <p>Hidden Teams do not need to be pre-plotted and may be revealed at any time without spending an Order Point. They must be revealed inside their deployment zone and either outside LoS of any enemy, or in concealing terrain at least <strong>16"</strong> from enemy Infantry, Gun, or <strong>Open-Topped</strong> Vehicle Teams, or <strong>8"</strong> from other Vehicle Teams.</p>
           <table class="rules-table">
             <tr><th>Hidden Teams are revealed when…</th></tr>
             <tr><td>Outside LoS, <em>or</em></td></tr>
-            <tr><td>In Concealing Terrain and outside 16" of Infantry and Gun Teams</td></tr>
-            <tr><td>In Concealing Terrain and outside 8" of Vehicle Teams</td></tr>
+            <tr><td>In Concealing Terrain and outside 16" of Infantry, Gun, and Open-Topped Vehicle Teams</td></tr>
+            <tr><td>In Concealing Terrain and outside 8" of other Vehicle Teams</td></tr>
           </table>
           <p>If revealed immediately after enemy movement, subtract the distance moved from these ranges. A position outside LoS of all moving Teams before they moved may be revealed freely, regardless of distance or concealment.</p>
           <p>Teams from the same Unit do not need to be revealed simultaneously.</p>
