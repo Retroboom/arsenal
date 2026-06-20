@@ -5485,7 +5485,7 @@
           <input class="qt-input" id="qt-name-a" placeholder="Name…" maxlength="32">
           <div class="qt-bl-row">
             <label class="qt-bl-label">Break Limit</label>
-            <input class="qt-input qt-bl-input" id="qt-bl-a" type="number" min="1" max="99" value="9">
+            <input class="qt-input qt-bl-input" id="qt-bl-a" type="number" min="1" max="99" placeholder="∞">
           </div>
         </div>
         <div class="qt-player-block qt-axis">
@@ -5493,7 +5493,7 @@
           <input class="qt-input" id="qt-name-b" placeholder="Name…" maxlength="32">
           <div class="qt-bl-row">
             <label class="qt-bl-label">Break Limit</label>
-            <input class="qt-input qt-bl-input" id="qt-bl-b" type="number" min="1" max="99" value="9">
+            <input class="qt-input qt-bl-input" id="qt-bl-b" type="number" min="1" max="99" placeholder="∞">
           </div>
         </div>
       </div>
@@ -13531,7 +13531,7 @@ function bpBarColor(pct) {
 
 function renderGamePanel(player, sideClass) {
   const g    = gameMode[player];
-  const broken   = g.bp >= g.bl;
+  const broken   = (g.bl != null && g.bp >= g.bl);
   const pct      = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
   const barColor = bpBarColor(pct);
   const chipsHTML = g.rolls.map(r => `<span class="game-draw-chip bp-${r}">${r} BP</span>`).join('');
@@ -13541,7 +13541,7 @@ function renderGamePanel(player, sideClass) {
   return `
     <div class="game-panel ${sideClass}" id="game-panel-${player}">
       <div class="game-player-name">${esc(g.name)}</div>
-      <div class="game-bl">BL ${g.bl}${g.heroBonus ? ` · <span class="game-hero-tag">+${g.heroBonus} Hero Point${g.heroBonus === 1 ? '' : 's'}</span>` : ''}</div>
+      <div class="game-bl">BL ${g.bl == null ? '∞' : g.bl}${g.heroBonus ? ` · <span class="game-hero-tag">+${g.heroBonus} Hero Point${g.heroBonus === 1 ? '' : 's'}</span>` : ''}</div>
 
       <div class="game-roll-row">
         <button class="game-roll-btn" id="game-gen-btn-${player}" onclick="rollBP('${player}')">Roll Break Points</button>
@@ -13556,7 +13556,7 @@ function renderGamePanel(player, sideClass) {
           <p class="game-score-value${broken ? ' game-bp-broken' : ''}">${g.bp}</p>
           <div class="game-progress-wrap">
             <div class="game-progress-bar"><div class="game-progress-fill" style="width:${pct}%;background:${barColor}"></div></div>
-            <span class="game-progress-bl">BL ${g.bl}</span>
+            <span class="game-progress-bl">BL ${g.bl == null ? '∞' : g.bl}</span>
           </div>
           <p class="game-draws-label">History</p>
           <div class="game-draws-history">${chipsHTML}</div>
@@ -13595,7 +13595,7 @@ function triggerBP(player, numRolls) {
   }
 
   const g = gameMode[player];
-  const wasAlreadyBroken = g.bp >= g.bl;
+  const wasAlreadyBroken = (g.bl != null && g.bp >= g.bl);
   g.bp += totalBP;
   g.rolls.push(totalBP);
   g.dieRolls.push(dice);
@@ -13640,7 +13640,7 @@ function triggerBP(player, numRolls) {
     const scoreEl = section.querySelector('.game-score-value');
     const fillEl  = section.querySelector('.game-progress-fill');
     const histEl  = section.querySelector('.game-draws-history');
-    const nowBroken = g.bp >= g.bl;
+    const nowBroken = (g.bl != null && g.bp >= g.bl);
     const pct = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
     const barColor = bpBarColor(pct);
     if (scoreEl) { scoreEl.textContent = `${g.bp}`; scoreEl.classList.toggle('game-bp-broken', nowBroken); }
@@ -13649,7 +13649,7 @@ function triggerBP(player, numRolls) {
   }
 
   // Breaking label
-  const nowBroken = g.bp >= g.bl;
+  const nowBroken = (g.bl != null && g.bp >= g.bl);
   const breakingEl = document.getElementById(`game-breaking-${player}`);
   if (breakingEl) breakingEl.style.display = nowBroken ? '' : 'none';
 
@@ -13673,7 +13673,7 @@ function rollBP(player) {
   const die  = Math.floor(Math.random() * 6) + 1;
   const bp   = die <= 3 ? 1 : die <= 5 ? 2 : 3;
   const g    = gameMode[player];
-  const wasAlreadyBroken = g.bp >= g.bl;
+  const wasAlreadyBroken = (g.bl != null && g.bp >= g.bl);
   g.bp += bp;
   g.rolls.push(bp);
   g.dieRolls.push(die);
@@ -13728,7 +13728,7 @@ function rollBP(player) {
     const scoreEl = section.querySelector('.game-score-value');
     const fillEl  = section.querySelector('.game-progress-fill');
     const histEl  = section.querySelector('.game-draws-history');
-    const nowBroken = g.bp >= g.bl;
+    const nowBroken = (g.bl != null && g.bp >= g.bl);
     const pct = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
     const barColor = bpBarColor(pct);
     if (scoreEl) { scoreEl.textContent = `${g.bp}`; scoreEl.classList.toggle('game-bp-broken', nowBroken); }
@@ -13737,7 +13737,7 @@ function rollBP(player) {
   }
 
   // Breaking label (hidden inside score section — only visible when score is revealed)
-  const nowBroken = g.bp >= g.bl;
+  const nowBroken = (g.bl != null && g.bp >= g.bl);
   const breakingEl = document.getElementById(`game-breaking-${player}`);
   if (breakingEl) breakingEl.style.display = nowBroken ? '' : 'none';
 
@@ -13813,7 +13813,7 @@ function undoLastRoll(player) {
     const scoreEl = section.querySelector('.game-score-value');
     const fillEl  = section.querySelector('.game-progress-fill');
     const histEl  = section.querySelector('.game-draws-history');
-    const stillBroken = g.bp >= g.bl;
+    const stillBroken = (g.bl != null && g.bp >= g.bl);
     const pct = Math.min(100, g.bl > 0 ? (g.bp / g.bl) * 100 : 0);
     const barColor = bpBarColor(pct);
     if (scoreEl) { scoreEl.textContent = `${g.bp}`; scoreEl.classList.toggle('game-bp-broken', stillBroken); }
@@ -13823,7 +13823,7 @@ function undoLastRoll(player) {
 
   // Update breaking label
   const breakingEl = document.getElementById(`game-breaking-${player}`);
-  if (breakingEl) breakingEl.style.display = (g.bp >= g.bl) ? '' : 'none';
+  if (breakingEl) breakingEl.style.display = ((g.bl != null && g.bp >= g.bl)) ? '' : 'none';
 
   // Hide undo button if no rolls left
   if (!g.rolls.length) {
@@ -13916,8 +13916,10 @@ function closeQuickTracker() {
 function launchQuickTracker() {
   const nameA = (document.getElementById('qt-name-a').value || '').trim() || 'Player 1';
   const nameB = (document.getElementById('qt-name-b').value || '').trim() || 'Player 2';
-  const blA   = Math.max(1, parseInt(document.getElementById('qt-bl-a').value) || 9);
-  const blB   = Math.max(1, parseInt(document.getElementById('qt-bl-b').value) || 9);
+  // Empty Break Limit = no limit (infinite BL): the side never routs, just tallies BP.
+  const parseBL = id => { const v = (document.getElementById(id).value || '').trim(); return v === '' ? null : Math.max(1, parseInt(v) || 1); };
+  const blA   = parseBL('qt-bl-a');
+  const blB   = parseBL('qt-bl-b');
   closeQuickTracker();
   // Populate gameMode directly, bypassing FPP
   gameMode.a        = { name: nameA, bp: 0, bl: blA, scoreVisible: false, rolls: [], dieRolls: [], lastDie: null, lastRoll: null };
