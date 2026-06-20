@@ -6180,7 +6180,7 @@ const RULE_TIPS = {
   'Hull Mounted': 'Gun has a limited forward arc of fire.',
   'Hull-Mounted': 'Gun has a limited forward arc of fire.',
   'Open Topped': 'Destroyed if it resolves RFPs while in base contact with an enemy Team during an assault. Reveals Hidden Teams at the Infantry range (16"), not the closed-vehicle 8".',
-  'Anti-Air': 'May attempt to intercept aircraft. When rolling Order Dice, a Hero Die roll of 1 triggers an immediate air attack. AA Teams that did not activate last turn roll RoF dice vs. the aircraft\'s 1d6. Each die rolling higher scores a hit.',
+  'Anti-Air': 'Fires in any direction (360°): the gun rides a rotating AA mount and never needs to face its target. May also attempt to intercept aircraft: when rolling Order Dice, a Hero Die roll of 1 triggers an immediate air attack, and AA Teams that did not activate last turn roll RoF dice vs. the aircraft\'s 1d6 (each die rolling higher scores a hit).',
   'May only inflict RFPs': 'Cannot cause Kill results. All hits generate Received Fire Points only.',
   'Immobile': 'Cannot move once deployed.',
   // ── Movement Types ─────────────────────────────────────────────────────────
@@ -8891,7 +8891,7 @@ const RULES_DATA = [
         <p>These keywords appear in unit profiles and modify how those Teams behave.</p>
         <table class="rules-table">
           <tr><th>Rule</th><th>Effect</th></tr>
-          <tr><td><strong>Anti-Air</strong></td><td>See Air Support in Optional Rules.</td></tr>
+          <tr><td><strong>Anti-Air</strong></td><td>Fires 360° (all-round mount). May intercept aircraft, see Air Support in Optional Rules.</td></tr>
           <tr><td><strong>Bunker Buster</strong></td><td>When using direct fire, unarmored Teams within 2" of a hit Target Team each receive 1 RFP.</td></tr>
           <tr><td><strong>Fast</strong></td><td>Add +2 inches to movement.</td></tr>
           <tr><td><strong>Flame-thrower</strong></td><td>See Flame-Throwers in Optional Rules.</td></tr>
@@ -8913,6 +8913,10 @@ const RULES_DATA = [
     body: `
       <div class="rules-body-text">
         <p>When rolling Order Dice, if the <strong>Hero Die rolls a 1</strong>, an air attack immediately occurs on the Active Player's behalf before they spend any Order Points.</p>
+        <div class="rules-subsection">
+          <div class="rules-subsection-title">All-Round Fire</div>
+          <p>An Anti-Air gun rides a rotating mount built to track aircraft, so it may fire in <strong>any direction (360°)</strong> at ground targets as well, with no need to turn to face them. Dedicated anti-tank guns, which lack this mount, keep their normal forward arc.</p>
+        </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">AA Engagement</div>
           <p>Each AA Team that <em>did not activate</em> during its previous turn may attempt to intercept. AA Teams roll a number of dice equal to their Rate of Fire while the Active Player rolls 1d6 for the aircraft. Each AA die that rolls <em>higher</em> than the aircraft's 1d6 scores one hit on the aircraft. For each hit, the Air Support player rolls 1d6, attempting to roll <em>higher</em> than the AA gun's AT rating. If the Air Support fails any save roll, the aircraft is driven off and no attack occurs.</p>
