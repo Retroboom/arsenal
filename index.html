@@ -6184,9 +6184,9 @@ const RULE_TIPS = {
   'May only inflict RFPs': 'Cannot cause Kill results. All hits generate Received Fire Points only.',
   'Immobile': 'Cannot move once deployed.',
   // ── Movement Types ─────────────────────────────────────────────────────────
-  'Tracked': 'Move 3d6". +6" on roads. Must make a Terrain Check to cross Difficult or Very Difficult Terrain or stop.',
+  'Tracked': 'Move 3d6". +6" on roads. Drops the highest movement die to cross Difficult Terrain; in Very Difficult Terrain, pass a Terrain Check or stop.',
   'Wheeled': 'Move 3d6". +12" on roads. Must make a Terrain Check to cross Difficult Terrain or stop. Cannot enter Very Difficult Terrain.',
-  'Half-Tracked': 'Move 3d6". +6" on roads. Must make a Terrain Check to cross Difficult Terrain or stop. Cannot enter Very Difficult Terrain.',
+  'Half-Tracked': 'Move 3d6". +6" on roads. Drops the highest movement die to cross Difficult Terrain. Cannot enter Very Difficult Terrain.',
   'Wagon': 'Moves 2d6".',
   // ── Terrain / Special Equipment ────────────────────────────────────────────
   'Bocage Breacher': 'When this team passes a Terrain Check to cross bocage, mark the crossing point. Other teams may cross at that point this turn without requiring a Terrain Check. This team benefits from its own breach.',
@@ -8341,8 +8341,8 @@ const RULES_DATA = [
             <tr><th>Team</th><th>Difficult Terrain</th><th>Very Difficult Terrain</th></tr>
             <tr><td>Infantry</td><td>No Restriction</td><td>No Restriction</td></tr>
             <tr><td>Gun</td><td>No Restriction</td><td>May Not Move</td></tr>
-            <tr><td>Tracked</td><td colspan="2">Pass Terrain Check or Stop</td></tr>
-            <tr><td>Half-Tracked</td><td>Pass Terrain Check or Stop</td><td>May Not Move</td></tr>
+            <tr><td>Tracked</td><td>Drop the highest movement die</td><td>Pass Terrain Check or Stop</td></tr>
+            <tr><td>Half-Tracked</td><td>Drop the highest movement die</td><td>May Not Move</td></tr>
             <tr><td>Wheeled</td><td>Pass Terrain Check or Stop</td><td>May Not Move</td></tr>
           </table>
           <p>Failure on a Terrain Check causes the Team to stop in contact with the terrain.</p>
