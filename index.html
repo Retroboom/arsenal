@@ -5184,6 +5184,10 @@
   .qt-axis   .qt-player-label { color: #5a6a72; }
   .qt-input { background: var(--bg2); border: 1px solid var(--border); color: var(--text1); font-family: var(--mono); font-size: 13px; padding: 7px 9px; border-radius: 4px; outline: none; width: 100%; transition: border-color 0.15s; }
   .qt-input:focus { border-color: var(--accent); }
+  /* Briefing editor: tall, drag-resizable body field; form scrolls so fields never clip. */
+  #briefing-editor-modal .fpp-modal { max-height: 92vh; }
+  #briefing-editor-fields { overflow-y: auto; }
+  #be-body { resize: vertical; min-height: 300px; line-height: 1.55; }
   .qt-bl-row { display: flex; align-items: center; gap: 8px; }
   .qt-bl-label { font-family: var(--mono); font-size: 11px; color: var(--text3); white-space: nowrap; }
   .qt-bl-input { width: 64px; text-align: center; flex: none; }
@@ -5546,7 +5550,7 @@
       <span id="briefing-editor-title">New Briefing</span>
       <button class="fpp-modal-close" onclick="closeBriefingEditor()">✕</button>
     </div>
-    <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+    <div id="briefing-editor-fields" style="padding:18px 20px;display:flex;flex-direction:column;gap:14px">
       <label class="briefing-field">
         <span class="briefing-field-label">Title (press Enter for a line break)</span>
         <textarea id="be-title" rows="2" class="qt-input" placeholder="Welcome to the Arsenal"></textarea>
@@ -5569,7 +5573,7 @@
       </label>
       <label class="briefing-field">
         <span class="briefing-field-label">Body (markdown; leave blank to use URL instead)</span>
-        <textarea id="be-body" rows="10" class="qt-input" placeholder="# Heading
+        <textarea id="be-body" rows="18" class="qt-input" placeholder="# Heading
 
 Write the post here in Markdown. Headings, **bold**, *italic*, [links](https://example.com), lists, blockquotes, and images all work.
 
