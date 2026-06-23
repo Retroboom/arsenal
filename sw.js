@@ -6,7 +6,6 @@ const CACHE = 'arsenal-' + VERSION;
 // Everything needed to cold-boot the app with no network.
 const SHELL = [
   '/',
-  '/index.html',
   '/hof_arsenal.json',
   '/manifest.webmanifest',
   '/rb.png',
@@ -20,9 +19,26 @@ const SHELL = [
 ];
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())
-  );
+  e.waitUntil((async () => {
+    const cache = await caches.open(CACHE);
+    // Cache each item independently so one failure (404, redirect) can't abort
+    // the whole install the way cache.addAll() would.
+    await Promise.all(SHELL.map(async (url) => {
+      try {
+        const resp = await fetch(url, { cache: 'reload' });
+        if (!resp || !resp.ok) return;
+        // Cache.put() rejects on a redirected response (Cloudflare Pages
+        // canonicalizes some paths), so store a clean rebuilt copy instead.
+        if (resp.redirected) {
+          const body = await resp.blob();
+          await cache.put(url, new Response(body, { status: 200, statusText: 'OK', headers: resp.headers }));
+        } else {
+          await cache.put(url, resp);
+        }
+      } catch (err) { /* skip this asset; keep the rest of the install going */ }
+    }));
+    await self.skipWaiting();
+  })());
 });
 
 self.addEventListener('activate', (e) => {
@@ -63,7 +79,7 @@ self.addEventListener('fetch', (e) => {
   // Page loads: network-first so a fresh deploy lands immediately; fall back to
   // the cached shell when offline.
   if (req.mode === 'navigate') {
-    e.respondWith(fetch(req).catch(() => caches.match('/index.html')));
+    e.respondWith(fetch(req).catch(() => caches.match('/')));
     return;
   }
 
