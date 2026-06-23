@@ -1,0 +1,6 @@
+# Never let the browser HTTP-cache the service worker or manifest, so new
+# deploys (and the stamped SW version) propagate immediately.
+/sw.js
+  Cache-Control: no-cache
+/manifest.webmanifest
+  Cache-Control: no-cache

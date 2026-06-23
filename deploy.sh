@@ -18,7 +18,15 @@ set -e
 
 cd "$(dirname "$0")"
 
-echo "Deploying to Cloudflare Pages (arsenal.retroboomgames.com)..."
+# Stamp the service worker with a unique version so each deploy busts the
+# offline cache cleanly, then restore the placeholder afterward (keeps the
+# working tree clean whether the deploy succeeds or fails).
+STAMP="$(git rev-parse --short HEAD 2>/dev/null || echo manual)-$(date +%Y%m%d%H%M%S)"
+restore_sw() { sed -i '' "s/const VERSION = '[^']*';/const VERSION = '__BUILD_VERSION__';/" sw.js; }
+trap restore_sw EXIT
+sed -i '' "s/const VERSION = '__BUILD_VERSION__';/const VERSION = '$STAMP';/" sw.js
+
+echo "Deploying to Cloudflare Pages (arsenal.retroboomgames.com) [sw $STAMP]..."
 wrangler pages deploy . \
   --project-name=hof-arsenal \
   --branch=main \
