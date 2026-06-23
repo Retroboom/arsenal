@@ -8025,16 +8025,63 @@ function applyLibFilters() {
   renderLibForces(body, visible);
 }
 
+// Forces live in Firebase, which the service worker cannot cache (the SDK uses a
+// WebSocket). To keep the Force Library usable offline we mirror forces to
+// localStorage whenever they load online and read that mirror when offline. When
+// the browser reports it is offline we skip the live read entirely (instant);
+// otherwise we race it against a timeout so a dead connection cannot hang forever.
+const FORCES_MIRROR_KEY = 'arsenal-forces-mirror';
+
+function forcesFromMirror() {
+  try {
+    const cached = localStorage.getItem(FORCES_MIRROR_KEY);
+    if (cached) return Object.entries(JSON.parse(cached)).map(([id, f]) => ({ ...f, id }));
+  } catch (e) {}
+  return [];
+}
+
+function forceFromMirror(forceId) {
+  try {
+    const cached = localStorage.getItem(FORCES_MIRROR_KEY);
+    if (cached) { const map = JSON.parse(cached); if (map && map[forceId]) return map[forceId]; }
+  } catch (e) {}
+  return null;
+}
+
+async function loadAllForces() {
+  if (!navigator.onLine) return forcesFromMirror();
+  try {
+    const snap = await Promise.race([
+      firebase.database().ref('forces').once('value'),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 4000))
+    ]);
+    const raw = snap.val() || {};
+    try { localStorage.setItem(FORCES_MIRROR_KEY, JSON.stringify(raw)); } catch (e) {}
+    return Object.entries(raw).map(([id, f]) => ({ ...f, id }));
+  } catch (e) {
+    return forcesFromMirror();
+  }
+}
+
+async function cachedForce(forceId) {
+  if (!navigator.onLine) return forceFromMirror(forceId);
+  try {
+    const snap = await Promise.race([
+      firebase.database().ref(`forces/${forceId}`).once('value'),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 4000))
+    ]);
+    const val = snap.val();
+    if (val) return val;
+  } catch (e) {}
+  return forceFromMirror(forceId);
+}
+
 async function loadFeaturedStrip() {
   const strip = document.getElementById('lib-featured-strip');
   const cards = document.getElementById('lib-featured-cards');
   if (!strip || !cards) return;
 
-  const snap = await firebase.database().ref('forces').once('value');
-  const all = [];
-  // Use the Firebase key as the authoritative id (a stored `id` field can be missing or
-  // stale, which would make Load/View fetch the wrong path and report "not found").
-  snap.forEach(child => { all.push({ ...child.val(), id: child.key }); });
+  const all = await loadAllForces();
 
   const published = all.filter(f => f.published)
     .sort((a, b) => (b.created || 0) - (a.created || 0))
@@ -9787,13 +9834,7 @@ async function loadLibraryTab(tab) {
     return;
   }
 
-  const db = firebase.database();
-  const snap = await db.ref('forces').once('value');
-
-  const all = [];
-  // Use the Firebase key as the authoritative id (a stored `id` field can be missing or
-  // stale, which would make Load/View fetch the wrong path and report "not found").
-  snap.forEach(child => { all.push({ ...child.val(), id: child.key }); });
+  const all = await loadAllForces();
 
   const filtered = tab === 'browse'
     ? all.filter(f => f.published && !f.fppTemp)
@@ -9933,8 +9974,7 @@ async function moveForceOrder(forceId, direction) {
 async function loadForceFromLibrary(forceId) {
   if (platoons.length > 0 && !confirm('Loading this force will replace your current force. Continue?')) return;
   await discardTempForce(); // clean up any FPP temp save before replacing the builder
-  const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
-  const data = snap.val();
+  const data = await cachedForce(forceId);
   if (!data) { showToast('Force not found.', 'error'); return; }
   loadForceData(data);
   currentForceId = forceId;
@@ -9964,8 +10004,7 @@ async function checkUrlForce() {
 
   const sheetId = params.get('sheet');
   if (sheetId) {
-    const snap = await firebase.database().ref(`forces/${sheetId}`).once('value');
-    const data = snap.val();
+    const data = await cachedForce(sheetId);
     if (data) openForceSheet(data);
     return;
   }
@@ -9990,8 +10029,7 @@ async function checkUrlForce() {
 
   const forceId = params.get('force');
   if (!forceId) return;
-  const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
-  const data = snap.val();
+  const data = await cachedForce(forceId);
   if (data) {
     loadForceData(data);
     currentForceId = forceId;
@@ -10261,8 +10299,7 @@ async function openLibForceSheet(forceId) {
     return;
   }
   // Fallback: fetch from Firebase
-  const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
-  const data = snap.val();
+  const data = await cachedForce(forceId);
   if (data) openForceSheet(data);
   else showToast('Force not found.', 'error');
 }
@@ -13950,15 +13987,13 @@ async function openForcePicker() {
   modal.style.display = 'flex';
   list.innerHTML = '<div class="fpp-picker-loading">Loading forces…</div>';
   try {
-    const snap = await firebase.database().ref('forces').once('value');
+    const forces = await loadAllForces();
     const mine = [], library = [];
 
-    snap.forEach(c => {
-      const v = c.val();
-      if (!v) return;
+    forces.forEach(v => {
       const isOwn = currentUser && (v.authorUid === currentUser.uid || v.authorEmail === currentUser.email);
-      if (isOwn) mine.push({ id: c.key, ...v });
-      else if (v.published && !v.fppTemp) library.push({ id: c.key, ...v });
+      if (isOwn) mine.push(v);
+      else if (v.published && !v.fppTemp) library.push(v);
     });
 
     mine.sort((a, b) => (b.created || 0) - (a.created || 0));
@@ -13999,8 +14034,7 @@ function closeForcePicker() {
 
 async function selectOpponentForce(forceId) {
   closeForcePicker();
-  const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
-  const data = snap.val();
+  const data = await cachedForce(forceId);
   if (!data) return;
   fppState.b.platoons   = toArr(data.platoons).map((p, i) => ({
     id: `pl-${Date.now()}-${i}`,
@@ -14024,17 +14058,14 @@ async function openMyForcePicker() {
   modal.style.display = 'flex';
   list.innerHTML = '<div class="fpp-picker-loading">Loading forces…</div>';
   try {
-    const snap = await firebase.database().ref('forces').once('value');
+    const forces = await loadAllForces();
     const mine = [];
     const library = [];
-    const seen = new Set();
 
-    snap.forEach(c => {
-      const v = c.val();
-      if (!v) return;
+    forces.forEach(v => {
       const isOwn = currentUser && (v.authorUid === currentUser.uid || v.authorEmail === currentUser.email);
-      if (isOwn) { mine.push({ id: c.key, ...v }); seen.add(c.key); }
-      else if (v.published && !v.fppTemp) { library.push({ id: c.key, ...v }); }
+      if (isOwn) mine.push(v);
+      else if (v.published && !v.fppTemp) library.push(v);
     });
 
     // My forces: newest first; library: alphabetical
@@ -14073,8 +14104,7 @@ async function openMyForcePicker() {
 async function selectMyForce(forceId) {
   closeForcePicker();
   await discardTempForce();
-  const snap = await firebase.database().ref(`forces/${forceId}`).once('value');
-  const data = snap.val();
+  const data = await cachedForce(forceId);
   if (!data) return;
   loadForceData(data);
   currentForceId = forceId;
