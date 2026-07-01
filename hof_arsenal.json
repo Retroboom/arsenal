@@ -10462,6 +10462,142 @@
       "free": false,
       "wiki": "Ordnance_QF_25-pounder",
       "lore": "The 18/25 pdr was a transitional weapon: a new 25-pounder barrel fitted to the old 18-pounder carriage. It gave regular Royal Artillery batteries improved range and a heavier shell while the purpose-built 25-pounder carriage was still in production. Most BEF field batteries in France were equipped with this hybrid weapon."
+    },
+    {
+      "id": "de-gun-5cm-mortar",
+      "lore": "The 5cm leichter Granatwerfer 36 was the German platoon's own indirect-fire weapon, a compact mortar one man could carry and bring into action in seconds. It lobbed a small HE bomb onto machine-gun nests and infantry just beyond grenade range. Its short range and light charge disappointed in practice, and by 1943 most had been withdrawn in favor of the rifle grenade, but in Poland and France it gave German platoons a responsiveness their opponents envied.",
+      "name": "5cm leGrW 36 Mortar",
+      "nation": "Germany",
+      "type": "Gun",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1936,
+        1937,
+        1938,
+        1939,
+        1940,
+        1941,
+        1942
+      ],
+      "gun_range": "24\"",
+      "rof": 2,
+      "at": 0,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Man-Portable",
+        "Light Mortar"
+      ],
+      "special_rules": [],
+      "base": "Small",
+      "standard_platoon": null,
+      "free": false,
+      "wiki": "5_cm_leichter_Granatwerfer_36"
+    },
+    {
+      "id": "de-inf-atrifle",
+      "lore": "The Panzerbüchse 39 was a long, bolt-action anti-tank rifle firing a high-velocity 7.92mm tungsten-cored round. Against the light tanks and armored cars of 1939 and 1940 it could punch through side and rear armor at close range, and every German rifle company fielded a handful. It became a liability once enemy armor grew thicker, but in Poland and France it was the infantryman's best answer to a tank until the gun crews arrived.",
+      "name": "Panzerbüchse 39",
+      "nation": "Germany",
+      "type": "Infantry",
+      "infantry_weapon": true,
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942
+      ],
+      "gun_range": "16\"",
+      "rof": 1,
+      "at": 1,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [],
+      "special_rules": [],
+      "free": false,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Panzerbüchse_39"
+    },
+    {
+      "id": "br-inf-atrifle",
+      "lore": "The Boys anti-tank rifle was a heavy, bolt-action .55-calibre weapon issued to every British and Commonwealth platoon. It could penetrate the thin armor of early German tanks and armored cars at close range, though its ferocious recoil and modest effect against anything heavier made it unloved by the men who carried it. In France and the Western Desert it was the infantry's organic anti-tank capability until the 2-pounder and PIAT arrived.",
+      "name": "Boys Anti-tank Rifle",
+      "nation": "Britain",
+      "type": "Infantry",
+      "infantry_weapon": true,
+      "theater": [
+        "Western Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941,
+        1942
+      ],
+      "gun_range": "16\"",
+      "rof": 1,
+      "at": 1,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [],
+      "special_rules": [],
+      "free": false,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Boys_anti-tank_rifle"
+    },
+    {
+      "id": "fr-transport-lorraine38l",
+      "lore": "The Lorraine 38L was a fully-tracked armored carrier built to haul fuel, ammunition, and infantry forward under fire. Low and quick across broken ground, it could follow the cavalry tanks where wheeled trucks bogged down. The Germans captured large numbers in 1940 and rebuilt many into the Marder self-propelled guns, but in French service it was the army's best-protected supply and troop carrier.",
+      "name": "Lorraine 38L",
+      "nation": "France",
+      "type": "Transport",
+      "theater": [
+        "Western Front"
+      ],
+      "years": [
+        1939,
+        1940
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": null,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": null,
+      "notes": [
+        "Tracked",
+        "Open Topped",
+        "Slow",
+        "Carries 2 Teams"
+      ],
+      "special_rules": [],
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "free": false,
+      "wiki": "Lorraine_37L"
     }
   ]
 }
