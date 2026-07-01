@@ -5256,7 +5256,7 @@
 </header>
 
 <!-- AUTH GATE (shown until user signs in) -->
-<div class="auth-gate" id="auth-gate">
+<div class="auth-gate" id="auth-gate" style="display:none">
   <div class="auth-gate-box">
     <div class="auth-gate-logo">
       <img src="logo.png" alt="Hail of Fire" class="auth-gate-img">
@@ -14174,7 +14174,9 @@ firebase.auth().onAuthStateChanged(async (user) => {
       }
     }
   } else {
-    if (!isPreviewMode) gate.style.display = 'flex';
+    // No forced sign-in gate: logged-out visitors browse freely and sign in from
+    // the nav only when they choose to.
+    gate.style.display = 'none';
     isSubscriber = false;
     isAdmin = false;
     showScores = false;
@@ -14189,6 +14191,13 @@ firebase.auth().onAuthStateChanged(async (user) => {
     if (orbatTab) orbatTab.style.display = 'none';
     document.querySelectorAll('.fm-section-header .admin-only').forEach(el => { el.style.display = 'none'; });
     updateAuthUI(null, false);
+    // Load the public experience so logged-out visitors can browse everything.
+    loadData();
+    checkUrlForce();
+    checkUrlBriefing();
+    loadFeaturedStrip();
+    loadWhatsNew();
+    restoreGameState();
   }
 });
 </script>
