@@ -524,11 +524,7 @@
       "special_rules": [],
       "free": true,
       "base": "Medium",
-      "standard_platoon": {
-        "qty": 3,
-        "leader": true,
-        "fo": false
-      },
+      "standard_platoon": null,
       "wiki": "M2_mortar"
     },
     {
@@ -8264,11 +8260,7 @@
       ],
       "special_rules": [],
       "base": "Small",
-      "standard_platoon": {
-        "qty": 3,
-        "leader": true,
-        "fo": false
-      },
+      "standard_platoon": null,
       "free": false,
       "wiki": "Brandt_Mle_1935"
     },
@@ -9764,11 +9756,7 @@
       ],
       "special_rules": [],
       "base": "Small",
-      "standard_platoon": {
-        "qty": 3,
-        "leader": true,
-        "fo": false
-      },
+      "standard_platoon": null,
       "free": false,
       "wiki": "Viven-Bessi%C3%A8res_grenade",
       "lore": "The VB (Vivien-Bessi\u00e8res) team fired rifle grenades using a cup-type launcher fitted to the Lebel or Berthier rifle. French infantry doctrine placed great emphasis on these grenade launchers as a lightweight indirect fire weapon, allowing squads to lob explosives over obstacles and into enemy positions without calling for mortar support."
