@@ -5250,20 +5250,25 @@
     </button>
     <a class="nav-join-btn" id="nav-join" href="https://ko-fi.com/retroboom" target="_blank" rel="noopener" title="Support your friendly game creator on Ko-fi">Support</a>
     <div id="auth-area">
-      <button class="auth-btn" onclick="signIn()">Sign In</button>
+      <button class="auth-btn" onclick="openSignIn()">Sign In</button>
     </div>
   </div>
 </header>
 
 <!-- AUTH GATE (shown until user signs in) -->
-<div class="auth-gate" id="auth-gate" style="display:none">
-  <div class="auth-gate-box">
+<div class="auth-gate" id="auth-gate" style="display:none" onclick="if(event.target===this)closeSignIn()">
+  <div class="auth-gate-box" style="position:relative">
+    <button onclick="closeSignIn()" aria-label="Close" style="position:absolute;top:12px;right:14px;background:none;border:none;color:var(--text2);font-size:20px;line-height:1;cursor:pointer">✕</button>
     <div class="auth-gate-logo">
       <img src="logo.png" alt="Hail of Fire" class="auth-gate-img">
       <div class="auth-gate-label">Arsenal</div>
     </div>
-    <div class="auth-gate-sub">Sign in to build forces and browse additional content.</div>
-    <button class="google-btn" onclick="signIn()">Sign In with Google</button>
+    <div class="auth-gate-sub">Sign in to build and save your forces. Supporters: use the same email you used on Ko-fi so your content unlocks.</div>
+    <button class="google-btn" onclick="signIn()">Continue with Google</button>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--text3);letter-spacing:1px;margin:6px 0 12px">or</div>
+    <input id="email-link-input" class="qt-input" type="email" placeholder="you@example.com" autocomplete="email" style="text-align:center;margin-bottom:12px" onkeydown="if(event.key==='Enter')sendEmailLink()">
+    <button class="google-btn" onclick="sendEmailLink()">Email me a sign-in link</button>
+    <div id="email-link-msg" style="font-family:var(--mono);font-size:13px;color:var(--text2);letter-spacing:0.5px;line-height:1.5;min-height:16px;margin-top:10px;text-wrap:balance"></div>
     <div class="auth-gate-note">
       <a href="https://ko-fi.com/retroboom" target="_blank">Support your friendly game creator</a> on Ko-fi ($1/month) for extra units, nations, scenarios, and fresh content every month.
     </div>
@@ -10348,6 +10353,40 @@ function signIn() {
   });
 }
 
+// Open/close the sign-in chooser (Google + passwordless email link).
+function openSignIn() {
+  const gate = document.getElementById('auth-gate');
+  if (gate) gate.style.display = 'flex';
+  const msg = document.getElementById('email-link-msg');
+  if (msg) msg.textContent = '';
+}
+function closeSignIn() {
+  const gate = document.getElementById('auth-gate');
+  if (gate) gate.style.display = 'none';
+}
+
+// Passwordless email-link sign-in. Lets people (especially non-Google users)
+// sign in with the exact email they used on Ko-fi, so subscriber matching works.
+function sendEmailLink() {
+  const input = document.getElementById('email-link-input');
+  const msg = document.getElementById('email-link-msg');
+  const email = ((input && input.value) || '').trim();
+  if (!/^\S+@\S+\.\S+$/.test(email)) {
+    if (msg) { msg.style.color = '#d08a6a'; msg.textContent = 'Please enter a valid email address.'; }
+    return;
+  }
+  if (msg) { msg.style.color = 'var(--text2)'; msg.textContent = 'Sending your sign-in link…'; }
+  firebase.auth().sendSignInLinkToEmail(email, { url: window.location.origin + '/', handleCodeInApp: true })
+    .then(() => {
+      try { window.localStorage.setItem('emailForSignIn', email); } catch (e) {}
+      if (msg) { msg.style.color = 'var(--accent)'; msg.textContent = 'Check your email for a sign-in link. Use this same email on Ko-fi so your supporter content unlocks.'; }
+    })
+    .catch(err => {
+      console.error('sendSignInLinkToEmail failed:', err);
+      if (msg) { msg.style.color = '#d08a6a'; msg.textContent = 'Could not send the link right now. ' + ((err && err.message) || ''); }
+    });
+}
+
 function enterGuestMode() {
   const gate = document.getElementById('auth-gate');
   if (gate) gate.style.display = 'none';
@@ -10355,7 +10394,7 @@ function enterGuestMode() {
   isSubscriber = false;
   isAdmin = false;
   const area = document.getElementById('auth-area');
-  if (area) area.innerHTML = `<button class="auth-btn" onclick="signIn()">Sign In</button>`;
+  if (area) area.innerHTML = `<button class="auth-btn" onclick="openSignIn()">Sign In</button>`;
   loadData();
   loadFeaturedStrip();
   loadWhatsNew();
@@ -10406,7 +10445,7 @@ function updateAuthUI(user, subscriberStatus) {
   const join = document.getElementById('nav-join');
   if (join) join.style.display = subscriberStatus ? 'none' : '';
   if (!user) {
-    area.innerHTML = `<button class="auth-btn" onclick="signIn()">Sign In</button>`;
+    area.innerHTML = `<button class="auth-btn" onclick="openSignIn()">Sign In</button>`;
   } else {
     area.innerHTML = `
       <div class="auth-user ${subscriberStatus ? 'is-subscriber' : ''}">
@@ -10433,6 +10472,23 @@ const firebaseConfig = {
 };
 
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+
+// Complete a passwordless email-link sign-in when the user arrives via the link.
+try {
+  if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+    let email = null;
+    try { email = window.localStorage.getItem('emailForSignIn'); } catch (e) {}
+    if (!email) email = window.prompt('Confirm the email you used to request the sign-in link:');
+    if (email) {
+      firebase.auth().signInWithEmailLink(email, window.location.href)
+        .then(() => {
+          try { window.localStorage.removeItem('emailForSignIn'); } catch (e) {}
+          history.replaceState(null, '', window.location.pathname);
+        })
+        .catch(err => console.error('signInWithEmailLink failed:', err));
+    }
+  }
+} catch (e) { console.error('email-link check failed:', e); }
 
 // Auto guest mode on localhost or when ?preview=true is in the URL
 const isPreviewMode = ['localhost', '127.0.0.1'].includes(location.hostname) ||
