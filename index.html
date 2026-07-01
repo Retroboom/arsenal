@@ -2911,6 +2911,22 @@
   }
 
   .auth-btn:hover { border-color: var(--accent); color: var(--accent); }
+  /* Ko-fi Join CTA in the header, shown only to non-subscribers. */
+  .nav-join-btn {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .nav-join-btn:hover { background: var(--accent); color: var(--bg); }
 
   .auth-user {
     display: flex;
@@ -5232,6 +5248,7 @@
       <span class="sg-long">▶ Start Game</span>
       <span class="sg-short">▶ Play</span>
     </button>
+    <a class="nav-join-btn" id="nav-join" href="https://ko-fi.com/retroboom" target="_blank" rel="noopener" title="Support Hail of Fire and unlock additional content">Join</a>
     <div id="auth-area">
       <button class="auth-btn" onclick="signIn()">Sign In</button>
     </div>
@@ -10385,6 +10402,9 @@ async function checkSubscriber(email) {
 
 function updateAuthUI(user, subscriberStatus) {
   const area = document.getElementById('auth-area');
+  // Hide the header Join CTA for subscribers (and admins, who count as subscribers).
+  const join = document.getElementById('nav-join');
+  if (join) join.style.display = subscriberStatus ? 'none' : '';
   if (!user) {
     area.innerHTML = `<button class="auth-btn" onclick="signIn()">Sign In</button>`;
   } else {
