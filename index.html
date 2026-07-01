@@ -6350,7 +6350,7 @@ function renderGrid(container, forceIds, animate = true) {
               ${unit.base ? `<span class="base-badge">${unit.base}</span>` : ''}
             </span>
             ${locked
-              ? `<button class="add-force-btn" onclick="event.stopPropagation();showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Supporter Content</button>`
+              ? `<a class="add-force-btn" href="https://ko-fi.com/retroboom" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="display:inline-block;border-color:var(--accent);color:var(--accent);text-decoration:none">Join on Ko-fi</a>`
               : `<div class="card-footer-btns">
                   ${unit.standard_platoon ? `<button class="add-platoon-standard-btn" onclick="event.stopPropagation();addAsStandardPlatoon('${unit.id}')">+ New Platoon</button>` : ''}
                   ${activePlatoonId && !unit.platoon_only
@@ -8302,7 +8302,7 @@ function openUnitDetail(unitId) {
   // Footer buttons
   if (locked) {
     document.getElementById('udp-footer').innerHTML =
-      `<button class="udp-add-btn" onclick="showSubscribePrompt()" style="border-color:#5a4a2a;color:#9a8a5a;">Supporter Content</button>`;
+      `<a class="udp-add-btn" href="https://ko-fi.com/retroboom" target="_blank" rel="noopener" style="display:inline-block;border-color:var(--accent);color:var(--accent);text-decoration:none">Join on Ko-fi to unlock</a>`;
   } else {
     document.getElementById('udp-footer').innerHTML = `
       ${unit.standard_platoon ? `<button class="udp-add-btn" onclick="addAsStandardPlatoon('${unit.id}');closeUnitDetail()">＋ New Platoon</button>` : ''}
