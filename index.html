@@ -5248,7 +5248,7 @@
       <span class="sg-long">▶ Start Game</span>
       <span class="sg-short">▶ Play</span>
     </button>
-    <a class="nav-join-btn" id="nav-join" href="https://ko-fi.com/retroboom" target="_blank" rel="noopener" title="Support Hail of Fire and unlock additional content">Join</a>
+    <a class="nav-join-btn" id="nav-join" href="https://ko-fi.com/retroboom" target="_blank" rel="noopener" title="Support your friendly game creator on Ko-fi">Support</a>
     <div id="auth-area">
       <button class="auth-btn" onclick="signIn()">Sign In</button>
     </div>
@@ -5265,7 +5265,7 @@
     <div class="auth-gate-sub">Sign in to build forces and browse additional content.</div>
     <button class="google-btn" onclick="signIn()">Sign In with Google</button>
     <div class="auth-gate-note">
-      <a href="https://ko-fi.com/retroboom" target="_blank">Join on Ko-fi</a> for $1/month to access additional units, nations, scenarios, and other content added regularly.
+      <a href="https://ko-fi.com/retroboom" target="_blank">Support your friendly game creator</a> on Ko-fi ($1/month) for extra units, nations, scenarios, and fresh content every month.
     </div>
   </div>
 </div>
@@ -6350,7 +6350,7 @@ function renderGrid(container, forceIds, animate = true) {
               ${unit.base ? `<span class="base-badge">${unit.base}</span>` : ''}
             </span>
             ${locked
-              ? `<a class="add-force-btn" href="https://ko-fi.com/retroboom" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="display:inline-block;border-color:var(--accent);color:var(--accent);text-decoration:none">Join on Ko-fi</a>`
+              ? `<a class="add-force-btn" href="https://ko-fi.com/retroboom" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="display:inline-block;border-color:var(--accent);color:var(--accent);text-decoration:none">Support on Ko-fi</a>`
               : `<div class="card-footer-btns">
                   ${unit.standard_platoon ? `<button class="add-platoon-standard-btn" onclick="event.stopPropagation();addAsStandardPlatoon('${unit.id}')">+ New Platoon</button>` : ''}
                   ${activePlatoonId && !unit.platoon_only
@@ -7714,7 +7714,7 @@ function printLandscape() {
 }
 
 function showSubscribePrompt() {
-  showToast('This content is available to supporters. Join on Ko-fi ($1/mo) to unlock the full arsenal.', 'info', 5000);
+  showToast('This is supporter content. Support your friendly game creator on Ko-fi ($1/mo) for the full arsenal.', 'info', 5000);
 }
 
 // ── FORCE LIBRARY ─────────────────────────────────────────────────────────────
@@ -8302,7 +8302,7 @@ function openUnitDetail(unitId) {
   // Footer buttons
   if (locked) {
     document.getElementById('udp-footer').innerHTML =
-      `<a class="udp-add-btn" href="https://ko-fi.com/retroboom" target="_blank" rel="noopener" style="display:inline-block;border-color:var(--accent);color:var(--accent);text-decoration:none">Join on Ko-fi to unlock</a>`;
+      `<a class="udp-add-btn" href="https://ko-fi.com/retroboom" target="_blank" rel="noopener" style="display:inline-block;border-color:var(--accent);color:var(--accent);text-decoration:none">Support on Ko-fi</a>`;
   } else {
     document.getElementById('udp-footer').innerHTML = `
       ${unit.standard_platoon ? `<button class="udp-add-btn" onclick="addAsStandardPlatoon('${unit.id}');closeUnitDetail()">＋ New Platoon</button>` : ''}
@@ -9549,8 +9549,8 @@ function classifiedGateHtml() {
   return `
     <div class="briefing-gate">
       <div class="briefing-gate-stamp">⬡ CLASSIFIED</div>
-      <div class="briefing-gate-text">The rest of this briefing is available to Ko-fi subscribers. Join for $1/month to unlock every briefing, plus subscriber units and scenarios.</div>
-      <a class="briefing-gate-btn" href="https://ko-fi.com/retroboom" target="_blank" rel="noopener">Unlock on Ko-fi</a>
+      <div class="briefing-gate-text">The rest of this briefing is for supporters. Back the game for $1/month on Ko-fi and get every briefing, plus subscriber units and scenarios.</div>
+      <a class="briefing-gate-btn" href="https://ko-fi.com/retroboom" target="_blank" rel="noopener">Support on Ko-fi</a>
     </div>`;
 }
 let currentBriefingItem = null;
