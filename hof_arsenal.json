@@ -3691,7 +3691,7 @@
       ],
       "gun_range": "20\"",
       "rof": 3,
-      "at": 2,
+      "at": 1,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
@@ -3699,7 +3699,9 @@
       "notes": [
         "Tracked",
         "Open Topped",
-        "Anti-Air"
+        "Anti-Air",
+        "Limited HE",
+        "May only inflict RFPs"
       ],
       "special_rules": [],
       "free": true,
@@ -4729,7 +4731,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": [],
+      "notes": [
+        "Limited HE"
+      ],
       "special_rules": [],
       "free": true,
       "base": "Medium",
@@ -5528,14 +5532,16 @@
       ],
       "gun_range": "16\"",
       "rof": 3,
-      "at": 2,
+      "at": 1,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "Besa 15mm gun, Coax MG",
       "notes": [
         "Wheeled",
-        "Open Topped"
+        "Open Topped",
+        "Limited HE",
+        "May only inflict RFPs"
       ],
       "special_rules": [],
       "free": true,
@@ -5805,7 +5811,9 @@
       "notes": [
         "Half-Tracked",
         "Open Topped",
-        "Hull Mounted"
+        "Hull Mounted",
+        "Limited HE",
+        "May only inflict RFPs"
       ],
       "special_rules": [],
       "free": true,
@@ -5921,7 +5929,9 @@
       "notes": [
         "Wheeled",
         "Open Topped",
-        "Hull Mounted"
+        "Hull Mounted",
+        "Limited HE",
+        "May only inflict RFPs"
       ],
       "special_rules": [],
       "free": true,
@@ -8319,7 +8329,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": [],
+      "notes": [
+        "Limited HE"
+      ],
       "special_rules": [],
       "base": "Medium",
       "standard_platoon": {
@@ -8350,7 +8362,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": [],
+      "notes": [
+        "Limited HE"
+      ],
       "special_rules": [],
       "base": "Medium",
       "standard_platoon": {
@@ -8444,8 +8458,8 @@
       ],
       "gun_range": "16\"",
       "rof": 1,
-      "at": 0,
-      "fp": 1,
+      "at": 4,
+      "fp": 3,
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
@@ -8677,7 +8691,8 @@
       "armor_flank": 0,
       "armament": "25mm SA 34 gun, Coax MG",
       "notes": [
-        "Wheeled"
+        "Wheeled",
+        "Limited HE"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -9045,7 +9060,7 @@
       ],
       "gun_range": "16\"",
       "rof": 3,
-      "at": null,
+      "at": 1,
       "fp": 1,
       "armor_front": 2,
       "armor_flank": 2,
@@ -9054,7 +9069,8 @@
         "Tracked",
         "Slow",
         "Unreliable",
-        "May only inflict RFPs"
+        "May only inflict RFPs",
+        "Limited HE"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -9093,7 +9109,8 @@
       "notes": [
         "Tracked",
         "Slow",
-        "Unreliable"
+        "Unreliable",
+        "Limited HE"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -9128,7 +9145,8 @@
       "notes": [
         "Tracked",
         "Fast",
-        "Unreliable"
+        "Unreliable",
+        "Limited HE"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -9165,7 +9183,8 @@
       "notes": [
         "Tracked",
         "Fast",
-        "Unreliable"
+        "Unreliable",
+        "Limited HE"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -9196,14 +9215,15 @@
       ],
       "gun_range": "16\"",
       "rof": 3,
-      "at": null,
+      "at": 1,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
       "armament": ".50 cal Vickers MG, .303 Vickers MG",
       "notes": [
         "Tracked",
-        "May only inflict RFPs"
+        "May only inflict RFPs",
+        "Limited HE"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -9496,7 +9516,9 @@
       "armament": "13.2mm Hotchkiss MG",
       "notes": [
         "Tracked",
-        "Unreliable"
+        "Unreliable",
+        "Limited HE",
+        "May only inflict RFPs"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -9574,7 +9596,8 @@
       "armament": "25mm SA-34 gun",
       "notes": [
         "Tracked",
-        "Unreliable"
+        "Unreliable",
+        "Limited HE"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -9610,7 +9633,8 @@
       "notes": [
         "Tracked",
         "Unreliable",
-        "Hull Mounted"
+        "Hull Mounted",
+        "Limited HE"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -9644,7 +9668,8 @@
       "armament": "47mm SA-37 gun, hull mounted",
       "notes": [
         "Wheeled",
-        "Hull Mounted"
+        "Hull Mounted",
+        "Limited HE"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -9678,7 +9703,8 @@
       "armament": "25mm SA-34 gun, hull mounted",
       "notes": [
         "Wheeled",
-        "Hull Mounted"
+        "Hull Mounted",
+        "Limited HE"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -10017,7 +10043,8 @@
       "notes": [
         "Man-Portable",
         "Light Artillery",
-        "Smoke"
+        "Smoke",
+        "Limited HE"
       ],
       "special_rules": [],
       "base": "Medium",
@@ -10126,7 +10153,7 @@
         1944,
         1945
       ],
-      "gun_range": "24\"",
+      "gun_range": "20\"",
       "rof": 1,
       "at": 7,
       "fp": 2,
@@ -10162,13 +10189,15 @@
       ],
       "gun_range": "16\"",
       "rof": 2,
-      "at": 2,
+      "at": 1,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "Besa 15mm gun, Coax MG",
       "notes": [
-        "Tracked"
+        "Tracked",
+        "Limited HE",
+        "May only inflict RFPs"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -10204,7 +10233,8 @@
       "armament": "OQF 2 pdr gun, Coax MG",
       "notes": [
         "Tracked",
-        "Unreliable"
+        "Unreliable",
+        "Limited HE"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -10277,7 +10307,8 @@
       "notes": [
         "Tracked",
         "Slow",
-        "Unreliable"
+        "Unreliable",
+        "Limited HE"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -10313,7 +10344,8 @@
       "armor_flank": 0,
       "armament": "Boys anti-tank rifle, turret MG",
       "notes": [
-        "Wheeled"
+        "Wheeled",
+        "Limited HE"
       ],
       "special_rules": [],
       "base": "Vehicle",
@@ -10345,7 +10377,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": [],
+      "notes": [
+        "Limited HE"
+      ],
       "special_rules": [],
       "base": "Medium",
       "standard_platoon": {
@@ -10502,8 +10536,8 @@
     },
     {
       "id": "de-inf-atrifle",
-      "lore": "The Panzerbüchse 39 was a long, bolt-action anti-tank rifle firing a high-velocity 7.92mm tungsten-cored round. Against the light tanks and armored cars of 1939 and 1940 it could punch through side and rear armor at close range, and every German rifle company fielded a handful. It became a liability once enemy armor grew thicker, but in Poland and France it was the infantryman's best answer to a tank until the gun crews arrived.",
-      "name": "Panzerbüchse 39",
+      "lore": "The Panzerb\u00fcchse 39 was a long, bolt-action anti-tank rifle firing a high-velocity 7.92mm tungsten-cored round. Against the light tanks and armored cars of 1939 and 1940 it could punch through side and rear armor at close range, and every German rifle company fielded a handful. It became a liability once enemy armor grew thicker, but in Poland and France it was the infantryman's best answer to a tank until the gun crews arrived.",
+      "name": "Panzerb\u00fcchse 39",
       "nation": "Germany",
       "type": "Infantry",
       "infantry_weapon": true,
@@ -10525,12 +10559,14 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": [],
+      "notes": [
+        "Limited HE"
+      ],
       "special_rules": [],
       "free": false,
       "base": "Small",
       "standard_platoon": null,
-      "wiki": "Panzerbüchse_39"
+      "wiki": "Panzerb\u00fcchse_39"
     },
     {
       "id": "br-inf-atrifle",
@@ -10556,7 +10592,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": [],
+      "notes": [
+        "Limited HE"
+      ],
       "special_rules": [],
       "free": false,
       "base": "Small",
