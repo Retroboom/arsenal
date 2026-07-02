@@ -10035,16 +10035,15 @@
       ],
       "gun_range": "24\"",
       "rof": 2,
-      "at": 1,
-      "fp": 1,
+      "at": null,
+      "fp": null,
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
       "notes": [
         "Man-Portable",
-        "Light Artillery",
-        "Smoke",
-        "Limited HE"
+        "Medium Artillery",
+        "Smoke"
       ],
       "special_rules": [],
       "base": "Medium",
