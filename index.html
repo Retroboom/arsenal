@@ -7576,13 +7576,9 @@ function updateForceUI() {
 
           const teamLabel = t.displayName || unit.name;
           if (unit.type === 'Upgrade') {
-            // Per-combat-team upgrades (Panzerfaust) apply to every squad; show the count.
-            const perTeam = unit.per_combat_team ? countCombatSquads(platoon) : 0;
-            const perTeamTag = unit.per_combat_team
-              ? `<span class="upgrade-perteam">× ${perTeam} squad${perTeam === 1 ? '' : 's'}</span>` : '';
             return `
               <div class="team-upgrade-row"${rowAnim}>
-                <span class="upgrade-tag">${teamLabel}${perTeamTag}</span>
+                <span class="upgrade-tag">${teamLabel}</span>
                 <button class="team-remove-btn" onclick="removeTeamFromPlatoon('${platoon.id}','${t.unitId}')">✕</button>
               </div>
             `;
