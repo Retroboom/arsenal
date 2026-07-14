@@ -4531,20 +4531,20 @@
     .fs-header {
       background: #f0f0f0 !important;
       border-bottom: 2pt solid #222 !important;
-      padding: 14px 22px 12px !important;
+      padding: 10px 20px 8px !important;
     }
     .fs-title {
       color: #111 !important;
       font-family: Arial Black, Arial, sans-serif !important;
-      font-size: 27px !important;
+      font-size: 21px !important;
     }
     .fs-close-btn, .fs-print-btn, .fs-share-btn { display: none !important; }
 
-    .fs-meta { border-bottom: 1pt solid #ccc !important; padding: 9px 22px !important; }
+    .fs-meta { border-bottom: 1pt solid #ccc !important; padding: 6px 20px !important; }
     .fs-meta-item, .fs-meta-item strong {
       color: #333 !important;
       font-family: Arial, sans-serif !important;
-      font-size: 11px !important;
+      font-size: 10px !important;
     }
     .fs-meta-sep { color: #bbb !important; }
     .fs-nations .nation-badge {
@@ -4557,48 +4557,61 @@
     .nation-soviet  { color: #3a1810 !important; border-color: #6a2c1a !important; }
     .nation-france  { color: #1a3058 !important; border-color: #2a4878 !important; }
 
-    .fs-notes { color: #444 !important; border-bottom: 1pt solid #ccc !important; padding: 9px 22px !important; font-size: 12px !important; }
-    .fs-body { padding: 12px 22px 26px !important; }
+    .fs-notes { color: #444 !important; border-bottom: 1pt solid #ccc !important; padding: 6px 20px !important; font-size: 10px !important; }
+    .fs-body { padding: 8px 20px 18px !important; }
 
-    .fs-platoon { margin-bottom: 22px !important; }
+    /* Keep a platoon's heading, column headers, and rows together as one
+       unit so a heading never gets orphaned alone at the bottom of a page
+       with its table pushed to the next one. If a platoon is taller than a
+       full page it will still split, but small/medium platoons now move to
+       the next page as a whole instead of splitting after the heading. */
+    .fs-platoon {
+      margin-bottom: 14px !important;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+    }
     .fs-platoon-heading {
       color: #111 !important;
       font-family: Arial Black, Arial, sans-serif !important;
       border-bottom: 1pt solid #aaa !important;
-      font-size: 15px !important;
-      margin-bottom: 6px !important;
-      padding-bottom: 4px !important;
+      font-size: 13px !important;
+      margin-bottom: 4px !important;
+      padding-bottom: 3px !important;
+      break-after: avoid !important;
+      page-break-after: avoid !important;
     }
     .fs-platoon-num {
       color: #888 !important;
       font-family: Arial, sans-serif !important;
-      font-size: 10px !important;
+      font-size: 9px !important;
     }
 
+    .fs-stats-table thead { display: table-header-group !important; }
     .fs-stats-table th {
       background: #e8e8e8 !important;
       color: #444 !important;
       font-family: Arial, sans-serif !important;
       border-bottom: 1pt solid #999 !important;
-      padding: 4px 9px !important;
-      font-size: 9px !important;
+      padding: 3px 7px !important;
+      font-size: 8px !important;
     }
     .fs-stats-table td {
       font-family: Arial, sans-serif !important;
       border-bottom: 1pt solid #e0e0e0 !important;
-      padding: 6px 9px !important;
-      font-size: 11px !important;
+      padding: 4px 7px !important;
+      font-size: 10px !important;
     }
     .fs-stats-table tr:hover td { background: transparent !important; }
+    .fs-stats-table tr { break-inside: avoid !important; page-break-inside: avoid !important; }
 
     .fs-unit-name {
       color: #111 !important;
       font-family: Arial Black, Arial, sans-serif !important;
-      font-size: 13px !important;
+      font-size: 12px !important;
     }
-    .fs-armament { color: #555 !important; font-family: Arial, sans-serif !important; font-size: 10px !important; }
-    .fs-qty      { color: #111 !important; font-family: Arial, sans-serif !important; font-size: 12px !important; }
-    .fs-stat     { color: #111 !important; font-family: Arial, sans-serif !important; font-size: 11px !important; }
+    .fs-armament { color: #555 !important; font-family: Arial, sans-serif !important; font-size: 9px !important; }
+    .fs-qty      { color: #111 !important; font-family: Arial, sans-serif !important; font-size: 11px !important; }
+    .fs-stat     { color: #111 !important; font-family: Arial, sans-serif !important; font-size: 10px !important; }
     .fs-stat.dash { color: #aaa !important; font-family: Arial, sans-serif !important; }
 
     .base-badge {
@@ -4616,31 +4629,35 @@
       border: none !important;
       background: none !important;
       padding: 0 !important;
-      margin: 0 0 2px 0 !important;
+      margin: 0 0 1.5px 0 !important;
       font-family: Arial, sans-serif !important;
-      font-size: 8px !important;
-      line-height: 1.3 !important;
+      font-size: 7px !important;
+      line-height: 1.25 !important;
       color: #444 !important;
       letter-spacing: 0.2px !important;
       text-transform: uppercase !important;
     }
     .fs-notes-cell .note-tag:last-child { margin-bottom: 0 !important; }
 
+    /* Vehicle MGs reference table: same tightened spacing as platoons. */
+    .fs-mg-reference { margin-top: 14px !important; padding-top: 8px !important; }
+    .fs-mg-reference-title { font-size: 9px !important; margin-bottom: 4px !important; }
+
     /* Special Rules glossary: full explanations, printed once at the end
        of the sheet instead of repeating them in every row. */
-    .fs-glossary { border-top: 1pt solid #999 !important; margin-top: 20px !important; padding-top: 12px !important; }
+    .fs-glossary { border-top: 1pt solid #999 !important; margin-top: 14px !important; padding-top: 8px !important; }
     .fs-glossary-title {
       color: #444 !important;
       font-family: Arial, sans-serif !important;
-      font-size: 10px !important;
+      font-size: 9px !important;
       letter-spacing: 1px !important;
-      margin-bottom: 8px !important;
+      margin-bottom: 6px !important;
     }
     .fs-glossary-item {
       border-bottom: 0.5pt solid #ddd !important;
-      padding: 4px 0 !important;
+      padding: 3px 0 !important;
       font-family: Arial, sans-serif !important;
-      font-size: 10px !important;
+      font-size: 9px !important;
       -webkit-column-break-inside: avoid !important;
       break-inside: avoid !important;
       page-break-inside: avoid !important;
