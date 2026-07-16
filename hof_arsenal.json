@@ -8864,8 +8864,8 @@
     },
     {
       "id": "de-tank-pzIII-e",
-      "lore": "The Panzer III E was the first variant of Germany's intended main battle tank to see significant combat, entering service just before the invasion of France. Armed with a 3.7cm KwK 36 gun, it could engage contemporary light tanks but struggled against the armor of the Char B1 bis and Matilda II. Its real advantages were a three-man turret with a dedicated gunner, loader, and commander, plus a reliable radio in every vehicle. These features gave German tank platoons a decisive edge in coordination and reaction time over their opponents, most of whom fought with one-man turrets and flag signals.",
-      "name": "Panzer III E",
+      "lore": "The Panzer III E and F were the first variants of Germany's intended main battle tank to see significant combat, entering service just before the invasion of France. Armed with a 3.7cm KwK 36 gun, they could engage contemporary light tanks but struggled against the armor of the Char B1 bis and Matilda II. Their real advantage was a three-man turret with a dedicated gunner, loader, and commander, plus a reliable radio in every vehicle. These features gave German tank platoons a decisive edge in coordination and reaction time over their opponents, most of whom fought with one-man turrets and flag signals.",
+      "name": "Panzer III E or F",
       "nation": "Germany",
       "type": "Tank",
       "theater": [
@@ -8896,6 +8896,42 @@
         "fo": false
       },
       "free": false,
+      "wiki": "Panzer_III"
+    },
+    {
+      "id": "de-tank-pzIII-g",
+      "lore": "The Panzer III F (late) and G models replaced the original 3.7cm gun with the more powerful 5cm KwK38, a running upgrade applied to late-production F hulls and standard on the new G model, giving panzer crews a weapon that could finally threaten the frontal armor of contemporary Allied and Soviet light and medium tanks. It became the definitive Panzer III of the opening months of Barbarossa, forming the backbone of most panzer divisions' medium tank companies, though its gun still struggled against the sloped armor of the T-34 and the KV series at anything beyond point-blank range. The same three-man turret, dedicated radio, and crew coordination that made earlier Panzer IIIs effective carried over unchanged, keeping German tank platoons faster to react than their opponents even when outgunned.",
+      "name": "Panzer III F (late) or G",
+      "nation": "Germany",
+      "type": "Tank",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1940,
+        1941
+      ],
+      "gun_range": "20\"",
+      "rof": 3,
+      "at": 3,
+      "fp": 1,
+      "armor_front": 1,
+      "armor_flank": 1,
+      "armament": "5cm KwK38 gun, Coax MG/Hull MG",
+      "notes": [
+        "Tracked"
+      ],
+      "special_rules": [],
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "free": false,
+      "admin_only": true,
       "wiki": "Panzer_III"
     },
     {
