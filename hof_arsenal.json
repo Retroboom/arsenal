@@ -9869,7 +9869,8 @@
       "nation": "Germany",
       "type": "SP Artillery",
       "theater": [
-        "Western Front"
+        "Western Front",
+        "Eastern Front"
       ],
       "years": [
         1940,
@@ -9898,6 +9899,7 @@
         "fo": false
       },
       "free": false,
+      "admin_only": true,
       "wiki": "15_cm_sIG_33_(Sf)_auf_Panzerkampfwagen_I_Ausf_B",
       "lore": "This ungainly vehicle mounted the massive 15cm sIG33 heavy infantry gun on the tiny Panzer I chassis. Dangerously top-heavy, overloaded, and painfully slow, it was nonetheless the Wehrmacht's first self-propelled heavy gun. A handful served in France in 1940, providing direct heavy fire support to infantry attacks."
     },
