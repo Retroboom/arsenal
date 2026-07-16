@@ -5368,16 +5368,8 @@
       </div>
 
       <div class="filter-section">
-        <div class="filter-label">Year</div>
-        <div class="year-range">
-          <select class="year-select" id="year-from" onchange="applyFilters()">
-            <option value="">Any</option><option value="1939">1939</option><option value="1940">1940</option><option value="1941">1941</option><option value="1942">1942</option><option value="1943">1943</option><option value="1944">1944</option><option value="1945">1945</option>
-          </select>
-          <span class="year-sep">-</span>
-          <select class="year-select" id="year-to" onchange="applyFilters()">
-            <option value="">Any</option><option value="1939">1939</option><option value="1940">1940</option><option value="1941">1941</option><option value="1942">1942</option><option value="1943">1943</option><option value="1944">1944</option><option value="1945">1945</option>
-          </select>
-        </div>
+        <div class="filter-label">Era</div>
+        <div class="filter-chips" id="era-chips"></div>
       </div>
 
       <div class="filter-section">
@@ -5876,6 +5868,8 @@ function toggleTeamLock(platoonId, unitId) {
 let currentView = 'grid';
 const TYPE_ORDER   = ['Infantry', 'Gun', 'Tank', 'SP Artillery', 'SP Anti-Air', 'Armoured Cars', 'Transport', 'Upgrade'];
 const NATION_ORDER = ['United States', 'Germany', 'Britain', 'Soviet Union', 'France'];
+const ERA_ORDER  = ['Early', 'Mid', 'Late'];
+const ERA_YEARS  = { Early: [1939, 1940, 1941], Mid: [1942, 1943], Late: [1944, 1945] };
 const FORCE_TYPE_MAP = {
   'us-rifle-co-normandy-1944':    'Infantry',
   'us-rifle-company':             'Infantry',
@@ -5940,8 +5934,7 @@ let activeFilters = {
   nations: [],
   types: [],
   theaters: [],
-  yearFrom: null,
-  yearTo: null
+  eras: []
 };
 
 // Subscriber state — driven by Firebase Auth + Realtime Database check
@@ -6032,6 +6025,7 @@ function buildFilterChips() {
   renderChips('nation-chips', nations, 'nations');
   renderChips('type-chips', types, 'types');
   renderChips('theater-chips', theaters, 'theaters');
+  renderChips('era-chips', ERA_ORDER, 'eras');
 }
 
 function renderChips(containerId, values, filterKey) {
@@ -6088,10 +6082,8 @@ function setUnitSort(val) {
 }
 
 function clearFilters() {
-  activeFilters = { search: '', nations: [], types: [], theaters: [], yearFrom: null, yearTo: null };
+  activeFilters = { search: '', nations: [], types: [], theaters: [], eras: [] };
   document.getElementById('search-input').value = '';
-  document.getElementById('year-from').value = '';
-  document.getElementById('year-to').value = '';
   document.querySelectorAll('.chip.active').forEach(c => c.classList.remove('active'));
   unitSortOrder = 'default';
   const sortEl = document.getElementById('unit-sort');
@@ -6105,8 +6097,7 @@ function hasActiveFilters() {
     || activeFilters.nations.length > 0
     || activeFilters.types.length > 0
     || activeFilters.theaters.length > 0
-    || activeFilters.yearFrom !== null
-    || activeFilters.yearTo !== null;
+    || activeFilters.eras.length > 0;
 }
 
 function updateStripsVisibility() {
@@ -6131,8 +6122,6 @@ function updateStripsVisibility() {
 
 function applyFilters() {
   activeFilters.search = document.getElementById('search-input').value.toLowerCase().trim();
-  activeFilters.yearFrom = parseInt(document.getElementById('year-from').value) || null;
-  activeFilters.yearTo = parseInt(document.getElementById('year-to').value) || null;
 
   filteredUnits = allUnits.filter(u => {
     // Leaders and FOs are injected automatically — not browsable
@@ -6143,8 +6132,10 @@ function applyFilters() {
       if (!activeFilters.types.includes(u.type)) return false;
     }
     if (activeFilters.theaters.length && !u.theater.some(t => activeFilters.theaters.includes(t))) return false;
-    if (activeFilters.yearFrom && !u.years.some(y => y >= activeFilters.yearFrom)) return false;
-    if (activeFilters.yearTo && !u.years.some(y => y <= activeFilters.yearTo)) return false;
+    if (activeFilters.eras.length) {
+      const eraYears = activeFilters.eras.flatMap(e => ERA_YEARS[e]);
+      if (!u.years.some(y => eraYears.includes(y))) return false;
+    }
     return true;
   });
 
