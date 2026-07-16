@@ -8900,8 +8900,8 @@
     },
     {
       "id": "de-tank-pzIV-d",
-      "lore": "The Panzer IV D and E were designed as infantry support tanks, carrying the short-barreled 7.5cm KwK 37 gun to deliver high-explosive fire against bunkers, gun positions, and entrenched infantry. Its low-velocity 75mm round was less effective against armor than the Panzer III's high-velocity 37mm, and panzer doctrine assigned the Panzer IV to the support role while the Panzer III took on enemy tanks. The E model added appliqué armor plates to the hull and turret front, a stopgap response to the anti-tank guns encountered in Poland and France, but the same short gun and support role carried both variants through the opening months of Barbarossa.",
-      "name": "Panzer IV E or D",
+      "lore": "The Panzer IV D was designed as an infantry support tank, carrying the short-barreled 7.5cm KwK 37 gun to deliver high-explosive fire against bunkers, gun positions, and entrenched infantry. Its low-velocity 75mm round was less effective against armor than the Panzer III's high-velocity 37mm, and panzer doctrine assigned the Panzer IV to the support role while the Panzer III took on enemy tanks. Only a handful were present in each panzer division in 1940, but their ability to suppress anti-tank gun positions with HE made them valuable in combined-arms attacks.",
+      "name": "Panzer IV D",
       "nation": "Germany",
       "type": "Tank",
       "theater": [
@@ -8911,6 +8911,42 @@
       ],
       "years": [
         1939,
+        1940,
+        1941
+      ],
+      "gun_range": "20\"",
+      "rof": 2,
+      "at": 3,
+      "fp": 1,
+      "armor_front": 1,
+      "armor_flank": 0,
+      "armament": "7.5cm KwK37 gun, Coax MG/Hull MG",
+      "notes": [
+        "Tracked",
+        "Smoke"
+      ],
+      "special_rules": [],
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "free": false,
+      "wiki": "Panzer_IV"
+    },
+    {
+      "id": "de-tank-pzIV-e",
+      "lore": "The Panzer IV E added appliqué armor plates to the hull and turret front of the D model, a stopgap response to the anti-tank guns encountered during the Polish and French campaigns, without changing its low-velocity 7.5cm gun. Panzer doctrine still assigned it the infantry-support role, using its heavy HE shell to suppress bunkers and gun crews while Panzer IIIs handled enemy armor, a division of labor that held through the opening months of Barbarossa. The extra plating gave marginally better protection against Soviet 45mm anti-tank guns, though it remained vulnerable to the heavier guns mounted on the T-34 and KV series.",
+      "name": "Panzer IV E",
+      "nation": "Germany",
+      "type": "Tank",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
         1940,
         1941
       ],
@@ -8933,6 +8969,7 @@
         "fo": false
       },
       "free": false,
+      "admin_only": true,
       "wiki": "Panzer_IV"
     },
     {
