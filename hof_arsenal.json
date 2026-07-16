@@ -10815,8 +10815,8 @@
     },
     {
       "id": "sv-tank-t28",
-      "lore": "The T-28 multi-turreted medium tank was a 1930s design already obsolete by 1941, its three turrets and riveted armour reflecting an interwar doctrine of breakthrough firepower rather than the fast, well-protected vehicles the Germans fielded. The late-production T-28E added appliqué armour plates in response to the Winter War's lessons against Finnish anti-tank guns, trading some speed for protection but keeping the same 76mm gun. Most surviving T-28s of both types were concentrated in the border military districts and were destroyed or abandoned in the encirclements of June and July 1941, but a handful soldiered on through the defense of Leningrad and Moscow, their gun still useful for infantry support even as the vehicle itself belonged to an earlier era of tank design.",
-      "name": "T-28 obr 1938 or E",
+      "lore": "The T-28 multi-turreted medium tank was a 1930s design already obsolete by 1941, its three turrets and riveted armour reflecting an interwar doctrine of breakthrough firepower rather than the fast, well-protected vehicles the Germans fielded. Most surviving T-28s were concentrated in the border military districts and were destroyed or abandoned in the encirclements of June and July 1941, their mechanical unreliability compounding losses from combat. A handful soldiered on through the defense of Leningrad and Moscow, their 76mm gun still useful for infantry support even as the vehicle itself belonged to an earlier era of tank design.",
+      "name": "T-28 obr 1938",
       "nation": "Soviet Union",
       "type": "Tank",
       "theater": [
@@ -10824,6 +10824,41 @@
       ],
       "years": [
         1939,
+        1940,
+        1941
+      ],
+      "gun_range": "20\"",
+      "rof": 2,
+      "at": 3,
+      "fp": 1,
+      "armor_front": 1,
+      "armor_flank": 0,
+      "armament": "76mm L-10 gun, Coax MG",
+      "notes": [
+        "Unreliable",
+        "Wide Tracks"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "T-28_(tank)",
+      "admin_only": true
+    },
+    {
+      "id": "sv-tank-t28e",
+      "lore": "The T-28E added appliqué armour plates to the hull and turret front of the standard T-28, a response to the anti-tank guns encountered during the Winter War against Finland. The extra plating came at a real cost in speed and made an already mechanically fragile tank more prone to breakdown, but it gave crews a better chance of surviving a hit from the light anti-tank guns common at the start of Barbarossa. Like the rest of the T-28 fleet, most were lost in the encirclement battles of 1941, their obsolete multi-turret layout no match for German combined-arms tactics regardless of the extra armour.",
+      "name": "T-28E",
+      "nation": "Soviet Union",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
         1940,
         1941
       ],
@@ -10888,8 +10923,8 @@
     },
     {
       "id": "sv-tank-kv1-1940",
-      "lore": "The improved KV-1 traded the weak L-11 gun for the same 76mm F-34 that would later arm the T-34, giving it genuine firepower to match its near-impenetrable armour. The KV-1e variant welded on additional appliqué plates for even thicker protection against the 88mm FlaK guns Germans were increasingly pressing into the anti-tank role, at the cost of extra strain on an already unreliable drivetrain. Both remained the single most feared Soviet vehicles of 1941, capable of standing in the open under sustained fire from an entire German anti-tank company and continuing to fight, but the same catastrophic reliability problems meant breakdowns and fuel shortages destroyed as many KVs as German guns did. Where properly supplied and maintained, KV-1 companies anchored Soviet defensive lines through the desperate battles for Smolensk and the approaches to Moscow.",
-      "name": "KV-1 obr 1940 or KV-1e",
+      "lore": "The improved KV-1 traded the weak L-11 gun for the same 76mm F-34 that would later arm the T-34, giving it genuine firepower to match its near-impenetrable armour. It remained the single most feared Soviet vehicle of 1941, capable of standing in the open under sustained fire from an entire German anti-tank company and continuing to fight, but the same catastrophic reliability problems that plagued the earlier model meant breakdowns and fuel shortages destroyed as many KVs as German guns did. Where properly supplied and maintained, KV-1 companies anchored Soviet defensive lines through the desperate battles for Smolensk and the approaches to Moscow.",
+      "name": "KV-1 obr 1940",
       "nation": "Soviet Union",
       "type": "Tank",
       "theater": [
@@ -10897,6 +10932,40 @@
       ],
       "years": [
         1940,
+        1941
+      ],
+      "gun_range": "24\"",
+      "rof": 2,
+      "at": 4,
+      "fp": 1,
+      "armor_front": 3,
+      "armor_flank": 3,
+      "armament": "76mm F-34 gun, Coax MG, Hull MG",
+      "notes": [
+        "Slow",
+        "Unreliable"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "KV-1",
+      "admin_only": true
+    },
+    {
+      "id": "sv-tank-kv1e",
+      "lore": "The KV-1e welded additional appliqué armour plates onto the standard KV-1's hull and turret, a field response to the German 88mm FlaK guns increasingly pressed into the anti-tank role against a vehicle previously immune to almost everything the Wehrmacht could bring to bear. The extra plating pushed an already overweight and mechanically fragile chassis even further, and breakdowns claimed at least as many KV-1e's as German guns did. Where it reached the front intact, it was nearly indestructible by any anti-tank gun fielded during Barbarossa, and its arrival forced German commanders to rely on air power, engineer demolition charges, or the rare 88mm FlaK18 to deal with it at all.",
+      "name": "KV-1e",
+      "nation": "Soviet Union",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
         1941
       ],
       "gun_range": "24\"",
