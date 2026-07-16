@@ -5998,7 +5998,10 @@ async function loadData() {
   try {
     const response = await fetch('hof_arsenal.json');
     const data = await response.json();
-    allUnits = data.units;
+    // admin_only units (in-progress conversions not ready for public release)
+    // are stripped out entirely for everyone but admin, not just visually
+    // locked — they never appear in search, filters, or the force builder.
+    allUnits = isAdmin ? data.units : data.units.filter(u => !u.admin_only);
     buildFilterChips();
     applyFilters();
   } catch(e) {

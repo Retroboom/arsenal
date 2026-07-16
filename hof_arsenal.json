@@ -10635,6 +10635,1007 @@
       },
       "free": false,
       "wiki": "Lorraine_37L"
+    },
+    {
+      "id": "sv-tank-t38",
+      "lore": "The T-38 amphibious tankette was a light reconnaissance vehicle armed with only a machine gun, intended to swim rivers alongside advancing infantry and screen the flanks of motorised columns. By June 1941 it was already obsolete against German armour and anti-tank guns, and most of the Red Army's T-38s were destroyed or abandoned in the catastrophic border battles of the war's first weeks. Its amphibious capability made it useful for river-crossing reconnaissance even as its complete lack of a main gun left it unable to contribute to any real fight.",
+      "name": "T-38",
+      "nation": "Soviet Union",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "Hull MG",
+      "notes": [
+        "Half-Tracked",
+        "Amphibious",
+        "Unreliable"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "T-38_(tank)",
+      "admin_only": true
+    },
+    {
+      "id": "sv-tank-t60",
+      "lore": "The T-60 light tank was rushed into mass production after Barbarossa destroyed most of the Red Army's existing armour, using automotive-industry components so factories that had never built tanks could turn them out by the thousand. Its 20mm ShVAK autocannon could deal with infantry and soft vehicles but was hopeless against German armour, and crews bitterly nicknamed it the \"BM-2\" (bratskaya mogila na dvoikh, \"communal grave for two\"). Sheer numbers made it valuable regardless: T-60s screened flanks, escorted infantry, and filled gaps in the thin armoured formations that survived 1941's disasters.",
+      "name": "T-60 obr 1941",
+      "nation": "Soviet Union",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1941
+      ],
+      "gun_range": "16\"",
+      "rof": 2,
+      "at": 2,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "20mm ShVAK gun, Coax MG",
+      "notes": [
+        "Unreliable"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "T-60_tank",
+      "admin_only": true
+    },
+    {
+      "id": "sv-tank-t26",
+      "lore": "The T-26 was the backbone of the Soviet tank force at the start of Barbarossa, a license-built derivative of the British Vickers 6-Ton with a 45mm gun that could handle German light tanks but not the Panzer III or IV. Over 10,000 had been built by 1941, more than any other tank in Soviet service, but riveted armour, poor radios, and crews rushed through abbreviated training made it a poor match for the Wehrmacht's combined-arms tactics. The overwhelming majority of Soviet T-26s were lost in the encirclement battles of the war's opening months, but enough survived to see action all the way through the defense of Moscow.",
+      "name": "T-26 obr 1933/1939",
+      "nation": "Soviet Union",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "20\"",
+      "rof": 2,
+      "at": 3,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "45mm obr 1934 gun, Coax MG",
+      "notes": [
+        "Slow",
+        "Unreliable"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "T-26",
+      "admin_only": true
+    },
+    {
+      "id": "sv-tank-bt7",
+      "lore": "The BT-7 fast tank descended from the American Christie suspension design and was built for deep cavalry-style exploitation, capable of remarkable road speed on its wheels once the tracks were removed, a trick almost never used in actual combat. Its 45mm gun matched the T-26's firepower but its thin armour and high profile made it vulnerable to nearly everything the Germans fielded, and BT-7 formations suffered horrific losses in the mechanised battles of the Ukraine in June and July 1941. Despite the losses, the BT-7's speed and mechanical reliability relative to other Soviet tanks kept it in frontline service well into 1942.",
+      "name": "BT-7",
+      "nation": "Soviet Union",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "20\"",
+      "rof": 2,
+      "at": 3,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "45mm obr 1938 gun, Coax MG",
+      "notes": [
+        "Fast",
+        "Unreliable"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "BT-7",
+      "admin_only": true
+    },
+    {
+      "id": "sv-tank-valentine-ii",
+      "lore": "The Valentine arrived via the Arctic convoys beginning in late 1941, the first significant British Lend-Lease armour to reach Soviet units, and its heavy cast armour impressed crews used to the thin plating of domestic light tanks. Soviet reports praised its reliability and armour protection while criticising its cramped two-man turret and the notoriously weak 2-pounder gun, which could not fire high explosive shells at all and struggled against fortified positions. Despite the limitations, over 3,000 Valentines eventually served with the Red Army, more than any other nation used the type, and they filled critical gaps in Soviet tank strength through the darkest months of the war.",
+      "name": "Valentine II",
+      "nation": "Soviet Union",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1941
+      ],
+      "gun_range": "20\"",
+      "rof": 2,
+      "at": 3,
+      "fp": 1,
+      "armor_front": 2,
+      "armor_flank": 2,
+      "armament": "OQF 2pdr gun, Coax MG",
+      "notes": [
+        "Slow",
+        "Limited HE"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Valentine_tank",
+      "admin_only": true
+    },
+    {
+      "id": "sv-tank-t28",
+      "lore": "The T-28 multi-turreted medium tank was a 1930s design already obsolete by 1941, its three turrets and riveted armour reflecting an interwar doctrine of breakthrough firepower rather than the fast, well-protected vehicles the Germans fielded. Most surviving T-28s were concentrated in the border military districts and were destroyed or abandoned in the encirclements of June and July 1941, their mechanical unreliability compounding losses from combat. A handful soldiered on through the defense of Leningrad and Moscow, their 76mm gun still useful for infantry support even as the vehicle itself belonged to an earlier era of tank design.",
+      "name": "T-28 obr 1938",
+      "nation": "Soviet Union",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "20\"",
+      "rof": 2,
+      "at": 3,
+      "fp": 1,
+      "armor_front": 1,
+      "armor_flank": 0,
+      "armament": "76mm L-10 gun, Coax MG",
+      "notes": [
+        "Unreliable",
+        "Wide Tracks"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "T-28_(tank)",
+      "admin_only": true
+    },
+    {
+      "id": "sv-tank-kv1-1939",
+      "lore": "The earliest production KV-1s carried a low-velocity L-11 gun inherited from the T-28 and armour that no German anti-tank gun of 1941 could reliably penetrate frontally, giving isolated KV-1s the ability to shrug off entire anti-tank batteries at Raseiniai and other early engagements. German gunners resorted to firing 88mm FlaK guns over open sights or calling in air strikes when a KV-1 blocked a road, since standard anti-tank rounds simply bounced. The tank's crude transmission and appalling reliability meant more KV-1s were abandoned from mechanical breakdown than were ever destroyed in combat during the chaotic retreats of 1941.",
+      "name": "KV-1 obr 1939",
+      "nation": "Soviet Union",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "20\"",
+      "rof": 2,
+      "at": 2,
+      "fp": 1,
+      "armor_front": 3,
+      "armor_flank": 3,
+      "armament": "76mm L-11 gun, Coax MG, Hull MG",
+      "notes": [
+        "Slow",
+        "Unreliable"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "KV-1",
+      "admin_only": true
+    },
+    {
+      "id": "sv-tank-kv1-1940",
+      "lore": "The improved KV-1 traded the weak L-11 gun for the same 76mm F-34 that would later arm the T-34, giving it genuine firepower to match its near-impenetrable armour. It remained the single most feared Soviet vehicle of 1941, capable of standing in the open under sustained fire from an entire German anti-tank company and continuing to fight, but the same catastrophic reliability problems that plagued the earlier model meant breakdowns and fuel shortages destroyed as many KVs as German guns did. Where properly supplied and maintained, KV-1 companies anchored Soviet defensive lines through the desperate battles for Smolensk and the approaches to Moscow.",
+      "name": "KV-1 obr 1940",
+      "nation": "Soviet Union",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1940,
+        1941
+      ],
+      "gun_range": "24\"",
+      "rof": 2,
+      "at": 4,
+      "fp": 1,
+      "armor_front": 3,
+      "armor_flank": 3,
+      "armament": "76mm F-34 gun, Coax MG, Hull MG",
+      "notes": [
+        "Slow",
+        "Unreliable"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "KV-1",
+      "admin_only": true
+    },
+    {
+      "id": "sv-tank-kv2",
+      "lore": "The KV-2 mounted a 152mm howitzer in a towering slab-sided turret, originally designed to smash Finnish bunkers on the Mannerheim Line and pressed into an anti-tank role for which it was never intended once Barbarossa began. Its enormous turret was slow to traverse and the vehicle's high silhouette made it an easy target, but a single hit from its howitzer could destroy any German tank outright, and its thick armour made it nearly as difficult to kill as the KV-1. Fewer than 300 were built before production switched entirely to the KV-1, and virtually all were lost in the encirclement battles of 1941, but surviving accounts describe isolated KV-2s holding up entire German columns before being overwhelmed.",
+      "name": "KV-2",
+      "nation": "Soviet Union",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1940,
+        1941
+      ],
+      "gun_range": "20\"",
+      "rof": 1,
+      "at": 4,
+      "fp": 3,
+      "armor_front": 3,
+      "armor_flank": 3,
+      "armament": "152mm obr 1938/40 howitzer, Hull MG",
+      "notes": [
+        "Slow",
+        "Unreliable",
+        "Bunker Buster"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "KV-2",
+      "admin_only": true
+    },
+    {
+      "id": "sv-tank-t35",
+      "lore": "The T-35 was the Red Army's land battleship, a five-turreted colossus mounting a 76mm gun and two 45mm guns alongside multiple machine guns, built as a prestige weapon for parades through Red Square more than a practical battlefield tool. By 1941 its complexity, unreliability, and thin armour made it nearly useless in combat, and most of the roughly 50 built broke down or were abandoned during road marches to the front rather than being destroyed by enemy fire. Its sheer scale and multiple turrets still make it one of the most instantly recognisable tanks of the war and a genuine showpiece for any Soviet force on the table.",
+      "name": "T-35",
+      "nation": "Soviet Union",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "16\"",
+      "rof": 2,
+      "at": 2,
+      "fp": 1,
+      "armor_front": 1,
+      "armor_flank": 1,
+      "armament": "76mm obr 1927/32 gun, Coax MG",
+      "notes": [
+        "Slow",
+        "Overloaded",
+        "Unreliable"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "T-35_heavy_tank",
+      "secondary_weapon": {
+        "name": "45mm obr 1934 turret gun",
+        "gun_range": "20\"",
+        "rof": 2,
+        "at": 3,
+        "fp": 1,
+        "notes": []
+      },
+      "admin_only": true
+    },
+    {
+      "id": "sv-tank-kht130",
+      "lore": "The KhT-130 flame tank replaced one of the T-26's machine guns with a flame projector fed from an internal fuel tank, intended to burn out bunkers and entrenchments that infantry alone couldn't clear. Like the gun tanks it was based on, the KhT-130 suffered catastrophic losses in the border battles of 1941, and its thin armour made the close approach a flame weapon required a near-suicidal proposition against prepared German positions. The handful that survived into the defense of Moscow and Leningrad remained a valued if terrifying asset for clearing fortified villages and strongpoints.",
+      "name": "KhT-130",
+      "nation": "Soviet Union",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "4\"",
+      "rof": 3,
+      "at": null,
+      "fp": 3,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "ATO obr 1938 flame-thrower",
+      "notes": [
+        "Slow",
+        "Unreliable",
+        "Flame-Thrower"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "OT-26",
+      "admin_only": true
+    },
+    {
+      "id": "sv-tank-bt7a",
+      "lore": "The BT-7A traded the standard BT-7's high-velocity 45mm gun for a short 76mm infantry gun in an enlarged turret, giving fast tank battalions an organic close-support vehicle able to fire high explosive at strongpoints and anti-tank guns the 45mm couldn't touch. Its indirect fire capability let it lob rounds onto targets the crew couldn't see directly, a useful trick for suppressing dug-in positions ahead of an advance. Only a few hundred were built, and like every other BT variant it suffered heavily in the retreats of 1941, but where it survived its dual-role gun made it a genuinely useful fire-support asset.",
+      "name": "BT-7A",
+      "nation": "Soviet Union",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "16\"",
+      "rof": 2,
+      "at": 2,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "76mm obr 1927/32 gun, Coax MG",
+      "notes": [
+        "Fast",
+        "Light Artillery"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "BT-7",
+      "admin_only": true
+    },
+    {
+      "id": "sv-tank-zis30",
+      "lore": "The ZIS-30 was a hasty improvisation from the desperate summer of 1941, bolting the powerful new 57mm ZIS-2 anti-tank gun onto the open-topped hull of a Komsomolets artillery tractor to get a genuine tank-killer into the field while proper self-propelled guns were still on drawing boards. Its high, cramped, unarmoured fighting compartment left the crew exposed to anything but small-arms fire, and only around 100 were built before the factory that produced them was overrun. Despite the crude construction, its gun could defeat any German tank of 1941 at combat range, making it a genuinely dangerous if fragile stopgap.",
+      "name": "ZIS-30",
+      "nation": "Soviet Union",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1941
+      ],
+      "gun_range": "24\"",
+      "rof": 2,
+      "at": 5,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "57mm ZIS-2 gun, Hull MG",
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Hull Mounted",
+        "Unreliable"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "ZIS-30",
+      "admin_only": true
+    },
+    {
+      "id": "sv-spg-su12",
+      "lore": "The SU-12 mounted a 76mm regimental gun on the open bed of a GAZ-AAA truck, one of the Red Army's earliest experiments in self-propelled artillery and a direct ancestor of the SU-76 that would become one of the most produced Soviet vehicles of the war. Entirely unarmoured, it relied on speed and standoff range for survival, using the same gun as the towed infantry-support pieces to deliver either direct or indirect fire in support of an advance. Most had been withdrawn or lost by the time of Barbarossa, but the type illustrates the mobile-gun concept the Red Army would return to again and again as the war went on.",
+      "name": "SU-12",
+      "nation": "Soviet Union",
+      "type": "SP Artillery",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "16\"",
+      "rof": 2,
+      "at": 2,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": "76mm obr 1927 gun",
+      "notes": [
+        "Wheeled",
+        "Light Artillery"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "SU-12",
+      "admin_only": true
+    },
+    {
+      "id": "sv-ac-ba10",
+      "lore": "The BA-10 was the Red Army's standard medium armoured car at the start of the war, a six-wheeled vehicle mounting the same 45mm gun as the T-26 light tank and used extensively for reconnaissance, liaison, and screening duties by mechanised and cavalry formations. Its road-bound wheels limited it to decent terrain, but on roads it was fast and its gun gave it real teeth against enemy light armour and soft vehicles. Large numbers were lost in the border battles of 1941, but the BA-10 remained in reconnaissance service on secondary fronts well beyond that first catastrophic summer.",
+      "name": "BA-10",
+      "nation": "Soviet Union",
+      "type": "Armoured Cars",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "20\"",
+      "rof": 2,
+      "at": 3,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "45mm obr 1934 gun, Coax MG, Hull MG",
+      "notes": [
+        "Wheeled"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "BA-10",
+      "admin_only": true
+    },
+    {
+      "id": "sv-ac-ba20",
+      "lore": "The BA-20 was a light armoured car built on a GAZ-M1 passenger car chassis, armed with only a single machine gun and intended purely for reconnaissance, liaison, and command roles rather than combat. Its light weight gave it decent cross-country mobility for a wheeled vehicle of its era, and it equipped the reconnaissance elements of tank and cavalry divisions throughout the opening campaigns. Cheap and simple to produce, it remained in secondary service long after it had any hope of surviving contact with real opposition.",
+      "name": "BA-20",
+      "nation": "Soviet Union",
+      "type": "Armoured Cars",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "Hull MG",
+      "notes": [
+        "Wheeled"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "BA-20",
+      "admin_only": true
+    },
+    {
+      "id": "sv-transport-t20",
+      "lore": "The T-20 Komsomolyets was a lightly armoured tracked tractor purpose-built to tow the 45mm anti-tank gun and carry its crew and ammunition under some protection, a marked improvement over the horse teams and trucks that towed guns in less mechanised Soviet formations. Its hull machine gun gave the crew a self-defence option, and its small size and low profile made it a difficult target for return fire even in the open. Thousands equipped Soviet anti-tank battalions at the start of the war, and although most were lost in 1941's retreats, the type set the pattern for the tracked artillery tractors the Red Army relied on for the rest of the war.",
+      "name": "T-20 Komsomolyets",
+      "nation": "Soviet Union",
+      "type": "Transport",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "Hull MG",
+      "notes": [
+        "Half-Tracked",
+        "Unreliable"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Komsomolets_tractor",
+      "admin_only": true
+    },
+    {
+      "id": "sv-spa-katyusha-bm8",
+      "lore": "The BM-8 was the lighter cousin of the more famous BM-13, firing 82mm rockets from a 36-rail launcher rather than the BM-13's larger 132mm rounds. Introduced in the same desperate weeks of 1941, it was mounted on whatever chassis was available, from trucks to light tanks, and gave Soviet Guards Mortar units a cheaper way to saturate a target area even if each individual rocket carried less punch than the BM-13's. Like all Katyusha types it traded accuracy for terrifying volume of fire, its screaming ripple salvos becoming one of the defining sounds of the Eastern Front from the war's first summer onward.",
+      "name": "BM-8 Katyusha",
+      "nation": "Soviet Union",
+      "type": "SP Artillery",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1941
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": "BM-8-36 rocket launcher",
+      "notes": [
+        "Rocket Barrage",
+        "Wheeled",
+        "Light Artillery"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "BM-8_Katyusha",
+      "admin_only": true
+    },
+    {
+      "id": "sv-gun-maksim-aa",
+      "lore": "The Quad Maksim mounted four water-cooled Maxim machine guns on a single anti-aircraft carriage, multiplying the rate of fire of the venerable M1910 design to give Soviet columns a defence against the low-flying Luftwaffe aircraft that dominated the skies over the Eastern Front in 1941. Its rifle-calibre rounds couldn't reach high-altitude bombers, but against strafing Stukas and reconnaissance aircraft its combined volume of fire was genuinely dangerous, and its wheeled carriage let it deploy quickly to protect columns on the march. Cheap to build from existing components, it filled the gap while more capable heavy-calibre anti-aircraft weapons remained scarce.",
+      "name": "Quad Maksim AA MG",
+      "nation": "Soviet Union",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "16\"",
+      "rof": 6,
+      "at": 0,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Man-Portable",
+        "Anti-Air"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      },
+      "wiki": "Maxim_gun",
+      "admin_only": true
+    },
+    {
+      "id": "sv-gun-dshk-aa",
+      "lore": "The DShK heavy machine gun in its towed anti-aircraft mounting gave Soviet units a weapon with enough range and punch to seriously threaten low-flying German attack aircraft, its 12.7mm round capable of penetrating cockpit armour that rifle-calibre weapons couldn't touch. Deployed at regimental and divisional level, DShK batteries protected marching columns, rail yards, and rear-area installations from the constant threat of Luftwaffe strafing runs during 1941's chaotic retreats. When aircraft weren't present, crews used the same weapon against infantry and soft vehicles with equally lethal effect.",
+      "name": "DShK AA MG",
+      "nation": "Soviet Union",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "16\"",
+      "rof": 4,
+      "at": 1,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Man-Portable",
+        "Anti-Air"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      },
+      "wiki": "DShK",
+      "admin_only": true
+    },
+    {
+      "id": "sv-spaa-maksim-truck",
+      "lore": "Mounting the quad Maksim anti-aircraft carriage on the bed of a truck gave the weapon the mobility to keep pace with motorised columns rather than relying on manhandling the carriage into position. Entirely unarmoured and exposed, the crew traded protection for the ability to react quickly to the constant threat of low-level attack that plagued Soviet road movement in 1941, deploying and displacing faster than a towed mounting could manage. Like its towed counterpart it was a stopgap measure born of Luftwaffe air superiority, useful against strafing aircraft and equally effective hosing down infantry in the open.",
+      "name": "Quad Maksim AA MG on Truck",
+      "nation": "Soviet Union",
+      "type": "SP Anti-Air",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "16\"",
+      "rof": 6,
+      "at": 0,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": "Quad Maksim AA MG",
+      "notes": [
+        "Wheeled",
+        "Anti-Air",
+        "Limited HE",
+        "May only inflict RFPs"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Maxim_gun",
+      "admin_only": true
+    },
+    {
+      "id": "sv-gun-76-obr27",
+      "lore": "The 76mm regimental gun, universally nicknamed the \"polkovushka,\" was a short-barrelled infantry support piece issued directly to rifle regiments for close fire support against machine-gun nests, bunkers, and light fortifications that couldn't be reached by rifle or mortar fire. Its low velocity made it a mediocre anti-tank weapon, but its heavy high-explosive shell and organic assignment down to regimental level gave infantry commanders artillery support they could call on without waiting for divisional guns to range in. Thousands remained in front-line service throughout the desperate defensive battles of 1941 and 1942 simply because there was nothing better available in the quantities needed.",
+      "name": "76mm obr 1927 Gun",
+      "nation": "Soviet Union",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "16\"",
+      "rof": 2,
+      "at": 2,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Light Artillery"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      },
+      "wiki": "76_mm_regimental_gun_M1927",
+      "admin_only": true
+    },
+    {
+      "id": "sv-gun-45-1937",
+      "lore": "The 45mm anti-tank gun of 1937 was the Red Army's standard battalion anti-tank weapon at the start of Barbarossa, adequate against the Panzer I, II, and early III but already struggling against up-armoured German tanks by late 1941. Crews were trained to hold fire until German armour closed to point-blank range, a doctrine that produced enormous casualties among anti-tank gunners but also accounted for a disproportionate share of German tank losses in the war's opening months. The improved 1942 model with better ammunition would eventually replace it, but the 1937 gun bore the brunt of the fighting through the catastrophic summer and autumn that followed the invasion.",
+      "name": "45mm obr 1937 Gun",
+      "nation": "Soviet Union",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "20\"",
+      "rof": 3,
+      "at": 3,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [],
+      "special_rules": [],
+      "free": false,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      },
+      "wiki": "45_mm_anti-tank_gun_M1937",
+      "admin_only": true
+    },
+    {
+      "id": "sv-gun-76-f22",
+      "lore": "The F-22 divisional gun was designed as a dual-purpose field and anti-tank weapon, and its high-velocity round proved to be one of the few Soviet guns of 1941 that could reliably defeat the frontal armour of German medium tanks at combat range. Captured examples were so effective that the Germans rebored thousands of them into the PaK 36(r), one of the most important stopgap anti-tank weapons of the German army's own 1941-42 campaigns. In Soviet hands it remained a powerful, if awkward and slow-to-emplace, divisional anti-tank asset until the lighter and more purpose-built ZIS-3 began replacing it.",
+      "name": "76mm obr 1936 Gun (F-22)",
+      "nation": "Soviet Union",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "24\"",
+      "rof": 2,
+      "at": 4,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [],
+      "special_rules": [],
+      "free": false,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      },
+      "wiki": "76_mm_divisional_gun_M1936_(F-22)",
+      "admin_only": true
+    },
+    {
+      "id": "sv-gun-76-usv",
+      "lore": "The USV divisional gun simplified and lightened the F-22 design while keeping the same powerful 76mm round, becoming the standard Soviet divisional artillery piece at the start of Barbarossa. Its dual capability for direct anti-tank fire and indirect high-explosive bombardment made it one of the most versatile guns in the Soviet arsenal, equally at home smashing German tanks over open sights or supporting an infantry attack with a barrage. Along with the F-22 it bore the weight of Soviet divisional artillery through the catastrophic border battles before the lighter ZIS-3 began to supersede it in 1942.",
+      "name": "76mm obr 1939 Gun (USV)",
+      "nation": "Soviet Union",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "24\"",
+      "rof": 2,
+      "at": 4,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Heavy Artillery"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      },
+      "wiki": "76_mm_divisional_gun_M1939_(USV)",
+      "admin_only": true
+    },
+    {
+      "id": "sv-gun-107mm",
+      "lore": "The 107mm gun traced its lineage to a Tsarist-era design modernised between the wars, and by 1941 it served as a corps-level heavy gun capable of both counter-battery work and smashing fortified positions well beyond the range of divisional artillery. Its long barrel and powerful shell made it a genuine breakthrough weapon, but its weight and limited numbers meant it was concentrated at higher echelons rather than distributed down to divisions. Where it could be brought to bear, its combination of range and punch made it one of the more dangerous heavy guns a Soviet corps commander could call on in 1941.",
+      "name": "107mm obr 1910/30 Gun",
+      "nation": "Soviet Union",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "20\"",
+      "rof": 1,
+      "at": 4,
+      "fp": 2,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Immobile",
+        "Medium Artillery"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      },
+      "wiki": "107_mm_gun_M1910/30",
+      "admin_only": true
+    },
+    {
+      "id": "sv-gun-152-ml20",
+      "lore": "The ML-20 gun-howitzer combined the range of a gun with the plunging, bunker-smashing trajectory of a howitzer, becoming the standard heavy piece of Soviet corps and army-level artillery from the late 1930s onward. Its massive shell could destroy concrete fortifications, collapse buildings, and obliterate anything caught in the open, and it later became the main armament of the SU-152 and ISU-152 assault guns precisely because of how devastating its fire proved to be. In the desperate defensive battles of 1941, ML-20 batteries provided the heaviest indirect fire support available to Soviet commanders trying to slow the German advance.",
+      "name": "152mm obr 1931 Gun-Howitzer (ML-20)",
+      "nation": "Soviet Union",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "24\"",
+      "rof": 1,
+      "at": 6,
+      "fp": 3,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Immobile",
+        "Bunker Buster",
+        "Heavy Artillery"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      },
+      "wiki": "152_mm_gun-howitzer_M1937_(ML-20)",
+      "admin_only": true
+    },
+    {
+      "id": "sv-gun-light-mortar",
+      "lore": "The 50mm mortar was issued down to platoon level to give Soviet infantry an organic indirect-fire weapon within a squad's own chain of command, light enough that a single soldier could carry and fire it without the mule teams or dedicated crews larger mortars needed. Its short range and weak bomb made it a marginal weapon even by the standards of 1941, and its poor combat performance would lead to its withdrawal from Red Army service by 1943 in favour of concentrating on the far more effective 82mm mortar. Even so, in the desperate first year of the war it gave hard-pressed rifle platoons a way to drop fire on a machine-gun nest without waiting for support from higher up.",
+      "name": "50mm Light Mortar",
+      "nation": "Soviet Union",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939,
+        1940,
+        1941
+      ],
+      "gun_range": "16\"",
+      "rof": 1,
+      "at": 0,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Man-Portable",
+        "Light Mortar"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Medium",
+      "standard_platoon": null,
+      "wiki": "RM-38/40_mortar",
+      "admin_only": true
     }
   ]
 }
