@@ -10815,8 +10815,8 @@
     },
     {
       "id": "sv-tank-t28",
-      "lore": "The T-28 multi-turreted medium tank was a 1930s design already obsolete by 1941, its three turrets and riveted armour reflecting an interwar doctrine of breakthrough firepower rather than the fast, well-protected vehicles the Germans fielded. Most surviving T-28s were concentrated in the border military districts and were destroyed or abandoned in the encirclements of June and July 1941, their mechanical unreliability compounding losses from combat. A handful soldiered on through the defense of Leningrad and Moscow, their 76mm gun still useful for infantry support even as the vehicle itself belonged to an earlier era of tank design.",
-      "name": "T-28 obr 1938",
+      "lore": "The T-28 multi-turreted medium tank was a 1930s design already obsolete by 1941, its three turrets and riveted armour reflecting an interwar doctrine of breakthrough firepower rather than the fast, well-protected vehicles the Germans fielded. The late-production T-28E added appliqué armour plates in response to the Winter War's lessons against Finnish anti-tank guns, trading some speed for protection but keeping the same 76mm gun. Most surviving T-28s of both types were concentrated in the border military districts and were destroyed or abandoned in the encirclements of June and July 1941, but a handful soldiered on through the defense of Leningrad and Moscow, their gun still useful for infantry support even as the vehicle itself belonged to an earlier era of tank design.",
+      "name": "T-28 obr 1938 or E",
       "nation": "Soviet Union",
       "type": "Tank",
       "theater": [
@@ -10832,9 +10832,10 @@
       "at": 3,
       "fp": 1,
       "armor_front": 1,
-      "armor_flank": 0,
+      "armor_flank": 1,
       "armament": "76mm L-10 gun, Coax MG",
       "notes": [
+        "Slow",
         "Unreliable",
         "Wide Tracks"
       ],
@@ -10887,8 +10888,8 @@
     },
     {
       "id": "sv-tank-kv1-1940",
-      "lore": "The improved KV-1 traded the weak L-11 gun for the same 76mm F-34 that would later arm the T-34, giving it genuine firepower to match its near-impenetrable armour. It remained the single most feared Soviet vehicle of 1941, capable of standing in the open under sustained fire from an entire German anti-tank company and continuing to fight, but the same catastrophic reliability problems that plagued the earlier model meant breakdowns and fuel shortages destroyed as many KVs as German guns did. Where properly supplied and maintained, KV-1 companies anchored Soviet defensive lines through the desperate battles for Smolensk and the approaches to Moscow.",
-      "name": "KV-1 obr 1940",
+      "lore": "The improved KV-1 traded the weak L-11 gun for the same 76mm F-34 that would later arm the T-34, giving it genuine firepower to match its near-impenetrable armour. The KV-1e variant welded on additional appliqué plates for even thicker protection against the 88mm FlaK guns Germans were increasingly pressing into the anti-tank role, at the cost of extra strain on an already unreliable drivetrain. Both remained the single most feared Soviet vehicles of 1941, capable of standing in the open under sustained fire from an entire German anti-tank company and continuing to fight, but the same catastrophic reliability problems meant breakdowns and fuel shortages destroyed as many KVs as German guns did. Where properly supplied and maintained, KV-1 companies anchored Soviet defensive lines through the desperate battles for Smolensk and the approaches to Moscow.",
+      "name": "KV-1 obr 1940 or KV-1e",
       "nation": "Soviet Union",
       "type": "Tank",
       "theater": [
@@ -10902,7 +10903,7 @@
       "rof": 2,
       "at": 4,
       "fp": 1,
-      "armor_front": 3,
+      "armor_front": 4,
       "armor_flank": 3,
       "armament": "76mm F-34 gun, Coax MG, Hull MG",
       "notes": [
