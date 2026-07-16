@@ -8936,6 +8936,43 @@
       "wiki": "Panzer_IV"
     },
     {
+      "id": "de-tank-pzIV-e",
+      "lore": "The Panzer IV E added appliqué armor plates to the hull and turret front of the D model, a stopgap response to the anti-tank guns encountered during the Polish and French campaigns, without changing its low-velocity 7.5cm gun. Panzer doctrine still assigned it the infantry-support role, using its heavy HE shell to suppress bunkers and gun crews while Panzer IIIs handled enemy armor, a division of labor that held through the opening months of Barbarossa. The extra plating gave marginally better protection against Soviet 45mm anti-tank guns, though it remained vulnerable to the heavier guns mounted on the T-34 and KV series.",
+      "name": "Panzer IV E",
+      "nation": "Germany",
+      "type": "Tank",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1940,
+        1941
+      ],
+      "gun_range": "20\"",
+      "rof": 2,
+      "at": 3,
+      "fp": 1,
+      "armor_front": 1,
+      "armor_flank": 1,
+      "armament": "7.5cm KwK37 gun, Coax MG/Hull MG",
+      "notes": [
+        "Tracked",
+        "Smoke"
+      ],
+      "special_rules": [],
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "free": false,
+      "admin_only": true,
+      "wiki": "Panzer_IV"
+    },
+    {
       "id": "de-tank-pz38t",
       "lore": "The Panzer 38(t) was a Czech-designed light tank that Germany acquired after occupying Czechoslovakia in 1939. Produced by \u010cKD/BMM in Prague, it was well-built, mechanically reliable, and armed with a capable 3.7cm gun that was comparable to the Panzer III's weapon. By May 1940 it equipped several panzer divisions and proved itself as a dependable frontline tank during the campaign in France. Its chassis was so successful that it continued in production throughout the war as the basis for the Marder and Hetzer tank destroyers long after the tank itself was obsolete.",
       "name": "Panzer 38(t)",
