@@ -7315,6 +7315,11 @@ const FS_DISPLAY_DIV  = 2;    // raw-to-display divisor: Rifle/MG Team (raw 6) =
 // Reflects the rule: "when it's not obvious which unit is more threatening, the defender has the edge."
 const FPP_DEFENDER_MARGIN = 0.15;
 
+// Per-platoon quality price adjustment. Elite re-rolls 1s on Checks, on penetration
+// rolls vs vehicles, and on one RFP die; Poor is the mirror image with 6s. Both touch
+// a lot of rolls but only nudge outcomes, not swing them, so +/-15% rather than more.
+const FS_QUALITY_MULT = { Elite: 1.15, Regular: 1, Poor: 0.85 };
+
 function calcTeamScore(unit) {
   if (!unit) return 0;
   if (unit.name === 'Platoon Leader') return 0;
@@ -7540,7 +7545,7 @@ function countCombatSquads(platoon) {
   }, 0);
 }
 
-function calcPlatoonScore(platoon) {
+function calcPlatoonScore(platoon, defaultQuality = 'Regular') {
   const teams = platoon.teams || [];
   const squads = countCombatSquads(platoon);
   let score = teams.reduce((sum, t) => {
@@ -7552,7 +7557,11 @@ function calcPlatoonScore(platoon) {
   }, 0);
   // Recon is now priced as a flat premium on the Recon upgrade itself (see calcTeamScore),
   // not a platoon-wide multiplier, so nothing extra to apply here.
-  return score;
+  // Quality is a platoon-level override, falling back to the caller's default (the force's
+  // own quality in the builder; 'Regular' anywhere that default isn't meaningful, e.g. FPP
+  // comparisons against an opponent force whose own default quality wasn't captured).
+  const quality = platoon.quality || defaultQuality;
+  return score * (FS_QUALITY_MULT[quality] ?? 1);
 }
 
 function displayPoints(rawScore) {
@@ -7560,7 +7569,7 @@ function displayPoints(rawScore) {
 }
 
 function calcForcePoints() {
-  return platoons.reduce((sum, p) => sum + displayPoints(calcPlatoonScore(p)), 0);
+  return platoons.reduce((sum, p) => sum + displayPoints(calcPlatoonScore(p, forceQuality)), 0);
 }
 
 function updateForceUI() {
@@ -7702,7 +7711,7 @@ function updateForceUI() {
             value="${platoon.name}"
             oninput="updatePlatoonName('${platoon.id}', this.value)"
             placeholder="Platoon name...">
-          ${showScores ? `<span class="platoon-score-badge">${displayPoints(calcPlatoonScore(platoon))} pts</span>` : ''}
+          ${showScores ? `<span class="platoon-score-badge">${displayPoints(calcPlatoonScore(platoon, forceQuality))} pts</span>` : ''}
           <button class="platoon-quality-cycle ${pqColorCls}${pqInheritCls}" data-tip="Quality: ${effectiveQ}${platoon.quality ? '' : ' (inherited)'} · tap to change" onclick="cyclePlatoonQuality('${platoon.id}')">${effectiveQ.charAt(0)}</button>
           <button class="platoon-select-btn" onclick="setActivePlatoon('${platoon.id}')">
             ${isActive ? 'Active' : 'Select'}
