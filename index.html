@@ -7316,9 +7316,10 @@ const FS_DISPLAY_DIV  = 2;    // raw-to-display divisor: Rifle/MG Team (raw 6) =
 const FPP_DEFENDER_MARGIN = 0.15;
 
 // Per-platoon quality price adjustment. Elite re-rolls 1s on Checks, on penetration
-// rolls vs vehicles, and on one RFP die; Poor is the mirror image with 6s. Both touch
-// a lot of rolls but only nudge outcomes, not swing them, so +/-15% rather than more.
-const FS_QUALITY_MULT = { Elite: 1.15, Regular: 1, Poor: 0.85 };
+// rolls vs vehicles, and on one RFP die; Poor is the mirror image with 6s. On a plain
+// X+ Check, re-rolling a natural 1 (and keeping whatever the second roll shows) is a
+// clean, threshold-independent +7/6 ≈ +16.7% relative success rate, so +/-17%.
+const FS_QUALITY_MULT = { Elite: 1.17, Regular: 1, Poor: 0.83 };
 
 function calcTeamScore(unit) {
   if (!unit) return 0;
