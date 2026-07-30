@@ -11813,8 +11813,7 @@
       "free": false,
       "base": "Small",
       "standard_platoon": null,
-      "wiki": "Platoon_leader",
-      "admin_only": true
+      "wiki": "Platoon_leader"
     },
     {
       "id": "pl-fo",
@@ -11842,8 +11841,7 @@
       "free": false,
       "base": "Small",
       "standard_platoon": null,
-      "wiki": "Forward_observer",
-      "admin_only": true
+      "wiki": "Forward_observer"
     },
     {
       "id": "pl-cc",
@@ -11875,8 +11873,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Company_(military_unit)",
-      "admin_only": true
+      "wiki": "Company_(military_unit)"
     },
     {
       "id": "pl-inf-rifle",
@@ -11906,8 +11903,7 @@
         "leader": true,
         "fo": false
       },
-      "wiki": "Karabinek_wz._29",
-      "admin_only": true
+      "wiki": "Karabinek_wz._29"
     },
     {
       "id": "pl-inf-rifle-mg",
@@ -11937,8 +11933,7 @@
         "leader": true,
         "fo": false
       },
-      "wiki": "Wz._1928_automatic_rifle",
-      "admin_only": true
+      "wiki": "Wz._1928_automatic_rifle"
     },
     {
       "id": "pl-inf-atrifle",
@@ -11967,8 +11962,7 @@
       "base": "Small",
       "standard_platoon": null,
       "wiki": "Wz._35_anti-tank_rifle",
-      "infantry_weapon": true,
-      "admin_only": true
+      "infantry_weapon": true
     },
     {
       "id": "pl-gun-light-mortar",
@@ -11997,8 +11991,7 @@
       "free": false,
       "base": "Medium",
       "standard_platoon": null,
-      "wiki": "46_mm_wz._36_mortar",
-      "admin_only": true
+      "wiki": "46_mm_wz._36_mortar"
     },
     {
       "id": "pl-gun-ckm",
@@ -12030,8 +12023,7 @@
         "leader": true,
         "fo": false
       },
-      "wiki": "Ckm_wz._30",
-      "admin_only": true
+      "wiki": "Ckm_wz._30"
     },
     {
       "id": "pl-gun-81mm-mortar",
@@ -12065,8 +12057,7 @@
         "leader": true,
         "fo": true
       },
-      "wiki": "Brandt_Mle_27/31",
-      "admin_only": true
+      "wiki": "Brandt_Mle_27/31"
     },
     {
       "id": "pl-gun-37mm",
@@ -12096,8 +12087,7 @@
         "leader": true,
         "fo": false
       },
-      "wiki": "Bofors_37_mm",
-      "admin_only": true
+      "wiki": "Bofors_37_mm"
     },
     {
       "id": "pl-gun-75mm",
@@ -12130,8 +12120,7 @@
         "leader": true,
         "fo": true
       },
-      "wiki": "Canon_de_75_modele_1897",
-      "admin_only": true
+      "wiki": "Canon_de_75_modele_1897"
     },
     {
       "id": "pl-gun-100mm",
@@ -12164,8 +12153,7 @@
         "leader": true,
         "fo": true
       },
-      "wiki": "Skoda_100_mm_Model_1914",
-      "admin_only": true
+      "wiki": "Skoda_100_mm_Model_1914"
     },
     {
       "id": "pl-gun-105mm",
@@ -12198,8 +12186,7 @@
         "leader": true,
         "fo": true
       },
-      "wiki": "Schneider_105_mm_wz._29",
-      "admin_only": true
+      "wiki": "Schneider_105_mm_wz._29"
     },
     {
       "id": "pl-gun-155mm",
@@ -12233,8 +12220,7 @@
         "leader": true,
         "fo": true
       },
-      "wiki": "Canon_de_155_C_modele_1917_Schneider",
-      "admin_only": true
+      "wiki": "Canon_de_155_C_modele_1917_Schneider"
     },
     {
       "id": "pl-gun-taczanka",
@@ -12266,8 +12252,7 @@
         "leader": true,
         "fo": false
       },
-      "wiki": "Tachanka",
-      "admin_only": true
+      "wiki": "Tachanka"
     },
     {
       "id": "pl-gun-taczanka-fiat",
@@ -12299,8 +12284,7 @@
         "leader": true,
         "fo": false
       },
-      "wiki": "Polski_Fiat_508",
-      "admin_only": true
+      "wiki": "Polski_Fiat_508"
     },
     {
       "id": "pl-tank-tks",
@@ -12332,8 +12316,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "TKS",
-      "admin_only": true
+      "wiki": "TKS"
     },
     {
       "id": "pl-tank-tks-20mm",
@@ -12366,8 +12349,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "TKS",
-      "admin_only": true
+      "wiki": "TKS"
     },
     {
       "id": "pl-tank-ft17-mg",
@@ -12401,8 +12383,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Renault_FT",
-      "admin_only": true
+      "wiki": "Renault_FT"
     },
     {
       "id": "pl-tank-ft17-37mm",
@@ -12436,8 +12417,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Renault_FT",
-      "admin_only": true
+      "wiki": "Renault_FT"
     },
     {
       "id": "pl-tank-vickers-a",
@@ -12471,8 +12451,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Vickers_6-Ton",
-      "admin_only": true
+      "wiki": "Vickers_6-Ton"
     },
     {
       "id": "pl-tank-vickers-b",
@@ -12506,8 +12485,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Vickers_6-Ton",
-      "admin_only": true
+      "wiki": "Vickers_6-Ton"
     },
     {
       "id": "pl-tank-7tp-dw",
@@ -12540,8 +12518,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "7TP",
-      "admin_only": true
+      "wiki": "7TP"
     },
     {
       "id": "pl-tank-7tp-jw",
@@ -12574,8 +12551,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "7TP",
-      "admin_only": true
+      "wiki": "7TP"
     },
     {
       "id": "pl-ac-wz34",
@@ -12607,8 +12583,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Samochod_pancerny_wz._34",
-      "admin_only": true
+      "wiki": "Samochod_pancerny_wz._34"
     },
     {
       "id": "pl-ac-wz34-37mm",
@@ -12640,8 +12615,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Samochod_pancerny_wz._34",
-      "admin_only": true
+      "wiki": "Samochod_pancerny_wz._34"
     },
     {
       "id": "pl-transport-wagon",
@@ -12674,8 +12648,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Horse-drawn_vehicle",
-      "admin_only": true
+      "wiki": "Horse-drawn_vehicle"
     },
     {
       "id": "pl-transport-fiat508",
@@ -12709,8 +12682,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Polski_Fiat_508",
-      "admin_only": true
+      "wiki": "Polski_Fiat_508"
     },
     {
       "id": "pl-transport-fiat621",
@@ -12744,8 +12716,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Polski_Fiat_621",
-      "admin_only": true
+      "wiki": "Polski_Fiat_621"
     },
     {
       "id": "pl-transport-pzinz222",
@@ -12779,8 +12750,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "PZInz._222",
-      "admin_only": true
+      "wiki": "PZInz._222"
     },
     {
       "id": "pl-upgrade-recon",
@@ -12807,8 +12777,7 @@
       "base": null,
       "standard_platoon": null,
       "wiki": "Polish_cavalry",
-      "recon": true,
-      "admin_only": true
+      "recon": true
     }
   ]
 }
