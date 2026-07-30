@@ -6610,7 +6610,7 @@
       ],
       "gun_range": "16\"",
       "rof": 2,
-      "at": 1,
+      "at": 2,
       "fp": 1,
       "armor_front": null,
       "armor_flank": null,
