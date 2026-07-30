@@ -5737,7 +5737,8 @@
       "notes": [
         "Half-Tracked",
         "Open Topped",
-        "Hull Mounted"
+        "Hull Mounted",
+        "Limited HE"
       ],
       "special_rules": [],
       "free": true,
@@ -5890,7 +5891,8 @@
       "notes": [
         "Wheeled",
         "Open Topped",
-        "Hull Mounted"
+        "Hull Mounted",
+        "Limited HE"
       ],
       "special_rules": [],
       "free": true,
@@ -6009,7 +6011,8 @@
       "notes": [
         "Wheeled",
         "Open Topped",
-        "Hull Mounted"
+        "Hull Mounted",
+        "Limited HE"
       ],
       "special_rules": [],
       "free": true,
@@ -6047,7 +6050,8 @@
       "notes": [
         "Wheeled",
         "Open Topped",
-        "Hull Mounted"
+        "Hull Mounted",
+        "Limited HE"
       ],
       "special_rules": [],
       "free": true,
@@ -6612,7 +6616,8 @@
       "armor_flank": null,
       "armament": null,
       "notes": [
-        "Man-Portable"
+        "Man-Portable",
+        "Limited HE"
       ],
       "special_rules": [],
       "free": true,
@@ -7621,7 +7626,8 @@
       "armament": "PTRD anti-tank rifle, AA MG",
       "notes": [
         "Wheeled",
-        "Open Topped"
+        "Open Topped",
+        "Limited HE"
       ],
       "special_rules": [],
       "free": true,
