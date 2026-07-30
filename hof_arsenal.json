@@ -8973,7 +8973,7 @@
     },
     {
       "id": "de-tank-pzIV-e",
-      "lore": "The Panzer IV E added appliqué armor plates to the hull and turret front of the D model, a stopgap response to the anti-tank guns encountered during the Polish and French campaigns, without changing its low-velocity 7.5cm gun. Panzer doctrine still assigned it the infantry-support role, using its heavy HE shell to suppress bunkers and gun crews while Panzer IIIs handled enemy armor, a division of labor that held through the opening months of Barbarossa. The extra plating gave marginally better protection against Soviet 45mm anti-tank guns, though it remained vulnerable to the heavier guns mounted on the T-34 and KV series.",
+      "lore": "The Panzer IV E added appliqu\u00e9 armor plates to the hull and turret front of the D model, a stopgap response to the anti-tank guns encountered during the Polish and French campaigns, without changing its low-velocity 7.5cm gun. Panzer doctrine still assigned it the infantry-support role, using its heavy HE shell to suppress bunkers and gun crews while Panzer IIIs handled enemy armor, a division of labor that held through the opening months of Barbarossa. The extra plating gave marginally better protection against Soviet 45mm anti-tank guns, though it remained vulnerable to the heavier guns mounted on the T-34 and KV series.",
       "name": "Panzer IV E",
       "nation": "Germany",
       "type": "Tank",
@@ -10924,7 +10924,7 @@
     },
     {
       "id": "sv-tank-t28e",
-      "lore": "The T-28E added appliqué armour plates to the hull and turret front of the standard T-28, a response to the anti-tank guns encountered during the Winter War against Finland. The extra plating came at a real cost in speed and made an already mechanically fragile tank more prone to breakdown, but it gave crews a better chance of surviving a hit from the light anti-tank guns common at the start of Barbarossa. Like the rest of the T-28 fleet, most were lost in the encirclement battles of 1941, their obsolete multi-turret layout no match for German combined-arms tactics regardless of the extra armour.",
+      "lore": "The T-28E added appliqu\u00e9 armour plates to the hull and turret front of the standard T-28, a response to the anti-tank guns encountered during the Winter War against Finland. The extra plating came at a real cost in speed and made an already mechanically fragile tank more prone to breakdown, but it gave crews a better chance of surviving a hit from the light anti-tank guns common at the start of Barbarossa. Like the rest of the T-28 fleet, most were lost in the encirclement battles of 1941, their obsolete multi-turret layout no match for German combined-arms tactics regardless of the extra armour.",
       "name": "T-28E",
       "nation": "Soviet Union",
       "type": "Tank",
@@ -11031,7 +11031,7 @@
     },
     {
       "id": "sv-tank-kv1e",
-      "lore": "The KV-1e welded additional appliqué armour plates onto the standard KV-1's hull and turret, a field response to the German 88mm FlaK guns increasingly pressed into the anti-tank role against a vehicle previously immune to almost everything the Wehrmacht could bring to bear. The extra plating pushed an already overweight and mechanically fragile chassis even further, and breakdowns claimed at least as many KV-1e's as German guns did. Where it reached the front intact, it was nearly indestructible by any anti-tank gun fielded during Barbarossa, and its arrival forced German commanders to rely on air power, engineer demolition charges, or the rare 88mm FlaK18 to deal with it at all.",
+      "lore": "The KV-1e welded additional appliqu\u00e9 armour plates onto the standard KV-1's hull and turret, a field response to the German 88mm FlaK guns increasingly pressed into the anti-tank role against a vehicle previously immune to almost everything the Wehrmacht could bring to bear. The extra plating pushed an already overweight and mechanically fragile chassis even further, and breakdowns claimed at least as many KV-1e's as German guns did. Where it reached the front intact, it was nearly indestructible by any anti-tank gun fielded during Barbarossa, and its arrival forced German commanders to rely on air power, engineer demolition charges, or the rare 88mm FlaK18 to deal with it at all.",
       "name": "KV-1e",
       "nation": "Soviet Union",
       "type": "Tank",
@@ -11779,6 +11779,1029 @@
       "base": "Medium",
       "standard_platoon": null,
       "wiki": "RM-38/40_mortar",
+      "admin_only": true
+    },
+    {
+      "id": "pl-leader",
+      "lore": "Polish platoon commanders in September 1939 fought a campaign that was lost strategically within its first week, yet unit-level cohesion held remarkably well: Polish platoons counterattacked at Mokra, Bzura, and Wizna long after the operational situation was hopeless. Officers were products of a small professional cadre stretched thin by rapid mobilisation, leading conscripts who in many cases had joined their units only days before the German attack. That they held together at all under simultaneous invasion from west and east says more about the platoon leaders than about the plans they were given.",
+      "name": "Platoon Leader",
+      "nation": "Poland",
+      "type": "Infantry",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": null,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Platoon Leader"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Platoon_leader",
+      "admin_only": true
+    },
+    {
+      "id": "pl-fo",
+      "lore": "Polish artillery observers worked with guns that were accurate and well-served but critically short of ammunition and radios, forcing heavy reliance on field telephone wire that German aircraft and armour cut repeatedly. Polish gunnery doctrine was French-derived and methodical, and where communications survived the observers delivered fire that German after-action reports described with respect. The problem was rarely the shooting; it was that a battery could be silenced by a single strafing run against the wire running back from the observation post.",
+      "name": "Forward Observer",
+      "nation": "Poland",
+      "type": "Infantry",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": null,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Forward Observer"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Forward_observer",
+      "admin_only": true
+    },
+    {
+      "id": "pl-cc",
+      "lore": "Polish company commanders in 1939 held together formations that were being outflanked faster than orders could reach them, often fighting encircled without any contact with battalion or regiment. The Polish Army's pre-war training emphasised aggressive counterattack, and company officers applied it repeatedly even against armour they had no effective means of stopping. Many of the men who survived the September Campaign made their way to France and then Britain, forming the cadre of Polish forces that fought on for the rest of the war.",
+      "name": "Company Commander",
+      "nation": "Poland",
+      "type": "Infantry",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": null,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Company Commander"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Small",
+      "standard_platoon": {
+        "qty": 1,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Company_(military_unit)",
+      "admin_only": true
+    },
+    {
+      "id": "pl-inf-rifle",
+      "lore": "The Polish infantryman of 1939 carried the Karabinek wz. 29, a Mauser derivative that was accurate, robust, and entirely conventional for its era. Polish rifle companies were well drilled and fought with a tenacity that surprised German commanders expecting a quick collapse, holding at Wizna and along the Bzura against far heavier firepower. What they lacked was not quality but depth: no reserves behind the front line, no way to replace losses, and an enemy who could concentrate armour faster than Polish infantry could redeploy on foot.",
+      "name": "Rifle Team",
+      "nation": "Poland",
+      "type": "Infantry",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "16\"",
+      "rof": 1,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [],
+      "special_rules": [],
+      "free": false,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      },
+      "wiki": "Karabinek_wz._29",
+      "admin_only": true
+    },
+    {
+      "id": "pl-inf-rifle-mg",
+      "lore": "Polish rifle sections were built around the Browning wz. 28 light machine gun, a licence-built BAR derivative that gave each section a base of automatic fire in the same pattern most European armies had adopted. It was reliable and well liked, though its twenty-round magazine limited sustained output compared to the belt-fed German MG34 it faced. Polish sections used it exactly as intended, pinning German infantry while riflemen worked forward, a tactic that functioned well right up until German armour arrived in numbers the section had no answer for.",
+      "name": "Rifle/MG Team",
+      "nation": "Poland",
+      "type": "Infantry",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "16\"",
+      "rof": 2,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [],
+      "special_rules": [],
+      "free": false,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 6,
+        "leader": true,
+        "fo": false
+      },
+      "wiki": "Wz._1928_automatic_rifle",
+      "admin_only": true
+    },
+    {
+      "id": "pl-inf-atrifle",
+      "lore": "The wz. 35 was one of the best-kept secrets of the pre-war Polish Army, held in sealed crates marked as surveying equipment and issued to units only days before the German invasion, with many crews receiving them without ever having fired one. Its tungsten-cored 7.92mm round could penetrate 15mm of armour at 300 meters, enough to defeat the Panzer I and II that made up the bulk of German tank strength in September 1939. Polish accounts credit it with a significant share of the German armoured losses in the campaign, and captured examples were enthusiastically reissued to German units afterward.",
+      "name": "wz. 35 Anti-tank Rifle",
+      "nation": "Poland",
+      "type": "Infantry",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "16\"",
+      "rof": 1,
+      "at": 1,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Limited HE"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Small",
+      "standard_platoon": null,
+      "wiki": "Wz._35_anti-tank_rifle",
+      "infantry_weapon": true,
+      "admin_only": true
+    },
+    {
+      "id": "pl-gun-light-mortar",
+      "lore": "The 46mm wz. 36 was a light company-level mortar designed to give Polish infantry a way to drop fire on machine-gun nests without waiting on battalion or regimental support. Light enough for a two-man crew to carry and set up in seconds, it fired a small bomb that was more use for suppression than destruction, which was the standard compromise for weapons in this class across every army of the period. Its short range kept crews uncomfortably close to whatever they were shooting at, but in the close terrain of Polish villages and woodlots that mattered less than being able to respond immediately.",
+      "name": "46mm wz. 36 Light Mortar",
+      "nation": "Poland",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "16\"",
+      "rof": 1,
+      "at": 0,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Man-Portable",
+        "Light Mortar"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Medium",
+      "standard_platoon": null,
+      "wiki": "46_mm_wz._36_mortar",
+      "admin_only": true
+    },
+    {
+      "id": "pl-gun-ckm",
+      "lore": "The Ckm wz. 30 was a Polish-built Browning M1917 derivative, water-cooled and belt-fed, and it was by common consent among the better heavy machine guns of the period. Polish machine-gun companies used it in the sustained-fire role from prepared positions, and at Wizna a handful of these guns in concrete bunkers held up a German panzer corps for three days. Its weight made repositioning slow, which mattered enormously in a campaign defined by German forces arriving somewhere the defenders had not expected.",
+      "name": "Ckm wz. 30 HMG",
+      "nation": "Poland",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "20\"",
+      "rof": 4,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Man-Portable"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      },
+      "wiki": "Ckm_wz._30",
+      "admin_only": true
+    },
+    {
+      "id": "pl-gun-81mm-mortar",
+      "lore": "The 81mm wz. 31 was a Polish-built Stokes-Brandt pattern mortar, the same fundamental design that armed most European armies, and it served as the Polish battalion's organic indirect-fire weapon. Crews could break it down for transport and bring it into action quickly, delivering high explosive or smoke onto positions that flat-trajectory weapons could not reach. In the fighting withdrawals that characterised most of the September Campaign, the battalion mortars were frequently the only fire support a Polish infantry commander could still call on once the divisional artillery had displaced or been overrun.",
+      "name": "81mm wz. 31 Mortar",
+      "nation": "Poland",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": 0,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Man-Portable",
+        "Light Artillery",
+        "Smoke"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      },
+      "wiki": "Brandt_Mle_27/31",
+      "admin_only": true
+    },
+    {
+      "id": "pl-gun-37mm",
+      "lore": "The 37mm wz. 36 was a licence-built Bofors, widely regarded as the finest light anti-tank gun in service anywhere in 1939, and it could penetrate any German tank of the September Campaign at normal combat range. Poland had ordered them in quantity but deliveries were incomplete when the war began, leaving many infantry regiments short of their establishment. Where the guns were present and properly sited they were devastating: German armoured units repeatedly recorded heavy losses to Polish anti-tank fire, and the Bofors design was so respected that the Germans put captured examples straight into their own service.",
+      "name": "37mm wz. 36 Gun",
+      "nation": "Poland",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "20\"",
+      "rof": 3,
+      "at": 2,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [],
+      "special_rules": [],
+      "free": false,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      },
+      "wiki": "Bofors_37_mm",
+      "admin_only": true
+    },
+    {
+      "id": "pl-gun-75mm",
+      "lore": "Polish divisional artillery rested on the French 75, either as the original Canon de 75 modele 1897 or as the wz. 02/26, a Russian 76.2mm field gun rebored to the same French ammunition. Both were quick-firing, accurate, and thoroughly proven, and Polish gunners handled them with a professionalism that German reports acknowledged repeatedly. Their limitation was doctrinal rather than technical: Poland had far too few of them, almost no motorised traction to reposition them quickly, and an ammunition supply that could not survive the loss of the rail network in the first days of the campaign.",
+      "name": "75mm wz. 1897 or wz. 02/26 Gun",
+      "nation": "Poland",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "20\"",
+      "rof": 2,
+      "at": 3,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Light Artillery",
+        "Smoke"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      },
+      "wiki": "Canon_de_75_modele_1897",
+      "admin_only": true
+    },
+    {
+      "id": "pl-gun-100mm",
+      "lore": "The 100mm wz. 14/19 was a Skoda design inherited from the Austro-Hungarian empire and then built under licence in Poland, forming the howitzer half of the Polish divisional artillery regiment alongside the 75mm guns. Its plunging fire could reach reverse slopes and dug-in positions that flat-trajectory guns could not touch, and it was light enough to be horse-drawn by a team that could keep pace with marching infantry. Like every Polish artillery piece in September 1939 it was well made and well served, and like every Polish artillery piece it was available in numbers that could not match what was coming at it.",
+      "name": "100mm wz. 14/19 Howitzer",
+      "nation": "Poland",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "20\"",
+      "rof": 1,
+      "at": 3,
+      "fp": 2,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Immobile",
+        "Medium Artillery"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      },
+      "wiki": "Skoda_100_mm_Model_1914",
+      "admin_only": true
+    },
+    {
+      "id": "pl-gun-105mm",
+      "lore": "The 105mm wz. 29 was a Schneider design built under licence, serving as a corps-level heavy gun capable of counter-battery work and of reaching well behind the immediate front. Its longer barrel and heavier shell gave Polish commanders a way to strike German assembly areas and artillery positions that divisional guns could not reach. Concentrated at higher echelons and dependent on prime movers Poland barely had, these guns were among the first assets rendered ineffective as the campaign turned into a series of fighting withdrawals along roads under constant air attack.",
+      "name": "105mm wz. 29 Gun",
+      "nation": "Poland",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "20\"",
+      "rof": 1,
+      "at": 4,
+      "fp": 2,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Immobile",
+        "Medium Artillery"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      },
+      "wiki": "Schneider_105_mm_wz._29",
+      "admin_only": true
+    },
+    {
+      "id": "pl-gun-155mm",
+      "lore": "The 155mm wz. 1917 was a Schneider heavy howitzer of Great War vintage, and it was the heaviest weapon in general Polish service in September 1939. Its 43-kilogram shell could demolish field fortifications, collapse buildings, and destroy anything caught in the open, making it the natural weapon against German troops consolidating in captured villages. The gun was effectively immobile once emplaced, needing a tractor Poland could rarely spare, so the crews who fired it usually did so knowing they would not be moving it again.",
+      "name": "155mm wz. 1917 Howitzer",
+      "nation": "Poland",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "16\"",
+      "rof": 1,
+      "at": 4,
+      "fp": 3,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Immobile",
+        "Bunker Buster",
+        "Heavy Artillery"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Large",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": true
+      },
+      "wiki": "Canon_de_155_C_modele_1917_Schneider",
+      "admin_only": true
+    },
+    {
+      "id": "pl-gun-taczanka",
+      "lore": "The taczanka was a horse-drawn cart mounting a heavy machine gun to the rear, a weapon system Polish cavalry had inherited from the Polish-Soviet War of 1920 where it had been genuinely decisive. It gave a cavalry unit the ability to move an HMG at the pace of the horses and bring it into action immediately, which mattered in the wide-open manoeuvre warfare the concept was designed around. By 1939 it was an anachronism against aircraft and armour, but Polish cavalry brigades still fielded it, and against German infantry in the open it remained exactly as lethal as it had ever been.",
+      "name": "Taczanka (Cavalry Wagon)",
+      "nation": "Poland",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "20\"",
+      "rof": 4,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Wagon (2d6\")"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      },
+      "wiki": "Tachanka",
+      "admin_only": true
+    },
+    {
+      "id": "pl-gun-taczanka-fiat",
+      "lore": "The motorised taczanka mounted the same Ckm wz. 30 heavy machine gun on the back of a Polski-FIAT 508 light car, modernising a Polish-Soviet War concept for units that had traded horses for engines. It could reposition far faster than the wagon version and keep up with motorised columns on roads, at the cost of being tied to those roads and to a fuel supply that collapsed early in the campaign. Crews fought it as a shoot-and-scoot weapon, taking advantage of a mobility that no towed machine gun could match.",
+      "name": "Polski-FIAT 508 Taczanka",
+      "nation": "Poland",
+      "type": "Gun",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "20\"",
+      "rof": 4,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Wheeled"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": true,
+        "fo": false
+      },
+      "wiki": "Polski_Fiat_508",
+      "admin_only": true
+    },
+    {
+      "id": "pl-tank-tks",
+      "lore": "The TKS was a small two-man tankette derived from the British Carden Loyd design, and it was the most numerous armoured vehicle in Polish service in September 1939. Armed only with a machine gun and protected by armour that stopped rifle fire and little else, it was intended for reconnaissance and infantry support rather than fighting other tanks. Polish crews used them aggressively regardless, and their small size and low silhouette made them genuinely difficult targets in the wooded and built-up terrain where most of the campaign's close fighting happened.",
+      "name": "TKS",
+      "nation": "Poland",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "Hull MG",
+      "notes": [
+        "Half-Tracked"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "TKS",
+      "admin_only": true
+    },
+    {
+      "id": "pl-tank-tks-20mm",
+      "lore": "Recognising that a machine-gun-armed tankette could not fight anything, Poland began rearming TKS hulls with the 20mm wz. 38 FKA autocannon, a weapon that could actually penetrate the Panzer I and II. Only about two dozen were converted before the German invasion, but their effect was out of all proportion to their number: on 18 September 1939 a single 20mm TKS commanded by Roman Orlik destroyed three German tanks in one engagement, including a Panzer 35(t) of the 11th Panzer Regiment. It remains the clearest demonstration that the tankette's problem was never the chassis but the gun it carried.",
+      "name": "TKS (20mm FKA)",
+      "nation": "Poland",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "16\"",
+      "rof": 2,
+      "at": 2,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "20mm wz. 38 FKA gun",
+      "notes": [
+        "Half-Tracked",
+        "Hull Mounted"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "TKS",
+      "admin_only": true
+    },
+    {
+      "id": "pl-tank-ft17-mg",
+      "lore": "The Renault FT was the tank that defined the layout every tank since has used, with a full-rotation turret above a crew compartment and engine at the rear, and Poland had operated them since the Polish-Soviet War of 1920. By 1939 they were two decades obsolete, barely able to exceed walking pace, and mechanically worn out from long service. They were parcelled out to training units and improvised defence detachments, where their machine gun and thin armour made them useful only against infantry with nothing heavier than rifles.",
+      "name": "FT-17 with MG",
+      "nation": "Poland",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "Hull MG",
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Unreliable"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Renault_FT",
+      "admin_only": true
+    },
+    {
+      "id": "pl-tank-ft17-37mm",
+      "lore": "The gun-armed Renault FT carried a short 37mm Puteaux in a one-man turret, meaning the commander aimed, loaded, fired, and directed the driver simultaneously, a workload that made the vehicle almost useless in a mobile engagement. Its low-velocity gun could still threaten the lightly armoured German tanks of 1939 if it got a shot off, which in practice meant firing from a static ambush position and hoping. Polish FT companies fought at Warsaw and elsewhere in exactly that role, dug in as improvised pillboxes rather than manoeuvring.",
+      "name": "FT-17 with S.A. 37mm",
+      "nation": "Poland",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "16\"",
+      "rof": 1,
+      "at": 1,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "S.A. 37mm gun",
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Unreliable"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Renault_FT",
+      "admin_only": true
+    },
+    {
+      "id": "pl-tank-vickers-a",
+      "lore": "Poland bought the Vickers 6-Ton in the early 1930s and the Type A carried twin machine-gun turrets, a layout that looked formidable on paper and proved awkward in practice, splitting the vehicle's fire and giving each gunner a cramped, poorly sighted position. The design's real significance was as the direct ancestor of the 7TP, which Polish engineers developed from it into a genuinely superior tank. The surviving Type A hulls fought in 1939 in the reconnaissance role their armament suited, which is to say against infantry and not much else.",
+      "name": "Vickers E Type A",
+      "nation": "Poland",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "Twin MG turrets",
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Unreliable"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Vickers_6-Ton",
+      "admin_only": true
+    },
+    {
+      "id": "pl-tank-vickers-b",
+      "lore": "The Type B replaced the twin machine-gun turrets of the Type A with a single turret mounting a 47mm gun, correcting the original design's fundamental weakness and creating a tank that could actually engage armour. Its protection remained thin and its petrol engine was prone to overheating, a defect Polish engineers addressed in the 7TP by switching to a diesel. Type B tanks served in the independent tank companies that fought delaying actions across Poland in September 1939, where their gun made them a real threat to the Panzer I and II they most often met.",
+      "name": "Vickers E Type B",
+      "nation": "Poland",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "16\"",
+      "rof": 2,
+      "at": 2,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "47mm Vickers gun, Coax MG",
+      "notes": [
+        "Tracked",
+        "Slow",
+        "Unreliable"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Vickers_6-Ton",
+      "admin_only": true
+    },
+    {
+      "id": "pl-tank-7tp-dw",
+      "lore": "The 7TP was Poland's own development of the Vickers 6-Ton, and the dw designation marks the early twin-turret version carrying a machine gun in each. Polish engineers had already made the important improvement by fitting a Saurer diesel, giving the tank better range and removing the fire risk that plagued petrol-engined designs of the period, a genuinely forward-looking choice for 1935. The twin-turret layout was the obsolete part, and production shifted to the single-turret jw as soon as a suitable gun turret was available; the dw hulls that remained fought in 1939 alongside their better-armed successors.",
+      "name": "7TP dw",
+      "nation": "Poland",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "Twin MG turrets",
+      "notes": [
+        "Tracked",
+        "Slow"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "7TP",
+      "admin_only": true
+    },
+    {
+      "id": "pl-tank-7tp-jw",
+      "lore": "The 7TP jw was the best tank Poland fielded and, gun for gun, a better fighting vehicle than the Panzer I and II that made up most of the German armoured force in September 1939. Its Bofors 37mm could penetrate any German tank of the campaign, its diesel engine gave it good range, and its Gundlach rotating periscope was so far ahead of anything else in service that the design was copied by the British, Soviets, and Americans and remains in use in modified form today. Poland had only around 130 of them against thousands of German vehicles, and no amount of individual superiority could close that gap.",
+      "name": "7TP jw",
+      "nation": "Poland",
+      "type": "Tank",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "20\"",
+      "rof": 2,
+      "at": 2,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "37mm wz. 37 gun, Coax MG",
+      "notes": [
+        "Tracked",
+        "Slow"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "7TP",
+      "admin_only": true
+    },
+    {
+      "id": "pl-ac-wz34",
+      "lore": "The wz. 34 was built by rebuilding worn-out French Citroen-Kegresse half-tracks into simple wheeled armoured cars, an economy measure that produced a vehicle adequate for liaison and reconnaissance and nothing more. Its armour stopped small-arms fire, its machine gun could deal with infantry in the open, and its road-bound mobility made it useless once it left a decent surface. Polish cavalry brigades used them to scout ahead of the horse squadrons, a role in which their main advantage over a mounted patrol was simply being able to carry a radio.",
+      "name": "wz. 34 Armoured Car",
+      "nation": "Poland",
+      "type": "Armoured Cars",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "Hull MG",
+      "notes": [
+        "Wheeled"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Samochod_pancerny_wz._34",
+      "admin_only": true
+    },
+    {
+      "id": "pl-ac-wz34-37mm",
+      "lore": "A portion of the wz. 34 fleet was fitted with a short 37mm Puteaux gun in place of the machine gun, giving reconnaissance units a vehicle that could threaten light armour rather than merely reporting it. The gun was slow-firing and low-velocity, and the car's thin plating meant any exchange with a real tank went badly, so crews used it to break up German reconnaissance patrols rather than to fight tanks. In the cavalry brigades it served with, it was frequently the heaviest weapon available on wheels.",
+      "name": "wz. 34 (SA 37mm) Armoured Car",
+      "nation": "Poland",
+      "type": "Armoured Cars",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": "16\"",
+      "rof": 1,
+      "at": 1,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "S.A. 37mm gun",
+      "notes": [
+        "Wheeled"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Samochod_pancerny_wz._34",
+      "admin_only": true
+    },
+    {
+      "id": "pl-transport-wagon",
+      "lore": "The Polish Army of 1939 moved on horses to a degree that is easy to underestimate, with limbers and wagons hauling guns, ammunition, and supplies for formations that had almost no motor transport. Horse teams could cross ground that defeated wheeled vehicles and needed no fuel supply, both real advantages in a country with poor roads and a rail network under air attack. What they could not do was outrun a panzer division, and the pace of horse-drawn logistics is a large part of why Polish formations were repeatedly encircled before they could complete a withdrawal.",
+      "name": "Horse-Drawn Limber & Wagon",
+      "nation": "Poland",
+      "type": "Transport",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Wagon (2d6\")",
+        "Carries 2 Teams"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Medium",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Horse-drawn_vehicle",
+      "admin_only": true
+    },
+    {
+      "id": "pl-transport-fiat508",
+      "lore": "The Polski-FIAT 508 was a licence-built Italian light car adapted into a military field car, used for liaison, reconnaissance, and moving officers between headquarters that were rarely where the map said they were. Light and simple, it was the closest Polish equivalent to the jeep concept that would appear a few years later, and the same chassis carried the motorised taczanka machine-gun mount. Its usefulness in September 1939 was limited less by the vehicle than by the roads, which were choked with refugees and under repeated air attack.",
+      "name": "Polski-FIAT 508 Field Car",
+      "nation": "Poland",
+      "type": "Transport",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Carries 1 Team"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Polski_Fiat_508",
+      "admin_only": true
+    },
+    {
+      "id": "pl-transport-fiat621",
+      "lore": "The Polski-FIAT 621 was Poland's standard military truck, a licence-built Italian design produced in Warsaw and used for everything from hauling infantry to towing artillery. It was the backbone of what little motorisation the Polish Army had, and its numbers were nowhere near enough to lift more than a fraction of the force at any one time. Trucks that survived the opening days of the campaign spent them moving ammunition forward and wounded back along roads that the Luftwaffe attacked with near impunity.",
+      "name": "Polski-FIAT 621 Truck",
+      "nation": "Poland",
+      "type": "Transport",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Wheeled",
+        "Open Topped",
+        "Carries 3 Teams"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Polski_Fiat_621",
+      "admin_only": true
+    },
+    {
+      "id": "pl-transport-pzinz222",
+      "lore": "The PZInz. 222 was a Polish-designed half-tracked artillery tractor built to give the guns cross-country mobility that horse teams and wheeled trucks could not manage in soft ground. Its half-track running gear was derived from Citroen-Kegresse practice and it could haul a medium gun and its crew across terrain that would have bogged anything else available. Production had barely begun when the war started, so the type appeared in numbers far too small to change how Polish artillery actually moved in September 1939.",
+      "name": "PZInz. 222 Half-Track",
+      "nation": "Poland",
+      "type": "Transport",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": 1,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Carries 2 Teams"
+      ],
+      "special_rules": [],
+      "free": false,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "PZInz._222",
+      "admin_only": true
+    },
+    {
+      "id": "pl-upgrade-recon",
+      "lore": "Polish reconnaissance in 1939 was dominated by the cavalry brigades, which screened the flanks of infantry armies across a frontier far too long for the forces defending it. Mounted patrols could cover ground quickly, cross terrain no vehicle could manage, and operate without a fuel supply, and Polish cavalry doctrine had long since abandoned the sabre charge in favour of riding to a position and fighting dismounted. Assemble the platoon from appropriate units and apply this upgrade to designate it as a dedicated reconnaissance force.",
+      "name": "Recon",
+      "nation": "Poland",
+      "type": "Upgrade",
+      "theater": [
+        "Eastern Front"
+      ],
+      "years": [
+        1939
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": null,
+      "armor_front": null,
+      "armor_flank": null,
+      "armament": null,
+      "notes": [],
+      "special_rules": [],
+      "free": false,
+      "base": null,
+      "standard_platoon": null,
+      "wiki": "Polish_cavalry",
+      "recon": true,
       "admin_only": true
     }
   ]

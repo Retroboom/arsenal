@@ -1420,6 +1420,7 @@
   .unit-card .nation-britain { background: rgba(255,255,220,0.22); border-color: #705010; color: #4a3808; }
   .unit-card .nation-soviet  { background: rgba(255,255,220,0.22); border-color: #7a2010; color: #5a1010; }
   .unit-card .nation-france  { background: rgba(255,255,220,0.22); border-color: #2a4878; color: #1a3058; }
+  .unit-card .nation-poland  { background: rgba(255,255,220,0.22); border-color: #7a2444; color: #521028; }
 
   /* Corner bracket hover effect */
   .unit-card::before {
@@ -1525,12 +1526,14 @@
     white-space: nowrap;
   }
 
-  /* US: OD olive drab — Germany: Feldgrau — Britain: khaki — Soviet: earthy crimson */
+  /* US: OD olive drab — Germany: Feldgrau — Britain: khaki — Soviet: earthy crimson
+     — Poland: karmazyn (the crimson of Polish military tradition) */
   .nation-us      { border-color: #4a5828; color: #8a9a50; background: #0e1208; }
   .nation-germany { border-color: #4a5040; color: #848c70; background: #0e1010; }
   .nation-britain { border-color: #6a5828; color: #a08840; background: #181208; }
   .nation-soviet  { border-color: #6a2c1a; color: #a85040; background: #1a0808; }
   .nation-france  { border-color: #2a4878; color: #6088c0; background: #0a1020; }
+  .nation-poland  { border-color: #8a2c50; color: #c0587e; background: #1c0810; }
 
   /* Nation chip colors — keyed to existing badge palette */
   [data-nation="United States"] { --nation-color: #98b848; }
@@ -1538,6 +1541,7 @@
   [data-nation="Britain"]       { --nation-color: #c09838; }
   [data-nation="Soviet Union"]  { --nation-color: #c85848; }
   [data-nation="France"]        { --nation-color: #5078c0; }
+  [data-nation="Poland"]        { --nation-color: #d4568c; }
 
   .chip[data-nation] { color: var(--nation-color); }
   .chip[data-nation]:hover { border-color: var(--nation-color); color: var(--nation-color); }
@@ -3772,6 +3776,7 @@
   .lib-fc.nc-britain { border-left-color: #a08840; }
   .lib-fc.nc-soviet  { border-left-color: #a85040; }
   .lib-fc.nc-france  { border-left-color: #6088c0; }
+  .lib-fc.nc-poland  { border-left-color: #c0587e; }
 
   .lib-fc-name {
     font-family: var(--display);
@@ -3803,6 +3808,7 @@
   .force-card.nc-britain { border-left-color: #a08840; }
   .force-card.nc-soviet  { border-left-color: #a85040; }
   .force-card.nc-france  { border-left-color: #6088c0; }
+  .force-card.nc-poland  { border-left-color: #c0587e; }
 
   .force-card-platoon-list {
     display: flex;
@@ -4556,6 +4562,7 @@
     .nation-britain { color: #3a3018 !important; border-color: #6a5828 !important; }
     .nation-soviet  { color: #3a1810 !important; border-color: #6a2c1a !important; }
     .nation-france  { color: #1a3058 !important; border-color: #2a4878 !important; }
+    .nation-poland  { color: #521028 !important; border-color: #8a2c50 !important; }
 
     .fs-notes { color: #444 !important; border-bottom: 1pt solid #ccc !important; padding: 6px 20px !important; font-size: 10px !important; }
     .fs-body { padding: 8px 20px 18px !important; }
@@ -5867,7 +5874,7 @@ function toggleTeamLock(platoonId, unitId) {
 }
 let currentView = 'grid';
 const TYPE_ORDER   = ['Infantry', 'Gun', 'Tank', 'SP Artillery', 'SP Anti-Air', 'Armoured Cars', 'Transport', 'Upgrade'];
-const NATION_ORDER = ['United States', 'Germany', 'Britain', 'Soviet Union', 'France'];
+const NATION_ORDER = ['United States', 'Germany', 'Britain', 'Soviet Union', 'France', 'Poland'];
 const ERA_ORDER  = ['Early', 'Mid', 'Late'];
 const ERA_YEARS  = { Early: [1939, 1940, 1941], Mid: [1942, 1943], Late: [1944, 1945] };
 const FORCE_TYPE_MAP = {
@@ -6195,7 +6202,7 @@ function renderUnits(skipAnim = false) {
 }
 
 function nationClass(nation) {
-  const map = { 'United States': 'us', 'Germany': 'germany', 'Britain': 'britain', 'Soviet Union': 'soviet', 'France': 'france' };
+  const map = { 'United States': 'us', 'Germany': 'germany', 'Britain': 'britain', 'Soviet Union': 'soviet', 'France': 'france', 'Poland': 'poland' };
   return map[nation] || 'us';
 }
 
@@ -7051,7 +7058,7 @@ function setActivePlatoon(id) {
 }
 
 function nationPrefix(nation) {
-  const map = { 'United States': 'us', 'Germany': 'de', 'Britain': 'br', 'Soviet Union': 'sv', 'France': 'fr' };
+  const map = { 'United States': 'us', 'Germany': 'de', 'Britain': 'br', 'Soviet Union': 'sv', 'France': 'fr', 'Poland': 'pl' };
   return map[nation] || 'us';
 }
 
@@ -9960,6 +9967,7 @@ function nationCardClass(nations) {
   if (n === 'Britain')       return 'nc-britain';
   if (n === 'Soviet Union')  return 'nc-soviet';
   if (n === 'France')        return 'nc-france';
+  if (n === 'Poland')        return 'nc-poland';
   return '';
 }
 
