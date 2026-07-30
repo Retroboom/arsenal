@@ -1420,7 +1420,7 @@
   .unit-card .nation-britain { background: rgba(255,255,220,0.22); border-color: #705010; color: #4a3808; }
   .unit-card .nation-soviet  { background: rgba(255,255,220,0.22); border-color: #7a2010; color: #5a1010; }
   .unit-card .nation-france  { background: rgba(255,255,220,0.22); border-color: #2a4878; color: #1a3058; }
-  .unit-card .nation-poland  { background: rgba(255,255,220,0.22); border-color: #454b54; color: #262b31; }
+  .unit-card .nation-poland  { background: rgba(255,255,220,0.22); border-color: #2e5a54; color: #123a34; }
 
   /* Corner bracket hover effect */
   .unit-card::before {
@@ -1527,13 +1527,14 @@
   }
 
   /* US: OD olive drab — Germany: Feldgrau — Britain: khaki — Soviet: earthy crimson
-     — Poland: steel white (the white half of the flag; red was already the Soviets') */
+     — Poland: verdigris (no flag tie; picked as the one hue the palette left unused,
+       so Poland stays legible against five warm nations) */
   .nation-us      { border-color: #4a5828; color: #8a9a50; background: #0e1208; }
   .nation-germany { border-color: #4a5040; color: #848c70; background: #0e1010; }
   .nation-britain { border-color: #6a5828; color: #a08840; background: #181208; }
   .nation-soviet  { border-color: #6a2c1a; color: #a85040; background: #1a0808; }
   .nation-france  { border-color: #2a4878; color: #6088c0; background: #0a1020; }
-  .nation-poland  { border-color: #6a707c; color: #b8bcc4; background: #101216; }
+  .nation-poland  { border-color: #2e5a54; color: #58a89c; background: #081614; }
 
   /* Nation chip colors — keyed to existing badge palette */
   [data-nation="United States"] { --nation-color: #98b848; }
@@ -1541,7 +1542,7 @@
   [data-nation="Britain"]       { --nation-color: #c09838; }
   [data-nation="Soviet Union"]  { --nation-color: #c85848; }
   [data-nation="France"]        { --nation-color: #5078c0; }
-  [data-nation="Poland"]        { --nation-color: #c4c8d0; }
+  [data-nation="Poland"]        { --nation-color: #5fb0a4; }
 
   .chip[data-nation] { color: var(--nation-color); }
   .chip[data-nation]:hover { border-color: var(--nation-color); color: var(--nation-color); }
@@ -3776,7 +3777,7 @@
   .lib-fc.nc-britain { border-left-color: #a08840; }
   .lib-fc.nc-soviet  { border-left-color: #a85040; }
   .lib-fc.nc-france  { border-left-color: #6088c0; }
-  .lib-fc.nc-poland  { border-left-color: #b8bcc4; }
+  .lib-fc.nc-poland  { border-left-color: #58a89c; }
 
   .lib-fc-name {
     font-family: var(--display);
@@ -3808,7 +3809,7 @@
   .force-card.nc-britain { border-left-color: #a08840; }
   .force-card.nc-soviet  { border-left-color: #a85040; }
   .force-card.nc-france  { border-left-color: #6088c0; }
-  .force-card.nc-poland  { border-left-color: #b8bcc4; }
+  .force-card.nc-poland  { border-left-color: #58a89c; }
 
   .force-card-platoon-list {
     display: flex;
@@ -4562,7 +4563,7 @@
     .nation-britain { color: #3a3018 !important; border-color: #6a5828 !important; }
     .nation-soviet  { color: #3a1810 !important; border-color: #6a2c1a !important; }
     .nation-france  { color: #1a3058 !important; border-color: #2a4878 !important; }
-    .nation-poland  { color: #262b31 !important; border-color: #454b54 !important; }
+    .nation-poland  { color: #123a34 !important; border-color: #2e5a54 !important; }
 
     .fs-notes { color: #444 !important; border-bottom: 1pt solid #ccc !important; padding: 6px 20px !important; font-size: 10px !important; }
     .fs-body { padding: 8px 20px 18px !important; }
