@@ -21,6 +21,8 @@
 <!-- Markdown renderer for briefing post bodies (about 33kb minified). -->
 <script src="/vendor/marked.min.js"></script>
 <script src="/vendor/Sortable.min.js"></script>
+<!-- QR generator for the share code on printed force sheets (about 20kb minified). -->
+<script src="/vendor/qrcode.min.js"></script>
 <style>
   :root {
     --header-h: 60px;
@@ -3962,6 +3964,20 @@
     flex-shrink: 0;
   }
 
+  /* Share QR. Hidden on screen (the Copy Link button covers that need there)
+     and revealed only for print, where a scannable code is the whole point. */
+  .fs-qr { display: none; }
+  .fs-qr svg { display: block; width: 100%; height: auto; }
+  .fs-qr-cap {
+    font-family: var(--mono);
+    font-size: 7px;
+    line-height: 1.3;
+    letter-spacing: 0.5px;
+    text-align: center;
+    margin-top: 3px;
+    text-transform: uppercase;
+  }
+
   .fs-print-btn {
     background: none;
     border: 1px solid var(--border);
@@ -4546,6 +4562,22 @@
       font-size: 21px !important;
     }
     .fs-close-btn, .fs-print-btn, .fs-share-btn { display: none !important; }
+
+    /* Share QR: print-only. 24mm square is comfortably above the ~2cm floor
+       phone cameras need for a 33-module code at arm's length. */
+    .fs-qr {
+      display: block !important;
+      width: 24mm !important;
+      flex-shrink: 0 !important;
+      margin-left: 12px !important;
+    }
+    .fs-qr svg { width: 24mm !important; height: 24mm !important; }
+    .fs-qr-cap {
+      color: #555 !important;
+      font-family: Arial, sans-serif !important;
+      font-size: 6pt !important;
+      letter-spacing: 0 !important;
+    }
 
     .fs-meta { border-bottom: 1pt solid #ccc !important; padding: 6px 20px !important; }
     .fs-meta-item, .fs-meta-item strong {
@@ -10202,6 +10234,25 @@ function openForceSheet(forceData) {
   const breakLimit = forceData.breakLimit || (5 + platoonCount * 2);
   const notes = esc(forceData.notes || '');
 
+  // Share QR for the printed sheet. Points at ?fpp=<id>, which drops this force
+  // straight into the opponent slot of the scanner's Quick Compare — the thing
+  // someone handed a printout at the table actually wants. Only possible once
+  // the force has been saved and has an id; an unsaved force just omits it.
+  let qrHtml = '';
+  if (forceData.id && typeof qrcode !== 'undefined') {
+    try {
+      const shareUrl = `${window.location.origin}${window.location.pathname}?fpp=${forceData.id}`;
+      const qr = qrcode(0, 'M');
+      qr.addData(shareUrl);
+      qr.make();
+      qrHtml = `
+        <div class="fs-qr">
+          ${qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true, alt: 'Scan to load this force' })}
+          <div class="fs-qr-cap">Scan to load<br>into Quick Compare</div>
+        </div>`;
+    } catch (e) { qrHtml = ''; }
+  }
+
   const nationBadgesHtml = nations.map(n =>
     `<span class="${nationBadgeClass(n)}">${n}</span>`
   ).join('');
@@ -10333,6 +10384,7 @@ function openForceSheet(forceData) {
           <button class="fs-print-btn" onclick="window.print()">⎙ Print</button>
           <button class="fs-close-btn" onclick="closeForceSheet()">✕</button>
         </div>
+        ${qrHtml}
       </div>
       <div class="fs-meta">
         <div class="fs-meta-item">By <strong>${author}</strong></div>

@@ -15,7 +15,8 @@ const SHELL = [
   '/vendor/firebase-auth-compat.js',
   '/vendor/firebase-database-compat.js',
   '/vendor/marked.min.js',
-  '/vendor/Sortable.min.js'
+  '/vendor/Sortable.min.js',
+  '/vendor/qrcode.min.js'
 ];
 
 self.addEventListener('install', (e) => {
