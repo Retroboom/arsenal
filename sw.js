@@ -9,6 +9,7 @@ const SHELL = [
   '/hof_arsenal.json',
   '/manifest.webmanifest',
   '/rb.png',
+  '/logo-print.png',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
   '/vendor/firebase-app-compat.js',
