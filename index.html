@@ -3964,10 +3964,16 @@
     flex-shrink: 0;
   }
 
-  /* Share QR and print footer are both print-only: on screen the app header
-     already carries the logo and the Copy Link button covers sharing. */
-  .fs-footer { display: none; }
+  /* Masthead and share QR are both print-only: on screen the app header already
+     carries the logo and the Copy Link button covers sharing. */
+  .fs-masthead { display: none; }
   .fs-qr { display: none; }
+
+  .fs-header-left {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
   .fs-qr svg { display: block; width: 100%; height: auto; }
   .fs-qr-cap {
     font-family: var(--mono);
@@ -4705,33 +4711,26 @@
     }
     .fs-glossary-name { color: #111 !important; font-weight: bold !important; }
     .fs-glossary-desc { color: #444 !important; }
-    /* Branding footer, closing the sheet after the last content block.
-       Deliberately static: position:fixed would repeat it on every page but
-       overlays the content box, landing on top of table rows at a page break.
-       Pinning it to the page bottom via flex + min-height:100vh was also tried
-       and rejected — 100vh counts the page margins, so a one-page sheet spilled
-       onto a second page. */
-    .fs-footer {
+    /* Masthead. Sits above the force name and fills the vertical space the QR
+       opens up on the right, so the logo costs no extra height. Preferred over
+       a separate footer block, which added a whole band at the end of the sheet
+       for the same branding. */
+    .fs-masthead {
       display: block !important;
-      text-align: center !important;
-      margin: 18px 20px 0 !important;
-      padding-top: 8px !important;
-      border-top: 1pt solid #ccc !important;
-      break-inside: avoid !important;
-      page-break-inside: avoid !important;
+      margin-bottom: 10px !important;
     }
-    .fs-footer-logo {
-      display: inline-block !important;
-      height: 8mm !important;
+    .fs-masthead-logo {
+      display: block !important;
+      height: 9mm !important;
       width: auto !important;
-      opacity: 0.9 !important;
+      opacity: 0.92 !important;
     }
-    .fs-footer-url {
+    .fs-masthead-url {
       font-family: Arial, sans-serif !important;
       font-size: 6.5pt !important;
       letter-spacing: 0.5px !important;
-      color: #888 !important;
-      margin-top: 3px !important;
+      color: #999 !important;
+      margin-top: 2px !important;
     }
 
     /* Suppress global tooltip in print */
@@ -10408,7 +10407,13 @@ function openForceSheet(forceData) {
   modal.innerHTML = `
     <div class="force-sheet-box">
       <div class="fs-header">
-        <div class="fs-title">${name}</div>
+        <div class="fs-header-left">
+          <div class="fs-masthead">
+            <img src="logo-print.png" alt="Hail of Fire" class="fs-masthead-logo">
+            <div class="fs-masthead-url">arsenal.retroboomgames.com</div>
+          </div>
+          <div class="fs-title">${name}</div>
+        </div>
         <div class="fs-header-right">
           ${forceData.id ? `<button class="fs-share-btn" onclick="copySheetLink('${forceData.id}')" data-tip="Copy shareable link to this force sheet">⎘ Copy Link</button>` : ''}
           <button class="fs-print-btn" onclick="window.print()">⎙ Print</button>
@@ -10464,10 +10469,6 @@ function openForceSheet(forceData) {
               <span class="fs-glossary-desc">${RULE_TIPS[r] || ''}</span>
             </div>`).join('')}
         </div>` : ''}
-      </div>
-      <div class="fs-footer">
-        <img src="logo-print.png" alt="Hail of Fire" class="fs-footer-logo">
-        <div class="fs-footer-url">arsenal.retroboomgames.com</div>
       </div>
     </div>`;
 
