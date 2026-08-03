@@ -4719,9 +4719,12 @@
       display: block !important;
       margin-bottom: 10px !important;
     }
+    /* 18mm is the largest the mark can be before the left column overtakes the
+       QR column (24mm code + 2-line caption = 30.3mm) and starts driving the
+       header height. Measured, not guessed; re-measure if the QR size changes. */
     .fs-masthead-logo {
       display: block !important;
-      height: 9mm !important;
+      height: 18mm !important;
       width: auto !important;
       opacity: 0.92 !important;
     }
