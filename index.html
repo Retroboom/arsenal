@@ -4570,20 +4570,29 @@
     }
     .fs-close-btn, .fs-print-btn, .fs-share-btn { display: none !important; }
 
-    /* Share QR: print-only. 24mm square is comfortably above the ~2cm floor
-       phone cameras need for a 33-module code at arm's length. */
+    /* Share QR: print-only. At 20.4mm a 33-module code gives ~0.62mm modules,
+       still well clear of the ~0.4mm floor phone cameras need at arm's length. */
     .fs-qr {
       display: block !important;
-      width: 24mm !important;
+      /* auto width so the caption keeps its own two lines; at a fixed 20.4mm the
+         code is narrower than "into Quick Compare" and the caption wrapped to
+         three, eating the height the smaller code was meant to save. */
+      width: auto !important;
       flex-shrink: 0 !important;
       margin-left: 12px !important;
+      text-align: center !important;
     }
-    .fs-qr svg { width: 24mm !important; height: 24mm !important; }
+    .fs-qr svg {
+      width: 20.4mm !important;
+      height: 20.4mm !important;
+      margin: 0 auto !important;
+    }
     .fs-qr-cap {
       color: #555 !important;
       font-family: Arial, sans-serif !important;
       font-size: 6pt !important;
       letter-spacing: 0 !important;
+      white-space: nowrap !important;
     }
 
     .fs-meta { border-bottom: 1pt solid #ccc !important; padding: 6px 20px !important; }
@@ -4719,12 +4728,12 @@
       display: block !important;
       margin-bottom: 10px !important;
     }
-    /* 18mm is the largest the mark can be before the left column overtakes the
-       QR column (24mm code + 2-line caption = 30.3mm) and starts driving the
-       header height. Measured, not guessed; re-measure if the QR size changes. */
+    /* Sized against the QR column (code + 2-line caption) so the left side never
+       drives the header height. Measured, not guessed: re-measure both if either
+       the QR size or the caption line count changes. */
     .fs-masthead-logo {
       display: block !important;
-      height: 18mm !important;
+      height: 15.3mm !important;
       width: auto !important;
       opacity: 0.92 !important;
     }
