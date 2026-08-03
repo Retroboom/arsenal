@@ -4744,12 +4744,16 @@
       border-radius: 50% !important;
       background: #b0b0b0 !important;
     }
-    /* Proportions lifted from the app header: ARSENAL is half the logo height
-       (22pt against a 15.3mm mark) and tracked 0.23em, the 5px-on-22px the UI
-       uses; the slashes are 0.64 of that, again matching 14px-on-22px. */
+    /* Proportions measured off the rendered app header rather than its CSS
+       numbers, because .logo-img renders logo.png whose ink fills only ~68% of
+       the file (the rest is transparent glow), while logo-print.png is cropped
+       to the ink. Matching height attributes therefore made the printed mark
+       ~45% oversized against ARSENAL. Measured app ratio is logo ink : ARSENAL
+       cap = 1.90; 13mm against 27pt reproduces it (cap/em is 0.716 here).
+       Slashes stay at 0.64 of ARSENAL, the UI's 14px-on-22px. */
     .fs-masthead-arsenal {
       font-family: var(--display), 'Arial Black', sans-serif !important;
-      font-size: 22pt !important;
+      font-size: 27pt !important;
       line-height: 1 !important;
       letter-spacing: 0.23em !important;
       color: #222 !important;
@@ -4757,7 +4761,7 @@
     }
     .fs-masthead-slashes {
       font-family: var(--mono), monospace !important;
-      font-size: 14pt !important;
+      font-size: 17pt !important;
       letter-spacing: 0 !important;
       color: #999 !important;
       margin-right: 2mm !important;
@@ -4768,9 +4772,14 @@
        the QR size or the caption line count changes. */
     .fs-masthead-logo {
       display: block !important;
-      height: 15.3mm !important;
+      height: 13mm !important;
       width: auto !important;
       opacity: 0.92 !important;
+      /* ARSENAL's 0.23em tracking leaves a trailing space after the final L
+         inside its own box, so the right-hand rivet already sits ~2.2mm further
+         out than the flex gap. Match it on the left so both rivets look evenly
+         set off the lockup. */
+      margin-left: 2.2mm !important;
     }
     .fs-masthead-url {
       font-family: Arial, sans-serif !important;
