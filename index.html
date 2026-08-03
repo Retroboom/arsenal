@@ -3968,6 +3968,19 @@
      carries the logo and the Copy Link button covers sharing. */
   .fs-masthead { display: none; }
   .fs-qr { display: none; }
+  .fs-pagefoot { display: none; }
+
+  /* .fs-body is a real <table> so its <tfoot> can repeat as a running footer in
+     print. On screen that structure is irrelevant, so flatten it back to plain
+     blocks and it lays out exactly as the div it replaced. Child combinators
+     keep this off the .fs-stats-table nested inside each cell. */
+  .fs-body,
+  .fs-body > tbody,
+  .fs-body > tfoot,
+  .fs-body > tbody > tr,
+  .fs-body > tfoot > tr,
+  .fs-body > tbody > tr > td,
+  .fs-body > tfoot > tr > td { display: block; }
 
   .fs-header-left {
     display: flex;
@@ -4772,7 +4785,7 @@
        the QR size or the caption line count changes. */
     .fs-masthead-logo {
       display: block !important;
-      height: 13mm !important;
+      height: 11.5mm !important;
       width: auto !important;
       opacity: 0.92 !important;
       /* ARSENAL's 0.23em tracking leaves a trailing space after the final L
@@ -4781,12 +4794,38 @@
          set off the lockup. */
       margin-left: 2.2mm !important;
     }
-    .fs-masthead-url {
+    /* Running footer on every page. Two approaches were tried and rejected:
+       position:fixed is painted once rather than repeated in current Chrome (it
+       landed on the last page only), and CSS display:table-footer-group on divs
+       did not repeat either. A real <table> with a <tfoot> does, and it also
+       reserves the strip, so content stops above the footer instead of running
+       under it the way a fixed footer would.
+       .fs-body is that table. It has to be the body specifically, because the
+       tfoot only repeats on pages the table itself spans, and page breaks fall
+       between platoons. Each platoon, the MG table and the glossary are rows,
+       so breaks land between rows rather than inside one giant cell. */
+    .fs-body {
+      display: table !important;
+      width: 100% !important;
+    }
+    /* Undo the screen flattening above: the tfoot must be a real footer group
+       again, or it renders as a plain block in source order at the top. */
+    .fs-body > tbody { display: table-row-group !important; }
+    .fs-body > tfoot { display: table-footer-group !important; }
+    .fs-body > tbody > tr,
+    .fs-body > tfoot > tr { display: table-row !important; }
+    .fs-body > tbody > tr > td,
+    .fs-body > tfoot > tr > td { display: table-cell !important; }
+    .fs-body > tbody > tr > td.fs-body-cell { padding: 0 !important; }
+    .fs-pagefoot {
+      display: block !important;
+      text-align: center !important;
       font-family: Arial, sans-serif !important;
       font-size: 6.5pt !important;
       letter-spacing: 0.5px !important;
       color: #999 !important;
-      margin-top: 2px !important;
+      padding-top: 4px !important;
+      border-top: 0.5pt solid #ddd !important;
     }
 
     /* Suppress global tooltip in print */
@@ -10457,7 +10496,7 @@ function openForceSheet(forceData) {
           <tbody>${rows}</tbody>
         </table>
       </div>`;
-  }).join('');
+  });
 
   const modal = document.getElementById('force-sheet-modal');
   modal.innerHTML = `
@@ -10471,7 +10510,6 @@ function openForceSheet(forceData) {
               <span class="fs-masthead-arsenal"><span class="fs-masthead-slashes">//</span>ARSENAL</span>
               <span class="fs-masthead-rivet"></span>
             </div>
-            <div class="fs-masthead-url">arsenal.retroboomgames.com</div>
           </div>
           <div class="fs-title">${name}</div>
         </div>
@@ -10494,9 +10532,13 @@ function openForceSheet(forceData) {
         <div class="fs-meta-item">Quality <strong>${forceData.quality || 'Regular'}</strong></div>
       </div>
       ${notes ? `<div class="fs-notes">${notes}</div>` : ''}
-      <div class="fs-body">
-        ${platoonSections || '<div style="font-family:var(--mono);font-size:11px;color:var(--text3);text-align:center;padding:32px;">No platoons in this force.</div>'}
-        ${forceMGs.size ? `
+      <table class="fs-body">
+        <tfoot><tr><td><div class="fs-pagefoot">arsenal.retroboomgames.com</div></td></tr></tfoot>
+        <tbody>
+        ${(platoonSections.length ? platoonSections : ['<div style="font-family:var(--mono);font-size:11px;color:var(--text3);text-align:center;padding:32px;">No platoons in this force.</div>'])
+          .map(block => `<tr><td class="fs-body-cell">${block}</td></tr>`).join('')}
+        ${forceMGs.size ? `<tr><td class="fs-body-cell">`
+        + `
         <div class="fs-mg-reference">
           <div class="fs-mg-reference-title">Vehicle MGs</div>
           <table class="fs-stats-table">
@@ -10520,8 +10562,8 @@ function openForceSheet(forceData) {
                 </tr>`).join('')}
             </tbody>
           </table>
-        </div>` : ''}
-        ${usedRules.size ? `
+        </div></td></tr>` : ''}
+        ${usedRules.size ? `<tr><td class="fs-body-cell">
         <div class="fs-glossary">
           <div class="fs-glossary-title">Special Rules</div>
           ${[...usedRules].sort().map(r => `
@@ -10529,8 +10571,9 @@ function openForceSheet(forceData) {
               <span class="fs-glossary-name">${r}</span>
               <span class="fs-glossary-desc">${RULE_TIPS[r] || ''}</span>
             </div>`).join('')}
-        </div>` : ''}
-      </div>
+        </div></td></tr>` : ''}
+        </tbody>
+      </table>
     </div>`;
 
   modal.classList.add('open');
