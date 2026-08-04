@@ -4574,7 +4574,19 @@
     .fs-header {
       background: #f0f0f0 !important;
       border-bottom: 2pt solid #222 !important;
-      padding: 10px 20px 8px !important;
+      /* No bottom padding: the left column stretches to the content-box edge,
+         so dropping it makes that edge the border itself and the force name can
+         centre against the rule rather than against an inset 8px short of it.
+         The QR carries the old clearance as its own margin instead. */
+      padding: 10px 20px 0 !important;
+    }
+    .fs-qr { margin-bottom: 8px !important; }
+
+    /* Force name centred in the gap between the wordmark and the bottom rule. */
+    .fs-header-left {
+      align-self: stretch !important;
+      display: flex !important;
+      flex-direction: column !important;
     }
     .fs-title {
       color: #111 !important;
@@ -4584,6 +4596,10 @@
          it, and the logo's own matching left margin. logo-print.png is cropped
          flush to the ink, so its box edge is the H. */
       margin-left: calc(var(--fs-rivet) + var(--fs-lockup-gap) * 2) !important;
+      /* Take the leftover height under the wordmark and sit centred in it. */
+      flex: 1 1 auto !important;
+      display: flex !important;
+      align-items: center !important;
     }
     .fs-close-btn, .fs-print-btn, .fs-share-btn { display: none !important; }
 
@@ -4743,7 +4759,10 @@
        for the same branding. */
     .fs-masthead {
       display: block !important;
-      margin-bottom: 10px !important;
+      /* No bottom margin: the force name's flex box has to begin exactly at the
+         wordmark's baseline edge, otherwise centring inside it sits low by the
+         margin's height. */
+      margin-bottom: 0 !important;
     }
     /* Reproduces the app header lockup: rivet, wordmark, // ARSENAL, rivet.
        Rendered in greyscale rather than the UI's gold, because the rest of the
