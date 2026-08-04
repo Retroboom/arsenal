@@ -3969,11 +3969,13 @@
   .fs-masthead { display: none; }
   .fs-qr { display: none; }
   .fs-pagefoot { display: none; }
+  /* .fs-foot-spacer needs no screen rule: it is an empty cell and the flattening
+     below leaves it at zero height. It only gains a height inside @media print. */
 
-  /* .fs-body is a real <table> so its <tfoot> can repeat as a running footer in
-     print. On screen that structure is irrelevant, so flatten it back to plain
-     blocks and it lays out exactly as the div it replaced. Child combinators
-     keep this off the .fs-stats-table nested inside each cell. */
+  /* .fs-body is a real <table> so its <tfoot> can hold the running page footer
+     open in print. On screen that structure is irrelevant, so flatten it back to
+     plain blocks and it lays out exactly as the div it replaced. Child
+     combinators keep this off the .fs-stats-table nested inside each cell. */
   .fs-body,
   .fs-body > tbody,
   .fs-body > tfoot,
@@ -4544,6 +4546,10 @@
   }
 
   @media print {
+    /* html carries the dark app background, and it is what paints the part of
+       the last sheet the force sheet does not reach. Without this it prints as a
+       dark band under the content, with the page footer sitting on top of it. */
+    html { background: white !important; }
     body { background: white !important; color: black !important; }
 
     /* ── Sheet open: hide everything except the sheet ── */
@@ -4675,6 +4681,11 @@
       font-size: 9px !important;
     }
 
+    /* Drop the 740px min-width meant for narrow screens. A4's printable width
+       is only ~717px, so it forced every stat table (and therefore the body
+       table wrapping them, and the footer inside it) past the page edge and
+       the right-hand side was clipped. */
+    .fs-stats-table { min-width: 0 !important; }
     .fs-stats-table thead { display: table-header-group !important; }
     .fs-stats-table th {
       background: #e8e8e8 !important;
@@ -4820,16 +4831,20 @@
          set off the lockup. */
       margin-left: var(--fs-lockup-gap) !important;
     }
-    /* Running footer on every page. Two approaches were tried and rejected:
-       position:fixed is painted once rather than repeated in current Chrome (it
-       landed on the last page only), and CSS display:table-footer-group on divs
-       did not repeat either. A real <table> with a <tfoot> does, and it also
-       reserves the strip, so content stops above the footer instead of running
-       under it the way a fixed footer would.
-       .fs-body is that table. It has to be the body specifically, because the
-       tfoot only repeats on pages the table itself spans, and page breaks fall
-       between platoons. Each platoon, the MG table and the glossary are rows,
-       so breaks land between rows rather than inside one giant cell. */
+    /* Running footer on every page, drawn by two cooperating pieces.
+       Neither works alone: a <tfoot> repeats and reserves its strip, but on the
+       LAST page it sits immediately under the content rather than at the foot of
+       the paper. position:fixed does land at the foot of every page, but it
+       reserves nothing, so content runs underneath it. (display:table-footer-group
+       on plain divs was also tried and does not repeat at all.)
+       So the tfoot cell is left EMPTY and only reserves the strip, and the
+       visible .fs-pagefoot is a fixed element pinned to the bottom of each sheet
+       of paper. Content stops short of it on full pages because of the
+       reservation, and on the last page the footer drops to the paper edge.
+       .fs-body has to be the reserving table specifically, because the tfoot only
+       repeats on pages the table itself spans, and page breaks fall between
+       platoons. Each platoon, the MG table and the glossary are rows, so breaks
+       land between rows rather than inside one giant cell. */
     .fs-body {
       display: table !important;
       width: 100% !important;
@@ -4843,11 +4858,21 @@
     .fs-body > tbody > tr > td,
     .fs-body > tfoot > tr > td { display: table-cell !important; }
     .fs-body > tbody > tr > td.fs-body-cell { padding: 0 !important; }
+    /* Empty on purpose: it only holds the footer strip open on every page. */
+    .fs-foot-spacer {
+      height: 13mm !important;
+      padding: 0 !important;
+      border: 0 !important;
+    }
     /* Follows the .foot pattern from hail-of-fire/quickstart-2page.html:
        identity and tagline on the left, the link pushed right, separated by a
        hairline rule. Rendered greyscale rather than that sheet's band/olive,
        to stay consistent with the rest of this printout. */
     .fs-pagefoot {
+      position: fixed !important;
+      bottom: 4mm !important;
+      left: 20px !important;
+      right: 20px !important;
       display: flex !important;
       justify-content: space-between !important;
       align-items: center !important;
@@ -10574,10 +10599,7 @@ function openForceSheet(forceData) {
       </div>
       ${notes ? `<div class="fs-notes">${notes}</div>` : ''}
       <table class="fs-body">
-        <tfoot><tr><td><div class="fs-pagefoot">
-          <span><b>Hail of Fire</b> &middot; a WWII company-level miniatures game &middot; RetroBoom Games</span>
-          <span class="fs-pagefoot-url">arsenal.retroboomgames.com</span>
-        </div></td></tr></tfoot>
+        <tfoot><tr><td class="fs-foot-spacer"></td></tr></tfoot>
         <tbody>
         ${(platoonSections.length ? platoonSections : ['<div style="font-family:var(--mono);font-size:11px;color:var(--text3);text-align:center;padding:32px;">No platoons in this force.</div>'])
           .map(block => `<tr><td class="fs-body-cell">${block}</td></tr>`).join('')}
@@ -10618,6 +10640,10 @@ function openForceSheet(forceData) {
         </div></td></tr>` : ''}
         </tbody>
       </table>
+      <div class="fs-pagefoot">
+        <span><b>Hail of Fire</b> &middot; a WWII company-level miniatures game &middot; RetroBoom Games</span>
+        <span class="fs-pagefoot-url">arsenal.retroboomgames.com</span>
+      </div>
     </div>`;
 
   modal.classList.add('open');
