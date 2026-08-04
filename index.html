@@ -4580,6 +4580,10 @@
       color: #111 !important;
       font-family: Arial Black, Arial, sans-serif !important;
       font-size: 21px !important;
+      /* Indent to the H of HAIL OF FIRE: past the rivet, the lockup gap after
+         it, and the logo's own matching left margin. logo-print.png is cropped
+         flush to the ink, so its box edge is the H. */
+      margin-left: calc(var(--fs-rivet) + var(--fs-lockup-gap) * 2) !important;
     }
     .fs-close-btn, .fs-print-btn, .fs-share-btn { display: none !important; }
 
@@ -4745,15 +4749,18 @@
        Rendered in greyscale rather than the UI's gold, because the rest of the
        printed sheet is greyscale and a 35%-opacity gold would all but vanish on
        white paper (and on a mono printer). */
+    /* One source of truth for the lockup metrics: the force name's indent is
+       derived from these below, so it keeps tracking the H if either changes. */
+    .fs-header { --fs-rivet: 1.4mm; --fs-lockup-gap: 2.2mm; }
     .fs-masthead-lockup {
       display: flex !important;
       align-items: center !important;
-      gap: 2.2mm !important;
+      gap: var(--fs-lockup-gap) !important;
     }
     .fs-masthead-rivet {
       flex: 0 0 auto !important;
-      width: 1.4mm !important;
-      height: 1.4mm !important;
+      width: var(--fs-rivet) !important;
+      height: var(--fs-rivet) !important;
       border-radius: 50% !important;
       background: #b0b0b0 !important;
     }
@@ -4792,7 +4799,7 @@
          inside its own box, so the right-hand rivet already sits ~2.2mm further
          out than the flex gap. Match it on the left so both rivets look evenly
          set off the lockup. */
-      margin-left: 2.2mm !important;
+      margin-left: var(--fs-lockup-gap) !important;
     }
     /* Running footer on every page. Two approaches were tried and rejected:
        position:fixed is painted once rather than repeated in current Chrome (it
