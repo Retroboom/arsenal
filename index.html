@@ -4843,15 +4843,30 @@
     .fs-body > tbody > tr > td,
     .fs-body > tfoot > tr > td { display: table-cell !important; }
     .fs-body > tbody > tr > td.fs-body-cell { padding: 0 !important; }
+    /* Follows the .foot pattern from hail-of-fire/quickstart-2page.html:
+       identity and tagline on the left, the link pushed right, separated by a
+       hairline rule. Rendered greyscale rather than that sheet's band/olive,
+       to stay consistent with the rest of this printout. */
     .fs-pagefoot {
-      display: block !important;
-      text-align: center !important;
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      gap: 12px !important;
       font-family: Arial, sans-serif !important;
       font-size: 6.5pt !important;
-      letter-spacing: 0.5px !important;
-      color: #999 !important;
-      padding-top: 4px !important;
-      border-top: 0.5pt solid #ddd !important;
+      letter-spacing: 0.4px !important;
+      color: #8a8a8a !important;
+      padding-top: 5px !important;
+      border-top: 0.5pt solid #ccc !important;
+    }
+    .fs-pagefoot b {
+      color: #333 !important;
+      font-weight: 700 !important;
+    }
+    .fs-pagefoot-url {
+      color: #555 !important;
+      font-weight: 700 !important;
+      white-space: nowrap !important;
     }
 
     /* Suppress global tooltip in print */
@@ -10559,7 +10574,10 @@ function openForceSheet(forceData) {
       </div>
       ${notes ? `<div class="fs-notes">${notes}</div>` : ''}
       <table class="fs-body">
-        <tfoot><tr><td><div class="fs-pagefoot">arsenal.retroboomgames.com</div></td></tr></tfoot>
+        <tfoot><tr><td><div class="fs-pagefoot">
+          <span><b>Hail of Fire</b> &middot; a WWII company-level miniatures game &middot; RetroBoom Games</span>
+          <span class="fs-pagefoot-url">arsenal.retroboomgames.com</span>
+        </div></td></tr></tfoot>
         <tbody>
         ${(platoonSections.length ? platoonSections : ['<div style="font-family:var(--mono);font-size:11px;color:var(--text3);text-align:center;padding:32px;">No platoons in this force.</div>'])
           .map(block => `<tr><td class="fs-body-cell">${block}</td></tr>`).join('')}
