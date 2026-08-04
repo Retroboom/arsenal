@@ -3969,6 +3969,7 @@
   .fs-masthead { display: none; }
   .fs-qr { display: none; }
   .fs-pagefoot { display: none; }
+  .fs-pageframe { display: none; }
   /* .fs-foot-spacer needs no screen rule: it is an empty cell and the flattening
      below leaves it at zero height. It only gains a height inside @media print. */
 
@@ -4546,6 +4547,16 @@
   }
 
   @media print {
+    /* Explicit paper margin so the ruled page frame below has somewhere to sit
+       and the result is the same whatever the print dialog's margin setting is. */
+    @page { margin: 8mm; }
+
+    /* Zero these or the first page starts ~16mm lower than the rest, which is
+       invisible without the frame but leaves an obvious gap between the frame's
+       top rule and the masthead once the frame is drawn. Later pages are
+       positioned by pagination and are unaffected. */
+    html, body { margin: 0 !important; padding: 0 !important; }
+
     /* html carries the dark app background, and it is what paints the part of
        the last sheet the force sheet does not reach. Without this it prints as a
        dark band under the content, with the page footer sitting on top of it. */
@@ -4858,6 +4869,18 @@
     .fs-body > tbody > tr > td,
     .fs-body > tfoot > tr > td { display: table-cell !important; }
     .fs-body > tbody > tr > td.fs-body-cell { padding: 0 !important; }
+    /* Ruled frame around every page, matching the one on the 2-page quickstart.
+       Fixed rather than a border on the sheet for the same reason as the footer:
+       fixed elements are painted once per sheet of paper, so the rule repeats
+       instead of only boxing the first page. inset: 0 puts it on the @page margin
+       box, i.e. 8mm in from the paper edge. */
+    .fs-pageframe {
+      display: block !important;
+      position: fixed !important;
+      inset: 0 !important;
+      border: 0.75pt solid #b0b0b0 !important;
+      pointer-events: none !important;
+    }
     /* Empty on purpose: it only holds the footer strip open on every page. */
     .fs-foot-spacer {
       height: 13mm !important;
@@ -10640,6 +10663,7 @@ function openForceSheet(forceData) {
         </div></td></tr>` : ''}
         </tbody>
       </table>
+      <div class="fs-pageframe"></div>
       <div class="fs-pagefoot">
         <span><b>Hail of Fire</b> &middot; a WWII company-level miniatures game &middot; RetroBoom Games</span>
         <span class="fs-pagefoot-url">arsenal.retroboomgames.com</span>
