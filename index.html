@@ -2295,6 +2295,9 @@
     color: var(--accent);
   }
 
+  /* Same glyph and weight as the filter sidebar's collapse arrow
+     (.sidebar-toggle-btn), rotated a quarter turn so it points down: the panel
+     minimises downward into the .fp-bar, and the bar's own chevron points back up. */
   .close-panel-btn {
     background: none;
     border: none;
@@ -2303,6 +2306,8 @@
     cursor: pointer;
     padding: 4px;
     line-height: 1;
+    display: inline-block;
+    transform: rotate(-90deg);
   }
 
   .close-panel-btn:hover { color: var(--text); }
@@ -5957,7 +5962,7 @@ If this field has content, clicking the card opens an in-app reader. Otherwise t
 <div class="force-panel" id="force-panel">
   <div class="force-panel-header" onclick="toggleForcePanel()" title="Tap to minimize">
     <div class="force-panel-title">Force Builder</div>
-    <button class="close-panel-btn" onclick="event.stopPropagation();toggleForcePanel()">✕</button>
+    <button class="close-panel-btn" aria-label="Minimize force builder" onclick="event.stopPropagation();toggleForcePanel()">‹</button>
   </div>
   <input type="text" class="force-name-input" id="force-name" placeholder="Name your force...">
   <div class="fp-config">
