@@ -5089,6 +5089,36 @@
   .platoon-quality-cycle.pq-poor    { border-color: color-mix(in srgb, var(--red) 55%, var(--border));    color: #d49a9a; }
   .platoon-quality-cycle.pq-inherit { border-style: dashed; opacity: 0.55; }
 
+  /* Off-table Artillery toggle: same footprint as the quality chip, dashed and
+     dim when on-table, solid accent when the platoon is deployed off-table. */
+  .platoon-offtable-btn {
+    background: none;
+    border: 1px dashed var(--border);
+    color: var(--text3);
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    width: 28px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+    opacity: 0.7;
+    transition: all 0.1s;
+  }
+  .platoon-offtable-btn:hover { opacity: 1; color: var(--text2); }
+  .platoon-offtable-btn.on {
+    border-style: solid;
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+    color: var(--accent);
+    opacity: 1;
+  }
+
   /* ── DRAG HANDLE ──────────────────────────────────────────────────────────── */
   .platoon-drag-handle {
     background: none;
@@ -6031,7 +6061,7 @@ If this field has content, clicking the card opens an in-app reader. Otherwise t
         <span class="summary-stat-value" id="summary-units">0</span>
       </div>
       <div class="summary-stat">
-        <span class="summary-stat-label" title="5 + 2 per platoon. Off-table Artillery doesn't count toward the Break Limit: subtract 2 for each artillery platoon you deploy off-table.">Break Limit</span>
+        <span class="summary-stat-label" title="5 + 2 per platoon. Off-table Artillery doesn't count: tap OT on an artillery platoon to deploy it off-table.">Break Limit</span>
         <span class="summary-stat-value" id="summary-bl">5</span>
       </div>
       <div class="summary-stat admin-only" id="summary-pts-stat" style="grid-column: 1 / -1; display: none">
@@ -7450,6 +7480,14 @@ function setPlatoonQuality(platoonId, quality) {
   updateForceUI();
 }
 
+// Off-table Artillery toggle: an off-table artillery platoon doesn't add 2 to the Break Limit.
+function togglePlatoonOffTable(platoonId) {
+  const platoon = platoons.find(p => p.id === platoonId);
+  if (!platoon) return;
+  platoon.offTable = !platoon.offTable;
+  updateForceUI();
+}
+
 // Single-tap quality control: cycle Elite -> Regular -> Poor (sets an explicit override).
 function cyclePlatoonQuality(platoonId) {
   const platoon = platoons.find(p => p.id === platoonId);
@@ -7493,7 +7531,7 @@ function duplicatePlatoon(id) {
   platoons.splice(
     platoons.findIndex(p => p.id === id) + 1,
     0,
-    { id: newId, name: dupeName, teams: src.teams.map(t => ({ ...t })), quality: src.quality || null }
+    { id: newId, name: dupeName, teams: src.teams.map(t => ({ ...t })), quality: src.quality || null, offTable: !!src.offTable }
   );
   activePlatoonId = newId;
   updateForceUI();
@@ -7835,7 +7873,7 @@ function calcForcePoints() {
 
 function updateForceUI() {
   const count = platoons.length;
-  const breakLimit = calcBreakLimit(count);
+  const breakLimit = calcBreakLimit(platoons);
   // Persist builder state so the FPP can restore it when a share link is opened.
   try { localStorage.setItem('arsenal-draft', JSON.stringify(getForceData())); } catch(e) {}
   document.getElementById('summary-units').textContent = count;
@@ -7962,6 +8000,8 @@ function updateForceUI() {
     const effectiveQ = platoon.quality || forceQuality || 'Regular';
     const pqColorCls   = effectiveQ === 'Elite' ? 'pq-elite' : effectiveQ === 'Regular' ? 'pq-regular' : 'pq-poor';
     const pqInheritCls = platoon.quality ? '' : ' pq-inherit';
+    const isArty   = isArtilleryPlatoon(platoon);
+    const offTable = isArty && !!platoon.offTable;
     return `
       <div class="platoon-item ${isActive ? 'active-platoon' : ''} ${isCollapsed ? 'is-collapsed' : ''}" id="platoon-${platoon.id}">
         <div class="platoon-header">
@@ -7974,6 +8014,7 @@ function updateForceUI() {
             placeholder="Platoon name...">
           ${showScores ? `<span class="platoon-score-badge">${displayPoints(calcPlatoonScore(platoon, forceQuality))} pts</span>` : ''}
           <button class="platoon-quality-cycle ${pqColorCls}${pqInheritCls}" data-tip="Quality: ${effectiveQ}${platoon.quality ? '' : ' (inherited)'} · tap to change" onclick="cyclePlatoonQuality('${platoon.id}')">${effectiveQ.charAt(0)}</button>
+          ${isArty ? `<button class="platoon-offtable-btn${offTable ? ' on' : ''}" aria-pressed="${offTable}" data-tip="${offTable ? 'Off-table artillery: not counted toward the Break Limit · tap to put it on the table' : 'On-table artillery · tap to deploy it off-table (it then doesn\'t count toward the Break Limit)'}" onclick="togglePlatoonOffTable('${platoon.id}')">OT</button>` : ''}
           <button class="platoon-select-btn" onclick="setActivePlatoon('${platoon.id}')">
             ${isActive ? 'Active' : 'Select'}
           </button>
@@ -7982,6 +8023,7 @@ function updateForceUI() {
         </div>
         <div class="platoon-teams ${isCollapsed ? 'is-collapsed' : ''}">
           ${platoon.attachable ? `<div class="attach-hint">⇢ Use Attach to distribute teams to other platoons</div>` : ''}
+          ${offTable ? `<div class="attach-hint offtable-hint">Off-table: not counted toward the Break Limit</div>` : ''}
           ${teamRows}
         </div>
       </div>
@@ -8080,10 +8122,11 @@ function getForceData() {
     year: forceYear ? parseInt(forceYear, 10) : null,
     forceType: forceType || null,
     platoonCount: platoons.length,
-    breakLimit: calcBreakLimit(platoons.length),
+    breakLimit: calcBreakLimit(platoons),
     platoons: platoons.map(p => ({
       name: p.name,
       quality: p.quality || null,
+      offTable: p.offTable ? true : null,
       teams: p.teams.map(t => ({ unitId: t.unitId, qty: t.qty }))
     })),
     created: Date.now(),
@@ -8104,6 +8147,7 @@ function loadForceData(data) {
     id: `pl-${Date.now()}-${i}`,
     name: p.name,
     quality: p.quality || null,
+    offTable: !!p.offTable,
     teams: toArr(p.teams)
   }));
   platoonCounter = platoons.length;
@@ -10210,9 +10254,24 @@ function toArr(val) {
   return Object.values(val);
 }
 
-// Break limit formula: 5 + 2 per platoon
-function calcBreakLimit(platoonCount) {
-  return 5 + platoonCount * 2;
+// Break limit formula: 5 + 2 per platoon. Off-table Artillery Units don't
+// contribute (v.2026.12), so pass the platoon array wherever one is at hand;
+// a bare number is still accepted for callers that only know a count.
+const ARTY_NOTES = ['Light Artillery', 'Medium Artillery', 'Heavy Artillery', 'Rocket Artillery'];
+function isArtilleryPlatoon(p) {
+  return toArr(p && p.teams).some(t => {
+    const u = allUnits.find(x => x.id === t.unitId);
+    return !!u && (u.notes || []).some(n => ARTY_NOTES.includes(n));
+  });
+}
+// The flag only counts while the platoon still holds an artillery team, so a
+// stale flag left on a platoon whose guns were removed can't shrink the BL.
+function isOffTablePlatoon(p) {
+  return !!(p && p.offTable) && isArtilleryPlatoon(p);
+}
+function calcBreakLimit(platoonsOrCount) {
+  if (typeof platoonsOrCount === 'number') return 5 + platoonsOrCount * 2;
+  return 5 + toArr(platoonsOrCount).filter(p => !isOffTablePlatoon(p)).length * 2;
 }
 
 function nationCardClass(nations) {
@@ -10493,9 +10552,11 @@ function openForceSheet(forceData) {
     const qDiffers = platoonQ && platoonQ !== forceQ;
     const qIcon = platoonQ === 'Elite' ? '★' : platoonQ === 'Poor' ? '▼' : '●';
     const qColor = platoonQ === 'Elite' ? 'var(--accent)' : platoonQ === 'Poor' ? 'var(--red)' : 'var(--green)';
-    const qBadge = qDiffers
+    const qBadge = (qDiffers
       ? `<span style="font-family:var(--mono);font-size:13px;letter-spacing:1.5px;color:${qColor};margin-left:14px;border:1px solid ${qColor};padding:2px 8px;opacity:0.95">${qIcon} ${platoonQ.toUpperCase()}</span>`
-      : '';
+      : '') + (isOffTablePlatoon(platoon)
+      ? `<span style="font-family:var(--mono);font-size:13px;letter-spacing:1.5px;color:var(--text2);margin-left:14px;border:1px dashed var(--text3);padding:2px 8px">OFF-TABLE</span>`
+      : '');
 
     if (teams.length === 0) {
       return `
@@ -13037,7 +13098,7 @@ function renderFPPSetup(body) {
         ${platoons.length ? `
           <button class="fpp-load-btn loaded" onclick="openMyForcePicker()" title="Tap to load a different force">
             <div class="fpp-force-name">${esc(document.getElementById('force-name')?.value || 'Current Force')}</div>
-            <div class="fpp-force-meta">✓ ${platoons.length} platoons · BL ${calcBreakLimit(platoons.length)}</div>
+            <div class="fpp-force-meta">✓ ${platoons.length} platoons · BL ${calcBreakLimit(platoons)}</div>
           </button>
         ` : `<button class="fpp-load-btn" onclick="openMyForcePicker()">+ Load Your Force</button>`}
       </div>
@@ -13048,7 +13109,7 @@ function renderFPPSetup(body) {
         <button class="fpp-load-btn ${bLoaded ? 'loaded' : ''}" onclick="openForcePicker()">
           ${bLoaded ? `
             <div class="fpp-force-name">${esc(fppState.b.forceName || 'Opponent Force')}</div>
-            <div class="fpp-force-meta">✓ ${fppState.b.platoons.length} platoons · BL ${calcBreakLimit(fppState.b.platoons.length)}</div>
+            <div class="fpp-force-meta">✓ ${fppState.b.platoons.length} platoons · BL ${calcBreakLimit(fppState.b.platoons)}</div>
           ` : '+ Load Opponent Force'}
         </button>
       </div>
@@ -13073,8 +13134,8 @@ function startFPP() {
   fppState.a.name = document.getElementById('fpp-name-a')?.value.trim() || 'Player A';
   fppState.b.name = document.getElementById('fpp-name-b')?.value.trim() || 'Player B';
   fppState.a.platoons = JSON.parse(JSON.stringify(platoons));
-  fppState.a.bl = calcBreakLimit(fppState.a.platoons.length);
-  fppState.b.bl = calcBreakLimit(fppState.b.platoons.length);
+  fppState.a.bl = calcBreakLimit(fppState.a.platoons);
+  fppState.b.bl = calcBreakLimit(fppState.b.platoons);
   fppState.a.vehicleCount = countVehicleTeams(fppState.a.platoons);
   fppState.b.vehicleCount = countVehicleTeams(fppState.b.platoons);
   fppState.attacker = assignFPPAttacker(fppState);
@@ -13117,7 +13178,7 @@ function fppRerun() {
   const side = fppState.editingSide || 'a';
   if (side === 'b') {
     fppState.b.platoons = JSON.parse(JSON.stringify(platoons));
-    fppState.b.bl = calcBreakLimit(fppState.b.platoons.length);
+    fppState.b.bl = calcBreakLimit(fppState.b.platoons);
     fppState.b.vehicleCount = countVehicleTeams(fppState.b.platoons);
     if (fppState.savedBuilderPlatoons) {
       platoons = fppState.savedBuilderPlatoons;
@@ -13141,8 +13202,8 @@ function autoFPP() {
   fppState.a.name = document.getElementById('fpp-name-a')?.value.trim() || fppState.a.name || 'Player A';
   fppState.b.name = document.getElementById('fpp-name-b')?.value.trim() || fppState.b.name || 'Player B';
   fppState.a.platoons = JSON.parse(JSON.stringify(platoons));
-  fppState.a.bl = calcBreakLimit(fppState.a.platoons.length);
-  fppState.b.bl = calcBreakLimit(fppState.b.platoons.length);
+  fppState.a.bl = calcBreakLimit(fppState.a.platoons);
+  fppState.b.bl = calcBreakLimit(fppState.b.platoons);
   fppState.a.vehicleCount = countVehicleTeams(fppState.a.platoons);
   fppState.b.vehicleCount = countVehicleTeams(fppState.b.platoons);
   fppState.attacker = assignFPPAttacker(fppState);
@@ -13419,8 +13480,8 @@ function mcbBalance(platoonsA, platoonsB, baseBlA, baseBlB) {
   const FA = mcbBuild(platoonsA), FB = mcbBuild(platoonsB);
   if (!FA.teams.length || !FB.teams.length) return { error: 'empty force' };
   const mat = mcbMatrices(FA.teams, FB.teams);
-  const blA0 = baseBlA != null ? baseBlA : calcBreakLimit((platoonsA || []).length);
-  const blB0 = baseBlB != null ? baseBlB : calcBreakLimit((platoonsB || []).length);
+  const blA0 = baseBlA != null ? baseBlA : calcBreakLimit(platoonsA || []);
+  const blB0 = baseBlB != null ? baseBlB : calcBreakLimit(platoonsB || []);
 
   const base = mcbBatch(FA, FB, mat, blA0, blB0);
   const stronger = base.pWinA > 0.5 ? 'a' : 'b';   // whoever is winning at natural BL
@@ -13463,8 +13524,8 @@ function compareForces() {
   fppState.a.name = document.getElementById('fpp-name-a')?.value.trim() || fppState.a.name || 'Player A';
   fppState.b.name = document.getElementById('fpp-name-b')?.value.trim() || fppState.b.name || 'Player B';
   fppState.a.platoons = JSON.parse(JSON.stringify(platoons));
-  fppState.a.bl = calcBreakLimit(fppState.a.platoons.length);
-  fppState.b.bl = calcBreakLimit(fppState.b.platoons.length);
+  fppState.a.bl = calcBreakLimit(fppState.a.platoons);
+  fppState.b.bl = calcBreakLimit(fppState.b.platoons);
   fppState.a.vehicleCount = countVehicleTeams(fppState.a.platoons);
   fppState.b.vehicleCount = countVehicleTeams(fppState.b.platoons);
   fppState.attacker = assignFPPAttacker(fppState);
@@ -13593,8 +13654,8 @@ function quickCompareFPP() {
   fppState.a.name = document.getElementById('fpp-name-a')?.value.trim() || fppState.a.name || 'Player A';
   fppState.b.name = document.getElementById('fpp-name-b')?.value.trim() || fppState.b.name || 'Player B';
   fppState.a.platoons = JSON.parse(JSON.stringify(platoons));
-  fppState.a.bl = calcBreakLimit(fppState.a.platoons.length);
-  fppState.b.bl = calcBreakLimit(fppState.b.platoons.length);
+  fppState.a.bl = calcBreakLimit(fppState.a.platoons);
+  fppState.b.bl = calcBreakLimit(fppState.b.platoons);
   fppState.a.vehicleCount = countVehicleTeams(fppState.a.platoons);
   fppState.b.vehicleCount = countVehicleTeams(fppState.b.platoons);
   fppState.attacker = assignFPPAttacker(fppState);
@@ -14497,6 +14558,7 @@ async function selectOpponentForce(forceId) {
     id: `pl-${Date.now()}-${i}`,
     name: p.name,
     quality: p.quality || null,
+    offTable: !!p.offTable,
     teams: toArr(p.teams)
   }));
   fppState.b.forceId    = forceId;
