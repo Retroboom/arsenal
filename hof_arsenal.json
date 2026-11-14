@@ -590,7 +590,9 @@
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": [],
+      "notes": [
+        "Limited HE"
+      ],
       "special_rules": [],
       "free": true,
       "base": "Medium",
@@ -688,9 +690,9 @@
         1944,
         1945
       ],
-      "gun_range": "16\"",
+      "gun_range": "20\"",
       "rof": 1,
-      "at": 3,
+      "at": 4,
       "fp": 1,
       "armor_front": null,
       "armor_flank": null,
@@ -768,7 +770,7 @@
       ],
       "gun_range": "20\"",
       "rof": 1,
-      "at": 4,
+      "at": 5,
       "fp": 3,
       "armor_front": null,
       "armor_flank": null,
@@ -815,6 +817,7 @@
       "armament": null,
       "notes": [
         "Anti-Air",
+        "Limited HE",
         "May only inflict RFPs"
       ],
       "special_rules": [],
@@ -844,8 +847,8 @@
         1944,
         1945
       ],
-      "gun_range": "16\"",
-      "rof": 5,
+      "gun_range": "20\"",
+      "rof": 6,
       "at": 1,
       "fp": 1,
       "armor_front": null,
@@ -853,6 +856,7 @@
       "armament": null,
       "notes": [
         "Anti-Air",
+        "Limited HE",
         "May only inflict RFPs"
       ],
       "special_rules": [],
@@ -1188,7 +1192,8 @@
       "armament": "M1 76mm gun, Coax MG/Hull MG",
       "notes": [
         "Tracked",
-        "Fast"
+        "Fast",
+        "Limited HE"
       ],
       "special_rules": [],
       "free": true,
@@ -1285,14 +1290,15 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 1,
       "armor_flank": 0,
       "armament": "M6 37mm gun, Coax MG/Hull MG",
       "notes": [
         "Tracked",
-        "Fast"
+        "Fast",
+        "Limited HE"
       ],
       "special_rules": [],
       "free": true,
@@ -1307,7 +1313,7 @@
     {
       "id": "us-tank-m24-chaffee",
       "lore": "The M24 Chaffee replaced the aging Stuart as the US light tank from late 1944, fitting a 75mm gun into a turret nearly as capable as early Shermans in a lighter, faster package. Rushed to the Ardennes during the Battle of the Bulge, Chaffee crews were surprised to find their 75mm gun could deal with German tanks in the hedged terrain where flanking shots were always available. Its combination of speed, firepower, and low silhouette made it the best Allied light tank of the war.",
-      "name": "M24 Chaffee GMC",
+      "name": "M24 Chaffee",
       "nation": "United States",
       "type": "Tank",
       "theater": [
@@ -1361,7 +1367,7 @@
       "fp": 1,
       "armor_front": 1,
       "armor_flank": 0,
-      "armament": "M7 3-inch gun, .50cal MG",
+      "armament": "M7 3-inch gun, .50 cal MG",
       "notes": [
         "Tracked",
         "Open Topped"
@@ -1396,7 +1402,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "M1 76mm gun, .50cal MG",
+      "armament": "M1 76mm gun, .50 cal MG",
       "notes": [
         "Tracked",
         "Fast",
@@ -1432,7 +1438,7 @@
       "fp": 1,
       "armor_front": 2,
       "armor_flank": 0,
-      "armament": "M3 90mm gun, .50cal MG",
+      "armament": "M3 90mm gun, .50 cal MG",
       "notes": [
         "Tracked",
         "Open Topped"
@@ -1463,13 +1469,13 @@
         1944,
         1945
       ],
-      "gun_range": "18\"",
+      "gun_range": "16\"",
       "rof": 2,
       "at": 2,
       "fp": 1,
       "armor_front": 1,
       "armor_flank": 0,
-      "armament": "M1A1 75mm howitzer, .50cal MG",
+      "armament": "M1A1 75mm howitzer, .50 cal MG",
       "notes": [
         "Tracked",
         "Fast",
@@ -1539,7 +1545,7 @@
         1944,
         1945
       ],
-      "gun_range": "16\"",
+      "gun_range": "20\"",
       "rof": 4,
       "at": 1,
       "fp": 1,
@@ -1550,6 +1556,7 @@
         "Half-Tracked",
         "Open Topped",
         "Anti-Air",
+        "Limited HE",
         "May only inflict RFPs"
       ],
       "special_rules": [],
@@ -1615,8 +1622,8 @@
         1944,
         1945
       ],
-      "gun_range": "16\"",
-      "rof": 5,
+      "gun_range": "20\"",
+      "rof": 6,
       "at": 1,
       "fp": 1,
       "armor_front": 0,
@@ -1626,6 +1633,7 @@
         "Half-Tracked",
         "Open Topped",
         "Anti-Air",
+        "Limited HE",
         "May only inflict RFPs"
       ],
       "special_rules": [],
@@ -1641,7 +1649,7 @@
     {
       "id": "us-ac-m8",
       "lore": "The M8 Greyhound armored car gave US cavalry and reconnaissance units a fast, well-armed scout vehicle with a 37mm gun capable of handling German armored cars and half-tracks. Organized into cavalry squadrons, M8s screened the flanks of armored divisions from Normandy to the Elbe, probing enemy positions and reporting back while avoiding fights they couldn't win. The Greyhound's high road speed \u2014 55mph \u2014 meant that when a patrol found the enemy, escape was always a viable option.",
-      "name": "M8 Armoured Car",
+      "name": "M8 Greyhound",
       "nation": "United States",
       "type": "Armoured Cars",
       "theater": [
@@ -1655,14 +1663,15 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "M6 37mm gun, Coax MG",
       "notes": [
         "Wheeled",
-        "Open Topped"
+        "Open Topped",
+        "Limited HE"
       ],
       "special_rules": [],
       "free": true,
@@ -1689,17 +1698,16 @@
         1944,
         1945
       ],
-      "gun_range": "16\"",
-      "rof": 2,
-      "at": 1,
+      "gun_range": null,
+      "rof": null,
+      "at": null,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
       "armament": ".50cal MG",
       "notes": [
         "Wheeled",
-        "Open Topped",
-        "May only inflict RFPs"
+        "Open Topped"
       ],
       "special_rules": [],
       "free": true,
@@ -1733,7 +1741,7 @@
       "fp": 2,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "M2A1 105mm howitzer, .50cal MG",
+      "armament": "M2A1 105mm howitzer, .50 cal MG",
       "notes": [
         "Tracked",
         "Open Topped",
@@ -1806,11 +1814,11 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": null,
+      "at": 0,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "M1 81mm mortar, .50 MG",
+      "armament": "M1 81mm mortar, .50 cal MG",
       "notes": [
         "Half-Tracked",
         "Open Topped",
@@ -1899,7 +1907,7 @@
     {
       "id": "us-inf-flamethrower",
       "lore": "The M2 flamethrower entered widespread US service in 1943 and saw its heaviest use against Japanese bunkers and cave complexes in the Pacific, where rifle and grenade fire could not reach defenders in deep coral fortifications. A single burst of jellied fuel would either incinerate the occupants or consume their oxygen, and the weapon's psychological effect frequently broke positions that had resisted days of conventional bombardment. The operator carried 70 pounds of fuel and pressure on his back, making him a priority target for every enemy rifleman in line of sight.",
-      "name": "Flame-Thrower Team",
+      "name": "Flamethrower Team",
       "nation": "United States",
       "type": "Infantry",
       "theater": [
@@ -1920,7 +1928,7 @@
       "armor_flank": null,
       "armament": "M2 Flamethrower",
       "notes": [
-        "Flame-Thrower",
+        "Flamethrower",
         "Cannot fire from buildings"
       ],
       "special_rules": [],
@@ -2400,7 +2408,7 @@
       ],
       "gun_range": "16\"",
       "rof": 1,
-      "at": 3,
+      "at": 5,
       "fp": 3,
       "armor_front": null,
       "armor_flank": null,
@@ -2439,7 +2447,7 @@
         1944,
         1945
       ],
-      "gun_range": "16\"",
+      "gun_range": "20\"",
       "rof": 3,
       "at": 2,
       "fp": 1,
@@ -2712,7 +2720,7 @@
       ],
       "gun_range": "20\"",
       "rof": 1,
-      "at": 6,
+      "at": 5,
       "fp": 3,
       "armor_front": null,
       "armor_flank": null,
@@ -2758,8 +2766,8 @@
       "armor_flank": null,
       "armament": null,
       "notes": [
-        "Rocket Barrage",
         "Medium Artillery",
+        "Rocket Artillery",
         "Smoke"
       ],
       "special_rules": [],
@@ -3070,7 +3078,7 @@
     {
       "id": "de-tank-brummbar",
       "lore": "The Sturmpanzer IV \"Brummbar\" (Grizzly Bear) was built specifically for the grinding close-quarters battles on the Eastern Front, where standard tank guns proved inadequate against Soviet fieldworks and urban fortifications. Its 15cm StuH43 howitzer could demolish a concrete bunker with a direct hit and clear a city block of defenders with a single round. Employed in small assault platoons, Brummbar units supported the bitter defensive battles through Kursk's aftermath, Italy's mountains, and the final defense of the Reich.",
-      "name": "Brummbar",
+      "name": "Brummb\u00e4r",
       "nation": "Germany",
       "type": "Tank",
       "theater": [
@@ -3084,7 +3092,7 @@
       ],
       "gun_range": "16\"",
       "rof": 1,
-      "at": 6,
+      "at": 5,
       "fp": 3,
       "armor_front": 4,
       "armor_flank": 2,
@@ -3199,7 +3207,7 @@
       "fp": 1,
       "armor_front": 4,
       "armor_flank": 2,
-      "armament": "8.8cm KwK43 gun, Hull MG",
+      "armament": "8.8cm PaK43/3 gun, Hull MG",
       "notes": [
         "Tracked",
         "Hull Mounted"
@@ -3299,7 +3307,7 @@
       "years": [
         1943
       ],
-      "gun_range": "40\"",
+      "gun_range": "32\"",
       "rof": 2,
       "at": 7,
       "fp": 1,
@@ -3418,7 +3426,7 @@
       ],
       "gun_range": "16\"",
       "rof": 1,
-      "at": 6,
+      "at": 5,
       "fp": 3,
       "armor_front": 1,
       "armor_flank": 0,
@@ -3428,7 +3436,8 @@
         "Open Topped",
         "Hull Mounted",
         "Bunker Buster",
-        "Heavy Artillery"
+        "Heavy Artillery",
+        "Smoke"
       ],
       "special_rules": [],
       "free": true,
@@ -3466,8 +3475,8 @@
         "Tracked",
         "Open Topped",
         "Hull Mounted",
-        "Medium Artillery",
         "Bunker Buster",
+        "Medium Artillery",
         "Smoke"
       ],
       "special_rules": [],
@@ -3497,7 +3506,7 @@
       ],
       "gun_range": "20\"",
       "rof": 1,
-      "at": 6,
+      "at": 5,
       "fp": 3,
       "armor_front": 0,
       "armor_flank": 0,
@@ -3543,9 +3552,9 @@
       "armor_flank": 0,
       "armament": "15cm RW42 rocket launcher, AA MG",
       "notes": [
-        "Rocket Barrage",
         "Half-Tracked",
         "Medium Artillery",
+        "Rocket Artillery",
         "Smoke"
       ],
       "special_rules": [],
@@ -3576,7 +3585,7 @@
         1944,
         1945
       ],
-      "gun_range": "16\"",
+      "gun_range": "20\"",
       "rof": 3,
       "at": 2,
       "fp": 1,
@@ -3616,7 +3625,7 @@
         1944,
         1945
       ],
-      "gun_range": "16\"",
+      "gun_range": "20\"",
       "rof": 5,
       "at": 2,
       "fp": 1,
@@ -3653,7 +3662,7 @@
         1944,
         1945
       ],
-      "gun_range": "16\"",
+      "gun_range": "20\"",
       "rof": 3,
       "at": 2,
       "fp": 1,
@@ -3661,7 +3670,7 @@
       "armor_flank": 0,
       "armament": "2cm FlaK38 gun",
       "notes": [
-        "Tracked",
+        "Half-Tracked",
         "Open Topped",
         "Anti-Air"
       ],
@@ -3691,17 +3700,15 @@
       ],
       "gun_range": "20\"",
       "rof": 3,
-      "at": 1,
+      "at": 2,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "MG151/15 gun, AA MG",
       "notes": [
-        "Tracked",
+        "Half-Tracked",
         "Open Topped",
-        "Anti-Air",
-        "Limited HE",
-        "May only inflict RFPs"
+        "Anti-Air"
       ],
       "special_rules": [],
       "free": true,
@@ -3727,7 +3734,7 @@
         1944,
         1945
       ],
-      "gun_range": "16\"",
+      "gun_range": "20\"",
       "rof": 5,
       "at": 2,
       "fp": 1,
@@ -3776,7 +3783,7 @@
       "notes": [
         "Half-Tracked",
         "Open Topped",
-        "Flame-Thrower"
+        "Flamethrower"
       ],
       "special_rules": [],
       "free": true,
@@ -3810,7 +3817,7 @@
       "armament": "1.4cm Flammenwerfer, Coax MG",
       "notes": [
         "Tracked",
-        "Flame-Thrower"
+        "Flamethrower"
       ],
       "special_rules": [],
       "free": true,
@@ -4052,6 +4059,46 @@
       "wiki": "Sd.Kfz._251"
     },
     {
+      "id": "de-transport-sdkfz250",
+      "lore": "The Sd Kfz 250 was the smaller sibling of the Sd Kfz 251: a light half-track that carried a single section where its bigger cousin carried a full squad. It entered service in 1941 and became the workhorse of reconnaissance battalions and command staffs, who prized its speed and low profile over carrying capacity. Its armored hull and open crew compartment gave a handful of riflemen protection from small-arms fire on the approach, and a passenger-manned MG on the open top let them fight back while still mounted.",
+      "name": "Sd Kfz 250",
+      "nation": "Germany",
+      "type": "Transport",
+      "theater": [
+        "Western Front",
+        "Eastern Front",
+        "Mediterranean"
+      ],
+      "years": [
+        1941,
+        1942,
+        1943,
+        1944,
+        1945
+      ],
+      "gun_range": null,
+      "rof": null,
+      "at": null,
+      "fp": 1,
+      "armor_front": 0,
+      "armor_flank": 0,
+      "armament": "Passenger-fired AA MG",
+      "notes": [
+        "Half-Tracked",
+        "Open Topped",
+        "Carries 1 Team"
+      ],
+      "special_rules": [],
+      "free": true,
+      "base": "Vehicle",
+      "standard_platoon": {
+        "qty": 3,
+        "leader": false,
+        "fo": false
+      },
+      "wiki": "Sd.Kfz._250"
+    },
+    {
       "id": "de-transport-maultier",
       "lore": "The Maultier (Mule) was born from desperate necessity: the Russian winter of 1941-42 immobilized Wehrmacht truck columns on mud and ice, prompting field workshops to convert standard Opel Blitz trucks by replacing their rear axles with Panzer I or II track units. The factory version, standardized in 1942, became a reliable cargo and ammunition carrier that could follow units into terrain that wheeled trucks could not navigate. Over 20,000 were eventually produced, and one famous variant mounted the Nebelwerfer rocket launcher to create the armored Panzerwerfer 42.",
       "name": "Opel Maultier",
@@ -4252,7 +4299,7 @@
     {
       "id": "de-inf-flamethrower",
       "lore": "The Flammenwerfer 41 corrected the cold-weather failures of earlier German flame weapons on the Eastern Front, replacing the hydrogen ignition system with a cartridge igniter that worked reliably in Russian winters. Issued to Pionier assault detachments, it was the weapon of choice for clearing Soviet bunkers along the Stalin Line and the fortified villages of the Donbas, projecting burning oil to roughly 25 meters in a single ten-second burst. Crews were trained to work in pairs with riflemen for close protection, the operator's 36-kilogram tank making him both conspicuous and slow.",
-      "name": "Flame-Thrower Team",
+      "name": "Flamethrower Team",
       "nation": "Germany",
       "type": "Infantry",
       "theater": [
@@ -4275,7 +4322,7 @@
       "armor_flank": null,
       "armament": "Flammenwerfer 41",
       "notes": [
-        "Flame-Thrower",
+        "Flamethrower",
         "Cannot fire from buildings"
       ],
       "special_rules": [],
@@ -4604,7 +4651,7 @@
         1944,
         1945
       ],
-      "gun_range": null,
+      "gun_range": "24\"",
       "rof": null,
       "at": 1,
       "fp": 1,
@@ -4647,7 +4694,7 @@
         1945
       ],
       "gun_range": "20\"",
-      "rof": 3,
+      "rof": 4,
       "at": 2,
       "fp": 1,
       "armor_front": null,
@@ -4726,14 +4773,12 @@
       ],
       "gun_range": "20\"",
       "rof": 3,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": [
-        "Limited HE"
-      ],
+      "notes": [],
       "special_rules": [],
       "free": true,
       "base": "Medium",
@@ -4908,7 +4953,7 @@
       ],
       "gun_range": "24\"",
       "rof": 1,
-      "at": 6,
+      "at": 5,
       "fp": 3,
       "armor_front": null,
       "armor_flank": null,
@@ -5013,7 +5058,7 @@
         1945
       ],
       "gun_range": "28\"",
-      "rof": 3,
+      "rof": 2,
       "at": 6,
       "fp": 1,
       "armor_front": 2,
@@ -5090,7 +5135,7 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 1,
       "armor_flank": 0,
@@ -5278,7 +5323,7 @@
         "Slow",
         "Wide Tracks",
         "Smoke",
-        "Flame-Thrower"
+        "Flamethrower"
       ],
       "special_rules": [],
       "free": true,
@@ -5306,7 +5351,7 @@
         1944,
         1945
       ],
-      "gun_range": "24\"",
+      "gun_range": "28\"",
       "rof": 2,
       "at": 5,
       "fp": 1,
@@ -5383,9 +5428,10 @@
       "fp": 2,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "OQF 25 pdr gun, AA MG",
+      "armament": "OQF 25 pdr gun, .50 cal MG",
       "notes": [
         "Tracked",
+        "Open Topped",
         "Hull Mounted",
         "Medium Artillery",
         "Smoke"
@@ -5422,9 +5468,10 @@
       "fp": 2,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "M2A1 105mm howitzer, AA MG",
+      "armament": "M2A1 105mm howitzer, .50 cal MG",
       "notes": [
         "Tracked",
+        "Open Topped",
         "Hull Mounted",
         "Smoke",
         "Bunker Buster",
@@ -5459,7 +5506,7 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
@@ -5491,17 +5538,16 @@
         1944,
         1945
       ],
-      "gun_range": "16\"",
-      "rof": 2,
-      "at": 1,
+      "gun_range": null,
+      "rof": null,
+      "at": null,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
       "armament": ".50cal MG",
       "notes": [
         "Wheeled",
-        "Open Topped",
-        "May only inflict RFPs"
+        "Open Topped"
       ],
       "special_rules": [],
       "free": true,
@@ -5532,16 +5578,14 @@
       ],
       "gun_range": "16\"",
       "rof": 3,
-      "at": 1,
+      "at": 2,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "Besa 15mm gun, Coax MG",
       "notes": [
         "Wheeled",
-        "Open Topped",
-        "Limited HE",
-        "May only inflict RFPs"
+        "Open Topped"
       ],
       "special_rules": [],
       "free": true,
@@ -5570,7 +5614,7 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
@@ -5607,7 +5651,7 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 1,
       "armor_flank": 0,
@@ -5696,7 +5740,7 @@
       "armor_flank": 0,
       "armament": "Hull MG",
       "notes": [
-        "Half-Tracked",
+        "Tracked",
         "Open Topped"
       ],
       "special_rules": [],
@@ -5735,10 +5779,11 @@
       "armor_flank": 0,
       "armament": "Boys anti-tank rifle",
       "notes": [
-        "Half-Tracked",
+        "Tracked",
         "Open Topped",
         "Hull Mounted",
-        "Limited HE"
+        "Limited HE",
+        "May only inflict RFPs"
       ],
       "special_rules": [],
       "free": true,
@@ -5765,7 +5810,7 @@
         1944,
         1945
       ],
-      "gun_range": "8\"",
+      "gun_range": "6\"",
       "rof": 1,
       "at": 4,
       "fp": 1,
@@ -5773,7 +5818,7 @@
       "armor_flank": 0,
       "armament": "PIAT",
       "notes": [
-        "Half-Tracked",
+        "Tracked",
         "Open Topped",
         "Hull Mounted"
       ],
@@ -5802,19 +5847,17 @@
         1944,
         1945
       ],
-      "gun_range": "16\"",
-      "rof": 3,
-      "at": 1,
+      "gun_range": null,
+      "rof": null,
+      "at": null,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
       "armament": ".50 cal MG",
       "notes": [
-        "Half-Tracked",
+        "Tracked",
         "Open Topped",
-        "Hull Mounted",
-        "Limited HE",
-        "May only inflict RFPs"
+        "Hull Mounted"
       ],
       "special_rules": [],
       "free": true,
@@ -5892,7 +5935,8 @@
         "Wheeled",
         "Open Topped",
         "Hull Mounted",
-        "Limited HE"
+        "Limited HE",
+        "May only inflict RFPs"
       ],
       "special_rules": [],
       "free": true,
@@ -5921,9 +5965,9 @@
         1944,
         1945
       ],
-      "gun_range": "16\"",
-      "rof": 3,
-      "at": 1,
+      "gun_range": null,
+      "rof": null,
+      "at": null,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
@@ -5931,9 +5975,7 @@
       "notes": [
         "Wheeled",
         "Open Topped",
-        "Hull Mounted",
-        "Limited HE",
-        "May only inflict RFPs"
+        "Hull Mounted"
       ],
       "special_rules": [],
       "free": true,
@@ -5969,7 +6011,7 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "AA MG",
+      "armament": "Hull MG",
       "notes": [
         "Wheeled",
         "Open Topped"
@@ -6007,12 +6049,10 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "Boys anti-tank rifle, AA MG",
+      "armament": "Boys anti-tank rifle, Coax MG",
       "notes": [
         "Wheeled",
-        "Open Topped",
-        "Hull Mounted",
-        "Limited HE"
+        "Hull Mounted"
       ],
       "special_rules": [],
       "free": true,
@@ -6046,12 +6086,11 @@
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "Boys anti-tank rifle, AA MG",
+      "armament": "Boys anti-tank rifle, Coax MG",
       "notes": [
         "Wheeled",
         "Open Topped",
-        "Hull Mounted",
-        "Limited HE"
+        "Hull Mounted"
       ],
       "special_rules": [],
       "free": true,
@@ -6080,7 +6119,7 @@
         1945
       ],
       "gun_range": "20\"",
-      "rof": 3,
+      "rof": 4,
       "at": 2,
       "fp": 1,
       "armor_front": null,
@@ -6414,7 +6453,7 @@
     {
       "id": "br-inf-flamethrower",
       "lore": "The No.2 \"Lifebuoy\" flamethrower took its name from the distinctive doughnut-shaped fuel tank worn on the operator's back, and entered British service in 1944 with assault companies of the 79th Armoured Division and Commonwealth infantry battalions. Its 40-yard range was modest, but in the close fighting of Normandy farmhouses, the Reichswald, and the Scheldt polders it gave attacking sections a way to clear a building or strongpoint without the casualties of a grenade-and-rifle assault. Operators reported that defenders frequently surrendered the moment a Lifebuoy was sighted, sparing the gunner the need to discharge his fuel at all.",
-      "name": "Flame-Thrower Team",
+      "name": "Flamethrower Team",
       "nation": "Britain",
       "type": "Infantry",
       "theater": [
@@ -6434,7 +6473,7 @@
       "armor_flank": null,
       "armament": "No.2 Flamethrower",
       "notes": [
-        "Flame-Thrower",
+        "Flamethrower",
         "Cannot fire from buildings"
       ],
       "special_rules": [],
@@ -6610,14 +6649,15 @@
       ],
       "gun_range": "16\"",
       "rof": 2,
-      "at": 2,
+      "at": 1,
       "fp": 1,
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
       "notes": [
         "Man-Portable",
-        "Limited HE"
+        "Limited HE",
+        "May only inflict RFPs"
       ],
       "special_rules": [],
       "free": true,
@@ -6939,7 +6979,7 @@
       ],
       "gun_range": "20\"",
       "rof": 1,
-      "at": 3,
+      "at": 4,
       "fp": 2,
       "armor_front": null,
       "armor_flank": null,
@@ -6975,7 +7015,7 @@
       ],
       "gun_range": "20\"",
       "rof": 1,
-      "at": 4,
+      "at": 5,
       "fp": 3,
       "armor_front": null,
       "armor_flank": null,
@@ -7010,7 +7050,7 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 1,
       "armor_flank": 0,
@@ -7085,7 +7125,9 @@
       "armor_flank": 2,
       "armament": "85mm D-5T gun, Coax MG, Hull MG",
       "notes": [
-        "Tracked"
+        "Tracked",
+        "Fast",
+        "Wide Tracks"
       ],
       "special_rules": [],
       "free": true,
@@ -7219,12 +7261,12 @@
       "fp": 1,
       "armor_front": 2,
       "armor_flank": 1,
-      "armament": "76mm F-34 gun, ATO-42 flame-thrower",
+      "armament": "76mm F-34 gun, ATO-42 Flamethrower",
       "notes": [
         "Tracked",
         "Fast",
         "Wide Tracks",
-        "Flame-Thrower"
+        "Flamethrower"
       ],
       "special_rules": [],
       "free": true,
@@ -7251,7 +7293,7 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 3,
       "armor_flank": 2,
@@ -7259,7 +7301,7 @@
       "notes": [
         "Tracked",
         "Wide Tracks",
-        "Flame-Thrower"
+        "Flamethrower"
       ],
       "special_rules": [],
       "free": true,
@@ -7294,6 +7336,7 @@
       "armament": "76mm ZIS-3 gun",
       "notes": [
         "Tracked",
+        "Open Topped",
         "Wide Tracks",
         "Hull Mounted"
       ],
@@ -7511,9 +7554,9 @@
       "armor_flank": null,
       "armament": "BM-13-16 rocket launcher",
       "notes": [
-        "Rocket Barrage",
         "Wheeled",
-        "Medium Artillery"
+        "Medium Artillery",
+        "Rocket Artillery"
       ],
       "special_rules": [],
       "free": true,
@@ -7579,15 +7622,16 @@
         1944,
         1945
       ],
-      "gun_range": "16\"",
-      "rof": 5,
+      "gun_range": "20\"",
+      "rof": 6,
       "at": 1,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "M45 quad .50cal MG",
+      "armament": "M45 quad .50 cal MG",
       "notes": [
         "Half-Tracked",
+        "Open Topped",
         "Anti-Air",
         "Limited HE",
         "May only inflict RFPs"
@@ -7626,8 +7670,7 @@
       "armament": "PTRD anti-tank rifle, AA MG",
       "notes": [
         "Wheeled",
-        "Open Topped",
-        "Limited HE"
+        "Open Topped"
       ],
       "special_rules": [],
       "free": true,
@@ -7907,7 +7950,7 @@
     {
       "id": "sv-inf-flamethrower",
       "lore": "The ROKS-3 flamethrower was disguised to resemble a standard Mosin-Nagant rifle and infantry pack, concealing the operator's role from German marksmen who routinely targeted obvious flame teams. Issued to assault engineer battalions and independent flamethrower companies, it was used to clear German trench lines and bunkers during the breakthrough operations of 1943-45, projecting burning oil to about 35 meters. At Stalingrad and later in the assault on Berlin, ROKS teams worked alongside sapper squads to reduce fortified buildings room by room, the flame projector's effect on morale frequently decisive.",
-      "name": "Flame-Thrower Team",
+      "name": "Flamethrower Team",
       "nation": "Soviet Union",
       "type": "Infantry",
       "theater": [
@@ -7927,7 +7970,7 @@
       "armor_flank": null,
       "armament": "ROKS-3 Flamethrower",
       "notes": [
-        "Flame-Thrower",
+        "Flamethrower",
         "Cannot fire from buildings"
       ],
       "special_rules": [],
@@ -11170,11 +11213,11 @@
       "fp": 3,
       "armor_front": 0,
       "armor_flank": 0,
-      "armament": "ATO obr 1938 flame-thrower",
+      "armament": "ATO obr 1938 flamethrower",
       "notes": [
         "Slow",
         "Unreliable",
-        "Flame-Thrower"
+        "Flamethrower"
       ],
       "special_rules": [],
       "free": false,
@@ -11421,9 +11464,9 @@
       "armor_flank": null,
       "armament": "BM-8-36 rocket launcher",
       "notes": [
-        "Rocket Barrage",
         "Wheeled",
-        "Light Artillery"
+        "Light Artillery",
+        "Rocket Artillery"
       ],
       "special_rules": [],
       "free": false,

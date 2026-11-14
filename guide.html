@@ -337,7 +337,7 @@
       </div>
       <div class="orient-block">
         <div class="orient-label">What's a Break Point?</div>
-        <div class="orient-text">A tally of pressure and loss. Break Points accumulate as units take losses and objectives change hands. Your force routs when a trigger event occurs and your total already exceeds your Break Limit.</div>
+        <div class="orient-text">A tally of pressure and loss. Break Points accumulate as units take losses and objectives change hands. If your total ever exceeds your Break Limit, your force routs.</div>
       </div>
       <div class="orient-block">
         <div class="orient-label">What's Quick Compare?</div>
@@ -398,7 +398,7 @@
               <div class="callout-icon">ℹ</div>
               <div class="callout-body">
                 <strong>Break Limit</strong>
-                BL = 5 + (2 × platoons). A 3-platoon force has BL 11; a 5-platoon force has BL 15. Break Points accumulate as units take losses and objectives change hands. Your force routs when a trigger event occurs and your total already exceeds your Break Limit.
+                BL = 5 + (2 × platoons). A 3-platoon force has BL 11; a 5-platoon force has BL 15. Off-table Artillery doesn't count, so subtract 2 for each artillery platoon you deploy off-table. Break Points accumulate as units take losses and objectives change hands. If your total ever exceeds your Break Limit, your force routs.
               </div>
             </div>
 
@@ -571,7 +571,7 @@
       <div class="section-eyebrow">Section 05</div>
       <h2>Break Point Tracker</h2>
 
-      <p>Break Points measure how much punishment your force has absorbed. Unit losses, every objective contested; each adds to your total. Your force routs when specific trigger events occur and your total already exceeds your Break Limit. Most games run several turns past the point a force first crosses its limit.</p>
+      <p>Break Points measure how much punishment your force has absorbed. Units falling below half strength, Units destroyed, and objectives lost each add to your total. If your total ever exceeds your Break Limit, your force routs and the game ends.</p>
       <p>The tracker launches with both sides' names, Break Limits, and any handicaps (penalty Break Points or bonus Hero Points) pre-filled straight from Quick Compare. Both players share a single device. Each side has its own panel, and each player's score can be shown or hidden independently.</p>
 
       <div class="shot">
@@ -584,12 +584,12 @@
         <div class="step">
           <div class="step-num">1</div>
           <div class="step-body">
-            <h3>Record unit losses</h3>
-            <p>Tap the appropriate button each time a loss event occurs:</p>
+            <h3>Roll when a trigger happens</h3>
+            <p>Each time your force triggers a roll, tap <span class="ui-key">Roll Break Points</span> on your own panel. The tracker rolls 1d6 and converts it: 1-2 is <em>1 BP</em>, 3-5 is <em>2 BP</em>, 6 is <em>3 BP</em>. Tap <span class="ui-key">↩ Undo</span> to take back a mistaken roll.</p>
             <ul>
-              <li><strong>Reduced below half strength:</strong> <em>×1 BP</em> &nbsp;(once per unit, ever)</li>
-              <li><strong>Destroyed</strong> (was already below half): <em>×1 BP</em></li>
-              <li><strong>Destroyed</strong> (was still above half): <em>×2 BP</em></li>
+              <li><strong>A Unit is reduced below half strength:</strong> <em>1 roll</em></li>
+              <li><strong>A Unit is destroyed:</strong> <em>1 roll</em> (2 rolls total if destroyed before falling below half)</li>
+              <li><strong>You lose control of an objective:</strong> <em>2 rolls</em>. An objective changes hands if, at the end of a turn, only one player has Teams within 4" of it. Vehicles may contest but cannot capture.</li>
             </ul>
           </div>
         </div>
@@ -597,12 +597,8 @@
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-body">
-            <h3>Record end-of-turn events</h3>
-            <p>At the end of each game turn, tap any that apply:</p>
-            <ul>
-              <li><strong>Enemy units in your table half:</strong> <em>×1 BP</em></li>
-              <li><strong>Objective not held:</strong> <em>×1 BP</em></li>
-            </ul>
+            <h3>Keep your total secret</h3>
+            <p>Players roll their own Break Points secretly and keep their totals hidden, so neither side knows how close the other is to breaking. Your panel reveals your score after each roll so you can read the result; tap <span class="ui-key">Hide Score</span> before handing the device back. Players may agree to play with open totals instead.</p>
           </div>
         </div>
 
@@ -610,7 +606,7 @@
           <div class="step-num">3</div>
           <div class="step-body">
             <h3>Reveal or hide your score</h3>
-            <p>Click <span class="ui-key">Show Score</span> on your panel to reveal your running BP total. Click <span class="ui-key">Hide Score</span> to conceal it again. If your total has exceeded your Break Limit, the tracker flags your force as <strong>⚑ Breaking</strong> whenever the score is visible, signalling that the next trigger event will end the game.</p>
+            <p>Click <span class="ui-key">Show Score</span> on your panel to reveal your running BP total. Click <span class="ui-key">Hide Score</span> to conceal it again. When your total reaches your Break Limit, the tracker flags your force as <strong>⚑ Breaking</strong> whenever the score is visible. Once your total exceeds the limit, your force routs.</p>
           </div>
         </div>
 

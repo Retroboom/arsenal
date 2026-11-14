@@ -6031,7 +6031,7 @@ If this field has content, clicking the card opens an in-app reader. Otherwise t
         <span class="summary-stat-value" id="summary-units">0</span>
       </div>
       <div class="summary-stat">
-        <span class="summary-stat-label">Break Limit</span>
+        <span class="summary-stat-label" title="5 + 2 per platoon. Off-table Artillery doesn't count toward the Break Limit: subtract 2 for each artillery platoon you deploy off-table.">Break Limit</span>
         <span class="summary-stat-value" id="summary-bl">5</span>
       </div>
       <div class="summary-stat admin-only" id="summary-pts-stat" style="grid-column: 1 / -1; display: none">
@@ -6507,7 +6507,8 @@ const RULE_TIPS = {
   // ── Core Special Rules (p.28) ──────────────────────────────────────────────
   'Bunker Buster': 'When using direct fire, unarmored Teams within 2" of a hit Target Team each receive 1 RFP. Against bunkers, make a penetration roll at AT 6 vs. Armor 2 to destroy outright.',
   'Fast': 'Add +2" to movement.',
-  'Flame-Thrower': 'Max range 4". RoF 3, FP 3. Roll 3 dice at 4+ to hit, no modifiers for concealment. Each hit applies 3 RFPs. One-shot weapon: after firing, Infantry Flame-Thrower Teams become standard Teams.',
+  'Flamethrower': 'Max range 4". RoF 3, FP 3. Ignore Concealment. No Team (including Vehicles) may take more than 1 hit; each hit applies 3 RFPs, regardless of armor. One-shot weapon: after firing, Infantry Flamethrower Teams become standard Teams. Vehicles are unaffected.',
+  'Flame-Thrower': 'Max range 4". RoF 3, FP 3. Ignore Concealment. No Team (including Vehicles) may take more than 1 hit; each hit applies 3 RFPs, regardless of armor. One-shot weapon: after firing, Infantry Flamethrower Teams become standard Teams. Vehicles are unaffected.', // legacy spelling (older custom units)
   'Light Mortar': 'When activated by a Leader, may fire at targets within that Leader\'s LoS with a +1 modifier to hit.',
   'Limited HE': 'Does not ignore the Concealment modifier when firing at non-Vehicle Teams.',
   'Man-Portable': 'Moves 2d6". May move through Very Difficult Terrain. Weapon rides in Transports rather than being towed.',
@@ -6520,14 +6521,15 @@ const RULE_TIPS = {
   'Light Artillery': 'Barrage FP: 1. 4 Fire Missions per game. On-table mortars that observe for themselves may FFE immediately and without deviation.',
   'Medium Artillery': 'Barrage FP: 2. 3 Fire Missions per game.',
   'Heavy Artillery': 'Barrage FP: 3. 2 Fire Missions per game.',
-  'Rocket Barrage': 'Fires a single massed salvo: 1 Fire Mission per game. Does not range in. In the activation it fires, place the marker on a target observed by a friendly Team, roll deviation once (d10"), then Fire for Effect immediately at that position with no adjustment. Barrage radius is +2". RFPs and the Smoke option follow the Unit\'s artillery type.',
+  'Rocket Artillery': 'Increase the barrage radius by 2" and the smoke diameter by 1".',
+  'Rocket Barrage': 'Increase the barrage radius by 2" and the smoke diameter by 1".', // legacy name (older custom units)
   // ── Vehicle Rules ──────────────────────────────────────────────────────────
   'Hull Mounted': 'Gun has a limited forward arc of fire.',
   'Hull-Mounted': 'Gun has a limited forward arc of fire.',
   'Open Topped': 'Destroyed if it resolves RFPs while in base contact with an enemy Team during an assault. Reveals Hidden Teams at the Infantry range (16"), not the closed-vehicle 8".',
   'Anti-Air': 'Fires in any direction (360°): the gun rides a rotating AA mount and never needs to face its target. May also attempt to intercept aircraft: when rolling Order Dice, a Hero Die roll of 1 triggers an immediate air attack, and AA Teams that did not activate last turn roll RoF dice vs. the aircraft\'s 1d6 (each die rolling higher scores a hit).',
   'May only inflict RFPs': 'Cannot cause Kill results. All hits generate Received Fire Points only.',
-  'Immobile': 'Cannot move once deployed.',
+  'Immobile': 'Must be towed in order to Move, but may use a Move order to rotate in place.',
   // ── Movement Types ─────────────────────────────────────────────────────────
   'Tracked': 'Move 3d6". +6" on roads. Drops the highest movement die to cross Difficult Terrain; in Very Difficult Terrain, pass a Terrain Check or stop.',
   'Wheeled': 'Move 3d6". +12" on roads. Must make a Terrain Check to cross Difficult Terrain or stop. Cannot enter Very Difficult Terrain.',
@@ -6558,7 +6560,7 @@ const RULE_TIPS = {
 };
 
 function isSpecialNote(note) {
-  const special = ['Flame-Thrower', 'Bunker Buster', 'Wide Tracks', 'Unreliable', 'Fast', 'Slow', 'Hull Mounted', 'Open Topped', 'Bocage Breacher', 'Sniper', 'Rocket Barrage'];
+  const special = ['Flamethrower', 'Flame-Thrower', 'Bunker Buster', 'Wide Tracks', 'Unreliable', 'Fast', 'Slow', 'Hull Mounted', 'Open Topped', 'Bocage Breacher', 'Sniper', 'Rocket Artillery', 'Rocket Barrage'];
   return special.includes(note);
 }
 
@@ -7627,7 +7629,7 @@ function calcTeamScore(unit) {
     let adjRof = rof;
     if (range <= 6) adjRof -= 1;
     if (notes.includes('Limited HE')) adjRof -= 1;
-    ai = notes.includes('Flame-Thrower') ? adjRof + 3 : adjRof + Math.max(0, adjRof - 2) * FS_ROF_ACCEL + steps;
+    ai = (notes.includes('Flamethrower') || notes.includes('Flame-Thrower')) ? adjRof + 3 : adjRof + Math.max(0, adjRof - 2) * FS_ROF_ACCEL + steps;
     // HE ammo (any AT value, including 0) ignores target Concealment when firing at
     // non-vehicles — a real AI edge vs dug-in infantry. 'Limited HE' weapons are excluded:
     // they carry an AT rating but poor/no HE, so they do NOT ignore concealment.
@@ -7687,7 +7689,7 @@ function calcTeamScore(unit) {
       let swAdjRof = swRof;
       if (swRange <= 6) swAdjRof -= 1;
       if (swNotes.includes('Limited HE')) swAdjRof -= 1;
-      ai += swNotes.includes('Flame-Thrower') ? swAdjRof + 3 : swAdjRof + Math.max(0, swAdjRof - 2) * FS_ROF_ACCEL + swSteps;
+      ai += (swNotes.includes('Flamethrower') || swNotes.includes('Flame-Thrower')) ? swAdjRof + 3 : swAdjRof + Math.max(0, swAdjRof - 2) * FS_ROF_ACCEL + swSteps;
 
       if (swAt !== null && swAt > 0) {
         const swEffAt = swAt + (swFp - 1) * 0.5;
@@ -9009,7 +9011,7 @@ const RULES_DATA = [
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Vehicles vs Enemy Contact</div>
-          <p>Vehicles that fail to become Ready while in base contact with enemy are <strong>destroyed</strong>. <strong>Open-Topped</strong> vehicles are automatically destroyed when resolving RFPs in contact with enemy.</p>
+          <p>Vehicles that fail to become Ready while in base contact with enemy are <strong>destroyed</strong>. <strong>Open Topped</strong> vehicles are automatically destroyed when resolving RFPs in contact with enemy.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Ambush</div>
@@ -9054,7 +9056,7 @@ const RULES_DATA = [
             <tr><td>Heavy</td><td>3 RFPs</td></tr>
           </table>
           <p>Firing with <strong>more than 2 guns</strong> increases the radius by +1" per additional gun (max +2").</p>
-          <p>Vehicles subtract their Flank AR from RFPs received (maximum -2). <strong>Open-Topped</strong> vehicles do not reduce RFPs this way. Any Team that <strong>ends its activation inside the barrage radius</strong> receives RFPs.</p>
+          <p>Vehicles subtract their Flank AR from RFPs received (maximum -2). <strong>Open Topped</strong> vehicles do not reduce RFPs this way. Any Team that <strong>ends its activation inside the barrage radius</strong> receives RFPs.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Sustained Barrage</div>
@@ -9130,11 +9132,11 @@ const RULES_DATA = [
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Hidden Teams</div>
-          <p>Hidden Teams do not need to be pre-plotted and may be revealed at any time without spending an Order Point. They must be revealed inside their deployment zone and either outside LoS of any enemy, or in concealing terrain at least <strong>16"</strong> from enemy Infantry, Gun, or <strong>Open-Topped</strong> Vehicle Teams, or <strong>8"</strong> from other Vehicle Teams.</p>
+          <p>Hidden Teams do not need to be pre-plotted and may be revealed at any time without spending an Order Point. They must be revealed inside their deployment zone and either outside LoS of any enemy, or in concealing terrain at least <strong>16"</strong> from enemy Infantry, Gun, or <strong>Open Topped</strong> Vehicle Teams, or <strong>8"</strong> from other Vehicle Teams.</p>
           <table class="rules-table">
             <tr><th>Hidden Teams are revealed when…</th></tr>
             <tr><td>Outside LoS, <em>or</em></td></tr>
-            <tr><td>In Concealing Terrain and outside 16" of Infantry, Gun, and Open-Topped Vehicle Teams</td></tr>
+            <tr><td>In Concealing Terrain and outside 16" of Infantry, Gun, and Open Topped Vehicle Teams</td></tr>
             <tr><td>In Concealing Terrain and outside 8" of other Vehicle Teams</td></tr>
           </table>
           <p>If revealed immediately after enemy movement, subtract the distance moved from these ranges. A position outside LoS of all moving Teams before they moved may be revealed freely, regardless of distance or concealment.</p>
@@ -9149,8 +9151,8 @@ const RULES_DATA = [
     body: `
       <div class="rules-body-text">
         <p>Recon Teams extend the reveal distance for Hidden Units to <strong>24"</strong> and may observe for artillery.</p>
-        <p>If enemy Teams are revealed within LoS of a Recon Team, the Recon Unit may make a <strong>Training Check</strong>. If successful, the Recon Teams may <strong>activate again immediately</strong> without spending an Order Point. A third activation may not be attempted.</p>
-        <p>Infantry Recon Units may include Transports, but may not include any support weapons. Vehicle Recon Units are limited to Vehicles with a total Front and Flank Armor Value of <strong>2 or less</strong>. Recon Units often have fewer total Teams compared to combat Units.</p>
+        <p>If enemy Teams are revealed within LoS of a Recon Team immediately following its movement, the Recon Unit may make a <strong>Training Check</strong>. If successful, the Recon Teams may <strong>activate again immediately</strong> without spending an Order Point. A third activation may not be attempted.</p>
+        <p>Infantry Recon Units may include Transports, but may not include any support weapons. Vehicle Recon Units are limited to Open Topped Vehicles or those with a total Front and Flank Armor Rating of <strong>2 or less</strong>. Recon Units often have fewer total Teams compared to combat Units.</p>
       </div>`
   },
   {
@@ -9159,8 +9161,8 @@ const RULES_DATA = [
     group: 'Core Rules',
     body: `
       <div class="rules-body-text">
-        <p>Starting on their <strong>3rd turn</strong>, the Defender may spend an Order Point to roll a <strong>Reserves Check</strong>, once per turn. If successful, one Unit moves on from the Defender's table edge, at least <strong>16"</strong> from enemy Teams.</p>
-        <p>Modify the target number for the Reserves Check by <strong>+1</strong> for each reserve Unit already arrived (max +2), or <strong>−1</strong> if a second Order Point is spent (max −1).</p>
+        <p>Starting on their <strong>3rd turn</strong>, the Defender may spend an Order Point to roll a <strong>Reserves Check</strong>, once per turn. If successful, one Unit immediately moves on from anywhere on the Defender's table edge, at least <strong>16"</strong> from enemy Teams.</p>
+        <p>Modify the target number for the Reserves Check by <strong>+1</strong> if a Unit from reserves has already arrived in a previous turn, or <strong>−1</strong> if a second Order Point is spent (max −1).</p>
         <p>If the roll is <strong>odd</strong>, the Defender chooses which Unit arrives. If <strong>even</strong>, the Attacker chooses.</p>
         <p>Off-table Artillery Units may be held in reserve, requiring the same Reserves Check to "establish communications" using the same modifiers.</p>
         <p>Hidden defending Teams are considered to hold objectives until enemy Teams are too close for Hidden Teams to be revealed there, or all Hidden defending Teams are revealed elsewhere.</p>
@@ -9172,24 +9174,24 @@ const RULES_DATA = [
     group: 'Core Rules',
     body: `
       <div class="rules-body-text">
-        <p>When certain conditions are met, your opponent rolls 1d6 to generate <strong>Break Points (BP)</strong>:</p>
+        <p>When certain conditions are met, players must roll 1d6 to generate <strong>Break Points (BP)</strong>:</p>
         <table class="rules-table">
           <tr><th>Roll</th><th>BP Generated</th></tr>
           <tr><td>1–3</td><td>1 BP</td></tr>
           <tr><td>4–5</td><td>2 BP</td></tr>
           <tr><td>6</td><td>3 BP</td></tr>
         </table>
-        <p>Totals may be open or hidden by mutual agreement. When your total Break Points exceed your force's <strong>Break Limit</strong>, your force routs, ending the game.</p>
-        <p><strong>Break Limit = 5 + (2 × number of Units)</strong><br><em>Example: 6 Units = Break Limit of 17.</em></p>
+        <p>Rolls are made <strong>secretly</strong> and totals kept hidden, so neither player knows how close the other is to breaking (the Arsenal's Break Point tracker can do this for you at the table). Players may agree to play with open totals instead. If your total Break Points ever exceed your force's <strong>Break Limit</strong>, your force routs, ending the game.</p>
+        <p><strong>Break Limit = 5 + (2 × number of Units)</strong><br><em>Example: 6 Units = Break Limit of 17.</em> Off-table Artillery does not contribute to a force's starting Break Limit.</p>
         <div class="rules-subsection">
           <div class="rules-subsection-title">When to Roll for Break Points</div>
           <ul>
             <li>A Unit is <strong>reduced below half strength</strong>: 1 roll</li>
             <li>A Unit is <strong>destroyed</strong>: 1 roll (2 rolls total if destroyed before falling below half)</li>
-            <li>An <strong>objective is captured</strong>: 2 rolls</li>
+            <li>They <strong>lose control of an objective</strong>: 2 rolls</li>
           </ul>
         </div>
-        <p><em>Capturing an objective requires a Player be the only one with at least one Infantry Team within 4" of the objective. Vehicles may contest but cannot capture.</em></p>
+        <p><em>An objective changes hands if, at the end of a turn, only one player has Teams within 4" of it. Vehicles may contest but cannot capture.</em></p>
       </div>`
   },
   {
@@ -9294,13 +9296,15 @@ const RULES_DATA = [
           <tr><td><strong>Anti-Air</strong></td><td>Fires 360° (all-round mount). May intercept aircraft, see Air Support in Optional Rules.</td></tr>
           <tr><td><strong>Bunker Buster</strong></td><td>When using direct fire, unarmored Teams within 2" of a hit Target Team each receive 1 RFP.</td></tr>
           <tr><td><strong>Fast</strong></td><td>Add +2 inches to movement.</td></tr>
-          <tr><td><strong>Flame-thrower</strong></td><td>See Flame-Throwers in Optional Rules.</td></tr>
+          <tr><td><strong>Flamethrower</strong></td><td>See Flamethrowers in Optional Rules.</td></tr>
+          <tr><td><strong>Immobile</strong></td><td>Must be towed in order to Move, but may use a Move order to rotate in place.</td></tr>
           <tr><td><strong>Light Mortar</strong></td><td>When activated by a Leader, may fire at targets within that Leader's LoS with a +1 modifier to hit.</td></tr>
           <tr><td><strong>Limited HE</strong></td><td>This weapon does not ignore the concealment modifier when firing at non-Vehicle Teams.</td></tr>
           <tr><td><strong>Man-Portable</strong></td><td>These Gun Teams move 2d6", may move through Very Difficult Terrain, and their weapons ride with them in Transports rather than being towed.</td></tr>
           <tr><td><strong>Overloaded</strong></td><td>Re-roll successful Terrain Checks.</td></tr>
+          <tr><td><strong>Rocket Artillery</strong></td><td>Increase the barrage radius by 2" and the smoke diameter by 1".</td></tr>
           <tr><td><strong>Slow</strong></td><td>Drop the lowest die when making movement rolls.</td></tr>
-          <tr><td><strong>Smoke</strong></td><td>See Tank-Fired Smoke in Optional Rules.</td></tr>
+          <tr><td><strong>Smoke</strong></td><td>See Direct Fire Smoke in Optional Rules.</td></tr>
           <tr><td><strong>Unreliable</strong></td><td>If any movement die shows a 1, roll 1d6 per Unreliable Team in the Unit; a roll of 1 suppresses that Team.</td></tr>
           <tr><td><strong>Wide Tracks</strong></td><td>Re-roll failed Terrain Checks.</td></tr>
         </table>
@@ -9381,18 +9385,18 @@ const RULES_DATA = [
   },
   {
     id: 'optional-flame-throwers',
-    title: 'Flame-Throwers',
+    title: 'Flamethrowers',
     group: 'Optional Rules',
     body: `
       <div class="rules-body-text">
-        <p>Flame-thrower teams have a range of <strong>4"</strong> (may not fire at Long Range), Rate of Fire of <strong>3</strong>, and FP: 3.</p>
+        <p>Flamethrower Teams have a range of <strong>4"</strong> (may not fire at Long Range), Rate of Fire of <strong>3</strong>, and FP: 3.</p>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Firing</div>
-          <p>Roll 3 dice at 4+ to hit, ignoring any concealment. Allocate hits normally, with a maximum of 1 hit per Team. Each hit applies 3 RFPs to the target. Against vehicles, apply 3 RFPs to the vehicle.</p>
+          <p>Ignore Concealment. Allocate hits normally, but no Team (including Vehicles) may take more than 1 hit. Each hit applies <strong>3 RFPs</strong>, regardless of armor.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">One-Shot Weapon</div>
-          <p>After firing once, the flamethrower fuel is expended. Flame-Thrower Infantry Teams permanently become standard Infantry Teams as the rest of their Unit.</p>
+          <p>After firing once, Infantry Flamethrower Teams become standard Teams like the rest of their Unit. Vehicles are unaffected.</p>
         </div>
         <div class="rules-subsection">
           <div class="rules-subsection-title">Assault</div>
