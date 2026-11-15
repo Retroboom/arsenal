@@ -14,6 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Same stamp deploy.sh applies: a unique service worker version per deploy
+      # so returning visitors' offline cache (including hof_arsenal.json) busts.
+      - name: Stamp service worker version
+        run: sed -i "s/const VERSION = '__BUILD_VERSION__';/const VERSION = '${GITHUB_SHA::7}-${GITHUB_RUN_ID}';/" sw.js
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
