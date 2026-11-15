@@ -7,7 +7,9 @@
  *   KOFI_VERIFICATION_TOKEN   — Ko-fi webhook verification token
  */
 
-import { getFirebaseToken, fbSet } from './_firebase.js';
+import { getFirebaseToken, fbGet, fbSet } from './_firebase.js';
+
+const ONE_MONTH_MS = 30 * 24 * 60 * 60 * 1000;
 
 function emailToKey(email) {
   return email.toLowerCase().replace(/\./g, ',');
@@ -49,6 +51,29 @@ export async function onRequestPost(context) {
     } else if (type === 'Subscription' && !isSubscription) {
       await fbSet(fbToken, `subscribers/${key}/status`, 'inactive');
       console.log(`Subscriber cancelled: ${email}`);
+    } else if (type === 'Donation') {
+      // A one-time tip auto-enrolls the donor for one month of access, same
+      // as a $1/month subscriber, using the same subscribers/{key} record
+      // (an `expires` timestamp on it, which real subscriptions don't set,
+      // is what lets the RTDB rule tell the two apart and let a donation
+      // lapse on its own instead of staying active forever).
+      const existing = await fbGet(fbToken, `subscribers/${key}`);
+      const isRealSubscriber = existing && existing.status === 'active' && existing.source !== 'donation';
+      if (isRealSubscriber) {
+        console.log(`Donation from existing subscriber, no change: ${email}`);
+      } else {
+        const now = Date.now();
+        const base = (existing && existing.source === 'donation' && existing.expires > now) ? existing.expires : now;
+        await fbSet(fbToken, `subscribers/${key}`, {
+          email,
+          status: 'active',
+          source: 'donation',
+          since: (existing && existing.since) || new Date().toISOString(),
+          expires: base + ONE_MONTH_MS,
+          kofi_transaction_id: payload.kofi_transaction_id || null,
+        });
+        console.log(`Donation-based access granted/extended: ${email}`);
+      }
     }
 
     return new Response('OK', { status: 200 });
