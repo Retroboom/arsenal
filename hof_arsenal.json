@@ -8595,7 +8595,7 @@
       "rof": 1,
       "at": 2,
       "fp": 1,
-      "armor_front": 1,
+      "armor_front": 2,
       "armor_flank": 1,
       "armament": "47mm SA 35 gun, Coax MG",
       "notes": [
@@ -8980,7 +8980,6 @@
         "fo": false
       },
       "free": false,
-      "admin_only": true,
       "wiki": "Panzer_III"
     },
     {
@@ -9054,7 +9053,6 @@
         "fo": false
       },
       "free": false,
-      "admin_only": true,
       "wiki": "Panzer_IV"
     },
     {
@@ -9223,7 +9221,7 @@
       ],
       "gun_range": "20\"",
       "rof": 3,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 3,
       "armor_flank": 2,
@@ -9259,7 +9257,7 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
@@ -9297,7 +9295,7 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
@@ -9892,7 +9890,7 @@
         1939,
         1940
       ],
-      "gun_range": "6\"",
+      "gun_range": "12\"",
       "rof": 2,
       "at": 0,
       "fp": 1,
@@ -10348,7 +10346,7 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
@@ -10421,7 +10419,7 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
@@ -10781,7 +10779,7 @@
       "armor_flank": 0,
       "armament": "Hull MG",
       "notes": [
-        "Half-Tracked",
+        "Tracked",
         "Amphibious",
         "Unreliable"
       ],
@@ -10793,8 +10791,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "T-38_(tank)",
-      "admin_only": true
+      "wiki": "T-38_(tank)"
     },
     {
       "id": "sv-tank-t60",
@@ -10809,13 +10806,14 @@
         1941
       ],
       "gun_range": "16\"",
-      "rof": 2,
+      "rof": 3,
       "at": 2,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "20mm ShVAK gun, Coax MG",
       "notes": [
+        "Tracked",
         "Unreliable"
       ],
       "special_rules": [],
@@ -10826,8 +10824,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "T-60_tank",
-      "admin_only": true
+      "wiki": "T-60_tank"
     },
     {
       "id": "sv-tank-t26",
@@ -10845,12 +10842,13 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "45mm obr 1934 gun, Coax MG",
       "notes": [
+        "Tracked",
         "Slow",
         "Unreliable"
       ],
@@ -10862,8 +10860,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "T-26",
-      "admin_only": true
+      "wiki": "T-26"
     },
     {
       "id": "sv-tank-bt7",
@@ -10881,12 +10878,13 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
       "armament": "45mm obr 1938 gun, Coax MG",
       "notes": [
+        "Tracked",
         "Fast",
         "Unreliable"
       ],
@@ -10898,8 +10896,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "BT-7",
-      "admin_only": true
+      "wiki": "BT-7"
     },
     {
       "id": "sv-tank-valentine-ii",
@@ -10915,12 +10912,13 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 2,
       "armor_flank": 2,
       "armament": "OQF 2pdr gun, Coax MG",
       "notes": [
+        "Tracked",
         "Slow",
         "Limited HE"
       ],
@@ -10932,8 +10930,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Valentine_tank",
-      "admin_only": true
+      "wiki": "Valentine_tank"
     },
     {
       "id": "sv-tank-t28",
@@ -10957,6 +10954,7 @@
       "armor_flank": 0,
       "armament": "76mm L-10 gun, Coax MG",
       "notes": [
+        "Tracked",
         "Unreliable",
         "Wide Tracks"
       ],
@@ -10968,8 +10966,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "T-28_(tank)",
-      "admin_only": true
+      "wiki": "T-28_(tank)"
     },
     {
       "id": "sv-tank-t28e",
@@ -10992,6 +10989,7 @@
       "armor_flank": 1,
       "armament": "76mm L-10 gun, Coax MG",
       "notes": [
+        "Tracked",
         "Slow",
         "Unreliable",
         "Wide Tracks"
@@ -11004,8 +11002,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "T-28_(tank)",
-      "admin_only": true
+      "wiki": "T-28_(tank)"
     },
     {
       "id": "sv-tank-kv1-1939",
@@ -11023,12 +11020,13 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 2,
+      "at": 3,
       "fp": 1,
       "armor_front": 3,
       "armor_flank": 3,
       "armament": "76mm L-11 gun, Coax MG, Hull MG",
       "notes": [
+        "Tracked",
         "Slow",
         "Unreliable"
       ],
@@ -11040,8 +11038,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "KV-1",
-      "admin_only": true
+      "wiki": "KV-1"
     },
     {
       "id": "sv-tank-kv1-1940",
@@ -11056,7 +11053,7 @@
         1940,
         1941
       ],
-      "gun_range": "24\"",
+      "gun_range": "20\"",
       "rof": 2,
       "at": 4,
       "fp": 1,
@@ -11064,6 +11061,7 @@
       "armor_flank": 3,
       "armament": "76mm F-34 gun, Coax MG, Hull MG",
       "notes": [
+        "Tracked",
         "Slow",
         "Unreliable"
       ],
@@ -11075,8 +11073,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "KV-1",
-      "admin_only": true
+      "wiki": "KV-1"
     },
     {
       "id": "sv-tank-kv1e",
@@ -11090,7 +11087,7 @@
       "years": [
         1941
       ],
-      "gun_range": "24\"",
+      "gun_range": "20\"",
       "rof": 2,
       "at": 4,
       "fp": 1,
@@ -11098,6 +11095,7 @@
       "armor_flank": 3,
       "armament": "76mm F-34 gun, Coax MG, Hull MG",
       "notes": [
+        "Tracked",
         "Slow",
         "Unreliable"
       ],
@@ -11109,8 +11107,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "KV-1",
-      "admin_only": true
+      "wiki": "KV-1"
     },
     {
       "id": "sv-tank-kv2",
@@ -11133,6 +11130,7 @@
       "armor_flank": 3,
       "armament": "152mm obr 1938/40 howitzer, Hull MG",
       "notes": [
+        "Tracked",
         "Slow",
         "Unreliable",
         "Bunker Buster"
@@ -11145,8 +11143,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "KV-2",
-      "admin_only": true
+      "wiki": "KV-2"
     },
     {
       "id": "sv-tank-t35",
@@ -11168,8 +11165,9 @@
       "fp": 1,
       "armor_front": 1,
       "armor_flank": 1,
-      "armament": "76mm obr 1927/32 gun, Coax MG",
+      "armament": "76mm obr 1927/32 gun, Coax MG, MG Turret ×2",
       "notes": [
+        "Tracked",
         "Slow",
         "Overloaded",
         "Unreliable"
@@ -11185,13 +11183,13 @@
       "wiki": "T-35_heavy_tank",
       "secondary_weapon": {
         "name": "45mm obr 1934 turret gun",
+        "qty": 2,
         "gun_range": "20\"",
         "rof": 2,
-        "at": 3,
+        "at": 2,
         "fp": 1,
         "notes": []
-      },
-      "admin_only": true
+      }
     },
     {
       "id": "sv-tank-kht130",
@@ -11215,6 +11213,7 @@
       "armor_flank": 0,
       "armament": "ATO obr 1938 flamethrower",
       "notes": [
+        "Tracked",
         "Slow",
         "Unreliable",
         "Flamethrower"
@@ -11227,8 +11226,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "OT-26",
-      "admin_only": true
+      "wiki": "OT-26"
     },
     {
       "id": "sv-tank-bt7a",
@@ -11252,8 +11250,9 @@
       "armor_flank": 0,
       "armament": "76mm obr 1927/32 gun, Coax MG",
       "notes": [
+        "Tracked",
         "Fast",
-        "Light Artillery"
+        "Unreliable"
       ],
       "special_rules": [],
       "free": false,
@@ -11263,8 +11262,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "BT-7",
-      "admin_only": true
+      "wiki": "BT-7"
     },
     {
       "id": "sv-tank-zis30",
@@ -11286,7 +11284,7 @@
       "armor_flank": 0,
       "armament": "57mm ZIS-2 gun, Hull MG",
       "notes": [
-        "Half-Tracked",
+        "Tracked",
         "Open Topped",
         "Hull Mounted",
         "Unreliable"
@@ -11299,8 +11297,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "ZIS-30",
-      "admin_only": true
+      "wiki": "ZIS-30"
     },
     {
       "id": "sv-spg-su12",
@@ -11335,8 +11332,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "SU-12",
-      "admin_only": true
+      "wiki": "SU-12"
     },
     {
       "id": "sv-ac-ba10",
@@ -11354,7 +11350,7 @@
       ],
       "gun_range": "20\"",
       "rof": 2,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": 0,
       "armor_flank": 0,
@@ -11370,8 +11366,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "BA-10",
-      "admin_only": true
+      "wiki": "BA-10"
     },
     {
       "id": "sv-ac-ba20",
@@ -11405,8 +11400,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "BA-20",
-      "admin_only": true
+      "wiki": "BA-20"
     },
     {
       "id": "sv-transport-t20",
@@ -11430,7 +11424,7 @@
       "armor_flank": 0,
       "armament": "Hull MG",
       "notes": [
-        "Half-Tracked",
+        "Tracked",
         "Unreliable"
       ],
       "special_rules": [],
@@ -11441,8 +11435,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Komsomolets_tractor",
-      "admin_only": true
+      "wiki": "Komsomolets_tractor"
     },
     {
       "id": "sv-spa-katyusha-bm8",
@@ -11476,8 +11469,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "BM-8_Katyusha",
-      "admin_only": true
+      "wiki": "BM-8_Katyusha"
     },
     {
       "id": "sv-gun-maksim-aa",
@@ -11501,19 +11493,17 @@
       "armor_flank": null,
       "armament": null,
       "notes": [
-        "Man-Portable",
         "Anti-Air"
       ],
       "special_rules": [],
       "free": false,
-      "base": "Medium",
+      "base": "Large",
       "standard_platoon": {
         "qty": 3,
         "leader": true,
         "fo": false
       },
-      "wiki": "Maxim_gun",
-      "admin_only": true
+      "wiki": "Maxim_gun"
     },
     {
       "id": "sv-gun-dshk-aa",
@@ -11548,8 +11538,7 @@
         "leader": true,
         "fo": false
       },
-      "wiki": "DShK",
-      "admin_only": true
+      "wiki": "DShK"
     },
     {
       "id": "sv-spaa-maksim-truck",
@@ -11586,8 +11575,7 @@
         "leader": false,
         "fo": false
       },
-      "wiki": "Maxim_gun",
-      "admin_only": true
+      "wiki": "Maxim_gun"
     },
     {
       "id": "sv-gun-76-obr27",
@@ -11621,8 +11609,7 @@
         "leader": true,
         "fo": false
       },
-      "wiki": "76_mm_regimental_gun_M1927",
-      "admin_only": true
+      "wiki": "76_mm_regimental_gun_M1927"
     },
     {
       "id": "sv-gun-45-1937",
@@ -11640,7 +11627,7 @@
       ],
       "gun_range": "20\"",
       "rof": 3,
-      "at": 3,
+      "at": 2,
       "fp": 1,
       "armor_front": null,
       "armor_flank": null,
@@ -11654,8 +11641,7 @@
         "leader": true,
         "fo": false
       },
-      "wiki": "45_mm_anti-tank_gun_M1937",
-      "admin_only": true
+      "wiki": "45_mm_anti-tank_gun_M1937"
     },
     {
       "id": "sv-gun-76-f22",
@@ -11671,14 +11657,16 @@
         1940,
         1941
       ],
-      "gun_range": "24\"",
+      "gun_range": "20\"",
       "rof": 2,
       "at": 4,
       "fp": 1,
       "armor_front": null,
       "armor_flank": null,
       "armament": null,
-      "notes": [],
+      "notes": [
+        "Light Artillery"
+      ],
       "special_rules": [],
       "free": false,
       "base": "Large",
@@ -11687,8 +11675,7 @@
         "leader": true,
         "fo": false
       },
-      "wiki": "76_mm_divisional_gun_M1936_(F-22)",
-      "admin_only": true
+      "wiki": "76_mm_divisional_gun_M1936_(F-22)"
     },
     {
       "id": "sv-gun-76-usv",
@@ -11704,7 +11691,7 @@
         1940,
         1941
       ],
-      "gun_range": "24\"",
+      "gun_range": "20\"",
       "rof": 2,
       "at": 4,
       "fp": 1,
@@ -11712,7 +11699,7 @@
       "armor_flank": null,
       "armament": null,
       "notes": [
-        "Heavy Artillery"
+        "Light Artillery"
       ],
       "special_rules": [],
       "free": false,
@@ -11722,8 +11709,7 @@
         "leader": true,
         "fo": false
       },
-      "wiki": "76_mm_divisional_gun_M1939_(USV)",
-      "admin_only": true
+      "wiki": "76_mm_divisional_gun_M1939_(USV)"
     },
     {
       "id": "sv-gun-107mm",
@@ -11758,8 +11744,7 @@
         "leader": true,
         "fo": true
       },
-      "wiki": "107_mm_gun_M1910/30",
-      "admin_only": true
+      "wiki": "107_mm_gun_M1910/30"
     },
     {
       "id": "sv-gun-152-ml20",
@@ -11795,8 +11780,7 @@
         "leader": true,
         "fo": true
       },
-      "wiki": "152_mm_gun-howitzer_M1937_(ML-20)",
-      "admin_only": true
+      "wiki": "152_mm_gun-howitzer_M1937_(ML-20)"
     },
     {
       "id": "sv-gun-light-mortar",
@@ -11812,8 +11796,8 @@
         1940,
         1941
       ],
-      "gun_range": "16\"",
-      "rof": 1,
+      "gun_range": "24\"",
+      "rof": 2,
       "at": 0,
       "fp": 1,
       "armor_front": null,
@@ -11827,8 +11811,7 @@
       "free": false,
       "base": "Medium",
       "standard_platoon": null,
-      "wiki": "RM-38/40_mortar",
-      "admin_only": true
+      "wiki": "RM-38/40_mortar"
     },
     {
       "id": "pl-leader",
@@ -12019,8 +12002,8 @@
       "years": [
         1939
       ],
-      "gun_range": "16\"",
-      "rof": 1,
+      "gun_range": "24\"",
+      "rof": 2,
       "at": 0,
       "fp": 1,
       "armor_front": null,
@@ -12349,7 +12332,7 @@
       "armor_flank": 0,
       "armament": "Hull MG",
       "notes": [
-        "Half-Tracked"
+        "Tracked"
       ],
       "special_rules": [],
       "free": false,
@@ -12381,7 +12364,7 @@
       "armor_flank": 0,
       "armament": "20mm wz. 38 FKA gun",
       "notes": [
-        "Half-Tracked",
+        "Tracked",
         "Hull Mounted"
       ],
       "special_rules": [],
