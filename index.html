@@ -827,6 +827,7 @@
   /* ── RULES PANEL ── */
   .fm-rules-panel {
     display: flex;
+    flex-wrap: wrap;
     gap: 0;
     min-height: 400px;
     position: relative;
@@ -885,7 +886,10 @@
     padding: 10px 6px 3px;
   }
   .rules-content {
-    flex: 1;
+    /* A real basis (not 0) matters: .fm-rules-panel wraps so the rulebook
+       banner can span the full width, and a zero-basis item would squeeze
+       onto the banner's row whenever the Contents list is hidden (phones). */
+    flex: 1 1 280px;
     padding: 0 0 40px 24px;
     min-width: 0;
   }
@@ -1891,12 +1895,44 @@
     white-space: nowrap;
     vertical-align: middle;
   }
-  /* Admin sees a muted variant so they can tell a post is gated even though
-     admins read everything. */
-  .classified-chip.admin { color: #9a8a5a; opacity: 0.85; }
-
   /* Locked briefing card: dim the body but keep the title legible. */
   .fm-card.locked, .wn-card.locked { opacity: 0.82; }
+
+  /* Persistent, unmistakable marker on every private custom unit — deliberately
+     a different color from the bronze CLASSIFIED lock chip so the two
+     meanings ("supporter-locked" vs. "not official content") are never
+     confused with each other. */
+  .cu-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text2);
+    max-height: 140px;
+    overflow-y: auto;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg3);
+  }
+  .cu-chip-row label { display: flex; align-items: center; gap: 4px; white-space: nowrap; cursor: pointer; }
+  .custom-unit-badge {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--warn);
+    border: 1px solid var(--warn);
+    background: color-mix(in srgb, var(--warn) 16%, transparent);
+    padding: 1px 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+    vertical-align: middle;
+    font-weight: 700;
+  }
 
   /* Reader teaser → gate */
   .briefing-gate {
@@ -1904,7 +1940,7 @@
     margin-top: 24px;
     padding: 28px 20px 24px;
     border: 1px solid #5a4a2a;
-    background: linear-gradient(180deg, rgba(26,18,8,0.0) 0%, #15110a 22%);
+    background: #15110a;
     text-align: center;
     border-radius: 6px;
   }
@@ -1915,8 +1951,8 @@
     top: -64px;
     left: 0;
     right: 0;
-    height: 64px;
-    background: linear-gradient(180deg, transparent 0%, var(--bg) 100%);
+    height: 60px;
+    background: linear-gradient(180deg, transparent 0%, var(--bg2) 100%);
     pointer-events: none;
   }
   .briefing-gate-stamp {
@@ -2935,6 +2971,25 @@
     transition: all 0.15s;
   }
   .nav-join-btn:hover { background: var(--accent); color: var(--bg); }
+  /* Quieter sibling of the Support button: points at the rulebook listing.
+     Hidden on narrow screens where the header has no room; the Rules panel
+     carries the same link there. */
+  .nav-rulebook-btn { border-color: var(--border); color: var(--text2); }
+  @media (max-width: 560px) { .nav-rulebook-btn { display: none; } }
+
+  .rules-get-book {
+    flex: 0 0 100%;
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--text2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    background: var(--bg2);
+    padding: 10px 14px;
+    margin: 0 0 14px;
+  }
+  .rules-get-book a { color: var(--accent); }
 
   .auth-user {
     display: flex;
@@ -3570,27 +3625,105 @@
   .briefing-reader-body p { margin: 0 0 18px; }
   .briefing-reader-body h2 {
     font-family: var(--display);
-    font-size: 22px;
-    color: var(--accent);
-    letter-spacing: 0.03em;
-    margin: 36px 0 14px;
+    font-size: 24px;
+    color: var(--bg);
+    background: var(--accent);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    margin: 40px -36px 18px;
   }
+  .briefing-reader-body h2:first-child { margin-top: 0; }
   .briefing-reader-body h3 {
     font-family: var(--display);
-    font-size: 16px;
-    color: var(--text);
+    font-size: 19px;
+    color: var(--accent);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     margin: 28px 0 10px;
   }
+  .briefing-reader-body h4 {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 24px 0 8px;
+  }
+  .briefing-reader-body table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-collapse: collapse;
+    margin: 4px 0 20px;
+    font-size: 14px;
+  }
+  .briefing-reader-body th {
+    background: var(--bg3);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .briefing-reader-body td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--text1);
+  }
+  .briefing-reader-body tr:last-child td { border-bottom: none; }
+  .briefing-reader-body tbody tr:nth-child(even) td { background: var(--bg3); }
+  .briefing-reader-body td:first-child { font-weight: 600; color: var(--text); }
+  .briefing-reader-body .hdr-fr,
+  .briefing-reader-body .hdr-de {
+    display: block;
+    font-family: var(--display);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-size: 15px;
+    margin: 22px 0 6px;
+  }
+  .briefing-reader-body .hdr-fr { color: var(--blue); }
+  .briefing-reader-body .hdr-de { color: var(--accent2); }
+  .briefing-reader-body .note {
+    margin: 20px 0;
+    padding: 14px 18px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    background: var(--bg2);
+  }
+  .briefing-reader-body .note-label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .briefing-reader-body .note p:last-child { margin-bottom: 0; }
+  .briefing-reader-body .team-note {
+    display: block;
+    font-family: var(--body);
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text3);
+    margin-top: 2px;
+  }
   .briefing-reader-body strong { color: var(--text); font-weight: 600; }
   .briefing-reader-body em { color: var(--accent); font-style: normal; font-weight: 500; }
-  .briefing-reader-body a {
+  .briefing-reader-body a:not(.briefing-gate-btn) {
     color: var(--accent);
     text-decoration: underline;
     text-decoration-color: color-mix(in srgb, var(--accent) 50%, transparent);
   }
-  .briefing-reader-body a:hover { text-decoration-color: var(--accent); }
+  .briefing-reader-body a:not(.briefing-gate-btn):hover { text-decoration-color: var(--accent); }
   .briefing-reader-body ul, .briefing-reader-body ol { padding-left: 22px; margin: 0 0 18px; }
   .briefing-reader-body li { margin-bottom: 6px; }
   .briefing-reader-body blockquote {
@@ -3619,8 +3752,32 @@
   .briefing-reader-body img {
     max-width: 100%;
     height: auto;
-    margin: 12px 0;
+    display: block;
     border: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 14px;
+    margin: 20px 0 20px;
+  }
+  .briefing-reader-body p:has(> img):has(> .img-caption) img {
+    border-bottom: none;
+    padding-bottom: 14px;
+    margin-bottom: 0;
+  }
+  .briefing-reader-body p:has(> img):has(> .img-caption) br {
+    display: none;
+  }
+  .briefing-reader-body .img-caption {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--text3);
+    text-align: center;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-top: none;
+    padding: 10px 14px 14px;
+    margin: 0 0 20px;
   }
   .briefing-reader-body hr {
     border: none;
@@ -3639,6 +3796,7 @@
     .briefing-reader-box   { padding: 22px 18px 28px; }
     .briefing-reader-title { font-size: 24px; }
     .briefing-reader-body  { font-size: 16px; }
+    .briefing-reader-body h2 { margin-left: -18px; margin-right: -18px; }
   }
 
   /* Briefing editor field rows — label on top, input below. */
@@ -5600,6 +5758,7 @@
       <span class="sg-long">▶ Start Game</span>
       <span class="sg-short">▶ Play</span>
     </button>
+    <a class="nav-join-btn nav-rulebook-btn" href="/get-rules?to=wargamevault&src=header" target="_blank" rel="noopener" title="Get the Hail of Fire rulebook on WargameVault">Rulebook</a>
     <a class="nav-join-btn" id="nav-join" href="https://ko-fi.com/retroboom" target="_blank" rel="noopener" title="Support your friendly game creator on Ko-fi">Support</a>
     <div id="auth-area">
       <button class="auth-btn" onclick="openSignIn()">Sign In</button>
@@ -5608,7 +5767,7 @@
 </header>
 
 <!-- AUTH GATE (shown until user signs in) -->
-<div class="auth-gate" id="auth-gate" style="display:none" onclick="if(event.target===this)closeSignIn()">
+<div class="auth-gate" id="auth-gate" style="display:none" onclick="if(backdropClick(event,this))closeSignIn()">
   <div class="auth-gate-box" style="position:relative">
     <button onclick="closeSignIn()" aria-label="Close" style="position:absolute;top:12px;right:14px;background:none;border:none;color:var(--text2);font-size:20px;line-height:1;cursor:pointer">✕</button>
     <div class="auth-gate-logo">
@@ -5670,10 +5829,26 @@
         </select>
       </div>
 
+      <!-- Private house-rule units: only ever visible to their own creator.
+           The create button is supporter-only (hidden entirely otherwise);
+           the "My Custom Units" filter is available to anyone who has at
+           least one, including a lapsed supporter viewing units they made
+           while active. -->
+      <div class="filter-section" id="custom-unit-filter-section" style="display:none">
+        <div class="filter-label">Custom Units</div>
+        <label style="display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;color:var(--text2);margin-bottom:8px">
+          <input type="checkbox" id="filter-custom-only" onchange="activeFilters.customOnly=this.checked;applyFilters()"> My Custom Units Only
+        </label>
+      </div>
+      <div class="filter-section" id="custom-unit-create-section" style="display:none">
+        <button class="clear-btn" style="border-color:var(--warn);color:var(--warn)" onclick="openCustomUnitEditor()">+ Create Custom Unit</button>
+      </div>
+
       <div class="results-count" id="results-count">Loading...</div>
       <button class="clear-btn" onclick="clearFilters()">Clear all filters</button>
 
       <button id="score-toggle-btn" class="rate-teams-btn admin-only" onclick="toggleScoreDisplay()" style="display:none">pts</button>
+      <button id="admin-review-custom-units-btn" class="clear-btn admin-only" style="display:none" onclick="openAdminCustomUnitsReview()">Review Custom Units</button>
     </div>
   </aside>
 
@@ -5836,6 +6011,9 @@
 
   <!-- RULES PANEL (shown when Rules chip active) -->
   <div id="fm-rules-panel" class="fm-rules-panel" style="display:none">
+    <div class="rules-get-book">
+      Prefer a PDF? <a href="/get-rules?to=wargamevault&src=rules-panel" target="_blank" rel="noopener">Get the Hail of Fire rulebook on WargameVault</a>.
+    </div>
     <nav class="rules-toc" id="rules-toc">
       <div class="rules-toc-title">Contents</div>
     </nav>
@@ -5844,7 +6022,7 @@
 </div>
 
 <!-- QUICK TRACKER SETUP MODAL -->
-<div id="qt-modal" class="fpp-modal-overlay" style="display:none" onclick="if(event.target===this)closeQuickTracker()">
+<div id="qt-modal" class="fpp-modal-overlay" style="display:none" onclick="if(backdropClick(event,this))closeQuickTracker()">
   <div class="fpp-modal qt-modal">
     <div class="fpp-modal-header">
       <span>⚑ Break Point Tracker</span>
@@ -5893,7 +6071,7 @@
 </div>
 
 <!-- BRIEFING READER (markdown-rendered post body) -->
-<div id="briefing-reader-modal" class="briefing-reader-modal" style="display:none" onclick="if(event.target===this)closeBriefingReader()">
+<div id="briefing-reader-modal" class="briefing-reader-modal" style="display:none" onclick="if(backdropClick(event,this))closeBriefingReader()">
   <div class="briefing-reader-box">
     <button class="briefing-reader-close" onclick="closeBriefingReader()" aria-label="Close">✕</button>
     <div class="briefing-reader-meta">
@@ -5913,7 +6091,7 @@
 </div>
 
 <!-- BRIEFING EDITOR MODAL (admin) -->
-<div id="briefing-editor-modal" class="fpp-modal-overlay" style="display:none" onclick="if(event.target===this)closeBriefingEditor()">
+<div id="briefing-editor-modal" class="fpp-modal-overlay" style="display:none" onclick="if(backdropClick(event,this))closeBriefingEditor()">
   <div class="fpp-modal" style="width:min(560px,94vw)">
     <div class="fpp-modal-header">
       <span id="briefing-editor-title">New Briefing</span>
@@ -5967,6 +6145,134 @@ If this field has content, clicking the card opens an in-app reader. Otherwise t
         <button class="action-btn" onclick="closeBriefingEditor()">Cancel</button>
         <button class="action-btn primary" onclick="saveBriefing()">Save</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- CUSTOM UNIT EDITOR (private, per-account house-rule units — see customUnits/{uid} in Firebase) -->
+<div id="custom-unit-modal" class="fpp-modal-overlay" style="display:none" onclick="if(backdropClick(event,this))closeCustomUnitEditor()">
+  <div class="fpp-modal" style="width:min(640px,94vw);max-height:92vh;overflow-y:auto">
+    <div class="fpp-modal-header">
+      <span id="custom-unit-modal-title">New Custom Unit</span>
+      <button class="fpp-modal-close" onclick="closeCustomUnitEditor()">✕</button>
+    </div>
+    <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+      <div style="font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--warn);border:1px solid var(--warn);background:color-mix(in srgb, var(--warn) 10%, transparent);padding:8px 10px;border-radius:4px">
+        House-rule content, visible only to you. These units are displayed on the unit page with a CUSTOM badge and forces they are added to can't use the "publish" or "share" features of the Force Builder.
+      </div>
+      <label class="briefing-field">
+        <span class="briefing-field-label">Name *</span>
+        <input type="text" id="cu-name" class="qt-input" placeholder="e.g. Panzer IV/70 (V)" maxlength="80">
+      </label>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <label class="briefing-field" style="flex:1;min-width:160px">
+          <span class="briefing-field-label">Nation *</span>
+          <select id="cu-nation" class="qt-input"></select>
+        </label>
+        <label class="briefing-field" style="flex:1;min-width:160px">
+          <span class="briefing-field-label">Unit Type *</span>
+          <select id="cu-type" class="qt-input" onchange="updateCustomUnitTypeFields(true)"></select>
+        </label>
+        <label class="briefing-field" style="flex:1;min-width:120px">
+          <span class="briefing-field-label">Base Size</span>
+          <select id="cu-base" class="qt-input"></select>
+        </label>
+      </div>
+      <label class="briefing-field">
+        <span class="briefing-field-label">Theater(s)</span>
+        <div id="cu-theater-chips" class="cu-chip-row"></div>
+      </label>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <label class="briefing-field" style="flex:1;min-width:120px">
+          <span class="briefing-field-label">Service From</span>
+          <select id="cu-year-from" class="qt-input" onchange="constrainCustomUnitYearRange('from')"></select>
+        </label>
+        <label class="briefing-field" style="flex:1;min-width:120px">
+          <span class="briefing-field-label">Service To</span>
+          <select id="cu-year-to" class="qt-input" onchange="constrainCustomUnitYearRange('to')"></select>
+        </label>
+      </div>
+      <label class="briefing-field">
+        <span class="briefing-field-label">Armament</span>
+        <input type="text" id="cu-armament" class="qt-input" placeholder="e.g. 7.5cm PaK42 gun" maxlength="200">
+      </label>
+      <label class="briefing-field" id="cu-mg-field" style="display:none">
+        <span class="briefing-field-label">Machine Guns</span>
+        <div id="cu-mg-chips" class="cu-chip-row">
+          <label><input type="checkbox" class="cu-mg-cb" value="Hull MG"> Hull MG</label>
+          <label><input type="checkbox" class="cu-mg-cb" value="Coax MG"> Coax MG</label>
+          <label><input type="checkbox" class="cu-mg-cb" value="AA MG"> AA MG</label>
+          <label><input type="checkbox" class="cu-mg-cb" value=".50 cal MG"> .50 cal MG</label>
+        </div>
+      </label>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <label class="briefing-field" style="flex:1;min-width:100px">
+          <span class="briefing-field-label">Gun Range</span>
+          <input type="text" id="cu-range" class="qt-input" placeholder='e.g. 24&quot;' maxlength="10">
+        </label>
+        <label class="briefing-field" style="flex:1;min-width:80px">
+          <span class="briefing-field-label">Rate of Fire</span>
+          <input type="number" id="cu-rof" class="qt-input" min="0" max="10" step="1">
+        </label>
+        <label class="briefing-field" style="flex:1;min-width:80px">
+          <span class="briefing-field-label">Anti-Tank</span>
+          <input type="number" id="cu-at" class="qt-input" min="0" max="12" step="1">
+        </label>
+        <label class="briefing-field" style="flex:1;min-width:80px">
+          <span class="briefing-field-label">Firepower</span>
+          <input type="number" id="cu-fp" class="qt-input" min="0" max="6" step="1">
+        </label>
+      </div>
+      <div id="cu-armor-field" style="display:none;gap:12px;flex-wrap:wrap">
+        <label class="briefing-field" style="flex:1;min-width:80px">
+          <span class="briefing-field-label">Front Armor</span>
+          <input type="number" id="cu-armor-front" class="qt-input" min="0" max="10" step="1">
+        </label>
+        <label class="briefing-field" style="flex:1;min-width:80px">
+          <span class="briefing-field-label">Flank Armor</span>
+          <input type="number" id="cu-armor-flank" class="qt-input" min="0" max="10" step="1">
+        </label>
+      </div>
+      <label class="briefing-field">
+        <span class="briefing-field-label">Notes / Keywords (these are what the Quick Compare engine reads)</span>
+        <div id="cu-notes-chips" class="cu-chip-row"></div>
+      </label>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
+        <label class="briefing-field" style="flex:1;min-width:140px">
+          <span class="briefing-field-label">Teams per Platoon</span>
+          <input type="number" id="cu-platoon-qty" class="qt-input" min="1" max="6" value="3">
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;color:var(--text2)">
+          <input type="checkbox" id="cu-platoon-leader"> Includes Platoon Leader
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;color:var(--text2)">
+          <input type="checkbox" id="cu-platoon-fo"> Includes Forward Observer
+        </label>
+      </div>
+      <label class="briefing-field">
+        <span class="briefing-field-label">Notes (optional)</span>
+        <textarea id="cu-design-note" rows="2" class="qt-input" maxlength="500" placeholder="Historical context, house-rule rational, etc."></textarea>
+      </label>
+      <div style="display:flex;justify-content:flex-end;gap:8px;padding-top:8px">
+        <button class="action-btn" onclick="closeCustomUnitEditor()">Cancel</button>
+        <button class="action-btn primary" onclick="saveCustomUnit()">Save Custom Unit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN: REVIEW CUSTOM UNITS (cross-account view, read directly via the
+     admin's own Firebase session — customUnits grants admins a bulk read;
+     the per-owner restriction exists to keep house-rule content from
+     becoming a de facto public catalog, not as a privacy boundary from
+     the account that curates official releases) -->
+<div id="admin-custom-units-modal" class="fpp-modal-overlay" style="display:none" onclick="if(backdropClick(event,this))closeAdminCustomUnitsReview()">
+  <div class="fpp-modal" style="width:min(720px,94vw);max-height:92vh;overflow-y:auto">
+    <div class="fpp-modal-header">
+      <span>Review Custom Units (all accounts)</span>
+      <button class="fpp-modal-close" onclick="closeAdminCustomUnitsReview()">✕</button>
+    </div>
+    <div id="admin-custom-units-body" style="padding:18px 20px;display:flex;flex-direction:column;gap:14px">
     </div>
   </div>
 </div>
@@ -6112,8 +6418,55 @@ If this field has content, clicking the card opens an in-app reader. Otherwise t
 <div class="force-sheet-modal" id="force-sheet-modal"></div>
 
 <script>
+// ── BACKDROP CLICK ────────────────────────────────────────────────────────────
+// If a press starts inside a modal (say, selecting text in a textarea) and is
+// released over the dark backdrop, the browser fires the click on the backdrop
+// (the closest common ancestor), so a bare `event.target === overlay` check
+// closes the modal mid-selection. Only treat it as a backdrop click when the
+// press also began on the backdrop.
+let _pressTarget = null;
+document.addEventListener('pointerdown', e => { _pressTarget = e.target; }, true);
+function backdropClick(e, el) { return e.target === el && _pressTarget === el; }
+
 // ── DATA ──────────────────────────────────────────────────────────────────────
 let allUnits = [];
+// allUnits is derived: officialUnits (from hof_arsenal.json, admin_only-filtered)
+// plus the signed-in user's own private customUnits. Rebuilt whenever either
+// source changes so every existing allUnits.find(...) lookup across the app
+// (force builder, Quick Compare, print sheets, Break Point Tracker) picks up
+// custom units automatically with no changes at those call sites.
+let officialUnits = [];
+let customUnits = [];
+function rebuildAllUnits() {
+  allUnits = officialUnits.concat(customUnits);
+}
+// Custom-unit text fields are free typed input from the owner, unlike the
+// static/trusted official catalog — escape before any innerHTML insertion.
+// Official units are passed through unchanged (identical behavior to before
+// this feature existed).
+function safeUnitText(unit, field) {
+  const val = unit && unit[field];
+  return unit && unit.isCustom ? esc(val || '') : (val || '');
+}
+// A secondary weapon can carry a count (the T-35's two 45mm turret guns are one
+// entry with qty 2); every place that prints its name goes through this.
+function swLabel(sw) {
+  return sw.name + (sw.qty > 1 ? ` ×${sw.qty}` : '');
+}
+const CUSTOM_UNIT_BADGE_HTML ='<span class="custom-unit-badge" title="Private custom unit — house rule content, not official Hail of Fire">CUSTOM</span>';
+function unitBadgeHtml(unit) {
+  return unit && unit.isCustom ? ' ' + CUSTOM_UNIT_BADGE_HTML : '';
+}
+// Does this platoon list reference any of the current account's private
+// custom units? Used to block publishing/sharing a force that a reader on
+// another account could never fully resolve.
+function forceContainsCustomUnits(platoonsArr) {
+  return toArr(platoonsArr).some(p => toArr(p.teams).some(t => {
+    const u = allUnits.find(u2 => u2.id === t.unitId);
+    return u && u.isCustom;
+  }));
+}
+const CUSTOM_SHARE_BLOCKED_MSG = 'Forces containing private custom units cannot be published or shared.';
 let filteredUnits = [];
 let tableSortCol = null;   // null = default grouped view
 let tableSortDir = 1;      // 1 = asc, -1 = desc
@@ -6186,13 +6539,14 @@ const VEHICLE_MG_STATS = {
   'Hull MG':    { range: '16"', rof: 3, at: null, notes: '' },
   'Coax MG':    { range: '16"', rof: 3, at: null, notes: '' },
   'Co-ax MG':   { range: '16"', rof: 3, at: null, notes: '' },
-  'AA MG':      { range: '16"', rof: 3, at: null, notes: 'Anti-Air (AT 1 vs aircraft) · May only inflict RFPs' },
+  'MG Turret':  { range: '16"', rof: 3, at: null, notes: 'Separate turret, fires independently of the main gun' },
+  'AA MG':     { range: '16"', rof: 3, at: null, notes: 'Anti-Air (AT 1 vs aircraft) · May only inflict RFPs' },
   '.50 cal MG': { range: '16"', rof: 3, at: 1,   notes: 'Anti-Air · May only inflict RFPs' },
 };
 
 // Wrap recognized MG names in armament strings with tooltip spans.
 // Handles both ".50 cal MG" and ".50cal MG" (with or without space).
-const MG_PATTERN = /\.50\s*cal MG|Co-ax MG|Coax MG|Hull MG|AA MG/g;
+const MG_PATTERN = /\.50\s*cal MG|Co-ax MG|Coax MG|Hull MG|AA MG|MG Turret/g;
 function normalizeMGName(match) {
   return match.startsWith('.50') ? '.50 cal MG' : match;
 }
@@ -6222,7 +6576,8 @@ let activeFilters = {
   nations: [],
   types: [],
   theaters: [],
-  eras: []
+  eras: [],
+  customOnly: false
 };
 
 // Subscriber state — driven by Firebase Auth + Realtime Database check
@@ -6282,12 +6637,87 @@ async function loadData() {
     // admin_only units (in-progress conversions not ready for public release)
     // are stripped out entirely for everyone but admin, not just visually
     // locked — they never appear in search, filters, or the force builder.
-    allUnits = isAdmin ? data.units : data.units.filter(u => !u.admin_only);
+    officialUnits = isAdmin ? data.units : data.units.filter(u => !u.admin_only);
+    // loadData() re-runs on every auth transition (sign-in, sign-out, admin
+    // resolution — see onAuthStateChanged), so hooking the custom-unit fetch
+    // here means it's always refreshed for whichever account is now current
+    // and cleared automatically on sign-out (loadCustomUnits sees currentUser
+    // is null and empties customUnits) without any separate cleanup code.
+    await loadCustomUnits();
     buildFilterChips();
     applyFilters();
   } catch(e) {
     document.getElementById('unit-display').innerHTML =
       '<div class="empty-state">Could not load arsenal data.</div>';
+  }
+}
+
+// A custom unit's Firebase id (its push key, e.g. "-Nabc123") is stable and
+// already globally unique, but is namespaced with a "custom-" prefix on the
+// in-memory unit object so it can never collide with an official id like
+// "us-leader" no matter what nation/prefix the owner picks in the editor.
+function normalizeCustomUnit(key, rec) {
+  return {
+    id: `custom-${key}`,
+    _customKey: key, // raw Firebase key — used for edit/delete calls
+    ownerUid: rec.ownerUid,
+    isCustom: true,
+    free: true,        // creator-owned: never subscriber-locked in the UI
+    admin_only: false,
+    name: rec.name || 'Unnamed Unit',
+    nation: rec.nation || 'United States',
+    type: rec.type || 'Infantry',
+    theater: Array.isArray(rec.theater) ? rec.theater : [],
+    years: Array.isArray(rec.years) ? rec.years : [],
+    gun_range: rec.gun_range ?? null,
+    rof: rec.rof ?? null,
+    at: rec.at ?? null,
+    fp: rec.fp ?? null,
+    armor_front: rec.armor_front ?? null,
+    armor_flank: rec.armor_flank ?? null,
+    armament: rec.armament || '',
+    notes: Array.isArray(rec.notes) ? rec.notes : [],
+    special_rules: [],
+    base: rec.base || null,
+    standard_platoon: rec.standard_platoon || null,
+    secondary_weapon: null,
+    per_combat_team: false,
+    recon: false,
+    lore: null,
+    wiki: null,
+    design_note: rec.design_note || '',
+    created: rec.created || Date.now(),
+    updated: rec.updated || null,
+  };
+}
+
+async function loadCustomUnits() {
+  customUnits = [];
+  if (currentUser) {
+    try {
+      const snap = await firebase.database().ref(`customUnits/${currentUser.uid}`).once('value');
+      const raw = snap.val() || {};
+      customUnits = Object.keys(raw).map(key => normalizeCustomUnit(key, raw[key]));
+    } catch (e) {
+      console.error('loadCustomUnits failed:', e);
+    }
+  }
+  rebuildAllUnits();
+  updateCustomUnitUI();
+}
+
+// Create button: supporter-only (hidden entirely for guests/non-supporters).
+// "My Custom Units" filter: shown to anyone with at least one, including a
+// lapsed supporter who can still view/use (but not create/edit) their own.
+function updateCustomUnitUI() {
+  const createSec = document.getElementById('custom-unit-create-section');
+  const filterSec = document.getElementById('custom-unit-filter-section');
+  if (createSec) createSec.style.display = (currentUser && isSubscriber) ? '' : 'none';
+  if (filterSec) filterSec.style.display = customUnits.length ? '' : 'none';
+  if (!customUnits.length) {
+    const cb = document.getElementById('filter-custom-only');
+    if (cb) cb.checked = false;
+    activeFilters.customOnly = false;
   }
 }
 
@@ -6370,9 +6800,11 @@ function setUnitSort(val) {
 }
 
 function clearFilters() {
-  activeFilters = { search: '', nations: [], types: [], theaters: [], eras: [] };
+  activeFilters = { search: '', nations: [], types: [], theaters: [], eras: [], customOnly: false };
   document.getElementById('search-input').value = '';
   document.querySelectorAll('.chip.active').forEach(c => c.classList.remove('active'));
+  const customCb = document.getElementById('filter-custom-only');
+  if (customCb) customCb.checked = false;
   unitSortOrder = 'default';
   const sortEl = document.getElementById('unit-sort');
   if (sortEl) sortEl.value = 'default';
@@ -6385,7 +6817,8 @@ function hasActiveFilters() {
     || activeFilters.nations.length > 0
     || activeFilters.types.length > 0
     || activeFilters.theaters.length > 0
-    || activeFilters.eras.length > 0;
+    || activeFilters.eras.length > 0
+    || activeFilters.customOnly;
 }
 
 function updateStripsVisibility() {
@@ -6424,6 +6857,7 @@ function applyFilters() {
       const eraYears = activeFilters.eras.flatMap(e => ERA_YEARS[e]);
       if (!u.years.some(y => eraYears.includes(y))) return false;
     }
+    if (activeFilters.customOnly && !u.isCustom) return false;
     return true;
   });
 
@@ -6467,6 +6901,18 @@ function renderUnits(skipAnim = false) {
   const forceIds = getAllForceUnitIds();
 
   if (filteredUnits.length === 0) {
+    if (activeFilters.customOnly) {
+      container.innerHTML = `<div class="empty-state">
+        <div style="font-size:28px;margin-bottom:12px;opacity:0.4">${CUSTOM_UNIT_BADGE_HTML}</div>
+        <div style="letter-spacing:2px;margin-bottom:6px">NO CUSTOM UNITS YET</div>
+        <div style="font-size:10px;letter-spacing:0.5px;color:var(--text3);margin-top:4px;max-width:320px;margin-left:auto;margin-right:auto;line-height:1.6">
+          Custom units are private house-rule content — stat lines you enter yourself for units not yet in the official Arsenal.
+          They're visible only to you, always shown with a CUSTOM badge, and can't be published or shared with anyone else.
+        </div>
+        ${isSubscriber ? `<button class="clear-btn" style="border-color:var(--warn);color:var(--warn);margin-top:14px" onclick="openCustomUnitEditor()">+ Create Custom Unit</button>` : ''}
+      </div>`;
+      return;
+    }
     container.innerHTML = `<div class="empty-state">
       <div style="font-size:28px;margin-bottom:12px;opacity:0.4">⊠</div>
       <div style="letter-spacing:2px;margin-bottom:6px">NO TEAMS MATCH CURRENT FILTERS</div>
@@ -6646,7 +7092,7 @@ function renderGrid(container, forceIds, animate = true) {
       html += `
         <div class="unit-card ${inForce ? 'in-force' : ''} ${locked ? 'locked' : ''} ${nc}" id="card-${unit.id}" data-card-index="${cardIndex}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
           <div class="card-header">
-            <div class="unit-name" title="${unit.name}">${unit.name}</div>
+            <div class="unit-name" title="${safeUnitText(unit,'name')}">${safeUnitText(unit,'name')}${unitBadgeHtml(unit)}</div>
             <div class="${nationBadgeClass(unit.nation)}">${unit.nation}</div>
             <div class="card-header-type">
               ${showScores && !locked ? `<span class="base-badge card-pts-badge">${displayPoints(calcTeamScore(unit))} pts</span>` : ''}
@@ -6682,7 +7128,7 @@ function renderGrid(container, forceIds, animate = true) {
               out += `<div class="card-multi-gun">`;
               if (primaryGun) out += `<div class="card-weapon-label">${primaryGun}</div>`;
               out += `<div class="card-stats" style="grid-template-columns:repeat(${statCols},1fr)">${defs.map(d => statCell(d[0], d[2])).join('')}</div>`;
-              out += `<div class="card-weapon-label">${sw.name}${sw.notes && sw.notes.length ? ' · ' + sw.notes.join(', ') : ''}</div>`;
+              out += `<div class="card-weapon-label">${swLabel(sw)}${sw.notes && sw.notes.length ? ' · ' + sw.notes.join(', ') : ''}</div>`;
               if (swDefs.length) {
                 const pad = statCols - swDefs.length;
                 out += `<div class="card-stats card-stats-secondary" style="grid-template-columns:repeat(${statCols},1fr)">`;
@@ -6692,7 +7138,7 @@ function renderGrid(container, forceIds, animate = true) {
               out += `</div>`;
               return out;
             }
-            let armHTML = `<div class="card-type-row${unit.armament ? '' : ' no-armament'}">${unit.armament ? `<div class="card-armament">${wrapArmamentMGs(unit.armament)}</div>` : ''}</div>`;
+            let armHTML = `<div class="card-type-row${unit.armament ? '' : ' no-armament'}">${unit.armament ? `<div class="card-armament">${wrapArmamentMGs(safeUnitText(unit,'armament'))}</div>` : ''}</div>`;
             if (!defs.length) return armHTML;
             return armHTML + `<div class="card-stats" style="grid-template-columns:repeat(${defs.length},1fr)">${defs.map(d => statCell(d[0], d[2])).join('')}</div>`;
           })()}
@@ -6841,7 +7287,7 @@ function renderTable(container, forceIds) {
         <tr class="stacked-main ${ic}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
           <td>
             <div class="stacked-header">
-              <span class="table-name">${unit.name}</span>
+              <span class="table-name">${safeUnitText(unit,'name')}${unitBadgeHtml(unit)}</span>
               <span class="${nationBadgeClass(unit.nation)}" style="font-size:11px;padding:2px 5px;">${unit.nation}</span>
               <span class="stacked-type">${unit.type}</span>
             </div>
@@ -6855,7 +7301,7 @@ function renderTable(container, forceIds) {
               ${rowLocked ? '' : unit.notes.map(n => noteTag(n)).join(' ')}
               <span class="stacked-years">${yearRange(unit.years)}</span>
             </div>
-            ${sw ? `<div class="stacked-stat-row stacked-secondary"><span class="stacked-sw-label">${sw.name}</span>${swStats}${(sw.notes||[]).map(n => noteTag(n)).join(' ')}</div>` : ''}
+            ${sw ? `<div class="stacked-stat-row stacked-secondary"><span class="stacked-sw-label">${swLabel(sw)}</span>${swStats}${(sw.notes||[]).map(n => noteTag(n)).join(' ')}</div>` : ''}
           </td>
         </tr>`;
     }
@@ -6864,7 +7310,7 @@ function renderTable(container, forceIds) {
     const sw = !rowLocked && unit.secondary_weapon;
     let rows = `
       <tr class="${ic}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
-        <td><span class="table-name">${unit.name}</span></td>
+        <td><span class="table-name">${safeUnitText(unit,'name')}${unitBadgeHtml(unit)}</span></td>
         <td><span class="${nationBadgeClass(unit.nation)}" style="font-size:11px;padding:2px 5px;">${unit.nation}</span></td>
         <td style="color:var(--text3);font-size:10px;letter-spacing:0.5px">${unit.type}</td>
         <td class="table-stat null">${rowLocked ? dash : (unit.armor_front !== null ? `${unit.armor_front}/${unit.armor_flank}` : '-')}</td>
@@ -6879,7 +7325,7 @@ function renderTable(container, forceIds) {
     if (sw) {
       rows += `
       <tr class="table-secondary-row ${ic}" style="cursor:pointer" onclick="openUnitDetail('${unit.id}')">
-        <td style="padding-left:20px;font-size:11px;color:var(--text3);font-family:var(--mono)">↳ ${sw.name}</td>
+        <td style="padding-left:20px;font-size:11px;color:var(--text3);font-family:var(--mono)">↳ ${swLabel(sw)}</td>
         <td></td><td></td>
         <td class="table-stat null">-</td>
         <td class="table-stat null">${sw.gun_range || '-'}</td>
@@ -7718,6 +8164,9 @@ function calcTeamScore(unit) {
     const swAt     = sw.at != null ? +sw.at : null;
     const swFp     = +(sw.fp) || 1;
     const swNotes  = sw.notes || [];
+    // Count of identical secondary weapons (the T-35's two 45mm turret guns).
+    // Scales all three things a secondary weapon contributes below.
+    const swQty    = Math.max(1, +(sw.qty) || 1);
     const swNoDirect = !swRngStr || swRngStr === '-';
 
     if (!swNoDirect) {
@@ -7727,7 +8176,7 @@ function calcTeamScore(unit) {
       let swAdjRof = swRof;
       if (swRange <= 6) swAdjRof -= 1;
       if (swNotes.includes('Limited HE')) swAdjRof -= 1;
-      ai += (swNotes.includes('Flamethrower') || swNotes.includes('Flame-Thrower')) ? swAdjRof + 3 : swAdjRof + Math.max(0, swAdjRof - 2) * FS_ROF_ACCEL + swSteps;
+      ai += ((swNotes.includes('Flamethrower') || swNotes.includes('Flame-Thrower')) ? swAdjRof + 3 : swAdjRof + Math.max(0, swAdjRof - 2) * FS_ROF_ACCEL + swSteps) * swQty;
 
       if (swAt !== null && swAt > 0) {
         const swEffAt = swAt + (swFp - 1) * 0.5;
@@ -7745,10 +8194,10 @@ function calcTeamScore(unit) {
         const swRofAtMult  = Math.sqrt(swRof);
         const swTowedMult  = swNotes.includes('Immobile') ? 0.75 : 1.0;
 
-        atScore += swTier * swTurretMult * swRangeMult * swRfpMult * swRofAtMult * swTowedMult;
+        atScore += swTier * swTurretMult * swRangeMult * swRfpMult * swRofAtMult * swTowedMult * swQty;
       }
 
-      fpBonus += FS_FP_BONUS[swFp] || 0;
+      fpBonus += (FS_FP_BONUS[swFp] || 0) * swQty;
     }
   }
 
@@ -7792,7 +8241,10 @@ function calcTeamScore(unit) {
     const hull  = (scoringArm.match(/Hull MG/gi) || []).length;
     const aa    = (scoringArm.match(/AA MG/gi)   || []).length;
     const fifty = (scoringArm.match(/\.50/g)     || []).length;
-    const total = coax + hull + aa + fifty;
+    // "MG Turret" may carry a count suffix ("MG Turret ×2"), unlike the others.
+    const turret = [...scoringArm.matchAll(/MG Turret(?:\s*[×x]\s*(\d+))?/gi)]
+      .reduce((n, m) => n + (m[1] ? +m[1] : 1), 0);
+    const total = coax + hull + aa + fifty + turret;
     if      (total === 1) mgScore = (aa || fifty) ? 4 : 2;
     else if (total  >  1) mgScore = total * 2;
   }
@@ -7941,12 +8393,15 @@ function updateForceUI() {
       : platoon.teams.map(t => {
           const unit = allUnits.find(u => u.id === t.unitId);
           if (!unit) return '';
+          // Matches the card/detail-panel treatment: a locked unit's point
+          // value is part of what subscribing unlocks, same as its stats.
+          const rowLocked = !unit.free && !isSubscriber;
 
           // Upgrade units: binary pill, no qty
           const isNewRow = platoon.id === _animPlatoonId && t.unitId === _animUnitId;
           const rowAnim  = isNewRow ? ' style="animation: rowFadeIn 0.5s ease forwards; opacity: 0"' : '';
 
-          const teamLabel = t.displayName || unit.name;
+          const teamLabel = (t.displayName || safeUnitText(unit,'name')) + unitBadgeHtml(unit);
           if (unit.type === 'Upgrade') {
             return `
               <div class="team-upgrade-row"${rowAnim}>
@@ -7984,7 +8439,7 @@ function updateForceUI() {
                   <span class="team-qty team-qty-collapsed">${t.qty}×</span>`
                 : `<span class="team-qty team-qty-fixed">${t.qty}×</span>`}
               <span class="team-name">${teamLabel}</span>
-              ${showScores ? `<span class="team-pts">${displayPoints(calcTeamScore(unit)) || ''}</span>` : ''}
+              ${showScores && !rowLocked ? `<span class="team-pts">${displayPoints(calcTeamScore(unit)) || ''}</span>` : ''}
               ${fixed
                 ? `<button class="team-lock-btn ${unlocked ? 'unlocked' : ''}" onclick="event.stopPropagation();toggleTeamLock('${platoon.id}','${t.unitId}')" data-tip="${unlocked ? 'Lock' : 'Unlock to edit'}">
                     ${unlocked ? '🔓' : '🔒'}
@@ -8206,6 +8661,7 @@ async function saveForce() {
 async function publishForce() {
   if (!currentUser) { showToast('Sign in to publish forces.', 'error'); return; }
   if (platoons.length === 0) { showToast('Add at least one platoon before publishing.', 'error'); return; }
+  if (forceContainsCustomUnits(platoons)) { showToast(CUSTOM_SHARE_BLOCKED_MSG, 'error'); return; }
 
   const nameEl  = document.getElementById('force-name');
   const nameVal = (nameEl.value || '').trim();
@@ -8230,6 +8686,7 @@ async function publishForce() {
 async function publishAsHoF() {
   if (!isAdmin) return;
   if (platoons.length === 0) { showToast('Add at least one platoon first.', 'error'); return; }
+  if (forceContainsCustomUnits(platoons)) { showToast(CUSTOM_SHARE_BLOCKED_MSG, 'error'); return; }
   const forceName = document.getElementById('force-name')?.value.trim() || 'Untitled Force';
   if (!confirm(`Publish "${forceName}" as an official Hail of Fire force?`)) return;
 
@@ -8250,6 +8707,7 @@ async function publishAsHoF() {
 async function copyFppShareLink() {
   if (!currentUser) { showToast('Sign in to share your force.', 'warning'); return; }
   if (platoons.length === 0) { showToast('Add at least one platoon before sharing.', 'warning'); return; }
+  if (forceContainsCustomUnits(platoons)) { showToast(CUSTOM_SHARE_BLOCKED_MSG, 'error'); return; }
 
   // Ensure we have a force ID before any await so clipboard still has the user gesture.
   // Capture whether this force already had a saved ID BEFORE potentially assigning one,
@@ -8520,7 +8978,10 @@ async function loadWhatsNew() {
   // briefings are first-class content, the strip is purely /content items.
   // The admin "★ Briefing" toggle on force cards is currently inert; the flag
   // still saves but isn't rendered anywhere.
-  const contentSnap = await firebase.database().ref('content').once('value').catch(() => null);
+  // This strip only ever wants published items, so the filtered query below
+  // matches the one list-read shape the security rules grant without admin
+  // credentials — an unfiltered ref('content') read is denied here.
+  const contentSnap = await firebase.database().ref('content').orderByChild('published').equalTo(true).once('value').catch(() => null);
 
   const combined = [];
   if (contentSnap) {
@@ -8604,6 +9065,7 @@ function openUnitDetail(unitId) {
   // Badges
   const yearStr = yearRange(unit.years);
   document.getElementById('udp-badges').innerHTML = `
+    ${unitBadgeHtml(unit)}
     <span class="${nationBadgeClass(unit.nation)}">${unit.nation}</span>
     <span class="type-badge" data-type="${unit.type}" style="font-size:10px;letter-spacing:1px">${unit.type}</span>
     ${unit.base ? `<span class="type-badge" style="font-size:10px">${unit.base === 'Vehicle' ? 'Vehicle' : `${unit.base} Base`}</span>` : ''}
@@ -8643,7 +9105,7 @@ function openUnitDetail(unitId) {
       udpStat('FP', unit.fp);
     const sw = unit.secondary_weapon;
     if (sw) {
-      statsHtml += `<div class="udp-secondary-label">${sw.name}${sw.notes && sw.notes.length ? ' · ' + sw.notes.map(n => noteTag(n)).join(' ') : ''}</div>`;
+      statsHtml += `<div class="udp-secondary-label">${swLabel(sw)}${sw.notes && sw.notes.length ? ' · ' + sw.notes.map(n => noteTag(n)).join(' ') : ''}</div>`;
       function swStat(label, val) {
         const display = val !== null && val !== undefined
           ? `<span class="udp-stat-value">${val}</span>`
@@ -8679,9 +9141,13 @@ function openUnitDetail(unitId) {
     document.getElementById('udp-footer').innerHTML =
       `<a class="udp-add-btn" href="https://ko-fi.com/retroboom" target="_blank" rel="noopener" style="display:inline-block;border-color:var(--accent);color:var(--accent);text-decoration:none">Support on Ko-fi</a>`;
   } else {
+    const isOwnCustomUnit = unit.isCustom && currentUser && unit.ownerUid === currentUser.uid;
     document.getElementById('udp-footer').innerHTML = `
       ${activePlatoonId && !unit.platoon_only ? `<button class="udp-add-btn primary" onclick="addTeamToPlatoon('${unit.id}');closeUnitDetail()">＋ Add to Platoon</button>` : ''}
       ${unit.standard_platoon ? `<button class="udp-add-btn" onclick="addAsStandardPlatoon('${unit.id}');closeUnitDetail()">＋ New Platoon</button>` : ''}
+      ${isOwnCustomUnit && isSubscriber ? `<button class="udp-add-btn" onclick="openCustomUnitEditor('${unit.id}');closeUnitDetail()">✎ Edit Custom Unit</button>` : ''}
+      ${isOwnCustomUnit && isSubscriber ? `<button class="udp-add-btn" style="border-color:var(--red);color:var(--red)" onclick="deleteCustomUnit('${unit.id}')">🗑 Delete Custom Unit</button>` : ''}
+      ${isOwnCustomUnit && !isSubscriber ? `<div style="font-family:var(--mono);font-size:10px;color:var(--text3);width:100%">Support has lapsed — this custom unit still works, but editing/deleting it needs an active $1/month Ko-fi subscription.</div>` : ''}
     `;
   }
 
@@ -9221,8 +9687,8 @@ const RULES_DATA = [
         <p>When certain conditions are met, players must roll 1d6 to generate <strong>Break Points (BP)</strong>:</p>
         <table class="rules-table">
           <tr><th>Roll</th><th>BP Generated</th></tr>
-          <tr><td>1–3</td><td>1 BP</td></tr>
-          <tr><td>4–5</td><td>2 BP</td></tr>
+          <tr><td>1–2</td><td>1 BP</td></tr>
+          <tr><td>3–5</td><td>2 BP</td></tr>
           <tr><td>6</td><td>3 BP</td></tr>
         </table>
         <p>Rolls are made <strong>secretly</strong> and totals kept hidden, so neither player knows how close the other is to breaking (the Arsenal's Break Point tracker can do this for you at the table). Players may agree to play with open totals instead. If your total Break Points ever exceed your force's <strong>Break Limit</strong>, your force routs, ending the game.</p>
@@ -9869,7 +10335,14 @@ async function loadFieldManual() {
   }
 
   try {
-    const snap = await firebase.database().ref('content').once('value');
+    // Non-admins can't do an unfiltered list read of content/ (the security
+    // rules only grant a bulk read for this exact query shape, or to admins
+    // outright) — see admin-db-rules' content rule. Admins skip the filter
+    // and fetch everything, including drafts.
+    const query = isAdmin
+      ? firebase.database().ref('content')
+      : firebase.database().ref('content').orderByChild('published').equalTo(true);
+    const snap = await query.once('value');
     fmAllItems = [];
     snap.forEach(child => {
       const v = child.val();
@@ -9893,9 +10366,13 @@ async function loadFieldManual() {
 // then a soft fallback that just routes to the Field Manual section.
 function briefingClickHandler(item) {
   if (!item) return '';
-  if (item.body) return `openBriefingReader('${item.id}')`;
-  if (item.url)  return `window.open('${item.url}','_blank')`;
-  return `setSection('fieldmanual')`;
+  // body now lives in content_bodies/{id}, not on this metadata record, so it
+  // can't be checked directly here. url is the documented fallback ("only
+  // used if Body is blank" in the editor), so its absence is the same signal
+  // body's presence used to be: prefer the in-app reader unless a URL was
+  // explicitly set instead of writing a body.
+  if (!item.url) return `openBriefingReader('${item.id}')`;
+  return `window.open('${item.url}','_blank')`;
 }
 
 // True when this viewer should see a gated/teaser version of the briefing.
@@ -9903,22 +10380,13 @@ function briefingGated(item) {
   return !!(item && item.subscriberOnly) && !isSubscriber && !isAdmin;
 }
 
-// Small lock chip shown on briefing cards. Admins see a muted marker so they
-// can tell a post is gated; unlocked subscribers see nothing.
+// Small lock chip shown on briefing cards to viewers who don't have access.
+// Admins and unlocked subscribers see nothing.
 function briefingLockChip(item) {
   if (!item || !item.subscriberOnly) return '';
-  if (isAdmin)       return '<span class="classified-chip admin">⬡ Subscriber</span>';
+  if (isAdmin)       return '';
   if (!isSubscriber) return '<span class="classified-chip">⬡ Classified</span>';
   return '';
-}
-
-// Render the first couple of markdown blocks as a teaser.
-function briefingTeaserHtml(body) {
-  const blocks = (body || '').split(/\n\s*\n/).map(b => b.trim()).filter(Boolean);
-  const teaser = blocks.slice(0, 2).join('\n\n');
-  return (teaser && typeof marked !== 'undefined')
-    ? marked.parse(teaser, { breaks: true, mangle: false, headerIds: false })
-    : '';
 }
 
 // The Ko-fi unlock gate appended below a teaser.
@@ -9926,9 +10394,28 @@ function classifiedGateHtml() {
   return `
     <div class="briefing-gate">
       <div class="briefing-gate-stamp">⬡ CLASSIFIED</div>
-      <div class="briefing-gate-text">The rest of this briefing is for supporters. Back the game for $1/month on Ko-fi and get every briefing, plus subscriber units and scenarios.</div>
+      <div class="briefing-gate-text">Support the game for $1/month on Ko-fi and get this and every other briefing, unit, and scenario for Hail of Fire, with more added every month.</div>
       <a class="briefing-gate-btn" href="https://ko-fi.com/retroboom" target="_blank" rel="noopener">Support on Ko-fi</a>
     </div>`;
+}
+// Renders the opening ~12 lines of a briefing's body as a public teaser for
+// non-entitled readers. Takes whole markdown blocks (never cuts mid-
+// paragraph) until the raw-source budget is spent, so a short heading plus
+// intro paragraph is the typical result. Computed once at save time and
+// stored on the public content/{id} record — the full body stays gated in
+// content_bodies/{id}, unreachable by a non-entitled reader's own browser.
+function makeTeaser(bodyText) {
+  if (!bodyText || typeof marked === 'undefined') return '';
+  const CHAR_BUDGET = 650; // roughly 12 wrapped lines at the reader's width
+  const tokens = marked.lexer(bodyText);
+  const picked = [];
+  let len = 0;
+  for (const t of tokens) {
+    if (picked.length && len >= CHAR_BUDGET) break;
+    picked.push(t);
+    len += (t.raw || t.text || '').length;
+  }
+  return marked.parser(picked, { breaks: true, mangle: false, headerIds: false });
 }
 let currentBriefingItem = null;
 async function openBriefingReader(itemId, opts) {
@@ -9956,12 +10443,27 @@ async function openBriefingReader(itemId, opts) {
   // marked is loaded from CDN; render the body to sanitized-ish HTML. The
   // author is always us, so we trust the input. Subscriber-only briefings show
   // a teaser plus a Ko-fi unlock gate to non-subscribers.
+  //
+  // Body lives in content_bodies/{id}, not on this record: the database rules
+  // gate that node independently so a non-entitled reader's own browser
+  // cannot fetch it. The gated teaser below instead uses `item.teaser` —
+  // pre-rendered HTML of the opening ~12 lines, computed by makeTeaser() and
+  // stored on the public content/{id} record at save time — falling back to
+  // the author-written `summary` for older briefings saved before teaser
+  // existed.
   let html;
   if (briefingGated(item)) {
-    html = briefingTeaserHtml(item.body) + classifiedGateHtml();
+    html = (item.teaser || (item.summary ? `<p>${item.summary}</p>` : '')) + classifiedGateHtml();
   } else {
-    html = item.body && typeof marked !== 'undefined'
-      ? marked.parse(item.body, { breaks: true, mangle: false, headerIds: false })
+    let bodyText = item.body;
+    if (bodyText == null) {
+      try {
+        const snap = await firebase.database().ref(`content_bodies/${itemId}/body`).once('value');
+        bodyText = snap.val();
+      } catch(e) { console.error('Could not load briefing body:', e); }
+    }
+    html = bodyText && typeof marked !== 'undefined'
+      ? marked.parse(bodyText, { breaks: true, mangle: false, headerIds: false })
       : '<p><em>No content.</em></p>';
   }
   document.getElementById('br-body').innerHTML = html;
@@ -10013,7 +10515,7 @@ window.addEventListener('popstate', () => {
 
 // ── BRIEFING EDITOR (admin) ──────────────────────────────────────────────────
 let editingBriefingId = null;
-function openBriefingEditor(itemId) {
+async function openBriefingEditor(itemId) {
   if (!isAdmin) return;
   editingBriefingId = itemId || null;
   const existing = itemId ? fmAllItems.find(i => i.id === itemId) : null;
@@ -10022,7 +10524,17 @@ function openBriefingEditor(itemId) {
   document.getElementById('be-type').value      = existing?.type  || 'Guide';
   document.getElementById('be-author').value    = existing?.author || 'Brandon';
   document.getElementById('be-summary').value   = existing?.summary || '';
-  document.getElementById('be-body').value      = existing?.body || '';
+  // Body no longer lives on the content/{id} record itself (see saveBriefing);
+  // it's split into content_bodies/{id} so gating can apply to it independently
+  // of the public metadata used for teaser cards. Fetch it separately here.
+  let bodyText = '';
+  if (itemId) {
+    try {
+      const snap = await firebase.database().ref(`content_bodies/${itemId}/body`).once('value');
+      bodyText = snap.val() || '';
+    } catch (e) { console.error('Could not load briefing body:', e); }
+  }
+  document.getElementById('be-body').value      = bodyText;
   document.getElementById('be-url').value       = existing?.url || '';
   document.getElementById('be-published').checked = existing ? !!existing.published : true;
   document.getElementById('be-pinned').checked    = existing ? !!existing.pinned    : false;
@@ -10033,29 +10545,390 @@ function closeBriefingEditor() {
   document.getElementById('briefing-editor-modal').style.display = 'none';
   editingBriefingId = null;
 }
+
+// ── CUSTOM UNITS (private, per-account house-rule units) ────────────────────
+// Value lists always come from officialUnits, never from allUnits — so a
+// user's own already-injected custom units can never skew the choices
+// offered for a NEW custom unit (per spec: "same allowed values... as
+// official units").
+function customUnitOptionLists() {
+  return {
+    nations: NATION_ORDER.slice(),
+    types: TYPE_ORDER.filter(t => t !== 'Upgrade'), // v1 supports combat unit types only
+    bases: [...new Set(officialUnits.map(u => u.base).filter(Boolean))],
+    theaters: [...new Set(officialUnits.flatMap(u => u.theater || []))].sort(),
+    notesVocab: [...new Set(officialUnits.flatMap(u => u.notes || []))].sort(),
+    years: [...new Set(officialUnits.flatMap(u => u.years || []))].sort((a, b) => a - b),
+  };
+}
+
+let editingCustomUnitId = null; // "custom-<firebaseKey>" of the unit being edited, or null when creating
+
+// Only vehicle-ish types carry armor values and a separate hull/coax/AA MG
+// alongside a main gun (matches FS_VEHICLES in the scoring engine);
+// infantry/gun units don't get either control.
+const CUSTOM_UNIT_VEHICLE_TYPES = new Set(['Tank', 'SP Artillery', 'SP Anti-Air', 'Armoured Cars', 'Transport']);
+// autoSelectVehicleBase is true only for the user actively changing the type
+// dropdown — opening the editor on an already-saved unit must not clobber a
+// deliberately different base size just because it re-renders the form.
+function updateCustomUnitTypeFields(autoSelectVehicleBase) {
+  const type = document.getElementById('cu-type').value;
+  const isVehicle = CUSTOM_UNIT_VEHICLE_TYPES.has(type);
+  document.getElementById('cu-mg-field').style.display = isVehicle ? '' : 'none';
+  document.getElementById('cu-armor-field').style.display = isVehicle ? 'flex' : 'none';
+  if (!autoSelectVehicleBase) return;
+  if (isVehicle) {
+    document.getElementById('cu-base').value = 'Vehicle';
+  } else {
+    // Switching away from a vehicle type: clear the fields that just hid,
+    // so a leftover armor value or checked MG doesn't silently get saved
+    // onto an Infantry/Gun unit that no longer shows them.
+    document.getElementById('cu-armor-front').value = '';
+    document.getElementById('cu-armor-flank').value = '';
+    document.querySelectorAll('.cu-mg-cb').forEach(cb => { cb.checked = false; });
+  }
+}
+
+// Keeps the From/To service-year selects from crossing each other.
+function constrainCustomUnitYearRange(changed) {
+  const fromSel = document.getElementById('cu-year-from');
+  const toSel = document.getElementById('cu-year-to');
+  const from = parseInt(fromSel.value, 10);
+  const to = parseInt(toSel.value, 10);
+  if (from > to) {
+    if (changed === 'from') toSel.value = fromSel.value;
+    else fromSel.value = toSel.value;
+  }
+}
+
+// Pulls any recognized MG name (the same closed vocabulary calcTeamScore /
+// detectMGs already understand) out of a stored armament string so the
+// editor can show the main gun text and MG checkboxes separately, instead of
+// asking the owner to retype the exact magic string by hand every edit.
+function splitArmamentMGs(armament) {
+  if (!armament) return { main: '', mgs: [] };
+  const mgs = detectMGs(armament).map(([name]) => name);
+  const main = armament.split(',').map(s => s.trim()).filter(part => {
+    MG_PATTERN.lastIndex = 0;
+    return part && !MG_PATTERN.test(part);
+  }).join(', ');
+  return { main, mgs };
+}
+
+function openCustomUnitEditor(unitId) {
+  if (!currentUser) { showToast('Sign in to create custom units.', 'error'); return; }
+  if (!isSubscriber) { showToast('Custom units are a supporter feature — support the game on Ko-fi to create one.', 'error'); return; }
+
+  const unit = unitId ? allUnits.find(u => u.id === unitId) : null;
+  if (unitId && (!unit || !unit.isCustom || unit.ownerUid !== currentUser.uid)) {
+    showToast('Custom unit not found.', 'error');
+    return;
+  }
+
+  const opts = customUnitOptionLists();
+  const nationSel = document.getElementById('cu-nation');
+  nationSel.innerHTML = opts.nations.map(n => `<option value="${esc(n)}">${esc(n)}</option>`).join('');
+  const typeSel = document.getElementById('cu-type');
+  typeSel.innerHTML = opts.types.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join('');
+  const baseSel = document.getElementById('cu-base');
+  baseSel.innerHTML = '<option value="">-- none --</option>' + opts.bases.map(b => `<option value="${esc(b)}">${esc(b)}</option>`).join('');
+  document.getElementById('cu-theater-chips').innerHTML = opts.theaters.map(t =>
+    `<label><input type="checkbox" class="cu-theater-cb" value="${esc(t)}"> ${esc(t)}</label>`
+  ).join('') || '<span style="opacity:0.6">No theaters found in the catalog.</span>';
+  const yearOptionsHtml = opts.years.map(y => `<option value="${y}">${y}</option>`).join('');
+  const fromSel = document.getElementById('cu-year-from');
+  const toSel = document.getElementById('cu-year-to');
+  fromSel.innerHTML = yearOptionsHtml;
+  toSel.innerHTML = yearOptionsHtml;
+  document.getElementById('cu-notes-chips').innerHTML = opts.notesVocab.map(n =>
+    `<label><input type="checkbox" class="cu-note-cb" value="${esc(n)}"> ${esc(n)}</label>`
+  ).join('');
+
+  editingCustomUnitId = unitId || null;
+  document.getElementById('custom-unit-modal-title').textContent = unit ? 'Edit Custom Unit' : 'New Custom Unit';
+  document.getElementById('cu-name').value = unit ? unit.name : '';
+  nationSel.value = unit ? unit.nation : opts.nations[0];
+  typeSel.value = unit ? unit.type : opts.types[0];
+  baseSel.value = (unit && unit.base) || '';
+  document.querySelectorAll('.cu-theater-cb').forEach(cb => { cb.checked = !!(unit && unit.theater.includes(cb.value)); });
+  const fromDefault = opts.years.includes(1939) ? 1939 : opts.years[0];
+  const toDefault = opts.years.includes(1945) ? 1945 : opts.years[opts.years.length - 1];
+  fromSel.value = unit && unit.years.length ? Math.min(...unit.years) : fromDefault;
+  toSel.value = unit && unit.years.length ? Math.max(...unit.years) : toDefault;
+  document.querySelectorAll('.cu-note-cb').forEach(cb => { cb.checked = !!(unit && unit.notes.includes(cb.value)); });
+  const { main: armamentMain, mgs: armamentMgs } = unit ? splitArmamentMGs(unit.armament) : { main: '', mgs: [] };
+  document.getElementById('cu-armament').value = armamentMain;
+  document.querySelectorAll('.cu-mg-cb').forEach(cb => { cb.checked = armamentMgs.includes(cb.value); });
+  updateCustomUnitTypeFields(false);
+  document.getElementById('cu-range').value = (unit && unit.gun_range != null) ? unit.gun_range : '';
+  document.getElementById('cu-rof').value = (unit && unit.rof != null) ? unit.rof : '';
+  document.getElementById('cu-at').value = (unit && unit.at != null) ? unit.at : '';
+  document.getElementById('cu-fp').value = (unit && unit.fp != null) ? unit.fp : '';
+  document.getElementById('cu-armor-front').value = (unit && unit.armor_front != null) ? unit.armor_front : '';
+  document.getElementById('cu-armor-flank').value = (unit && unit.armor_flank != null) ? unit.armor_flank : '';
+  document.getElementById('cu-platoon-qty').value = (unit && unit.standard_platoon) ? unit.standard_platoon.qty : 3;
+  document.getElementById('cu-platoon-leader').checked = !!(unit && unit.standard_platoon && unit.standard_platoon.leader);
+  document.getElementById('cu-platoon-fo').checked = !!(unit && unit.standard_platoon && unit.standard_platoon.fo);
+  document.getElementById('cu-design-note').value = unit ? (unit.design_note || '') : '';
+
+  document.getElementById('custom-unit-modal').style.display = 'flex';
+}
+
+function closeCustomUnitEditor() {
+  document.getElementById('custom-unit-modal').style.display = 'none';
+  editingCustomUnitId = null;
+}
+
+async function saveCustomUnit() {
+  if (!currentUser) { showToast('Sign in to create custom units.', 'error'); return; }
+  if (!isSubscriber) { showToast('Custom units are a supporter feature.', 'error'); return; }
+
+  const name = document.getElementById('cu-name').value.trim();
+  if (!name) { showToast('Name is required.', 'error'); return; }
+  const nation = document.getElementById('cu-nation').value;
+  const type = document.getElementById('cu-type').value;
+  if (!nation || !type) { showToast('Nation and Unit Type are required.', 'error'); return; }
+
+  const theater = [...document.querySelectorAll('.cu-theater-cb:checked')].map(cb => cb.value);
+  const yearFrom = parseInt(document.getElementById('cu-year-from').value, 10);
+  const yearTo = parseInt(document.getElementById('cu-year-to').value, 10);
+  const years = [];
+  for (let y = Math.min(yearFrom, yearTo); y <= Math.max(yearFrom, yearTo); y++) years.push(y);
+  const notes = [...document.querySelectorAll('.cu-note-cb:checked')].map(cb => cb.value);
+  const base = document.getElementById('cu-base').value || null;
+  const armamentMain = document.getElementById('cu-armament').value.trim();
+  const selectedMgs = [...document.querySelectorAll('.cu-mg-cb:checked')].map(cb => cb.value);
+  // Stored as one comma-joined string, main gun first — same format official
+  // units use, so detectMGs()/wrapArmamentMGs() recognize these MGs too
+  // (print sheet's Vehicle MGs reference table, in-card MG tooltips, etc.)
+  // without needing any changes there.
+  const armament = [armamentMain, ...selectedMgs].filter(Boolean).join(', ');
+  const numOrNull = id => { const v = document.getElementById(id).value; return v === '' ? null : Number(v); };
+  const gun_range = document.getElementById('cu-range').value.trim() || null;
+  const rof = numOrNull('cu-rof');
+  const at = numOrNull('cu-at');
+  const fp = numOrNull('cu-fp');
+  const armor_front = numOrNull('cu-armor-front');
+  const armor_flank = numOrNull('cu-armor-flank');
+  const platoonQty = Math.max(1, Math.min(6, parseInt(document.getElementById('cu-platoon-qty').value, 10) || 3));
+  const standard_platoon = {
+    qty: platoonQty,
+    leader: document.getElementById('cu-platoon-leader').checked,
+    fo: document.getElementById('cu-platoon-fo').checked,
+  };
+  const design_note = document.getElementById('cu-design-note').value.trim();
+
+  const record = {
+    ownerUid: currentUser.uid,
+    isCustom: true,
+    name, nation, type, theater, years, armament,
+    gun_range, rof, at, fp, armor_front, armor_flank,
+    notes, base, standard_platoon, design_note,
+    updated: Date.now(),
+  };
+
+  try {
+    const db = firebase.database();
+    if (editingCustomUnitId) {
+      const key = editingCustomUnitId.replace(/^custom-/, '');
+      const existing = customUnits.find(u => u.id === editingCustomUnitId);
+      record.created = existing ? existing.created : Date.now();
+      await db.ref(`customUnits/${currentUser.uid}/${key}`).set(record);
+    } else {
+      record.created = Date.now();
+      const ref = db.ref(`customUnits/${currentUser.uid}`).push();
+      await ref.set(record);
+    }
+    await loadCustomUnits();
+    buildFilterChips();
+    applyFilters();
+    closeCustomUnitEditor();
+    showToast('Custom unit saved.', 'success');
+  } catch (e) {
+    console.error('saveCustomUnit failed:', e);
+    showToast('Could not save. Check your connection and try again.', 'error');
+  }
+}
+
+// Deleting a custom unit must never leave a saved force silently pointing at
+// a unit that no longer exists — find the owner's own forces that reference
+// it first, warn with the affected list, and (if confirmed) strip it from
+// those forces' rosters in the same operation rather than leaving a dangling id.
+async function deleteCustomUnit(unitId) {
+  if (!currentUser) return;
+  const unit = customUnits.find(u => u.id === unitId);
+  if (!unit) return;
+  if (!isSubscriber) { showToast('Support has lapsed — reactivate on Ko-fi to delete custom units.', 'error'); return; }
+
+  let affected = [];
+  try {
+    const snap = await firebase.database().ref('forces').orderByChild('authorUid').equalTo(currentUser.uid).once('value');
+    const all = snap.val() || {};
+    affected = Object.entries(all).filter(([, f]) =>
+      toArr(f.platoons).some(p => toArr(p.teams).some(t => t.unitId === unitId))
+    );
+  } catch (e) { console.error('deleteCustomUnit lookup failed:', e); }
+
+  let msg = `Delete "${unit.name}"? This cannot be undone.`;
+  if (affected.length) {
+    const names = affected.map(([, f]) => f.name || 'Untitled Force').join(', ');
+    msg = `"${unit.name}" is used in ${affected.length} of your saved force${affected.length === 1 ? '' : 's'}: ${names}.\n\nDeleting it will remove it from those forces' rosters — it cannot be left as a broken reference. Continue?`;
+  }
+  if (!confirm(msg)) return;
+
+  try {
+    const key = unitId.replace(/^custom-/, '');
+    await firebase.database().ref(`customUnits/${currentUser.uid}/${key}`).remove();
+
+    for (const [forceId, f] of affected) {
+      const cleanedPlatoons = toArr(f.platoons).map(p => ({
+        ...p,
+        teams: toArr(p.teams).filter(t => t.unitId !== unitId),
+      }));
+      await firebase.database().ref(`forces/${forceId}/platoons`).set(cleanedPlatoons);
+    }
+
+    // Also drop it from the live in-builder session if present, so an open
+    // tab doesn't keep showing a team that no longer resolves to anything.
+    let touchedOpenBuilder = false;
+    platoons.forEach(p => {
+      const before = p.teams.length;
+      p.teams = p.teams.filter(t => t.unitId !== unitId);
+      if (p.teams.length !== before) touchedOpenBuilder = true;
+    });
+    if (touchedOpenBuilder) updateForceUI();
+
+    await loadCustomUnits();
+    buildFilterChips();
+    applyFilters();
+    closeUnitDetail();
+    showToast(affected.length
+      ? `Deleted. Removed from ${affected.length} saved force${affected.length === 1 ? '' : 's'}.`
+      : 'Custom unit deleted.', 'success');
+  } catch (e) {
+    console.error('deleteCustomUnit failed:', e);
+    showToast('Could not delete. Check your connection and try again.', 'error');
+  }
+}
+
+// ── ADMIN: cross-account custom unit review ──────────────────────────────────
+// Custom units not being visible cross-account was never a privacy boundary —
+// it exists to keep unofficial house-rule content from quietly becoming a de
+// facto public catalog that could duplicate or preempt an official release.
+// An admin reviewing them isn't "the public" that boundary is for, so the
+// Firebase rule grants admins (checked the same way as every other
+// admins-only rule in this app) a direct read at customUnits — no token, no
+// Cloudflare Function detour, just the admin's own signed-in session.
+async function openAdminCustomUnitsReview() {
+  if (!isAdmin) return;
+  const body = document.getElementById('admin-custom-units-body');
+  const modal = document.getElementById('admin-custom-units-modal');
+  modal.style.display = 'flex';
+  body.innerHTML = '<div style="font-family:var(--mono);font-size:12px;color:var(--text3)">Loading…</div>';
+
+  try {
+    const snap = await firebase.database().ref('customUnits').once('value');
+    renderAdminCustomUnitsReview(snap.val() || {});
+  } catch (e) {
+    console.error('openAdminCustomUnitsReview failed:', e);
+    body.innerHTML = '<div style="font-family:var(--mono);font-size:12px;color:var(--red)">Could not load. Check your connection and try again.</div>';
+  }
+}
+
+function renderAdminCustomUnitsReview(byOwner) {
+  const body = document.getElementById('admin-custom-units-body');
+  const owners = Object.keys(byOwner);
+  if (!owners.length) {
+    body.innerHTML = '<div style="font-family:var(--mono);font-size:12px;color:var(--text3)">No custom units have been created by any account yet.</div>';
+    return;
+  }
+
+  let totalUnits = 0;
+  const sections = owners.map(uid => {
+    const units = Object.entries(byOwner[uid]).map(([key, rec]) => ({ key, ...rec }));
+    units.sort((a, b) => (b.created || 0) - (a.created || 0));
+    totalUnits += units.length;
+
+    const rows = units.map(u => {
+      const statBits = [
+        u.armor_front != null ? `Armor ${u.armor_front}/${u.armor_flank ?? 0}` : null,
+        u.gun_range ? `Range ${esc(u.gun_range)}` : null,
+        u.rof != null ? `RoF ${u.rof}` : null,
+        u.at != null ? `AT ${u.at}` : null,
+        u.fp != null ? `FP ${u.fp}` : null,
+      ].filter(Boolean).join(' · ');
+      return `
+        <div style="border-bottom:1px solid var(--border);padding:8px 0">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <strong style="color:var(--text)">${esc(u.name || 'Unnamed')}</strong>
+            ${CUSTOM_UNIT_BADGE_HTML}
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">${esc(u.nation || '')} · ${esc(u.type || '')}</span>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-left:auto">${u.created ? timeAgoShort(u.created) : ''}</span>
+          </div>
+          ${u.armament ? `<div style="font-size:12px;color:var(--text2);margin-top:2px">${esc(u.armament)}</div>` : ''}
+          ${statBits ? `<div style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:2px">${statBits}</div>` : ''}
+          ${(u.notes || []).length ? `<div style="margin-top:4px">${u.notes.map(n => noteTag(n)).join(' ')}</div>` : ''}
+          ${u.design_note ? `<div style="font-size:11px;color:var(--text3);font-style:italic;margin-top:4px">"${esc(u.design_note)}"</div>` : ''}
+        </div>`;
+    }).join('');
+
+    return `
+      <div>
+        <div style="font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--accent);margin-bottom:6px">
+          OWNER UID ${esc(uid)} — ${units.length} unit${units.length === 1 ? '' : 's'}
+        </div>
+        ${rows}
+      </div>`;
+  });
+
+  body.innerHTML = `
+    <div style="font-family:var(--mono);font-size:11px;color:var(--text3)">${owners.length} account${owners.length === 1 ? '' : 's'}, ${totalUnits} custom unit${totalUnits === 1 ? '' : 's'} total</div>
+    ${sections.join('')}
+  `;
+}
+
+function closeAdminCustomUnitsReview() {
+  document.getElementById('admin-custom-units-modal').style.display = 'none';
+}
+
 async function saveBriefing() {
   if (!isAdmin) return;
+  // body is intentionally kept out of `data`: it lives in content_bodies/{id},
+  // a separate node, so the database can gate the body (drafts, subscriber-only)
+  // without hiding the public metadata that teaser cards need. See
+  // admin-migrate-bodies.js for why content/{id}.body can't do both jobs.
+  const bodyText = document.getElementById('be-body').value || '';
   const data = {
     title:     document.getElementById('be-title').value.trim(),
     type:      document.getElementById('be-type').value,
     author:    document.getElementById('be-author').value.trim() || 'Brandon',
     summary:   document.getElementById('be-summary').value.trim(),
-    body:      document.getElementById('be-body').value || null,
     url:       document.getElementById('be-url').value.trim() || null,
     published: document.getElementById('be-published').checked,
     pinned:    document.getElementById('be-pinned').checked || null,
     subscriberOnly: document.getElementById('be-subscriber').checked || null,
+    teaser:    makeTeaser(bodyText) || null,
   };
   if (!data.title) { showToast('Title is required.', 'error'); return; }
   try {
     const db = firebase.database();
     if (editingBriefingId) {
-      await db.ref(`content/${editingBriefingId}`).update(data);
+      // A multi-path update() replaces whatever object sits at each listed
+      // path wholesale — it does not merge into it. Flattening to per-field
+      // paths keeps this a real merge (so `created`, set only once at
+      // creation, survives every later edit) while still writing content
+      // and content_bodies in one atomic call.
+      const updates = { [`content_bodies/${editingBriefingId}/body`]: bodyText };
+      for (const [k, v] of Object.entries(data)) updates[`content/${editingBriefingId}/${k}`] = v;
+      await db.ref().update(updates);
       showToast('Briefing updated.', 'success');
     } else {
       data.created = Date.now();
       const ref = db.ref('content').push();
-      await ref.set(data);
+      await db.ref().update({
+        [`content/${ref.key}`]: data,
+        [`content_bodies/${ref.key}/body`]: bodyText,
+      });
       showToast('Briefing created.', 'success');
     }
     closeBriefingEditor();
@@ -10074,7 +10947,10 @@ async function deleteContentItem(itemId) {
   const item = fmAllItems.find(i => i.id === itemId);
   if (!confirm(`Delete "${item?.title || 'this briefing'}"? This cannot be undone.`)) return;
   try {
-    await firebase.database().ref(`content/${itemId}`).remove();
+    await firebase.database().ref().update({
+      [`content/${itemId}`]: null,
+      [`content_bodies/${itemId}`]: null,
+    });
     showToast('Briefing deleted.', 'success');
     fmLoaded = false;
     await loadFieldManual();
@@ -10294,6 +11170,7 @@ function renderLibForces(body, forces) {
   body.innerHTML = forces.map(f => {
     const platoonArr = toArr(f.platoons);
     const nc = nationCardClass(f.nations);
+    const hasCustomUnits = forceContainsCustomUnits(platoonArr);
 
     const platoonRows = platoonArr.map((p, i) => {
       const teamCount = toArr(p.teams).reduce((s, t) => s + (t.qty || 1), 0);
@@ -10326,13 +11203,16 @@ function renderLibForces(body, forces) {
         <span>BL ${f.breakLimit || 5}</span>
       </div>
       ${f.notes ? `<div class="force-card-desc">${f.notes}</div>` : ''}
+      ${hasCustomUnits ? `<div style="font-family:var(--mono);font-size:9px;letter-spacing:0.5px;color:var(--warn);margin:2px 0 4px">${CUSTOM_UNIT_BADGE_HTML} ${CUSTOM_SHARE_BLOCKED_MSG}</div>` : ''}
       <div class="force-card-platoon-list">${platoonRows}</div>
       <div class="force-card-actions">
         <button class="force-card-btn" onclick="openLibForceSheet('${f.id}')">View Sheet</button>
         <button class="force-card-btn" onclick="loadForceFromLibrary('${f.id}')">Load into Builder</button>
 
         ${currentUser && f.authorUid === currentUser.uid ? `
-          ${!f.published ? `<button class="force-card-btn" onclick="publishForceById('${f.id}')">Publish</button>` : ''}
+          ${!f.published ? (hasCustomUnits
+            ? `<span class="force-card-btn" style="opacity:0.6;cursor:default;border-color:var(--warn);color:var(--warn)" title="${CUSTOM_SHARE_BLOCKED_MSG}">Publish (blocked)</span>`
+            : `<button class="force-card-btn" onclick="publishForceById('${f.id}')">Publish</button>`) : ''}
           <button class="force-card-btn danger" onclick="deleteForce('${f.id}')">Delete</button>
         ` : ''}
         ${isAdmin && currentLibTab === 'browse' && (document.getElementById('lib-sort')?.value || 'order') === 'order' ? `
@@ -10393,11 +11273,15 @@ async function loadForceFromLibrary(forceId) {
 }
 
 function copyForceShareUrl(forceId) {
+  const f = libAllForces.find(x => x.id === forceId);
+  if (f && forceContainsCustomUnits(f.platoons)) { showToast(CUSTOM_SHARE_BLOCKED_MSG, 'error'); return; }
   const url = `${window.location.origin}${window.location.pathname}?force=${forceId}`;
   navigator.clipboard.writeText(url).then(() => showToast('Link copied!', 'success'));
 }
 
 async function publishForceById(forceId) {
+  const f = libAllForces.find(x => x.id === forceId);
+  if (f && forceContainsCustomUnits(f.platoons)) { showToast(CUSTOM_SHARE_BLOCKED_MSG, 'error'); return; }
   await firebase.database().ref(`forces/${forceId}`).update({ published: true });
   loadLibraryTab(currentLibTab);
 }
@@ -10514,13 +11398,19 @@ function openForceSheet(forceData) {
   const platoonCount = platoonArr.length;
   const breakLimit = forceData.breakLimit || (5 + platoonCount * 2);
   const notes = esc(forceData.notes || '');
+  // A reader on another account can never resolve this force's private
+  // custom units (they only exist under this account's own Firebase path),
+  // so any share path out of this sheet — the QR code and the Copy Link
+  // button below — is suppressed rather than handing out a link that would
+  // silently show broken/missing units on the other end.
+  const sheetHasCustomUnits = forceContainsCustomUnits(platoonArr);
 
   // Share QR for the printed sheet. Points at ?fpp=<id>, which drops this force
   // straight into the opponent slot of the scanner's Quick Compare — the thing
   // someone handed a printout at the table actually wants. Only possible once
   // the force has been saved and has an id; an unsaved force just omits it.
   let qrHtml = '';
-  if (forceData.id && typeof qrcode !== 'undefined') {
+  if (forceData.id && typeof qrcode !== 'undefined' && !sheetHasCustomUnits) {
     try {
       const shareUrl = `${window.location.origin}${window.location.pathname}?fpp=${forceData.id}`;
       const qr = qrcode(0, 'M');
@@ -10578,6 +11468,20 @@ function openForceSheet(forceData) {
           </tr>`;
       }
 
+      // Same gating the unit browser and detail panel already apply — a force
+      // sheet is viewed and printed by people other than its author (that's
+      // the whole point of publishing/sharing one), so a subscriber-only
+      // unit's stats, armament, and special rules can't appear here uncut
+      // just because they're sitting in the client-side unit cache.
+      const locked = !unit.free && !isSubscriber;
+      if (locked) {
+        return `
+          <tr>
+            <td class="fs-qty">${t.qty}×</td>
+            <td colspan="8" style="text-align:center"><span class="restricted-stamp">CLASSIFIED &mdash; supporter content</span></td>
+          </tr>`;
+      }
+
       const range  = unit.gun_range !== null && unit.gun_range !== undefined ? unit.gun_range : null;
       const rof    = unit.rof    !== null && unit.rof    !== undefined ? unit.rof    : null;
       const at     = unit.at     !== null && unit.at     !== undefined ? unit.at     : null;
@@ -10598,8 +11502,8 @@ function openForceSheet(forceData) {
         <tr>
           <td class="fs-qty">${t.qty}×</td>
           <td>
-            <span class="fs-unit-name">${unit.name}</span>
-            ${unit.armament ? `<span class="fs-armament">${wrapArmamentMGs(unit.armament)}</span>` : ''}
+            <span class="fs-unit-name">${safeUnitText(unit,'name')}${unitBadgeHtml(unit)}</span>
+            ${unit.armament ? `<span class="fs-armament">${wrapArmamentMGs(safeUnitText(unit,'armament'))}</span>` : ''}
           </td>
           <td style="text-align:center"><span class="base-badge">${unit.base || 'Med'}</span></td>
           <td class="${hasArmor ? 'fs-stat' : 'fs-stat dash'}">${hasArmor ? `${unit.armor_front}/${unit.armor_flank}` : '-'}</td>
@@ -10612,7 +11516,7 @@ function openForceSheet(forceData) {
         fsRows += `
         <tr class="fs-secondary-row">
           <td></td>
-          <td><span class="fs-armament" style="font-size:11px">↳ ${sw.name}</span></td>
+          <td><span class="fs-armament" style="font-size:11px">↳ ${swLabel(sw)}</span></td>
           <td></td>
           <td class="fs-stat dash">-</td>
           ${sc(sw.gun_range || null)}${sc(sw.rof)}${sc(sw.at)}${sc(sw.fp)}
@@ -10673,7 +11577,8 @@ function openForceSheet(forceData) {
           <div class="fs-title">${name}</div>
         </div>
         <div class="fs-header-right">
-          ${forceData.id ? `<button class="fs-share-btn" onclick="copySheetLink('${forceData.id}')" data-tip="Copy shareable link to this force sheet">⎘ Copy Link</button>` : ''}
+          ${forceData.id && !sheetHasCustomUnits ? `<button class="fs-share-btn" onclick="copySheetLink('${forceData.id}')" data-tip="Copy shareable link to this force sheet">⎘ Copy Link</button>` : ''}
+          ${forceData.id && sheetHasCustomUnits ? `<span class="fs-share-btn" style="opacity:0.6;cursor:default" title="${CUSTOM_SHARE_BLOCKED_MSG}">⎘ Copy Link (blocked)</span>` : ''}
           <button class="fs-print-btn" onclick="window.print()">⎙ Print</button>
           <button class="fs-close-btn" onclick="closeForceSheet()">✕</button>
         </div>
@@ -10790,6 +11695,11 @@ function emailToKey(email) {
 
 function signIn() {
   const provider = new firebase.auth.GoogleAuthProvider();
+  // Without this, Google silently reuses whatever session is already active
+  // in the browser and skips the account chooser entirely — so signing out
+  // and back in (or wanting to switch accounts) re-signs into the same
+  // account with no way to pick a different one.
+  provider.setCustomParameters({ prompt: 'select_account' });
   firebase.auth().signInWithPopup(provider).catch(err => {
     console.error('Sign in error:', err);
   });
@@ -10876,7 +11786,9 @@ async function checkSubscriber(email) {
   const key = emailToKey(email);
   const snap = await firebase.database().ref(`subscribers/${key}`).once('value');
   const data = snap.val();
-  if (data && data.status === 'active') return true;
+  // A donation-based grant carries an `expires` timestamp (real recurring
+  // subscriptions don't set one); once past it, treat the same as inactive.
+  if (data && data.status === 'active' && (!data.expires || data.expires > Date.now())) return true;
   const supporterSnap = await firebase.database().ref(`supporters/${key}`).once('value');
   return supporterSnap.val() === true;
 }
@@ -10905,7 +11817,7 @@ function updateAuthUI(user, subscriberStatus) {
 // ── INIT ──────────────────────────────────────────────────────────────────────
 const firebaseConfig = {
   apiKey: "AIzaSyDmNY1Vh1ats1Jrfg8XHsz8ktetymbZl10",
-  authDomain: "hailoffire-campaign.firebaseapp.com",
+  authDomain: "auth.retroboomgames.com",
   databaseURL: "https://hailoffire-campaign-default-rtdb.firebaseio.com",
   projectId: "hailoffire-campaign",
   storageBucket: "hailoffire-campaign.firebasestorage.app",
@@ -13775,7 +14687,7 @@ function renderFPPRank(body, player) {
           <span class="fpp-rank-num">${i + 1}</span>
           <div class="fpp-rank-info">
             <div class="fpp-rank-name">${esc(pl.name)}</div>
-            <div class="fpp-rank-teams">${(pl.teams || []).map(t => { const u = allUnits.find(u => u.id === t.unitId); return `<span class="fpp-team-entry">${t.qty}× ${u?.name ?? t.unitId ?? '?'}</span>`; }).join(' · ')}</div>
+            <div class="fpp-rank-teams">${(pl.teams || []).map(t => { const u = allUnits.find(u => u.id === t.unitId); return `<span class="fpp-team-entry">${t.qty}× ${u ? safeUnitText(u,'name') + unitBadgeHtml(u) : (t.unitId ?? '?')}</span>`; }).join(' · ')}</div>
           </div>
           ${isAdmin ? `<span class="fpp-pts-badge">${Math.round(calcPlatoonScore(pl))} pts</span>` : ''}
           <span class="fpp-rank-handle" title="Drag to reorder">⠿</span>
@@ -13900,7 +14812,7 @@ function renderPairingRow(p, i) {
   const defender = fppState.attacker === 'a' ? 'b' : 'a';
   const effectiveWinner = w === 'defender' ? defender : w;
   const sizeBonus = effectiveWinner === 'a' ? aTeams > bTeams : effectiveWinner === 'b' ? bTeams > aTeams : false;
-  const teamList = pl => (pl.teams || []).map(t => { const u = allUnits.find(u => u.id === t.unitId); return `<span class="fpp-team-entry">${t.qty}× ${u?.name ?? t.unitId ?? '?'}</span>`; }).join(' · ');
+  const teamList = pl => (pl.teams || []).map(t => { const u = allUnits.find(u => u.id === t.unitId); return `<span class="fpp-team-entry">${t.qty}× ${u ? safeUnitText(u,'name') + unitBadgeHtml(u) : (t.unitId ?? '?')}</span>`; }).join(' · ');
   return `
     <div class="fpp-pairing-row ${w ? 'fpp-pairing-resolved' : ''}">
       <div class="fpp-pairing-num">${i + 1}</div>
@@ -14157,7 +15069,7 @@ function triggerBP(player, numRolls) {
   for (let i = 0; i < numRolls; i++) {
     const die = Math.floor(Math.random() * 6) + 1;
     dice.push(die);
-    totalBP += die <= 3 ? 1 : die <= 5 ? 2 : 3;
+    totalBP += die <= 2 ? 1 : die <= 5 ? 2 : 3;
   }
 
   const g = gameMode[player];
@@ -14237,7 +15149,7 @@ function triggerBP(player, numRolls) {
 
 function rollBP(player) {
   const die  = Math.floor(Math.random() * 6) + 1;
-  const bp   = die <= 3 ? 1 : die <= 5 ? 2 : 3;
+  const bp   = die <= 2 ? 1 : die <= 5 ? 2 : 3;
   const g    = gameMode[player];
   const wasAlreadyBroken = (g.bl != null && g.bp >= g.bl);
   g.bp += bp;
@@ -14654,10 +15566,15 @@ firebase.auth().onAuthStateChanged(async (user) => {
       document.getElementById('hof-publish-btn').style.display = '';
       document.getElementById('tab-orbat').style.display = '';
       document.getElementById('tab-historical').style.display = '';
+      document.getElementById('admin-review-custom-units-btn').style.display = '';
       // Show admin-only briefing creator.
       document.querySelectorAll('.fm-section-header .admin-only').forEach(el => { el.style.display = ''; });
     }
     await loadData();
+    // Auth state (admin/subscriber) changed — the Field Manual grid, if it was
+    // already loaded this session, was rendered under the old isAdmin value
+    // and can show stale draft chips or wrong gating until re-fetched.
+    if (fmLoaded) { fmLoaded = false; await loadFieldManual(); }
     await checkUrlForce();
     await checkUrlBriefing();
     loadFeaturedStrip();
@@ -14688,10 +15605,16 @@ firebase.auth().onAuthStateChanged(async (user) => {
     if (histTab) histTab.style.display = 'none';
     const orbatTab = document.getElementById('tab-orbat');
     if (orbatTab) orbatTab.style.display = 'none';
+    const reviewBtn = document.getElementById('admin-review-custom-units-btn');
+    if (reviewBtn) reviewBtn.style.display = 'none';
     document.querySelectorAll('.fm-section-header .admin-only').forEach(el => { el.style.display = 'none'; });
     updateAuthUI(null, false);
     // Load the public experience so logged-out visitors can browse everything.
     loadData();
+    // Same staleness issue as the signed-in branch: drop any Field Manual
+    // grid rendered while still admin/subscriber so drafts and gated
+    // bodies don't linger visually after sign-out.
+    if (fmLoaded) { fmLoaded = false; loadFieldManual(); }
     checkUrlForce();
     checkUrlBriefing();
     loadFeaturedStrip();
