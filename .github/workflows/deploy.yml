@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      deployments: write
 
     steps:
       - uses: actions/checkout@v4
@@ -19,11 +18,11 @@ jobs:
       - name: Stamp service worker version
         run: sed -i "s/const VERSION = '__BUILD_VERSION__';/const VERSION = '${GITHUB_SHA::7}-${GITHUB_RUN_ID}';/" sw.js
 
+      # cloudflare/pages-action no longer exists; wrangler-action runs the same
+      # `wrangler pages deploy` that deploy.sh uses (and picks up functions/).
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: hof-arsenal
-          directory: .
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          command: pages deploy . --project-name=hof-arsenal --branch=main --commit-hash=${{ github.sha }} --commit-dirty=true
